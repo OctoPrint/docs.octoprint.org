@@ -1,0 +1,537 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Setting up a Development environment &mdash; OctoPrint maintenance documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Setting up the virtual printer for debugging" href="virtual_printer.html" />
+    <link rel="prev" title="Development" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> OctoPrint
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                maintenance
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Setting up a Development environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#obtaining-building-and-running-the-source">Obtaining, building and running the source</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#linux">Linux</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#windows">Windows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mac-os-x">Mac OS X</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#sec-development-environment-ides">IDE Setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pycharm">PyCharm</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="virtual_printer.html">Setting up the virtual printer for debugging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
+    <strong>Note:</strong>
+    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/1.4.0" style="color: white;text-decoration: underline">here</a>.
+  </p>
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Development</a> &raquo;</li>
+        
+      <li>Setting up a Development environment</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/development/environment.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="setting-up-a-development-environment">
+<span id="sec-development-environment"></span><h1>Setting up a Development environment<a class="headerlink" href="#setting-up-a-development-environment" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="obtaining-building-and-running-the-source">
+<span id="sec-development-environment-source"></span><h2>Obtaining, building and running the source<a class="headerlink" href="#obtaining-building-and-running-the-source" title="Permalink to this headline">¶</a></h2>
+<p>This describes the general steps in obtaining, building and running. OS specific instructions can be found
+below.</p>
+<blockquote>
+<div><ul>
+<li><p>Prerequisites:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://python.org">Python 2.7</a> including <code class="docutils literal notranslate"><span class="pre">pip</span></code>, <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> and <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code></p></li>
+<li><p><a class="reference external" href="https://python.org">Python 3.7</a> including <code class="docutils literal notranslate"><span class="pre">pip</span></code>, <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> and <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code></p></li>
+<li><p><a class="reference external" href="https://git-scm.com">Git</a></p></li>
+</ul>
+</li>
+<li><p>Checkout the OctoPrint sources from their Git repository:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/OctoPrint/OctoPrint.git</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Enter the checked out source folder: <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">OctoPrint</span></code></p></li>
+<li><p>Create virtual environments in the checked out source folder for both Python 2.7 and Python 3.7 to use for
+installing and running OctoPrint and its dependencies (this avoids potential versioning issues for the dependencies
+with system wide installed instances):</p>
+<ul class="simple">
+<li><p>PY2: <code class="docutils literal notranslate"><span class="pre">virtualenv</span> <span class="pre">--python=python2</span> <span class="pre">venv2</span></code></p></li>
+<li><p>PY3: <code class="docutils literal notranslate"><span class="pre">virtualenv</span> <span class="pre">--python=python3</span> <span class="pre">venv3</span></code></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This assumes that <cite>python2</cite> and <cite>python3</cite> are binaries available directly on your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. If your Python 2 and 3
+binaries cannot be found on your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> like this you’ll need to specify the full paths to them here,
+e.g. <code class="docutils literal notranslate"><span class="pre">virtualenv</span> <span class="pre">--python=/path/to/python2/bin/python</span> <span class="pre">venv2</span></code></p>
+</div>
+</li>
+<li><p>Activate one of the virtual environments:</p>
+<ul class="simple">
+<li><p>PY2: <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">venv2/bin/activate</span></code> (Linux, macOS) or <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">venv2/Scripts/activate</span></code> (Git Bash under Windows, see below)</p></li>
+<li><p>PY3: <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">venv3/bin/activate</span></code> (Linux, macOS) or <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">venv3/Scripts/activate</span></code> (Git Bash under Windows, see below)</p></li>
+</ul>
+</li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">pip</span></code> in the virtual environment:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">pip</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Install OctoPrint in <a class="reference external" href="https://pip.pypa.io/en/stable/reference/pip_install/#editable-installs">“editable” mode</a>,
+including its regular <em>and</em> development and plugin development dependencies:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">'.[develop,plugins]'</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<p>When the virtual environment is activated you can then:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>run the OctoPrint server via <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">serve</span></code></p></li>
+<li><p>run the test suite from the checked out source folder via <code class="docutils literal notranslate"><span class="pre">nosetests</span> <span class="pre">--with-doctest</span></code></p></li>
+<li><p>build the documentation from the <code class="docutils literal notranslate"><span class="pre">docs</span></code> sub folder of the checked out sources via <code class="docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-b</span> <span class="pre">html</span> <span class="pre">.</span> <span class="pre">_build</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>To switch the activated virtual environment, simply activate the new environment as described above.</p>
+<p>To deactivate the virtual environment and return to the system’s default Python: <code class="docutils literal notranslate"><span class="pre">deactivate</span></code>.</p>
+<div class="section" id="linux">
+<span id="sec-development-environment-source-linux"></span><h3>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>This guide is not yet adapted to the concurrent use of Python 2.7 and 3.7 environments during development.</p>
+</div>
+<p>This assumes you’ll host your OctoPrint development checkout at <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint</span></code>. If you want to use a different
+location, please substitute accordingly.</p>
+<p>First make sure you have python including its header files, pip, setuptools, virtualenv, git and some build requirements
+installed:</p>
+<blockquote>
+<div><ul>
+<li><p>On apt based distributions (e.g. Debian, Ubuntu, …):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo apt-get install python python-pip python-dev python-setuptools python-virtualenv git libyaml-dev build-essential
+</pre></div>
+</div>
+</li>
+<li><p>On zypper based distributions (example below for SLES 12 SP2):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo zypper ar https://download.opensuse.org/repositories/devel:/languages:/python/SLE_12_SP2/ python_devel
+sudo zypper ref
+sudo zypper in python python-pip python-devel python-setuptools python-virtualenv git libyaml-devel
+sudo zypper in -t pattern Basis-Devel
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>Using a Linux distribution that doesn’t use <code class="docutils literal notranslate"><span class="pre">apt</span></code> or <code class="docutils literal notranslate"><span class="pre">zypper</span></code>? Please send a
+<a class="reference external" href="https://github.com/OctoPrint/OctoPrint/blob/master/CONTRIBUTING.md#pull-requests">Pull Request</a> to get the necessary
+steps into this guide!</p>
+</div>
+<p>Then:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ~/devel
+git clone -b devel https://github.com/OctoPrint/OctoPrint.git
+cd OctoPrint
+virtualenv venv
+source ./venv/bin/activate
+pip install --upgrade pip
+pip install -e .[develop,plugins]
+</pre></div>
+</div>
+<p>You can then start OctoPrint via <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint/venv/bin/octoprint</span></code> or just <code class="docutils literal notranslate"><span class="pre">octoprint</span></code> if you activated the virtual
+environment.</p>
+</div>
+<div class="section" id="windows">
+<span id="sec-development-environment-windows"></span><h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="id3">
+<p class="admonition-title">Todo</p>
+<p>This guide is not yet adapted to the concurrent use of Python 2.7 and 3.7 environments during development.</p>
+</div>
+<p>This assumes you’ll host your OctoPrint development checkout at <code class="docutils literal notranslate"><span class="pre">C:\Devel\OctoPrint</span></code>. If you want to use a different
+location, please substitute accordingly.</p>
+<p>First download &amp; install:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://www.python.org/downloads/release/python-2715/">Python 2.7.15 Windows x86 MSI installer</a></p>
+<ul>
+<li><p>make sure to have the installer add Python to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> and have it install <code class="docutils literal notranslate"><span class="pre">pip</span></code> too</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="http://www.microsoft.com/en-us/download/details.aspx?id=44266">Microsoft Visual C++ Compiler for Python 2.7</a></p></li>
+<li><p><a class="reference external" href="https://git-for-windows.github.io/">Git for Windows</a></p></li>
+</ul>
+</div></blockquote>
+<p>Open the Git Bash you just installed and in that:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pip install virtualenv
+cd /c/Devel
+git clone https://github.com/OctoPrint/OctoPrint.git
+cd OctoPrint
+virtualenv venv
+source ./venv/Scripts/activate
+pip install --upgrade pip
+pip install -e .[develop,plugins]
+</pre></div>
+</div>
+</div>
+<div class="section" id="mac-os-x">
+<span id="sec-development-environment-mac"></span><h3>Mac OS X<a class="headerlink" href="#mac-os-x" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This guide is based on the <a class="reference external" href="https://community.octoprint.org/t/setting-up-octoprint-on-macos/13425">Setup Guide for Mac OS X on OctoPrint’s Community Forum</a>.
+Please report back if it works for you, due to lack of access to a Mac I cannot test it myself. Thanks.</p>
+</div>
+<div class="admonition-todo admonition" id="id4">
+<p class="admonition-title">Todo</p>
+<p>This guide is not yet adapted to the concurrent use of Python 2.7 and 3.7 environments during development.</p>
+</div>
+<p>This assumes you’ll host your OctoPrint development checkout at <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint</span></code>. If you want to use a different
+location, please substitute accordingly.</p>
+<p>You’ll need a user account with administrator privileges.</p>
+<blockquote>
+<div><ul>
+<li><p>Install the latest version of Xcode suitable for your OS. For example, OS X 10.11 (El Capitan) requires Xcode 7.</p></li>
+<li><p>Install Xcode’s command line tools:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">xcode-select</span> <span class="pre">--install</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">xcodebuild</span></code> (ensure the license was accepted)</p></li>
+<li><p>If you have more than one Xcode installed: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">xcode-select</span> <span class="pre">-s</span> <span class="pre">/Applications/Xcode.app/Contents/Developer</span></code></p></li>
+</ul>
+</li>
+<li><p>Install Homebrew and use that to install Python:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ruby</span> <span class="pre">-e</span> <span class="pre">&quot;$(curl</span> <span class="pre">-fsSL</span> <span class="pre">https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">python</span></code></p></li>
+</ul>
+</li>
+<li><p>Install <a class="reference external" href="https://virtualenv.pypa.io/">virtualenv</a></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">virtualenv</span></code></p></li>
+</ul>
+</li>
+<li><p>Install OctoPrint</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ~/devel
+git clone https://github.com/OctoPrint/OctoPrint.git
+cd OctoPrint
+virtualenv venv
+source venv/bin/activate
+pip install --upgrade pip
+pip install -e .[develop,plugins]
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="sec-development-environment-ides">
+<span id="ide-setup"></span><h2>IDE Setup<a class="headerlink" href="#sec-development-environment-ides" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-todo admonition" id="id5">
+<p class="admonition-title">Todo</p>
+<p>This guide is not yet adapted to the concurrent use of Python 2.7 and 3.7 environments during development.</p>
+</div>
+<div class="admonition-todo admonition" id="id7">
+<p class="admonition-title">Todo</p>
+<p>Using another IDE than the ones below? Please send a
+<a class="reference external" href="https://github.com/OctoPrint/OctoPrint/blob/master/CONTRIBUTING.md#pull-requests">Pull Request</a> to get the necessary
+steps into this guide!</p>
+</div>
+<div class="section" id="pycharm">
+<span id="sec-development-environment-ides-pycharm"></span><h3>PyCharm<a class="headerlink" href="#pycharm" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>“File” &gt; “Open …”, select OctoPrint checkout folder (e.g. <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint</span></code> or <code class="docutils literal notranslate"><span class="pre">C:\Devel\OctoPrint</span></code>)</p></li>
+<li><p><strong>(Linux, Windows)</strong> “File” &gt; “Settings …” &gt; “Project: OctoPrint” &gt; “Project Interpreter” &gt; “Add local …”, select OctoPrint venv
+folder (e.g. <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint/venv</span></code> or <code class="docutils literal notranslate"><span class="pre">C:\Devel\OctoPrint\venv</span></code>)</p></li>
+<li><p><strong>(macOS)</strong> “PyCharm” &gt; “Preferences …” &gt; “Project: OctoPrint” &gt; “Project Interpreter” &gt; “Add …” &gt;
+“Virtualenv Environment &gt; “Existing Environment”, select OctoPrint venv folder (e.g. <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint/venv</span></code>)</p></li>
+<li><p>Right click “src” in project tree, mark as source folder</p></li>
+<li><p>Add Run/Debug Configuration, select “Python”:</p>
+<ul>
+<li><p>Name: OctoPrint server</p></li>
+<li><p>Module name: <code class="docutils literal notranslate"><span class="pre">octoprint</span></code></p></li>
+<li><p>Module parameters: <code class="docutils literal notranslate"><span class="pre">serve</span> <span class="pre">--debug</span></code></p></li>
+<li><p>Project: <code class="docutils literal notranslate"><span class="pre">OctoPrint</span></code></p></li>
+<li><p>Python interpreter: the <code class="docutils literal notranslate"><span class="pre">venv</span></code> local virtual environment</p></li>
+<li><p>Working directory: the OctoPrint checkout folder (e.g. <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint</span></code> or <code class="docutils literal notranslate"><span class="pre">C:\Devel\OctoPrint</span></code>)</p></li>
+<li><p>If you want build artifacts to be cleaned up on run (recommended): “Before Launch” &gt; “+” &gt; “Run external tool” &gt; “+”</p>
+<ul>
+<li><p>Name: Clean build directory</p></li>
+<li><p>Program: <code class="docutils literal notranslate"><span class="pre">$ModuleSdkPath$</span></code></p></li>
+<li><p>Parameters: <code class="docutils literal notranslate"><span class="pre">setup.py</span> <span class="pre">clean</span></code></p></li>
+<li><p>Working directory: <code class="docutils literal notranslate"><span class="pre">$ProjectFileDir$</span></code></p></li>
+</ul>
+</li>
+<li><p>If you want dependencies to auto-update on run if necessary (recommended): “Before Launch” &gt; “+” &gt; “Run external tool” &gt; “+”</p>
+<ul>
+<li><p>Name: Update OctoPrint dependencies</p></li>
+<li><p>Program: <code class="docutils literal notranslate"><span class="pre">$ModuleSdkPath$</span></code></p></li>
+<li><p>Parameters: <code class="docutils literal notranslate"><span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[develop,plugins]</span></code></p></li>
+<li><p>Working directory: <code class="docutils literal notranslate"><span class="pre">$ProjectFileDir$</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Add Run/Debug Configuration, select “Python tests” and therein “pytest”:</p>
+<ul>
+<li><p>Name: OctoPrint pytest</p></li>
+<li><p>Target: Custom</p></li>
+<li><p>Project: <code class="docutils literal notranslate"><span class="pre">OctoPrint</span></code></p></li>
+<li><p>Python interpreter: the <code class="docutils literal notranslate"><span class="pre">venv</span></code> local virtual environment</p></li>
+<li><p>Working directory: the OctoPrint checkout folder (e.g. <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint</span></code> or <code class="docutils literal notranslate"><span class="pre">C:\Devel\OctoPrint</span></code>)</p></li>
+<li><p>Just like with the run configuration for the server you can also have the dependencies auto-update on run of
+the tests, see above on how to set this up.</p></li>
+</ul>
+</li>
+<li><p>Add Run/Debug Configuration, select “Python docs” and therein “Sphinx task”</p>
+<ul>
+<li><p>Name: OctoPrint docs</p></li>
+<li><p>Command: <code class="docutils literal notranslate"><span class="pre">html</span></code></p></li>
+<li><p>Input: the <code class="docutils literal notranslate"><span class="pre">docs</span></code> folder in the OctoPrint checkout folder (e.g. <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint/docs</span></code> or
+<code class="docutils literal notranslate"><span class="pre">C:\Devel\OctoPrint\docs</span></code>)</p></li>
+<li><p>Output: the <code class="docutils literal notranslate"><span class="pre">docs/_build</span></code> folder in the OctoPrint checkout folder (e.g. <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint/docs/_build</span></code> or
+<code class="docutils literal notranslate"><span class="pre">C:\Devel\OctoPrint\docs\_build</span></code>)</p></li>
+<li><p>Project: <code class="docutils literal notranslate"><span class="pre">OctoPrint</span></code></p></li>
+<li><p>Python interpreter: the <code class="docutils literal notranslate"><span class="pre">venv</span></code> local virtual environment</p></li>
+<li><p>Just like with the run configuration for the server you can also have the dependencies auto-update when building
+the documentation, see above on how to set this up.</p></li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure you are running a PyCharm version of 2016.1 or later, or manually fix
+<a class="reference external" href="https://youtrack.jetbrains.com/issue/PY-18365">a debugger bug contained in earlier versions</a> or plugin management
+will not work in your developer install when running OctoPrint from PyCharm in debug mode.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="virtual_printer.html" class="btn btn-neutral float-right" title="Setting up the virtual printer for debugging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Development" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2020, Gina Häußge
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: maintenance
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/1.3.12">1.3.12</a></dd>
+      <dd><a href="https://docs.octoprint.org/1.4.0">1.4.0</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/maintenance">maintenance</a></dd>
+    </dl>
+  </div>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

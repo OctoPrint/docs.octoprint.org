@@ -1,0 +1,931 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Printer profile operations &mdash; OctoPrint 1.3.12 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'1.3.12',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Settings" href="settings.html" />
+    <link rel="prev" title="Printer operations" href="printer.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> OctoPrint
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3.12
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">REST API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="general.html">General information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version.html">Version information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apps.html">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection.html">Connection handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">File operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="job.html">Job operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="languages.html">Languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logs.html">Log file management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html">Printer operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Printer profile operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#retrieve-all-printer-profiles">Retrieve all printer profiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-a-new-printer-profile">Add a new printer profile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#update-an-existing-printer-profile">Update an existing printer profile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#remove-an-existing-printer-profile">Remove an existing printer profile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-model">Data model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#profile-list">Profile list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-or-update-request">Add or update request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#profile">Profile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html">Slicing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html">Timelapse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html">User</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">Util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wizard.html">Wizard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="push.html">Push updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datamodel.html">Common data model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
+    <strong>Note:</strong>
+    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/1.4.0" style="color: white;text-decoration: underline">here</a>.
+  </p>
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">REST API</a> &raquo;</li>
+        
+      <li>Printer profile operations</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/printerprofiles.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="printer-profile-operations">
+<span id="sec-api-printerprofiles"></span><h1><a class="toc-backref" href="#id1">Printer profile operations</a><a class="headerlink" href="#printer-profile-operations" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#printer-profile-operations" id="id1">Printer profile operations</a><ul>
+<li><a class="reference internal" href="#retrieve-all-printer-profiles" id="id2">Retrieve all printer profiles</a></li>
+<li><a class="reference internal" href="#add-a-new-printer-profile" id="id3">Add a new printer profile</a></li>
+<li><a class="reference internal" href="#update-an-existing-printer-profile" id="id4">Update an existing printer profile</a></li>
+<li><a class="reference internal" href="#remove-an-existing-printer-profile" id="id5">Remove an existing printer profile</a></li>
+<li><a class="reference internal" href="#data-model" id="id6">Data model</a><ul>
+<li><a class="reference internal" href="#profile-list" id="id7">Profile list</a></li>
+<li><a class="reference internal" href="#add-or-update-request" id="id8">Add or update request</a></li>
+<li><a class="reference internal" href="#profile" id="id9">Profile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>OctoPrint allows the management of Printer profiles that define a printer’s physical properties (such as print volume,
+whether a heated bed is available, maximum speeds on its axes etc). The data stored within these profiles is used
+for both slicing and gcode visualization.</p>
+<div class="section" id="retrieve-all-printer-profiles">
+<span id="sec-api-printerprofiles-retrieve"></span><h2><a class="toc-backref" href="#id2">Retrieve all printer profiles</a><a class="headerlink" href="#retrieve-all-printer-profiles" title="Permalink to this headline">¶</a></h2>
+<dl class="get">
+<dt id="get--api-printerprofiles">
+<code class="descname">GET </code><code class="descname">/api/printerprofiles</code><a class="headerlink" href="#get--api-printerprofiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves a list of all configured printer profiles.</p>
+<p>Returns a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a list of <a class="reference internal" href="#sec-api-printerprofiles-datamodel-profile"><span class="std std-ref">profiles</span></a>.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/printerprofiles</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</pre></div>
+</div>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;profiles&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;_default&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Default&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;model&quot;</span><span class="p">:</span> <span class="s2">&quot;Generic RepRap Printer&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&quot;current&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&quot;resource&quot;</span><span class="p">:</span> <span class="s2">&quot;http://example.com/api/printerprofiles/_default&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;volume&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;formFactor&quot;</span><span class="p">:</span> <span class="s2">&quot;rectangular&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;origin&quot;</span><span class="p">:</span> <span class="s2">&quot;lowerleft&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;width&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="nt">&quot;depth&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">200</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;heatedBed&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&quot;heatedChamber&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nt">&quot;axes&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">6000</span><span class="p">,</span>
+          <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">6000</span><span class="p">,</span>
+          <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;z&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+          <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;e&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+          <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;extruder&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;offsets&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span><span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;my_profile&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;My Profile&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;model&quot;</span><span class="p">:</span> <span class="s2">&quot;My Custom Printer&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nt">&quot;current&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nt">&quot;resource&quot;</span><span class="p">:</span> <span class="s2">&quot;http://example.com/api/printerprofiles/my_profile&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;volume&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;formFactor&quot;</span><span class="p">:</span> <span class="s2">&quot;rectangular&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;origin&quot;</span><span class="p">:</span> <span class="s2">&quot;lowerleft&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;width&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="nt">&quot;depth&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">200</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;heatedBed&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&quot;heatedChamber&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&quot;axes&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">6000</span><span class="p">,</span>
+          <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">6000</span><span class="p">,</span>
+          <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;z&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+          <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;e&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+          <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;extruder&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;offsets&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span><span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="add-a-new-printer-profile">
+<span id="sec-api-printerprofiles-add"></span><h2><a class="toc-backref" href="#id3">Add a new printer profile</a><a class="headerlink" href="#add-a-new-printer-profile" title="Permalink to this headline">¶</a></h2>
+<dl class="post">
+<dt id="post--api-printerprofiles">
+<code class="descname">POST </code><code class="descname">/api/printerprofiles</code><a class="headerlink" href="#post--api-printerprofiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a new printer profile based on either the current default profile
+or the profile identified in <code class="docutils literal"><span class="pre">basedOn</span></code>.</p>
+<p>The provided profile data will be merged with the profile data from the
+base profile.</p>
+<p>If a profile with the same <code class="docutils literal"><span class="pre">id</span></code> does already exist, a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a>
+will be returned.</p>
+<p>Returns a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with the saved profile as property <code class="docutils literal"><span class="pre">profile</span></code>
+in the JSON body upon success.</p>
+<p>Requires admin rights.</p>
+<p><strong>Example 1</strong></p>
+<p>Creating a new profile <code class="docutils literal"><span class="pre">some_profile</span></code> based on the current default profile.</p>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printerprofiles</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;profile&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;some_profile&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Some profile&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;model&quot;</span><span class="p">:</span> <span class="s2">&quot;Some cool model&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;profile&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;some_profile&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Some profile&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;model&quot;</span><span class="p">:</span> <span class="s2">&quot;Some cool model&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;current&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;resource&quot;</span><span class="p">:</span> <span class="s2">&quot;http://example.com/api/printerprofiles/some_profile&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;volume&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;formFactor&quot;</span><span class="p">:</span> <span class="s2">&quot;rectangular&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;origin&quot;</span><span class="p">:</span> <span class="s2">&quot;lowerleft&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;width&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+      <span class="nt">&quot;depth&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+      <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">200</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;heatedBed&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;heatedChamber&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;axes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">6000</span><span class="p">,</span>
+        <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">6000</span><span class="p">,</span>
+        <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;z&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;e&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+        <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;extruder&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nt">&quot;offsets&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2</strong></p>
+<p>Creating a new profile <code class="docutils literal"><span class="pre">some_other_profile</span></code> based on existing profile
+<code class="docutils literal"><span class="pre">some_profile</span></code>.</p>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printerprofiles</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;profile&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;some_other_profile&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Some other profile&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;heatedBed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;volume&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;formFactor&quot;</span><span class="p">:</span> <span class="s2">&quot;circular&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;origin&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;150&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;300&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;extruder&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="nt">&quot;offsets&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">},</span>
+        <span class="p">{</span><span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="mf">21.6</span><span class="p">,</span> <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;basedOn&quot;</span><span class="p">:</span> <span class="s2">&quot;some_profile&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;profile&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;some_other_profile&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Some other profile&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;model&quot;</span><span class="p">:</span> <span class="s2">&quot;Some cool model&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;current&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;resource&quot;</span><span class="p">:</span> <span class="s2">&quot;http://example.com/api/printerprofiles/some_other_profile&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;volume&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;formFactor&quot;</span><span class="p">:</span> <span class="s2">&quot;circular&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;origin&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;width&quot;</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span>
+      <span class="nt">&quot;depth&quot;</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span>
+      <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">300</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;heatedBed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;heatedChamber&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;axes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">6000</span><span class="p">,</span>
+        <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">6000</span><span class="p">,</span>
+        <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;z&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;e&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+        <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;extruder&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="nt">&quot;offsets&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">},</span>
+        <span class="p">{</span><span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="mf">21.6</span><span class="p">,</span> <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="update-an-existing-printer-profile">
+<span id="sec-api-printerporfiles-update"></span><h2><a class="toc-backref" href="#id4">Update an existing printer profile</a><a class="headerlink" href="#update-an-existing-printer-profile" title="Permalink to this headline">¶</a></h2>
+<dl class="patch">
+<dt id="patch--api-printerprofiles-(string-profile)">
+<code class="descname">PATCH </code><code class="descname">/api/printerprofiles/</code><span class="sig-paren">(</span><em class="property">string: </em><em>profile</em><span class="sig-paren">)</span><a class="headerlink" href="#patch--api-printerprofiles-(string-profile)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates an existing printer profile by its <code class="docutils literal"><span class="pre">profile</span></code> identifier.</p>
+<p>The updated (potentially partial) profile is expected in the request’s body as part of
+an <a class="reference internal" href="#sec-api-printerprofiles-datamodel-update"><span class="std std-ref">Add or update request</span></a>.</p>
+<p>Returns a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with the saved profile as property <code class="docutils literal"><span class="pre">profile</span></code>
+in the JSON body upon success.</p>
+<p>Requires admin rights.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">PATCH</span> <span class="nn">/api/printerprofiles/some_profile</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;profile&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Some edited profile&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;volume&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;depth&quot;</span><span class="p">:</span> <span class="s2">&quot;300&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;profile&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;some_profile&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Some edited profile&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;model&quot;</span><span class="p">:</span> <span class="s2">&quot;Some cool model&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;current&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;resource&quot;</span><span class="p">:</span> <span class="s2">&quot;http://example.com/api/printerprofiles/some_profile&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;volume&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;formFactor&quot;</span><span class="p">:</span> <span class="s2">&quot;rectangular&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;origin&quot;</span><span class="p">:</span> <span class="s2">&quot;lowerleft&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;width&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+      <span class="nt">&quot;depth&quot;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+      <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">200</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;heatedBed&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;heatedChamber&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;axes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">6000</span><span class="p">,</span>
+        <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">6000</span><span class="p">,</span>
+        <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;z&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;e&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+        <span class="nt">&quot;inverted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;extruder&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="nt">&quot;offsets&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">},</span>
+        <span class="p">{</span><span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="mf">21.6</span><span class="p">,</span> <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="remove-an-existing-printer-profile">
+<span id="sec-api-printerprofiles-delete"></span><h2><a class="toc-backref" href="#id5">Remove an existing printer profile</a><a class="headerlink" href="#remove-an-existing-printer-profile" title="Permalink to this headline">¶</a></h2>
+<dl class="delete">
+<dt id="delete--api-printerprofiles-(string-profile)">
+<code class="descname">DELETE </code><code class="descname">/api/printerprofiles/</code><span class="sig-paren">(</span><em class="property">string: </em><em>profile</em><span class="sig-paren">)</span><a class="headerlink" href="#delete--api-printerprofiles-(string-profile)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes an existing printer profile by its <code class="docutils literal"><span class="pre">profile</span></code> identifier.</p>
+<p>If the profile to be deleted is the currently selected profile, a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> will be
+returned.</p>
+<p>Returns a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> an empty body upon success.</p>
+<p>Requires admin rights.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/api/printerprofiles/some_profile</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</pre></div>
+</div>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="data-model">
+<span id="sec-api-printerprofiles-datamodel"></span><h2><a class="toc-backref" href="#id6">Data model</a><a class="headerlink" href="#data-model" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="profile-list">
+<span id="sec-api-printerprofiles-datamodel-profilelist"></span><h3><a class="toc-backref" href="#id7">Profile list</a><a class="headerlink" href="#profile-list" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="25%" />
+<col width="8%" />
+<col width="17%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Multiplicity</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">profiles</span></code></td>
+<td>1</td>
+<td>Object</td>
+<td>Collection of all printer profiles available in the system</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">profiles.&lt;profile</span> <span class="pre">id&gt;</span></code></td>
+<td>0..1</td>
+<td><a class="reference internal" href="slicing.html#sec-api-slicing-datamodel-profile"><span class="std std-ref">Profile</span></a></td>
+<td>Information about a profile stored in the system.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="add-or-update-request">
+<span id="sec-api-printerprofiles-datamodel-update"></span><h3><a class="toc-backref" href="#id8">Add or update request</a><a class="headerlink" href="#add-or-update-request" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="25%" />
+<col width="8%" />
+<col width="17%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Multiplicity</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">profiles</span></code></td>
+<td>1</td>
+<td><a class="reference internal" href="slicing.html#sec-api-slicing-datamodel-profile"><span class="std std-ref">Profile</span></a></td>
+<td>Information about the profile being added/updated. Only the values to be overwritten need to be supplied.
+Unset fields will be taken from the base profile, which for add requests will be the
+current default profile unless a different base is defined in the <code class="docutils literal"><span class="pre">basedOn</span></code> property
+of the request. For update requests the current version of the profile to be updated will
+be used as base.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">basedOn</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">string</span></code></td>
+<td>Only for add requests, ignored on updates: The identifier of the profile to base the
+new profile on, if different than the current default profile.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="profile">
+<span id="sec-api-printerprofiles-datamodel-profile"></span><h3><a class="toc-backref" href="#id9">Profile</a><a class="headerlink" href="#profile" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="25%" />
+<col width="8%" />
+<col width="17%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Multiplicity</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">id</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">string</span></code></td>
+<td>Identifier of the profile. Will always be
+returned in responses, is mandatory in add requests but
+can be left out of update requests.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">name</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">string</span></code></td>
+<td>Display name of the profile. Will always be
+returned in responses, is mandatory in add requests but
+can be left out of update requests.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">color</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">string</span></code></td>
+<td>The color to associate with this profile (used in the UI’s title bar). Valid values are “default”, “red”, “orange”,
+“yellow”, “green”, “blue”, “black”. Will always be
+returned in responses but can be left out of save/update requests.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">model</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">string</span></code></td>
+<td>Printer model of the profile. Will always be
+returned in responses but can be left out of save/update requests.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">default</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">boolean</span></code></td>
+<td>Whether this is the default profile to be used with new connections (<code class="docutils literal"><span class="pre">true</span></code>) or not (<code class="docutils literal"><span class="pre">false</span></code>). Will always be
+returned in responses but can be left out of save/update requests.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">current</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">boolean</span></code></td>
+<td>Whether this is the profile currently active. Will always be returned in responses but ignored in save/update
+requests.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">resource</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">URL</span></code></td>
+<td>Resource URL of the profile, will always be returned in responses but can be left out of save/update requests.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">volume</span></code></td>
+<td>0..1</td>
+<td>Object</td>
+<td>The print volume, will always be returned in responses but can be left out of save/update requests.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">volume.formFactor</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">string</span></code></td>
+<td>The form factor of the printer’s bed, valid values are “rectangular” and “circular”</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">volume.origin</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">string</span></code></td>
+<td>The location of the origin on the printer’s bed, valid values are “lowerleft” and “center”</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">volume.width</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">float</span></code></td>
+<td>The width of the print volume. For circular beds, the diameter of the bed.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">volume.depth</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">float</span></code></td>
+<td>The depth of the print volume. For circular beds, this is the diameter of the bed and will be forced to be the same
+as <code class="docutils literal"><span class="pre">volume.width</span></code> upon saving.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">volume.height</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">float</span></code></td>
+<td>The height of the print volume</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">volume.custom_box</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">boolean</span></code> or <code class="docutils literal"><span class="pre">object</span></code></td>
+<td>If the printer has a custom bounding box where the print head can be safely moved to, exceeding the defined print
+volume, that bounding box will be defined here. Otherwise (safe area == print volume) this value will be <code class="docutils literal"><span class="pre">false</span></code>.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">volume.custom_box.min_x</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">float</span></code></td>
+<td>Minimum X coordinate defining the safe custom bounding box. Smaller value than the minimum X coordinate of the
+print volume.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">volume.custom_box.max_x</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">float</span></code></td>
+<td>Maximum X coordinate defining the safe custom bounding box. Larger value than the maximum X coordinate of the
+print volume.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">volume.custom_box.min_y</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">float</span></code></td>
+<td>Minimum Y coordinate defining the safe custom bounding box. Smaller value than the minimum Y coordinate of the
+print volume.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">volume.custom_box.max_y</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">float</span></code></td>
+<td>Maximum Y coordinate defining the safe custom bounding box. Larger value than the maximum Y coordinate of the
+print volume.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">volume.custom_box.min_z</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">float</span></code></td>
+<td>Minimum Z coordinate defining the safe custom bounding box. Smaller value than the minimum Z coordinate of the
+print volume.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">volume.custom_box.max_z</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">float</span></code></td>
+<td>Maximum Z coordinate defining the safe custom bounding box. Larger value than the maximum Z coordinate of the
+print volume.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">heatedBed</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">boolean</span></code></td>
+<td>Whether the printer has a heated bed (<code class="docutils literal"><span class="pre">true</span></code>) or not (<code class="docutils literal"><span class="pre">false</span></code>)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">heatedChamber</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">boolean</span></code></td>
+<td>Whether the printer has a heated chamber (<code class="docutils literal"><span class="pre">true</span></code>) or not (<code class="docutils literal"><span class="pre">false</span></code>)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">axes</span></code></td>
+<td>0..1</td>
+<td>Object</td>
+<td>Description of the printer’s axes properties, one entry each for <code class="docutils literal"><span class="pre">x</span></code>, <code class="docutils literal"><span class="pre">y</span></code>, <code class="docutils literal"><span class="pre">z</span></code> and <code class="docutils literal"><span class="pre">e</span></code> holding maximum speed
+and whether this axis is inverted or not.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">axes.{axis}.speed</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">int</span></code></td>
+<td>Maximum speed of the axis in mm/min.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">axes.{axis}.inverted</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">boolean</span></code></td>
+<td>Whether the axis is inverted or not.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">extruder</span></code></td>
+<td>0..1</td>
+<td>Object</td>
+<td>Information about the printer’s extruders</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">extruder.nozzleDiameter</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">float</span></code></td>
+<td>The diameter of the printer’s nozzle(s) in mm.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">extruder.count</span></code></td>
+<td>0..1</td>
+<td><code class="docutils literal"><span class="pre">int</span></code></td>
+<td>Count of extruders on the printer (defaults to 1)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">extruder.offsets</span></code></td>
+<td>0..1</td>
+<td>Array of <code class="docutils literal"><span class="pre">float</span></code> tuples</td>
+<td>Tuple of (x, y) values describing the offsets of the other extruders relative to the first extruder. E.g. for a
+printer with two extruders, if the second extruder is offset by 20mm in the X and 25mm in the Y direction, this
+array will read <code class="docutils literal"><span class="pre">[</span> <span class="pre">[0.0,</span> <span class="pre">0.0],</span> <span class="pre">[20.0,</span> <span class="pre">25.0]</span> <span class="pre">]</span></code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="settings.html" class="btn btn-neutral float-right" title="Settings" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="printer.html" class="btn btn-neutral float-left" title="Printer operations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2020, Gina Häußge
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.3.12
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/1.4.0">1.4.0</a></dd>
+      <dd><a href="https://docs.octoprint.org/1.3.12">1.3.12</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/maintenance">maintenance</a></dd>
+    </dl>
+  </div>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
