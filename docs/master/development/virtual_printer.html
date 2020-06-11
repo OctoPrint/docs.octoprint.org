@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Setting up the virtual printer for debugging &mdash; OctoPrint master documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Developing Plugins" href="../plugins/index.html" />
+    <link rel="prev" title="Setting up a Development environment" href="environment.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> OctoPrint
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                master
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="environment.html">Setting up a Development environment</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Setting up the virtual printer for debugging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#enabling-the-virtual-printer">Enabling the virtual printer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#virtual-printer-configuration-options">Virtual printer configuration options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#log-file">Log file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#debug-commands">Debug commands</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Development</a> &raquo;</li>
+        
+      <li>Setting up the virtual printer for debugging</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/development/virtual_printer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="setting-up-the-virtual-printer-for-debugging">
+<span id="sec-development-virtual-printer"></span><h1>Setting up the virtual printer for debugging<a class="headerlink" href="#setting-up-the-virtual-printer-for-debugging" title="Permalink to this headline">¶</a></h1>
+<p>OctoPrint includes, by default, a virtual printer plugin. This plugin allows you to debug OctoPrint’s serial
+communication without connecting to an actual printer. Furthermore, it is possible to create certain edge conditions
+that may be hard to reproduce with a real printer.</p>
+<div class="section" id="enabling-the-virtual-printer">
+<span id="sec-development-virtual-printer-enable"></span><h2>Enabling the virtual printer<a class="headerlink" href="#enabling-the-virtual-printer" title="Permalink to this headline">¶</a></h2>
+<p>The virtual printer is enabled by editing OctoPrint’s config.yaml file. Details on the configuration file can
+be found in the full <a class="reference internal" href="../configuration/config_yaml.html#sec-configuration-config-yaml"><span class="std std-ref">config.yaml documentation</span></a>.</p>
+<p>The steps to take are as follows:</p>
+<ul class="simple">
+<li><p>Find config.yaml in the OctoPrint settings folder. Usually in <code class="docutils literal notranslate"><span class="pre">~/.octoprint</span></code> on Linux, in <code class="docutils literal notranslate"><span class="pre">%APPDATA%/OctoPrint</span></code> on Windows and in <code class="docutils literal notranslate"><span class="pre">~/Library/Application</span> <span class="pre">Support/OctoPrint</span></code> on macOS.</p></li>
+<li><p>Add or extend the <code class="docutils literal notranslate"><span class="pre">devel</span></code> section with:</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">devel</span><span class="p">:</span>
+  <span class="nt">virtualPrinter</span><span class="p">:</span>
+    <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Restart OctoPrint.</p></li>
+<li><p>In the connection panel, a new option will appear in the Serial Port dropdown labeled <code class="docutils literal notranslate"><span class="pre">VIRTUAL</span></code>.</p></li>
+<li><p>Select this option and click <code class="docutils literal notranslate"><span class="pre">connect</span></code>.</p></li>
+<li><p>The virtual printer is now active.</p></li>
+</ul>
+</div>
+<div class="section" id="virtual-printer-configuration-options">
+<span id="sec-development-virtual-printer-config"></span><h2>Virtual printer configuration options<a class="headerlink" href="#virtual-printer-configuration-options" title="Permalink to this headline">¶</a></h2>
+<p>The config.yaml file has many configuration options for the virtual printer that allow you to fine-tune its behavior.</p>
+<p>Please see the relevant <a class="reference internal" href="../configuration/config_yaml.html#sec-configuration-config-yaml-devel"><span class="std std-ref">config.yaml section</span></a> for the full details.</p>
+</div>
+<div class="section" id="log-file">
+<span id="sec-development-virtual-printer-log"></span><h2>Log file<a class="headerlink" href="#log-file" title="Permalink to this headline">¶</a></h2>
+<p>Once activated, the virtual printer will log all serial communication in the <code class="docutils literal notranslate"><span class="pre">plugin_virtual_printer_serial.log</span></code> file
+that can be found in the OctoPrint settings folder.</p>
+</div>
+<div class="section" id="debug-commands">
+<span id="sec-development-virtual-printer-debug"></span><h2>Debug commands<a class="headerlink" href="#debug-commands" title="Permalink to this headline">¶</a></h2>
+<p>You can simulate certain conditions and communications through the terminal tab in OctoPrint’s interface.</p>
+<p>All commands start with <code class="docutils literal notranslate"><span class="pre">!!DEBUG:</span></code> and are followed by the command you want to execute. For instance, sending
+<code class="docutils literal notranslate"><span class="pre">!!DEBUG:action_disconnect</span></code> will disconnect the printer. Sending <code class="docutils literal notranslate"><span class="pre">!!DEBUG</span></code> without command will show a help
+message with all the available commands:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>OctoPrint Virtual Printer debug commands
+
+help
+?
+| This help.
+
+# Action Triggers
+
+action_pause
+| Sends a &quot;// action:pause&quot; action trigger to the host.
+action_resume
+| Sends a &quot;// action:resume&quot; action trigger to the host.
+action_disconnect
+| Sends a &quot;// action:disconnect&quot; action trigger to the
+| host.
+action_custom &lt;action&gt;[ &lt;parameters&gt;]
+| Sends a custom &quot;// action:&lt;action&gt; &lt;parameters&gt;&quot;
+| action trigger to the host.
+
+# Communication Errors
+
+dont_answer
+| Will not acknowledge the next command.
+go_awol
+| Will completely stop replying
+trigger_resend_lineno
+| Triggers a resend error with a line number mismatch
+trigger_resend_checksum
+| Triggers a resend error with a checksum mismatch
+trigger_missing_checksum
+| Triggers a resend error with a missing checksum
+trigger_missing_lineno
+| Triggers a &quot;no line number with checksum&quot; error w/o resend request
+drop_connection
+| Drops the serial connection
+prepare_ok &lt;broken ok&gt;
+| Will cause &lt;broken ok&gt; to be enqueued for use,
+| will be used instead of actual &quot;ok&quot;
+
+# Reply Timing / Sleeping
+
+sleep &lt;int:seconds&gt;
+| Sleep &lt;seconds&gt; s
+sleep_after &lt;str:command&gt; &lt;int:seconds&gt;
+| Sleeps &lt;seconds&gt; s after each execution of &lt;command&gt;
+sleep_after_next &lt;str:command&gt; &lt;int:seconds&gt;
+| Sleeps &lt;seconds&gt; s after execution of next &lt;command&gt;
+
+# SD printing
+
+start_sd &lt;str:file&gt;
+| Select and start printing file &lt;file&gt; from SD
+select_sd &lt;str:file&gt;
+| Select file &lt;file&gt; from SD, don&#39;t start printing it yet. Use
+| start_sd to start the print
+cancel_sd
+| Cancels an ongoing SD print
+
+# Misc
+
+send &lt;str:message&gt;
+| Sends back &lt;message&gt;
+reset
+| Simulates a reset. Internal state will be lost.
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../plugins/index.html" class="btn btn-neutral float-right" title="Developing Plugins" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="environment.html" class="btn btn-neutral float-left" title="Setting up a Development environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2020, Gina Häußge
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: master
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/1.3.12">1.3.12</a></dd>
+      <dd><a href="https://docs.octoprint.org/1.4.0">1.4.0</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/master">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/maintenance">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/devel">devel</a></dd>
+    </dl>
+  </div>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
