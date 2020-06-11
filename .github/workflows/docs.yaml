@@ -52,22 +52,17 @@ jobs:
           cd ${{ github.workspace }}/docs.octoprint.org/.github/versionselector
           python versionselector.py ${{ github.workspace }}/OctoPrint/docs/ ${{ github.event.client_payload.committish }} ${{ steps.latest.outputs.release }} versions.json
 
-      - name: ⬆ Upload build result
+      - name: ⬆ Copy build result
         if: steps.valid.outcome == 'success'
-        uses: actions/upload-artifact@v1
+        run: |
+          rm -rf ${{ github.workspace }}/docs.octoprint.org/${{ github.event.client_payload.committish }} || true
+          cp -r ${{ github.workspace }}/OctoPrint/docs/_build/html/${{ github.event.client_payload.committish }} ${{ github.workspace }}/docs.octoprint.org/
+
+      - name: 🚀 Deploy build
+        uses: EndBug/add-and-commit@v4
         with:
-          name: docs
-          path: ${{ github.workspace }}/OctoPrint/docs/_build/html/${{ github.event.client_payload.committish }}
-
-      #- name: 🚀 Deploy page
-      #  if: github.repository == 'OctoPrint/docs.octoprint.org'
-      #  uses: peaceiris/actions-gh-pages@v3
-      #  with:
-      #    github_token: ${{ secrets.GITHUB_TOKEN }}
-      #    publish_branch: master
-      #    publish_dir: ${{ GITHUB_WORKSPACE }}/OctoPrint/docs/_build/html/${{ github.event.client_payload.committish }}
-      #    enable_jekyll: false
-      #    keep_files: true
-      #    user_name: 'github-actions[bot]'
-      #    user_email: 'github-actions[bot]@users.noreply.github.com'
-
+          cwd: "${{ github.workspace }}/docs.octoprint.org"
+          add: "${{ github.event.client_payload.committish }}"
+          message: "Publish new build of docs for ${{ github.event.client_payload.committish }}"
+          author_name: 'github-actions[bot]'
+          author_email: 'github-actions[bot]@users.noreply.github.com'
