@@ -30,25 +30,28 @@ jobs:
           - version: "devel"
             python: "3.7"
             source: "branches"
-    if: github.event_name == 'push' || matrix.version == github.event.client_payload.ref
     steps:
       - name: ⬇ Checkout docs.octoprint.org
+        if: github.event_name == 'push' || matrix.version == github.event.client_payload.ref
         uses: actions/checkout@v2
         with:
           path: docs.octoprint.org
 
       - name: 👀 Determine latest OctoPrint release
+        if: github.event_name == 'push' || matrix.version == github.event.client_payload.ref
         id: latest
         uses: pozetroninc/github-action-get-latest-release@master
         with:
           repository: "OctoPrint/OctoPrint"
 
       - name: 🐍 Set up Python ${{ matrix.python }}
+        if: github.event_name == 'push' || matrix.version == github.event.client_payload.ref
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python }}
 
       - name: ⬇ Checkout OctoPrint
+        if: github.event_name == 'push' || matrix.version == github.event.client_payload.ref
         uses: actions/checkout@v2
         with:
           repository: "OctoPrint/OctoPrint"
@@ -56,20 +59,24 @@ jobs:
           path: OctoPrint
 
       - name: 🏗 Install OctoPrint
+        if: github.event_name == 'push' || matrix.version == github.event.client_payload.ref
         run: |
           cd ${{ github.workspace }}/OctoPrint
           pip install .[develop,docs]
 
       - name: 🔄 Generate versions.json
+        if: github.event_name == 'push' || matrix.version == github.event.client_payload.ref
         run: |
           python ${{ github.workspace }}/docs.octoprint.org/.github/versionselector/versions_from_matrix.py ${{ github.workspace }}/docs.octoprint.org/.github/workflows/docs.yaml versions.json
 
       - name: 🏗 Build docs
+        if: github.event_name == 'push' || matrix.version == github.event.client_payload.ref
         run: |
           cd ${{ github.workspace }}/docs.octoprint.org/.github/versionselector
           python versionselector.py ${{ github.workspace }}/OctoPrint/docs/ ${{ matrix.version }} ${{ steps.latest.outputs.release }} ${{ github.workspace }}/versions.json
 
       - name: ⬆ Persist build result
+        if: github.event_name == 'push' || matrix.version == github.event.client_payload.ref
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.version }}
