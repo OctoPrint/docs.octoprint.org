@@ -90,24 +90,32 @@ jobs:
       - name: ⬇ Checkout docs.octoprint.org
         uses: actions/checkout@v2
 
+      - name: ⬇ Fetch all artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: artifacts
+
+      - name: 🔢 Count artifacts
+        run: |
+          count=`ls -1 artifacts | wc -l`
+          echo "::set-env name=ARTIFACT_COUNT::$count"
+
       - name: 🧹 Cleanup all docs
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && env.ARTIFACT_COUNT != '0'
         run: |
           rm -rf docs || true
           mkdir docs
           touch docs/.nojekyll
+          cp -r artifacts/* docs
 
       - name: 🧹 Cleanup regenerated docs
-        if: github.event_name == 'repository_dispatch'
+        if: github.event_name == 'repository_dispatch' && env.ARTIFACT_COUNT != '0'
         run: |
-          rm -rf docs/{{ github.event.client_payload.ref }} || true
-
-      - name: ⬇ Fetch all artifacts
-        uses: actions/download-artifact@v2
-        with:
-          path: docs
+          rm -rf docs/${{ github.event.client_payload.ref }} || true
+          cp -r artifacts/${{ github.event.client_payload.ref }} docs
 
       - name: 🚀 Commit & deploy
+        if: env.ARTIFACT_COUNT != '0'
         uses: EndBug/add-and-commit@v4
         with:
           add: "docs"
