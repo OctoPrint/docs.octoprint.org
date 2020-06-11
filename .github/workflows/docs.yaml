@@ -1,6 +1,9 @@
 name: Build & publish docs
 
 on:
+  push:
+    branches:
+      - master
   repository_dispatch:
     types: [docs]
 
@@ -18,9 +21,16 @@ jobs:
           - version: "1.4.0"
             python: "3.7"
             source: "tags"
+          - version: "master"
+            python: "3.7"
+            source: "branches"
           - version: "maintenance"
             python: "3.7"
             source: "branches"
+          - version: "devel"
+            python: "3.7"
+            source: "branches"
+    if: github.event_name == "push" || matrix.version == github.event.client_payload.ref
     steps:
       - name: ⬇ Checkout docs.octoprint.org
         uses: actions/checkout@v2
@@ -73,11 +83,17 @@ jobs:
       - name: ⬇ Checkout docs.octoprint.org
         uses: actions/checkout@v2
 
-      - name: 🧹 Cleanup docs
+      - name: 🧹 Cleanup all docs
+        if: github.event_name == "push"
         run: |
           rm -rf docs || true
           mkdir docs
           touch docs/.nojekyll
+
+      - name: 🧹 Cleanup regenerated docs
+        if: github.event_name == "repository_dispatch"
+        run: |
+          rm -rf docs/{{ github.event.client_payload.ref }} || true
 
       - name: ⬇ Fetch all artifacts
         uses: actions/download-artifact@v2
