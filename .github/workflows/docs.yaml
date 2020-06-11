@@ -1,0 +1,67 @@
+name: Build & publish docs
+
+on:
+  repository_dispatch:
+    types: [build_docs]
+
+jobs:
+  build-docs:
+    name: Publish to Github Pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇ Checkout docs.octoprint.org
+        uses: actions/checkout@v2
+        with:
+          path: docs.octoprint.org
+
+      - name: ✔ Ensure we are active for the committish
+        id: version
+        continue-on-error: true
+        run: |
+          grep "${{ github.event.client_payload.committish }}" ${{ github.workspace }}/docs.octoprint.org/.github/versionselector/versions.json
+
+      - name: ⬇ Checkout OctoPrint
+        if: steps.version.outcome == 'success'
+        uses: actions/checkout@v2
+        with:
+          repository: "OctoPrint/OctoPrint"
+          ref: ${{ github.event.client_payload.committish }}
+          path: OctoPrint
+
+      - name: 🐍 Set up Python ${{ github.event.client_payload.python }}
+        if: steps.version.outcome == 'success'
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ github.event.client_payload.python }}
+
+      - name: 🏗 Install OctoPrint
+        if: steps.version.outcome == 'success'
+        run: |
+          cd ${{ github.workspace }}/OctoPrint
+          pip install .[develop,docs]
+
+      - name: 🏗 Build docs
+        if: steps.version.outcome == 'success'
+        run: |
+          cd ${{ github.workspace }}/docs.octoprint.org/.github/versionselector
+          python versionselector.py ${{ github.workspace }}/OctoPrint/docs/ ${{ github.event.client_payload.committish }} master versions.json
+
+      - name: ⬆ Upload build result
+        if: steps.version.outcome == 'success'
+        uses: actions/upload-artifact@v1
+        with:
+          name: docs
+          path: ${{ github.workspace }}/OctoPrint/docs/_build/html/${{ github.event.client_payload.committish }}
+
+      #- name: 🚀 Deploy page
+      #  if: github.repository == 'OctoPrint/docs.octoprint.org'
+      #  uses: peaceiris/actions-gh-pages@v3
+      #  with:
+      #    github_token: ${{ secrets.GITHUB_TOKEN }}
+      #    publish_branch: master
+      #    publish_dir: ${{ GITHUB_WORKSPACE }}/OctoPrint/docs/_build/html/${{ github.event.client_payload.committish }}
+      #    enable_jekyll: false
+      #    keep_files: true
+      #    user_name: 'github-actions[bot]'
+      #    user_email: 'github-actions[bot]@users.noreply.github.com'
+
