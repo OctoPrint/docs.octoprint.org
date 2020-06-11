@@ -25,7 +25,7 @@ if __name__ == "__main__":
 		print("Adding {}/{} to versions.json".format(name, source))
 
 		versions[name] = dict(name=name,
-		                      url="https://docs.octoprint.org/{}".format(name),
+		                      url="https://docs.octoprint.org/en/{}".format(name),
 		                      is_released=source == "tags",
 		                      source=source)
 
