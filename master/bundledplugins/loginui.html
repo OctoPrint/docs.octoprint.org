@@ -1,0 +1,318 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Login UI &mdash; OctoPrint master documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Plugin Manager" href="pluginmanager.html" />
+    <link rel="prev" title="Logging" href="logging.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> OctoPrint
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                master
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Bundled Plugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="action_command_prompt.html">Action Command Prompt support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="announcements.html">Announcement Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracking.html">Anonymous Usage Tracking Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appkeys.html">Application Keys Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backup.html">Backup Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discovery.html">Discovery Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="errortracking.html">Error Tracking Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Login UI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hooks">Hooks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint-plugin-loginui-theming">octoprint.plugin.loginui.theming</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#source-code">Source Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pluginmanager.html">Plugin Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer_safety_check.html">Printer Safety Check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="softwareupdate.html">Software Update Plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
+    <strong>Note:</strong>
+    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/1.4.0" style="color: white;text-decoration: underline">here</a>.
+  </p>
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Bundled Plugins</a> &raquo;</li>
+        
+      <li>Login UI</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/bundledplugins/loginui.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="login-ui">
+<span id="sec-bundledplugins-loginui"></span><h1>Login UI<a class="headerlink" href="#login-ui" title="Permalink to this headline">¶</a></h1>
+<p>The Login UI plugin has been bundled since OctoPrint 1.4.0 and replaces the ForceLogin plugin bundled with prior
+versions since 1.3.10.</p>
+<p>If anonymous read-only access is disabled in the <a class="reference internal" href="../features/accesscontrol.html#sec-features-access-control"><span class="std std-ref">Access Control settings</span></a>
+it provides a stand alone login dialog that gets displayed instead of OctoPrint’s regular UI.</p>
+<div class="figure align-center" id="id1">
+<span id="fig-bundledplugins-loginui"></span><img alt="Login dialog" src="../_images/bundledplugins-loginui-dialog.png" />
+<p class="caption"><span class="caption-number">Fig. 16 </span><span class="caption-text">OctoPrint’s login dialog.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>The plugin allows theming of the dialog through <a class="reference internal" href="#sec-bundledplugins-loginui-hooks-theming"><span class="std std-ref">a plugin hook</span></a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Since the plugin is absolutely required for the case of anonymous read-only access because in this case the
+UI itself could not even fully initialize due to a lack of permissions required to do so, it is hidden in the plugin
+manager and cannot be disabled through that.</p>
+</div>
+<div class="section" id="hooks">
+<span id="sec-bundledplugins-loginui-hooks"></span><h2>Hooks<a class="headerlink" href="#hooks" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="octoprint-plugin-loginui-theming">
+<span id="sec-bundledplugins-loginui-hooks-theming"></span><h3>octoprint.plugin.loginui.theming<a class="headerlink" href="#octoprint-plugin-loginui-theming" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
+<dt id="loginui_theming_hook">
+<code class="sig-name descname">loginui_theming_hook</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#loginui_theming_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Support theming of the login dialog, just in case the core UI is themed as well. Use to return a list of additional
+CSS file URLs to inject into the login dialog HTML.</p>
+<p>Example usage by a plugin:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">loginui_theming</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">url_for</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;plugin.myplugin.static&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;css/loginui_theme.css&quot;</span><span class="p">)]</span>
+
+<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;octoprint.plugin.loginui.theming&quot;</span><span class="p">:</span> <span class="n">loginui_theming</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Only a list of ready-made URLs to CSS files is supported, neither LESS nor JS. Best use
+url_for like in the example above to be prepared for any configured prefix URLs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of additional CSS URLs to inject into the login dialog.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>A list of strings.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="source-code">
+<span id="sec-bundledplugins-loginui-sourcecode"></span><h2>Source Code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
+<p>The source of the Anonymous Usage Tracking plugin is bundled with OctoPrint and can be
+found in its source repository under <code class="docutils literal notranslate"><span class="pre">src/octoprint/plugins/loginui</span></code>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pluginmanager.html" class="btn btn-neutral float-right" title="Plugin Manager" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="logging.html" class="btn btn-neutral float-left" title="Logging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2020, Gina Häußge
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: master
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/1.3.12">1.3.12</a></dd>
+      <dd><a href="https://docs.octoprint.org/1.4.0">1.4.0</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/master">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/maintenance">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/devel">devel</a></dd>
+    </dl>
+  </div>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
