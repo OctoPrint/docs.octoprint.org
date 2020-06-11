@@ -147,7 +147,6 @@ if __name__ == "__main__":
     docsfolder = os.path.abspath(os.path.join(basefolder, docsfolder))
 
     template_path = os.path.join(basefolder, "_templates")
-    metadata_path = os.path.join(basefolder, "versions.json")
     css_addition = os.path.join(basefolder, "_static", "versioninfo.css")
 
     sys.path.insert(0, basefolder)
@@ -156,7 +155,7 @@ if __name__ == "__main__":
     extensions = ",".join(config.extensions + ["versionselector",])
     templates = ",".join(config.templates_path + [os.path.relpath(template_path, docsfolder),])
 
-    argv = ['-D', 'versionselector_metadata_path={metadata_path}',
+    argv = ['-D', 'versionselector_metadata_path={metadata}',
             '-D', 'versionselector_current_version={current}',
             '-D', 'versionselector_latest_version={latest}',
             '-D', 'version={current}',

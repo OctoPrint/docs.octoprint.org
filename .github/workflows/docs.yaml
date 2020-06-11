@@ -2,23 +2,30 @@ name: Build & publish docs
 
 on:
   repository_dispatch:
-    types: [build_docs]
+    types: [docs]
 
 jobs:
-  build-docs:
-    name: Publish to Github Pages
+  build:
+    name: Build docs
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # you must not use anything but include here or the version.json generation will fail!
+        include:
+          - version: "1.3.12"
+            python: "2.7"
+            source: "tags"
+          - version: "1.4.0"
+            python: "3.7"
+            source: "tags"
+          - version: "maintenance"
+            python: "3.7"
+            source: "branches"
     steps:
       - name: ⬇ Checkout docs.octoprint.org
         uses: actions/checkout@v2
         with:
           path: docs.octoprint.org
-
-      - name: ✔ Ensure we are active for the committish
-        id: valid
-        continue-on-error: true
-        run: |
-          grep "${{ github.event.client_payload.committish }}" ${{ github.workspace }}/docs.octoprint.org/.github/versionselector/versions.json
 
       - name: 👀 Determine latest OctoPrint release
         id: latest
@@ -26,43 +33,61 @@ jobs:
         with:
           repository: "OctoPrint/OctoPrint"
 
+      - name: 🐍 Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+
       - name: ⬇ Checkout OctoPrint
-        if: steps.valid.outcome == 'success'
         uses: actions/checkout@v2
         with:
           repository: "OctoPrint/OctoPrint"
-          ref: ${{ github.event.client_payload.committish }}
+          ref: ${{ matrix.version }}
           path: OctoPrint
 
-      - name: 🐍 Set up Python ${{ github.event.client_payload.python }}
-        if: steps.valid.outcome == 'success'
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ github.event.client_payload.python }}
-
       - name: 🏗 Install OctoPrint
-        if: steps.valid.outcome == 'success'
         run: |
           cd ${{ github.workspace }}/OctoPrint
           pip install .[develop,docs]
 
+      - name: 🔄 Generate versions.json
+        run: |
+          python ${{ github.workspace }}/docs.octoprint.org/.github/versionselector/versions_from_matrix.py ${{ github.workspace }}/docs.octoprint.org/.github/workflows/docs.yaml versions.json
+
       - name: 🏗 Build docs
-        if: steps.valid.outcome == 'success'
         run: |
           cd ${{ github.workspace }}/docs.octoprint.org/.github/versionselector
-          python versionselector.py ${{ github.workspace }}/OctoPrint/docs/ ${{ github.event.client_payload.committish }} ${{ steps.latest.outputs.release }} versions.json
+          python versionselector.py ${{ github.workspace }}/OctoPrint/docs/ ${{ matrix.version }} ${{ steps.latest.outputs.release }} ${{ github.workspace }}/versions.json
 
-      - name: ⬆ Copy build result
-        if: steps.valid.outcome == 'success'
+      - name: ⬆ Persist build result
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.version }}
+          path: ${{ github.workspace }}/OctoPrint/docs/_build/html/${{ matrix.version }}
+
+  deploy:
+    name: Deploy docs
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇ Checkout docs.octoprint.org
+        uses: actions/checkout@v2
+
+      - name: 🧹 Cleanup docs
         run: |
-          rm -rf ${{ github.workspace }}/docs.octoprint.org/${{ github.event.client_payload.committish }} || true
-          cp -r ${{ github.workspace }}/OctoPrint/docs/_build/html/${{ github.event.client_payload.committish }} ${{ github.workspace }}/docs.octoprint.org/
+          rm -rf docs || true
+          mkdir docs
+          touch docs/.nojekyll
 
-      - name: 🚀 Deploy build
+      - name: ⬇ Fetch all artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: docs
+
+      - name: 🚀 Commit & deploy
         uses: EndBug/add-and-commit@v4
         with:
-          cwd: "${{ github.workspace }}/docs.octoprint.org"
-          add: "${{ github.event.client_payload.committish }}"
-          message: "Publish new build of docs for ${{ github.event.client_payload.committish }}"
+          add: "docs"
+          message: "Publish new build of docs"
           author_name: 'github-actions[bot]'
           author_email: 'github-actions[bot]@users.noreply.github.com'
