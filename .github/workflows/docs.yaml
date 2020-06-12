@@ -81,10 +81,13 @@ jobs:
           cd ${{ github.workspace }}/docs.octoprint.org/util/versionselector
           python versionselector.py ${{ github.workspace }}/OctoPrint/docs/ ${{ matrix.version }} ${{ steps.latest.outputs.release }} ${{ github.workspace }}/versions.json
 
-      - name: ️‍♂️ Run link check
+      - name: 🔎 Run link check
+        id: lc
         uses: peter-evans/link-checker@v1
         with:
           args: -v -r -d ./OctoPrint/docs/_build/html/${{ matrix.version }} ./OctoPrint/docs/_build/html/${{ matrix.version }}
+      #- name: 🔎 Evaluate link check
+      #  run: exit ${{ steps.lc.outputs.exit_code }}
 
       - name: ⬆ Persist build result
         if: github.event_name == 'push' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
