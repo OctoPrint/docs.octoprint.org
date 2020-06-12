@@ -81,11 +81,11 @@ jobs:
           cd ${{ github.workspace }}/docs.octoprint.org/util/versionselector
           python versionselector.py ${{ github.workspace }}/OctoPrint/docs/ ${{ matrix.version }} ${{ steps.latest.outputs.release }} ${{ github.workspace }}/versions.json
 
-      - name: 🔎 Run link check
-        id: lc
-        uses: peter-evans/link-checker@v1
-        with:
-          args: -v -r -d ./OctoPrint/docs/_build/html/${{ matrix.version }} ./OctoPrint/docs/_build/html/${{ matrix.version }}
+      #- name: 🔎 Run link check
+      #  id: lc
+      #  uses: peter-evans/link-checker@v1
+      #  with:
+      #    args: -v -r -d ./OctoPrint/docs/_build/html/${{ matrix.version }} ./OctoPrint/docs/_build/html/${{ matrix.version }}
       #- name: 🔎 Evaluate link check
       #  run: exit ${{ steps.lc.outputs.exit_code }}
 
