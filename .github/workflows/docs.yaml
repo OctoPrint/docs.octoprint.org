@@ -84,7 +84,7 @@ jobs:
       - name: ️‍♂️ Run link check
         uses: peter-evans/link-checker@v1
         with:
-          args: -v -r -d ${{ github.workspace }}/OctoPrint/docs/_build/html/${{ matrix.version }} ${{ github.workspace }}/OctoPrint/docs/_build/html/${{ matrix.version }}
+          args: -v -r -d ./OctoPrint/docs/_build/html/${{ matrix.version }} ./OctoPrint/docs/_build/html/${{ matrix.version }}
 
       - name: ⬆ Persist build result
         if: github.event_name == 'push' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
