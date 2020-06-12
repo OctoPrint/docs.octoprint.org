@@ -115,14 +115,16 @@ jobs:
           cp -r artifacts/* docs
 
       - name: 🧹 Cleanup regenerated docs
-        if: github.event_name == 'repository_dispatch' && env.ARTIFACT_COUNT != '0'
+        if: github.event_name == 'repository_dispatch' && env.ARTIFACT_COUNT == '1'
         run: |
           version="${{ github.event.client_payload.ref }}"
           version=${version#"refs/heads/"}
           version=${version#"refs/tags/"}
 
+          echo "Version is $version"
+
           rm -rf docs/$version || true
-          cp -r artifacts/$version docs
+          cp -r artifacts/* docs
 
       - name: 🚀 Commit & deploy
         if: env.ARTIFACT_COUNT != '0'
