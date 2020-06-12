@@ -394,11 +394,16 @@ config parameters:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">package</span></code>: (mandatory) Name of the package which to check.</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">etag</span></code>: Checks the <code class="docutils literal notranslate"><span class="pre">ETag</span></code> header on a defined URL for changes. Additional
+<li><p><code class="docutils literal notranslate"><span class="pre">httpheader</span></code>: Checks an HTTP header on a defined URL for changes. This can be used for easy checks
+against things like <code class="docutils literal notranslate"><span class="pre">ETag</span></code> or <code class="docutils literal notranslate"><span class="pre">Last-Modified</span></code> headers. Additional
 config parameters:</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">etag_url</span></code> or <code class="docutils literal notranslate"><span class="pre">url</span></code>: (mandatory) URL to check. <code class="docutils literal notranslate"><span class="pre">url</span></code> can be used to avoid duplication in case of updater
+<li><p><code class="docutils literal notranslate"><span class="pre">header_url</span></code> or <code class="docutils literal notranslate"><span class="pre">url</span></code>: (mandatory) URL to check. <code class="docutils literal notranslate"><span class="pre">url</span></code> can be used to avoid duplication in case of updater
 methods such as <code class="docutils literal notranslate"><span class="pre">single_file_plugin</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">header_name</span></code>: (mandatory) HTTP header to check, case-insensitive, e.g. <code class="docutils literal notranslate"><span class="pre">ETag</span></code> or <code class="docutils literal notranslate"><span class="pre">Last-Modified</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">header_method</span></code>: HTTP request method to use for the check, defaults to <code class="docutils literal notranslate"><span class="pre">HEAD</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">header_prefix</span></code>: Prefix to use for the obtained value in the version display. If not provided <code class="docutils literal notranslate"><span class="pre">header_name</span></code>
+will be used. If set to an empty string, no prefix will be added.</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">lastmodified</span></code>: Checks the <code class="docutils literal notranslate"><span class="pre">Last-Modified</span></code> header on a defined URL for changes. Additional
@@ -570,7 +575,8 @@ tracked:</p>
   <span class="nt">softwareupdate</span><span class="p">:</span>
     <span class="nt">checks</span><span class="p">:</span>
       <span class="nt">some_plugin</span><span class="p">:</span>
-        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">etag</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">httpheader</span>
+        <span class="nt">header_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ETag</span>
         <span class="nt">url</span><span class="p">:</span> <span class="s">&#39;https://gist.github.com/someUser/somegist/raw/some_plugin.py&#39;</span>
         <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">single_file_plugin</span>
 </pre></div>
@@ -589,7 +595,7 @@ tracked:</p>
 <p>Note that for gist hosted single file plugins, you need to use the “Raw” install link but should remove the
 commit identifier. E.g. <code class="docutils literal notranslate"><span class="pre">https://gist.githubusercontent.com/&lt;user&gt;/&lt;gistid&gt;/raw/my_plugin.py</span></code> instead of
 <code class="docutils literal notranslate"><span class="pre">https://gist.githubusercontent.com/&lt;user&gt;/&lt;gistid&gt;/raw/&lt;commit&gt;/my_plugin.py</span></code>. Note that these URLs will
-be cached by Github for a bit, so update will not be immediately picked up.</p>
+be cached by Github for a bit, so an update will not be immediately picked up.</p>
 </div>
 </div>
 <div class="section" id="events">
