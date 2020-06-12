@@ -1,0 +1,614 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Timelapse &mdash; OctoPrint devel documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Access control" href="access.html" />
+    <link rel="prev" title="System" href="system.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> OctoPrint
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                devel
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">REST API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="general.html">General information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version.html">Version information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection.html">Connection handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">File operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="job.html">Job operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="languages.html">Languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logs.html">Log file management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html">Printer operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printerprofiles.html">Printer profile operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html">Slicing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">System</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Timelapse</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#retrieve-a-list-of-timelapses-and-the-current-config">Retrieve a list of timelapses and the current config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#delete-a-timelapse">Delete a timelapse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#issue-a-command-for-an-unrendered-timelapse">Issue a command for an unrendered timelapse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#delete-an-unrendered-timelapse">Delete an unrendered timelapse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#change-current-timelapse-config">Change current timelapse config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-model">Data model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#timelapse-list">Timelapse list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rendered-timelapse">Rendered timelapse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#unrendered-timelapse">Unrendered timelapse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#timelapse-configuration">Timelapse configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="access.html">Access control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">Util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wizard.html">Wizard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="push.html">Push updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datamodel.html">Common data model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
+    <strong>Note:</strong>
+    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.4.0" style="color: white;text-decoration: underline">here</a>.
+  </p>
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">REST API</a> &raquo;</li>
+        
+      <li>Timelapse</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/timelapse.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="timelapse">
+<span id="sec-api-timelapse"></span><h1><a class="toc-backref" href="#id1">Timelapse</a><a class="headerlink" href="#timelapse" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#timelapse" id="id1">Timelapse</a><ul>
+<li><a class="reference internal" href="#retrieve-a-list-of-timelapses-and-the-current-config" id="id2">Retrieve a list of timelapses and the current config</a></li>
+<li><a class="reference internal" href="#delete-a-timelapse" id="id3">Delete a timelapse</a></li>
+<li><a class="reference internal" href="#issue-a-command-for-an-unrendered-timelapse" id="id4">Issue a command for an unrendered timelapse</a></li>
+<li><a class="reference internal" href="#delete-an-unrendered-timelapse" id="id5">Delete an unrendered timelapse</a></li>
+<li><a class="reference internal" href="#change-current-timelapse-config" id="id6">Change current timelapse config</a></li>
+<li><a class="reference internal" href="#data-model" id="id7">Data model</a><ul>
+<li><a class="reference internal" href="#timelapse-list" id="id8">Timelapse list</a></li>
+<li><a class="reference internal" href="#rendered-timelapse" id="id9">Rendered timelapse</a></li>
+<li><a class="reference internal" href="#unrendered-timelapse" id="id10">Unrendered timelapse</a></li>
+<li><a class="reference internal" href="#timelapse-configuration" id="id11">Timelapse configuration</a><ul>
+<li><a class="reference internal" href="#z-change-triggered-timelapse" id="id12">Z-change-triggered timelapse</a></li>
+<li><a class="reference internal" href="#time-triggered-timelapse" id="id13">Time triggered timelapse</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="retrieve-a-list-of-timelapses-and-the-current-config">
+<span id="sec-api-timelapse-list"></span><h2><a class="toc-backref" href="#id2">Retrieve a list of timelapses and the current config</a><a class="headerlink" href="#retrieve-a-list-of-timelapses-and-the-current-config" title="Permalink to this headline">¶</a></h2>
+<dl class="get">
+<dt id="get--api-timelapse">
+<code class="descname">GET </code><code class="descname">/api/timelapse</code><a class="headerlink" href="#get--api-timelapse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves a list of timelapses and the current config.</p>
+<p>Returns a <a class="reference internal" href="#sec-api-timelapse-datamodel-list"><span class="std std-ref">timelapse list</span></a> in the
+response body.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">TIMELAPSE_LIST</span></code> permission.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>unrendered</strong> – If provided and true, also include unrendered timelapses</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="delete-a-timelapse">
+<span id="sec-api-timelapse-delete"></span><h2><a class="toc-backref" href="#id3">Delete a timelapse</a><a class="headerlink" href="#delete-a-timelapse" title="Permalink to this headline">¶</a></h2>
+<dl class="delete">
+<dt id="delete--api-timelapse-(string-filename)">
+<code class="descname">DELETE </code><code class="descname">/api/timelapse/</code><span class="sig-paren">(</span><em class="property">string: </em><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#delete--api-timelapse-(string-filename)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the timelapse <code class="docutils literal notranslate"><span class="pre">filename</span></code>.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">TIMELAPSE_DELETE</span></code> permission.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="issue-a-command-for-an-unrendered-timelapse">
+<span id="sec-api-timelapse-render"></span><h2><a class="toc-backref" href="#id4">Issue a command for an unrendered timelapse</a><a class="headerlink" href="#issue-a-command-for-an-unrendered-timelapse" title="Permalink to this headline">¶</a></h2>
+<dl class="post">
+<dt id="post--api-timelapse-unrendered-(string-name)">
+<code class="descname">POST </code><code class="descname">/api/timelapse/unrendered/</code><span class="sig-paren">(</span><em class="property">string: </em><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#post--api-timelapse-unrendered-(string-name)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Current only supports to render the unrendered timelapse <code class="docutils literal notranslate"><span class="pre">name</span></code> via the
+<code class="docutils literal notranslate"><span class="pre">render</span></code> command.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">TIMELAPSE_ADMIN</span></code> permission.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">JSON Parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first last simple">
+<li><strong>command</strong> – The command to issue, currently only <code class="docutils literal notranslate"><span class="pre">render</span></code> is supported</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="delete-an-unrendered-timelapse">
+<span id="sec-api-timelapse-delete-unrendered"></span><h2><a class="toc-backref" href="#id5">Delete an unrendered timelapse</a><a class="headerlink" href="#delete-an-unrendered-timelapse" title="Permalink to this headline">¶</a></h2>
+<dl class="delete">
+<dt id="delete--api-timelapse-unrendered-(string-name)">
+<code class="descname">DELETE </code><code class="descname">/api/timelapse/unrendered/</code><span class="sig-paren">(</span><em class="property">string: </em><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#delete--api-timelapse-unrendered-(string-name)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the unrendered timelapse <code class="docutils literal notranslate"><span class="pre">name</span></code>.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">TIMELAPSE_DELETE</span></code> permission.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="change-current-timelapse-config">
+<span id="sec-api-timelapse-saveconfig"></span><h2><a class="toc-backref" href="#id6">Change current timelapse config</a><a class="headerlink" href="#change-current-timelapse-config" title="Permalink to this headline">¶</a></h2>
+<dl class="post">
+<dt id="post--api-timelapse">
+<code class="descname">POST </code><code class="descname">/api/timelapse</code><a class="headerlink" href="#post--api-timelapse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save a new <a class="reference internal" href="#sec-api-timelapse-datamodel-config"><span class="std std-ref">timelapse configuration</span></a> to use for the next print.</p>
+<p>The configuration is expected as the request body.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">TIMELAPSE_ADMIN</span></code> permission.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="data-model">
+<span id="sec-api-timelapse-datamodel"></span><h2><a class="toc-backref" href="#id7">Data model</a><a class="headerlink" href="#data-model" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="timelapse-list">
+<span id="sec-api-timelapse-datamodel-list"></span><h3><a class="toc-backref" href="#id8">Timelapse list</a><a class="headerlink" href="#timelapse-list" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="25%" />
+<col width="8%" />
+<col width="17%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Multiplicity</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">config</span></code></td>
+<td>1</td>
+<td><a class="reference internal" href="#sec-api-timelapse-datamodel-config"><span class="std std-ref">Timelapse config</span></a></td>
+<td>Current timelapse configuration</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">files</span></code></td>
+<td>0..*</td>
+<td>List of <a class="reference internal" href="#sec-api-timelapse-datamodel-rendered"><span class="std std-ref">rendered timelapses</span></a></td>
+<td>List of rendered timelapse entries</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">unrendered</span></code></td>
+<td>0..*</td>
+<td>List of <a class="reference internal" href="#sec-api-timelapse-datamodel-unrendered"><span class="std std-ref">unrendered timelapses</span></a></td>
+<td>List of unrendered timelapse entries, only present if requested</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="rendered-timelapse">
+<span id="sec-api-timelapse-datamodel-rendered"></span><h3><a class="toc-backref" href="#id9">Rendered timelapse</a><a class="headerlink" href="#rendered-timelapse" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="25%" />
+<col width="8%" />
+<col width="17%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Multiplicity</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">name</span></code></td>
+<td>1</td>
+<td>string</td>
+<td>Name of the timelapse file</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">size</span></code></td>
+<td>1</td>
+<td>string</td>
+<td>Formatted size of the timelapse file</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">bytes</span></code></td>
+<td>1</td>
+<td>int</td>
+<td>Size of the timelapse file in bytes</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">date</span></code></td>
+<td>1</td>
+<td>string</td>
+<td>Formatted timestamp of the timelapse creation date</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">url</span></code></td>
+<td>1</td>
+<td>string</td>
+<td>URL for downloading the timelapse</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="unrendered-timelapse">
+<span id="sec-api-timelapse-datamodel-unrendered"></span><h3><a class="toc-backref" href="#id10">Unrendered timelapse</a><a class="headerlink" href="#unrendered-timelapse" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="25%" />
+<col width="8%" />
+<col width="17%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Multiplicity</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">name</span></code></td>
+<td>1</td>
+<td>string</td>
+<td>Name of the unrendered timelapse job</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">size</span></code></td>
+<td>1</td>
+<td>string</td>
+<td>Formatted size of all files in the unrendered timelapse job</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">bytes</span></code></td>
+<td>1</td>
+<td>int</td>
+<td>Size of all files in the unrendered timelapse job in bytes</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">date</span></code></td>
+<td>1</td>
+<td>string</td>
+<td>Formatted timestamp of the timelapse job creation date</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">recording</span></code></td>
+<td>1</td>
+<td>bool</td>
+<td>Whether the timelapse is still being recorded (true) or not (false)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">rendering</span></code></td>
+<td>1</td>
+<td>bool</td>
+<td>Whether the timelapse is still being rendered (true) or not (false)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">processing</span></code></td>
+<td>1</td>
+<td>bool</td>
+<td>Whether the timelapse is either still being recorded or rendered (true) or not (false)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="timelapse-configuration">
+<span id="sec-api-timelapse-datamodel-config"></span><h3><a class="toc-backref" href="#id11">Timelapse configuration</a><a class="headerlink" href="#timelapse-configuration" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="25%" />
+<col width="8%" />
+<col width="17%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Multiplicity</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">type</span></code></td>
+<td>1</td>
+<td>string</td>
+<td>Type of the timelapse, either <code class="docutils literal notranslate"><span class="pre">off</span></code>, <code class="docutils literal notranslate"><span class="pre">zchange</span></code> or <code class="docutils literal notranslate"><span class="pre">timed</span></code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Further fields are timelapse type specific, see below for details.</p>
+<div class="section" id="z-change-triggered-timelapse">
+<span id="sec-api-timelapse-datamodel-config-off"></span><h4><a class="toc-backref" href="#id12">Z-change-triggered timelapse</a><a class="headerlink" href="#z-change-triggered-timelapse" title="Permalink to this headline">¶</a></h4>
+<p>For timelapse type <code class="docutils literal notranslate"><span class="pre">zchange</span></code>.</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="25%" />
+<col width="8%" />
+<col width="17%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Multiplicity</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">postRoll</span></code></td>
+<td>1</td>
+<td>int</td>
+<td>Configured post roll in seconds</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">fps</span></code></td>
+<td>1</td>
+<td>int</td>
+<td>Frames per second to use for rendered video</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">retractionZHop</span></code></td>
+<td>1</td>
+<td>float</td>
+<td>Size of retraction Z hop to detect and ignore for z-based snapshots</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="time-triggered-timelapse">
+<span id="sec-api-timelapse-datamodel-config-timed"></span><h4><a class="toc-backref" href="#id13">Time triggered timelapse</a><a class="headerlink" href="#time-triggered-timelapse" title="Permalink to this headline">¶</a></h4>
+<p>For timelapse type <code class="docutils literal notranslate"><span class="pre">timed</span></code>.</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="25%" />
+<col width="8%" />
+<col width="17%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Multiplicity</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">postRoll</span></code></td>
+<td>1</td>
+<td>int</td>
+<td>Configured post roll in seconds</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">fps</span></code></td>
+<td>1</td>
+<td>int</td>
+<td>Frames per second to use for rendered video</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">interval</span></code></td>
+<td>1</td>
+<td>int</td>
+<td>Seconds between individual shots</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="access.html" class="btn btn-neutral float-right" title="Access control" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="system.html" class="btn btn-neutral float-left" title="System" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2020, Gina Häußge
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: devel
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.3.12/api/timelapse.html">1.3.12</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.4.0/api/timelapse.html">1.4.0</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/api/timelapse.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/api/timelapse.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/api/timelapse.html">devel</a></dd>
+    </dl>
+  </div>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

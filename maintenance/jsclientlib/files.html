@@ -1,0 +1,617 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>OctoPrintClient.files &mdash; OctoPrint maintenance documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="OctoPrintClient.job" href="job.html" />
+    <link rel="prev" title="OctoPrintClient.control" href="control.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> OctoPrint
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                maintenance
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">JavaScript Client Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="base.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="browser.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.browser</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.connection</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.control</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.files</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="job.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.job</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="languages.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.languages</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logs.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.logs</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.printer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printerprofiles.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.printerprofiles</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.settings</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.slicing</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.socket</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.system</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.users</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.util</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="wizard.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.wizard</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
+    <strong>Note:</strong>
+    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.4.0" style="color: white;text-decoration: underline">here</a>.
+  </p>
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">JavaScript Client Library</a> &raquo;</li>
+        
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.files</span></code></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/jsclientlib/files.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="octoprintclient-files">
+<span id="sec-jsclientlib-files"></span><h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.files</span></code><a class="headerlink" href="#octoprintclient-files" title="Permalink to this headline">¶</a></h1>
+<dl class="js function">
+<dt id="OctoPrintClient.files.get">
+<code class="sig-prename descclassname">OctoPrintClient.files.</code><code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param">location</em>, <em class="sig-param">filename</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.files.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves information about the file <code class="docutils literal notranslate"><span class="pre">filename</span></code> at <code class="docutils literal notranslate"><span class="pre">location</span></code>.</p>
+<p>See <a class="reference internal" href="../api/files.html#sec-api-fileops-retrievefileinfo"><span class="std std-ref">Retrieve a specific file’s information</span></a> for more details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>location</strong> (<em>string</em>) – The location of the file</p></li>
+<li><p><strong>filename</strong> (<em>string</em>) – The name of the file</p></li>
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt id="OctoPrintClient.files.list">
+<code class="sig-prename descclassname">OctoPrintClient.files.</code><code class="sig-name descname">list</code><span class="sig-paren">(</span><em class="sig-param">recursively</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.files.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves a list of all files from the server.</p>
+<p>The response from the server will be preprocessed such that all contained entries (recursively)
+will be guaranteed to have a <code class="docutils literal notranslate"><span class="pre">parent</span></code>, <code class="docutils literal notranslate"><span class="pre">size</span></code> and <code class="docutils literal notranslate"><span class="pre">date</span></code> property set at least with a value
+of <code class="docutils literal notranslate"><span class="pre">undefined</span></code>.</p>
+<p>For folders, all children will have their <code class="docutils literal notranslate"><span class="pre">parent</span></code> property set to the folder entry.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">recursivelyPrintNames</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">entry</span><span class="p">,</span> <span class="nx">depth</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">depth</span> <span class="o">=</span> <span class="nx">depth</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">isFolder</span> <span class="o">=</span> <span class="nx">entry</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;folder&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="p">(</span><span class="nx">isFolder</span> <span class="o">?</span> <span class="s2">&quot;+ &quot;</span> <span class="o">+</span> <span class="nx">entry</span><span class="p">.</span><span class="nx">name</span> <span class="o">:</span> <span class="nx">entry</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">repeat</span><span class="p">(</span><span class="s2">&quot;| &quot;</span><span class="p">,</span> <span class="nx">depth</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="nx">depth</span> <span class="o">?</span> <span class="s2">&quot;|-&quot;</span> <span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">name</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">isFolder</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">entry</span><span class="p">.</span><span class="nx">children</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">child</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">recursivelyPrintNames</span><span class="p">(</span><span class="nx">child</span><span class="p">,</span> <span class="nx">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">list</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;### Files:&quot;</span><span class="p">);</span>
+        <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">files</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">entry</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">recursivelyPrintNames</span><span class="p">(</span><span class="nx">entry</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../api/files.html#sec-api-fileops-retrieveall"><span class="std std-ref">Retrieve all files</span></a> for more details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>recursively</strong> (<em>boolean</em>) – Whether to list the files recursively (including all sub folders, true) or not (false, default)</p></li>
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt id="OctoPrintClient.files.listForLocation">
+<code class="sig-prename descclassname">OctoPrintClient.files.</code><code class="sig-name descname">listForLocation</code><span class="sig-paren">(</span><em class="sig-param">location</em>, <em class="sig-param">recursively</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.files.listForLocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves a list of all files stored at the specified <code class="docutils literal notranslate"><span class="pre">location</span></code> from the server.</p>
+<p>The response from the server will be preprocessed such that all contained entries (recursively)
+will be guaranteed to have a <code class="docutils literal notranslate"><span class="pre">parent</span></code>, <code class="docutils literal notranslate"><span class="pre">size</span></code> and <code class="docutils literal notranslate"><span class="pre">date</span></code> property set at least with a value
+of <code class="docutils literal notranslate"><span class="pre">undefined</span></code>.</p>
+<p>For folders, all children will have their <code class="docutils literal notranslate"><span class="pre">parent</span></code> property set to the folder entry.</p>
+<p>See <a class="reference internal" href="../api/files.html#sec-api-fileops-retrievelocation"><span class="std std-ref">Retrieve files from specific location</span></a> for more details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>location</strong> (<em>string</em>) – The location for which to retrieve the list</p></li>
+<li><p><strong>recursively</strong> (<em>boolean</em>) – Whether to list the files recursively (including all sub folders, true) or not (false, default)</p></li>
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt id="OctoPrintClient.files.select">
+<code class="sig-prename descclassname">OctoPrintClient.files.</code><code class="sig-name descname">select</code><span class="sig-paren">(</span><em class="sig-param">location</em>, <em class="sig-param">path</em>, <em class="sig-param">print</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.files.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selects a file at <code class="docutils literal notranslate"><span class="pre">location</span></code> named <code class="docutils literal notranslate"><span class="pre">filename</span></code> for printing. If <code class="docutils literal notranslate"><span class="pre">print</span></code> is supplied and
+truthy, also starts printing the file immediately.</p>
+<p>See the <code class="docutils literal notranslate"><span class="pre">select</span></code> command in <a class="reference internal" href="../api/files.html#sec-api-fileops-filecommand"><span class="std std-ref">Issue a file command</span></a> for more details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>location</strong> (<em>string</em>) – The location of the file to select</p></li>
+<li><p><strong>path</strong> (<em>string</em>) – The name of the file to select</p></li>
+<li><p><strong>print</strong> (<em>boolean</em>) – Whether to print the file after selection (true) or not (false, default)</p></li>
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt id="OctoPrintClient.files.slice">
+<code class="sig-prename descclassname">OctoPrintClient.files.</code><code class="sig-name descname">slice</code><span class="sig-paren">(</span><em class="sig-param">location</em>, <em class="sig-param">path</em>, <em class="sig-param">parameters</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.files.slice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slices a file at <code class="docutils literal notranslate"><span class="pre">location</span></code> called <code class="docutils literal notranslate"><span class="pre">filename</span></code>, using the supplied slice command <code class="docutils literal notranslate"><span class="pre">parameters</span></code>.</p>
+<p>See the <code class="docutils literal notranslate"><span class="pre">slice</span></code> command in <a class="reference internal" href="../api/files.html#sec-api-fileops-filecommand"><span class="std std-ref">Issue a file command</span></a> for more details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>location</strong> (<em>string</em>) – The location of the file to slice</p></li>
+<li><p><strong>path</strong> (<em>string</em>) – The path of the file to slice</p></li>
+<li><p><strong>parameters</strong> (<em>object</em>) – Additional parameters for the <code class="docutils literal notranslate"><span class="pre">slice</span></code> command</p></li>
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt id="OctoPrintClient.files.delete">
+<code class="sig-prename descclassname">OctoPrintClient.files.</code><code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param">location</em>, <em class="sig-param">path</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.files.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the file or folder at <code class="docutils literal notranslate"><span class="pre">location</span></code> and <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
+<p>See <a class="reference internal" href="../api/files.html#sec-api-fileops-delete"><span class="std std-ref">Delete file</span></a> for more details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>location</strong> (<em>string</em>) – The location of the file to delete</p></li>
+<li><p><strong>path</strong> (<em>string</em>) – The path of the file to delete</p></li>
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt id="OctoPrintClient.files.copy">
+<code class="sig-prename descclassname">OctoPrintClient.files.</code><code class="sig-name descname">copy</code><span class="sig-paren">(</span><em class="sig-param">location</em>, <em class="sig-param">path</em>, <em class="sig-param">destination</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.files.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies file or folder <code class="docutils literal notranslate"><span class="pre">path</span></code> on <code class="docutils literal notranslate"><span class="pre">location</span></code> to new parent folder <code class="docutils literal notranslate"><span class="pre">destination</span></code> on <code class="docutils literal notranslate"><span class="pre">location</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">destination</span></code> must already exist.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;some/file.gco&quot;</span><span class="p">,</span> <span class="s2">&quot;other/folder&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../api/files.html#sec-api-fileops-filecommand"><span class="std std-ref">Issue a file command</span></a> for more details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>location</strong> (<em>string</em>) – The location of the file to copy, currently only “local” is supported</p></li>
+<li><p><strong>path</strong> (<em>string</em>) – The path of the file or folder to copy</p></li>
+<li><p><strong>destination</strong> (<em>string</em>) – The path of the parent to which to copy the file or folder</p></li>
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt id="OctoPrintClient.files.move">
+<code class="sig-prename descclassname">OctoPrintClient.files.</code><code class="sig-name descname">move</code><span class="sig-paren">(</span><em class="sig-param">location</em>, <em class="sig-param">filename</em>, <em class="sig-param">destination</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.files.move" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves file or folder <code class="docutils literal notranslate"><span class="pre">path</span></code> on <code class="docutils literal notranslate"><span class="pre">location</span></code> to new parent folder <code class="docutils literal notranslate"><span class="pre">destination</span></code> on <code class="docutils literal notranslate"><span class="pre">location</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">destination</span></code> must already exist.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;some/file.gco&quot;</span><span class="p">,</span> <span class="s2">&quot;other/folder&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../api/files.html#sec-api-fileops-filecommand"><span class="std std-ref">Issue a file command</span></a> for more details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>location</strong> (<em>string</em>) – The location of the file to move, currently only “local” is supported</p></li>
+<li><p><strong>path</strong> (<em>string</em>) – The path of the file or folder to move</p></li>
+<li><p><strong>destination</strong> (<em>string</em>) – The path of the parent to which to copy the file or folder</p></li>
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt id="OctoPrintClient.files.createFolder">
+<code class="sig-prename descclassname">OctoPrintClient.files.</code><code class="sig-name descname">createFolder</code><span class="sig-paren">(</span><em class="sig-param">location</em>, <em class="sig-param">name</em>, <em class="sig-param">path</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.files.createFolder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new folder <code class="docutils literal notranslate"><span class="pre">name</span></code> on <code class="docutils literal notranslate"><span class="pre">location</span></code>. If <code class="docutils literal notranslate"><span class="pre">path</span></code> is provided and not empty the folder
+will be created as a new child of it.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// creates new folder &quot;folder&quot; in the root of &quot;local&quot;</span>
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">createFolder</span><span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;folder&quot;</span><span class="p">);</span>
+
+<span class="c1">// creates new folder &quot;subfolder&quot; in parent &quot;some/existing/folder&quot; on &quot;local&quot;</span>
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">createFolder</span><span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;subfolder&quot;</span><span class="p">,</span> <span class="s2">&quot;some/existing/folder&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../api/files.html#sec-api-fileops-uploadfile"><span class="std std-ref">Upload file or create folder</span></a> for more details on the folder creation API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>location</strong> (<em>string</em>) – The location to create the folder on (currently only “local” is supported)</p></li>
+<li><p><strong>name</strong> (<em>string</em>) – The name of the new folder</p></li>
+<li><p><strong>path</strong> (<em>string</em>) – The path to the parent folder in which to create the new folder. May be left unset in which
+case the folder will be created in the root directory of <code class="docutils literal notranslate"><span class="pre">location</span></code>.</p></li>
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt id="OctoPrintClient.files.upload">
+<code class="sig-prename descclassname">OctoPrintClient.files.</code><code class="sig-name descname">upload</code><span class="sig-paren">(</span><em class="sig-param">location</em>, <em class="sig-param">file</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.files.upload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uploads a <code class="docutils literal notranslate"><span class="pre">file</span></code> to the specified <code class="docutils literal notranslate"><span class="pre">location</span></code>.</p>
+<p>Additional command <code class="docutils literal notranslate"><span class="pre">data</span></code> may be provided. Supported properties are:</p>
+<dl class="simple">
+<dt>filename</dt><dd><p>A string value, the filename to assign to the uploaded file. Optional, if not provided the filename
+will be taken from the provided <code class="docutils literal notranslate"><span class="pre">file</span></code> object’s <code class="docutils literal notranslate"><span class="pre">name</span></code> property.</p>
+</dd>
+<dt>select</dt><dd><p>A boolean value, specifies whether to immediately select the uploaded file for printing once
+the upload completes (true) or not (false, default)</p>
+</dd>
+<dt>print</dt><dd><p>A boolean value, specifies whether to immediately start printing the file after the upload
+completes (true) or not (false, default)</p>
+</dd>
+<dt>userdata</dt><dd><p>An optional object or a serialized JSON string of additional user supplied data to associate with
+the uploaded file.</p>
+</dd>
+</dl>
+<p>See <a class="reference internal" href="../api/files.html#sec-api-fileops-uploadfile"><span class="std std-ref">Upload file or create folder</span></a> for more details on the file upload API and
+<code class="xref js js-func docutils literal notranslate"><span class="pre">OctoPrint.upload()</span></code> for more details on the underlying library upload mechanism, including
+what values are accepted for the <code class="docutils literal notranslate"><span class="pre">file</span></code> parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>location</strong> (<em>string</em>) – The location to upload the file to</p></li>
+<li><p><strong>or string file</strong> (<em>object</em>) – The file to upload, see <code class="xref js js-func docutils literal notranslate"><span class="pre">OctoPrint.upload()</span></code> for more details</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt id="OctoPrintClient.files.download">
+<code class="sig-prename descclassname">OctoPrintClient.files.</code><code class="sig-name descname">download</code><span class="sig-paren">(</span><em class="sig-param">location</em>, <em class="sig-param">path</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.files.download" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads the file at <code class="docutils literal notranslate"><span class="pre">path</span></code> in <code class="docutils literal notranslate"><span class="pre">location</span></code>.</p>
+<p>The downloaded file will be returned as response body in the completed <a class="reference external" href="http://api.jquery.com/Types/#Promise">Promise</a>.
+Note that not all locations support downloading of files (<code class="docutils literal notranslate"><span class="pre">sdcard</span></code> for example doesn’t).</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">download</span><span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;somefile.gco&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">contents</span> <span class="o">=</span> <span class="nx">response</span><span class="p">;</span>
+        <span class="c1">// do something with the file contents</span>
+    <span class="p">});</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>location</strong> (<em>string</em>) – The location of the file to download</p></li>
+<li><p><strong>path</strong> (<em>string</em>) – The path of the file to download</p></li>
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt id="OctoPrintClient.files.pathForEntry">
+<code class="sig-prename descclassname">OctoPrintClient.files.</code><code class="sig-name descname">pathForEntry</code><span class="sig-paren">(</span><em class="sig-param">entry</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.files.pathForEntry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility function to retrieve the path within its location for a given <code class="docutils literal notranslate"><span class="pre">entry</span></code>.</p>
+<p>Use this if you already have a full list of entries and need the path to one.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">listForLocation</span><span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="nx">True</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">entries</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">entry</span> <span class="o">=</span> <span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">entryForPath</span><span class="p">(</span><span class="s2">&quot;some/funny/entry&quot;</span><span class="p">,</span> <span class="nx">entries</span><span class="p">.</span><span class="nx">files</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">pathForEntry</span><span class="p">(</span><span class="nx">entry</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">path</span><span class="p">);</span> <span class="c1">// will log some/funny/entry</span>
+    <span class="p">});</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>entry</strong> (<em>object</em>) – The entry object for which to retrieve the path</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns string</dt>
+<dd class="field-even"><p>The path of the entry within its location</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt id="OctoPrintClient.files.entryForPath">
+<code class="sig-prename descclassname">OctoPrintClient.files.</code><code class="sig-name descname">entryForPath</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">root</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.files.entryForPath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility function to retrieve an entry by its <code class="docutils literal notranslate"><span class="pre">path</span></code> based on an entry tree provided by its
+<code class="docutils literal notranslate"><span class="pre">root</span></code>.</p>
+<p>Use this if you already have a full list of entries and are looking for a specified entry
+within.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">somePathsToFind</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;some/funny/entry&quot;</span><span class="p">,</span>
+                       <span class="s2">&quot;another/entry&quot;</span><span class="p">,</span>
+                       <span class="s2">&quot;this/does/not/exist&quot;</span><span class="p">];</span>
+
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">listForLocation</span><span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="nx">True</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">entries</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// will log two entries and one undefined</span>
+        <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">somePathsToFind</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">entryForPath</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="nx">entries</span><span class="p">.</span><span class="nx">files</span><span class="p">));</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>string</em>) – The path of the entry to retrieve</p></li>
+<li><p><strong>root</strong> (<em>object</em>) – The root of the tree in which to resolve the entry by its path, either a list of entries or an entry
+element with <code class="docutils literal notranslate"><span class="pre">children</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns object or undefined</dt>
+<dd class="field-even"><p>The retrieved entry, or <code class="docutils literal notranslate"><span class="pre">undefined</span></code> if the <code class="docutils literal notranslate"><span class="pre">path</span></code> could
+not be resolved</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="job.html" class="btn btn-neutral float-right" title="OctoPrintClient.job" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="control.html" class="btn btn-neutral float-left" title="OctoPrintClient.control" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2020, Gina Häußge
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: maintenance
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.3.12/jsclientlib/files.html">1.3.12</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.4.0/jsclientlib/files.html">1.4.0</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/jsclientlib/files.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/jsclientlib/files.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/jsclientlib/files.html">devel</a></dd>
+    </dl>
+  </div>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

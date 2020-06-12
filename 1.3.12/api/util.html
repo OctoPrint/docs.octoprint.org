@@ -1,0 +1,721 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Util &mdash; OctoPrint 1.3.12 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'1.3.12',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Wizard" href="wizard.html" />
+    <link rel="prev" title="User" href="users.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> OctoPrint
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3.12
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">REST API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="general.html">General information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version.html">Version information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apps.html">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection.html">Connection handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">File operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="job.html">Job operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="languages.html">Languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logs.html">Log file management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html">Printer operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printerprofiles.html">Printer profile operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html">Slicing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html">Timelapse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html">User</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Util</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#test-paths-or-urls">Test paths or URLs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-model">Data model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#path-test-result">Path test result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#url-test-result">URL test result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#server-test-result">Server test result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="wizard.html">Wizard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="push.html">Push updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datamodel.html">Common data model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
+    <strong>Note:</strong>
+    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.4.0" style="color: white;text-decoration: underline">here</a>.
+  </p>
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">REST API</a> &raquo;</li>
+        
+      <li>Util</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/util.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="util">
+<span id="sec-api-util"></span><h1>Util<a class="headerlink" href="#util" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="test-paths-or-urls">
+<span id="sec-api-util-test"></span><h2>Test paths or URLs<a class="headerlink" href="#test-paths-or-urls" title="Permalink to this headline">¶</a></h2>
+<dl class="post">
+<dt id="post--api-util-test">
+<code class="descname">POST </code><code class="descname">/api/util/test</code><a class="headerlink" href="#post--api-util-test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides commands to test paths or URLs for correctness.</p>
+<p>Used by OctoPrint to validate paths or URLs that the user needs to enter in the
+settings.</p>
+<p>The following commands are supported at the moment:</p>
+<dl class="docutils" id="sec-api-util-test-path">
+<dt>path</dt>
+<dd><p class="first">Tests whether or provided path exists and optionally if it also is either a file
+or a directory and whether OctoPrint’s user has read, write and/or execute permissions
+on it. Supported parameters are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">path</span></code>: The file system path to test. Mandatory.</li>
+<li><code class="docutils literal"><span class="pre">check_type</span></code>: <code class="docutils literal"><span class="pre">file</span></code> or <code class="docutils literal"><span class="pre">dir</span></code> if the path should not only be checked for
+existence but also whether it is of the specified type. Optional.</li>
+<li><code class="docutils literal"><span class="pre">check_access</span></code>: A list of any of <code class="docutils literal"><span class="pre">r</span></code>, <code class="docutils literal"><span class="pre">w</span></code> and <code class="docutils literal"><span class="pre">x</span></code>. If present it will also
+be checked if OctoPrint has read, write, execute permissions on the specified path.</li>
+<li><code class="docutils literal"><span class="pre">allow_create_dir</span></code>: If <code class="docutils literal"><span class="pre">check_type</span></code> is provided and set to <code class="docutils literal"><span class="pre">dir</span></code>, this will allow
+OctoPrint to create the target <code class="docutils literal"><span class="pre">path</span></code> as a directory if it doesn’t yet exist to allow
+for further tests.</li>
+<li><code class="docutils literal"><span class="pre">check_writable_dir</span></code>: If <code class="docutils literal"><span class="pre">check_type</span></code> is provided and set to <code class="docutils literal"><span class="pre">dir</span></code>, this will
+check that the provided <code class="docutils literal"><span class="pre">path</span></code> is a writable directory. OctoPrint not only check if the
+permissions on the directory allow for writing but also attempt to write (and delete) a
+small test file <code class="docutils literal"><span class="pre">.testballoon.txt</span></code> to the directory to test if writing is actually
+possible.</li>
+</ul>
+</div></blockquote>
+<p class="last">The <code class="docutils literal"><span class="pre">path</span></code> command returns a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a <a class="reference internal" href="#sec-api-util-datamodel-pathtestresult"><span class="std std-ref">path test result</span></a>
+when the test could be performed. The status code of the response does NOT reflect the
+test result!</p>
+</dd>
+</dl>
+<dl class="docutils" id="sec-api-util-test-url">
+<dt>url</dt>
+<dd><p class="first">Tests whether a provided URL responds. Request method and expected status codes can
+optionally be specified as well. Supported parameters are:</p>
+<blockquote>
+<div><ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">url</span></code>: The URL to test. Mandatory.</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">method</span></code>: The request method to use for the test. Optional, defaults to <code class="docutils literal"><span class="pre">HEAD</span></code>.</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">timeout</span></code>: A timeout for the request, in seconds. If no reply from the tested URL has been
+received within this time frame, the check will be considered a failure. Optional, defaults to 3 seconds.</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">validSsl</span></code>: Whether to validate the SSL connection if the <code class="docutils literal"><span class="pre">url</span></code> happens to be an HTTPS URL or not. Optional,
+defaults to <code class="docutils literal"><span class="pre">True</span></code>.</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">status</span></code>: The status code(s) or named status range(s) to test for. Can be either a single
+value or a list of either HTTP status codes or any of the following named status ranges:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">informational</span></code>: Status codes from 100 to 199</li>
+<li><code class="docutils literal"><span class="pre">success</span></code>: Status codes from 200 to 299</li>
+<li><code class="docutils literal"><span class="pre">redirection</span></code>: Status codes from 300 to 399</li>
+<li><code class="docutils literal"><span class="pre">client_error</span></code>: Status codes from 400 to 499</li>
+<li><code class="docutils literal"><span class="pre">server_error</span></code>: Status codes from 500 to 599</li>
+<li><code class="docutils literal"><span class="pre">normal</span></code>: Status codes from 100 to 399</li>
+<li><code class="docutils literal"><span class="pre">error</span></code>: Status codes from 400 to 599</li>
+<li><code class="docutils literal"><span class="pre">any</span></code>: Any status code starting from 100</li>
+</ul>
+</div></blockquote>
+<p>The test will past the status code check if the status returned by the URL is within any of
+the specified ranges.</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">response</span></code>: If set to either <code class="docutils literal"><span class="pre">true</span></code>, <code class="docutils literal"><span class="pre">json</span></code> or <code class="docutils literal"><span class="pre">bytes</span></code>, the response body and the response headers
+from the URL check will be returned as part of the check result as well. <code class="docutils literal"><span class="pre">json</span></code> will attempt
+to parse the response as json and return the parsed result. <code class="docutils literal"><span class="pre">true</span></code> or <code class="docutils literal"><span class="pre">bytes</span></code> will base64 encode the body
+and return that.</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">content_type_whitelist</span></code>: Optional array of supported content types. If set and the URL returns a content
+type not included in this list, the test will fail. E.g. <code class="docutils literal"><span class="pre">[&quot;image/*&quot;,</span> <span class="pre">&quot;text/plain&quot;]</span></code>.</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">content_type_blacklist</span></code>: Optional array of unsupported content types. If set and the URL returns a content
+type included in this list, the test wil fail. E.g. <code class="docutils literal"><span class="pre">[&quot;video/*&quot;]</span></code>. Can be used together with <code class="docutils literal"><span class="pre">content_type_whitelist</span></code>
+to further limit broader content type definition, e.g. by putting <code class="docutils literal"><span class="pre">image/*</span></code> into the whitelist, but disallowing
+PNG by including <code class="docutils literal"><span class="pre">image/png</span></code> on the blacklist.</p>
+</li>
+</ul>
+</div></blockquote>
+<p class="last">The <code class="docutils literal"><span class="pre">url</span></code> command returns <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a <a class="reference internal" href="#sec-api-util-datamodel-urltestresult"><span class="std std-ref">URL test result</span></a>
+when the test could be performed. The status code of the response does NOT reflect the
+test result!</p>
+</dd>
+</dl>
+<dl class="docutils" id="sec-api-util-test-server">
+<dt>server</dt>
+<dd><p class="first">Tests whether a provided server identified by host and port can be reached. Protocol can optionally be specified
+as well. Supported parameters are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">host</span></code>: The host to test. IP or host name. Mandatory.</li>
+<li><code class="docutils literal"><span class="pre">port</span></code>: The port to test. Integer. Mandatory.</li>
+<li><code class="docutils literal"><span class="pre">protocol</span></code>: The protocol to test with. <code class="docutils literal"><span class="pre">tcp</span></code> or <code class="docutils literal"><span class="pre">udp</span></code>. Optional, defaults to <code class="docutils literal"><span class="pre">tcp</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">timeout</span></code>: A timeout for the test, in seconds. If no successful connection to the server could be established
+within this time frame, the check will be considered a failure. Optional, defaults to 3.05 seconds.</li>
+</ul>
+</div></blockquote>
+<p class="last">The <code class="docutils literal"><span class="pre">server</span></code> command returns <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a <a class="reference internal" href="#sec-api-util-datamodel-servertestresult"><span class="std std-ref">Server test result</span></a>
+when the test could be performed. The status code of the response does NOT reflect the test result!</p>
+</dd>
+</dl>
+<p>Requires admin rights.</p>
+<p><strong>Example 1</strong></p>
+<p>Test whether a path exists and is a file readable and executable by OctoPrint.</p>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/util/test</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;path&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/some/path/to/a/file&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;check_type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;check_access&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-HTTP"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/some/path/to/a/file&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;exists&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;typeok&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;access&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2</strong></p>
+<p>Test whether a path exists which doesn’t exist.</p>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/util/test</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;path&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/some/path/to/a/missing_file&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;check_type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;check_access&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-HTTP"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/some/path/to/a/missing_file&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;exists&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&quot;typeok&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&quot;access&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 3</strong></p>
+<p>Test whether a path exists and is a file which is a directory.</p>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/util/test</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;path&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/some/path/to/a/folder&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;check_type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-HTTP"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/some/path/to/a/folder&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;exists&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;typeok&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&quot;access&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 4</strong></p>
+<p>Test whether a URL returns a normal status code for a HEAD request.</p>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/util/test</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;url&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://example.com/some/url&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://example.com/some/url&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+  <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 5</strong></p>
+<p>Test whether a URL can be called at all via GET request, provide its raw body. Set a timeout of 1s.</p>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/util/test</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;url&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://example.com/some/url&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;any&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;response&quot;</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-HTTP"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://example.com/some/url&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+  <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;response&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;headers&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;content-type&quot;</span><span class="p">:</span> <span class="s2">&quot;image/gif&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 6</strong></p>
+<p>Test whether a server is reachable on a given port via TCP.</p>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/util/test</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;server&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;8.8.8.8&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;port&quot;</span><span class="p">:</span> <span class="mi">53</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;8.8.8.8&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;port&quot;</span><span class="p">:</span> <span class="mi">53</span><span class="p">,</span>
+  <span class="nt">&quot;protocol&quot;</span><span class="p">:</span> <span class="s2">&quot;tcp&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">JSON Parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>command</strong> – The command to execute, currently either <code class="docutils literal"><span class="pre">path</span></code> or <code class="docutils literal"><span class="pre">url</span></code></li>
+<li><strong>path</strong> – <code class="docutils literal"><span class="pre">path</span></code> command only: the path to test</li>
+<li><strong>check_type</strong> – <code class="docutils literal"><span class="pre">path</span></code> command only: the type of path to test for, either <code class="docutils literal"><span class="pre">file</span></code> or <code class="docutils literal"><span class="pre">dir</span></code></li>
+<li><strong>check_access</strong> – <code class="docutils literal"><span class="pre">path</span></code> command only: a list of access permissions to check for</li>
+<li><strong>allow_create_dir</strong> – <code class="docutils literal"><span class="pre">path</span></code> command and <code class="docutils literal"><span class="pre">checktype</span></code> of <code class="docutils literal"><span class="pre">dir</span></code> only: whether to allow creation of the
+directory if it doesn’t yet exist (<code class="docutils literal"><span class="pre">true</span></code>) or not (<code class="docutils literal"><span class="pre">false</span></code>, default)</li>
+<li><strong>check_writable_dir</strong> – <code class="docutils literal"><span class="pre">path</span></code> command and <code class="docutils literal"><span class="pre">checktype</span></code> of <code class="docutils literal"><span class="pre">dir</span></code> only: whether to test if the directory
+is writable by also trying to create a test file in it (<code class="docutils literal"><span class="pre">true</span></code>) or not (<code class="docutils literal"><span class="pre">false</span></code>, default)</li>
+<li><strong>url</strong> – <code class="docutils literal"><span class="pre">url</span></code> command only: the URL to test</li>
+<li><strong>status</strong> – <code class="docutils literal"><span class="pre">url</span></code> command only: one or more expected status codes</li>
+<li><strong>method</strong> – <code class="docutils literal"><span class="pre">url</span></code> command only: the HTTP method to use for the check</li>
+<li><strong>timeout</strong> – <code class="docutils literal"><span class="pre">url</span></code> and <code class="docutils literal"><span class="pre">server</span></code> commands only: the timeout for the test request</li>
+<li><strong>response</strong> – <code class="docutils literal"><span class="pre">url</span></code> command only: whether to include response data and if so in what form</li>
+<li><strong>host</strong> – <code class="docutils literal"><span class="pre">server</span></code> command only: the server to test</li>
+<li><strong>port</strong> – <code class="docutils literal"><span class="pre">server</span></code> command only: the port to test</li>
+<li><strong>protocol</strong> – <code class="docutils literal"><span class="pre">server</span></code> command only: the protocol to test</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – No error occurred</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="data-model">
+<span id="sec-api-util-datamodel"></span><h2>Data model<a class="headerlink" href="#data-model" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="path-test-result">
+<span id="sec-api-util-datamodel-pathtestresult"></span><h3>Path test result<a class="headerlink" href="#path-test-result" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="25%" />
+<col width="8%" />
+<col width="17%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Multiplicity</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">path</span></code></td>
+<td>1</td>
+<td>string</td>
+<td>The path that was tested.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">exists</span></code></td>
+<td>1</td>
+<td>bool</td>
+<td><code class="docutils literal"><span class="pre">true</span></code> if the path exists, <code class="docutils literal"><span class="pre">false</span></code> otherwise.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">typeok</span></code></td>
+<td>1</td>
+<td>bool</td>
+<td><code class="docutils literal"><span class="pre">true</span></code> if a type check was not requested or it passed, <code class="docutils literal"><span class="pre">false</span></code> otherwise</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">access</span></code></td>
+<td>1</td>
+<td>bool</td>
+<td><code class="docutils literal"><span class="pre">true</span></code> if a permission check was not requested or it passed, <code class="docutils literal"><span class="pre">false</span></code> otherwise</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">result</span></code></td>
+<td>1</td>
+<td>bool</td>
+<td><code class="docutils literal"><span class="pre">true</span></code> if the overall check passed, <code class="docutils literal"><span class="pre">false</span></code> otherwise</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="url-test-result">
+<span id="sec-api-util-datamodel-urltestresult"></span><h3>URL test result<a class="headerlink" href="#url-test-result" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="25%" />
+<col width="8%" />
+<col width="17%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Multiplicity</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">url</span></code></td>
+<td>1</td>
+<td>string</td>
+<td>The URL that was tested.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">status</span></code></td>
+<td>1</td>
+<td>int</td>
+<td>The status code returned by the URL, 0 in case of a timeout.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">result</span></code></td>
+<td>1</td>
+<td>bool</td>
+<td><code class="docutils literal"><span class="pre">true</span></code> if the check passed.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">response</span></code></td>
+<td>0..1</td>
+<td>string or object</td>
+<td>If <code class="docutils literal"><span class="pre">response</span></code> in the request was set to <code class="docutils literal"><span class="pre">bytes</span></code>: The base64 encoded body of the checked URL’s response.
+If <code class="docutils literal"><span class="pre">response</span></code> in the request was set to <code class="docutils literal"><span class="pre">json</span></code>: The json decoded body of the checked URL’s response.
+Not present if <code class="docutils literal"><span class="pre">response</span></code> in the request was not set.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">headers</span></code></td>
+<td>0..1</td>
+<td>object</td>
+<td>A dictionary with all headers of the checked URL’s response. Only present if <code class="docutils literal"><span class="pre">response</span></code> in the
+request was set.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="server-test-result">
+<span id="sec-api-util-datamodel-servertestresult"></span><h3>Server test result<a class="headerlink" href="#server-test-result" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="25%" />
+<col width="8%" />
+<col width="17%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Multiplicity</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">host</span></code></td>
+<td>1</td>
+<td>string</td>
+<td>The host that was tested.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">port</span></code></td>
+<td>1</td>
+<td>int</td>
+<td>The port that was tested</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">protocol</span></code></td>
+<td>1</td>
+<td>string</td>
+<td>The protocol that was tested, <code class="docutils literal"><span class="pre">tcp</span></code> or <code class="docutils literal"><span class="pre">udp</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">result</span></code></td>
+<td>1</td>
+<td>bool</td>
+<td><code class="docutils literal"><span class="pre">true</span></code> if the check passed.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="wizard.html" class="btn btn-neutral float-right" title="Wizard" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="users.html" class="btn btn-neutral float-left" title="User" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2020, Gina Häußge
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.3.12
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.4.0/api/util.html">1.4.0</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.3.12/api/util.html">1.3.12</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/api/util.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/api/util.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/api/util.html">devel</a></dd>
+    </dl>
+  </div>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

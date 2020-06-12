@@ -1,0 +1,1019 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Events &mdash; OctoPrint maintenance documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Development" href="../development/index.html" />
+    <link rel="prev" title="Common data model" href="../api/datamodel.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> OctoPrint
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                maintenance
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Events</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#placeholders">Placeholders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#available-events">Available Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#server">Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#printer-communication">Printer communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#file-handling">File handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#printing">Printing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gcode-processing">GCODE processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#timelapses">Timelapses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slicing">Slicing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#settings">Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#printer-profile">Printer Profile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
+    <strong>Note:</strong>
+    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.4.0" style="color: white;text-decoration: underline">here</a>.
+  </p>
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Events</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/events/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="events">
+<span id="sec-events"></span><h1><a class="toc-backref" href="#id1">Events</a><a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#events" id="id1">Events</a></p>
+<ul>
+<li><p><a class="reference internal" href="#configuration" id="id2">Configuration</a></p>
+<ul>
+<li><p><a class="reference internal" href="#example" id="id3">Example</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#placeholders" id="id4">Placeholders</a></p></li>
+<li><p><a class="reference internal" href="#available-events" id="id5">Available Events</a></p>
+<ul>
+<li><p><a class="reference internal" href="#server" id="id6">Server</a></p></li>
+<li><p><a class="reference internal" href="#printer-communication" id="id7">Printer communication</a></p></li>
+<li><p><a class="reference internal" href="#file-handling" id="id8">File handling</a></p></li>
+<li><p><a class="reference internal" href="#printing" id="id9">Printing</a></p></li>
+<li><p><a class="reference internal" href="#gcode-processing" id="id10">GCODE processing</a></p></li>
+<li><p><a class="reference internal" href="#timelapses" id="id11">Timelapses</a></p></li>
+<li><p><a class="reference internal" href="#slicing" id="id12">Slicing</a></p></li>
+<li><p><a class="reference internal" href="#settings" id="id13">Settings</a></p></li>
+<li><p><a class="reference internal" href="#printer-profile" id="id14">Printer Profile</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="configuration">
+<span id="sec-events-configuration"></span><h2><a class="toc-backref" href="#id2">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>Event hooks are configured via OctoPrint’s configuration file <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>. There they are contained in a
+<code class="docutils literal notranslate"><span class="pre">subscriptions</span></code> list located directly under the <code class="docutils literal notranslate"><span class="pre">events</span></code> node. The <code class="docutils literal notranslate"><span class="pre">command</span></code> node accepts either a single string
+or a list of strings so that multiple commands can be executed in one go. Each hook carries an additional node type that
+must be either <code class="docutils literal notranslate"><span class="pre">gcode</span></code> (for GCODE commands to be sent to the printer based on the event) or <code class="docutils literal notranslate"><span class="pre">system</span></code> (for commands to be
+executed on the system OctoPrint is running on).</p>
+<p>All event hooks can be disabled completely by setting <code class="docutils literal notranslate"><span class="pre">event</span> <span class="pre">&gt;</span> <span class="pre">enabled</span></code> to <code class="docutils literal notranslate"><span class="pre">false</span></code>. You can also disable individual
+hooks by setting the (optional) node <code class="docutils literal notranslate"><span class="pre">enabled</span></code> to false, see the example below.</p>
+<div class="section" id="example">
+<h3><a class="toc-backref" href="#id3">Example</a><a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">events</span><span class="p">:</span>
+  <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+  <span class="nt">subscriptions</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">event</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Disconnected</span>
+    <span class="nt">command</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">python ~/growl.py -t mygrowlserver -d &quot;Lost connection to printer&quot; -a OctoPrint -i http://raspi/Octoprint_logo.png</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system</span>
+    <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+  <span class="p p-Indicator">-</span> <span class="nt">event</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">PrintStarted</span>
+    <span class="nt">command</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">python ~/growl.py -t mygrowlserver -d &quot;Starting {file}&quot; -a OctoPrint -i http://raspi/Octoprint_logo.png</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system</span>
+  <span class="p p-Indicator">-</span> <span class="nt">event</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">PrintDone</span>
+    <span class="nt">command</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">python ~/growl.py -t mygrowlserver -d &quot;Completed {file}&quot; -a OctoPrint -i http://raspi/Octoprint_logo.png</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system</span>
+  <span class="p p-Indicator">-</span> <span class="nt">event</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">PrintStarted</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">PrintFailed</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">PrintDone</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">PrintCancelled</span>
+    <span class="nt">command</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">python ~/growl.py -t mygrowlserver -d &quot;Event {__eventname} ({name})&quot; -a OctoPrint -i http://raspi/Octoprint_logo.png</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system</span>
+  <span class="p p-Indicator">-</span> <span class="nt">event</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Connected</span>
+    <span class="nt">command</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">M115</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">M117 printer connected!</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">G28</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcode</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="placeholders">
+<span id="sec-events-placeholders"></span><h2><a class="toc-backref" href="#id4">Placeholders</a><a class="headerlink" href="#placeholders" title="Permalink to this headline">¶</a></h2>
+<p>You can use the following generic placeholders in your event hooks:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">{__currentZ}</span></code>: the current Z position of the head if known, -1 if not available</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{__eventname}</span></code> : the name of the event hook being triggered</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{__filename}</span></code> : name of currently selected file, or <code class="docutils literal notranslate"><span class="pre">NO</span> <span class="pre">FILE</span></code> if no file is selected</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{__filepath}</span></code> : path in origin location of currently selected file, or <code class="docutils literal notranslate"><span class="pre">NO</span> <span class="pre">FILE</span></code> if no file is selected</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{__fileorigin}</span></code> : origin of currently selected file, or <code class="docutils literal notranslate"><span class="pre">NO</span> <span class="pre">FILE</span></code> if no file is selected</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{__progress}</span></code>: the progress of the print in percent, 0 if not available</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{__data}</span></code>: a string representation of the payload</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{__now}</span></code>: the date and time of the event in ISO 8601</p></li>
+</ul>
+</div></blockquote>
+<p>Additionally, all data from the payload can be accessed by its key. Example: If the payload happens to be defined
+something like this:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the file’s name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: the file’s path in its origin storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">origin</span></code>: the origin storage location of the file, either <code class="docutils literal notranslate"><span class="pre">local</span></code> or <code class="docutils literal notranslate"><span class="pre">sdcard</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>then you’ll be able to access the file’s name via the placeholder <code class="docutils literal notranslate"><span class="pre">{name}</span></code>, its path via the placeholder <code class="docutils literal notranslate"><span class="pre">{path}</span></code>
+and its origin via the placeholder <code class="docutils literal notranslate"><span class="pre">{origin}</span></code>.</p>
+</div>
+<div class="section" id="available-events">
+<span id="sec-events-available-events"></span><h2><a class="toc-backref" href="#id5">Available Events</a><a class="headerlink" href="#available-events" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Plugins may add additional events via the <a class="reference internal" href="../plugins/hooks.html#sec-plugins-hook-events-register-custom-events"><span class="std std-ref">octoprint.events.register_custom_events hook</span></a>.</p>
+</div>
+<div class="section" id="server">
+<span id="sec-events-available-events-server"></span><h3><a class="toc-backref" href="#id6">Server</a><a class="headerlink" href="#server" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Startup</dt><dd><p>The server has started.</p>
+</dd>
+<dt>Shutdown</dt><dd><p>The server is shutting down.</p>
+</dd>
+<dt>ClientOpened</dt><dd><p>A client has connected to the push socket.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">remoteAddress</span></code>: the remote address (IP) of the client that connected. On the push socket only available with
+a valid login session.</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Note:</strong> Name changed in version 1.1.0</p>
+</dd>
+<dt>ClientAuthed</dt><dd><p>A client has authenticated a user session on the push socket.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">remoteAddress</span></code>: the remote address (IP) of the client that authed. On the push socket only available with a
+valid login session.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">username</span></code>: the name of the user who authed. On the push socket only available with a valid login session.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>ClientClosed</dt><dd><p>A client has disconnected from the push socket.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">remoteAddress</span></code>: the remote address (IP) of the client that disconnected. On the push socket only available
+with a valid login session.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>UserLoggedIn</dt><dd><p>A user logged in. On the push socket only available with a valid login session with admin rights.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">username</span></code>: the name of the user who logged in</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>UserLoggedOut</dt><dd><p>A user logged out. On the push socket only available with a valid login session with admin rights.</p>
+<dl class="simple">
+<dt>Payload:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">username</span></code>: the name of the user who logged out</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>ConnectivityChanged</dt><dd><p>The server’s internet connectivity changed</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">old</span></code>: Old connectivity value (true for online, false for offline)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">new</span></code>: New connectivity value (true for online, false for offline)</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</div>
+<div class="section" id="printer-communication">
+<span id="sec-events-available-events-printer-commmunication"></span><h3><a class="toc-backref" href="#id7">Printer communication</a><a class="headerlink" href="#printer-communication" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Connecting</dt><dd><p>The server is attempting to connect to the printer.</p>
+</dd>
+<dt>Connected</dt><dd><p>The server has connected to the printer.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">port</span></code>: the connected serial port</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">baudrate</span></code>: the baud rate</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>Disconnecting</dt><dd><p>The server is going to disconnect from the printer. Note that this
+event might not always be sent when the server and printer get disconnected
+from each other. Do not depend on this for critical life cycle management.</p>
+</dd>
+<dt>Disconnected</dt><dd><p>The server has disconnected from the printer</p>
+</dd>
+<dt>Error</dt><dd><p>An unrecoverable error has been encountered, either as reported by the firmware (e.g. a thermal runaway) or
+on the connection.</p>
+<p>Note that this event will not fire for error messages from the firmware that are handled (and as such recovered from)
+either by OctoPrint or a plugin.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">error</span></code>: the error string</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>PrinterStateChanged</dt><dd><p>The state of the printer changed.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">state_id</span></code>: Id of the new state. See
+<a class="reference internal" href="../modules/printer.html#octoprint.printer.PrinterInterface.get_state_id" title="octoprint.printer.PrinterInterface.get_state_id"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_state_id()</span></code></a> for possible values.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">state_string</span></code>: Text representation of the new state.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</div>
+<div class="section" id="file-handling">
+<span id="sec-events-available-events-file-handling"></span><h3><a class="toc-backref" href="#id8">File handling</a><a class="headerlink" href="#file-handling" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>Upload</dt><dd><p>A file has been uploaded through the web interface.</p>
+<dl class="simple">
+<dt>Payload:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the file’s name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: the file’s path within its storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">target</span></code>: the target storage location to which the file was uploaded, either <code class="docutils literal notranslate"><span class="pre">local</span></code> or <code class="docutils literal notranslate"><span class="pre">sdcard</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<div class="deprecated">
+<ul>
+<span class="versionmodified deprecated">Deprecated since version 1.3.0: </span><li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: the file’s path within its storage location. To be removed in 1.4.0.</p></li>
+</ul>
+</div>
+</dd>
+<dt>FileAdded</dt><dd><p>A file has been added to a storage.</p>
+<dl class="simple">
+<dt>Payload:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">storage</span></code>: the storage’s identifier</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: the file’s path within its storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the file’s name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>: the file’s type, a list of the path within the type hierarchy, e.g. <code class="docutils literal notranslate"><span class="pre">[&quot;machinecode&quot;,</span> <span class="pre">&quot;gcode&quot;]</span></code> or
+<code class="docutils literal notranslate"><span class="pre">[&quot;model&quot;,</span> <span class="pre">&quot;stl&quot;]</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A copied file triggers this for its new path. A moved file first triggers <code class="docutils literal notranslate"><span class="pre">FileRemoved</span></code> for its original
+path and then <code class="docutils literal notranslate"><span class="pre">FileAdded</span></code> for the new one.</p>
+</div>
+</dd>
+<dt>FileRemoved</dt><dd><p>A file has been removed from a storage.</p>
+<dl class="simple">
+<dt>Payload:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">storage</span></code>: the storage’s identifier</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: the file’s path within its storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the file’s name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>: the file’s type, a list of the path within the type hierarchy, e.g. <code class="docutils literal notranslate"><span class="pre">[&quot;machinecode&quot;,</span> <span class="pre">&quot;gcode&quot;]</span></code> or
+<code class="docutils literal notranslate"><span class="pre">[&quot;model&quot;,</span> <span class="pre">&quot;stl&quot;]</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A moved file first triggers <code class="docutils literal notranslate"><span class="pre">FileRemoved</span></code> for its original path and then <code class="docutils literal notranslate"><span class="pre">FileAdded</span></code> for the new one.</p>
+</div>
+</dd>
+<dt>FolderAdded</dt><dd><p>A folder has been added to a storage.</p>
+<dl class="simple">
+<dt>Payload:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">storage</span></code>: the storage’s identifier</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: the folder’s path within its storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the folder’s name</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A copied folder triggers this for its new path. A moved folder first triggers <code class="docutils literal notranslate"><span class="pre">FolderRemoved</span></code> for its original
+path and then <code class="docutils literal notranslate"><span class="pre">FolderAdded</span></code> for the new one.</p>
+</div>
+</dd>
+<dt>FolderRemoved</dt><dd><p>A folder has been removed from a storage.</p>
+<dl class="simple">
+<dt>Payload:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">storage</span></code>: the storage’s identifier</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: the folder’s path within its storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the folder’s name</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A moved folder first triggers <code class="docutils literal notranslate"><span class="pre">FolderRemoved</span></code> for its original path and then <code class="docutils literal notranslate"><span class="pre">FolderAdded</span></code> for the new one.</p>
+</div>
+</dd>
+<dt>UpdatedFiles</dt><dd><p>A file list was modified.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>: the type of file list that was modified. Only <code class="docutils literal notranslate"><span class="pre">printables</span></code> is supported here. See the deprecation
+note below.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 1.2.0: </span>The <code class="docutils literal notranslate"><span class="pre">gcode</span></code> modification type has been superseded by <code class="docutils literal notranslate"><span class="pre">printables</span></code>. It is currently still available for
+reasons of backwards compatibility and will also be sent on modification of <code class="docutils literal notranslate"><span class="pre">printables</span></code>. It will however
+be removed with 1.4.0.</p>
+</div>
+</li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>MetadataAnalysisStarted</dt><dd><p>The metadata analysis of a file has started.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the file’s name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: the file’s path within its storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">origin</span></code>: the file’s origin storage location</p></li>
+</ul>
+</div></blockquote>
+<div class="deprecated">
+<ul>
+<span class="versionmodified deprecated">Deprecated since version 1.3.0: </span><li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: the file’s path within its storage location. To be removed in 1.4.0.</p></li>
+</ul>
+</div>
+</dd>
+<dt>MetadataAnalysisFinished</dt><dd><p>The metadata analysis of a file has finished.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the file’s name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: the file’s path within its storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">origin</span></code>: the file’s origin storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">result</span></code>: the analysis result – this is a Python object currently only available for internal use</p></li>
+</ul>
+</div></blockquote>
+<div class="deprecated">
+<ul>
+<span class="versionmodified deprecated">Deprecated since version 1.3.0: </span><li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: the file’s path within its storage location. To be removed in 1.4.0.</p></li>
+</ul>
+</div>
+</dd>
+<dt>FileSelected</dt><dd><p>A file has been selected for printing.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the file’s name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: the file’s path within its storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">origin</span></code>: the origin storage location of the file, either <code class="docutils literal notranslate"><span class="pre">local</span></code> or <code class="docutils literal notranslate"><span class="pre">sdcard</span></code></p></li>
+</ul>
+</div></blockquote>
+<div class="deprecated">
+<ul>
+<span class="versionmodified deprecated">Deprecated since version 1.3.0: </span><li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: the file’s full path on disk (<code class="docutils literal notranslate"><span class="pre">local</span></code>) or within its storage (<code class="docutils literal notranslate"><span class="pre">sdcard</span></code>). To be removed in 1.4.0.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: the file’s name.  To be removed in 1.4.0.</p></li>
+</ul>
+</div>
+</dd>
+<dt>FileDeselected</dt><dd><p>No file is selected any more for printing.</p>
+</dd>
+<dt>TransferStarted</dt><dd><p>A file transfer to the printer’s SD has started.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">local</span></code>: the file’s name as stored locally</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">remote</span></code>: the file’s name as stored on SD</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Note:</strong> Name changed in version 1.1.0</p>
+</dd>
+<dt>TransferDone</dt><dd><p>A file transfer to the printer’s SD has finished.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">time</span></code>: the time it took for the transfer to complete in seconds</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">local</span></code>: the file’s name as stored locally</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">remote</span></code>: the file’s name as stored on SD</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</div>
+<div class="section" id="printing">
+<span id="sec-events-available-events-printing"></span><h3><a class="toc-backref" href="#id9">Printing</a><a class="headerlink" href="#printing" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>PrintStarted</dt><dd><p>A print has started.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the file’s name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: the file’s path within its storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">origin</span></code>: the origin storage location of the file, either <code class="docutils literal notranslate"><span class="pre">local</span></code> or <code class="docutils literal notranslate"><span class="pre">sdcard</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: the file’s size in bytes (if available)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">owner</span></code>: the user who started the print job (if available)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>: the user who started the print job (if available)</p></li>
+</ul>
+</div></blockquote>
+<div class="deprecated">
+<ul>
+<span class="versionmodified deprecated">Deprecated since version 1.3.0: </span><li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: the file’s full path on disk (<code class="docutils literal notranslate"><span class="pre">local</span></code>) or within its storage (<code class="docutils literal notranslate"><span class="pre">sdcard</span></code>). To be removed in 1.4.0.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: the file’s name.  To be removed in 1.4.0.</p></li>
+</ul>
+</div>
+</dd>
+<dt>PrintFailed</dt><dd><p>A print failed.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the file’s name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: the file’s path within its storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">origin</span></code>: the origin storage location of the file, either <code class="docutils literal notranslate"><span class="pre">local</span></code> or <code class="docutils literal notranslate"><span class="pre">sdcard</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: the file’s size in bytes (if available)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">owner</span></code>: the user who started the print job (if available)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time</span></code>: the elapsed time of the print when it failed, in seconds (float)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reason</span></code>: the reason the print failed, either <code class="docutils literal notranslate"><span class="pre">cancelled</span></code> or <code class="docutils literal notranslate"><span class="pre">error</span></code></p></li>
+</ul>
+</div></blockquote>
+<div class="deprecated">
+<ul>
+<span class="versionmodified deprecated">Deprecated since version 1.3.0: </span><li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: the file’s full path on disk (<code class="docutils literal notranslate"><span class="pre">local</span></code>) or within its storage (<code class="docutils literal notranslate"><span class="pre">sdcard</span></code>). To be removed in 1.4.0.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: the file’s name.  To be removed in 1.4.0.</p></li>
+</ul>
+</div>
+</dd>
+<dt>PrintDone</dt><dd><p>A print completed successfully.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the file’s name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: the file’s path within its storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">origin</span></code>: the origin storage location of the file, either <code class="docutils literal notranslate"><span class="pre">local</span></code> or <code class="docutils literal notranslate"><span class="pre">sdcard</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: the file’s size in bytes (if available)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">owner</span></code>: the user who started the print job (if available)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time</span></code>: the time needed for the print, in seconds (float)</p></li>
+</ul>
+</div></blockquote>
+<div class="deprecated">
+<ul>
+<span class="versionmodified deprecated">Deprecated since version 1.3.0: </span><li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: the file’s full path on disk (<code class="docutils literal notranslate"><span class="pre">local</span></code>) or within its storage (<code class="docutils literal notranslate"><span class="pre">sdcard</span></code>). To be removed in 1.4.0.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: the file’s name.  To be removed in 1.4.0.</p></li>
+</ul>
+</div>
+</dd>
+<dt>PrintCancelling</dt><dd><p>The print is about to be cancelled.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the file’s name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: the file’s path within its storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">origin</span></code>: the origin storage location of the file, either <code class="docutils literal notranslate"><span class="pre">local</span></code> or <code class="docutils literal notranslate"><span class="pre">sdcard</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: the file’s size in bytes (if available)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">owner</span></code>: the user who started the print job (if available)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>: the user who cancelled the print job (if available)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">firmwareError</span></code>: the firmware error that caused cancelling the print job, if any</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>PrintCancelled</dt><dd><p>The print has been cancelled.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the file’s name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: the file’s path within its storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">origin</span></code>: the origin storage location of the file, either <code class="docutils literal notranslate"><span class="pre">local</span></code> or <code class="docutils literal notranslate"><span class="pre">sdcard</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: the file’s size in bytes (if available)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">owner</span></code>: the user who started the print job (if available)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time</span></code>: the elapsed time of the print when it was cancelled, in seconds (float)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>: the user who cancelled the print job (if available)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position</span></code>: the print head position at the time of cancelling (if available, not available if recording of the
+position on cancel is disabled)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position.x</span></code>: x coordinate, as reported back from the firmware through <cite>M114</cite></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position.y</span></code>: y coordinate, as reported back from the firmware through <cite>M114</cite></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position.z</span></code>: z coordinate, as reported back from the firmware through <cite>M114</cite></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position.e</span></code>: e coordinate (of currently selected extruder), as reported back from the firmware through <cite>M114</cite></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position.t</span></code>: last tool selected <em>through OctoPrint</em> (note that if you did change the printer’s selected
+tool outside of OctoPrint, e.g. through the printer controller, or if you are printing from SD, this will NOT
+be accurate)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position.f</span></code>: last feedrate for move commands <strong>sent through OctoPrint</strong> (note that if you modified the
+feedrate outside of OctoPrint, e.g. through the printer controller, or if you are printing from SD, this will
+NOT be accurate)</p></li>
+</ul>
+</div></blockquote>
+<div class="deprecated">
+<ul>
+<span class="versionmodified deprecated">Deprecated since version 1.3.0: </span><li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: the file’s full path on disk (<code class="docutils literal notranslate"><span class="pre">local</span></code>) or within its storage (<code class="docutils literal notranslate"><span class="pre">sdcard</span></code>). To be removed in 1.4.0.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: the file’s name. To be removed in 1.4.0.</p></li>
+</ul>
+</div>
+</dd>
+<dt>PrintPaused</dt><dd><p>The print has been paused.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the file’s name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: the file’s path within its storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">origin</span></code>: the origin storage location of the file, either <code class="docutils literal notranslate"><span class="pre">local</span></code> or <code class="docutils literal notranslate"><span class="pre">sdcard</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: the file’s size in bytes (if available)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">owner</span></code>: the user who started the print job (if available)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>: the user who paused the print job (if available)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position</span></code>: the print head position at the time of pausing (if available, not available if the recording of
+the position on pause is disabled or the pause is completely handled by the printer’s firmware)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position.x</span></code>: x coordinate, as reported back from the firmware through <cite>M114</cite></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position.y</span></code>: y coordinate, as reported back from the firmware through <cite>M114</cite></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position.z</span></code>: z coordinate, as reported back from the firmware through <cite>M114</cite></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position.e</span></code>: e coordinate (of currently selected extruder), as reported back from the firmware through <cite>M114</cite></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position.t</span></code>: last tool selected <em>through OctoPrint</em> (note that if you did change the printer’s selected
+tool outside of OctoPrint, e.g. through the printer controller, or if you are printing from SD, this will NOT
+be accurate)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position.f</span></code>: last feedrate for move commands <strong>sent through OctoPrint</strong> (note that if you modified the
+feedrate outside of OctoPrint, e.g. through the printer controller, or if you are printing from SD, this will
+NOT be accurate)</p></li>
+</ul>
+</div></blockquote>
+<div class="deprecated">
+<ul>
+<span class="versionmodified deprecated">Deprecated since version 1.3.0: </span><li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: the file’s full path on disk (<code class="docutils literal notranslate"><span class="pre">local</span></code>) or within its storage (<code class="docutils literal notranslate"><span class="pre">sdcard</span></code>). To be removed in 1.4.0.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: the file’s name. To be removed in 1.4.0.</p></li>
+</ul>
+</div>
+</dd>
+<dt>PrintResumed</dt><dd><p>The print has been resumed.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the file’s name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: the file’s path within its storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">origin</span></code>: the origin storage location of the file, either <code class="docutils literal notranslate"><span class="pre">local</span></code> or <code class="docutils literal notranslate"><span class="pre">sdcard</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: the file’s size in bytes (if available)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">owner</span></code>: the user who started the print job (if available)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>: the user who resumed the print job (if available)</p></li>
+</ul>
+</div></blockquote>
+<div class="deprecated">
+<ul>
+<span class="versionmodified deprecated">Deprecated since version 1.3.0: </span><li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: the file’s full path on disk (<code class="docutils literal notranslate"><span class="pre">local</span></code>) or within its storage (<code class="docutils literal notranslate"><span class="pre">sdcard</span></code>). To be removed in 1.4.0.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: the file’s name. To be removed in 1.4.0.</p></li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="gcode-processing">
+<span id="sec-events-available-events-gcode-processing"></span><h3><a class="toc-backref" href="#id10">GCODE processing</a><a class="headerlink" href="#gcode-processing" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>PowerOn</dt><dd><p>An <code class="docutils literal notranslate"><span class="pre">M80</span></code> was sent to the printer through OctoPrint (not triggered when printing from SD!)</p>
+</dd>
+<dt>PowerOff</dt><dd><p>An <code class="docutils literal notranslate"><span class="pre">M81</span></code> was sent to the printer through OctoPrint (not triggered when printing from SD!)</p>
+</dd>
+<dt>Home</dt><dd><p>A <code class="docutils literal notranslate"><span class="pre">G28</span></code> was sent to the printer through OctoPrint (not triggered when printing from SD!)</p>
+</dd>
+<dt>ZChange</dt><dd><p>The printer’s Z-Height has changed (new layer) through a <code class="docutils literal notranslate"><span class="pre">G0</span></code> or <code class="docutils literal notranslate"><span class="pre">G1</span></code> that was sent to the printer through OctoPrint
+(not triggered when printing from SD!)</p>
+</dd>
+<dt>Dwell</dt><dd><p>A <code class="docutils literal notranslate"><span class="pre">G4</span></code> was sent to the printer through OctoPrint (not triggered when printing from SD!)</p>
+</dd>
+<dt>Waiting</dt><dd><p>One of the following commands was sent to the printer through OctoPrint (not triggered when printing from SD!):
+<code class="docutils literal notranslate"><span class="pre">M0</span></code>, <code class="docutils literal notranslate"><span class="pre">M1</span></code>, <code class="docutils literal notranslate"><span class="pre">M226</span></code></p>
+</dd>
+<dt>Cooling</dt><dd><p>An <code class="docutils literal notranslate"><span class="pre">M245</span></code> was sent to the printer through OctoPrint (not triggered when printing from SD!)</p>
+</dd>
+<dt>Alert</dt><dd><p>An <code class="docutils literal notranslate"><span class="pre">M300</span></code> was sent to the printer through OctoPrint (not triggered when printing from SD!)</p>
+</dd>
+<dt>Conveyor</dt><dd><p>An <code class="docutils literal notranslate"><span class="pre">M240</span></code> was sent to the printer through OctoPrint (not triggered when printing from SD!)</p>
+</dd>
+<dt>Eject</dt><dd><p>An <code class="docutils literal notranslate"><span class="pre">M40</span></code> was sent to the printer through OctoPrint (not triggered when printing from SD!)</p>
+</dd>
+<dt>EStop</dt><dd><p>An <code class="docutils literal notranslate"><span class="pre">M112</span></code> was sent to the printer through OctoPrint (not triggered when printing from SD!)</p>
+</dd>
+<dt>PositionUpdate</dt><dd><p>The response to an <code class="docutils literal notranslate"><span class="pre">M114</span></code> was received by OctoPrint. The payload contains the current position information
+parsed from the response and (in the case of the selected tool <code class="docutils literal notranslate"><span class="pre">t</span></code> and the current feedrate <code class="docutils literal notranslate"><span class="pre">f</span></code>) tracked
+by OctoPrint.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: x coordinate, parsed from response</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code>: y coordinate, parsed from response</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code>: z coordinate, parsed from response</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">e</span></code>: e coordinate, parsed from response</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t</span></code>: last tool selected <em>through OctoPrint</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code>: last feedrate for move commands <code class="docutils literal notranslate"><span class="pre">G0</span></code>, <code class="docutils literal notranslate"><span class="pre">G1</span></code> or <code class="docutils literal notranslate"><span class="pre">G28</span></code> sent <em>through OctoPrint</em></p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>ToolChange</dt><dd><p>A tool change command was sent to the printer. The payload contains the former current tool index and the
+new current tool index.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">old</span></code>: old tool index</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">new</span></code>: new tool index</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</div>
+<div class="section" id="timelapses">
+<span id="sec-events-available-events-timelapses"></span><h3><a class="toc-backref" href="#id11">Timelapses</a><a class="headerlink" href="#timelapses" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>CaptureStart</dt><dd><p>A timelapse frame has started to be captured.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: the name of the image file to be saved</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>CaptureDone</dt><dd><p>A timelapse frame has completed being captured.</p>
+<dl class="simple">
+<dt>Payload:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: the name of the image file that was saved</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>CaptureFailed</dt><dd><p>A timelapse frame could not be captured.</p>
+<dl class="simple">
+<dt>Payload:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: the name of the image file that should have been saved</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">error</span></code>: the error that was caught</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>MovieRendering</dt><dd><p>The timelapse movie has started rendering.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gcode</span></code>: the GCODE file for which the timelapse would have been created (only the filename without the path)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">movie</span></code>: the movie file that is being created (full path)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">movie_basename</span></code>: the movie file that is being created (only the file name without the path)</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>MovieDone</dt><dd><p>The timelapse movie is completed.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gcode</span></code>: the GCODE file for which the timelapse would have been created (only the filename without the path)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">movie</span></code>: the movie file that has been created (full path)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">movie_basename</span></code>: the movie file that has been created (only the file name without the path)</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>MovieFailed</dt><dd><p>There was an error while rendering the timelapse movie.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gcode</span></code>: the GCODE file for which the timelapse would have been created (only the filename without the path)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">movie</span></code>: the movie file that would have been created (full path)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">movie_basename</span></code>: the movie file that would have been created (only the file name without the path)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">returncode</span></code>: the return code of <code class="docutils literal notranslate"><span class="pre">ffmpeg</span></code> that indicates the error that occurred</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reason</span></code>: additional machine processable reason string - can be <code class="docutils literal notranslate"><span class="pre">returncode</span></code> if ffmpeg
+returned a non-0 return code, <code class="docutils literal notranslate"><span class="pre">no_frames</span></code> if no frames were captured that could be rendered
+to a timelapse, or <code class="docutils literal notranslate"><span class="pre">unknown</span></code> for any other reason of failure to render.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</div>
+<div class="section" id="slicing">
+<span id="sec-events-available-events-slicing"></span><h3><a class="toc-backref" href="#id12">Slicing</a><a class="headerlink" href="#slicing" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>SlicingStarted</dt><dd><p>The slicing of a file has started.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">slicer</span></code>: the used slicer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stl</span></code>: the STL’s filename</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stl_location</span></code>: the STL’s location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcode</span></code>: the sliced GCODE’s filename</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcode_location</span></code>: the sliced GCODE’s location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">progressAvailable</span></code>: true if progress information via the <code class="docutils literal notranslate"><span class="pre">slicingProgress</span></code> push update will be available, false if not</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>SlicingDone</dt><dd><p>The slicing of a file has completed.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">slicer</span></code>: the used slicer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stl</span></code>: the STL’s filename</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stl_location</span></code>: the STL’s location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcode</span></code>: the sliced GCODE’s filename</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcode_location</span></code>: the sliced GCODE’s location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time</span></code>: the time needed for slicing, in seconds (float)</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>SlicingCancelled</dt><dd><p>The slicing of a file has been cancelled. This will happen if a second slicing job
+targeting the same GCODE file has been started by the user.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">slicer</span></code>: the used slicer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stl</span></code>: the STL’s filename</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stl_location</span></code>: the STL’s location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcode</span></code>: the sliced GCODE’s filename</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcode_location</span></code>: the sliced GCODE’s location</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>SlicingFailed</dt><dd><p>The slicing of a file has failed.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">slicer</span></code>: the used slicer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stl</span></code>: the STL’s filename</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stl_location</span></code>: the STL’s location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcode</span></code>: the sliced GCODE’s filename</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcode_location</span></code>: the sliced GCODE’s location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reason</span></code>: the reason for the slicing having failed</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>SlicingProfileAdded</dt><dd><p>A new slicing profile was added.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">slicer</span></code>: the slicer for which the profile was added</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">profile</span></code>: the profile that was added</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>SlicingProfileModified</dt><dd><p>A slicing profile was modified.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">slicer</span></code>: the slicer for which the profile was modified</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">profile</span></code>: the profile that was modified</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>SlicingProfileDeleted</dt><dd><p>A slicing profile was deleted.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">slicer</span></code>: the slicer for which the profile was deleted</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">profile</span></code>: the profile that was deleted</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</div>
+<div class="section" id="settings">
+<span id="sec-events-available-events-settings"></span><h3><a class="toc-backref" href="#id13">Settings</a><a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>SettingsUpdated</dt><dd><p>The settings were updated via the REST API.</p>
+<p>This event may also be triggered if calling code of <code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.settings.Settings.save</span></code> or
+<a class="reference internal" href="../modules/plugin.html#octoprint.plugin.PluginSettings.save" title="octoprint.plugin.PluginSettings.save"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.PluginSettings.save</span></code></a> sets the <code class="docutils literal notranslate"><span class="pre">trigger_event</span></code> parameter to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="printer-profile">
+<span id="sec-events-available-events-printer-profile"></span><h3><a class="toc-backref" href="#id14">Printer Profile</a><a class="headerlink" href="#printer-profile" title="Permalink to this headline">¶</a></h3>
+<dl>
+<dt>PrinterProfileModified</dt><dd><p>A printer profile was modified.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">identifier</span></code>: the identifier of the modified printer profile</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../development/index.html" class="btn btn-neutral float-right" title="Development" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../api/datamodel.html" class="btn btn-neutral float-left" title="Common data model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2020, Gina Häußge
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: maintenance
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.3.12/events/index.html">1.3.12</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.4.0/events/index.html">1.4.0</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/events/index.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/events/index.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/events/index.html">devel</a></dd>
+    </dl>
+  </div>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
