@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -201,21 +201,17 @@ ensure it really is an issue in OctoPrint itself and now caused by one of your i
 <p>There exist three ways to start OctoPrint in safe mode:</p>
 <blockquote>
 <div><ul>
-<li><p class="first">by selecting “Restart OctoPrint in safe mode” from the “System” menu,
+<li><p>by selecting “Restart OctoPrint in safe mode” from the “System” menu,
 if the “Restart OctoPrint” server command has been correctly configured (since OctoPrint 1.3.2,
-see <a class="reference internal" href="#fig-features-safemode-systemmenu"><span class="std std-numref">Fig. 3</span></a>)</p>
-</li>
-<li><p class="first">by setting the flag <code class="docutils literal notranslate"><span class="pre">server.startOnceInSafeMode</span></code> in <a class="reference internal" href="../configuration/config_yaml.html#sec-configuration-config-yaml"><span class="std std-ref">config.yaml</span></a>
+see <a class="reference internal" href="#fig-features-safemode-systemmenu"><span class="std std-numref">Fig. 3</span></a>)</p></li>
+<li><p>by setting the flag <code class="docutils literal notranslate"><span class="pre">server.startOnceInSafeMode</span></code> in <a class="reference internal" href="../configuration/config_yaml.html#sec-configuration-config-yaml"><span class="std std-ref">config.yaml</span></a>
 to <code class="docutils literal notranslate"><span class="pre">true</span></code> and restarting. To set this flag you have the following options:</p>
 <ul>
-<li><p class="first">from command line run <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">safemode</span></code> (since OctoPrint 1.3.6)</p>
-</li>
-<li><p class="first">from command line run <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">config</span> <span class="pre">set</span> <span class="pre">--bool</span> <span class="pre">server.startOnceInSafeMode</span> <span class="pre">true</span></code> (fixed in OctoPrint 1.3.6)</p>
-</li>
-<li><p class="first">use the <a class="reference external" href="http://plugins.octoprint.org/plugins/yamlpatcher/">Yamlpatcher Plugin</a> and enter &amp; apply the patch
-<code class="docutils literal notranslate"><span class="pre">[[&quot;set&quot;,</span> <span class="pre">&quot;server.startOnceInSafeMode&quot;,</span> <span class="pre">true]]</span></code></p>
-</li>
-<li><p class="first">edit <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> manually with a text editor, locate the <code class="docutils literal notranslate"><span class="pre">server</span></code> block if it already exists or create it
+<li><p>from command line run <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">safemode</span></code> (since OctoPrint 1.3.6)</p></li>
+<li><p>from command line run <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">config</span> <span class="pre">set</span> <span class="pre">--bool</span> <span class="pre">server.startOnceInSafeMode</span> <span class="pre">true</span></code> (fixed in OctoPrint 1.3.6)</p></li>
+<li><p>use the <a class="reference external" href="http://plugins.octoprint.org/plugins/yamlpatcher/">Yamlpatcher Plugin</a> and enter &amp; apply the patch
+<code class="docutils literal notranslate"><span class="pre">[[&quot;set&quot;,</span> <span class="pre">&quot;server.startOnceInSafeMode&quot;,</span> <span class="pre">true]]</span></code></p></li>
+<li><p>edit <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> manually with a text editor, locate the <code class="docutils literal notranslate"><span class="pre">server</span></code> block if it already exists or create it
 if it doesn’t and add <code class="docutils literal notranslate"><span class="pre">startOnceInSafeMode:</span> <span class="pre">true</span></code> to it:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># ...</span>
 <span class="nt">server</span><span class="p">:</span>
@@ -227,20 +223,19 @@ if it doesn’t and add <code class="docutils literal notranslate"><span class="
 </li>
 </ul>
 </li>
-<li><p class="first">by starting OctoPrint with the command line parameter <code class="docutils literal notranslate"><span class="pre">--safe</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">serve</span> <span class="pre">--safe</span></code> (don’t forget to
-shutdown OctoPrint first before doing this)</p>
-</li>
+<li><p>by starting OctoPrint with the command line parameter <code class="docutils literal notranslate"><span class="pre">--safe</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">serve</span> <span class="pre">--safe</span></code> (don’t forget to
+shutdown OctoPrint first before doing this)</p></li>
 </ul>
 </div></blockquote>
 <p>The last two options will have OctoPrint enable safe mode only for the next server start - once you
 restart OctoPrint again, safe mode will be disabled again.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><strong>OctoPi users</strong>: For you that’s <code class="docutils literal notranslate"><span class="pre">~/oprint/bin/octoprint</span></code> wherever it says just <code class="docutils literal notranslate"><span class="pre">octoprint</span></code>.</p>
+<p class="admonition-title">Note</p>
+<p><strong>OctoPi users</strong>: For you that’s <code class="docutils literal notranslate"><span class="pre">~/oprint/bin/octoprint</span></code> wherever it says just <code class="docutils literal notranslate"><span class="pre">octoprint</span></code>.</p>
 </div>
 <div class="figure align-center" id="id1">
 <span id="fig-features-safemode-systemmenu"></span><img alt="&quot;Restart OctoPrint in safe mode&quot; in the &quot;System&quot; menu" src="../_images/features-safemode-systemmenu.png" />
-<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">“Restart OctoPrint in safe mode” in the “System” menu</span></p>
+<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">“Restart OctoPrint in safe mode” in the “System” menu</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="differences-of-safe-mode-vs-normal-operation-mode">
@@ -248,26 +243,26 @@ restart OctoPrint again, safe mode will be disabled again.</p>
 <p>When OctoPrint is running in safe mode the following changes to its normal operation mode apply:</p>
 <blockquote>
 <div><ul class="simple">
-<li>OctoPrint will not enable any of the installed third party plugins. OctoPrint considers all plugins third
+<li><p>OctoPrint will not enable any of the installed third party plugins. OctoPrint considers all plugins third
 party plugins that do not ship with OctoPrint’s sources, so any plugins installed either via <cite>pip</cite> or
 into OctoPrint’s plugin folder at <code class="docutils literal notranslate"><span class="pre">~/.octoprint/plugins</span></code> (Linux), <code class="docutils literal notranslate"><span class="pre">%APPDATA%/OctoPrint/plugins</span></code> (Windows) and
-<code class="docutils literal notranslate"><span class="pre">~/Library/Application</span> <span class="pre">Support/OctoPrint/plugins</span></code> (macOS).</li>
-<li>OctoPrint will not enable any of the installed third party language packs. OctoPrint considers all language packs
+<code class="docutils literal notranslate"><span class="pre">~/Library/Application</span> <span class="pre">Support/OctoPrint/plugins</span></code> (macOS).</p></li>
+<li><p>OctoPrint will not enable any of the installed third party language packs. OctoPrint considers all language packs
 third party language packs that do not ship with OctoPrint’s sources, so any language plugins installed
 through the language pack manager within settings and/or stored in the language pack folder at
 <code class="docutils literal notranslate"><span class="pre">~/.octoprint/translations</span></code> (Linux), <code class="docutils literal notranslate"><span class="pre">%APPDATA%/OctoPrint/translations</span></code> (Windows) or
-<code class="docutils literal notranslate"><span class="pre">~/Library/Application</span> <span class="pre">Support/OctoPrint/translations</span></code> (macOS).</li>
-<li>OctoPrint will still allow to uninstall third party plugins through the built-in Plugin Manager.</li>
-<li>OctoPrint will still allow to disable (bundled) plugins that are still enabled.</li>
-<li>OctoPrint will not allow to enable third party plugins.</li>
-<li>OctoPrint will still allow to manage language packs.</li>
-<li>OctoPrint’s web interface will display a notification to remind you that it is running in
-safe mode.</li>
+<code class="docutils literal notranslate"><span class="pre">~/Library/Application</span> <span class="pre">Support/OctoPrint/translations</span></code> (macOS).</p></li>
+<li><p>OctoPrint will still allow to uninstall third party plugins through the built-in Plugin Manager.</p></li>
+<li><p>OctoPrint will still allow to disable (bundled) plugins that are still enabled.</p></li>
+<li><p>OctoPrint will not allow to enable third party plugins.</p></li>
+<li><p>OctoPrint will still allow to manage language packs.</p></li>
+<li><p>OctoPrint’s web interface will display a notification to remind you that it is running in
+safe mode.</p></li>
 </ul>
 </div></blockquote>
 <div class="figure align-center" id="id2">
 <span id="fig-features-safemode-notification"></span><img alt="Safe mode notification" src="../_images/features-safemode-notification.png" />
-<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Safe mode notification</span></p>
+<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Safe mode notification</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>

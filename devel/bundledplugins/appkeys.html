@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -213,15 +213,15 @@ on a user’s behalf, via confirmation of the user through OctoPrint’s web int
 on a per-user base as well as globally by administrators.</p>
 <div class="figure align-center" id="id10">
 <span id="fig-bundledplugins-appkeys-confirmation"></span><img alt="Confirmation" src="../_images/bundledplugins-appkeys-confirmation_prompt.png" />
-<p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">The plugin’s confirmation generated for a new application key request.</span></p>
+<p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">The plugin’s confirmation generated for a new application key request.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
 <div class="figure align-center" id="id11">
 <span id="fig-bundledplugins-appkeys-user-settings"></span><img alt="Key management via user settings" src="../_images/bundledplugins-appkeys-user_settings.png" />
-<p class="caption"><span class="caption-number">Fig. 11 </span><span class="caption-text">Users can manage the application specific API keys registered to their account via their user settings.</span></p>
+<p class="caption"><span class="caption-number">Fig. 11 </span><span class="caption-text">Users can manage the application specific API keys registered to their account via their user settings.</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </div>
 <div class="figure align-center" id="id12">
 <span id="fig-bundledplugins-appkeys-settings"></span><img alt="Global key management via settings" src="../_images/bundledplugins-appkeys-settings.png" />
-<p class="caption"><span class="caption-number">Fig. 12 </span><span class="caption-text">Administrators can manage all application specific API keys registered to any user.</span></p>
+<p class="caption"><span class="caption-number">Fig. 12 </span><span class="caption-text">Administrators can manage all application specific API keys registered to any user.</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
 </div>
 <div class="section" id="workflow">
 <span id="sec-bundledplugins-appkeys-workflow"></span><h2>Workflow<a class="headerlink" href="#workflow" title="Permalink to this headline">¶</a></h2>
@@ -229,22 +229,22 @@ on a per-user base as well as globally by administrators.</p>
 of the following steps:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>The User opens the App and gets prompted to enter or select an instance URL. Optionally (recommended!) the User also
-enters their username which is also their user ID into the App.</li>
-<li>The App <a class="reference internal" href="#sec-bundledplugins-appkeys-api-probe"><span class="std std-ref">probes for workflow support</span></a> on the Server. If this request
+<li><p>The User opens the App and gets prompted to enter or select an instance URL. Optionally (recommended!) the User also
+enters their username which is also their user ID into the App.</p></li>
+<li><p>The App <a class="reference internal" href="#sec-bundledplugins-appkeys-api-probe"><span class="std std-ref">probes for workflow support</span></a> on the Server. If this request
 doesn’t get an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> the App needs to direct the user to an alternative manual workflow
-(copy-paste API key) and abort this one. Otherwise it proceeds to the next step.</li>
-<li>The App sends a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-keyrequest"><span class="std std-ref">key request</span></a> to the Server to start the
-authorization process.</li>
-<li>The Server triggers a confirmation dialog for the User on the Webinterface and returns an endpoint to the
-App to poll for a decision in the <code class="docutils literal notranslate"><span class="pre">Location</span></code> header of an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a>.</li>
-<li>The App uses the obtained request specific endpoint to poll for a decision every second. An HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.3">202 Accepted</a>
-signals that no decision has been made yet.</li>
-<li>The User either accepts or denies the access request which makes the Webinterface send a
-<a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-decisionrequest"><span class="std std-ref">decision request</span></a> to the Server.</li>
-<li>If the User accepted the request, the App receives an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with an attached
+(copy-paste API key) and abort this one. Otherwise it proceeds to the next step.</p></li>
+<li><p>The App sends a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-keyrequest"><span class="std std-ref">key request</span></a> to the Server to start the
+authorization process.</p></li>
+<li><p>The Server triggers a confirmation dialog for the User on the Webinterface and returns an endpoint to the
+App to poll for a decision in the <code class="docutils literal notranslate"><span class="pre">Location</span></code> header of an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a>.</p></li>
+<li><p>The App uses the obtained request specific endpoint to poll for a decision every second. An HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.3">202 Accepted</a>
+signals that no decision has been made yet.</p></li>
+<li><p>The User either accepts or denies the access request which makes the Webinterface send a
+<a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-decisionrequest"><span class="std std-ref">decision request</span></a> to the Server.</p></li>
+<li><p>If the User accepted the request, the App receives an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with an attached
 <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-keyresponse"><span class="std std-ref">API key response</span></a>. If they deny it, the App will receive
-an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a>.</li>
+an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a>.</p></li>
 </ol>
 </div></blockquote>
 <script>mermaid.initialize({startOnLoad:true});</script><div class="mermaid">
@@ -308,31 +308,27 @@ an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/
 <span id="sec-bundledplugins-appkeys-api"></span><h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="probe-for-workflow-support">
 <span id="sec-bundledplugins-appkeys-api-probe"></span><h3>Probe for workflow support<a class="headerlink" href="#probe-for-workflow-support" title="Permalink to this headline">¶</a></h3>
-<dl class="get">
+<dl class="http get">
 <dt id="get--plugin-appkeys-probe">
-<code class="descname">GET </code><code class="descname">/plugin/appkeys/probe</code><a class="headerlink" href="#get--plugin-appkeys-probe" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">GET </code><code class="sig-name descname">/plugin/appkeys/probe</code><a class="headerlink" href="#get--plugin-appkeys-probe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Probes for support of the workflow.</p>
 <p>Normally returns an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a>, indicating workflow availability. If a different status code is returned
 (usually an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a>), the plugin is disabled or not installed. Fall back to manual api key exchange.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – the workflow is supported</li>
+<dl class="field-list simple">
+<dt class="field-odd">Status Codes</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – the workflow is supported</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
 <div class="section" id="start-authorization-process">
 <span id="sec-bundledplugins-appkeys-api-startauthprocess"></span><h3>Start authorization process<a class="headerlink" href="#start-authorization-process" title="Permalink to this headline">¶</a></h3>
-<dl class="post">
+<dl class="http post">
 <dt id="post--plugin-appkeys-request">
-<code class="descname">POST </code><code class="descname">/plugin/appkeys/request</code><a class="headerlink" href="#post--plugin-appkeys-request" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">POST </code><code class="sig-name descname">/plugin/appkeys/request</code><a class="headerlink" href="#post--plugin-appkeys-request" title="Permalink to this definition">¶</a></dt>
 <dd><p>Starts the authorization process.</p>
 <p>Expects a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-keyrequest"><span class="std std-ref">Key request</span></a> as request body.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">app</span></code> parameter should be a human readable identifier to use
@@ -343,123 +339,104 @@ is left unset, any user will be able to complete the authorization process and g
 account. E.g. if a user <code class="docutils literal notranslate"><span class="pre">me</span></code> starts the process in an app, the app should request that name from the user and use
 it in the <code class="docutils literal notranslate"><span class="pre">user</span></code> parameter. OctoPrint will then only display the authorization request on browsers the user <code class="docutils literal notranslate"><span class="pre">me</span></code>
 is logged in on.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">JSON Parameters:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
-<li><strong>app</strong> – application identifier to use for the request, case insensitive</li>
-<li><strong>user</strong> – optional user id to restrict the decision to the specified user</li>
+<dl class="field-list simple">
+<dt class="field-odd">JSON Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>app</strong> – application identifier to use for the request, case insensitive</p></li>
+<li><p><strong>user</strong> – optional user id to restrict the decision to the specified user</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> – authorization process started, polling URL to query can be found in <code class="docutils literal notranslate"><span class="pre">Location</span></code> header</li>
+</dd>
+<dt class="field-even">Status Codes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> – authorization process started, polling URL to query can be found in <code class="docutils literal notranslate"><span class="pre">Location</span></code> header</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
 <div class="section" id="poll-for-decision-on-existing-request">
 <span id="sec-bundledplugins-appkeys-api-polldecision"></span><h3>Poll for decision on existing request<a class="headerlink" href="#poll-for-decision-on-existing-request" title="Permalink to this headline">¶</a></h3>
-<dl class="get">
+<dl class="http get">
 <dt id="get--plugin-appkeys-request--str-app_token-">
-<code class="descname">GET </code><code class="descname">/plugin/appkeys/request/&lt;str:app_token&gt;</code><a class="headerlink" href="#get--plugin-appkeys-request--str-app_token-" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">GET </code><code class="sig-name descname">/plugin/appkeys/request/&lt;str:app_token&gt;</code><a class="headerlink" href="#get--plugin-appkeys-request--str-app_token-" title="Permalink to this definition">¶</a></dt>
 <dd><p>Endpoint generated per authorization request to poll for the result.</p>
 <p>Returns an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.3">202 Accepted</a> while no decision has been made yet, an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> and
 a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-keyresponse"><span class="std std-ref">Key response</span></a> if access has been granted and an
 HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> if the request has been denied or timed out.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The request will be considered stale and deleted internally if the polling endpoint for it isn’t called
+<p class="admonition-title">Note</p>
+<p>The request will be considered stale and deleted internally if the polling endpoint for it isn’t called
 for more than 5s.</p>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – access granted, API key in response body</li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.3">202 Accepted</a> – no decision has been made yet, continue polling</li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – access denied or request timed out</li>
+<dl class="field-list simple">
+<dt class="field-odd">Status Codes</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – access granted, API key in response body</p></li>
+<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.3">202 Accepted</a> – no decision has been made yet, continue polling</p></li>
+<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – access denied or request timed out</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
 <div class="section" id="decide-on-existing-request">
 <span id="sec-bundledplugins-appkeys-api-decide"></span><h3>Decide on existing request<a class="headerlink" href="#decide-on-existing-request" title="Permalink to this headline">¶</a></h3>
-<dl class="post">
+<dl class="http post">
 <dt id="post--plugin-appkeys-decision--str-user_token-">
-<code class="descname">POST </code><code class="descname">/plugin/appkeys/decision/&lt;str:user_token&gt;</code><a class="headerlink" href="#post--plugin-appkeys-decision--str-user_token-" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">POST </code><code class="sig-name descname">/plugin/appkeys/decision/&lt;str:user_token&gt;</code><a class="headerlink" href="#post--plugin-appkeys-decision--str-user_token-" title="Permalink to this definition">¶</a></dt>
 <dd><p>Endpoint to decide on the authorization request.</p>
 <p>Expects a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-decisionrequest"><span class="std std-ref">Decision request</span></a> as request body.</p>
 <p>Returns an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> on success.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">JSON Parameters:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
-<li><strong>decision</strong> – boolean value to indicate whether to confirm (<code class="docutils literal notranslate"><span class="pre">True</span></code>) or deny (<code class="docutils literal notranslate"><span class="pre">False</span></code>) access</li>
+<dl class="field-list simple">
+<dt class="field-odd">JSON Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decision</strong> – boolean value to indicate whether to confirm (<code class="docutils literal notranslate"><span class="pre">True</span></code>) or deny (<code class="docutils literal notranslate"><span class="pre">False</span></code>) access</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – success</li>
+</dd>
+<dt class="field-even">Status Codes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – success</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
 <div class="section" id="fetch-list-of-existing-application-keys">
 <span id="sec-bundledplugins-appkeys-api-fetchlist"></span><h3>Fetch list of existing application keys<a class="headerlink" href="#fetch-list-of-existing-application-keys" title="Permalink to this headline">¶</a></h3>
-<dl class="get">
+<dl class="http get">
 <dt id="get--api-plugin-appkeys">
-<code class="descname">GET </code><code class="descname">/api/plugin/appkeys</code><a class="headerlink" href="#get--api-plugin-appkeys" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">GET </code><code class="sig-name descname">/api/plugin/appkeys</code><a class="headerlink" href="#get--api-plugin-appkeys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetches a list of existing application keys and pending requests registered in the system for the current user.</p>
 <p>If the additional optional parameter <code class="docutils literal notranslate"><span class="pre">all</span></code> is provided and the user has administrator rights, fetches a list
 of <em>all*</em> application keys and pending requests registered in the system for any user.</p>
 <p>Returns a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-listreponse"><span class="std std-ref">List response</span></a> in the
 body upon success.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first last simple">
-<li><strong>all</strong> – Fetch all application keys and pending requests from all users. Requires administrator rights.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Query Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>all</strong> – Fetch all application keys and pending requests from all users. Requires administrator rights.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
 <div class="section" id="issue-an-application-key-command">
 <span id="sec-bundledplugins-appkeys-api-issuecommand"></span><h3>Issue an application key command<a class="headerlink" href="#issue-an-application-key-command" title="Permalink to this headline">¶</a></h3>
-<dl class="post">
+<dl class="http post">
 <dt id="post--api-plugin-appkeys">
-<code class="descname">POST </code><code class="descname">/api/plugin/appkeys</code><a class="headerlink" href="#post--api-plugin-appkeys" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">POST </code><code class="sig-name descname">/api/plugin/appkeys</code><a class="headerlink" href="#post--api-plugin-appkeys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Application key commands allow revoking existing application keys and manually generating new ones. The available
 commands are:</p>
-<dl class="docutils">
-<dt>revoke</dt>
-<dd>Revokes an existing application key. Must belong to the user issuing the command, unless the user has admin rights
-in which case they make revoke any application key in the system. Expects the key in question as parameter <code class="docutils literal notranslate"><span class="pre">key</span></code>.</dd>
-<dt>generate</dt>
-<dd>Generates a new application key for the user, using the application identifier provided as parameter <code class="docutils literal notranslate"><span class="pre">app</span></code>.</dd>
+<dl class="simple">
+<dt>revoke</dt><dd><p>Revokes an existing application key. Must belong to the user issuing the command, unless the user has admin rights
+in which case they make revoke any application key in the system. Expects the key in question as parameter <code class="docutils literal notranslate"><span class="pre">key</span></code>.</p>
+</dd>
+<dt>generate</dt><dd><p>Generates a new application key for the user, using the application identifier provided as parameter <code class="docutils literal notranslate"><span class="pre">app</span></code>.</p>
+</dd>
 </dl>
 <p>Upon success, a status code of <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> and an empty body is returned.</p>
 <p>Requires user rights.</p>
@@ -495,26 +472,21 @@ in which case they make revoke any application key in the system. Expects the ke
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">JSON Parameters:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
-<li><strong>command</strong> (<em>string</em>) – The command to issue, either <code class="docutils literal notranslate"><span class="pre">revoke</span></code> or <code class="docutils literal notranslate"><span class="pre">generate</span></code></li>
-<li><strong>key</strong> (<em>string</em>) – <code class="docutils literal notranslate"><span class="pre">revoke</span></code> command: The key to revoke</li>
-<li><strong>app</strong> (<em>string</em>) – <code class="docutils literal notranslate"><span class="pre">generate</span></code> command: Application identifier for which to generate a key</li>
+<dl class="field-list simple">
+<dt class="field-odd">JSON Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> (<em>string</em>) – The command to issue, either <code class="docutils literal notranslate"><span class="pre">revoke</span></code> or <code class="docutils literal notranslate"><span class="pre">generate</span></code></p></li>
+<li><p><strong>key</strong> (<em>string</em>) – <code class="docutils literal notranslate"><span class="pre">revoke</span></code> command: The key to revoke</p></li>
+<li><p><strong>app</strong> (<em>string</em>) – <code class="docutils literal notranslate"><span class="pre">generate</span></code> command: Application identifier for which to generate a key</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No error</li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid or missing parameter</li>
+</dd>
+<dt class="field-even">Status Codes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No error</p></li>
+<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid or missing parameter</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -523,180 +495,180 @@ in which case they make revoke any application key in the system. Expects the ke
 <span id="sec-bundledplugins-appkey-datamodel"></span><h2>Data model<a class="headerlink" href="#data-model" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="key-request">
 <span id="sec-bundledplugins-appkey-datamodel-keyrequest"></span><h3>Key request<a class="headerlink" href="#key-request" title="Permalink to this headline">¶</a></h3>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="25%" />
-<col width="8%" />
-<col width="17%" />
-<col width="50%" />
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Multiplicity</th>
-<th class="head">Type</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">app</span></code></td>
-<td>1</td>
-<td>str</td>
-<td>Application identifier to use for the request</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">app</span></code></p></td>
+<td><p>1</p></td>
+<td><p>str</p></td>
+<td><p>Application identifier to use for the request</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">user</span></code></td>
-<td>0..1</td>
-<td>str</td>
-<td>User identifier/name to restrict the request to</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">user</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p>str</p></td>
+<td><p>User identifier/name to restrict the request to</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="key-response">
 <span id="sec-bundledplugins-appkey-datamodel-keyresponse"></span><h3>Key response<a class="headerlink" href="#key-response" title="Permalink to this headline">¶</a></h3>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="25%" />
-<col width="8%" />
-<col width="17%" />
-<col width="50%" />
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Multiplicity</th>
-<th class="head">Type</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">apikey</span></code></td>
-<td>1</td>
-<td>str</td>
-<td>the API key generated for the application</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">apikey</span></code></p></td>
+<td><p>1</p></td>
+<td><p>str</p></td>
+<td><p>the API key generated for the application</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="decision-request">
 <span id="sec-bundledplugins-appkey-datamodel-decisionrequest"></span><h3>Decision request<a class="headerlink" href="#decision-request" title="Permalink to this headline">¶</a></h3>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="25%" />
-<col width="8%" />
-<col width="17%" />
-<col width="50%" />
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Multiplicity</th>
-<th class="head">Type</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">decision</span></code></td>
-<td>1</td>
-<td>boolean</td>
-<td><code class="docutils literal notranslate"><span class="pre">True</span></code> if the access request it to be granted, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">decision</span></code></p></td>
+<td><p>1</p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the access request it to be granted, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="list-response">
 <span id="sec-bundledplugins-appkey-datamodel-listreponse"></span><h3>List response<a class="headerlink" href="#list-response" title="Permalink to this headline">¶</a></h3>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="25%" />
-<col width="8%" />
-<col width="17%" />
-<col width="50%" />
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Multiplicity</th>
-<th class="head">Type</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">keys</span></code></td>
-<td>1</td>
-<td>list of <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-keylistentry"><span class="std std-ref">key list entries</span></a></td>
-<td>Keys registered in the system</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">keys</span></code></p></td>
+<td><p>1</p></td>
+<td><p>list of <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-keylistentry"><span class="std std-ref">key list entries</span></a></p></td>
+<td><p>Keys registered in the system</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">pending</span></code></td>
-<td>1</td>
-<td>list of <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-pendinglistentry"><span class="std std-ref">pending list entries</span></a></td>
-<td>Currently pending authorization requests</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pending</span></code></p></td>
+<td><p>1</p></td>
+<td><p>list of <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-pendinglistentry"><span class="std std-ref">pending list entries</span></a></p></td>
+<td><p>Currently pending authorization requests</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="key-list-entry">
 <span id="sec-bundledplugins-appkey-datamodel-keylistentry"></span><h3>Key list entry<a class="headerlink" href="#key-list-entry" title="Permalink to this headline">¶</a></h3>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="25%" />
-<col width="8%" />
-<col width="17%" />
-<col width="50%" />
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Multiplicity</th>
-<th class="head">Type</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">api_key</span></code></td>
-<td>1</td>
-<td>str</td>
-<td>API key</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">api_key</span></code></p></td>
+<td><p>1</p></td>
+<td><p>str</p></td>
+<td><p>API key</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">app_id</span></code></td>
-<td>1</td>
-<td>str</td>
-<td>Application identifier</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">app_id</span></code></p></td>
+<td><p>1</p></td>
+<td><p>str</p></td>
+<td><p>Application identifier</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">user_id</span></code></td>
-<td>1</td>
-<td>str</td>
-<td>User ID of the key’s owner</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">user_id</span></code></p></td>
+<td><p>1</p></td>
+<td><p>str</p></td>
+<td><p>User ID of the key’s owner</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="pending-list-entry">
 <span id="sec-bundledplugins-appkey-datamodel-pendinglistentry"></span><h3>Pending list entry<a class="headerlink" href="#pending-list-entry" title="Permalink to this headline">¶</a></h3>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="25%" />
-<col width="8%" />
-<col width="17%" />
-<col width="50%" />
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Multiplicity</th>
-<th class="head">Type</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">app_id</span></code></td>
-<td>1</td>
-<td>str</td>
-<td>Application identifier</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">app_id</span></code></p></td>
+<td><p>1</p></td>
+<td><p>str</p></td>
+<td><p>Application identifier</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">user_id</span></code></td>
-<td>0..1</td>
-<td>str</td>
-<td>optional: User ID of user who can grant or deny request</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">user_id</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p>str</p></td>
+<td><p>optional: User ID of user who can grant or deny request</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">user_token</span></code></td>
-<td>1</td>
-<td>str</td>
-<td>Token to grant or deny request</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">user_token</span></code></p></td>
+<td><p>1</p></td>
+<td><p>str</p></td>
+<td><p>Token to grant or deny request</p></td>
 </tr>
 </tbody>
 </table>
@@ -704,213 +676,168 @@ in which case they make revoke any application key in the system. Expects the ke
 </div>
 <div class="section" id="javascript-client-library">
 <span id="sec-bundledplugins-appkeys-jsclientlib"></span><h2>JavaScript Client Library<a class="headerlink" href="#javascript-client-library" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.getKeys">
-<code class="descclassname">OctoPrintClient.plugins.appkeys.</code><code class="descname">getKeys</code><span class="sig-paren">(</span><em>opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getKeys" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">getKeys</code><span class="sig-paren">(</span><em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getKeys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves registered keys and pending requests for the current user.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-fetchlist"><span class="std std-ref">Fetch list of existing application keys</span></a> for more details.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>opts</strong> (<em>object</em>) – Additional options for the request</li>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Returns Promise:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last">A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.getAllKeys">
-<code class="descclassname">OctoPrintClient.plugins.appkeys.</code><code class="descname">getAllKeys</code><span class="sig-paren">(</span><em>opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getAllKeys" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">getAllKeys</code><span class="sig-paren">(</span><em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getAllKeys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves registered keys and pending requests for all users.</p>
 <p>Needs administrator rights.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-fetchlist"><span class="std std-ref">Fetch list of existing application keys</span></a> for more details.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>opts</strong> (<em>object</em>) – Additional options for the request</li>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Returns Promise:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last">A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.generateKey">
-<code class="descclassname">OctoPrintClient.plugins.appkeys.</code><code class="descname">generateKey</code><span class="sig-paren">(</span><em>app</em>, <em>opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.generateKey" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">generateKey</code><span class="sig-paren">(</span><em class="sig-param">app</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.generateKey" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a key for the given <code class="docutils literal notranslate"><span class="pre">app</span></code> and the current user.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-issuecommand"><span class="std std-ref">Issue an application key command</span></a> for details.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>app</strong> (<em>string</em>) – Application identifier</li>
-<li><strong>opts</strong> (<em>object</em>) – Additional options for the request</li>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>app</strong> (<em>string</em>) – Application identifier</p></li>
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Returns Promise:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last">A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.revokeKey">
-<code class="descclassname">OctoPrintClient.plugins.appkeys.</code><code class="descname">revokeKey</code><span class="sig-paren">(</span><em>key</em>, <em>opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.revokeKey" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">revokeKey</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.revokeKey" title="Permalink to this definition">¶</a></dt>
 <dd><p>Revokes the given <code class="docutils literal notranslate"><span class="pre">key</span></code>. The key must belong to the current user, or the current user must have administrator
 rights.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-issuecommand"><span class="std std-ref">Issue an application key command</span></a> for details.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>key</strong> (<em>string</em>) – Key to revoke</li>
-<li><strong>opts</strong> (<em>object</em>) – Additional options for the request</li>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>string</em>) – Key to revoke</p></li>
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Returns Promise:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last">A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.decide">
-<code class="descclassname">OctoPrintClient.plugins.appkeys.</code><code class="descname">decide</code><span class="sig-paren">(</span><em>token</em>, <em>decision</em>, <em>opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.decide" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">decide</code><span class="sig-paren">(</span><em class="sig-param">token</em>, <em class="sig-param">decision</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.decide" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decides on an existing authorization request.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-decide"><span class="std std-ref">Decide on existing request</span></a> for more details.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>token</strong> (<em>string</em>) – User token for which to make the decision, as pushed to the client via the socket.</li>
-<li><strong>decision</strong> (<em>boolean</em>) – Whether to grant access (<code class="docutils literal notranslate"><span class="pre">true</span></code>) or not (<code class="docutils literal notranslate"><span class="pre">false</span></code>).</li>
-<li><strong>opts</strong> (<em>object</em>) – Additional options for the request</li>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>token</strong> (<em>string</em>) – User token for which to make the decision, as pushed to the client via the socket.</p></li>
+<li><p><strong>decision</strong> (<em>boolean</em>) – Whether to grant access (<code class="docutils literal notranslate"><span class="pre">true</span></code>) or not (<code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></li>
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Returns Promise:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last">A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.probe">
-<code class="descclassname">OctoPrintClient.plugins.appkeys.</code><code class="descname">probe</code><span class="sig-paren">(</span><em>opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.probe" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">probe</code><span class="sig-paren">(</span><em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.probe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Probes for workflow support.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-probe"><span class="std std-ref">Probe for workflow support</span></a> for more details.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>opts</strong> (<em>object</em>) – Additional options for the request</li>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Returns Promise:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last">A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.request">
-<code class="descclassname">OctoPrintClient.plugins.appkeys.</code><code class="descname">request</code><span class="sig-paren">(</span><em>app</em>, <em>opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.request" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">request</code><span class="sig-paren">(</span><em class="sig-param">app</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.request" title="Permalink to this definition">¶</a></dt>
 <dd><p>Starts a new authorization request for the provided <code class="docutils literal notranslate"><span class="pre">app</span></code> identifier.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-startauthprocess"><span class="std std-ref">Start authorization process</span></a> for more details.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>opts</strong> (<em>object</em>) – Additional options for the request</li>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Returns Promise:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last">A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.requestForUser">
-<code class="descclassname">OctoPrintClient.plugins.appkeys.</code><code class="descname">requestForUser</code><span class="sig-paren">(</span><em>app</em>, <em>user</em>, <em>opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.requestForUser" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">requestForUser</code><span class="sig-paren">(</span><em class="sig-param">app</em>, <em class="sig-param">user</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.requestForUser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Starts a new authorization request for the provided <code class="docutils literal notranslate"><span class="pre">app</span></code> and <code class="docutils literal notranslate"><span class="pre">user</span></code> identifiers.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-startauthprocess"><span class="std std-ref">Start authorization process</span></a> for more details.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>opts</strong> (<em>object</em>) – Additional options for the request</li>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Returns Promise:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last">A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.checkDecision">
-<code class="descclassname">OctoPrintClient.plugins.appkeys.</code><code class="descname">checkDecision</code><span class="sig-paren">(</span><em>token</em>, <em>opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.checkDecision" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">checkDecision</code><span class="sig-paren">(</span><em class="sig-param">token</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.checkDecision" title="Permalink to this definition">¶</a></dt>
 <dd><p>Polls for a decision on an existing authorization request identified by <code class="docutils literal notranslate"><span class="pre">token</span></code>.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-polldecision"><span class="std std-ref">Poll for decision on existing request</span></a> for more details.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>opts</strong> (<em>object</em>) – Additional options for the request</li>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Returns Promise:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last">A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.authenticate">
-<code class="descclassname">OctoPrintClient.plugins.appkeys.</code><code class="descname">authenticate</code><span class="sig-paren">(</span><em>app</em>, <em>user</em>, <em>opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.authenticate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">authenticate</code><span class="sig-paren">(</span><em class="sig-param">app</em>, <em class="sig-param">user</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.authenticate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience function that probes for support, issues a request and then automatically starts polling for a decision
 on the returned polling endpoint every 1s, until either a positive or negative decision is returned. On success the
 returned promise is resolved with the generated API key as argument. If anything goes wrong or there is no support
@@ -925,23 +852,18 @@ for the workflow, the promise is rejected.</p>
     <span class="p">})</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>app</strong> (<em>string</em>) – Application identifier</li>
-<li><strong>user</strong> (<em>string</em>) – Optional user identifier</li>
-<li><strong>opts</strong> (<em>object</em>) – Additional options for the request</li>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>app</strong> (<em>string</em>) – Application identifier</p></li>
+<li><p><strong>user</strong> (<em>string</em>) – Optional user identifier</p></li>
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Returns Promise:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last">A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

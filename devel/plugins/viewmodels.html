@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -195,12 +195,13 @@
 <span id="sec-plugins-viewmodels"></span><h1>Viewmodels<a class="headerlink" href="#viewmodels" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#registering-custom-viewmodels" id="id2">Registering custom viewmodels</a></li>
-<li><a class="reference internal" href="#dependencies" id="id3">Dependencies</a></li>
-<li><a class="reference internal" href="#callbacks" id="id4">Callbacks</a></li>
-<li><a class="reference internal" href="#lifecycle-diagrams" id="id5">Lifecycle diagrams</a><ul>
-<li><a class="reference internal" href="#web-interface-startup" id="id6">Web interface startup</a></li>
-<li><a class="reference internal" href="#web-interface-reconnect" id="id7">Web interface reconnect</a></li>
+<li><p><a class="reference internal" href="#registering-custom-viewmodels" id="id2">Registering custom viewmodels</a></p></li>
+<li><p><a class="reference internal" href="#dependencies" id="id3">Dependencies</a></p></li>
+<li><p><a class="reference internal" href="#callbacks" id="id4">Callbacks</a></p></li>
+<li><p><a class="reference internal" href="#lifecycle-diagrams" id="id5">Lifecycle diagrams</a></p>
+<ul>
+<li><p><a class="reference internal" href="#web-interface-startup" id="id6">Web interface startup</a></p></li>
+<li><p><a class="reference internal" href="#web-interface-reconnect" id="id7">Web interface reconnect</a></p></li>
 </ul>
 </li>
 </ul>
@@ -211,28 +212,28 @@ in order to provide custom functionality.</p>
 <span id="sec-plugins-viewmodels-registering"></span><h2><a class="toc-backref" href="#id2">Registering custom viewmodels</a><a class="headerlink" href="#registering-custom-viewmodels" title="Permalink to this headline">¶</a></h2>
 <p>Register your view model with OctoPrint’s web app by pushing a config object unto the global array <code class="docutils literal notranslate"><span class="pre">OCTOPRINT_VIEWMODELS</span></code>.</p>
 <p>Possible properties in this config object are:</p>
-<dl class="docutils">
-<dt>construct</dt>
-<dd>Function to use for constructing the view model instance. Usually that will be the view model class, which acts as
-a constructor. This property is mandatory.</dd>
-<dt>name</dt>
-<dd>Name to register the view model under. If not provided, the name of the <code class="docutils literal notranslate"><span class="pre">construct</span></code> function will
+<dl class="simple">
+<dt>construct</dt><dd><p>Function to use for constructing the view model instance. Usually that will be the view model class, which acts as
+a constructor. This property is mandatory.</p>
+</dd>
+<dt>name</dt><dd><p>Name to register the view model under. If not provided, the name of the <code class="docutils literal notranslate"><span class="pre">construct</span></code> function will
 be used, turning the first letter lower case. If a view model under the same name already exists at time
-of construction, an error will be logged and the view model will not be instantiated.</dd>
-<dt>additionalNames</dt>
-<dd>A list of additional names to also register the view model under. Only those that do not already exist will be
-registered.</dd>
-<dt>dependencies</dt>
-<dd>List of dependencies the view model needs injected. If any of the view models in this list cannot be found,
+of construction, an error will be logged and the view model will not be instantiated.</p>
+</dd>
+<dt>additionalNames</dt><dd><p>A list of additional names to also register the view model under. Only those that do not already exist will be
+registered.</p>
+</dd>
+<dt>dependencies</dt><dd><p>List of dependencies the view model needs injected. If any of the view models in this list cannot be found,
 initialization of the view model will fail.  The parameters injected on instantiation will consist of first
-the <code class="docutils literal notranslate"><span class="pre">dependencies</span></code>, then the <code class="docutils literal notranslate"><span class="pre">optional</span></code> list concatenated.</dd>
-<dt>optional</dt>
-<dd>A list of optional dependencies the view model needs injected. If any of the view models in this list cannot be found,
+the <code class="docutils literal notranslate"><span class="pre">dependencies</span></code>, then the <code class="docutils literal notranslate"><span class="pre">optional</span></code> list concatenated.</p>
+</dd>
+<dt>optional</dt><dd><p>A list of optional dependencies the view model needs injected. If any of the view models in this list cannot be found,
 they will be <code class="docutils literal notranslate"><span class="pre">null</span></code> in the parameter list injected to the constructor on instantiation. The parameters injected on
-instantiation will consist of first the <code class="docutils literal notranslate"><span class="pre">dependencies</span></code>, then the <code class="docutils literal notranslate"><span class="pre">optional</span></code> list concatenated.</dd>
-<dt>elements</dt>
-<dd>A list of UI elements to bind to. Each binding target can be either a string which will then be passed to jQuery’s
-<code class="docutils literal notranslate"><span class="pre">$(...)</span></code> method to resolve the target, or alternatively directly a jQuery element</dd>
+instantiation will consist of first the <code class="docutils literal notranslate"><span class="pre">dependencies</span></code>, then the <code class="docutils literal notranslate"><span class="pre">optional</span></code> list concatenated.</p>
+</dd>
+<dt>elements</dt><dd><p>A list of UI elements to bind to. Each binding target can be either a string which will then be passed to jQuery’s
+<code class="docutils literal notranslate"><span class="pre">$(...)</span></code> method to resolve the target, or alternatively directly a jQuery element</p>
+</dd>
 </dl>
 <p>Example:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -265,7 +266,7 @@ a 3-tuple of constructor, dependencies and elements to bind to. Additional names
 and optional dependencies cannot be specified with this format. It should be considered deprecated. Still, an example
 of how that would look in practice is provided here as well:</p>
 <div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-number">Listing 16 </span><span class="caption-text">Old tuple-based configuration format, consider this deprecated</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 38 </span><span class="caption-text">Old tuple-based configuration format, consider this deprecated</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">function</span> <span class="nx">MyCustomViewModel</span><span class="p">(</span><span class="nx">parameters</span><span class="p">)</span> <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
@@ -294,52 +295,52 @@ perform multiple passes iterating over all registered view models and collecting
 construction. Circular dependencies (A depends on B, B on C, C on A) naturally cannot be resolved and will cause an
 error to be logged to the JavaScript console.</p>
 <p>OctoPrint’s core currently comes with the following view models that your plugin can request for injection:</p>
-<dl class="docutils">
-<dt>appearanceViewModel</dt>
-<dd>View model that holds the appearance settings (name, color and transparency flag).</dd>
-<dt>connectionViewModel</dt>
-<dd>View model for the connection sidebar entry.</dd>
-<dt>controlViewModel</dt>
-<dd>View model for the control tab.</dd>
-<dt>filesViewModel</dt>
-<dd>View model for the files sidebar entry. Also available under the deprecated name <code class="docutils literal notranslate"><span class="pre">gcodeFilesViewModel</span></code>.</dd>
-<dt>firstRunViewModel</dt>
-<dd>View model for the first run dialog.</dd>
-<dt>gcodeViewModel</dt>
-<dd>View model for the gcode viewer tab.</dd>
-<dt>gcodeFilesViewModel</dt>
-<dd>Deprecated in favor of <code class="docutils literal notranslate"><span class="pre">filesViewModel</span></code>.</dd>
-<dt>logViewModel</dt>
-<dd>View model for the logfile settings dialog.</dd>
-<dt>loginStateViewModel</dt>
-<dd>View model for the current login state of the user, very interesting for plugins that need to
-evaluate the current login state or information about the current user, e.g. associated roles.</dd>
-<dt>navigationViewModel</dt>
-<dd>View model for the navigation bar.</dd>
-<dt>printerProfilesViewModel</dt>
-<dd>View model for the printer profiles settings dialog.</dd>
-<dt>printerStateViewModel</dt>
-<dd>View model for the current printer state, very interesting for plugins that need
-to know information about the current print job, if the printer is connected, operational etc.</dd>
-<dt>settingsViewModel</dt>
-<dd>View model for the settings dialog, also holds all settings to be used by other view models, hence
-very interesting for plugins as well.</dd>
-<dt>slicingViewModel</dt>
-<dd>View model for the slicing dialog.</dd>
-<dt>temperatureViewModel</dt>
-<dd>View model for the temperature tab, also holds current temperature information which
-might be interesting for plugins.</dd>
-<dt>terminalViewModel</dt>
-<dd>View model for the terminal tab, also holds terminal log entries.</dd>
-<dt>timelapseViewModel</dt>
-<dd>View model for the timelapse tab.</dd>
-<dt>usersViewModel</dt>
-<dd>View model for the user management in the settings dialog.</dd>
-<dt>userSettingsViewModel</dt>
-<dd>View model for settings associated with the currently logged in user, used for
-the user settings dialog.</dd>
-<dt>wizardViewModel</dt>
-<dd>View model for the wizard dialog.</dd>
+<dl class="simple">
+<dt>appearanceViewModel</dt><dd><p>View model that holds the appearance settings (name, color and transparency flag).</p>
+</dd>
+<dt>connectionViewModel</dt><dd><p>View model for the connection sidebar entry.</p>
+</dd>
+<dt>controlViewModel</dt><dd><p>View model for the control tab.</p>
+</dd>
+<dt>filesViewModel</dt><dd><p>View model for the files sidebar entry. Also available under the deprecated name <code class="docutils literal notranslate"><span class="pre">gcodeFilesViewModel</span></code>.</p>
+</dd>
+<dt>firstRunViewModel</dt><dd><p>View model for the first run dialog.</p>
+</dd>
+<dt>gcodeViewModel</dt><dd><p>View model for the gcode viewer tab.</p>
+</dd>
+<dt>gcodeFilesViewModel</dt><dd><p>Deprecated in favor of <code class="docutils literal notranslate"><span class="pre">filesViewModel</span></code>.</p>
+</dd>
+<dt>logViewModel</dt><dd><p>View model for the logfile settings dialog.</p>
+</dd>
+<dt>loginStateViewModel</dt><dd><p>View model for the current login state of the user, very interesting for plugins that need to
+evaluate the current login state or information about the current user, e.g. associated roles.</p>
+</dd>
+<dt>navigationViewModel</dt><dd><p>View model for the navigation bar.</p>
+</dd>
+<dt>printerProfilesViewModel</dt><dd><p>View model for the printer profiles settings dialog.</p>
+</dd>
+<dt>printerStateViewModel</dt><dd><p>View model for the current printer state, very interesting for plugins that need
+to know information about the current print job, if the printer is connected, operational etc.</p>
+</dd>
+<dt>settingsViewModel</dt><dd><p>View model for the settings dialog, also holds all settings to be used by other view models, hence
+very interesting for plugins as well.</p>
+</dd>
+<dt>slicingViewModel</dt><dd><p>View model for the slicing dialog.</p>
+</dd>
+<dt>temperatureViewModel</dt><dd><p>View model for the temperature tab, also holds current temperature information which
+might be interesting for plugins.</p>
+</dd>
+<dt>terminalViewModel</dt><dd><p>View model for the terminal tab, also holds terminal log entries.</p>
+</dd>
+<dt>timelapseViewModel</dt><dd><p>View model for the timelapse tab.</p>
+</dd>
+<dt>usersViewModel</dt><dd><p>View model for the user management in the settings dialog.</p>
+</dd>
+<dt>userSettingsViewModel</dt><dd><p>View model for settings associated with the currently logged in user, used for
+the user settings dialog.</p>
+</dd>
+<dt>wizardViewModel</dt><dd><p>View model for the wizard dialog.</p>
+</dd>
 </dl>
 <p>Each plugin’s view model will be added to the view model map used for resolving dependencies as well, using
 the view model’s class name with a lower case first character as identifier (so “MyCustomViewModel” will be registered
@@ -350,88 +351,88 @@ config object, plus any configured <code class="docutils literal notranslate"><s
 <span id="sec-plugins-viewmodels-callbacks"></span><h2><a class="toc-backref" href="#id4">Callbacks</a><a class="headerlink" href="#callbacks" title="Permalink to this headline">¶</a></h2>
 <p>OctoPrint’s web application will call several callbacks on all registered view models, provided they implement them.
 Those are listed below:</p>
-<dl class="docutils">
-<dt>onStartup()</dt>
-<dd>Called when the first initialization has been done. All view models are constructed and hence their dependencies
-resolved, no bindings have been done yet.</dd>
-<dt>onBeforeBinding()</dt>
-<dd>Called per view model before attempting to bind it to its binding targets.</dd>
-<dt>onAfterBinding()</dt>
-<dd>Called per view model after binding it to its binding targets.</dd>
-<dt>onAllBound(allViewModels)</dt>
-<dd>Called after all view models have been bound, with the list of all view models as the single parameter.</dd>
-<dt>onStartupComplete()</dt>
-<dd>Called after the startup of the web app has been completed.</dd>
-<dt>onServerDisconnect()</dt>
-<dd>Called if a disconnect from the server is detected.</dd>
-<dt>onDataUpdaterReconnect()</dt>
-<dd>Called when the connection to the server has been reestablished after a disconnect.</dd>
-<dt>fromHistoryData(data)</dt>
-<dd>Called when history data is received from the server. Usually that happens only after initial connect in order to
-transmit the temperature and terminal log history to the connecting client. Called with the <code class="docutils literal notranslate"><span class="pre">data</span></code> as single parameter.</dd>
-<dt>fromCurrentData(data)</dt>
-<dd>Called when current printer status data is received from the server with the <code class="docutils literal notranslate"><span class="pre">data</span></code> as single parameter.</dd>
-<dt>onSlicingProgress(slicer, modelPath, machineCodePath, progress)</dt>
-<dd>Called on slicing progress, call rate is once per percentage point of the progress at maximum.</dd>
-<dt>onEvent&lt;EventName&gt;(payload)</dt>
-<dd>Called on firing of an event of type <code class="docutils literal notranslate"><span class="pre">EventName</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">onEventPrintDone</span></code>. See <a class="reference internal" href="../events/index.html#sec-events-available-events"><span class="std std-ref">the list of available events</span></a>
-for the possible events and their payloads.</dd>
-<dt>fromTimelapseData(data)</dt>
-<dd>Called when timelapse configuration data is received from the server. Usually that happens after initial connect.</dd>
-<dt>onDataUpdaterPluginMessage(plugin, message)</dt>
-<dd>Called when a plugin message is pushed from the server with the identifier of the calling plugin as first
+<dl class="simple">
+<dt>onStartup()</dt><dd><p>Called when the first initialization has been done. All view models are constructed and hence their dependencies
+resolved, no bindings have been done yet.</p>
+</dd>
+<dt>onBeforeBinding()</dt><dd><p>Called per view model before attempting to bind it to its binding targets.</p>
+</dd>
+<dt>onAfterBinding()</dt><dd><p>Called per view model after binding it to its binding targets.</p>
+</dd>
+<dt>onAllBound(allViewModels)</dt><dd><p>Called after all view models have been bound, with the list of all view models as the single parameter.</p>
+</dd>
+<dt>onStartupComplete()</dt><dd><p>Called after the startup of the web app has been completed.</p>
+</dd>
+<dt>onServerDisconnect()</dt><dd><p>Called if a disconnect from the server is detected.</p>
+</dd>
+<dt>onDataUpdaterReconnect()</dt><dd><p>Called when the connection to the server has been reestablished after a disconnect.</p>
+</dd>
+<dt>fromHistoryData(data)</dt><dd><p>Called when history data is received from the server. Usually that happens only after initial connect in order to
+transmit the temperature and terminal log history to the connecting client. Called with the <code class="docutils literal notranslate"><span class="pre">data</span></code> as single parameter.</p>
+</dd>
+<dt>fromCurrentData(data)</dt><dd><p>Called when current printer status data is received from the server with the <code class="docutils literal notranslate"><span class="pre">data</span></code> as single parameter.</p>
+</dd>
+<dt>onSlicingProgress(slicer, modelPath, machineCodePath, progress)</dt><dd><p>Called on slicing progress, call rate is once per percentage point of the progress at maximum.</p>
+</dd>
+<dt>onEvent&lt;EventName&gt;(payload)</dt><dd><p>Called on firing of an event of type <code class="docutils literal notranslate"><span class="pre">EventName</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">onEventPrintDone</span></code>. See <a class="reference internal" href="../events/index.html#sec-events-available-events"><span class="std std-ref">the list of available events</span></a>
+for the possible events and their payloads.</p>
+</dd>
+<dt>fromTimelapseData(data)</dt><dd><p>Called when timelapse configuration data is received from the server. Usually that happens after initial connect.</p>
+</dd>
+<dt>onDataUpdaterPluginMessage(plugin, message)</dt><dd><p>Called when a plugin message is pushed from the server with the identifier of the calling plugin as first
 and the actual message as the second parameter. Note that the latter might be a full fledged object, depending
 on the plugin sending the message. You can use this method to asynchronously push data from your plugin’s server
-component to its frontend component.</dd>
-<dt>onUserLoggedIn(user)</dt>
-<dd>Called when a user gets logged into the web app, either passively (upon initial load of the page due to a valid
+component to its frontend component.</p>
+</dd>
+<dt>onUserLoggedIn(user)</dt><dd><p>Called when a user gets logged into the web app, either passively (upon initial load of the page due to a valid
 “Remember Me” cookie) or due to an active completion of the login dialog. The user data of the just logged in user
-will be provided as only parameter.</dd>
-<dt>onUserLoggedOut()</dt>
-<dd>Called when a user gets logged out of the web app.</dd>
-<dt>onUserPermissionsChanged(user)</dt>
-<dd>Called when a change in the permissions of the current user is detected. The user data of the just logged in user
+will be provided as only parameter.</p>
+</dd>
+<dt>onUserLoggedOut()</dt><dd><p>Called when a user gets logged out of the web app.</p>
+</dd>
+<dt>onUserPermissionsChanged(user)</dt><dd><p>Called when a change in the permissions of the current user is detected. The user data of the just logged in user
 will be provided as only parameter. Note that this may also be triggered for not logged in guests if the guest
-group is modified. In this case <code class="docutils literal notranslate"><span class="pre">user</span></code> will be undefined.</dd>
-<dt>onTabChange(next, current)</dt>
-<dd>Called before the main tab view switches to a new tab, so <cite>before</cite> the new tab becomes visible. Called with the
+group is modified. In this case <code class="docutils literal notranslate"><span class="pre">user</span></code> will be undefined.</p>
+</dd>
+<dt>onTabChange(next, current)</dt><dd><p>Called before the main tab view switches to a new tab, so <cite>before</cite> the new tab becomes visible. Called with the
 next (changed to) and current (still visible) tab’s hash (e.g. <code class="docutils literal notranslate"><span class="pre">#control</span></code>). Note that <code class="docutils literal notranslate"><span class="pre">current</span></code> might be undefined
-on the very first call.</dd>
-<dt>onAfterTabChange(current, previous)</dt>
-<dd>Called after the main tab view switches to a new tab, so <cite>after</cite> the new tab becomes visible. Called with the
-current and previous tab’s hash (e.g. <code class="docutils literal notranslate"><span class="pre">#control</span></code>).</dd>
-<dt>getAdditionalControls()</dt>
-<dd>Your view model may return additional custom control definitions for inclusion on the “Control” tab of OctoPrint’s
-interface. See <a class="reference internal" href="../features/custom_controls.html#sec-features-custom-controls"><span class="std std-ref">the custom control feature</span></a>.</dd>
-<dt>onSettingsShown()</dt>
-<dd>Called when the settings dialog is shown.</dd>
-<dt>onSettingsHidden()</dt>
-<dd>Called when the settings dialog is hidden.</dd>
-<dt>onSettingsBeforeSave()</dt>
-<dd>Called just before the settings view model is sent to the server. This is useful, for example, if your plugin
-needs to compute persisted settings from a custom view model.</dd>
-<dt>onUserSettingsShown()</dt>
-<dd>Called when the user settings dialog is shown.</dd>
-<dt>onUserSettingsHidden()</dt>
-<dd>Called when the user settings dialog is hidden.</dd>
-<dt>onWizardDetails(response)</dt>
-<dd>Called with the response from the wizard detail API call initiated before opening the wizard dialog. Will contain
+on the very first call.</p>
+</dd>
+<dt>onAfterTabChange(current, previous)</dt><dd><p>Called after the main tab view switches to a new tab, so <cite>after</cite> the new tab becomes visible. Called with the
+current and previous tab’s hash (e.g. <code class="docutils literal notranslate"><span class="pre">#control</span></code>).</p>
+</dd>
+<dt>getAdditionalControls()</dt><dd><p>Your view model may return additional custom control definitions for inclusion on the “Control” tab of OctoPrint’s
+interface. See <a class="reference internal" href="../features/custom_controls.html#sec-features-custom-controls"><span class="std std-ref">the custom control feature</span></a>.</p>
+</dd>
+<dt>onSettingsShown()</dt><dd><p>Called when the settings dialog is shown.</p>
+</dd>
+<dt>onSettingsHidden()</dt><dd><p>Called when the settings dialog is hidden.</p>
+</dd>
+<dt>onSettingsBeforeSave()</dt><dd><p>Called just before the settings view model is sent to the server. This is useful, for example, if your plugin
+needs to compute persisted settings from a custom view model.</p>
+</dd>
+<dt>onUserSettingsShown()</dt><dd><p>Called when the user settings dialog is shown.</p>
+</dd>
+<dt>onUserSettingsHidden()</dt><dd><p>Called when the user settings dialog is hidden.</p>
+</dd>
+<dt>onWizardDetails(response)</dt><dd><p>Called with the response from the wizard detail API call initiated before opening the wizard dialog. Will contain
 the data from all <a class="reference internal" href="mixins.html#octoprint.plugin.WizardPlugin" title="octoprint.plugin.WizardPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">WizardPlugin</span></code></a> implementations returned by their <a class="reference internal" href="mixins.html#octoprint.plugin.WizardPlugin.get_wizard_details" title="octoprint.plugin.WizardPlugin.get_wizard_details"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_wizard_details()</span></code></a>
-method, mapped by the plugin identifier.</dd>
-<dt>onBeforeWizardTabChange(next, current)</dt>
-<dd>Called before the wizard tab/step is changed, with the ids of the next (changed to) and the current (still visible) tab
+method, mapped by the plugin identifier.</p>
+</dd>
+<dt>onBeforeWizardTabChange(next, current)</dt><dd><p>Called before the wizard tab/step is changed, with the ids of the next (changed to) and the current (still visible) tab
 as parameters. Return false in order to prevent the tab change, e.g. if the wizard step is mandatory and not yet
 completed by the user. Take a look at the “Core Wizard” plugin bundled with OctoPrint and the ACL wizard step in
-particular for an example on how to use this.</dd>
-<dt>onAfterWizardTabChange(current)</dt>
-<dd>Called after the wizard tab/step is changed, with the id of the current tab as parameter. The id of the previous
-tab is sadly not available currently.</dd>
-<dt>onBeforeWizardFinish()</dt>
-<dd>Called before executing the finishing of the wizard. Return false here to stop the actual finish, e.g. if some step is
-still incomplete.</dd>
-<dt>onWizardFinish()</dt>
-<dd>Called after executing the finishing of the wizard and before closing the dialog. Return <code class="docutils literal notranslate"><span class="pre">reload</span></code> here in order to
-instruct OctoPrint to reload the UI after the wizard closes.</dd>
+particular for an example on how to use this.</p>
+</dd>
+<dt>onAfterWizardTabChange(current)</dt><dd><p>Called after the wizard tab/step is changed, with the id of the current tab as parameter. The id of the previous
+tab is sadly not available currently.</p>
+</dd>
+<dt>onBeforeWizardFinish()</dt><dd><p>Called before executing the finishing of the wizard. Return false here to stop the actual finish, e.g. if some step is
+still incomplete.</p>
+</dd>
+<dt>onWizardFinish()</dt><dd><p>Called after executing the finishing of the wizard and before closing the dialog. Return <code class="docutils literal notranslate"><span class="pre">reload</span></code> here in order to
+instruct OctoPrint to reload the UI after the wizard closes.</p>
+</dd>
 </dl>
 <p>In order to hook into any of those callbacks, just have your view model define a function named accordingly, e.g.
 to get called after all view models have been bound during application startup, implement a function <code class="docutils literal notranslate"><span class="pre">onAllBound</span></code>
@@ -578,13 +579,13 @@ on your view model, taking a list of all bound view models:</p>
    deactivate DataUpdater
    deactivate onServerConnect
         </div><div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference external" href="https://github.com/OctoPrint/OctoPrint/tree/master/src/octoprint/static/js/app/viewmodels">OctoPrint’s core viewmodels</a></dt>
-<dd>OctoPrint’s own view models use the same mechanisms for interacting with each other and the web application as
-plugins. Their source code is therefore a good point of reference on how to achieve certain things.</dd>
-<dt><a class="reference external" href="http://knockoutjs.com/documentation/introduction.html">KnockoutJS documentation</a></dt>
-<dd>OctoPrint makes heavy use of KnockoutJS for building up its web app.</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://github.com/OctoPrint/OctoPrint/tree/master/src/octoprint/static/js/app/viewmodels">OctoPrint’s core viewmodels</a></dt><dd><p>OctoPrint’s own view models use the same mechanisms for interacting with each other and the web application as
+plugins. Their source code is therefore a good point of reference on how to achieve certain things.</p>
+</dd>
+<dt><a class="reference external" href="http://knockoutjs.com/documentation/introduction.html">KnockoutJS documentation</a></dt><dd><p>OctoPrint makes heavy use of KnockoutJS for building up its web app.</p>
+</dd>
 </dl>
 </div>
 </div>

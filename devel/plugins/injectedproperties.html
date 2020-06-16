@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -185,54 +185,54 @@
 <span id="sec-plugins-injectedproperties"></span><h1>Injected Properties<a class="headerlink" href="#injected-properties" title="Permalink to this headline">¶</a></h1>
 <p>OctoPrint’s plugin subsystem will inject a bunch of properties into each <a class="reference internal" href="mixins.html#sec-plugins-mixins"><span class="std std-ref">mixin implementation</span></a>.
 An overview of these properties follows.</p>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">self._identifier</span></code></dt>
-<dd>The plugin’s identifier.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">self._plugin_name</span></code></dt>
-<dd>The plugin’s name, as taken from either the <code class="docutils literal notranslate"><span class="pre">__plugin_name__</span></code> control property or the package info.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">self._plugin_version</span></code></dt>
-<dd>The plugin’s version, as taken from either the <code class="docutils literal notranslate"><span class="pre">__plugin_version__</span></code> control property or the package info.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">self._plugin_info</span></code></dt>
-<dd>The <code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.PluginInfo</span></code> object associated with the plugin.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">self._basefolder</span></code></dt>
-<dd>The plugin’s base folder where it’s installed. Can be used to refer to files relative to the plugin’s installation
-location, e.g. included scripts, templates or assets.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">self._datafolder</span></code></dt>
-<dd>The plugin’s additional data folder path. Can be used to store additional files needed for the plugin’s operation (cache,
-data files etc). Plugins should not access this property directly but instead utilize <code class="xref py py-func docutils literal notranslate"><span class="pre">get_plugin_data_folder()</span></code>
-which will make sure the path actually does exist and if not create it before returning it.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">self._logger</span></code></dt>
-<dd>A <a class="reference external" href="https://docs.python.org/2/library/logging.html">python logger instance</a> logging to the log target
-<code class="docutils literal notranslate"><span class="pre">octoprint.plugin.&lt;plugin</span> <span class="pre">identifier&gt;</span></code>.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">self._settings</span></code></dt>
-<dd>The plugin’s personalized settings manager, injected only into plugins that include the <a class="reference internal" href="mixins.html#octoprint.plugin.SettingsPlugin" title="octoprint.plugin.SettingsPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SettingsPlugin</span></code></a> mixin.
-An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.PluginSettings</span></code>.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">self._plugin_manager</span></code></dt>
-<dd>OctoPrint’s plugin manager object, an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.PluginManager</span></code>.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">self._printer_profile_manager</span></code></dt>
-<dd>OctoPrint’s printer profile manager, an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.printer.profile.PrinterProfileManager</span></code>.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">self._event_bus</span></code></dt>
-<dd>OctoPrint’s event bus, an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.events.EventManager</span></code>.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">self._analysis_queue</span></code></dt>
-<dd>OctoPrint’s analysis queue for analyzing GCODEs or other files, an instance of <a class="reference internal" href="../modules/filemanager.html#octoprint.filemanager.analysis.AnalysisQueue" title="octoprint.filemanager.analysis.AnalysisQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.filemanager.analysis.AnalysisQueue</span></code></a>.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">self._slicing_manager</span></code></dt>
-<dd>OctoPrint’s slicing manager, an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.slicing.SlicingManager</span></code>.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">self._file_manager</span></code></dt>
-<dd>OctoPrint’s file manager, an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.filemanager.FileManager</span></code>.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">self._printer</span></code></dt>
-<dd>OctoPrint’s printer management object, an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.printer.PrinterInterface</span></code>.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">self._user_manager</span></code></dt>
-<dd>OctoPrint’s user manager, an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.access.users.UserManager</span></code>.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">self._connectivity_checker</span></code></dt>
-<dd>OctoPrint’s connectivity checker, an instance of <a class="reference internal" href="../modules/util.html#octoprint.util.ConnectivityChecker" title="octoprint.util.ConnectivityChecker"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.util.ConnectivityChecker</span></code></a>.</dd>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">self._identifier</span></code></dt><dd><p>The plugin’s identifier.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._plugin_name</span></code></dt><dd><p>The plugin’s name, as taken from either the <code class="docutils literal notranslate"><span class="pre">__plugin_name__</span></code> control property or the package info.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._plugin_version</span></code></dt><dd><p>The plugin’s version, as taken from either the <code class="docutils literal notranslate"><span class="pre">__plugin_version__</span></code> control property or the package info.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._plugin_info</span></code></dt><dd><p>The <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.PluginInfo" title="octoprint.plugin.core.PluginInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.PluginInfo</span></code></a> object associated with the plugin.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._basefolder</span></code></dt><dd><p>The plugin’s base folder where it’s installed. Can be used to refer to files relative to the plugin’s installation
+location, e.g. included scripts, templates or assets.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._datafolder</span></code></dt><dd><p>The plugin’s additional data folder path. Can be used to store additional files needed for the plugin’s operation (cache,
+data files etc). Plugins should not access this property directly but instead utilize <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin.get_plugin_data_folder" title="octoprint.plugin.types.OctoPrintPlugin.get_plugin_data_folder"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_plugin_data_folder()</span></code></a>
+which will make sure the path actually does exist and if not create it before returning it.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._logger</span></code></dt><dd><p>A <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Logger</span></code></a> instance logging to the log target
+<code class="docutils literal notranslate"><span class="pre">octoprint.plugin.&lt;plugin</span> <span class="pre">identifier&gt;</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._settings</span></code></dt><dd><p>The plugin’s personalized settings manager, injected only into plugins that include the <a class="reference internal" href="mixins.html#octoprint.plugin.SettingsPlugin" title="octoprint.plugin.SettingsPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SettingsPlugin</span></code></a> mixin.
+An instance of <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.PluginSettings" title="octoprint.plugin.PluginSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.PluginSettings</span></code></a>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._plugin_manager</span></code></dt><dd><p>OctoPrint’s plugin manager object, an instance of <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.PluginManager" title="octoprint.plugin.core.PluginManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.PluginManager</span></code></a>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._printer_profile_manager</span></code></dt><dd><p>OctoPrint’s printer profile manager, an instance of <a class="reference internal" href="../modules/printer.html#octoprint.printer.profile.PrinterProfileManager" title="octoprint.printer.profile.PrinterProfileManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.printer.profile.PrinterProfileManager</span></code></a>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._event_bus</span></code></dt><dd><p>OctoPrint’s event bus, an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.events.EventManager</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._analysis_queue</span></code></dt><dd><p>OctoPrint’s analysis queue for analyzing GCODEs or other files, an instance of <a class="reference internal" href="../modules/filemanager.html#octoprint.filemanager.analysis.AnalysisQueue" title="octoprint.filemanager.analysis.AnalysisQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.filemanager.analysis.AnalysisQueue</span></code></a>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._slicing_manager</span></code></dt><dd><p>OctoPrint’s slicing manager, an instance of <a class="reference internal" href="../modules/slicing.html#octoprint.slicing.SlicingManager" title="octoprint.slicing.SlicingManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.slicing.SlicingManager</span></code></a>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._file_manager</span></code></dt><dd><p>OctoPrint’s file manager, an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.filemanager.FileManager</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._printer</span></code></dt><dd><p>OctoPrint’s printer management object, an instance of <a class="reference internal" href="../modules/printer.html#octoprint.printer.PrinterInterface" title="octoprint.printer.PrinterInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.printer.PrinterInterface</span></code></a>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._user_manager</span></code></dt><dd><p>OctoPrint’s user manager, an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.access.users.UserManager</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._connectivity_checker</span></code></dt><dd><p>OctoPrint’s connectivity checker, an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.util.ConnectivityChecker</span></code>.</p>
+</dd>
 </dl>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">OctoPrintPlugin</span></code></dt>
-<dd>Class documentation also containing the properties shared among all mixin implementations.</dd>
-<dt><a class="reference internal" href="mixins.html#sec-plugins-mixins-available"><span class="std std-ref">Available Mixins</span></a></dt>
-<dd>Some mixin types trigger the injection of additional properties.</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.Plugin" title="octoprint.plugin.core.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code></a> and <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">OctoPrintPlugin</span></code></a></dt><dd><p>Class documentation also containing the properties shared among all mixin implementations.</p>
+</dd>
+<dt><a class="reference internal" href="mixins.html#sec-plugins-mixins-available"><span class="std std-ref">Available Mixins</span></a></dt><dd><p>Some mixin types trigger the injection of additional properties.</p>
+</dd>
 </dl>
 </div>
 </div>

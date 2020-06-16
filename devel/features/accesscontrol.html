@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -193,8 +193,8 @@ over which users or user groups are allowed to access which parts of OctoPrint.<
 <p>The default permissions will deny any kind of access to anonymous (not logged in)
 users out of the box.</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Please note that OctoPrint does <em>not</em> control the webcam and merely embeds it, and
+<p class="admonition-title">Warning</p>
+<p>Please note that OctoPrint does <em>not</em> control the webcam and merely embeds it, and
 thus also cannot limit access to it. If an anonymous user correctly guesses the
 webcam URL, they will thus be able to see it.</p>
 </div>
@@ -202,15 +202,15 @@ webcam URL, they will thus be able to see it.</p>
 read-only access to the following parts of the UI:</p>
 <blockquote>
 <div><ul class="simple">
-<li>printer state</li>
-<li>available gcode files and stats (upload is disabled)</li>
-<li>temperature</li>
-<li>webcam</li>
-<li>gcode viewer</li>
-<li>terminal output (sending commands is disabled)</li>
-<li>available timelapse movies</li>
-<li>any components provided through plugins which are enabled for anonymous
-users</li>
+<li><p>printer state</p></li>
+<li><p>available gcode files and stats (upload is disabled)</p></li>
+<li><p>temperature</p></li>
+<li><p>webcam</p></li>
+<li><p>gcode viewer</p></li>
+<li><p>terminal output (sending commands is disabled)</p></li>
+<li><p>available timelapse movies</p></li>
+<li><p>any components provided through plugins which are enabled for anonymous
+users</p></li>
 </ul>
 </div></blockquote>
 <p>Logged in users without admin flag will be allowed to access everything besides the
@@ -223,12 +223,12 @@ of the first administrator account or alternatively disabling Access Control
 (which is <strong>NOT</strong> recommended for systems that are directly accessible via the
 internet or other untrusted networks!).</p>
 <div class="admonition hint">
-<p class="first admonition-title">Hint</p>
+<p class="admonition-title">Hint</p>
 <p>If you plan to have your OctoPrint instance accessible over the internet,
 <strong>always enable Access Control</strong> and ideally <strong>don’t make it accessible to
 everyone over the internet but instead use a VPN</strong> or at the very least
 HTTP basic authentication on a layer above OctoPrint.</p>
-<p class="last">A physical device that includes heaters and stepper motors really should not be
+<p>A physical device that includes heaters and stepper motors really should not be
 publicly reachable by everyone with an internet connection, even with access
 control enabled.</p>
 </div>
@@ -249,7 +249,7 @@ login dialog.</p>
 <div class="section" id="rerunning-the-wizard">
 <span id="sec-features-access-control-rerunning-wizard"></span><h2>Rerunning the wizard<a class="headerlink" href="#rerunning-the-wizard" title="Permalink to this headline">¶</a></h2>
 <p>In case Access Control was disabled in the configuration wizard, it is
-possible to re-run it by editing <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> <a class="footnote-reference" href="#f1" id="id1">[1]</a> and setting <code class="docutils literal notranslate"><span class="pre">firstRun</span></code>
+possible to re-run it by editing <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> <a class="footnote-reference brackets" href="#f1" id="id1">1</a> and setting <code class="docutils literal notranslate"><span class="pre">firstRun</span></code>
 in the <code class="docutils literal notranslate"><span class="pre">server</span></code> section and <code class="docutils literal notranslate"><span class="pre">enabled</span></code> in the <code class="docutils literal notranslate"><span class="pre">accessControl</span></code> section to
 <code class="docutils literal notranslate"><span class="pre">true</span></code>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">accessControl</span><span class="p">:</span>
@@ -262,8 +262,8 @@ in the <code class="docutils literal notranslate"><span class="pre">server</span
 <p>Then restart the server and connect to the web interface - the wizard should
 be shown again.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If user accounts were created prior to disabling Access Control and those
+<p class="admonition-title">Note</p>
+<p>If user accounts were created prior to disabling Access Control and those
 user accounts are not to be used any more, remove <code class="docutils literal notranslate"><span class="pre">.octoprint/users.yaml</span></code>.
 If you don’t remove this file, the above changes won’t lead to the
 configuration being shown again, instead Access Control will just be
@@ -271,13 +271,12 @@ enabled using the already existing login data. This is to prevent you from
 resetting access control by accident.</p>
 </div>
 <p class="rubric">Footnotes</p>
-<table class="docutils footnote" frame="void" id="f1" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>For Linux that will be <code class="docutils literal notranslate"><span class="pre">~/.octoprint/config.yaml</span></code>, for Windows it will be <code class="docutils literal notranslate"><span class="pre">%APPDATA%/OctoPrint/config.yaml</span></code> and for
-Mac <code class="docutils literal notranslate"><span class="pre">~/Library/Application</span> <span class="pre">Support/OctoPrint/config.yaml</span></code></td></tr>
-</tbody>
-</table>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>For Linux that will be <code class="docutils literal notranslate"><span class="pre">~/.octoprint/config.yaml</span></code>, for Windows it will be <code class="docutils literal notranslate"><span class="pre">%APPDATA%/OctoPrint/config.yaml</span></code> and for
+Mac <code class="docutils literal notranslate"><span class="pre">~/Library/Application</span> <span class="pre">Support/OctoPrint/config.yaml</span></code></p>
+</dd>
+</dl>
 </div>
 </div>
 

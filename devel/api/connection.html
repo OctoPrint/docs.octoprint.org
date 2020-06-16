@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -197,18 +197,19 @@
 <div class="contents topic" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#connection-handling" id="id1">Connection handling</a><ul>
-<li><a class="reference internal" href="#get-connection-settings" id="id2">Get connection settings</a></li>
-<li><a class="reference internal" href="#issue-a-connection-command" id="id3">Issue a connection command</a></li>
+<li><p><a class="reference internal" href="#connection-handling" id="id1">Connection handling</a></p>
+<ul>
+<li><p><a class="reference internal" href="#get-connection-settings" id="id2">Get connection settings</a></p></li>
+<li><p><a class="reference internal" href="#issue-a-connection-command" id="id3">Issue a connection command</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="get-connection-settings">
 <span id="sec-api-connection-current"></span><h2><a class="toc-backref" href="#id2">Get connection settings</a><a class="headerlink" href="#get-connection-settings" title="Permalink to this headline">¶</a></h2>
-<dl class="get">
+<dl class="http get">
 <dt id="get--api-connection">
-<code class="descname">GET </code><code class="descname">/api/connection</code><a class="headerlink" href="#get--api-connection" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">GET </code><code class="sig-name descname">/api/connection</code><a class="headerlink" href="#get--api-connection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the current connection settings, including information regarding the available baudrates and
 serial ports and the current connection state.</p>
 <p>Requires the <code class="docutils literal notranslate"><span class="pre">STATUS</span></code> permission.</p>
@@ -240,49 +241,44 @@ serial ports and the current connection state.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – No error</li>
+<dl class="field-list simple">
+<dt class="field-odd">Status Codes</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – No error</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
 <div class="section" id="issue-a-connection-command">
 <span id="sec-api-connection-command"></span><h2><a class="toc-backref" href="#id3">Issue a connection command</a><a class="headerlink" href="#issue-a-connection-command" title="Permalink to this headline">¶</a></h2>
-<dl class="post">
+<dl class="http post">
 <dt id="post--api-connection">
-<code class="descname">POST </code><code class="descname">/api/connection</code><a class="headerlink" href="#post--api-connection" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">POST </code><code class="sig-name descname">/api/connection</code><a class="headerlink" href="#post--api-connection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Issue a connection command. Currently available command are:</p>
-<dl class="docutils">
-<dt>connect</dt>
-<dd><p class="first">Instructs OctoPrint to connect or, if already connected, reconnect to the printer. Additional parameters are:</p>
-<ul class="last simple">
-<li><code class="docutils literal notranslate"><span class="pre">port</span></code>: Optional, specific port to connect to. If not set the current <code class="docutils literal notranslate"><span class="pre">portPreference</span></code> will be used, or if
-no preference is available auto detection will be attempted.</li>
-<li><code class="docutils literal notranslate"><span class="pre">baudrate</span></code>: Optional, specific baudrate to connect with. If not set the current <code class="docutils literal notranslate"><span class="pre">baudratePreference</span></code> will
-be used, or if no preference is available auto detection will be attempted.</li>
-<li><code class="docutils literal notranslate"><span class="pre">printerProfile</span></code> Optional, specific printer profile to use for connection. If not set the current default printer
-profile will be used.</li>
-<li><code class="docutils literal notranslate"><span class="pre">save</span></code>: Optional, whether to save the request’s <code class="docutils literal notranslate"><span class="pre">port</span></code> and <code class="docutils literal notranslate"><span class="pre">baudrate</span></code> settings as new preferences. Defaults
-to <code class="docutils literal notranslate"><span class="pre">false</span></code> if not set.</li>
-<li><code class="docutils literal notranslate"><span class="pre">autoconnect</span></code>: Optional, whether to automatically connect to the printer on OctoPrint’s startup in the future.
-If not set no changes will be made to the current configuration.</li>
+<dl class="simple">
+<dt>connect</dt><dd><p>Instructs OctoPrint to connect or, if already connected, reconnect to the printer. Additional parameters are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">port</span></code>: Optional, specific port to connect to. If not set the current <code class="docutils literal notranslate"><span class="pre">portPreference</span></code> will be used, or if
+no preference is available auto detection will be attempted.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">baudrate</span></code>: Optional, specific baudrate to connect with. If not set the current <code class="docutils literal notranslate"><span class="pre">baudratePreference</span></code> will
+be used, or if no preference is available auto detection will be attempted.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">printerProfile</span></code> Optional, specific printer profile to use for connection. If not set the current default printer
+profile will be used.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">save</span></code>: Optional, whether to save the request’s <code class="docutils literal notranslate"><span class="pre">port</span></code> and <code class="docutils literal notranslate"><span class="pre">baudrate</span></code> settings as new preferences. Defaults
+to <code class="docutils literal notranslate"><span class="pre">false</span></code> if not set.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">autoconnect</span></code>: Optional, whether to automatically connect to the printer on OctoPrint’s startup in the future.
+If not set no changes will be made to the current configuration.</p></li>
 </ul>
 </dd>
-<dt>disconnect</dt>
-<dd>Instructs OctoPrint to disconnect from the printer.</dd>
-<dt>fake_ack</dt>
-<dd>Fakes an acknowledgment message for OctoPrint in case one got lost on the serial line and the communication
+<dt>disconnect</dt><dd><p>Instructs OctoPrint to disconnect from the printer.</p>
+</dd>
+<dt>fake_ack</dt><dd><p>Fakes an acknowledgment message for OctoPrint in case one got lost on the serial line and the communication
 with the printer since stalled. This should only be used in “emergencies” (e.g. to save prints), the reason
 for the lost acknowledgment should always be properly investigated and removed instead of depending on this
-“symptom solver”.</dd>
+“symptom solver”.</p>
+</dd>
 </dl>
 <p>Requires the <code class="docutils literal notranslate"><span class="pre">CONNECTION</span></code> permission.</p>
 <p><strong>Example Connect Request</strong></p>
@@ -332,37 +328,32 @@ for the lost acknowledgment should always be properly investigated and removed i
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">JSON Parameters:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
-<li><strong>command</strong> (<em>string</em>) – The command to issue, either <code class="docutils literal notranslate"><span class="pre">connect</span></code>, <code class="docutils literal notranslate"><span class="pre">disconnect</span></code> or <code class="docutils literal notranslate"><span class="pre">fake_ack</span></code>.</li>
-<li><strong>port</strong> (<em>string</em>) – <code class="docutils literal notranslate"><span class="pre">connect</span></code> command: The port to connect to. If left out either the existing <code class="docutils literal notranslate"><span class="pre">portPreference</span></code>
+<dl class="field-list simple">
+<dt class="field-odd">JSON Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> (<em>string</em>) – The command to issue, either <code class="docutils literal notranslate"><span class="pre">connect</span></code>, <code class="docutils literal notranslate"><span class="pre">disconnect</span></code> or <code class="docutils literal notranslate"><span class="pre">fake_ack</span></code>.</p></li>
+<li><p><strong>port</strong> (<em>string</em>) – <code class="docutils literal notranslate"><span class="pre">connect</span></code> command: The port to connect to. If left out either the existing <code class="docutils literal notranslate"><span class="pre">portPreference</span></code>
 will be used, or if that is not available OctoPrint will attempt auto detection. Must be part
-of the available ports.</li>
-<li><strong>baudrate</strong> (<em>number</em>) – <code class="docutils literal notranslate"><span class="pre">connect</span></code> command: The baudrate to connect with. If left out either the existing
+of the available ports.</p></li>
+<li><p><strong>baudrate</strong> (<em>number</em>) – <code class="docutils literal notranslate"><span class="pre">connect</span></code> command: The baudrate to connect with. If left out either the existing
 <code class="docutils literal notranslate"><span class="pre">baudratePreference</span></code> will be used, or if that is not available OctoPrint will attempt
-autodetection. Must be part of the available baudrates.</li>
-<li><strong>printerProfile</strong> (<em>string</em>) – <code class="docutils literal notranslate"><span class="pre">connect</span></code> command: The id of the printer profile to use for the connection. If left out the current
-default printer profile will be used. Must be part of the available printer profiles.</li>
-<li><strong>save</strong> (<em>boolean</em>) – <code class="docutils literal notranslate"><span class="pre">connect</span></code> command: Whether to save the supplied connection settings as the new preference.
-Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code> if not set.</li>
-<li><strong>autoconnect</strong> (<em>boolean</em>) – <code class="docutils literal notranslate"><span class="pre">connect</span></code> command: Whether to attempt to automatically connect to the printer on server
-startup. If not set no changes will be made to the current setting.</li>
+autodetection. Must be part of the available baudrates.</p></li>
+<li><p><strong>printerProfile</strong> (<em>string</em>) – <code class="docutils literal notranslate"><span class="pre">connect</span></code> command: The id of the printer profile to use for the connection. If left out the current
+default printer profile will be used. Must be part of the available printer profiles.</p></li>
+<li><p><strong>save</strong> (<em>boolean</em>) – <code class="docutils literal notranslate"><span class="pre">connect</span></code> command: Whether to save the supplied connection settings as the new preference.
+Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code> if not set.</p></li>
+<li><p><strong>autoconnect</strong> (<em>boolean</em>) – <code class="docutils literal notranslate"><span class="pre">connect</span></code> command: Whether to attempt to automatically connect to the printer on server
+startup. If not set no changes will be made to the current setting.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No error</li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – If the selected <cite>port</cite> or <cite>baudrate</cite> for a <code class="docutils literal notranslate"><span class="pre">connect</span></code> command are not part of the available
-options.</li>
+</dd>
+<dt class="field-even">Status Codes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No error</p></li>
+<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – If the selected <cite>port</cite> or <cite>baudrate</cite> for a <code class="docutils literal notranslate"><span class="pre">connect</span></code> command are not part of the available
+options.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

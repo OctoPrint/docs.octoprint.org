@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -194,13 +194,13 @@
 <span id="sec-plugins-gettingstarted"></span><h1>Plugin Tutorial<a class="headerlink" href="#plugin-tutorial" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#saying-hello-how-to-make-the-plugin-actually-do-something" id="id7">Saying hello: How to make the plugin actually do something</a></li>
-<li><a class="reference internal" href="#growing-up-how-to-make-it-distributable" id="id8">Growing up: How to make it distributable</a></li>
-<li><a class="reference internal" href="#frontend-fun-how-to-add-functionality-to-octoprint-s-web-interface" id="id9">Frontend fun: How to add functionality to OctoPrint’s web interface</a></li>
-<li><a class="reference internal" href="#settings-galore-how-to-make-parts-of-your-plugin-user-adjustable" id="id10">Settings Galore: How to make parts of your plugin user adjustable</a></li>
-<li><a class="reference internal" href="#more-frontend-fun-adding-custom-javascript-to-your-frontend-components" id="id11">More frontend fun: Adding custom javascript to your frontend components</a></li>
-<li><a class="reference internal" href="#style-matters-injecting-custom-css-into-the-page" id="id12">Style matters: Injecting custom CSS into the page</a></li>
-<li><a class="reference internal" href="#where-do-we-go-from-here" id="id13">Where do we go from here?</a></li>
+<li><p><a class="reference internal" href="#saying-hello-how-to-make-the-plugin-actually-do-something" id="id7">Saying hello: How to make the plugin actually do something</a></p></li>
+<li><p><a class="reference internal" href="#growing-up-how-to-make-it-distributable" id="id8">Growing up: How to make it distributable</a></p></li>
+<li><p><a class="reference internal" href="#frontend-fun-how-to-add-functionality-to-octoprint-s-web-interface" id="id9">Frontend fun: How to add functionality to OctoPrint’s web interface</a></p></li>
+<li><p><a class="reference internal" href="#settings-galore-how-to-make-parts-of-your-plugin-user-adjustable" id="id10">Settings Galore: How to make parts of your plugin user adjustable</a></p></li>
+<li><p><a class="reference internal" href="#more-frontend-fun-adding-custom-javascript-to-your-frontend-components" id="id11">More frontend fun: Adding custom javascript to your frontend components</a></p></li>
+<li><p><a class="reference internal" href="#style-matters-injecting-custom-css-into-the-page" id="id12">Style matters: Injecting custom CSS into the page</a></p></li>
+<li><p><a class="reference internal" href="#where-do-we-go-from-here" id="id13">Where do we go from here?</a></p></li>
 </ul>
 </div>
 <p>Over the course of this little tutorial we’ll build a full fledged, installable OctoPrint plugin that displays “Hello World!”
@@ -224,7 +224,7 @@ Usage: octoprint [OPTIONS] COMMAND [ARGS]...
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>You can also develop your plugin directly on your Raspberry Pi running OctoPi of course. In that
 case please ignore the above instructions, you’ll only need to activate the <code class="docutils literal notranslate"><span class="pre">oprint</span></code>
 virtual environment:</p>
@@ -235,12 +235,12 @@ Usage: octoprint [OPTIONS] COMMAND [ARGS]...
 [...]
 </pre></div>
 </div>
-<p class="last">Setting up a local development environment will most likely be less painful than developing directly
+<p>Setting up a local development environment will most likely be less painful than developing directly
 on the Pi. So do yourself the favor and do that instead where possible.</p>
 </div>
 <div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p class="last">This tutorial assumes you are running OctoPrint 1.3.0 and up. Please make sure your version of
+<p class="admonition-title">Important</p>
+<p>This tutorial assumes you are running OctoPrint 1.3.0 and up. Please make sure your version of
 OctoPrint is up to date before proceeding. If you did a fresh checkout, that should already
 be the case but if not you might have to update first. You can check your version of OctoPrint
 by running <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">--version</span></code> or by taking a look into the lower left corner in OctoPrint’s
@@ -348,7 +348,7 @@ you may install it with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(venv) $ pip install &quot;cookiecutter&gt;=1.4,&lt;1.7&quot;
 </pre></div>
 </div>
-<p>Then we can use the <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">dev</span> <span class="pre">plugin:new</span></code> command <a class="footnote-reference" href="#f1" id="id1">[1]</a> to generate a new OctoPrint plugin skeleton for us:</p>
+<p>Then we can use the <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">dev</span> <span class="pre">plugin:new</span></code> command <a class="footnote-reference brackets" href="#f1" id="id1">1</a> to generate a new OctoPrint plugin skeleton for us:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(venv) $ cd ~/devel
 (venv) $ octoprint dev plugin:new helloworld
 Cloning into &#39;cookiecutter-octoprint-plugin&#39;...
@@ -372,8 +372,8 @@ plugin_installurl [https://github.com/yourGithubName/OctoPrint-Helloworld/archiv
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">dev</span> <span class="pre">plugin:new</span></code> isn’t recognized as a command (and also doesn’t show up in the output of
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">dev</span> <span class="pre">plugin:new</span></code> isn’t recognized as a command (and also doesn’t show up in the output of
 <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">--help</span></code>, make sure you installed cookiecutter into the same python environment as OctoPrint.</p>
 </div>
 <p>This will create a project structure in the <code class="docutils literal notranslate"><span class="pre">OctoPrint-HelloWorld</span></code> folder we just changed to that looks like this:</p>
@@ -406,10 +406,10 @@ plugin_installurl [https://github.com/yourGithubName/OctoPrint-Helloworld/archiv
 will make it easier to understand what folder does what later on. Delete the following folders and anything in them:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">extras</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">translations</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">octoprint_helloworld/static</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">octoprint_helloworld/templates</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">extras</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">translations</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">octoprint_helloworld/static</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">octoprint_helloworld/templates</span></code></p></li>
 </ul>
 </div></blockquote>
 <p>The final project structure should look like this for now:</p>
@@ -468,7 +468,7 @@ Finished processing dependencies for OctoPrint-HelloWorld==1.0.0
 <p>Something is still a bit ugly though. Take a look into <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> and <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>. It seems like we have a bunch
 of information now defined twice:</p>
 <div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-number">Listing 17 </span><span class="caption-text">__init__.py</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 39 </span><span class="caption-text">__init__.py</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
@@ -478,7 +478,7 @@ of information now defined twice:</p>
 </td></tr></table></div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-number">Listing 18 </span><span class="caption-text">setup.py</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 40 </span><span class="caption-text">setup.py</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">plugin_name</span> <span class="o">=</span> <span class="s2">&quot;OctoPrint-HelloWorld&quot;</span>
@@ -846,8 +846,8 @@ defined in <code class="docutils literal notranslate"><span class="pre">config.y
 <img alt="Our &quot;Hello World&quot; navigation bar element in action" class="align-center" src="../_images/plugins_gettingstarted_helloworld_settings.png" />
 <p>Nice! Edit the value, then click “Save”. Your link in the navigation bar should now have been updated as well.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The way we’ve done our data binding and how OctoPrint currently works, your link’s target will update immediately
+<p class="admonition-title">Note</p>
+<p>The way we’ve done our data binding and how OctoPrint currently works, your link’s target will update immediately
 when you update the value in the settings dialog. Even if you click Cancel instead of Save, the change will still
 be reflected in the UI but will be overwritten again by the stored data upon a reload. This is caused by OctoPrint
 not storing a copy of the settings data while it is being edited, which might be changed in the future to
@@ -1224,7 +1224,7 @@ uses for that purpose, you can even put OctoPrint into a mode where it directly 
 generated CSS files (and compiles them on the fly in your browser using <a class="reference external" href="http://lesscss.org/#client-side-usage">lessjs</a>),
 which makes development so much easier. Let’s try that, so you know how it works for future bigger projects.</p>
 <p>Add another folder to our <code class="docutils literal notranslate"><span class="pre">static</span></code> folder called <code class="docutils literal notranslate"><span class="pre">less</span></code> and within that create a file <code class="docutils literal notranslate"><span class="pre">helloworld.less</span></code>. Put
-into that the same content as into our CSS file. Compile that LESS file to CSS <a class="footnote-reference" href="#f2" id="id2">[2]</a>, overwriting our old <code class="docutils literal notranslate"><span class="pre">helloworld.css</span></code>
+into that the same content as into our CSS file. Compile that LESS file to CSS <a class="footnote-reference brackets" href="#f2" id="id2">2</a>, overwriting our old <code class="docutils literal notranslate"><span class="pre">helloworld.css</span></code>
 in the process. The folder structure of our plugin should now look like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">octoprint_helloworld</span><span class="o">/</span>
     <span class="n">static</span><span class="o">/</span>
@@ -1404,11 +1404,11 @@ stop it from doing that at the start of this section, we should switch this back
 </td></tr></table></div>
 <p>Way more compact, isn’t it?</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>If your plugin only provides CSS files, OctoPrint will detect this when switched to LESS mode and include your
 CSS files instead of any non-existing LESS files. So you don’t really <em>have</em> to use LESS if you don’t want, but
 as soon as you need it just switch over.</p>
-<p class="last">The same thing works the other way around too by the way. If your plugin only provides LESS files, OctoPrint will link to
+<p>The same thing works the other way around too by the way. If your plugin only provides LESS files, OctoPrint will link to
 those, lessjs will take care of the compilation. Please keep in mind though that also providing CSS files is the
 cleaner way.</p>
 </div>
@@ -1426,43 +1426,36 @@ might give some hints. For extending OctoPrint’s interface, the <a class="refe
 might show what’s possible with a few lines of code already. Finally, just take a look at the
 <a class="reference external" href="http://plugins.octoprint.org">official Plugin Repository</a> if you are looking for examples.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference external" href="http://jinja.octoprint.org/templates.html">Jinja Template Designer Documentation</a></dt>
-<dd>Jinja’s Template Designer Documentation describes the syntax and semantics of the template language used
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference external" href="http://jinja.octoprint.org/templates.html">Jinja Template Designer Documentation</a></dt><dd><p>Jinja’s Template Designer Documentation describes the syntax and semantics of the template language used
 by OctoPrint’s frontend. Linked here are the docs for Jinja 2.8.1, which OctoPrint still
-relies on for backwards compatibility reasons <a class="footnote-reference" href="#f3" id="id3">[3]</a>.</dd>
+relies on for backwards compatibility reasons <a class="footnote-reference brackets" href="#f3" id="id3">3</a>.</p>
+</dd>
 </dl>
 </div>
 <p class="rubric">Footnotes</p>
-<table class="docutils footnote" frame="void" id="f1" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Instead of the <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">dev</span> <span class="pre">plugin:new</span></code> you could also have manually called cookiecutter with the
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Instead of the <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">dev</span> <span class="pre">plugin:new</span></code> you could also have manually called cookiecutter with the
 template’s repository URL shortcut: <code class="docutils literal notranslate"><span class="pre">cookiecutter</span> <span class="pre">gh:OctoPrint/cookiecutter-octoprint-plugin</span></code>. The
 <code class="docutils literal notranslate"><span class="pre">devel:newplugin</span></code> command already does this for you, makes sure cookiecutter always uses a fresh
 checkout without prompting you for it and also allows to pre-specify a bunch of settings (like the
 plugin’s identifier) directly from the command line. Take a look at <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">dev</span> <span class="pre">plugin:new</span> <span class="pre">--help</span></code>
-for the usage details.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="f2" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>Refer to the <a class="reference external" href="http://lesscss.org/#using-less">LESS documentation</a> on how to do that. If you are developing
+for the usage details.</p>
+</dd>
+<dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Refer to the <a class="reference external" href="http://lesscss.org/#using-less">LESS documentation</a> on how to do that. If you are developing
 your plugin under Windows you might also want to give <a class="reference external" href="http://winless.org/">WinLESS</a> a look which will run
-in the background and keep your CSS files up to date with your various project’s LESS files automatically.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="f3" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>Please always consult the Jinja documentation at <a class="reference external" href="http://jinja.octoprint.org">jinja.octoprint.org</a> instead of
+in the background and keep your CSS files up to date with your various project’s LESS files automatically.</p>
+</dd>
+<dt class="label" id="f3"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>Please always consult the Jinja documentation at <a class="reference external" href="http://jinja.octoprint.org">jinja.octoprint.org</a> instead of
 the current stable documentation available at Jinja’s project page. The reason for that is that for backwards
 compatibility reasons OctoPrint currently sadly has to rely on an older version of Jinja. The documentation
-available at <a class="reference external" href="http://jinja.octoprint.org">jinja.octoprint.org</a> matches that older version.</td></tr>
-</tbody>
-</table>
+available at <a class="reference external" href="http://jinja.octoprint.org">jinja.octoprint.org</a> matches that older version.</p>
+</dd>
+</dl>
 </div>
 </div>
 
