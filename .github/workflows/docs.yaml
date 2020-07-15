@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+  repository_dispatch:
+    types: [docs]
   workflow_dispatch:
 
 jobs:
@@ -40,26 +42,26 @@ jobs:
           echo "Formatted ref: ${{ format('refs/{0}/{1}', matrix.source, matrix.version) }}"
 
       - name: ⬇ Checkout docs.octoprint.org
-        if: github.event_name == 'push' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
         uses: actions/checkout@v2
         with:
           path: docs.octoprint.org
 
       - name: 👀 Determine latest OctoPrint release
-        if: github.event_name == 'push' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
         id: latest
         uses: foosel/github-action-get-latest-release@master
         with:
           repository: "OctoPrint/OctoPrint"
 
       - name: 🐍 Set up Python ${{ matrix.python }}
-        if: github.event_name == 'push' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python }}
 
       - name: ⬇ Checkout OctoPrint
-        if: github.event_name == 'push' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
         uses: actions/checkout@v2
         with:
           repository: "OctoPrint/OctoPrint"
@@ -67,18 +69,18 @@ jobs:
           path: OctoPrint
 
       - name: 🏗 Install OctoPrint
-        if: github.event_name == 'push' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
         run: |
           cd ${{ github.workspace }}/OctoPrint
           pip install .[develop,docs]
 
       - name: 🔄 Generate versions.json
-        if: github.event_name == 'push' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
         run: |
           python ${{ github.workspace }}/docs.octoprint.org/util/versions_from_matrix.py ${{ github.workspace }}/docs.octoprint.org/.github/workflows/docs.yaml versions.json
 
       - name: 🏗 Build docs
-        if: github.event_name == 'push' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
         run: |
           cd ${{ github.workspace }}/docs.octoprint.org/util/versionselector
           python versionselector.py ${{ github.workspace }}/OctoPrint/docs/ ${{ matrix.version }} ${{ steps.latest.outputs.release }} ${{ github.workspace }}/versions.json
@@ -92,7 +94,7 @@ jobs:
       #  run: exit ${{ steps.lc.outputs.exit_code }}
 
       - name: ⬆ Persist build result
-        if: github.event_name == 'push' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.version }}
@@ -120,7 +122,7 @@ jobs:
           echo "::set-env name=ARTIFACT_COUNT::$count"
 
       - name: 🧹 Cleanup all docs
-        if: github.event_name == 'push' && env.ARTIFACT_COUNT != '0'
+        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && env.ARTIFACT_COUNT != '0'
         run: |
           rm -rf docs/* || true
           touch docs/.nojekyll
