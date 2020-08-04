@@ -213,6 +213,12 @@ issues for the dependencies with system wide installed instances:</p>
 <li><p>PY2: <code class="docutils literal notranslate"><span class="pre">virtualenv</span> <span class="pre">--python=python2</span> <span class="pre">venv2</span></code></p></li>
 <li><p>PY3: <code class="docutils literal notranslate"><span class="pre">virtualenv</span> <span class="pre">--python=python3</span> <span class="pre">venv3</span></code></p></li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This assumes that <cite>python2</cite> and <cite>python3</cite> are binaries available directly on your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. If your Python 2 and 3
+binaries cannot be found on your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> like this you’ll need to specify the full paths to them here,
+e.g. <code class="docutils literal notranslate"><span class="pre">virtualenv</span> <span class="pre">--python=/path/to/python2/bin/python</span> <span class="pre">venv2</span></code></p>
+</div>
 </li>
 <li><p>Activate one of the virtual environments:</p>
 <ul class="simple">
@@ -231,7 +237,7 @@ issues for the dependencies with system wide installed instances:</p>
 including its regular <em>and</em> development and plugin development dependencies:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[develop,plugins]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">'.[develop,plugins]'</span></code></p></li>
 </ul>
 </div></blockquote>
 </li>
@@ -342,7 +348,7 @@ pip install -e .[develop,plugins,docs]
 <span id="sec-development-environment-mac"></span><h3>Mac OS X<a class="headerlink" href="#mac-os-x" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This guide is based on the <a class="reference external" href="https://community.octoprint.org/t/setting-up-octoprint-on-macos/13425">Setup Guide for Mac OS X on OctoPrint’s forum</a>.
+<p>This guide is based on the <a class="reference external" href="https://community.octoprint.org/t/setting-up-octoprint-on-macos/13425">Setup Guide for Mac OS X on OctoPrint’s Community Forum</a>.
 Please report back if it works for you, due to lack of access to a Mac I cannot test it myself. Thanks.</p>
 </div>
 <div class="admonition-todo admonition" id="id3">
@@ -421,11 +427,19 @@ select OctoPrint <code class="docutils literal notranslate"><span class="pre">ve
 <li><p>Project: <code class="docutils literal notranslate"><span class="pre">OctoPrint</span></code></p></li>
 <li><p>Python interpreter: Project Default</p></li>
 <li><p>Working directory: the OctoPrint checkout folder (e.g. <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint</span></code> or <code class="docutils literal notranslate"><span class="pre">C:\Devel\OctoPrint</span></code>)</p></li>
-<li><p>If you want dependencies to auto-update on run if necessary: “Before Launch” &gt; “+” &gt; “Run external tool” &gt; “+”</p>
+<li><p>If you want build artifacts to be cleaned up on run (recommended): “Before Launch” &gt; “+” &gt; “Run external tool” &gt; “+”</p>
+<ul class="simple">
+<li><p>Name: Clean build directory</p></li>
+<li><p>Program: <code class="docutils literal notranslate"><span class="pre">$ModuleSdkPath$</span></code></p></li>
+<li><p>Parameters: <code class="docutils literal notranslate"><span class="pre">setup.py</span> <span class="pre">clean</span></code></p></li>
+<li><p>Working directory: <code class="docutils literal notranslate"><span class="pre">$ProjectFileDir$</span></code></p></li>
+</ul>
+</li>
+<li><p>If you want dependencies to auto-update on run if necessary (recommended): “Before Launch” &gt; “+” &gt; “Run external tool” &gt; “+”</p>
 <ul class="simple">
 <li><p>Name: Update OctoPrint dependencies</p></li>
-<li><p>Program: <code class="docutils literal notranslate"><span class="pre">$PyInterpreterDirectory$/pip</span></code> (or <code class="docutils literal notranslate"><span class="pre">$PyInterpreterDirectory$/pip.exe</span></code> on Windows)</p></li>
-<li><p>Parameters: <code class="docutils literal notranslate"><span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[develop,plugins]</span></code></p></li>
+<li><p>Program: <code class="docutils literal notranslate"><span class="pre">$ModuleSdkPath$</span></code></p></li>
+<li><p>Parameters: <code class="docutils literal notranslate"><span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[develop,plugins]</span></code></p></li>
 <li><p>Working directory: <code class="docutils literal notranslate"><span class="pre">$ProjectFileDir$</span></code></p></li>
 </ul>
 <p>Note that sadly that seems to cause some hiccups on current PyCharm versions due to <code class="docutils literal notranslate"><span class="pre">$PyInterpreterDirectory$</span></code>

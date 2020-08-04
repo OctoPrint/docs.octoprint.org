@@ -122,6 +122,7 @@
 <li class="toctree-l2"><a class="reference internal" href="users.html">octoprint.access.users</a></li>
 <li class="toctree-l2"><a class="reference internal" href="util.html">octoprint.util</a></li>
 <li class="toctree-l2"><a class="reference internal" href="util.html#module-octoprint.util.commandline">octoprint.util.commandline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html#module-octoprint.util.platform">octoprint.util.platform</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
@@ -451,7 +452,7 @@ be attached to requests if those requests are
 <code class="sig-name descname">default</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintJsonEncoder.default" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implement this method in a subclass such that it returns a
 serializable object for <code class="docutils literal notranslate"><span class="pre">o</span></code>, or calls the base implementation (to
-raise a <code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code>).</p>
+raise a <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.8)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a>).</p>
 <p>For example, to support arbitrary iterators, you could implement
 default like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
@@ -478,6 +479,20 @@ default like this:</p>
 at the end of the request.  This is still called during a request
 context so if you absolutely need access to the request you can do
 that.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="octoprint.server.util.flask.OctoPrintSessionInterface.should_set_cookie">
+<code class="sig-name descname">should_set_cookie</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">app</span></em>, <em class="sig-param"><span class="n">session</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintSessionInterface.should_set_cookie" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used by session backends to determine if a <code class="docutils literal notranslate"><span class="pre">Set-Cookie</span></code> header
+should be set for this session cookie for this response. If the session
+has been modified, the cookie is set. If the session is permanent and
+the <code class="docutils literal notranslate"><span class="pre">SESSION_REFRESH_EACH_REQUEST</span></code> config is true, the cookie is
+always set.</p>
+<p>This check is usually skipped if the session was deleted.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.11.</span></p>
+</div>
 </dd></dl>
 
 </dd></dl>
@@ -718,7 +733,7 @@ certificate or use NPN/ALPN.</p>
 to another <code class="docutils literal notranslate"><span class="pre">url</span></code> and logs a deprecation warning.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>url</strong> (<em>str</em>) – URL to which to redirect</p>
+<dd class="field-odd"><p><strong>url</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – URL to which to redirect</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -758,14 +773,14 @@ optional callbacks. Note that access validation takes place before path validati
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<em>str</em>) – The system path from which to serve files (this will be forwarded to the <code class="docutils literal notranslate"><span class="pre">initialize</span></code> method of
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The system path from which to serve files (this will be forwarded to the <code class="docutils literal notranslate"><span class="pre">initialize</span></code> method of
 :class:<code class="docutils literal notranslate"><span class="pre">~tornado.web.StaticFileHandler</span></code>)</p></li>
-<li><p><strong>default_filename</strong> (<em>str</em>) – The default filename to serve if none is explicitly specified and the request references
+<li><p><strong>default_filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The default filename to serve if none is explicitly specified and the request references
 a subdirectory of the served path (this will be forwarded to the <code class="docutils literal notranslate"><span class="pre">initialize</span></code> method of
 :class:<code class="docutils literal notranslate"><span class="pre">~tornado.web.StaticFileHandler</span></code> as the <code class="docutils literal notranslate"><span class="pre">default_filename</span></code> keyword parameter). Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
-<li><p><strong>as_attachment</strong> (<em>bool</em>) – Whether to serve requested files with <code class="docutils literal notranslate"><span class="pre">Content-Disposition:</span> <span class="pre">attachment</span></code> header (<code class="docutils literal notranslate"><span class="pre">True</span></code>)
+<li><p><strong>as_attachment</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Whether to serve requested files with <code class="docutils literal notranslate"><span class="pre">Content-Disposition:</span> <span class="pre">attachment</span></code> header (<code class="docutils literal notranslate"><span class="pre">True</span></code>)
 or not. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
-<li><p><strong>allow_client_caching</strong> (<em>bool</em>) – Whether to allow the client to cache (by not setting any <code class="docutils literal notranslate"><span class="pre">Cache-Control</span></code> or
+<li><p><strong>allow_client_caching</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Whether to allow the client to cache (by not setting any <code class="docutils literal notranslate"><span class="pre">Cache-Control</span></code> or
 <code class="docutils literal notranslate"><span class="pre">Expires</span></code> headers on the response) or not.</p></li>
 <li><p><strong>access_validation</strong> (<em>function</em>) – Callback to call in the <code class="docutils literal notranslate"><span class="pre">get</span></code> method to validate access to the resource. Will
 be called with <code class="docutils literal notranslate"><span class="pre">self.request</span></code> as parameter which contains the full tornado request object. Should raise
@@ -779,6 +794,12 @@ Defaults to <code class="docutils literal notranslate"><span class="pre">None</s
 called with the response handler as parameter. May return <code class="docutils literal notranslate"><span class="pre">None</span></code> to prevent the ETag response header
 from being set. If not provided the last modified time of the file in question will be used as returned
 by <code class="docutils literal notranslate"><span class="pre">get_content_version</span></code>.</p></li>
+<li><p><strong>name_generator</strong> (<em>function</em>) – Callback to call for generating the value of the attachment file name header. Will be
+called with the requested path as parameter.</p></li>
+<li><p><strong>mime_type_guesser</strong> (<em>function</em>) – Callback to guess the mime type to use for the content type encoding of the
+response. Will be called with the requested path on disk as parameter.</p></li>
+<li><p><strong>is_pre_compressed</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – if the file is expected to be pre-compressed, i.e, if there is a file in the same
+directory with the same name, but with ‘.gz’ appended and gzip-encoded</p></li>
 </ul>
 </dd>
 </dl>
@@ -813,7 +834,7 @@ default implementation is a hash of the file’s contents.</p>
 
 <dl class="py method">
 <dt id="octoprint.server.util.tornado.LargeResponseHandler.initialize">
-<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">default_filename</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">as_attachment</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">allow_client_caching</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">access_validation</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">path_validation</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">etag_generator</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name_generator</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mime_type_guesser</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.LargeResponseHandler.initialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">default_filename</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">as_attachment</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">allow_client_caching</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">access_validation</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">path_validation</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">etag_generator</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name_generator</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mime_type_guesser</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_pre_compressed</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.LargeResponseHandler.initialize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hook for subclass initialization. Called for each request.</p>
 <p>A dictionary passed as the third argument of a url spec will be
 supplied as keyword arguments to initialize().</p>
@@ -830,6 +851,12 @@ supplied as keyword arguments to initialize().</p>
     <span class="p">])</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="octoprint.server.util.tornado.LargeResponseHandler.original_absolute_path">
+<em class="property">property </em><code class="sig-name descname">original_absolute_path</code><a class="headerlink" href="#octoprint.server.util.tornado.LargeResponseHandler.original_absolute_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>The path of the uncompressed file corresponding to the compressed file</p>
 </dd></dl>
 
 <dl class="py method">
@@ -866,8 +893,8 @@ static <code class="docutils literal notranslate"><span class="pre">data</span><
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>str</em>) – The data with which to respond</p></li>
-<li><p><strong>content_type</strong> (<em>str</em>) – The content type with which to respond. Defaults to <code class="docutils literal notranslate"><span class="pre">text/plain</span></code></p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The data with which to respond</p></li>
+<li><p><strong>content_type</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The content type with which to respond. Defaults to <code class="docutils literal notranslate"><span class="pre">text/plain</span></code></p></li>
 </ul>
 </dd>
 </dl>
@@ -1078,10 +1105,10 @@ no <code class="docutils literal notranslate"><span class="pre">filename</span><
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>url</strong> (<em>str</em>) – URL to forward any requests to. A 404 response will be returned if this is not set. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
-<li><p><strong>as_attachment</strong> (<em>bool</em>) – Whether to serve files with <code class="docutils literal notranslate"><span class="pre">Content-Disposition:</span> <span class="pre">attachment</span></code> header (<code class="docutils literal notranslate"><span class="pre">True</span></code>)
+<li><p><strong>url</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – URL to forward any requests to. A 404 response will be returned if this is not set. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>as_attachment</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Whether to serve files with <code class="docutils literal notranslate"><span class="pre">Content-Disposition:</span> <span class="pre">attachment</span></code> header (<code class="docutils literal notranslate"><span class="pre">True</span></code>)
 or not. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
-<li><p><strong>basename</strong> (<em>str</em>) – base name of file names to return as part of the attachment header, see above. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>basename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – base name of file names to return as part of the attachment header, see above. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 <li><p><strong>access_validation</strong> (<em>function</em>) – Callback to call in the <code class="docutils literal notranslate"><span class="pre">get</span></code> method to validate access to the resource. Will
 be called with <code class="docutils literal notranslate"><span class="pre">self.request</span></code> as parameter which contains the full tornado request object. Should raise
 a <code class="docutils literal notranslate"><span class="pre">tornado.web.HTTPError</span></code> if access is not allowed in which case the request will not be further processed.
@@ -1164,6 +1191,13 @@ supplied, <code class="docutils literal notranslate"><span class="pre">request.b
 <code class="sig-prename descclassname">octoprint.server.util.tornado.</code><code class="sig-name descname">fix_json_encode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.fix_json_encode" title="Permalink to this definition">¶</a></dt>
 <dd><p>This makes tornado.escape.json_encode use octoprint.util.JsonEncoding.encode as fallback in order to allow
 serialization of globally registered types like frozendict and others.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.server.util.tornado.fix_websocket_check_origin">
+<code class="sig-prename descclassname">octoprint.server.util.tornado.</code><code class="sig-name descname">fix_websocket_check_origin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.fix_websocket_check_origin" title="Permalink to this definition">¶</a></dt>
+<dd><p>This fixes tornado.websocket.WebSocketHandler.check_origin to do the same origin check against the Host
+header case-insensitively, as defined in RFC6454, Section 4, item 5.</p>
 </dd></dl>
 
 <dl class="py function">

@@ -381,7 +381,7 @@ can be provided via the <code class="docutils literal notranslate"><span class="
 </div>
 <p><strong>Example 2</strong></p>
 <p>Test if <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code> is reachable on port 1234 and UDP.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">testUrl</span><span class="p">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">1234</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;protocol&quot;</span><span class="o">:</span> <span class="s2">&quot;udp&quot;</span><span class="p">})</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">testServer</span><span class="p">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">1234</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;protocol&quot;</span><span class="o">:</span> <span class="s2">&quot;udp&quot;</span><span class="p">})</span>
     <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
             <span class="c1">// check passed</span>
@@ -396,6 +396,36 @@ can be provided via the <code class="docutils literal notranslate"><span class="
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>url</strong> (<em>string</em>) – Host to test</p></li>
 <li><p><strong>port</strong> (<em>int</em>) – Port to test</p></li>
+<li><p><strong>additional</strong> (<em>object</em>) – Additional parameters for the test command</p></li>
+<li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt id="OctoPrintClient.util.testResolution">
+<code class="sig-prename descclassname">OctoPrintClient.util.</code><code class="sig-name descname">testResolution</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">additional</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.util.testResolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if a host name can be resolved.</p>
+<p><strong>Example</strong></p>
+<p>Test if <code class="docutils literal notranslate"><span class="pre">octoprint.org</span></code> can be resolved.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">testResolution</span><span class="p">(</span><span class="s2">&quot;octoprint.org&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// check passed</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">// check failed</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>string</em>) – Host name to test</p></li>
 <li><p><strong>additional</strong> (<em>object</em>) – Additional parameters for the test command</p></li>
 <li><p><strong>opts</strong> (<em>object</em>) – Additional options for the request</p></li>
 </ul>

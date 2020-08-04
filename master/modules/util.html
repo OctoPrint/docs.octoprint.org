@@ -122,6 +122,7 @@
 <li class="toctree-l2"><a class="reference internal" href="users.html">octoprint.access.users</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">octoprint.util</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-octoprint.util.commandline">octoprint.util.commandline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-octoprint.util.platform">octoprint.util.platform</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
@@ -204,50 +205,6 @@
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.util.ConnectivityChecker">
-<em class="property">class </em><code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">ConnectivityChecker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interval</span></em>, <em class="sig-param"><span class="n">host</span></em>, <em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">enabled</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">on_change</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.ConnectivityChecker" title="Permalink to this definition">¶</a></dt>
-<dd><p>Regularly checks for online connectivity.</p>
-<p>Tries to open a connection to the provided <code class="docutils literal notranslate"><span class="pre">host</span></code> and <code class="docutils literal notranslate"><span class="pre">port</span></code> every <code class="docutils literal notranslate"><span class="pre">interval</span></code>
-seconds and sets the <code class="docutils literal notranslate"><span class="pre">online</span></code> status accordingly.</p>
-<dl class="py method">
-<dt id="octoprint.util.ConnectivityChecker.check_immediately">
-<code class="sig-name descname">check_immediately</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.ConnectivityChecker.check_immediately" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check immediately and return result.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="octoprint.util.ConnectivityChecker.enabled">
-<em class="property">property </em><code class="sig-name descname">enabled</code><a class="headerlink" href="#octoprint.util.ConnectivityChecker.enabled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether the check is enabled or not.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="octoprint.util.ConnectivityChecker.host">
-<em class="property">property </em><code class="sig-name descname">host</code><a class="headerlink" href="#octoprint.util.ConnectivityChecker.host" title="Permalink to this definition">¶</a></dt>
-<dd><p>DNS host to query.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="octoprint.util.ConnectivityChecker.interval">
-<em class="property">property </em><code class="sig-name descname">interval</code><a class="headerlink" href="#octoprint.util.ConnectivityChecker.interval" title="Permalink to this definition">¶</a></dt>
-<dd><p>Interval between consecutive automatic checks.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="octoprint.util.ConnectivityChecker.online">
-<em class="property">property </em><code class="sig-name descname">online</code><a class="headerlink" href="#octoprint.util.ConnectivityChecker.online" title="Permalink to this definition">¶</a></dt>
-<dd><p>Current online status, True if online, False if offline.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="octoprint.util.ConnectivityChecker.port">
-<em class="property">property </em><code class="sig-name descname">port</code><a class="headerlink" href="#octoprint.util.ConnectivityChecker.port" title="Permalink to this definition">¶</a></dt>
-<dd><p>DNS port to query.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
 <dt id="octoprint.util.DefaultOrderedDict">
 <em class="property">class </em><code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">DefaultOrderedDict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">default_factory</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">a</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.DefaultOrderedDict" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="py method">
@@ -266,7 +223,7 @@ seconds and sets the <code class="docutils literal notranslate"><span class="pre
 <dt id="octoprint.util.RepeatedTimer">
 <em class="property">class </em><code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">RepeatedTimer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interval</span></em>, <em class="sig-param"><span class="n">function</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">kwargs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">run_first</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">condition</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_condition_false</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_cancelled</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_finish</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">daemon</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.RepeatedTimer" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class represents an action that should be run repeatedly in an interval. It is similar to python’s
-own <code class="xref py py-class docutils literal notranslate"><span class="pre">threading.Timer</span></code> class, but instead of only running once the <code class="docutils literal notranslate"><span class="pre">function</span></code> will be run again and again,
+own <a class="reference external" href="https://docs.python.org/2/library/threading.html#threading.Timer" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">threading.Timer</span></code></a> class, but instead of only running once the <code class="docutils literal notranslate"><span class="pre">function</span></code> will be run again and again,
 sleeping the stated <code class="docutils literal notranslate"><span class="pre">interval</span></code> in between.</p>
 <p>RepeatedTimers are started, as with threads, by calling their <code class="docutils literal notranslate"><span class="pre">start()</span></code> method. The timer can be stopped (in
 between runs) by calling the <code class="xref py py-func docutils literal notranslate"><span class="pre">cancel()</span></code> method. The interval the time waited before execution of a loop may
@@ -308,11 +265,11 @@ not be exactly the same as the interval specified by the user.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>interval</strong> (<em>float</em><em> or </em><em>callable</em>) – The interval between each <code class="docutils literal notranslate"><span class="pre">function</span></code> call, in seconds. Can also be a callable
+<li><p><strong>interval</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em> or </em><em>callable</em>) – The interval between each <code class="docutils literal notranslate"><span class="pre">function</span></code> call, in seconds. Can also be a callable
 returning the interval to use, in case the interval is not static.</p></li>
 <li><p><strong>function</strong> (<em>callable</em>) – The function to call.</p></li>
-<li><p><strong>args</strong> (<em>list</em><em> or </em><em>tuple</em>) – The arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty list.</p></li>
-<li><p><strong>kwargs</strong> (<em>dict</em>) – The keyword arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty dict.</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a>) – The arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty list.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The keyword arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty dict.</p></li>
 <li><p><strong>run_first</strong> (<em>boolean</em>) – If set to True, the function will be run for the first time <em>before</em> the first wait period.
 If set to False (the default), the function will be run for the first time <em>after</em> the first wait period.</p></li>
 <li><p><strong>condition</strong> (<em>callable</em>) – Condition that needs to be True for loop to continue. Defaults to <code class="docutils literal notranslate"><span class="pre">lambda:</span> <span class="pre">True</span></code>.</p></li>
@@ -322,7 +279,7 @@ be called before the <code class="docutils literal notranslate"><span class="pre
 before the <code class="docutils literal notranslate"><span class="pre">on_finish</span></code> callback.</p></li>
 <li><p><strong>on_finish</strong> (<em>callable</em>) – Callback to call when the timer finishes, either due to being cancelled or since
 the condition became false.</p></li>
-<li><p><strong>daemon</strong> (<em>bool</em>) – daemon flag to set on underlying thread.</p></li>
+<li><p><strong>daemon</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – daemon flag to set on underlying thread.</p></li>
 </ul>
 </dd>
 </dl>
@@ -342,7 +299,7 @@ from the args and kwargs arguments, respectively.</p>
 <dt id="octoprint.util.ResettableTimer">
 <em class="property">class </em><code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">ResettableTimer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interval</span></em>, <em class="sig-param"><span class="n">function</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">kwargs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_reset</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_cancelled</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.ResettableTimer" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class represents an action that should be run after a specified amount of time. It is similar to python’s
-own <code class="xref py py-class docutils literal notranslate"><span class="pre">threading.Timer</span></code> class, with the addition of being able to reset the counter to zero.</p>
+own <a class="reference external" href="https://docs.python.org/2/library/threading.html#threading.Timer" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">threading.Timer</span></code></a> class, with the addition of being able to reset the counter to zero.</p>
 <p>ResettableTimers are started, as with threads, by calling their <code class="docutils literal notranslate"><span class="pre">start()</span></code> method. The timer can be stopped (in
 between runs) by calling the <code class="xref py py-func docutils literal notranslate"><span class="pre">cancel()</span></code> method. Resetting the counter can be done with the <code class="xref py py-func docutils literal notranslate"><span class="pre">reset()</span></code> method.</p>
 <p>For example:</p>
@@ -360,11 +317,11 @@ between runs) by calling the <code class="xref py py-func docutils literal notra
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>interval</strong> (<em>float</em><em> or </em><em>callable</em>) – The interval before calling <code class="docutils literal notranslate"><span class="pre">function</span></code>, in seconds. Can also be a callable
+<li><p><strong>interval</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em> or </em><em>callable</em>) – The interval before calling <code class="docutils literal notranslate"><span class="pre">function</span></code>, in seconds. Can also be a callable
 returning the interval to use, in case the interval is not static.</p></li>
 <li><p><strong>function</strong> (<em>callable</em>) – The function to call.</p></li>
-<li><p><strong>args</strong> (<em>list</em><em> or </em><em>tuple</em>) – The arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty list.</p></li>
-<li><p><strong>kwargs</strong> (<em>dict</em>) – The keyword arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty dict.</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a>) – The arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty list.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The keyword arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty dict.</p></li>
 <li><p><strong>on_cancelled</strong> (<em>callable</em>) – Callback to call when the timer finishes due to being cancelled.</p></li>
 <li><p><strong>on_reset</strong> (<em>callable</em>) – Callback to call when the timer is reset.</p></li>
 </ul>
@@ -419,12 +376,6 @@ is ignored in that case).</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.util.address_for_client">
-<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">address_for_client</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">host</span></em>, <em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">3.05</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.address_for_client" title="Permalink to this definition">¶</a></dt>
-<dd><p>Determines the address of the network interface on this host needed to connect to the indicated client host and port.</p>
-</dd></dl>
-
-<dl class="py function">
 <dt id="octoprint.util.chunks">
 <code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">chunks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">l</span></em>, <em class="sig-param"><span class="n">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.chunks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Yield successive n-sized chunks from l.</p>
@@ -449,7 +400,7 @@ property.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<em>string</em>) – The message to include in the deprecation warning.</p></li>
-<li><p><strong>stacklevel</strong> (<em>int</em>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
+<li><p><strong>stacklevel</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
 meaning the direct caller of the method. It might make sense to increase this in case of the function call
 happening dynamically from a fixed position to not shadow the real caller (e.g. in case of overridden
 <code class="docutils literal notranslate"><span class="pre">getattr</span></code> methods).</p></li>
@@ -486,8 +437,8 @@ associated values) from <code class="docutils literal notranslate"><span class="
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> (<em>dict</em>) – The dictionary to clean against <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p></li>
-<li><p><strong>b</strong> (<em>dict</em>) – The dictionary containing the key structure to clean from <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary to clean against <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p></li>
+<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary containing the key structure to clean from <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -514,8 +465,8 @@ associated values) from <code class="docutils literal notranslate"><span class="
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> (<em>dict</em>) – The dictionary to check for the keys from <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p></li>
-<li><p><strong>b</strong> (<em>dict</em>) – The dictionary whose keys to check <code class="docutils literal notranslate"><span class="pre">a</span></code> for.</p></li>
+<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary to check for the keys from <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p></li>
+<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary whose keys to check <code class="docutils literal notranslate"><span class="pre">a</span></code> for.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -556,7 +507,7 @@ associated values) from <code class="docutils literal notranslate"><span class="
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dictionary</strong> (<em>dict</em>) – The dictionary to filter</p></li>
+<li><p><strong>dictionary</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary to filter</p></li>
 <li><p><strong>filter_function</strong> (<em>callable</em>) – The filter function to apply, called with key and
 value of an entry in the dictionary, must return <code class="docutils literal notranslate"><span class="pre">True</span></code> for values to
 keep and <code class="docutils literal notranslate"><span class="pre">False</span></code> for values to strip</p></li>
@@ -570,7 +521,7 @@ keep and <code class="docutils literal notranslate"><span class="pre">False</spa
 </p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>dict</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -610,8 +561,8 @@ keep and <code class="docutils literal notranslate"><span class="pre">False</spa
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> (<em>dict</em>) – The dictionary to merge <code class="docutils literal notranslate"><span class="pre">b</span></code> into</p></li>
-<li><p><strong>b</strong> (<em>dict</em>) – The dictionary to merge into <code class="docutils literal notranslate"><span class="pre">a</span></code></p></li>
+<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary to merge <code class="docutils literal notranslate"><span class="pre">b</span></code> into</p></li>
+<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary to merge into <code class="docutils literal notranslate"><span class="pre">a</span></code></p></li>
 <li><p><strong>leaf_merger</strong> (<em>callable</em>) – An optional callable to use to merge leaves (non-dict values)</p></li>
 </ul>
 </dd>
@@ -619,7 +570,7 @@ keep and <code class="docutils literal notranslate"><span class="pre">False</spa
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">b</span></code> deep-merged into <code class="docutils literal notranslate"><span class="pre">a</span></code></p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>dict</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -642,8 +593,8 @@ a in order to produce the same result as deep merging a and b.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<em>dict</em>) – Source dictionary</p></li>
-<li><p><strong>target</strong> (<em>dict</em>) – Dictionary to compare to source dictionary and derive diff for</p></li>
+<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Source dictionary</p></li>
+<li><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Dictionary to compare to source dictionary and derive diff for</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -654,7 +605,7 @@ a in order to produce the same result as deep merging a and b.</p>
 </p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>dict</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -677,8 +628,8 @@ associated values) from <code class="docutils literal notranslate"><span class="
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> (<em>dict</em>) – The dictionary to clean against <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p></li>
-<li><p><strong>b</strong> (<em>dict</em>) – The dictionary containing the key structure to clean from <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary to clean against <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p></li>
+<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary containing the key structure to clean from <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -756,8 +707,8 @@ through names of the format <code class="docutils literal notranslate"><span cla
 <li><p><strong>filename</strong> (<em>string</em>) – The filename without the extension to convert to 8.3.</p></li>
 <li><p><strong>extension</strong> (<em>string</em>) – The extension to convert to 8.3 – will be truncated to 3 characters if it’s longer than
 that.</p></li>
-<li><p><strong>existing_filenames</strong> (<em>list</em>) – A list of existing filenames to prevent name collisions with.</p></li>
-<li><p><strong>max_power</strong> (<em>int</em>) – Limits the possible attempts of generating a collision free name to 10 ^ <code class="docutils literal notranslate"><span class="pre">max_power</span></code>
+<li><p><strong>existing_filenames</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – A list of existing filenames to prevent name collisions with.</p></li>
+<li><p><strong>max_power</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Limits the possible attempts of generating a collision free name to 10 ^ <code class="docutils literal notranslate"><span class="pre">max_power</span></code>
 variations. Defaults to 2, so the name generation will maximally reach <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;~99.&lt;ext&gt;</span></code> before
 aborting and raising an exception.</p></li>
 </ul>
@@ -773,7 +724,7 @@ aborting and raising an exception.</p></li>
 <dd class="field-odd"><p>string</p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>ValueError</strong> – No collision free name could be found.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.8)"><strong>ValueError</strong></a> – No collision free name could be found.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -818,10 +769,10 @@ aborting and raising an exception.</p></li>
 <dd class="field-even"><p>The class if it could be found.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>type</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2/library/functions.html#type" title="(in Python v2.7)">type</a></p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>ImportError</strong> – </p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ImportError" title="(in Python v3.8)"><strong>ImportError</strong></a> – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -836,13 +787,13 @@ conversion result will be guaranteed not to collide with any of the filenames pr
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input</strong> (<em>string</em>) – The original filename incl. extension to convert to the 8.3 format.</p></li>
-<li><p><strong>existing_filenames</strong> (<em>list</em>) – A list of existing filenames with which the generated 8.3 name must not collide.
+<li><p><strong>existing_filenames</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – A list of existing filenames with which the generated 8.3 name must not collide.
 Optional.</p></li>
 <li><p><strong>extension</strong> (<em>string</em>) – The .3 file extension to use for the generated filename. If not provided, the extension of
 the provided <code class="docutils literal notranslate"><span class="pre">filename</span></code> will simply be truncated to 3 characters.</p></li>
-<li><p><strong>whitelisted_extensions</strong> (<em>list</em>) – A list of extensions on <code class="docutils literal notranslate"><span class="pre">input</span></code> that will be left as-is instead of
+<li><p><strong>whitelisted_extensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – A list of extensions on <code class="docutils literal notranslate"><span class="pre">input</span></code> that will be left as-is instead of
 exchanging for <code class="docutils literal notranslate"><span class="pre">extension</span></code>.</p></li>
-<li><p><strong>kwargs</strong> (<em>dict</em>) – Additional keyword arguments to provide to <a class="reference internal" href="#octoprint.util.find_collision_free_name" title="octoprint.util.find_collision_free_name"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_collision_free_name()</span></code></a>.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Additional keyword arguments to provide to <a class="reference internal" href="#octoprint.util.find_collision_free_name" title="octoprint.util.find_collision_free_name"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_collision_free_name()</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -857,7 +808,7 @@ a maximum of 3 characters.</p>
 <dd class="field-odd"><p>string</p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>ValueError</strong> – No 8.3 compatible name could be found that doesn’t collide with the provided <code class="docutils literal notranslate"><span class="pre">existing_filenames</span></code>.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.8)"><strong>ValueError</strong></a> – No 8.3 compatible name could be found that doesn’t collide with the provided <code class="docutils literal notranslate"><span class="pre">existing_filenames</span></code>.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -901,7 +852,7 @@ a maximum of 3 characters.</p>
 <dd><p>Formats a datetime instance as “YYYY-mm-dd HH:MM” and returns the resulting string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>d</strong> (<em>datetime.datetime</em>) – The datetime instance to format</p>
+<dd class="field-odd"><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/2/library/datetime.html#datetime.datetime" title="(in Python v2.7)"><em>datetime.datetime</em></a>) – The datetime instance to format</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The datetime formatted as “YYYY-mm-dd HH:MM”</p>
@@ -920,7 +871,7 @@ K(ilo)B(ytes), M(ega)B(ytes), G(iga)B(ytes) and T(era)B(ytes), with one decimal 
 <p>Based on <a class="reference external" href="http://stackoverflow.com/a/1094933/2028598">http://stackoverflow.com/a/1094933/2028598</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>num</strong> (<em>int</em>) – The byte count to format</p>
+<dd class="field-odd"><p><strong>num</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – The byte count to format</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The formatted byte count.</p>
@@ -937,7 +888,7 @@ K(ilo)B(ytes), M(ega)B(ytes), G(iga)B(ytes) and T(era)B(ytes), with one decimal 
 <dd><p>Formats a timedelta instance as “HH:MM:ss” and returns the resulting string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>d</strong> (<em>datetime.timedelta</em>) – The timedelta instance to format</p>
+<dd class="field-odd"><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/2/library/datetime.html#datetime.timedelta" title="(in Python v2.7)"><em>datetime.timedelta</em></a>) – The timedelta instance to format</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The timedelta formatted as “HH:MM:ss”</p>
@@ -972,12 +923,6 @@ K(ilo)B(ytes), M(ega)B(ytes), G(iga)B(ytes) and T(era)B(ytes), with one decimal 
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.util.interface_addresses">
-<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">interface_addresses</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">family</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.interface_addresses" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieves all of the host’s network interface addresses.</p>
-</dd></dl>
-
-<dl class="py function">
 <dt id="octoprint.util.is_allowed_file">
 <code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">is_allowed_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">extensions</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.is_allowed_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if the provided <code class="docutils literal notranslate"><span class="pre">filename</span></code> has one of the supplied <code class="docutils literal notranslate"><span class="pre">extensions</span></code>. The check is done case-insensitive.</p>
@@ -985,7 +930,7 @@ K(ilo)B(ytes), M(ega)B(ytes), G(iga)B(ytes) and T(era)B(ytes), with one decimal 
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filename</strong> (<em>string</em>) – The file name to check against the extensions.</p></li>
-<li><p><strong>extensions</strong> (<em>list</em>) – The extensions to check against, a list of strings</p></li>
+<li><p><strong>extensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – The extensions to check against, a list of strings</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1009,7 +954,7 @@ property.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<em>string</em>) – The message to include in the deprecation warning.</p></li>
-<li><p><strong>stacklevel</strong> (<em>int</em>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
+<li><p><strong>stacklevel</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
 meaning the direct caller of the method. It might make sense to increase this in case of the function call
 happening dynamically from a fixed position to not shadow the real caller (e.g. in case of overridden
 <code class="docutils literal notranslate"><span class="pre">getattr</span></code> methods).</p></li>
@@ -1052,29 +997,6 @@ message, if False (default) it will be replaced with the deprecation message.</p
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.util.server_reachable">
-<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">server_reachable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">host</span></em>, <em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">3.05</span></em>, <em class="sig-param"><span class="n">proto</span><span class="o">=</span><span class="default_value">'tcp'</span></em>, <em class="sig-param"><span class="n">source</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.server_reachable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks if a server is reachable</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>host</strong> (<em>str</em>) – host to check against</p></li>
-<li><p><strong>port</strong> (<em>int</em>) – port to check against</p></li>
-<li><p><strong>timeout</strong> (<em>float</em>) – timeout for check</p></li>
-<li><p><strong>proto</strong> (<em>str</em>) – <code class="docutils literal notranslate"><span class="pre">tcp</span></code> or <code class="docutils literal notranslate"><span class="pre">udp</span></code></p></li>
-<li><p><strong>source</strong> (<em>str</em>) – optional, socket used for check will be bound against this address if provided</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>True if a connection to the server could be opened, False otherwise</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>boolean</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt id="octoprint.util.silent_remove">
 <code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">silent_remove</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.silent_remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Silently removes a file. Does not raise an error if the file doesn’t exist.</p>
@@ -1088,25 +1010,58 @@ message, if False (default) it will be replaced with the deprecation message.</p
 <dl class="py function">
 <dt id="octoprint.util.to_bytes">
 <code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">to_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s_or_u</span></em>, <em class="sig-param"><span class="n">encoding</span><span class="o">=</span><span class="default_value">'utf-8'</span></em>, <em class="sig-param"><span class="n">errors</span><span class="o">=</span><span class="default_value">'strict'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.to_bytes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Make sure <code class="docutils literal notranslate"><span class="pre">s_or_u</span></code> is a bytestring.</p>
+<dd><p>Make sure <code class="docutils literal notranslate"><span class="pre">s_or_u</span></code> is a byte string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s_or_u</strong> (<em>string</em><em> or </em><em>unicode</em>) – The value to convert</p></li>
+<li><p><strong>encoding</strong> (<em>string</em>) – encoding to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str.encode" title="(in Python v3.8)"><code class="docutils literal notranslate"><span class="pre">str.encode()</span></code></a></p></li>
+<li><p><strong>errors</strong> (<em>string</em>) – error handling to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str.encode" title="(in Python v3.8)"><code class="docutils literal notranslate"><span class="pre">str.encode()</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>converted bytes.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="octoprint.util.to_native_str">
 <code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">to_native_str</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s_or_u</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.to_native_str" title="Permalink to this definition">¶</a></dt>
-<dd><p>Make sure <code class="docutils literal notranslate"><span class="pre">s_or_u</span></code> is a ‘str’.</p>
+<dd><p>Make sure <code class="docutils literal notranslate"><span class="pre">s_or_u</span></code> is a native ‘str’ for the current Python version</p>
+<p>Will ensure a byte string under Python 2 and a unicode string under Python 3.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="octoprint.util.to_str">
 <code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">to_str</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s_or_u</span></em>, <em class="sig-param"><span class="n">encoding</span><span class="o">=</span><span class="default_value">'utf-8'</span></em>, <em class="sig-param"><span class="n">errors</span><span class="o">=</span><span class="default_value">'strict'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.to_str" title="Permalink to this definition">¶</a></dt>
-<dd><p>Make sure <code class="docutils literal notranslate"><span class="pre">s_or_u</span></code> is a bytestring.</p>
+<dd><div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 1.3.11: </span>to_str has been renamed to to_bytes</p>
+</div>
 </dd></dl>
 
 <dl class="py function">
 <dt id="octoprint.util.to_unicode">
 <code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">to_unicode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s_or_u</span></em>, <em class="sig-param"><span class="n">encoding</span><span class="o">=</span><span class="default_value">'utf-8'</span></em>, <em class="sig-param"><span class="n">errors</span><span class="o">=</span><span class="default_value">'strict'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.to_unicode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make sure <code class="docutils literal notranslate"><span class="pre">s_or_u</span></code> is a unicode string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s_or_u</strong> (<em>string</em><em> or </em><em>unicode</em>) – The value to convert</p></li>
+<li><p><strong>encoding</strong> (<em>string</em>) – encoding to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes.decode" title="(in Python v3.8)"><code class="docutils literal notranslate"><span class="pre">bytes.decode()</span></code></a></p></li>
+<li><p><strong>errors</strong> (<em>string</em>) – error handling to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes.decode" title="(in Python v3.8)"><code class="docutils literal notranslate"><span class="pre">bytes.decode()</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>converted string.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -1119,7 +1074,7 @@ warning) can be overridden using the optional <code class="docutils literal notr
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<em>string</em>) – The message to include in the deprecation warning.</p></li>
-<li><p><strong>stacklevel</strong> (<em>int</em>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
+<li><p><strong>stacklevel</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
 meaning the direct caller of the method. It might make sense to increase this in case of the function call
 happening dynamically from a fixed position to not shadow the real caller (e.g. in case of overridden
 <code class="docutils literal notranslate"><span class="pre">getattr</span></code> methods).</p></li>
@@ -1145,7 +1100,7 @@ the warning) can be overridden using the optional <code class="docutils literal 
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<em>string</em>) – The message to include in the deprecation warning.</p></li>
-<li><p><strong>stacklevel</strong> (<em>int</em>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
+<li><p><strong>stacklevel</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
 meaning the direct caller of the method. It might make sense to increase this in case of the function call
 happening dynamically from a fixed position to not shadow the real caller (e.g. in case of overridden
 <code class="docutils literal notranslate"><span class="pre">getattr</span></code> methods).</p></li>
@@ -1211,8 +1166,8 @@ and stderr via configurable callback functions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>command</strong> (<em>list</em><em>, </em><em>tuple</em><em> or </em><em>str</em>) – command to call</p></li>
-<li><p><strong>kwargs</strong> (<em>dict</em>) – additional keyword arguments to pass to the sarge <code class="docutils literal notranslate"><span class="pre">run</span></code> call (note that <code class="docutils literal notranslate"><span class="pre">_async</span></code>,
+<li><p><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em> or </em><a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – command to call</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – additional keyword arguments to pass to the sarge <code class="docutils literal notranslate"><span class="pre">run</span></code> call (note that <code class="docutils literal notranslate"><span class="pre">_async</span></code>,
 <code class="docutils literal notranslate"><span class="pre">stdout</span></code> and <code class="docutils literal notranslate"><span class="pre">stderr</span></code> will be overwritten)</p></li>
 </ul>
 </dd>
@@ -1229,8 +1184,8 @@ and stderr via configurable callback functions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>command</strong> (<em>list</em><em>, </em><em>tuple</em><em> or </em><em>str</em>) – command to call</p></li>
-<li><p><strong>kwargs</strong> (<em>dict</em>) – additional keyword arguments to pass to the sarge <code class="docutils literal notranslate"><span class="pre">run</span></code> call (note that <code class="docutils literal notranslate"><span class="pre">_async</span></code>,
+<li><p><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em> or </em><a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – command to call</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – additional keyword arguments to pass to the sarge <code class="docutils literal notranslate"><span class="pre">run</span></code> call (note that <code class="docutils literal notranslate"><span class="pre">_async</span></code>,
 <code class="docutils literal notranslate"><span class="pre">stdout</span></code> and <code class="docutils literal notranslate"><span class="pre">stderr</span></code> will be overwritten)</p></li>
 </ul>
 </dd>
@@ -1270,9 +1225,9 @@ and stderr via configurable callback functions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>returncode</strong> (<em>int</em>) – the return code of the command</p></li>
-<li><p><strong>stdout</strong> (<em>str</em>) – the stdout output produced by the command</p></li>
-<li><p><strong>stderr</strong> (<em>str</em>) – the stderr output produced by the command</p></li>
+<li><p><strong>returncode</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – the return code of the command</p></li>
+<li><p><strong>stdout</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – the stdout output produced by the command</p></li>
+<li><p><strong>stderr</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – the stderr output produced by the command</p></li>
 </ul>
 </dd>
 </dl>
@@ -1289,7 +1244,7 @@ and stderr via configurable callback functions.</p>
 <dd><p>Removes ANSI control codes from <code class="docutils literal notranslate"><span class="pre">line</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>line</strong> (<em>bytes</em><em> or </em><em>unicode</em>) – the line to process</p>
+<dd class="field-odd"><p><strong>line</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)"><em>bytes</em></a><em> or </em><em>unicode</em>) – the line to process</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>(bytes or unicode) The line without any ANSI control codes</p>
@@ -1304,6 +1259,48 @@ and stderr via configurable callback functions.</p>
 <span class="go">&#39;We hide the cursor here and then show it again here&#39;</span>
 </pre></div>
 </div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-octoprint.util.platform">
+<span id="octoprint-util-platform"></span><span id="sec-modules-util-platform"></span><h1>octoprint.util.platform<a class="headerlink" href="#module-octoprint.util.platform" title="Permalink to this headline">¶</a></h1>
+<dl class="py data">
+<dt id="octoprint.util.platform.CLOSE_FDS">
+<code class="sig-prename descclassname">octoprint.util.platform.</code><code class="sig-name descname">CLOSE_FDS</code><em class="property"> = True</em><a class="headerlink" href="#octoprint.util.platform.CLOSE_FDS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default setting for close_fds parameter to Popen/sarge.run.</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">close_fds</span></code> on every sub process to this to ensure file handlers will be closed
+on child processes on platforms that support this (anything Python 3.7+ or anything
+but win32 in earlier Python versions).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.platform.get_os">
+<code class="sig-prename descclassname">octoprint.util.platform.</code><code class="sig-name descname">get_os</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.platform.get_os" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a canonical OS identifier.</p>
+<p>Currently the following OS are recognized: <code class="docutils literal notranslate"><span class="pre">win32</span></code>, <code class="docutils literal notranslate"><span class="pre">linux</span></code> (<code class="docutils literal notranslate"><span class="pre">sys.platform</span></code> = <code class="docutils literal notranslate"><span class="pre">linux*</span></code>),
+<code class="docutils literal notranslate"><span class="pre">macos</span></code> (<code class="docutils literal notranslate"><span class="pre">sys.platform</span></code> = <code class="docutils literal notranslate"><span class="pre">darwin</span></code>) and <code class="docutils literal notranslate"><span class="pre">freebsd</span></code> (<code class="docutils literal notranslate"><span class="pre">sys.platform</span></code> = <code class="docutils literal notranslate"><span class="pre">freebsd*</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>(str) mapped OS identifier</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.platform.is_os_compatible">
+<code class="sig-prename descclassname">octoprint.util.platform.</code><code class="sig-name descname">is_os_compatible</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">compatibility_entries</span></em>, <em class="sig-param"><span class="n">current_os</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.platform.is_os_compatible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests if the <code class="docutils literal notranslate"><span class="pre">current_os</span></code> or <code class="docutils literal notranslate"><span class="pre">sys.platform</span></code> are blacklisted or whitelisted in <code class="docutils literal notranslate"><span class="pre">compatibility_entries</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>(bool) True if the os is compatible, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.platform.set_close_exec">
+<code class="sig-prename descclassname">octoprint.util.platform.</code><code class="sig-name descname">set_close_exec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">handle</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.platform.set_close_exec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set <code class="docutils literal notranslate"><span class="pre">close_exec</span></code> flag on handle, if supported by the OS.</p>
 </dd></dl>
 
 </div>

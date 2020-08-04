@@ -38,7 +38,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Announcement Plugin" href="announcements.html" />
-    <link rel="prev" title="Bundled Plugins" href="index.html" /> 
+    <link rel="prev" title="Action Command Notification support" href="action_command_notification.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -90,8 +90,8 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Bundled Plugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="action_command_notification.html">Action Command Notification support</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Action Command Prompt support</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#first-steps">First Steps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#configuring-the-plugin">Configuring the plugin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#supported-action-commands">Supported action commands</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#example-communication-with-the-firmware">Example communication with the firmware</a></li>
@@ -104,11 +104,14 @@
 <li class="toctree-l2"><a class="reference internal" href="backup.html">Backup Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="discovery.html">Discovery Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="errortracking.html">Error Tracking Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_check.html">File Check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firmware_check.html">Firmware Check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gcodeviewer.html">GCode Viewer Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="loginui.html">Login UI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pluginmanager.html">Plugin Manager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="printer_safety_check.html">Printer Safety Check</a></li>
 <li class="toctree-l2"><a class="reference internal" href="softwareupdate.html">Software Update Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtual_printer.html">Virtual Printer</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
@@ -197,21 +200,20 @@ in case its no longer needed, e.g. due to the user proceeding on the printer’s
 placeholder for the selected option’s index.</p>
 <div class="figure align-center" id="id1">
 <span id="fig-bundledplugins-action-command-prompt-example"></span><img alt="Simple prompt example" src="../_images/bundledplugins-action_command_prompt-example.png" />
-<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">A simple dialog example triggered by the firmware</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
-<div class="section" id="first-steps">
-<span id="sec-bundledplugins-action-command-prompt-firststeps"></span><h2>First Steps<a class="headerlink" href="#first-steps" title="Permalink to this headline">¶</a></h2>
-<p>In order for this plugin to work, you’ll need to configure it with the command your firmware uses to accept
-dialog selections. You can do that in the settings dialog.</p>
-<p>Currently there is no agreed upon command for this since no firmware has yet made use of this feature, so OctoPrint
-ships with an empty value here.</p>
+<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">A simple dialog example triggered by the firmware</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 <div class="section" id="configuring-the-plugin">
 <span id="sec-bundledplugins-action-command-prompt-configuration"></span><h2>Configuring the plugin<a class="headerlink" href="#configuring-the-plugin" title="Permalink to this headline">¶</a></h2>
 <p>The plugin supports the following configuration keys:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">selection_command</span></code>: The command to send to the firmware on choice, including the <code class="docutils literal notranslate"><span class="pre">{choice}</span></code> placeholder, e.g. <code class="docutils literal notranslate"><span class="pre">M876</span> <span class="pre">S{choice}</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enable</span></code>: Whether to always enable (<code class="docutils literal notranslate"><span class="pre">always</span></code>), disable (<code class="docutils literal notranslate"><span class="pre">never</span></code>) or <code class="docutils literal notranslate"><span class="pre">detect</span></code> support.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enable_emergency_sending</span></code>: Will make the selection command be sent as an emergency command to jump the internal
+send queue and even be sent to the printer if it’s not signaling to be able to received. Only done if this is true
+and the printer signals support for emergency command processing. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enable_signaling</span></code>: If enabled, will send the configured command with the <code class="docutils literal notranslate"><span class="pre">P1</span></code> parameter to the printer to
+signal prompt support of the host. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">command</span></code>: The command to send to the firmware on choice, defaults to <code class="docutils literal notranslate"><span class="pre">M876</span></code>.</p></li>
 </ul>
 </div></blockquote>
 <p>You can modify them either through the plugin’s configuration dialog under Settings, or by directly editing <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>.</p>
@@ -236,7 +238,7 @@ of through OctoPrint). Will be ignored if no dialog is defined yet.</p>
 </div>
 <div class="section" id="example-communication-with-the-firmware">
 <span id="sec-bundledplugins-action-command-prompt-example"></span><h2>Example communication with the firmware<a class="headerlink" href="#example-communication-with-the-firmware" title="Permalink to this headline">¶</a></h2>
-<p id="sec-bundledplugins-action-command-prompt-sourcecode">To display the <a class="reference internal" href="#fig-bundledplugins-action-command-prompt-example"><span class="std std-ref">above dialog</span></a> the firmware sent these action commands:</p>
+<p>To display the <a class="reference internal" href="#fig-bundledplugins-action-command-prompt-example"><span class="std std-ref">above dialog</span></a> the firmware sent these action commands:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>//action:prompt_begin Filament unloaded, swap then proceed
 //action:prompt_choice Filament swapped
 //action:prompt_show
@@ -255,12 +257,12 @@ will send back <code class="docutils literal notranslate"><span class="pre">M876
 <p>This would produce the following output:</p>
 <div class="figure align-center" id="id2">
 <span id="fig-bundledplugins-action-command-prompt-example2"></span><img alt="Another prompt example" src="../_images/bundledplugins-action_command_prompt-example2.png" />
-<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">Another dialog example triggered by the firmware</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">Another dialog example triggered by the firmware</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 <p>If the user selects “Abort print”, OctoPrint will send <code class="docutils literal notranslate"><span class="pre">2</span></code> as selected choice.</p>
 </div>
 <div class="section" id="source-code">
-<h2>Source code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
+<span id="sec-bundledplugins-action-command-prompt-sourcecode"></span><h2>Source code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
 <p>The source of the Action Command Prompt Support plugin is bundled with OctoPrint and can be found in
 its source repository under <code class="docutils literal notranslate"><span class="pre">src/octoprint/plugins/action_command_prompt</span></code>.</p>
 </div>
@@ -277,7 +279,7 @@ its source repository under <code class="docutils literal notranslate"><span cla
         <a href="announcements.html" class="btn btn-neutral float-right" title="Announcement Plugin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral float-left" title="Bundled Plugins" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="action_command_notification.html" class="btn btn-neutral float-left" title="Action Command Notification support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

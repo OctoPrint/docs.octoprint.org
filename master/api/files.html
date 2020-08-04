@@ -202,7 +202,7 @@
   <div class="section" id="file-operations">
 <span id="sec-api-fileops"></span><h1><a class="toc-backref" href="#id1">File operations</a><a class="headerlink" href="#file-operations" title="Permalink to this headline">¶</a></h1>
 <div class="contents topic" id="contents">
-<p class="topic-title first">Contents</p>
+<p class="topic-title">Contents</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#file-operations" id="id1">File operations</a></p>
 <ul>
@@ -786,7 +786,8 @@ requested file was not found</p></li>
 is not operational when this parameter is present and set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, the request will fail with a response
 of <code class="docutils literal notranslate"><span class="pre">409</span> <span class="pre">Conflict</span></code>.</p></li>
 </ul>
-<p>Upon success, a status code of <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> and an empty body is returned.</p>
+<p>Upon success, a status code of <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> and an empty body is returned. If there already is an
+active print job, a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> is returned.</p>
 <p>Requires the <code class="docutils literal notranslate"><span class="pre">FILES_SELECT</span></code> permission.</p>
 </dd>
 <dt>slice</dt><dd><p>Slices an STL file into GCODE. Note that this is an asynchronous operation that will take place in the background
@@ -972,7 +973,8 @@ defaults to <code class="docutils literal notranslate"><span class="pre">false</
 <li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – If the <code class="docutils literal notranslate"><span class="pre">command</span></code> is unknown or the request is otherwise invalid</p></li>
 <li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.16">415 Unsupported Media Type</a> – If a <code class="docutils literal notranslate"><span class="pre">slice</span></code> command was issued against something other than an STL file.</p></li>
 <li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – If <code class="docutils literal notranslate"><span class="pre">location</span></code> is neither <code class="docutils literal notranslate"><span class="pre">local</span></code> nor <code class="docutils literal notranslate"><span class="pre">sdcard</span></code> or the requested file was not found</p></li>
-<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – If a selected file is supposed to start printing directly but the printer is not operational or
+<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – If a selected file is supposed to start printing directly but the printer is not operational
+or if a file is to be selected but the printer is already printing or
 if a file to be sliced is supposed to be selected or start printing directly but the printer
 is not operational or already printing.</p></li>
 </ul>
