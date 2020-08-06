@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Access Control &mdash; OctoPrint 1.4.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Custom Controls" href="custom_controls.html" />
+    <link rel="prev" title="Features" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> OctoPrint
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Features</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Access Control</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#available-extension-hooks">Available Extension Hooks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint-access-permissions">octoprint.access.permissions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint-plugin-loginui-theming">octoprint.plugin.loginui.theming</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#rerunning-the-wizard">Rerunning the wizard</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="custom_controls.html">Custom Controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gcode_scripts.html">GCODE Scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="action_commands.html">Action Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcommands.html">&#64; Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="safemode.html">Safe mode</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Features</a> &raquo;</li>
+        
+      <li>Access Control</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/features/accesscontrol.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="access-control">
+<span id="sec-features-access-control"></span><h1>Access Control<a class="headerlink" href="#access-control" title="Permalink to this headline">¶</a></h1>
+<p>OctoPrint’s bundled access control feature allows granular permission control
+over which users or user groups are allowed to access which parts of OctoPrint.</p>
+<p>The default permissions will deny any kind of access to anonymous (not logged in)
+users out of the box.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Please note that OctoPrint does <em>not</em> control the webcam and merely embeds it, and
+thus also cannot limit access to it. If an anonymous user correctly guesses the
+webcam URL, they will thus be able to see it.</p>
+</div>
+<p>If read-only access for anonymous users is enabled, anonymous users will have
+read-only access to the following parts of the UI:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>printer state</p></li>
+<li><p>available gcode files and stats (upload is disabled)</p></li>
+<li><p>temperature</p></li>
+<li><p>webcam</p></li>
+<li><p>gcode viewer</p></li>
+<li><p>terminal output (sending commands is disabled)</p></li>
+<li><p>available timelapse movies</p></li>
+<li><p>any components provided through plugins which are enabled for anonymous
+users</p></li>
+</ul>
+</div></blockquote>
+<p>Logged in users without admin flag will be allowed to access everything besides the
+Settings and System Commands, which are admin-only.</p>
+<p>If Access Control is disabled, everything is directly accessible. <strong>That also
+includes all administrative functionality as well as full control over the
+printer</strong>, and without the need for an <a class="reference internal" href="../api/general.html#sec-api-general-authorization"><span class="std std-ref">API key</span></a>!</p>
+<p>Upon first start a configuration wizard is provided which allows configuration
+of the first administrator account or alternatively disabling Access Control
+(which is <strong>NOT</strong> recommended for systems that are directly accessible via the
+internet or other untrusted networks!).</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>If you plan to have your OctoPrint instance accessible over the internet,
+<strong>always enable Access Control</strong> and ideally <strong>don’t make it accessible to
+everyone over the internet but instead use a VPN</strong> or at the very least
+HTTP basic authentication on a layer above OctoPrint.</p>
+<p>A physical device that includes heaters and stepper motors really should not be
+publicly reachable by everyone with an internet connection, even with access
+control enabled.</p>
+</div>
+<div class="section" id="available-extension-hooks">
+<span id="sec-features-access-control-hooks"></span><h2>Available Extension Hooks<a class="headerlink" href="#available-extension-hooks" title="Permalink to this headline">¶</a></h2>
+<p>There are two hooks for plugins to utilize in order to
+add new configurable permissions into the system and/or adjust the styling of the
+login dialog.</p>
+<div class="section" id="octoprint-access-permissions">
+<span id="sec-features-access-control-hooks-permissions"></span><h3>octoprint.access.permissions<a class="headerlink" href="#octoprint-access-permissions" title="Permalink to this headline">¶</a></h3>
+<p>See <a class="reference internal" href="../plugins/hooks.html#sec-plugins-hook-permissions"><span class="std std-ref">here</span></a>.</p>
+</div>
+<div class="section" id="octoprint-plugin-loginui-theming">
+<span id="sec-features-access-control-hooks-loginui"></span><h3>octoprint.plugin.loginui.theming<a class="headerlink" href="#octoprint-plugin-loginui-theming" title="Permalink to this headline">¶</a></h3>
+<p>See <a class="reference internal" href="../bundledplugins/loginui.html#sec-bundledplugins-loginui-hooks-theming"><span class="std std-ref">here</span></a>.</p>
+</div>
+</div>
+<div class="section" id="rerunning-the-wizard">
+<span id="sec-features-access-control-rerunning-wizard"></span><h2>Rerunning the wizard<a class="headerlink" href="#rerunning-the-wizard" title="Permalink to this headline">¶</a></h2>
+<p>In case Access Control was disabled in the configuration wizard, it is
+possible to re-run it by editing <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> <a class="footnote-reference brackets" href="#f1" id="id1">1</a> and setting <code class="docutils literal notranslate"><span class="pre">firstRun</span></code>
+in the <code class="docutils literal notranslate"><span class="pre">server</span></code> section and <code class="docutils literal notranslate"><span class="pre">enabled</span></code> in the <code class="docutils literal notranslate"><span class="pre">accessControl</span></code> section to
+<code class="docutils literal notranslate"><span class="pre">true</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">accessControl</span><span class="p">:</span>
+  <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="c1"># ...</span>
+<span class="nt">server</span><span class="p">:</span>
+  <span class="nt">firstRun</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+<p>Then restart the server and connect to the web interface - the wizard should
+be shown again.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If user accounts were created prior to disabling Access Control and those
+user accounts are not to be used any more, remove <code class="docutils literal notranslate"><span class="pre">.octoprint/users.yaml</span></code>.
+If you don’t remove this file, the above changes won’t lead to the
+configuration being shown again, instead Access Control will just be
+enabled using the already existing login data. This is to prevent you from
+resetting access control by accident.</p>
+</div>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>For Linux that will be <code class="docutils literal notranslate"><span class="pre">~/.octoprint/config.yaml</span></code>, for Windows it will be <code class="docutils literal notranslate"><span class="pre">%APPDATA%/OctoPrint/config.yaml</span></code> and for
+Mac <code class="docutils literal notranslate"><span class="pre">~/Library/Application</span> <span class="pre">Support/OctoPrint/config.yaml</span></code></p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="custom_controls.html" class="btn btn-neutral float-right" title="Custom Controls" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Features" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2020, Gina Häußge
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.4.2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.3.12/features/accesscontrol.html">1.3.12</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.4.0/features/accesscontrol.html">1.4.0</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.4.1/features/accesscontrol.html">1.4.1</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.4.2/features/accesscontrol.html">1.4.2</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/features/accesscontrol.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/features/accesscontrol.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/features/accesscontrol.html">devel</a></dd>
+    </dl>
+  </div>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

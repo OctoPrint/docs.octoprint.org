@@ -1,0 +1,532 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Job operations &mdash; OctoPrint 1.4.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Languages" href="languages.html" />
+    <link rel="prev" title="File operations" href="files.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> OctoPrint
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">REST API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="general.html">General information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version.html">Version information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection.html">Connection handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">File operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Job operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#issue-a-job-command">Issue a job command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#retrieve-information-about-the-current-job">Retrieve information about the current job</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-model">Data model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#job-information-response">Job information response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="languages.html">Languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logs.html">Log file management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html">Printer operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printerprofiles.html">Printer profile operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html">Slicing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html">Timelapse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="access.html">Access control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">Util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wizard.html">Wizard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="push.html">Push updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datamodel.html">Common data model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">REST API</a> &raquo;</li>
+        
+      <li>Job operations</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/job.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="job-operations">
+<span id="sec-api-jobs"></span><h1><a class="toc-backref" href="#id1">Job operations</a><a class="headerlink" href="#job-operations" title="Permalink to this headline">¶</a></h1>
+<p>Use these operations to query the currently selected file and start/cancel/restart/pause the
+actual print job.</p>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#job-operations" id="id1">Job operations</a></p>
+<ul>
+<li><p><a class="reference internal" href="#issue-a-job-command" id="id2">Issue a job command</a></p></li>
+<li><p><a class="reference internal" href="#retrieve-information-about-the-current-job" id="id3">Retrieve information about the current job</a></p></li>
+<li><p><a class="reference internal" href="#data-model" id="id4">Data model</a></p>
+<ul>
+<li><p><a class="reference internal" href="#job-information-response" id="id5">Job information response</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="issue-a-job-command">
+<span id="sec-api-jobs-command"></span><h2><a class="toc-backref" href="#id2">Issue a job command</a><a class="headerlink" href="#issue-a-job-command" title="Permalink to this headline">¶</a></h2>
+<dl class="http post">
+<dt id="post--api-job">
+<code class="sig-name descname">POST </code><code class="sig-name descname">/api/job</code><a class="headerlink" href="#post--api-job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Job commands allow starting, pausing and cancelling print jobs. Available commands are:</p>
+<dl>
+<dt>start</dt><dd><p>Starts the print of the currently selected file. For selecting a file, see <a class="reference internal" href="files.html#sec-api-fileops-filecommand"><span class="std std-ref">Issue a file command</span></a>.
+If a print job is already active, a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> will be returned.</p>
+</dd>
+<dt>cancel</dt><dd><p>Cancels the current print job.  If no print job is active (either paused or printing), a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a>
+will be returned.</p>
+</dd>
+<dt>restart</dt><dd><p>Restart the print of the currently selected file from the beginning. There must be an active print job for this to work
+and the print job must currently be paused. If either is not the case, a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> will be returned.</p>
+<p>Equivalent to issuing a <code class="docutils literal notranslate"><span class="pre">cancel</span></code> command while paused, directly followed by a <code class="docutils literal notranslate"><span class="pre">start</span></code> command.</p>
+</dd>
+<dt>pause</dt><dd><p>Pauses/resumes/toggles the current print job. Accepts one optional additional parameter <code class="docutils literal notranslate"><span class="pre">action</span></code>
+specifying which action to take. Valid values for this parameter are:</p>
+<dl class="simple">
+<dt>pause</dt><dd><p>Pauses the current job if it’s printing, does nothing if it’s already paused.</p>
+</dd>
+<dt>resume</dt><dd><p>Resumes the current job if it’s paused, does nothing if it’s printing.</p>
+</dd>
+<dt>toggle</dt><dd><p>Toggles the pause state of the job, pausing it if it’s printing and resuming it if it’s currently paused.</p>
+</dd>
+</dl>
+<p>In order to stay backwards compatible to earlier iterations of this API, the default
+action to take if no <code class="docutils literal notranslate"><span class="pre">action</span></code> parameter is supplied is to toggle the print job status.</p>
+<p>If no print job is active (either paused or printing), a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> will be returned.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While the approach to implement pause/resume/toggle behaviour through sub commands via the <code class="docutils literal notranslate"><span class="pre">action</span></code>
+parameter instead of having dedicated <code class="docutils literal notranslate"><span class="pre">pause</span></code>, <code class="docutils literal notranslate"><span class="pre">resume</span></code> and <code class="docutils literal notranslate"><span class="pre">toggle</span></code> commands seems clumsy, this path
+was chosen to have the API stay backwards compatible to prior versions which only offered the toggle
+behaviour under the <code class="docutils literal notranslate"><span class="pre">pause</span></code> command.</p>
+</div>
+</dd>
+</dl>
+<p>Upon success, a status code of <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> and an empty body is returned.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">PRINT</span></code> permission.</p>
+<p><strong>Example Start Request</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/job</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;start&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example Cancel Request</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/job</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;cancel&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example Restart Request</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/job</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;restart&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example Pause Request</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/job</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;pause&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;pause&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example Resume Request</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/job</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;pause&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;resume&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example Pause Toggle Request</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/job</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;pause&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;toggle&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">JSON Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> (<em>string</em>) – The command to issue, either <code class="docutils literal notranslate"><span class="pre">start</span></code>, <code class="docutils literal notranslate"><span class="pre">restart</span></code>, <code class="docutils literal notranslate"><span class="pre">pause</span></code> or <code class="docutils literal notranslate"><span class="pre">cancel</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No error</p></li>
+<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – If the printer is not operational or the current print job state does not match the preconditions
+for the command.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="retrieve-information-about-the-current-job">
+<span id="sec-api-job-information"></span><h2><a class="toc-backref" href="#id3">Retrieve information about the current job</a><a class="headerlink" href="#retrieve-information-about-the-current-job" title="Permalink to this headline">¶</a></h2>
+<dl class="http get">
+<dt id="get--api-job">
+<code class="sig-name descname">GET </code><code class="sig-name descname">/api/job</code><a class="headerlink" href="#get--api-job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve information about the current job (if there is one).</p>
+<p>Returns a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a <a class="reference internal" href="#sec-api-job-datamodel-response"><span class="std std-ref">Job information response</span></a> in the body.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">STATUS</span></code> permission.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/job</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;job&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;file&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;whistle_v2.gcode&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;origin&quot;</span><span class="p">:</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">1468987</span><span class="p">,</span>
+      <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="mi">1378847754</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;estimatedPrintTime&quot;</span><span class="p">:</span> <span class="mi">8811</span><span class="p">,</span>
+    <span class="nt">&quot;filament&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;length&quot;</span><span class="p">:</span> <span class="mi">810</span><span class="p">,</span>
+      <span class="nt">&quot;volume&quot;</span><span class="p">:</span> <span class="mf">5.36</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;progress&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;completion&quot;</span><span class="p">:</span> <span class="mf">0.2298468264184775</span><span class="p">,</span>
+    <span class="nt">&quot;filepos&quot;</span><span class="p">:</span> <span class="mi">337942</span><span class="p">,</span>
+    <span class="nt">&quot;printTime&quot;</span><span class="p">:</span> <span class="mi">276</span><span class="p">,</span>
+    <span class="nt">&quot;printTimeLeft&quot;</span><span class="p">:</span> <span class="mi">912</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;Printing&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Status Codes</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – No error</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="data-model">
+<span id="sec-api-job-datamodel"></span><h2><a class="toc-backref" href="#id4">Data model</a><a class="headerlink" href="#data-model" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="job-information-response">
+<span id="sec-api-job-datamodel-response"></span><h3><a class="toc-backref" href="#id5">Job information response</a><a class="headerlink" href="#job-information-response" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">job</span></code></p></td>
+<td><p>1</p></td>
+<td><p><a class="reference internal" href="datamodel.html#sec-api-datamodel-jobs-job"><span class="std std-ref">Job information</span></a></p></td>
+<td><p>Information regarding the target of the current print job</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">progress</span></code></p></td>
+<td><p>1</p></td>
+<td><p><a class="reference internal" href="datamodel.html#sec-api-datamodel-jobs-progress"><span class="std std-ref">Progress information</span></a></p></td>
+<td><p>Information regarding the progress of the current print job</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">state</span></code></p></td>
+<td><p>1</p></td>
+<td><p>String</p></td>
+<td><p>A textual representation of the current state of the job, i.e. “Operational”, “Printing”, “Pausing”, “Paused”,
+“Cancelling”, “Error” or “Offline”.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="languages.html" class="btn btn-neutral float-right" title="Languages" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="files.html" class="btn btn-neutral float-left" title="File operations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2020, Gina Häußge
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.4.2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.3.12/api/job.html">1.3.12</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.4.0/api/job.html">1.4.0</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.4.1/api/job.html">1.4.1</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.4.2/api/job.html">1.4.2</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/api/job.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/api/job.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/api/job.html">devel</a></dd>
+    </dl>
+  </div>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
