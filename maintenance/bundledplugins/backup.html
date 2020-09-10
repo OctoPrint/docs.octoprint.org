@@ -98,6 +98,10 @@
 <li class="toctree-l2"><a class="reference internal" href="appkeys.html">Application Keys Plugin</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Backup Plugin</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#command-line-usage">Command line usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hooks">Hooks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint-plugin-backup-additional-excludes">octoprint.plugin.backup.additional_excludes</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#source-code">Source code</a></li>
 </ul>
 </li>
@@ -236,6 +240,88 @@ $ octoprint plugins backup:restore --help
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">backup:backup</span></code> command can be useful in combination with a cronjob to create backups in regular intervals.</p>
+</div>
+</div>
+<div class="section" id="hooks">
+<span id="sec-bundledplugins-backup-hooks"></span><h2>Hooks<a class="headerlink" href="#hooks" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="octoprint-plugin-backup-additional-excludes">
+<span id="sec-bundledplugins-backup-hooks-excludes"></span><h3>octoprint.plugin.backup.additional_excludes<a class="headerlink" href="#octoprint-plugin-backup-additional-excludes" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
+<dt id="additional_excludes_hook">
+<code class="sig-name descname">additional_excludes_hook</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">excludes</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#additional_excludes_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use this to provide additional paths on your plugin’s data folder to exclude from the backup. Your handler also
+get a list of currently excluded sub paths in the base folder, so you can react to them. E.g. exclude things
+in your data folder that relate to uploaded GCODE files if <cite>uploads</cite> is excluded, or exclude things that relate
+to timelapses if <cite>timelapse</cite> is excluded.</p>
+<p>Expects a list of additional paths relative to your plugin’s data folder. If you return a single <cite>.</cite>, your whole
+plugin’s data folder will be excluded from the backup.</p>
+<p><strong>Example 1</strong></p>
+<p>The following example plugin will create two files <code class="docutils literal notranslate"><span class="pre">foo.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">bar.txt</span></code> in its data folder, but flag
+<code class="docutils literal notranslate"><span class="pre">foo.txt</span></code> as not to be backed up.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">io</span>
+
+<span class="k">class</span> <span class="nc">BackupExcludeTestPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">OctoPrintPlugin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_plugin_data_folder</span><span class="p">(),</span> <span class="s2">&quot;foo.txt&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_plugin_data_folder</span><span class="p">(),</span> <span class="s2">&quot;bar.txt&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">additional_excludes_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">excludes</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;foo.txt&quot;</span><span class="p">]</span>
+
+<span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">BackupExcludeTestPlugin</span><span class="p">()</span>
+<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;octoprint.plugin.backup.additional_excludes&quot;</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">additional_excludes_hook</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2</strong></p>
+<p>In this example the plugin will create a file <code class="docutils literal notranslate"><span class="pre">foo.txt</span></code> in its data folder and flag its whole data folder as excluded from the
+backup if uploaded GCODE files are also excluded:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">io</span>
+
+<span class="k">class</span> <span class="nc">BackupExcludeTestPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">OctoPrintPlugin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_plugin_data_folder</span><span class="p">(),</span> <span class="s2">&quot;foo.txt&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">additional_excludes_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">excludes</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;uploads&quot;</span> <span class="ow">in</span> <span class="n">excludes</span><span class="p">:</span>
+           <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;.&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+<span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">BackupExcludeTestPlugin</span><span class="p">()</span>
+<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;octoprint.plugin.backup.additional_excludes&quot;</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">additional_excludes_hook</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>list</strong> (<em>excludes</em>) – A list of paths already flagged as excluded in the backup</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of paths to exclude, relative to your plugin’s data folder</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 </div>
 <div class="section" id="source-code">
