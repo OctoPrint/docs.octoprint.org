@@ -98,6 +98,7 @@
 <li class="toctree-l2"><a class="reference internal" href="appkeys.html">Application Keys Plugin</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Backup Plugin</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#command-line-usage">Command line usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#events">Events</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hooks">Hooks</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#octoprint-plugin-backup-additional-excludes">octoprint.plugin.backup.additional_excludes</a></li>
 </ul>
@@ -241,6 +242,23 @@ $ octoprint plugins backup:restore --help
 <p class="admonition-title">Note</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">backup:backup</span></code> command can be useful in combination with a cronjob to create backups in regular intervals.</p>
 </div>
+</div>
+<div class="section" id="events">
+<span id="sec-bundledplugins-backup-events"></span><h2>Events<a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h2>
+<p><em>Events will not be triggered by CLI operations.</em></p>
+<dl>
+<dt>plugin_backup_backup_created</dt><dd><p>A new backup was created. On the push socket only available with a valid login session with <code class="docutils literal notranslate"><span class="pre">Backup</span> <span class="pre">Access</span></code>
+permission.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the name of the backup</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: the path to the backup</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">excludes</span></code>: the list of parts excluded from the backup</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
 </div>
 <div class="section" id="hooks">
 <span id="sec-bundledplugins-backup-hooks"></span><h2>Hooks<a class="headerlink" href="#hooks" title="Permalink to this headline">¶</a></h2>
