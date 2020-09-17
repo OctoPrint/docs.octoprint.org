@@ -340,7 +340,7 @@ Options:
 <p>Version check types are configured through the <code class="docutils literal notranslate"><span class="pre">type</span></code> parameter. The following
 types are currently recognized:</p>
 <blockquote>
-<div><ul class="simple">
+<div><ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">github_release</span></code>: Checks against releases published on Github. Additional
 config parameters:</p>
 <ul>
@@ -348,10 +348,31 @@ config parameters:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">repo</span></code>: (mandatory) Github repository to check</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">prerelease</span></code>: <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>, default <code class="docutils literal notranslate"><span class="pre">False</span></code>, set to
 <code class="docutils literal notranslate"><span class="pre">True</span></code> to also include releases on Github marked as prerelease.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">release_branch</span></code>: Branch name to check against <code class="docutils literal notranslate"><span class="pre">target_comittish</span></code>
-field in Github release data - release will only be included if the
-values match. Defaults to being unset, in which case no match will
-be performed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prerelease_branches</span></code>: Prerelease channel definitions, optional. List of:
+* <code class="docutils literal notranslate"><span class="pre">branch</span></code>: Branch associated with the channel, acts as ID
+* <code class="docutils literal notranslate"><span class="pre">name</span></code>: Human readable name of the release channel
+* <code class="docutils literal notranslate"><span class="pre">committish</span></code>: List of values to check against <code class="docutils literal notranslate"><span class="pre">target_comittish</span></code></p>
+<blockquote>
+<div><p>field in Github release data - release will only be included if the
+values match. Defaults to being unset, in which case the <code class="docutils literal notranslate"><span class="pre">branch</span></code>
+will be matched.</p>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stable_branch</span></code>: Stable channel definition, optional. Structure:
+* <code class="docutils literal notranslate"><span class="pre">branch</span></code>: Branch associated with the channel, acts as ID
+* <code class="docutils literal notranslate"><span class="pre">name</span></code>: Human readable name of the release channel
+* <code class="docutils literal notranslate"><span class="pre">commitish</span></code>: List of values to check against <code class="docutils literal notranslate"><span class="pre">target_comittish</span></code></p>
+<blockquote>
+<div><p>field in Github release data - release will only be included if the
+values match. Defaults to being unset, in which case the <code class="docutils literal notranslate"><span class="pre">branch</span></code>
+will be matched.</p>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prerelease_channel</span></code>: Release channel to limit updates to. If set only
+those releases will be included if their <code class="docutils literal notranslate"><span class="pre">target_comittish</span></code> matches
+the ones associated with the release channel identified by this, either
+included in <code class="docutils literal notranslate"><span class="pre">prerelease_channels</span></code> or the <code class="docutils literal notranslate"><span class="pre">stable_channel</span></code>. Only
+taken into account if <code class="docutils literal notranslate"><span class="pre">prerelease</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">release_compare</span></code>: Method to use to compare between current version
 information and release versions on Github. One of <code class="docutils literal notranslate"><span class="pre">python</span></code> (version
 comparison using <code class="docutils literal notranslate"><span class="pre">pkg_resources.parse_version</span></code>, newer version detected
@@ -363,7 +384,7 @@ remote != current).</p></li>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">github_commit</span></code>: Checks against commits pushed to Github. Additional
 config parameters:</p>
-<ul>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>: (mandatory) Github user the repository to check belongs to</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">repo</span></code>: (mandatory) Github repository to check</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">branch</span></code>: Branch of the Github repository to check, defaults to
@@ -373,7 +394,7 @@ config parameters:</p>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">bitbucket_commit</span></code>: Checks against commits pushed to Bitbucket. Additional
 config parameters:</p>
-<ul>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>: (mandatory) Bitbucket user the repository to check belongs to</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">repo</span></code>: (mandatory) Bitbucket repository to check</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">branch</span></code>: Branch of the Bitbucket repository to check, defaults to
@@ -390,21 +411,21 @@ a new app password. App passwords are user specific on Bitbucket.</p></li>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">git_commit</span></code>: Checks a local git repository for new commits on its
 configured remote. Additional config parameters:</p>
-<ul>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">checkout_folder</span></code>: (mandatory) The full path to the folder with a valid git
 repository to check.</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">pypi_release</span></code>: Checks <a class="reference external" href="https://pypi.org">pypi.org</a> for new releases of a specified package. Additional
 config parameters:</p>
-<ul>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">package</span></code>: (mandatory) Name of the package which to check.</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">httpheader</span></code>: Checks an HTTP header on a defined URL for changes. This can be used for easy checks
 against things like <code class="docutils literal notranslate"><span class="pre">ETag</span></code> or <code class="docutils literal notranslate"><span class="pre">Last-Modified</span></code> headers. Additional
 config parameters:</p>
-<ul>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">header_url</span></code> or <code class="docutils literal notranslate"><span class="pre">url</span></code>: (mandatory) URL to check. <code class="docutils literal notranslate"><span class="pre">url</span></code> can be used to avoid duplication in case of updater
 methods such as <code class="docutils literal notranslate"><span class="pre">single_file_plugin</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">header_name</span></code>: (mandatory) HTTP header to check, case-insensitive, e.g. <code class="docutils literal notranslate"><span class="pre">ETag</span></code> or <code class="docutils literal notranslate"><span class="pre">Last-Modified</span></code>.</p></li>
@@ -416,13 +437,13 @@ will be used. If set to an empty string, no prefix will be added.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">jsondata</span></code>: Checks the provided JSON endpoint for changes. The JSON endpoint must return an object with the
 property <code class="docutils literal notranslate"><span class="pre">version</span></code>, which should contain the latest version, e.g. <code class="docutils literal notranslate"><span class="pre">{&quot;version&quot;:&quot;1.2.3&quot;}</span></code>. Additional
 config parameters:</p>
-<ul>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">jsondata</span></code>: (mandatory) URL from which to fetch the JSON data</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">command_line</span></code>: Uses a provided script to determine whether an update
 is available. Additional config parameters:</p>
-<ul>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">command</span></code>: (mandatory) The full path to the script to execute. The script is
 expected to return a <code class="docutils literal notranslate"><span class="pre">0</span></code> return code if an update is available and to
 return the display name of the available version as the final and
@@ -433,7 +454,7 @@ line on stdout.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">python_checker</span></code>: Can only be specified by plugins through the
 <a class="reference internal" href="#sec-bundledplugins-softwareupdate-hooks"><span class="std std-ref">hook</span></a>. Additional config
 parameters:</p>
-<ul>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">python_checker</span></code>: (mandatory) A Python callable which returns version
 information and whether the current version is up-to-date or not, see
 below for details.</p></li>
@@ -441,13 +462,13 @@ below for details.</p></li>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">always_current</span></code>: Always reports that no update is necessary. Useful for debugging
 software update mechanisms during development. Additional config parameters:</p>
-<ul>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">current_version</span></code>: Version to report for both local and remote version.</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">never_current</span></code>: Always reports that an update is necessary. Useful for debugging
 software update mechanisms during development. Additional config parameters:</p>
-<ul>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">local_version</span></code>: Current local version. Defaults to <code class="docutils literal notranslate"><span class="pre">1.0.0</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">remote_version</span></code>: Remote version to offer update to. Defaults to <code class="docutils literal notranslate"><span class="pre">1.0.1</span></code>.</p></li>
 </ul>
@@ -557,7 +578,81 @@ tracked:</p>
         <span class="nt">pip</span><span class="p">:</span> <span class="s">&#39;https://github.com/someUser/OctoPrint-SomePlugin/archive/{target}.zip&#39;</span>
 </pre></div>
 </div>
-<p>The same, but tracking all commits pushed to branch <code class="docutils literal notranslate"><span class="pre">devel</span></code> (thus allowing
+<p>The same, but declaring three release channels “Stable”, “Maintenance RCs” (tagged on <code class="docutils literal notranslate"><span class="pre">rc/maintenance</span></code> or <code class="docutils literal notranslate"><span class="pre">master</span></code>,
+id <code class="docutils literal notranslate"><span class="pre">rc/maintenance</span></code>) and “Devel RCs” (tagged on <code class="docutils literal notranslate"><span class="pre">rc/maintenance</span></code>, <code class="docutils literal notranslate"><span class="pre">rc/devel</span></code> or <code class="docutils literal notranslate"><span class="pre">master</span></code>, id <code class="docutils literal notranslate"><span class="pre">rc/devel</span></code>),
+but with “Stable” active:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+  <span class="nt">softwareupdate</span><span class="p">:</span>
+    <span class="nt">checks</span><span class="p">:</span>
+      <span class="nt">some_plugin</span><span class="p">:</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">github_release</span>
+        <span class="nt">user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">someUser</span>
+        <span class="nt">repo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">OctoPrint-SomePlugin</span>
+        <span class="nt">stable_branch</span><span class="p">:</span>
+          <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Stable</span>
+          <span class="nt">branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+          <span class="nt">comittish</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+        <span class="nt">prerelease_branches</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Maintenance RCs</span>
+          <span class="nt">branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rc/maintenance</span>
+          <span class="nt">comittish</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">rc/maintenance</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Devel RCs</span>
+          <span class="nt">branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rc/devel</span>
+          <span class="nt">comittish</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">rc/devel</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">rc/maintenance</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+        <span class="nt">pip</span><span class="p">:</span> <span class="s">&#39;https://github.com/someUser/OctoPrint-SomePlugin/archive/{target}.zip&#39;</span>
+</pre></div>
+</div>
+<p>And now with “Maintenance RCs” active (note the <code class="docutils literal notranslate"><span class="pre">prerelease</span></code> and <code class="docutils literal notranslate"><span class="pre">prerelease_channel</span></code> settings):</p>
+<blockquote>
+<div><dl>
+<dt>plugins:</dt><dd><dl>
+<dt>softwareupdate:</dt><dd><dl>
+<dt>checks:</dt><dd><dl>
+<dt>some_plugin:</dt><dd><p>type: github_release
+user: someUser
+repo: OctoPrint-SomePlugin
+stable_branch:</p>
+<blockquote>
+<div><p>name: Stable
+branch: master
+comittish:
+- master</p>
+</div></blockquote>
+<p>prerelease_branches:
+- name: Maintenance RCs</p>
+<blockquote>
+<div><p>branch: rc/maintenance
+comittish:
+- rc/maintenance
+- master</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>name: Devel RCs
+branch: rc/devel
+comittish:
+- rc/devel
+- rc/maintenance
+- master</p></li>
+</ul>
+<p>prerelease: True
+prerelease_channel: rc/maintenance
+pip: ‘<a class="reference external" href="https://github.com/someUser/OctoPrint-SomePlugin/archive">https://github.com/someUser/OctoPrint-SomePlugin/archive</a>/{target}.zip’</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<p>The same plugin again, but tracking all commits pushed to branch <code class="docutils literal notranslate"><span class="pre">devel</span></code> (thus allowing
 “bleeding edge” updates):</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
   <span class="nt">softwareupdate</span><span class="p">:</span>
