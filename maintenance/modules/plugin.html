@@ -1611,6 +1611,7 @@ own <code class="docutils literal notranslate"><span class="pre">errorhandler</s
 <p>See <a class="reference external" href="http://flask.pocoo.org/docs/0.10/api/#flask.Blueprint.errorhandler">the documentation for flask.Blueprint.errorhandler</a>
 and <a class="reference external" href="http://flask.pocoo.org/docs/0.10/api/#flask.Flask.errorhandler">the documentation for flask.Flask.errorhandler</a> for more
 information.</p>
+<p>..versionadded:: 1.3.0</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1660,7 +1661,10 @@ information.</p>
 <dl class="py class">
 <dt id="octoprint.plugin.types.EnvironmentDetectionPlugin">
 <em class="property">class </em><code class="sig-prename descclassname">octoprint.plugin.types.</code><code class="sig-name descname">EnvironmentDetectionPlugin</code><a class="headerlink" href="#octoprint.plugin.types.EnvironmentDetectionPlugin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 1.3.6.</span></p>
+</div>
+</dd></dl>
 
 <dl class="py class">
 <dt id="octoprint.plugin.types.EventHandlerPlugin">
@@ -1997,6 +2001,7 @@ as a logged in user. <code class="docutils literal notranslate"><span class="pre
 <span class="c1">#          path=dict(to=dict(never=dict(return=None))))</span>
 </pre></div>
 </div>
+<p>..versionadded:: 1.2.17</p>
 </dd></dl>
 
 <dl class="py method">
@@ -2028,6 +2033,7 @@ plugin’s configuration.</p>
 <p>The default implementation just minimizes the data persisted on disk to only contain
 the differences to the defaults (in case the current data was persisted with an older
 version of OctoPrint that still duplicated default data).</p>
+<p>..versionadded:: 1.3.0</p>
 </dd></dl>
 
 <dl class="py method">
@@ -2392,6 +2398,7 @@ this slicer if no other profile has been selected.</p>
 additional/other file types will want to override this.</p>
 <p>For the extension tree format, take a look at the docs of the <a class="reference internal" href="../plugins/hooks.html#sec-plugins-hook-filemanager-extensiontree"><span class="std std-ref">octoprint.filemanager.extension_tree hook</span></a>.</p>
 <p>Returns: (dict) a dictionary containing a valid extension subtree.</p>
+<p>..versionadded:: 1.3.11</p>
 </dd></dl>
 
 <dl class="py method">
@@ -2424,6 +2431,13 @@ of the plugin implementation.</p>
 <dd class="field-odd"><p><strong>profile_path</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The base folder where OctoPrint stores this slicer plugin’s profiles</p>
 </dd>
 </dl>
+<p>..versionadded:: 1.3.7</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="octoprint.plugin.types.SlicerPlugin.get_slicer_profiles_lastmodified">
+<code class="sig-name descname">get_slicer_profiles_lastmodified</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">profile_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.types.SlicerPlugin.get_slicer_profiles_lastmodified" title="Permalink to this definition">¶</a></dt>
+<dd><p>..versionadded:: 1.3.0</p>
 </dd></dl>
 
 <dl class="py method">
@@ -2597,6 +2611,9 @@ to actually prevent the user from skipping the dialog by implementing the <code 
 callback and returning <code class="docutils literal notranslate"><span class="pre">false</span></code> there if it is detected that the user hasn’t yet filled in the
 wizard step.</p>
 </div>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.3.0.</span></p>
+</div>
 </dd>
 <dt>About</dt><dd><p>Plugins may define additional panels into OctoPrint’s “About” dialog. Note that with the current implementation
 further about dialog panels will be sorted alphabetically by their name and sorted after the predefined ones.</p>
@@ -2605,6 +2622,9 @@ overridden by the configuration supplied through <a class="reference internal" h
 <p>The template will be already wrapped into the necessary structure, plugins just need to supply the pure content. The
 wrapped div and the link in the navigation will have the additional classes and styles applied as defined via
 the configuration supplied through <a class="reference internal" href="#octoprint.plugin.types.TemplatePlugin.get_template_configs" title="octoprint.plugin.types.TemplatePlugin.get_template_configs"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_template_configs()</span></code></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.3.0.</span></p>
+</div>
 </dd>
 <dt>Generic</dt><dd><p>Plugins may also inject arbitrary templates into the page of the web interface itself, e.g. in order to
 add overlays or dialogs to be called from within the plugin’s JavaScript code.</p>
@@ -3026,6 +3046,9 @@ as well as override possibilities for ETag and LastModified calculation. Additio
 methods to allow persisting call parameters to allow for preemptively caching your UI during
 server startup (basically eager caching instead of lazily waiting for the first request).</p>
 <p>See below for details on this.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.3.0.</span></p>
+</div>
 <dl class="py method">
 <dt id="octoprint.plugin.types.UiPlugin.get_ui_additional_etag">
 <code class="sig-name descname">get_ui_additional_etag</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">default_additional</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.types.UiPlugin.get_ui_additional_etag" title="Permalink to this definition">¶</a></dt>
@@ -3043,6 +3066,7 @@ via the parameter <code class="docutils literal notranslate"><span class="pre">d
 <dd class="field-odd"><p>(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>)</p>
 </dd>
 </dl>
+<p>..versionadded:: 1.3.0</p>
 </dd></dl>
 
 <dl class="py method">
@@ -3062,6 +3086,9 @@ cache key. Ignored if <code class="docutils literal notranslate"><span class="pr
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)">tuple</a></p>
 </dd>
 </dl>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.3.0.</span></p>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -3084,6 +3111,7 @@ used for creating the fake request.</p>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></p>
 </dd>
 </dl>
+<p>..versionadded:: 1.3.0</p>
 </dd></dl>
 
 <dl class="py method">
@@ -3104,6 +3132,7 @@ files can be added by a plugin through this callback.</p>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a></p>
 </dd>
 </dl>
+<p>..versionadded:: 1.3.0</p>
 </dd></dl>
 
 <dl class="py method">
@@ -3119,6 +3148,7 @@ OctoPrint’s version, tracked file paths and <code class="docutils literal notr
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)">str</a></p>
 </dd>
 </dl>
+<p>..versionadded:: 1.3.0</p>
 </dd></dl>
 
 <dl class="py method">
@@ -3134,6 +3164,7 @@ date of all tracked files.</p>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)">int</a></p>
 </dd>
 </dl>
+<p>..versionadded:: 1.3.0</p>
 </dd></dl>
 
 <dl class="py method">
@@ -3153,6 +3184,7 @@ and returning <code class="docutils literal notranslate"><span class="pre">True<
 filtering will take place.</p>
 </dd>
 </dl>
+<p>..versionadded:: 1.3.0</p>
 </dd></dl>
 
 <dl class="py method">
@@ -3173,6 +3205,7 @@ files specified in the returned list.</p>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a></p>
 </dd>
 </dl>
+<p>..versionadded:: 1.3.0</p>
 </dd></dl>
 
 <dl class="py method">
@@ -3188,6 +3221,7 @@ top of the request path, base URL and used locale.</p>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></p>
 </dd>
 </dl>
+<p>..versionadded:: 1.3.0</p>
 </dd></dl>
 
 <dl class="py method">
@@ -3205,6 +3239,7 @@ access or not. If you return <code class="docutils literal notranslate"><span cl
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)">bool</a></p>
 </dd>
 </dl>
+<p>..versionadded:: 1.3.0</p>
 </dd></dl>
 
 <dl class="py method">
