@@ -214,9 +214,13 @@
             
   <div class="section" id="software-update-plugin">
 <span id="sec-bundledplugins-softwareupdate"></span><h1>Software Update Plugin<a class="headerlink" href="#software-update-plugin" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.0.</span></p>
+</div>
 <p>The Software Update Plugin allows receiving notifications about new releases
 of OctoPrint or installed plugins which registered with it and – if properly
 configured – also applying the found updates.</p>
+<p>It comes bundled with OctoPrint.</p>
 <div class="section" id="first-steps">
 <span id="sec-bundledplugins-softwareupdate-firststeps"></span><h2>First Steps<a class="headerlink" href="#first-steps" title="Permalink to this headline">¶</a></h2>
 <p>Out of the box the Software Update Plugin will be able to notify you of any
@@ -357,6 +361,9 @@ config parameters:</p>
 values match. Defaults to being unset, in which case the <code class="docutils literal notranslate"><span class="pre">branch</span></code>
 will be matched.</p>
 </div></blockquote>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.16.</span></p>
+</div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">stable_branch</span></code>: Stable channel definition, optional. Structure:
 * <code class="docutils literal notranslate"><span class="pre">branch</span></code>: Branch associated with the channel, acts as ID
@@ -367,12 +374,16 @@ will be matched.</p>
 values match. Defaults to being unset, in which case the <code class="docutils literal notranslate"><span class="pre">branch</span></code>
 will be matched.</p>
 </div></blockquote>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.16.</span></p>
+</div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">prerelease_channel</span></code>: Release channel to limit updates to. If set only
 those releases will be included if their <code class="docutils literal notranslate"><span class="pre">target_comittish</span></code> matches
 the ones associated with the release channel identified by this, either
 included in <code class="docutils literal notranslate"><span class="pre">prerelease_channels</span></code> or the <code class="docutils literal notranslate"><span class="pre">stable_channel</span></code>. Only
-taken into account if <code class="docutils literal notranslate"><span class="pre">prerelease</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+taken into account if <code class="docutils literal notranslate"><span class="pre">prerelease</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code>.
+.. versionadded:: 1.2.16</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">release_compare</span></code>: Method to use to compare between current version
 information and release versions on Github. One of <code class="docutils literal notranslate"><span class="pre">python</span></code> (version
 comparison using <code class="docutils literal notranslate"><span class="pre">pkg_resources.parse_version</span></code>, newer version detected
@@ -408,6 +419,9 @@ configure this as pip URL in <code class="docutils literal notranslate"><span cl
 <code class="docutils literal notranslate"><span class="pre">api_user</span></code> to be set. <strong>Important</strong>: Never use your actual Bitbucket login password. Generate
 a new app password. App passwords are user specific on Bitbucket.</p></li>
 </ul>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.3.5.</span></p>
+</div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">git_commit</span></code>: Checks a local git repository for new commits on its
 configured remote. Additional config parameters:</p>
@@ -421,6 +435,9 @@ config parameters:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">package</span></code>: (mandatory) Name of the package which to check.</p></li>
 </ul>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.4.0.</span></p>
+</div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">httpheader</span></code>: Checks an HTTP header on a defined URL for changes. This can be used for easy checks
 against things like <code class="docutils literal notranslate"><span class="pre">ETag</span></code> or <code class="docutils literal notranslate"><span class="pre">Last-Modified</span></code> headers. Additional
@@ -433,6 +450,9 @@ methods such as <code class="docutils literal notranslate"><span class="pre">sin
 <li><p><code class="docutils literal notranslate"><span class="pre">header_prefix</span></code>: Prefix to use for the obtained value in the version display. If not provided <code class="docutils literal notranslate"><span class="pre">header_name</span></code>
 will be used. If set to an empty string, no prefix will be added.</p></li>
 </ul>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.4.1.</span></p>
+</div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">jsondata</span></code>: Checks the provided JSON endpoint for changes. The JSON endpoint must return an object with the
 property <code class="docutils literal notranslate"><span class="pre">version</span></code>, which should contain the latest version, e.g. <code class="docutils literal notranslate"><span class="pre">{&quot;version&quot;:&quot;1.2.3&quot;}</span></code>. Additional
@@ -440,6 +460,9 @@ config parameters:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">jsondata</span></code>: (mandatory) URL from which to fetch the JSON data</p></li>
 </ul>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.4.1.</span></p>
+</div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">command_line</span></code>: Uses a provided script to determine whether an update
 is available. Additional config parameters:</p>
@@ -465,6 +488,9 @@ software update mechanisms during development. Additional config parameters:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">current_version</span></code>: Version to report for both local and remote version.</p></li>
 </ul>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.3.7.</span></p>
+</div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">never_current</span></code>: Always reports that an update is necessary. Useful for debugging
 software update mechanisms during development. Additional config parameters:</p>
@@ -472,6 +498,9 @@ software update mechanisms during development. Additional config parameters:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">local_version</span></code>: Current local version. Defaults to <code class="docutils literal notranslate"><span class="pre">1.0.0</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">remote_version</span></code>: Remote version to offer update to. Defaults to <code class="docutils literal notranslate"><span class="pre">1.0.1</span></code>.</p></li>
 </ul>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.3.7.</span></p>
+</div>
 </li>
 </ul>
 </div></blockquote>
@@ -482,24 +511,24 @@ software update mechanisms during development. Additional config parameters:</p>
 through the presence of their mandatory configuration parameters. The following methods are currently
 supported:</p>
 <blockquote>
-<div><ul class="simple">
+<div><ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">pip</span></code>: Update by <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install``ing</span> <span class="pre">the</span> <span class="pre">supplied</span> <span class="pre">URL.</span> <span class="pre">May</span> <span class="pre">contain</span> <span class="pre">a</span>
 <span class="pre">placeholder</span> <span class="pre">``{target}</span></code> which will be the most recent version specifier as retrieved from the update check.
 Additional config parameters:</p>
-<ul>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">pip</span></code>: The URL to use for installing. Presence implies <code class="docutils literal notranslate"><span class="pre">method:</span> <span class="pre">pip</span></code>.</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">single_file_plugin</span></code>: Update a single file plugin by re-downloading it from a configured URL.
 Additional config parameters:</p>
-<ul>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">url</span></code>: (mandatory) The URL from which to install the single file plugin. Must be a single self contained
 python file.</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">update_script</span></code>: Update by executing a script.
 Additional config parameters:</p>
-<ul>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">update_script</span></code>: (mandatory) The path of the script to run. May
 contain placeholders <code class="docutils literal notranslate"><span class="pre">{target}</span></code> (for the most recent version specified
 as retrieved from the update check), <code class="docutils literal notranslate"><span class="pre">{branch}</span></code> for the branch to switch
@@ -513,7 +542,7 @@ types such as <code class="docutils literal notranslate"><span class="pre">git_c
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">python_updater</span></code>: Update by executing a custom python callable.
 Additional config parameters:</p>
-<ul>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">python_updater</span></code>: (mandatory) Can only be specified by plugins through the
 <a class="reference internal" href="#sec-bundledplugins-softwareupdate-hooks"><span class="std std-ref">hook</span></a>. A Python callable
 which performs the update, see below for details. Presence implies <code class="docutils literal notranslate"><span class="pre">method:</span> <span class="pre">python_updater</span></code>.</p></li>
@@ -521,7 +550,11 @@ which performs the update, see below for details. Presence implies <code class="
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sleep_a_bit</span></code>: Does nothing but block for a configurable <code class="docutils literal notranslate"><span class="pre">duration</span></code> and log
 a countdown in the meantime. Useful for debugging software update mechanisms
-during development.</p></li>
+during development.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.3.7.</span></p>
+</div>
+</li>
 </ul>
 </div></blockquote>
 <div class="admonition note">
