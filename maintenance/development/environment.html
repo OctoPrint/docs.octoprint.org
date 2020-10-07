@@ -201,8 +201,8 @@ below.</p>
 <div><ul>
 <li><p>Prerequisites:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://python.org">Python 2.7</a> including <code class="docutils literal notranslate"><span class="pre">pip</span></code>, <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> and <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code></p></li>
 <li><p><a class="reference external" href="https://python.org">Python 3.7</a> including <code class="docutils literal notranslate"><span class="pre">pip</span></code>, <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> and <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code></p></li>
+<li><p><a class="reference external" href="https://python.org">Python 2.7</a> including <code class="docutils literal notranslate"><span class="pre">pip</span></code>, <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> and <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code></p></li>
 <li><p><a class="reference external" href="https://git-scm.com">Git</a></p></li>
 </ul>
 </li>
@@ -218,8 +218,8 @@ below.</p>
 installing and running OctoPrint and its dependencies. Creating virtual environments avoids potential versioning
 issues for the dependencies with system wide installed instances:</p>
 <ul class="simple">
-<li><p>PY2: <code class="docutils literal notranslate"><span class="pre">virtualenv</span> <span class="pre">--python=python2</span> <span class="pre">venv2</span></code></p></li>
 <li><p>PY3: <code class="docutils literal notranslate"><span class="pre">virtualenv</span> <span class="pre">--python=python3</span> <span class="pre">venv3</span></code></p></li>
+<li><p>PY2: <code class="docutils literal notranslate"><span class="pre">virtualenv</span> <span class="pre">--python=python2</span> <span class="pre">venv2</span></code></p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -228,10 +228,11 @@ binaries cannot be found on your <code class="docutils literal notranslate"><spa
 e.g. <code class="docutils literal notranslate"><span class="pre">virtualenv</span> <span class="pre">--python=/path/to/python2/bin/python</span> <span class="pre">venv2</span></code></p>
 </div>
 </li>
-<li><p>Activate one of the virtual environments:</p>
+<li><p>Activate one of the virtual environments (the Python 3 venv should be considered the
+primary one at this point):</p>
 <ul class="simple">
-<li><p>PY2: <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">venv2/bin/activate</span></code> (Linux, macOS) or <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">venv2/Scripts/activate</span></code> (Git Bash under Windows, see below)</p></li>
 <li><p>PY3: <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">venv3/bin/activate</span></code> (Linux, macOS) or <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">venv3/Scripts/activate</span></code> (Git Bash under Windows, see below)</p></li>
+<li><p>PY2: <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">venv2/bin/activate</span></code> (Linux, macOS) or <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">venv2/Scripts/activate</span></code> (Git Bash under Windows, see below)</p></li>
 </ul>
 </li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">pip</span></code> in the virtual environment:</p>
@@ -249,6 +250,20 @@ including its regular <em>and</em> development and plugin development dependenci
 </ul>
 </div></blockquote>
 </li>
+<li><p>Set up the pre-commit hooks that make sure any changes you do adhere to the styling rules:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pre-commit</span> <span class="pre">install</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Tell <code class="docutils literal notranslate"><span class="pre">git</span></code> where to find the file with revisions to exclude for <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">blame</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">config</span> <span class="pre">blame.ignoreRevsFile</span> <span class="pre">.git-blame-ignore-revs</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
 </ul>
 </div></blockquote>
 <p>When the virtual environment is activated you can then:</p>
@@ -256,6 +271,8 @@ including its regular <em>and</em> development and plugin development dependenci
 <div><ul class="simple">
 <li><p>run the OctoPrint server via <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">serve</span></code></p></li>
 <li><p>run the test suite from the checked out source folder via <code class="docutils literal notranslate"><span class="pre">pytest</span></code></p></li>
+<li><p>trigger the pre-commit check suite manually from the checked out source folder via
+<code class="docutils literal notranslate"><span class="pre">pre-commit</span> <span class="pre">run</span> <span class="pre">--hook-stage</span> <span class="pre">manual</span> <span class="pre">--all-files</span></code></p></li>
 </ul>
 </div></blockquote>
 <p>To switch the activated virtual environment, simply activate the new environment as described above.</p>
@@ -307,6 +324,8 @@ pip install -e .[develop,plugins]
 source ./venv3/bin/activate
 pip install --upgrade pip
 pip install -e .[develop,plugins,docs]
+pre-commit install
+git config blame.ignoreRevsFile .git-blame-ignore-revs
 </pre></div>
 </div>
 <p>You can then start OctoPrint via <code class="docutils literal notranslate"><span class="pre">octoprint</span></code> after activating one of the two virtual environments.</p>
@@ -349,6 +368,8 @@ pip install -e .[develop,plugins]
 source ./venv3/Scripts/activate
 pip install --upgrade pip
 pip install -e .[develop,plugins,docs]
+pre-commit install
+git config blame.ignoreRevsFile .git-blame-ignore-revs
 </pre></div>
 </div>
 </div>
@@ -397,6 +418,8 @@ virtualenv venv
 source venv/bin/activate
 pip install --upgrade pip
 pip install -e .[develop,plugins]
+pre-commit install
+git config blame.ignoreRevsFile .git-blame-ignore-revs
 </pre></div>
 </div>
 </li>
@@ -480,6 +503,19 @@ the documentation, see above on how to set this up.</p></li>
 </ul>
 <p>Note that this requires you to also have installed the additional <code class="docutils literal notranslate"><span class="pre">docs</span></code> dependencies into the Python 3 venv as
 described above via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[develop,plugins,docs]</span></code>.</p>
+</li>
+<li><p>Settings &gt; Tools &gt; File Watchers (you might have to enable this, it’s a bundled plugin), add new:</p>
+<ul class="simple">
+<li><p>Name: pre-commit</p></li>
+<li><p>File type: Python</p></li>
+<li><p>Scope: Module ‘OctoPrint’</p></li>
+<li><p>Program: <code class="docutils literal notranslate"><span class="pre">&lt;OctoPrint</span> <span class="pre">venv3</span> <span class="pre">folder&gt;/bin/pre-commit</span></code> (Linux) or <code class="docutils literal notranslate"><span class="pre">&lt;OctoPrint</span> <span class="pre">venv3</span> <span class="pre">folder&gt;/Scripts/pre-commit</span></code> (Windows)</p></li>
+<li><p>Arguments: <code class="docutils literal notranslate"><span class="pre">run</span> <span class="pre">--hook-stage</span> <span class="pre">manual</span> <span class="pre">--files</span> <span class="pre">$FilePath$</span></code></p></li>
+<li><p>Output paths to refresh: <code class="docutils literal notranslate"><span class="pre">$FilePath$</span></code></p></li>
+<li><p>Working directory: <code class="docutils literal notranslate"><span class="pre">$ProjectFileDir$</span></code></p></li>
+<li><p>disable “Auto-save edited files to trigger the watched”</p></li>
+<li><p>enable “Trigger the watched on external changes”</p></li>
+</ul>
 </li>
 </ul>
 </div></blockquote>
