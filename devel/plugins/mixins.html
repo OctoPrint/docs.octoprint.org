@@ -297,13 +297,13 @@ rendition of the UI.</p>
 <span id="sec-plugins-mixins-ordering"></span><h2><a class="toc-backref" href="#id13">Execution Order</a><a class="headerlink" href="#execution-order" title="Permalink to this headline">¶</a></h2>
 <p>Some mixin types, such as <a class="reference internal" href="#octoprint.plugin.StartupPlugin" title="octoprint.plugin.StartupPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">StartupPlugin</span></code></a>, <a class="reference internal" href="#octoprint.plugin.ShutdownPlugin" title="octoprint.plugin.ShutdownPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShutdownPlugin</span></code></a> and
 <a class="reference internal" href="#octoprint.plugin.UiPlugin" title="octoprint.plugin.UiPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">UiPlugin</span></code></a>, support influencing the execution order for various execution contexts by also
-implementing the <a class="reference internal" href="../modules/plugin.html#id87" title="octoprint.plugin.core.SortablePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SortablePlugin</span></code></a> mixin.</p>
+implementing the <a class="reference internal" href="../modules/plugin.html#id112" title="octoprint.plugin.core.SortablePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SortablePlugin</span></code></a> mixin.</p>
 <p>If a method is to be called on a plugin implementation for which a sorting context is defined (see the mixin
 documentation for information on this), OctoPrint’s plugin subsystem will ensure that the order in which the implementation
 calls are done is as follows:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>Plugins with a return value that is not <code class="docutils literal notranslate"><span class="pre">None</span></code> for <a class="reference internal" href="../modules/plugin.html#id88" title="octoprint.plugin.core.SortablePlugin.get_sorting_key"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_sorting_key()</span></code></a>
+<li><p>Plugins with a return value that is not <code class="docutils literal notranslate"><span class="pre">None</span></code> for <a class="reference internal" href="../modules/plugin.html#id113" title="octoprint.plugin.core.SortablePlugin.get_sorting_key"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_sorting_key()</span></code></a>
 for the provided sorting context will be ordered among each other first. If the returned order number is equal for
 two or more implementations, they will be sorted first by whether they come bundled with OctoPrint or not, then by
 their identifier.</p></li>
@@ -313,7 +313,7 @@ with OctoPrint or not, then by their identifier.</p></li>
 </div></blockquote>
 <p>Example: Consider four plugin implementations implementing the <a class="reference internal" href="#octoprint.plugin.StartupPlugin" title="octoprint.plugin.StartupPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">StartupPlugin</span></code></a> mixin, called
 <code class="docutils literal notranslate"><span class="pre">plugin_a</span></code>, <code class="docutils literal notranslate"><span class="pre">plugin_b</span></code>, <code class="docutils literal notranslate"><span class="pre">plugin_c</span></code> and <code class="docutils literal notranslate"><span class="pre">plugin_d</span></code>, the latter coming bundled with OctoPrint. <code class="docutils literal notranslate"><span class="pre">plugin_a</span></code>
-and <code class="docutils literal notranslate"><span class="pre">plugin_d</span></code> don’t override <a class="reference internal" href="../modules/plugin.html#id88" title="octoprint.plugin.core.SortablePlugin.get_sorting_key"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_sorting_key()</span></code></a>.
+and <code class="docutils literal notranslate"><span class="pre">plugin_d</span></code> don’t override <a class="reference internal" href="../modules/plugin.html#id113" title="octoprint.plugin.core.SortablePlugin.get_sorting_key"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_sorting_key()</span></code></a>.
 <code class="docutils literal notranslate"><span class="pre">plugin_b</span></code> and <code class="docutils literal notranslate"><span class="pre">plugin_c</span></code> both return <code class="docutils literal notranslate"><span class="pre">1</span></code> for the sorting context <code class="docutils literal notranslate"><span class="pre">StartupPlugin.on_startup</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code> otherwise:</p>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-number">Listing 8 </span><span class="caption-text">plugin_a.py</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
@@ -470,7 +470,7 @@ An overview of these properties can be found in the section <a class="reference 
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="../modules/plugin.html#id26" title="octoprint.plugin.core.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code></a> and <a class="reference internal" href="../modules/plugin.html#id89" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">OctoPrintPlugin</span></code></a></dt><dd><p>Class documentation also containing the properties shared among all mixin implementations.</p>
+<dt><a class="reference internal" href="../modules/plugin.html#id26" title="octoprint.plugin.core.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code></a> and <a class="reference internal" href="../modules/plugin.html#id114" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">OctoPrintPlugin</span></code></a></dt><dd><p>Class documentation also containing the properties shared among all mixin implementations.</p>
 </dd>
 </dl>
 </div>
@@ -497,16 +497,16 @@ An overview of these properties can be found in the section <a class="reference 
 </ul>
 </div>
 <p>Please note that all plugin mixins inherit from <a class="reference internal" href="../modules/plugin.html#id26" title="octoprint.plugin.core.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code></a> and
-<a class="reference internal" href="../modules/plugin.html#id89" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">OctoPrintPlugin</span></code></a>,  which also provide attributes of interest to plugin developers.</p>
+<a class="reference internal" href="../modules/plugin.html#id114" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">OctoPrintPlugin</span></code></a>,  which also provide attributes of interest to plugin developers.</p>
 <div class="section" id="startupplugin">
 <span id="sec-plugins-mixins-startupplugin"></span><h3><a class="toc-backref" href="#id30">StartupPlugin</a><a class="headerlink" href="#startupplugin" title="Permalink to this headline">¶</a></h3>
 <dl class="py class">
 <dt id="octoprint.plugin.StartupPlugin">
 <em class="property">class </em><code class="sig-prename descclassname">octoprint.plugin.</code><code class="sig-name descname">StartupPlugin</code><a class="headerlink" href="#octoprint.plugin.StartupPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id89" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#id87" title="octoprint.plugin.core.SortablePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.SortablePlugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id114" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#id112" title="octoprint.plugin.core.SortablePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.SortablePlugin</span></code></a></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">StartupPlugin</span></code> allows hooking into the startup of OctoPrint. It can be used to start up additional services
 on or just after the startup of the server.</p>
-<p><code class="docutils literal notranslate"><span class="pre">StartupPlugin</span></code> is a <a class="reference internal" href="../modules/plugin.html#id87" title="octoprint.plugin.core.SortablePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SortablePlugin</span></code></a> and provides
+<p><code class="docutils literal notranslate"><span class="pre">StartupPlugin</span></code> is a <a class="reference internal" href="../modules/plugin.html#id112" title="octoprint.plugin.core.SortablePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SortablePlugin</span></code></a> and provides
 sorting contexts for <a class="reference internal" href="#octoprint.plugin.StartupPlugin.on_startup" title="octoprint.plugin.StartupPlugin.on_startup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">on_startup()</span></code></a> as well as
 <a class="reference internal" href="#octoprint.plugin.StartupPlugin.on_after_startup" title="octoprint.plugin.StartupPlugin.on_after_startup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">on_after_startup()</span></code></a>.</p>
 <dl class="py method">
@@ -537,7 +537,7 @@ externally reachable, use <a class="reference internal" href="#octoprint.plugin.
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>host</strong> (<em>string</em>) – the host the server will listen on, may be <code class="docutils literal notranslate"><span class="pre">0.0.0.0</span></code></p></li>
-<li><p><strong>port</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – the port the server will listen on</p></li>
+<li><p><strong>port</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – the port the server will listen on</p></li>
 </ul>
 </dd>
 </dl>
@@ -551,11 +551,11 @@ externally reachable, use <a class="reference internal" href="#octoprint.plugin.
 <dl class="py class">
 <dt id="octoprint.plugin.ShutdownPlugin">
 <em class="property">class </em><code class="sig-prename descclassname">octoprint.plugin.</code><code class="sig-name descname">ShutdownPlugin</code><a class="headerlink" href="#octoprint.plugin.ShutdownPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id89" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#id87" title="octoprint.plugin.core.SortablePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.SortablePlugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id114" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#id112" title="octoprint.plugin.core.SortablePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.SortablePlugin</span></code></a></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">ShutdownPlugin</span></code> allows hooking into the shutdown of OctoPrint. It’s usually used in conjunction with the
 <a class="reference internal" href="#octoprint.plugin.StartupPlugin" title="octoprint.plugin.StartupPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">StartupPlugin</span></code></a> mixin, to cleanly shut down additional services again that where started by the <a class="reference internal" href="#octoprint.plugin.StartupPlugin" title="octoprint.plugin.StartupPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">StartupPlugin</span></code></a>
 part of the plugin.</p>
-<p><code class="docutils literal notranslate"><span class="pre">ShutdownPlugin</span></code> is a <a class="reference internal" href="../modules/plugin.html#id87" title="octoprint.plugin.core.SortablePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SortablePlugin</span></code></a> and provides a sorting context for
+<p><code class="docutils literal notranslate"><span class="pre">ShutdownPlugin</span></code> is a <a class="reference internal" href="../modules/plugin.html#id112" title="octoprint.plugin.core.SortablePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SortablePlugin</span></code></a> and provides a sorting context for
 <a class="reference internal" href="#octoprint.plugin.ShutdownPlugin.on_shutdown" title="octoprint.plugin.ShutdownPlugin.on_shutdown"><code class="xref py py-meth docutils literal notranslate"><span class="pre">on_shutdown()</span></code></a>.</p>
 <dl class="py method">
 <dt id="octoprint.plugin.ShutdownPlugin.on_shutdown">
@@ -576,7 +576,7 @@ part of the plugin.</p>
 <dl class="py class">
 <dt id="octoprint.plugin.SettingsPlugin">
 <em class="property">class </em><code class="sig-prename descclassname">octoprint.plugin.</code><code class="sig-name descname">SettingsPlugin</code><a class="headerlink" href="#octoprint.plugin.SettingsPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id89" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id114" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a></p>
 <p>Including the <code class="docutils literal notranslate"><span class="pre">SettingsPlugin</span></code> mixin allows plugins to store and retrieve their own settings within OctoPrint’s
 configuration.</p>
 <p>Plugins including the mixing will get injected an additional property <code class="docutils literal notranslate"><span class="pre">self._settings</span></code> which is an instance of
@@ -679,7 +679,7 @@ the transformed value.</p>
 </p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a>)</p>
+<dd class="field-even"><p>(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -751,7 +751,7 @@ plugin’s configuration.</p>
 </p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)">None</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -815,9 +815,9 @@ having taken place. You can therefore depend on the configuration having been mi
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The settings format version the plugin requires, this should always be the same value as
+<li><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The settings format version the plugin requires, this should always be the same value as
 returned by <a class="reference internal" href="#octoprint.plugin.SettingsPlugin.get_settings_version" title="octoprint.plugin.SettingsPlugin.get_settings_version"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_settings_version()</span></code></a>.</p></li>
-<li><p><strong>current</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><em>None</em></a>) – The settings format version as currently stored in config.yaml. May be None if
+<li><p><strong>current</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a>) – The settings format version as currently stored in config.yaml. May be None if
 no version information can be found.</p></li>
 </ul>
 </dd>
@@ -841,13 +841,13 @@ and using the proper setter methods on the settings manager to persist the data 
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The settings dictionary to be saved for the plugin</p>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The settings dictionary to be saved for the plugin</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The settings that differed from the defaults and were actually saved.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -860,7 +860,7 @@ and using the proper setter methods on the settings manager to persist the data 
 <dl class="py class">
 <dt id="octoprint.plugin.AssetPlugin">
 <em class="property">class </em><code class="sig-prename descclassname">octoprint.plugin.</code><code class="sig-name descname">AssetPlugin</code><a class="headerlink" href="#octoprint.plugin.AssetPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id89" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#id86" title="octoprint.plugin.core.RestartNeedingPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.RestartNeedingPlugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id114" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#id111" title="octoprint.plugin.core.RestartNeedingPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.RestartNeedingPlugin</span></code></a></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">AssetPlugin</span></code> mixin allows plugins to define additional static assets such as JavaScript or CSS files to
 be automatically embedded into the pages delivered by the server to be used within the client sided part of
 the plugin.</p>
@@ -925,7 +925,7 @@ Example:</p>
 <dl class="py class">
 <dt id="octoprint.plugin.TemplatePlugin">
 <em class="property">class </em><code class="sig-prename descclassname">octoprint.plugin.</code><code class="sig-name descname">TemplatePlugin</code><a class="headerlink" href="#octoprint.plugin.TemplatePlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id89" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#id103" title="octoprint.plugin.types.ReloadNeedingPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.ReloadNeedingPlugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id114" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#id128" title="octoprint.plugin.types.ReloadNeedingPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.ReloadNeedingPlugin</span></code></a></p>
 <p>Using the <code class="docutils literal notranslate"><span class="pre">TemplatePlugin</span></code> mixin plugins may inject their own components into the OctoPrint web interface.</p>
 <p>Currently OctoPrint supports the following types of injections out of the box:</p>
 <dl>
@@ -1257,7 +1257,7 @@ with <code class="docutils literal notranslate"><span class="pre">plugin_&lt;plu
 <dl class="py class">
 <dt id="octoprint.plugin.WizardPlugin">
 <em class="property">class </em><code class="sig-prename descclassname">octoprint.plugin.</code><code class="sig-name descname">WizardPlugin</code><a class="headerlink" href="#octoprint.plugin.WizardPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id89" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#id103" title="octoprint.plugin.types.ReloadNeedingPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.ReloadNeedingPlugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id114" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#id128" title="octoprint.plugin.types.ReloadNeedingPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.ReloadNeedingPlugin</span></code></a></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">WizardPlugin</span></code> mixin allows plugins to report to OctoPrint whether
 the <code class="docutils literal notranslate"><span class="pre">wizard</span></code> templates they define via the <a class="reference internal" href="#octoprint.plugin.TemplatePlugin" title="octoprint.plugin.TemplatePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplatePlugin</span></code></a>
 should be displayed to the user, what details to provide to their respective
@@ -1331,7 +1331,7 @@ data to perform its task.</p>
 </p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1357,7 +1357,7 @@ so far</p>
 </p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)">None</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1389,11 +1389,11 @@ n --+---+---+---+
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>seen_wizards</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – A dictionary with information about already seen
+<li><p><strong>seen_wizards</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A dictionary with information about already seen
 wizards and their versions. Mappings from the identifiers of
 the plugin providing the wizard to the reported wizard
 version (int or None) that was already seen by the user.</p></li>
-<li><p><strong>implementation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><em>object</em></a>) – The plugin implementation to check.</p></li>
+<li><p><strong>implementation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><em>object</em></a>) – The plugin implementation to check.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1404,7 +1404,7 @@ version (int or None) that was already seen by the user.</p></li>
 </p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1433,7 +1433,7 @@ ignored/had already been seen).</p>
 <p>Use this to do any clean up tasks necessary after wizard completion.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>handled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – True if the plugin’s wizard was previously reported as
+<dd class="field-odd"><p><strong>handled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – True if the plugin’s wizard was previously reported as
 required, not ignored and thus presented to the user,
 False otherwise</p>
 </dd>
@@ -1448,7 +1448,7 @@ False otherwise</p>
 <dl class="py class">
 <dt id="octoprint.plugin.UiPlugin">
 <em class="property">class </em><code class="sig-prename descclassname">octoprint.plugin.</code><code class="sig-name descname">UiPlugin</code><a class="headerlink" href="#octoprint.plugin.UiPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id89" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#id87" title="octoprint.plugin.core.SortablePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.SortablePlugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id114" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#id112" title="octoprint.plugin.core.SortablePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.SortablePlugin</span></code></a></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">UiPlugin</span></code> mixin allows plugins to completely replace the UI served
 by OctoPrint when requesting the main page hosted at <cite>/</cite>.</p>
 <p>OctoPrint will query whether your mixin implementation will handle a
@@ -1466,7 +1466,7 @@ no-cache headers sent by the client, or if the <code class="docutils literal not
 on the request exists and is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>. To prevent caching of the
 response altogether, a plugin may set no-cache headers on the returned
 response as well.</p>
-<p><code class="docutils literal notranslate"><span class="pre">UiPlugin</span></code> is a <a class="reference internal" href="../modules/plugin.html#id87" title="octoprint.plugin.core.SortablePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SortablePlugin</span></code></a> with a sorting context
+<p><code class="docutils literal notranslate"><span class="pre">UiPlugin</span></code> is a <a class="reference internal" href="../modules/plugin.html#id112" title="octoprint.plugin.core.SortablePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SortablePlugin</span></code></a> with a sorting context
 for <a class="reference internal" href="#octoprint.plugin.UiPlugin.will_handle_ui" title="octoprint.plugin.UiPlugin.will_handle_ui"><code class="xref py py-meth docutils literal notranslate"><span class="pre">will_handle_ui()</span></code></a>. The first plugin to return <code class="docutils literal notranslate"><span class="pre">True</span></code>
 for <a class="reference internal" href="#octoprint.plugin.UiPlugin.will_handle_ui" title="octoprint.plugin.UiPlugin.will_handle_ui"><code class="xref py py-meth docutils literal notranslate"><span class="pre">will_handle_ui()</span></code></a> will be the one whose ui will be used,
 no further calls to <a class="reference internal" href="#octoprint.plugin.UiPlugin.on_ui_render" title="octoprint.plugin.UiPlugin.on_ui_render"><code class="xref py py-meth docutils literal notranslate"><span class="pre">on_ui_render()</span></code></a> will be performed.</p>
@@ -1624,13 +1624,13 @@ server startup (basically eager caching instead of lazily waiting for the first 
 via the parameter <code class="docutils literal notranslate"><span class="pre">default_additional</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>default_additional</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – The list of default fields added to the ETag of the default UI</p>
+<dd class="field-odd"><p><strong>default_additional</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The list of default fields added to the ETag of the default UI</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A list of additional fields for the ETag generation, or None</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>)</p>
+<dd class="field-odd"><p>(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>)</p>
 </dd>
 </dl>
 <p>..versionadded:: 1.3.0</p>
@@ -1650,7 +1650,7 @@ cache key. Ignored if <code class="docutils literal notranslate"><span class="pr
 </p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)">tuple</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)">tuple</a></p>
 </dd>
 </dl>
 <div class="versionadded">
@@ -1675,7 +1675,7 @@ used for creating the fake request.</p>
 </p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
 <p>..versionadded:: 1.3.0</p>
@@ -1696,7 +1696,7 @@ files can be added by a plugin through this callback.</p>
 </p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a></p>
 </dd>
 </dl>
 <p>..versionadded:: 1.3.0</p>
@@ -1712,7 +1712,7 @@ OctoPrint’s version, tracked file paths and <code class="docutils literal notr
 <dd class="field-odd"><p>An alternatively calculated ETag value. Ignored if <code class="docutils literal notranslate"><span class="pre">None</span></code> is returned (default).</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 <p>..versionadded:: 1.3.0</p>
@@ -1728,7 +1728,7 @@ date of all tracked files.</p>
 <dd class="field-odd"><p>An alternatively calculated LastModified value. Ignored if <code class="docutils literal notranslate"><span class="pre">None</span></code> is returned (default).</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></p>
 </dd>
 </dl>
 <p>..versionadded:: 1.3.0</p>
@@ -1769,7 +1769,7 @@ files specified in the returned list.</p>
 </p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a></p>
 </dd>
 </dl>
 <p>..versionadded:: 1.3.0</p>
@@ -1785,7 +1785,7 @@ top of the request path, base URL and used locale.</p>
 <dd class="field-odd"><p>Additional data to persist in the preemptive cache configuration.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
 <p>..versionadded:: 1.3.0</p>
@@ -1803,7 +1803,7 @@ access or not. If you return <code class="docutils literal notranslate"><span cl
 <dd class="field-odd"><p>Whether to suppress a record (True) or not (False, default)</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
 </dd>
 </dl>
 <p>..versionadded:: 1.3.0</p>
@@ -1820,7 +1820,7 @@ cached on server startup (default) or not.</p>
 <dd class="field-odd"><p>Whether to enable preemptive caching (True, default) or not (False)</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1921,12 +1921,12 @@ will be contained in the dictionary as well.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>now</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.8)"><em>datetime.datetime</em></a>) – The datetime instance representing “now”
+<li><p><strong>now</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.9)"><em>datetime.datetime</em></a>) – The datetime instance representing “now”
 for this request, in case your plugin implementation needs this
 information.</p></li>
 <li><p><strong>request</strong> (<em>flask.Request</em>) – <p>A Flask <a class="reference external" href="http://flask.pocoo.org/docs/0.10/api/#flask.Request">Request</a> object.</p>
 </p></li>
-<li><p><strong>render_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The (cached) render keyword arguments that
+<li><p><strong>render_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The (cached) render keyword arguments that
 would usually be provided to the core UI render function.</p></li>
 </ul>
 </dd>
@@ -1969,7 +1969,7 @@ object.</p>
 </p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1982,7 +1982,7 @@ object.</p>
 <dl class="py class">
 <dt id="octoprint.plugin.SimpleApiPlugin">
 <em class="property">class </em><code class="sig-prename descclassname">octoprint.plugin.</code><code class="sig-name descname">SimpleApiPlugin</code><a class="headerlink" href="#octoprint.plugin.SimpleApiPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id89" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id114" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a></p>
 <p>Utilizing the <code class="docutils literal notranslate"><span class="pre">SimpleApiPlugin</span></code> mixin plugins may implement a simple API based around one GET resource and one
 resource accepting JSON commands POSTed to it. This is the easy alternative for plugin’s which don’t need the
 full power of a <a class="reference external" href="http://flask.pocoo.org/docs/0.10/blueprints/">Flask Blueprint</a> that the <a class="reference internal" href="#octoprint.plugin.BlueprintPlugin" title="octoprint.plugin.BlueprintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlueprintPlugin</span></code></a>
@@ -2108,7 +2108,7 @@ for you. You may also return regular responses as you would return from any Flas
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>command</strong> (<em>string</em>) – the command with which the resource was called</p></li>
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – the full request body of the POST request parsed from JSON into a Python dictionary</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – the full request body of the POST request parsed from JSON into a Python dictionary</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -2146,7 +2146,7 @@ a proper Flask response.</p>
 <dl class="py class">
 <dt id="octoprint.plugin.BlueprintPlugin">
 <em class="property">class </em><code class="sig-prename descclassname">octoprint.plugin.</code><code class="sig-name descname">BlueprintPlugin</code><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id89" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#id86" title="octoprint.plugin.core.RestartNeedingPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.RestartNeedingPlugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id114" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#id111" title="octoprint.plugin.core.RestartNeedingPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.RestartNeedingPlugin</span></code></a></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">BlueprintPlugin</span></code> mixin allows plugins to define their own full fledged endpoints for whatever purpose,
 be it a more sophisticated API than what is possible via the <a class="reference internal" href="#octoprint.plugin.SimpleApiPlugin" title="octoprint.plugin.SimpleApiPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleApiPlugin</span></code></a> or a custom web frontend.</p>
 <p>The mechanism at work here is <a class="reference external" href="http://flask.pocoo.org/">Flask’s</a> own <a class="reference external" href="http://flask.pocoo.org/docs/0.10/blueprints/">Blueprint mechanism</a>.</p>
@@ -2246,7 +2246,7 @@ information.</p>
 <dl class="py class">
 <dt id="octoprint.plugin.EventHandlerPlugin">
 <em class="property">class </em><code class="sig-prename descclassname">octoprint.plugin.</code><code class="sig-name descname">EventHandlerPlugin</code><a class="headerlink" href="#octoprint.plugin.EventHandlerPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id89" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id114" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">EventHandlerPlugin</span></code> mixin allows OctoPrint plugins to react to any of <a class="reference internal" href="../events/index.html#sec-events"><span class="std std-ref">OctoPrint’s events</span></a>.
 OctoPrint will call the <a class="reference internal" href="#octoprint.plugin.EventHandlerPlugin.on_event" title="octoprint.plugin.EventHandlerPlugin.on_event"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_event()</span></code></a> method for any event fired on its internal event bus, supplying the
 event type and the associated payload. Please note that until your plugin returns from that method, further event
@@ -2265,9 +2265,9 @@ videos rendering etc.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>event</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The type of event that got fired, see <a class="reference internal" href="../events/index.html#sec-events-available-events"><span class="std std-ref">the list of events</span></a>
+<li><p><strong>event</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The type of event that got fired, see <a class="reference internal" href="../events/index.html#sec-events-available-events"><span class="std std-ref">the list of events</span></a>
 for possible values</p></li>
-<li><p><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The payload as provided with the event</p></li>
+<li><p><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The payload as provided with the event</p></li>
 </ul>
 </dd>
 </dl>
@@ -2281,7 +2281,7 @@ for possible values</p></li>
 <dl class="py class">
 <dt id="octoprint.plugin.ProgressPlugin">
 <em class="property">class </em><code class="sig-prename descclassname">octoprint.plugin.</code><code class="sig-name descname">ProgressPlugin</code><a class="headerlink" href="#octoprint.plugin.ProgressPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id89" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id114" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a></p>
 <p>Via the <code class="docutils literal notranslate"><span class="pre">ProgressPlugin</span></code> mixing plugins can let themselves be called upon progress in print jobs or slicing jobs,
 limited to minimally 1% steps.</p>
 <dl class="py method">
@@ -2293,7 +2293,7 @@ limited to minimally 1% steps.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>storage</strong> (<em>string</em>) – Location of the file</p></li>
 <li><p><strong>path</strong> (<em>string</em>) – Path of the file</p></li>
-<li><p><strong>progress</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Current progress as a value between 0 and 100</p></li>
+<li><p><strong>progress</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Current progress as a value between 0 and 100</p></li>
 </ul>
 </dd>
 </dl>
@@ -2311,7 +2311,7 @@ limited to minimally 1% steps.</p>
 <li><p><strong>source_path</strong> (<em>string</em>) – Path of the source file</p></li>
 <li><p><strong>destination_location</strong> (<em>string</em>) – Location the destination file</p></li>
 <li><p><strong>destination_path</strong> (<em>string</em>) – Path of the destination file</p></li>
-<li><p><strong>progress</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Current progress as a value between 0 and 100</p></li>
+<li><p><strong>progress</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Current progress as a value between 0 and 100</p></li>
 </ul>
 </dd>
 </dl>
@@ -2325,7 +2325,7 @@ limited to minimally 1% steps.</p>
 <dl class="py class">
 <dt id="octoprint.plugin.SlicerPlugin">
 <em class="property">class </em><code class="sig-prename descclassname">octoprint.plugin.</code><code class="sig-name descname">SlicerPlugin</code><a class="headerlink" href="#octoprint.plugin.SlicerPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id89" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#id114" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a></p>
 <p>Via the <code class="docutils literal notranslate"><span class="pre">SlicerPlugin</span></code> mixin plugins can add support for slicing engines to be used by OctoPrint.</p>
 <dl class="py method">
 <dt id="octoprint.plugin.SlicerPlugin.cancel_slicing">
@@ -2333,7 +2333,7 @@ limited to minimally 1% steps.</p>
 <dd><p>Cancels the slicing to the indicated file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>machinecode_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The absolute path to the machine code file to which to stop slicing to.</p>
+<dd class="field-odd"><p><strong>machinecode_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The absolute path to the machine code file to which to stop slicing to.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2366,7 +2366,7 @@ so always make sure to initialize those values to sane defaults like depicted ab
 should make sure to track the started jobs via the <code class="docutils literal notranslate"><span class="pre">machinecode_path</span></code>, if provided.</p>
 <p>The method should return a 2-tuple consisting of a boolean <code class="docutils literal notranslate"><span class="pre">flag</span></code> indicating whether the slicing job was
 finished successfully (True) or not (False) and a <code class="docutils literal notranslate"><span class="pre">result</span></code> depending on the success of the slicing job.</p>
-<p>For jobs that finished successfully, <code class="docutils literal notranslate"><span class="pre">result</span></code> should be a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> containing additional information
+<p>For jobs that finished successfully, <code class="docutils literal notranslate"><span class="pre">result</span></code> should be a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> containing additional information
 about the slicing job under the following keys:</p>
 <dl class="simple">
 <dt>analysis</dt><dd><p>Analysis result of the generated machine code as returned by the slicer itself. This should match the
@@ -2374,7 +2374,7 @@ data structure described for the analysis queue of the matching machine code for
 <a class="reference internal" href="../modules/filemanager.html#octoprint.filemanager.analysis.GcodeAnalysisQueue" title="octoprint.filemanager.analysis.GcodeAnalysisQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">GcodeAnalysisQueue</span></code></a> for GCODE files.</p>
 </dd>
 </dl>
-<p>For jobs that did not finish successfully (but not due to being cancelled!), <code class="docutils literal notranslate"><span class="pre">result</span></code> should be a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>
+<p>For jobs that did not finish successfully (but not due to being cancelled!), <code class="docutils literal notranslate"><span class="pre">result</span></code> should be a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>
 containing a human readable reason for the error.</p>
 <p>If the job gets cancelled, a <code class="xref py py-class docutils literal notranslate"><span class="pre">SlicingCancelled</span></code> exception should be raised.</p>
 <dl class="field-list simple">
@@ -2382,7 +2382,7 @@ containing a human readable reason for the error.</p>
 <dd class="field-odd"><p>A 2-tuple (boolean, object) as outlined above.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)">tuple</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)">tuple</a></p>
 </dd>
 <dt class="field-odd">Raises</dt>
 <dd class="field-odd"><p><a class="reference internal" href="../modules/slicing.html#id27" title="octoprint.slicing.exceptions.SlicingCancelled"><strong>SlicingCancelled</strong></a> – The slicing job was cancelled (via <a class="reference internal" href="#octoprint.plugin.SlicerPlugin.cancel_slicing" title="octoprint.plugin.SlicerPlugin.cancel_slicing"><code class="xref py py-meth docutils literal notranslate"><span class="pre">cancel_slicing()</span></code></a>).</p>
@@ -2427,7 +2427,7 @@ additional/other file types will want to override this.</p>
 indicated <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The absolute path from which to read the slicing profile.</p>
+<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The absolute path from which to read the slicing profile.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The specified slicing profile.</p>
@@ -2447,7 +2447,7 @@ indicated <code class="docutils literal notranslate"><span class="pre">path</spa
 of the plugin implementation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>profile_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The base folder where OctoPrint stores this slicer plugin’s profiles</p>
+<dd class="field-odd"><p><strong>profile_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The base folder where OctoPrint stores this slicer plugin’s profiles</p>
 </dd>
 </dl>
 <p>..versionadded:: 1.3.7</p>
@@ -2490,7 +2490,7 @@ targeted slicer’s <code class="docutils literal notranslate"><span class="pre"
 <dd class="field-odd"><p>A dict describing the slicer as outlined above.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2509,16 +2509,16 @@ entered etc.</p>
 <code class="sig-name descname">save_slicer_profile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">profile</span></em>, <em class="sig-param"><span class="n">allow_overwrite</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">overrides</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.save_slicer_profile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Should save the provided <a class="reference internal" href="../modules/slicing.html#id18" title="octoprint.slicing.SlicingProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlicingProfile</span></code></a> to the indicated <code class="docutils literal notranslate"><span class="pre">path</span></code>, after applying
 any supplied <code class="docutils literal notranslate"><span class="pre">overrides</span></code>. If a profile is already saved under the indicated path and <code class="docutils literal notranslate"><span class="pre">allow_overwrite</span></code> is
-set to False (defaults to True), an <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#IOError" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IOError</span></code></a> should be raised.</p>
+set to False (defaults to True), an <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#IOError" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IOError</span></code></a> should be raised.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The absolute path to which to save the profile.</p></li>
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The absolute path to which to save the profile.</p></li>
 <li><p><strong>profile</strong> (<a class="reference internal" href="../modules/slicing.html#id18" title="octoprint.slicing.SlicingProfile"><em>SlicingProfile</em></a>) – The profile to save.</p></li>
 <li><p><strong>allow_overwrite</strong> (<em>boolean</em>) – Whether to allow to overwrite an existing profile at the indicated path (True,
 default) or not (False). If a profile already exists on the path and this is False an
-<a class="reference external" href="https://docs.python.org/3/library/exceptions.html#IOError" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IOError</span></code></a> should be raised.</p></li>
-<li><p><strong>overrides</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Profile overrides to apply to the <code class="docutils literal notranslate"><span class="pre">profile</span></code> before saving it</p></li>
+<a class="reference external" href="https://docs.python.org/3/library/exceptions.html#IOError" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IOError</span></code></a> should be raised.</p></li>
+<li><p><strong>overrides</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Profile overrides to apply to the <code class="docutils literal notranslate"><span class="pre">profile</span></code> before saving it</p></li>
 </ul>
 </dd>
 </dl>

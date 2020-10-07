@@ -226,7 +226,8 @@ binary cannot be found on your <code class="docutils literal notranslate"><span 
 e.g. <code class="docutils literal notranslate"><span class="pre">virtualenv</span> <span class="pre">--python=/path/to/python3/bin/python</span> <span class="pre">venv</span></code></p>
 </div>
 </li>
-<li><p>Activate one of the virtual environments:</p>
+<li><p>Activate one of the virtual environments (the Python 3 venv should be considered the
+primary one at this point):</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">venv/bin/activate</span></code> (Linux, macOS) or <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">venv/Scripts/activate</span></code> (Git Bash under Windows, see below)</p></li>
 </ul>
@@ -246,6 +247,20 @@ including its regular <em>and</em> development and plugin development dependenci
 </ul>
 </div></blockquote>
 </li>
+<li><p>Set up the pre-commit hooks that make sure any changes you do adhere to the styling rules:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pre-commit</span> <span class="pre">install</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Tell <code class="docutils literal notranslate"><span class="pre">git</span></code> where to find the file with revisions to exclude for <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">blame</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">config</span> <span class="pre">blame.ignoreRevsFile</span> <span class="pre">.git-blame-ignore-revs</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
 </ul>
 </div></blockquote>
 <p>When the virtual environment is activated you can then:</p>
@@ -253,6 +268,8 @@ including its regular <em>and</em> development and plugin development dependenci
 <div><ul class="simple">
 <li><p>run the OctoPrint server via <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">serve</span></code></p></li>
 <li><p>run the test suite from the checked out source folder via <code class="docutils literal notranslate"><span class="pre">pytest</span></code></p></li>
+<li><p>trigger the pre-commit check suite manually from the checked out source folder via
+<code class="docutils literal notranslate"><span class="pre">pre-commit</span> <span class="pre">run</span> <span class="pre">--hook-stage</span> <span class="pre">manual</span> <span class="pre">--all-files</span></code></p></li>
 </ul>
 </div></blockquote>
 <p>To switch the activated virtual environment, simply activate the new environment as described above.</p>
@@ -296,14 +313,12 @@ steps into this guide!</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ~/devel
 git clone https://github.com/OctoPrint/OctoPrint.git
 cd OctoPrint
-virtualenv --python=python2 venv2
-virtualenv --python=python3 venv3
-source ./venv2/bin/activate
-pip install --upgrade pip
-pip install -e .[develop,plugins]
-source ./venv3/bin/activate
+virtualenv --python=python3 venv
+source ./venv/bin/activate
 pip install --upgrade pip
 pip install -e .[develop,plugins,docs]
+pre-commit install
+git config blame.ignoreRevsFile .git-blame-ignore-revs
 </pre></div>
 </div>
 <p>You can then start OctoPrint via <code class="docutils literal notranslate"><span class="pre">octoprint</span></code> after activating one of the two virtual environments.</p>
@@ -331,14 +346,12 @@ different install locations please substitute accordingly</p></li>
 cd /c/Devel
 git clone https://github.com/OctoPrint/OctoPrint.git
 cd OctoPrint
-virtualenv --python=C:\Python27\python.exe venv2
-virtualenv --python=C:\Python38\python.exe venv3
-source ./venv2/Scripts/activate
-pip install --upgrade pip
-pip install -e .[develop,plugins]
-source ./venv3/Scripts/activate
+virtualenv --python=C:\Python38\python.exe venv
+source ./venv/Scripts/activate
 pip install --upgrade pip
 pip install -e .[develop,plugins,docs]
+pre-commit install
+git config blame.ignoreRevsFile .git-blame-ignore-revs
 </pre></div>
 </div>
 </div>
@@ -387,6 +400,8 @@ virtualenv venv
 source venv/bin/activate
 pip install --upgrade pip
 pip install -e .[develop,plugins]
+pre-commit install
+git config blame.ignoreRevsFile .git-blame-ignore-revs
 </pre></div>
 </div>
 </li>
@@ -410,11 +425,10 @@ steps into this guide!</p>
 <li><p>Register virtual environments:</p>
 <ul class="simple">
 <li><p><strong>(Linux, Windows)</strong> “File” &gt; “Settings …” &gt; “Project: OctoPrint” &gt; “Project Interpreter” &gt; “Add local …”,
-select OctoPrint <code class="docutils literal notranslate"><span class="pre">venv2</span></code> folder (e.g. <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint/venv2</span></code> or <code class="docutils literal notranslate"><span class="pre">C:\Devel\OctoPrint\venv2</span></code>).</p></li>
+select OctoPrint <code class="docutils literal notranslate"><span class="pre">venv</span></code> folder (e.g. <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint/venv</span></code> or <code class="docutils literal notranslate"><span class="pre">C:\Devel\OctoPrint\venv</span></code>).</p></li>
 <li><p><strong>(macOS)</strong> “PyCharm” &gt; “Preferences …” &gt; “Project: OctoPrint” &gt; “Project Interpreter” &gt; “Add …” &gt;
-“Virtualenv Environment &gt; “Existing Environment”, select OctoPrint <code class="docutils literal notranslate"><span class="pre">venv2</span></code> folder (e.g. <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint/venv2</span></code>).</p></li>
+“Virtualenv Environment &gt; “Existing Environment”, select OctoPrint <code class="docutils literal notranslate"><span class="pre">venv</span></code> folder (e.g. <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint/venv</span></code>).</p></li>
 </ul>
-<p>Repeat for the <code class="docutils literal notranslate"><span class="pre">venv3</span></code> folder.</p>
 </li>
 <li><p>Right click “src” in project tree, mark as source folder</p></li>
 <li><p>Add Run/Debug Configuration, select “Python”:</p>
@@ -463,13 +477,26 @@ the tests, see above on how to set this up.</p></li>
 <li><p>Module name: <code class="docutils literal notranslate"><span class="pre">sphinx.cmd.build</span></code></p></li>
 <li><p>Parameters: <code class="docutils literal notranslate"><span class="pre">-v</span> <span class="pre">-T</span> <span class="pre">-E</span> <span class="pre">./docs</span> <span class="pre">./docs/_build</span> <span class="pre">-b</span> <span class="pre">html</span></code></p></li>
 <li><p>Project: <code class="docutils literal notranslate"><span class="pre">OctoPrint</span></code></p></li>
-<li><p>Python interpreter: <code class="docutils literal notranslate"><span class="pre">venv3</span></code> environment (the docs build requires Python 3)</p></li>
+<li><p>Python interpreter: <code class="docutils literal notranslate"><span class="pre">venv</span></code> environment</p></li>
 <li><p>Working directory: the OctoPrint checkout folder (e.g. <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint</span></code> or <code class="docutils literal notranslate"><span class="pre">C:\Devel\OctoPrint</span></code>)</p></li>
 <li><p>Just like with the run configuration for the server you can also have the dependencies auto-update when building
 the documentation, see above on how to set this up.</p></li>
 </ul>
 <p>Note that this requires you to also have installed the additional <code class="docutils literal notranslate"><span class="pre">docs</span></code> dependencies into the Python 3 venv as
 described above via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[develop,plugins,docs]</span></code>.</p>
+</li>
+<li><p>Settings &gt; Tools &gt; File Watchers (you might have to enable this, it’s a bundled plugin), add new:</p>
+<ul class="simple">
+<li><p>Name: pre-commit</p></li>
+<li><p>File type: Python</p></li>
+<li><p>Scope: Module ‘OctoPrint’</p></li>
+<li><p>Program: <code class="docutils literal notranslate"><span class="pre">$PyInterpreterDirectory$/bin/pre-commit</span></code> (Linux) or <code class="docutils literal notranslate"><span class="pre">$PyInterpreterDirectory$/Scripts/pre-commit</span></code> (Windows)</p></li>
+<li><p>Arguments: <code class="docutils literal notranslate"><span class="pre">run</span> <span class="pre">--hook-stage</span> <span class="pre">manual</span> <span class="pre">--files</span> <span class="pre">$FilePath$</span></code></p></li>
+<li><p>Output paths to refresh: <code class="docutils literal notranslate"><span class="pre">$FilePath$</span></code></p></li>
+<li><p>Working directory: <code class="docutils literal notranslate"><span class="pre">$ProjectFileDir$</span></code></p></li>
+<li><p>disable “Auto-save edited files to trigger the watched”</p></li>
+<li><p>enable “Trigger the watched on external changes”</p></li>
+</ul>
 </li>
 </ul>
 </div></blockquote>

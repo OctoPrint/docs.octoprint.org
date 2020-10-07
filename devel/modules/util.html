@@ -230,7 +230,7 @@ OctoPrint’s source code.</p>
 <dt id="octoprint.util.RepeatedTimer">
 <em class="property">class </em><code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">RepeatedTimer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interval</span></em>, <em class="sig-param"><span class="n">function</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">kwargs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">run_first</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">condition</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_condition_false</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_cancelled</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_finish</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">daemon</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.RepeatedTimer" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class represents an action that should be run repeatedly in an interval. It is similar to python’s
-own <a class="reference external" href="https://docs.python.org/3/library/threading.html#threading.Timer" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">threading.Timer</span></code></a> class, but instead of only running once the <code class="docutils literal notranslate"><span class="pre">function</span></code> will be run again and again,
+own <a class="reference external" href="https://docs.python.org/3/library/threading.html#threading.Timer" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">threading.Timer</span></code></a> class, but instead of only running once the <code class="docutils literal notranslate"><span class="pre">function</span></code> will be run again and again,
 sleeping the stated <code class="docutils literal notranslate"><span class="pre">interval</span></code> in between.</p>
 <p>RepeatedTimers are started, as with threads, by calling their <code class="docutils literal notranslate"><span class="pre">start()</span></code> method. The timer can be stopped (in
 between runs) by calling the <code class="xref py py-func docutils literal notranslate"><span class="pre">cancel()</span></code> method. The interval the time waited before execution of a loop may
@@ -272,11 +272,11 @@ not be exactly the same as the interval specified by the user.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>interval</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> or </em><em>callable</em>) – The interval between each <code class="docutils literal notranslate"><span class="pre">function</span></code> call, in seconds. Can also be a callable
+<li><p><strong>interval</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em> or </em><em>callable</em>) – The interval between each <code class="docutils literal notranslate"><span class="pre">function</span></code> call, in seconds. Can also be a callable
 returning the interval to use, in case the interval is not static.</p></li>
 <li><p><strong>function</strong> (<em>callable</em>) – The function to call.</p></li>
-<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a>) – The arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty list.</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The keyword arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty dict.</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty list.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The keyword arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty dict.</p></li>
 <li><p><strong>run_first</strong> (<em>boolean</em>) – If set to True, the function will be run for the first time <em>before</em> the first wait period.
 If set to False (the default), the function will be run for the first time <em>after</em> the first wait period.</p></li>
 <li><p><strong>condition</strong> (<em>callable</em>) – Condition that needs to be True for loop to continue. Defaults to <code class="docutils literal notranslate"><span class="pre">lambda:</span> <span class="pre">True</span></code>.</p></li>
@@ -286,7 +286,7 @@ be called before the <code class="docutils literal notranslate"><span class="pre
 before the <code class="docutils literal notranslate"><span class="pre">on_finish</span></code> callback.</p></li>
 <li><p><strong>on_finish</strong> (<em>callable</em>) – Callback to call when the timer finishes, either due to being cancelled or since
 the condition became false.</p></li>
-<li><p><strong>daemon</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – daemon flag to set on underlying thread.</p></li>
+<li><p><strong>daemon</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – daemon flag to set on underlying thread.</p></li>
 </ul>
 </dd>
 </dl>
@@ -306,7 +306,7 @@ from the args and kwargs arguments, respectively.</p>
 <dt id="octoprint.util.ResettableTimer">
 <em class="property">class </em><code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">ResettableTimer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interval</span></em>, <em class="sig-param"><span class="n">function</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">kwargs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_reset</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_cancelled</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.ResettableTimer" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class represents an action that should be run after a specified amount of time. It is similar to python’s
-own <a class="reference external" href="https://docs.python.org/3/library/threading.html#threading.Timer" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">threading.Timer</span></code></a> class, with the addition of being able to reset the counter to zero.</p>
+own <a class="reference external" href="https://docs.python.org/3/library/threading.html#threading.Timer" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">threading.Timer</span></code></a> class, with the addition of being able to reset the counter to zero.</p>
 <p>ResettableTimers are started, as with threads, by calling their <code class="docutils literal notranslate"><span class="pre">start()</span></code> method. The timer can be stopped (in
 between runs) by calling the <code class="xref py py-func docutils literal notranslate"><span class="pre">cancel()</span></code> method. Resetting the counter can be done with the <code class="xref py py-func docutils literal notranslate"><span class="pre">reset()</span></code> method.</p>
 <p>For example:</p>
@@ -324,11 +324,11 @@ between runs) by calling the <code class="xref py py-func docutils literal notra
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>interval</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> or </em><em>callable</em>) – The interval before calling <code class="docutils literal notranslate"><span class="pre">function</span></code>, in seconds. Can also be a callable
+<li><p><strong>interval</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em> or </em><em>callable</em>) – The interval before calling <code class="docutils literal notranslate"><span class="pre">function</span></code>, in seconds. Can also be a callable
 returning the interval to use, in case the interval is not static.</p></li>
 <li><p><strong>function</strong> (<em>callable</em>) – The function to call.</p></li>
-<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a>) – The arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty list.</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The keyword arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty dict.</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty list.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The keyword arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty dict.</p></li>
 <li><p><strong>on_cancelled</strong> (<em>callable</em>) – Callback to call when the timer finishes due to being cancelled.</p></li>
 <li><p><strong>on_reset</strong> (<em>callable</em>) – Callback to call when the timer is reset.</p></li>
 </ul>
@@ -407,7 +407,7 @@ property.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<em>string</em>) – The message to include in the deprecation warning.</p></li>
-<li><p><strong>stacklevel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
+<li><p><strong>stacklevel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
 meaning the direct caller of the method. It might make sense to increase this in case of the function call
 happening dynamically from a fixed position to not shadow the real caller (e.g. in case of overridden
 <code class="docutils literal notranslate"><span class="pre">getattr</span></code> methods).</p></li>
@@ -444,8 +444,8 @@ associated values) from <code class="docutils literal notranslate"><span class="
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The dictionary to clean against <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p></li>
-<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The dictionary containing the key structure to clean from <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The dictionary to clean against <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p></li>
+<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The dictionary containing the key structure to clean from <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -472,8 +472,8 @@ associated values) from <code class="docutils literal notranslate"><span class="
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The dictionary to check for the keys from <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p></li>
-<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The dictionary whose keys to check <code class="docutils literal notranslate"><span class="pre">a</span></code> for.</p></li>
+<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The dictionary to check for the keys from <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p></li>
+<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The dictionary whose keys to check <code class="docutils literal notranslate"><span class="pre">a</span></code> for.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -514,7 +514,7 @@ associated values) from <code class="docutils literal notranslate"><span class="
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dictionary</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The dictionary to filter</p></li>
+<li><p><strong>dictionary</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The dictionary to filter</p></li>
 <li><p><strong>filter_function</strong> (<em>callable</em>) – The filter function to apply, called with key and
 value of an entry in the dictionary, must return <code class="docutils literal notranslate"><span class="pre">True</span></code> for values to
 keep and <code class="docutils literal notranslate"><span class="pre">False</span></code> for values to strip</p></li>
@@ -528,16 +528,16 @@ keep and <code class="docutils literal notranslate"><span class="pre">False</spa
 </p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="octoprint.util.dict_merge">
-<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">dict_merge</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">leaf_merger</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.dict_merge" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">dict_merge</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">leaf_merger</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">in_place</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.dict_merge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recursively deep-merges two dictionaries.</p>
-<p>Taken from <a class="reference external" href="https://www.xormedia.com/recursively-merge-dictionaries-in-python/">https://www.xormedia.com/recursively-merge-dictionaries-in-python/</a></p>
+<p>Based on <a class="reference external" href="https://www.xormedia.com/recursively-merge-dictionaries-in-python/">https://www.xormedia.com/recursively-merge-dictionaries-in-python/</a></p>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">fnord</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s2">&quot;other foo&quot;</span><span class="p">,</span> <span class="n">fnord</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;some&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">]))</span>
@@ -563,21 +563,27 @@ keep and <code class="docutils literal notranslate"><span class="pre">False</spa
 <span class="go">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;b&quot;</span>
 <span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_merge</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">})</span> <span class="ow">is</span> <span class="n">c</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_merge</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">},</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="ow">is</span> <span class="n">c</span>
+<span class="go">True</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The dictionary to merge <code class="docutils literal notranslate"><span class="pre">b</span></code> into</p></li>
-<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The dictionary to merge into <code class="docutils literal notranslate"><span class="pre">a</span></code></p></li>
+<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The dictionary to merge <code class="docutils literal notranslate"><span class="pre">b</span></code> into</p></li>
+<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The dictionary to merge into <code class="docutils literal notranslate"><span class="pre">a</span></code></p></li>
 <li><p><strong>leaf_merger</strong> (<em>callable</em>) – An optional callable to use to merge leaves (non-dict values)</p></li>
+<li><p><strong>in_place</strong> (<em>boolean</em>) – If set to True, a will be merged with b in place, meaning a will be modified</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">b</span></code> deep-merged into <code class="docutils literal notranslate"><span class="pre">a</span></code></p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -600,8 +606,8 @@ a in order to produce the same result as deep merging a and b.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Source dictionary</p></li>
-<li><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Dictionary to compare to source dictionary and derive diff for</p></li>
+<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Source dictionary</p></li>
+<li><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Dictionary to compare to source dictionary and derive diff for</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -612,7 +618,7 @@ a in order to produce the same result as deep merging a and b.</p>
 </p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -635,8 +641,8 @@ associated values) from <code class="docutils literal notranslate"><span class="
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The dictionary to clean against <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p></li>
-<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The dictionary containing the key structure to clean from <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The dictionary to clean against <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p></li>
+<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The dictionary containing the key structure to clean from <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -714,8 +720,8 @@ through names of the format <code class="docutils literal notranslate"><span cla
 <li><p><strong>filename</strong> (<em>string</em>) – The filename without the extension to convert to 8.3.</p></li>
 <li><p><strong>extension</strong> (<em>string</em>) – The extension to convert to 8.3 – will be truncated to 3 characters if it’s longer than
 that.</p></li>
-<li><p><strong>existing_filenames</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – A list of existing filenames to prevent name collisions with.</p></li>
-<li><p><strong>max_power</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Limits the possible attempts of generating a collision free name to 10 ^ <code class="docutils literal notranslate"><span class="pre">max_power</span></code>
+<li><p><strong>existing_filenames</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – A list of existing filenames to prevent name collisions with.</p></li>
+<li><p><strong>max_power</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Limits the possible attempts of generating a collision free name to 10 ^ <code class="docutils literal notranslate"><span class="pre">max_power</span></code>
 variations. Defaults to 2, so the name generation will maximally reach <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;~99.&lt;ext&gt;</span></code> before
 aborting and raising an exception.</p></li>
 </ul>
@@ -731,7 +737,7 @@ aborting and raising an exception.</p></li>
 <dd class="field-odd"><p>string</p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.8)"><strong>ValueError</strong></a> – No collision free name could be found.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – No collision free name could be found.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -776,10 +782,10 @@ aborting and raising an exception.</p></li>
 <dd class="field-even"><p>The class if it could be found.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.8)">type</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.9)">type</a></p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ImportError" title="(in Python v3.8)"><strong>ImportError</strong></a> – </p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ImportError" title="(in Python v3.9)"><strong>ImportError</strong></a> – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -794,13 +800,13 @@ conversion result will be guaranteed not to collide with any of the filenames pr
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input</strong> (<em>string</em>) – The original filename incl. extension to convert to the 8.3 format.</p></li>
-<li><p><strong>existing_filenames</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – A list of existing filenames with which the generated 8.3 name must not collide.
+<li><p><strong>existing_filenames</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – A list of existing filenames with which the generated 8.3 name must not collide.
 Optional.</p></li>
 <li><p><strong>extension</strong> (<em>string</em>) – The .3 file extension to use for the generated filename. If not provided, the extension of
 the provided <code class="docutils literal notranslate"><span class="pre">filename</span></code> will simply be truncated to 3 characters.</p></li>
-<li><p><strong>whitelisted_extensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – A list of extensions on <code class="docutils literal notranslate"><span class="pre">input</span></code> that will be left as-is instead of
+<li><p><strong>whitelisted_extensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – A list of extensions on <code class="docutils literal notranslate"><span class="pre">input</span></code> that will be left as-is instead of
 exchanging for <code class="docutils literal notranslate"><span class="pre">extension</span></code>.</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Additional keyword arguments to provide to <a class="reference internal" href="#octoprint.util.find_collision_free_name" title="octoprint.util.find_collision_free_name"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_collision_free_name()</span></code></a>.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Additional keyword arguments to provide to <a class="reference internal" href="#octoprint.util.find_collision_free_name" title="octoprint.util.find_collision_free_name"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_collision_free_name()</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -815,7 +821,7 @@ a maximum of 3 characters.</p>
 <dd class="field-odd"><p>string</p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.8)"><strong>ValueError</strong></a> – No 8.3 compatible name could be found that doesn’t collide with the provided <code class="docutils literal notranslate"><span class="pre">existing_filenames</span></code>.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – No 8.3 compatible name could be found that doesn’t collide with the provided <code class="docutils literal notranslate"><span class="pre">existing_filenames</span></code>.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -859,7 +865,7 @@ a maximum of 3 characters.</p>
 <dd><p>Formats a datetime instance as “YYYY-mm-dd HH:MM” and returns the resulting string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.8)"><em>datetime.datetime</em></a>) – The datetime instance to format</p>
+<dd class="field-odd"><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.9)"><em>datetime.datetime</em></a>) – The datetime instance to format</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The datetime formatted as “YYYY-mm-dd HH:MM”</p>
@@ -878,7 +884,7 @@ K(ilo)B(ytes), M(ega)B(ytes), G(iga)B(ytes) and T(era)B(ytes), with one decimal 
 <p>Based on <a class="reference external" href="http://stackoverflow.com/a/1094933/2028598">http://stackoverflow.com/a/1094933/2028598</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>num</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The byte count to format</p>
+<dd class="field-odd"><p><strong>num</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The byte count to format</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The formatted byte count.</p>
@@ -895,7 +901,7 @@ K(ilo)B(ytes), M(ega)B(ytes), G(iga)B(ytes) and T(era)B(ytes), with one decimal 
 <dd><p>Formats a timedelta instance as “HH:MM:ss” and returns the resulting string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.8)"><em>datetime.timedelta</em></a>) – The timedelta instance to format</p>
+<dd class="field-odd"><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.9)"><em>datetime.timedelta</em></a>) – The timedelta instance to format</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The timedelta formatted as “HH:MM:ss”</p>
@@ -937,7 +943,7 @@ K(ilo)B(ytes), M(ega)B(ytes), G(iga)B(ytes) and T(era)B(ytes), with one decimal 
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filename</strong> (<em>string</em>) – The file name to check against the extensions.</p></li>
-<li><p><strong>extensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – The extensions to check against, a list of strings</p></li>
+<li><p><strong>extensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The extensions to check against, a list of strings</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -961,7 +967,7 @@ property.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<em>string</em>) – The message to include in the deprecation warning.</p></li>
-<li><p><strong>stacklevel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
+<li><p><strong>stacklevel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
 meaning the direct caller of the method. It might make sense to increase this in case of the function call
 happening dynamically from a fixed position to not shadow the real caller (e.g. in case of overridden
 <code class="docutils literal notranslate"><span class="pre">getattr</span></code> methods).</p></li>
@@ -1022,15 +1028,15 @@ message, if False (default) it will be replaced with the deprecation message.</p
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>s_or_u</strong> (<em>string</em><em> or </em><em>unicode</em>) – The value to convert</p></li>
-<li><p><strong>encoding</strong> (<em>string</em>) – encoding to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str.encode" title="(in Python v3.8)"><code class="docutils literal notranslate"><span class="pre">str.encode()</span></code></a></p></li>
-<li><p><strong>errors</strong> (<em>string</em>) – error handling to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str.encode" title="(in Python v3.8)"><code class="docutils literal notranslate"><span class="pre">str.encode()</span></code></a></p></li>
+<li><p><strong>encoding</strong> (<em>string</em>) – encoding to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str.encode" title="(in Python v3.9)"><code class="docutils literal notranslate"><span class="pre">str.encode()</span></code></a></p></li>
+<li><p><strong>errors</strong> (<em>string</em>) – error handling to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str.encode" title="(in Python v3.9)"><code class="docutils literal notranslate"><span class="pre">str.encode()</span></code></a></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>converted bytes.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.9)">bytes</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1058,8 +1064,8 @@ message, if False (default) it will be replaced with the deprecation message.</p
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>s_or_u</strong> (<em>string</em><em> or </em><em>unicode</em>) – The value to convert</p></li>
-<li><p><strong>encoding</strong> (<em>string</em>) – encoding to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes.decode" title="(in Python v3.8)"><code class="docutils literal notranslate"><span class="pre">bytes.decode()</span></code></a></p></li>
-<li><p><strong>errors</strong> (<em>string</em>) – error handling to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes.decode" title="(in Python v3.8)"><code class="docutils literal notranslate"><span class="pre">bytes.decode()</span></code></a></p></li>
+<li><p><strong>encoding</strong> (<em>string</em>) – encoding to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes.decode" title="(in Python v3.9)"><code class="docutils literal notranslate"><span class="pre">bytes.decode()</span></code></a></p></li>
+<li><p><strong>errors</strong> (<em>string</em>) – error handling to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes.decode" title="(in Python v3.9)"><code class="docutils literal notranslate"><span class="pre">bytes.decode()</span></code></a></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1081,7 +1087,7 @@ warning) can be overridden using the optional <code class="docutils literal notr
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<em>string</em>) – The message to include in the deprecation warning.</p></li>
-<li><p><strong>stacklevel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
+<li><p><strong>stacklevel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
 meaning the direct caller of the method. It might make sense to increase this in case of the function call
 happening dynamically from a fixed position to not shadow the real caller (e.g. in case of overridden
 <code class="docutils literal notranslate"><span class="pre">getattr</span></code> methods).</p></li>
@@ -1107,7 +1113,7 @@ the warning) can be overridden using the optional <code class="docutils literal 
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<em>string</em>) – The message to include in the deprecation warning.</p></li>
-<li><p><strong>stacklevel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
+<li><p><strong>stacklevel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
 meaning the direct caller of the method. It might make sense to increase this in case of the function call
 happening dynamically from a fixed position to not shadow the real caller (e.g. in case of overridden
 <code class="docutils literal notranslate"><span class="pre">getattr</span></code> methods).</p></li>
@@ -1173,8 +1179,8 @@ and stderr via configurable callback functions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – command to call</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – additional keyword arguments to pass to the sarge <code class="docutils literal notranslate"><span class="pre">run</span></code> call (note that <code class="docutils literal notranslate"><span class="pre">_async</span></code>,
+<li><p><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – command to call</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – additional keyword arguments to pass to the sarge <code class="docutils literal notranslate"><span class="pre">run</span></code> call (note that <code class="docutils literal notranslate"><span class="pre">_async</span></code>,
 <code class="docutils literal notranslate"><span class="pre">stdout</span></code> and <code class="docutils literal notranslate"><span class="pre">stderr</span></code> will be overwritten)</p></li>
 </ul>
 </dd>
@@ -1191,8 +1197,8 @@ and stderr via configurable callback functions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – command to call</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – additional keyword arguments to pass to the sarge <code class="docutils literal notranslate"><span class="pre">run</span></code> call (note that <code class="docutils literal notranslate"><span class="pre">_async</span></code>,
+<li><p><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – command to call</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – additional keyword arguments to pass to the sarge <code class="docutils literal notranslate"><span class="pre">run</span></code> call (note that <code class="docutils literal notranslate"><span class="pre">_async</span></code>,
 <code class="docutils literal notranslate"><span class="pre">stdout</span></code> and <code class="docutils literal notranslate"><span class="pre">stderr</span></code> will be overwritten)</p></li>
 </ul>
 </dd>
@@ -1232,9 +1238,9 @@ and stderr via configurable callback functions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>returncode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – the return code of the command</p></li>
-<li><p><strong>stdout</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – the stdout output produced by the command</p></li>
-<li><p><strong>stderr</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – the stderr output produced by the command</p></li>
+<li><p><strong>returncode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – the return code of the command</p></li>
+<li><p><strong>stdout</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – the stdout output produced by the command</p></li>
+<li><p><strong>stderr</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – the stderr output produced by the command</p></li>
 </ul>
 </dd>
 </dl>
@@ -1251,7 +1257,7 @@ and stderr via configurable callback functions.</p>
 <dd><p>Removes ANSI control codes from <code class="docutils literal notranslate"><span class="pre">line</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>line</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)"><em>bytes</em></a><em> or </em><em>unicode</em>) – the line to process</p>
+<dd class="field-odd"><p><strong>line</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.9)"><em>bytes</em></a><em> or </em><em>unicode</em>) – the line to process</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>(bytes or unicode) The line without any ANSI control codes</p>
