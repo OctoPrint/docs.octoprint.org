@@ -349,7 +349,7 @@ config object, plus any configured <code class="docutils literal notranslate"><s
 <span id="sec-plugins-viewmodels-callbacks"></span><h2><a class="toc-backref" href="#id4">Callbacks</a><a class="headerlink" href="#callbacks" title="Permalink to this headline">¶</a></h2>
 <p>OctoPrint’s web application will call several callbacks on all registered view models, provided they implement them.
 Those are listed below:</p>
-<dl class="simple">
+<dl>
 <dt>onStartup()</dt><dd><p>Called when the first initialization has been done. All view models are constructed and hence their dependencies
 resolved, no bindings have been done yet.</p>
 </dd>
@@ -401,6 +401,11 @@ current and previous tab’s hash (e.g. <code class="docutils literal notranslat
 </dd>
 <dt>getAdditionalControls()</dt><dd><p>Your view model may return additional custom control definitions for inclusion on the “Control” tab of OctoPrint’s
 interface. See <a class="reference internal" href="../features/custom_controls.html#sec-features-custom-controls"><span class="std std-ref">the custom control feature</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Controls injected from a view model do not support feedback controls (as defined by
+<code class="docutils literal notranslate"><span class="pre">regex</span></code> and <code class="docutils literal notranslate"><span class="pre">template</span></code>).</p>
+</div>
 </dd>
 <dt>onSettingsShown()</dt><dd><p>Called when the settings dialog is shown.</p>
 </dd>
