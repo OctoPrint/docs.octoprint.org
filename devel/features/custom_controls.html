@@ -380,9 +380,10 @@ turn the button red.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">enabled</span></code></p></td>
 <td><p>(Optional) A JavaScript snippet returning either <code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code> determining whether the control
-should be enabled or not. This allow to override the default logic for this (disabled if printer is offline
-or currently printing). The JavaScript snippet is <code class="docutils literal notranslate"><span class="pre">eval</span></code>’d and processed in a context where the control
-it is part of is provided as local variable <code class="docutils literal notranslate"><span class="pre">data</span></code> and the <code class="docutils literal notranslate"><span class="pre">ControlViewModel</span></code> is available as <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></td>
+should be enabled or not. This allows to override the default logic for the enable state
+of the control (disabled if printer is offline). The JavaScript snippet is <code class="docutils literal notranslate"><span class="pre">eval</span></code>’d and processed
+in a context where the control it is part of is provided as local variable <code class="docutils literal notranslate"><span class="pre">data</span></code> and the
+<code class="docutils literal notranslate"><span class="pre">ControlViewModel</span></code> is available as <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">input</span></code></p></td>
 <td><p>(Optional) A list of definitions of input parameters for a <code class="docutils literal notranslate"><span class="pre">command</span></code> or <code class="docutils literal notranslate"><span class="pre">commands</span></code>, to be rendered as
@@ -428,14 +429,18 @@ a slider based on default values.</p></td>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">regex</span></code></p></td>
 <td><p>(Optional) A <a class="reference external" href="https://docs.python.org/3/library/re.html#re-syntax" title="(in Python v3.9)"><span class="xref std std-ref">regular expression</span></a> to
 match against lines received from the printer to retrieve information from it (e.g. specific output). Together
-with <code class="docutils literal notranslate"><span class="pre">template</span></code> this allows rendition of received data from the printer within the UI.</p></td>
+with <code class="docutils literal notranslate"><span class="pre">template</span></code> this allows rendition of received data from the printer within the UI.</p>
+<p><strong>Please also read the note below</strong>.</p>
+</td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">template</span></code></p></td>
 <td><p>(Optional) A template to use for rendering the match of <code class="docutils literal notranslate"><span class="pre">regex</span></code>. May contain placeholders in
 <a class="reference external" href="https://docs.python.org/3/library/string.html#formatstrings" title="(in Python v3.9)"><span class="xref std std-ref">Python Format String Syntax</span></a> for either named
 groups within the regex (e.g. <code class="docutils literal notranslate"><span class="pre">Temperature:</span> <span class="pre">{temperature}</span></code> for a regex <code class="docutils literal notranslate"><span class="pre">T:\s*(?P&lt;temperature&gt;\d+(\.\d*)</span></code>)
 or positional groups within the regex (e.g. <code class="docutils literal notranslate"><span class="pre">Position:</span> <span class="pre">X={0},</span> <span class="pre">Y={1},</span> <span class="pre">Z={2},</span> <span class="pre">E={3}</span></code> for a regex
-<code class="docutils literal notranslate"><span class="pre">X:([0-9.]+)</span> <span class="pre">Y:([0-9.]+)</span> <span class="pre">Z:([0-9.]+)</span> <span class="pre">E:([0-9.]+)</span></code>).</p></td>
+<code class="docutils literal notranslate"><span class="pre">X:([0-9.]+)</span> <span class="pre">Y:([0-9.]+)</span> <span class="pre">Z:([0-9.]+)</span> <span class="pre">E:([0-9.]+)</span></code>).</p>
+<p><strong>Please also read the note below</strong>.</p>
+</td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">confirm</span></code></p></td>
 <td><p>(Optional) A text to display to the user to confirm his button press. Can be used with sensitive custom controls
@@ -444,6 +449,13 @@ dialog like in <a class="reference internal" href="#fig-configuration-customcont
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">regex</span></code> and <code class="docutils literal notranslate"><span class="pre">template</span></code> are only supported for controls that are defined through
+<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>. These control properties aren’t supported for controls added only in
+the frontend by the <a class="reference internal" href="../plugins/viewmodels.html#sec-plugins-viewmodels-callbacks"><span class="std std-ref">getAdditionalControls</span></a>
+view model callback.</p>
+</div>
 <div class="figure align-center" id="id3">
 <span id="fig-configuration-customcontrols-confirm"></span><img alt="An example confirmation dialog" src="../_images/features-custom_controls-confirm.png" />
 <p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">An example confirmation dialog</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
