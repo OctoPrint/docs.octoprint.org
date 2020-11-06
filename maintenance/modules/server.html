@@ -224,6 +224,19 @@
 </dd></dl>
 
 <dl class="py function">
+<dt id="octoprint.server.util.has_permissions">
+<code class="sig-prename descclassname">octoprint.server.util.</code><code class="sig-name descname">has_permissions</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">permissions</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.has_permissions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines if the current user (either from the session, api key or authorization
+header) has all of the requested permissions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*permissions</strong> – list of all permissions required to pass the check</p>
+</dd>
+</dl>
+<p>Returns: True if the user has all permissions, False otherwise</p>
+</dd></dl>
+
+<dl class="py function">
 <dt id="octoprint.server.util.loginFromApiKeyRequestHandler">
 <code class="sig-prename descclassname">octoprint.server.util.</code><code class="sig-name descname">loginFromApiKeyRequestHandler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.loginFromApiKeyRequestHandler" title="Permalink to this definition">¶</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">before_request</span></code> handler for blueprints which creates a login session for the provided api key (if available)</p>
@@ -272,6 +285,19 @@ to prevent all client side caching from taking place.</p>
 <dt id="octoprint.server.util.optionsAllowOrigin">
 <code class="sig-prename descclassname">octoprint.server.util.</code><code class="sig-name descname">optionsAllowOrigin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.optionsAllowOrigin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut for request handling for CORS OPTIONS requests to set CORS headers.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.server.util.require_login">
+<code class="sig-prename descclassname">octoprint.server.util.</code><code class="sig-name descname">require_login</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">permissions</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.require_login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a redirect response to the login view if the permission requirements are
+not met.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*permissions</strong> – a list of permissions required to pass the check</p>
+</dd>
+</dl>
+<p>Returns: a flask redirect response to return if a login is required, or None</p>
 </dd></dl>
 
 </div>
