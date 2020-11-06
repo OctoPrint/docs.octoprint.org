@@ -313,7 +313,7 @@ between runs) by calling the <code class="xref py py-func docutils literal notra
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ran hello() at </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
 
-<span class="n">t</span> <span class="o">=</span> <span class="n">ResettableTimers</span><span class="p">(</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">ResettableTimer</span><span class="p">(</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
 <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Started at </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
 <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
@@ -532,6 +532,33 @@ keep and <code class="docutils literal notranslate"><span class="pre">False</spa
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.dict_flatten">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">dict_flatten</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">separator</span><span class="o">=</span><span class="default_value">'.'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.dict_flatten" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flatten a dictionary.</p>
+<dl>
+<dt>Example::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;a1&#39;</span><span class="p">:</span> <span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="p">:</span> <span class="s1">&#39;a2&#39;</span><span class="p">},</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expected</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a.a1&#39;</span><span class="p">:</span> <span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a.a2&#39;</span><span class="p">:</span> <span class="s1">&#39;a2&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">actual</span> <span class="o">=</span> <span class="n">dict_flatten</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shared</span> <span class="o">=</span> <span class="p">{(</span><span class="n">k</span><span class="p">,</span> <span class="n">actual</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">actual</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">expected</span> <span class="ow">and</span> <span class="n">actual</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="n">expected</span><span class="p">[</span><span class="n">k</span><span class="p">]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">shared</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">expected</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dictionary</strong> – the dictionary to flatten</p></li>
+<li><p><strong>prefix</strong> – the key prefix, initially an empty string</p></li>
+<li><p><strong>separator</strong> – key separator, ‘.’ by default</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns: a flattened dict</p>
 </dd></dl>
 
 <dl class="py function">

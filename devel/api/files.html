@@ -538,7 +538,8 @@ referring to files stored on the printer’s SD card (if available).</p></li>
 <code class="sig-name descname">POST </code><code class="sig-name descname">/api/files/</code><span class="sig-paren">(</span><em class="property">string: </em><em class="sig-param">location</em><span class="sig-paren">)</span><a class="headerlink" href="#post--api-files-(string-location)" title="Permalink to this definition">¶</a></dt>
 <dd><p>Upload a file to the selected <code class="docutils literal notranslate"><span class="pre">location</span></code> or create a new empty folder on it.</p>
 <p>Other than most of the other requests on OctoPrint’s API which are expected as JSON, this request is expected as
-<code class="docutils literal notranslate"><span class="pre">Content-Type:</span> <span class="pre">multipart/form-data</span></code> due to the included file upload.</p>
+<code class="docutils literal notranslate"><span class="pre">Content-Type:</span> <span class="pre">multipart/form-data</span></code> due to the included file upload. A <code class="docutils literal notranslate"><span class="pre">Content-Length</span></code> header specifying
+the full length of the request body is required as well.</p>
 <p>To upload a file, the request body must at least contain the <code class="docutils literal notranslate"><span class="pre">file</span></code> form field with the
 contents and file name of the file to upload.</p>
 <p>To create a new folder, the request body must at least contain the <code class="docutils literal notranslate"><span class="pre">foldername</span></code> form field,
@@ -552,6 +553,7 @@ file and an <a class="reference internal" href="#sec-api-fileops-datamodel-uploa
 <span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
 <span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data; boundary=----WebKitFormBoundaryDeC2E3iWbTv1PwMC</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">430</span>
 
 ------WebKitFormBoundaryDeC2E3iWbTv1PwMC
 Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;whistle_v2.gcode&quot;
@@ -561,7 +563,7 @@ M109 T0 S220.000000
 T0
 G21
 G90
-...
+
 ------WebKitFormBoundaryDeC2E3iWbTv1PwMC
 Content-Disposition: form-data; name=&quot;select&quot;
 
@@ -608,6 +610,7 @@ true
 <span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
 <span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data; boundary=----WebKitFormBoundaryDeC2E3iWbTv1PwMC</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">263</span>
 
 ------WebKitFormBoundaryDeC2E3iWbTv1PwMC
 Content-Disposition: form-data; name=&quot;file&quot;; filename*=utf-8&#39;&#39;20mm-%C3%BCml%C3%A4ut-b%C3%B6x.gcode
@@ -617,7 +620,7 @@ M109 T0 S220.000000
 T0
 G21
 G90
-...
+
 ------WebKitFormBoundaryDeC2E3iWbTv1PwMC--
 </pre></div>
 </div>
@@ -645,6 +648,7 @@ G90
 <span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
 <span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data; boundary=----WebKitFormBoundaryDeC2E3iWbTv1PwMD</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">246</span>
 
 ------WebKitFormBoundaryDeC2E3iWbTv1PwMD
 Content-Disposition: form-data; name=&quot;foldername&quot;
