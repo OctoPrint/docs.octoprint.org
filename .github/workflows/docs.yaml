@@ -134,7 +134,7 @@ jobs:
           if [ $count != '0' ]; then
               rm -rf docs/* || true
               touch docs/.nojekyll
-              cp -r artifacts/* docs
+              cp -rv artifacts/* docs
           fi
 
       - name: 🧹 Cleanup regenerated docs
@@ -150,7 +150,6 @@ jobs:
           cp -r artifacts/$version docs/
 
       - name: 🚀 Commit & deploy
-        if: env.ARTIFACT_COUNT != '0'
         uses: EndBug/add-and-commit@v4
         with:
           cwd: "docs"
