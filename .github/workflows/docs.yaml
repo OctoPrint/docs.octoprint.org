@@ -66,6 +66,11 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
 
+      - name: 🐍 Preinstall some dependencies
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
+        run: |
+          pip install sphinxcontrib-mermaid==0.4.0
+
       - name: ⬇ Checkout OctoPrint
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
         uses: actions/checkout@v2
