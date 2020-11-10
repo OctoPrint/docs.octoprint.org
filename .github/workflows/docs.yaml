@@ -146,8 +146,10 @@ jobs:
 
           echo "Version is $version"
 
-          rm -rf docs/$version || true
-          cp -r artifacts/$version docs/
+          if [ -d "artifacts/$version" ]; then
+            rm -rf docs/$version || true
+            cp -r artifacts/$version docs/
+          fi
 
       - name: 🚀 Commit & deploy
         uses: EndBug/add-and-commit@v4
