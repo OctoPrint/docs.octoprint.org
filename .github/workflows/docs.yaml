@@ -122,20 +122,18 @@ jobs:
         with:
           path: artifacts
 
-      - name: 🔢 Count artifacts
+      - name: 🧹 Cleanup all docs
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         run: |
           count=`ls -1 artifacts | wc -l`
-          echo "::set-env name=ARTIFACT_COUNT::$count"
-
-      - name: 🧹 Cleanup all docs
-        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && env.ARTIFACT_COUNT != '0'
-        run: |
-          rm -rf docs/* || true
-          touch docs/.nojekyll
-          cp -r artifacts/* docs
+          if [ $count != '0' ]; then
+              rm -rf docs/* || true
+              touch docs/.nojekyll
+              cp -r artifacts/* docs
+          fi
 
       - name: 🧹 Cleanup regenerated docs
-        if: github.event_name == 'repository_dispatch' && env.ARTIFACT_COUNT == '1'
+        if: github.event_name == 'repository_dispatch'
         run: |
           version="${{ github.event.client_payload.ref }}"
           version=${version#"refs/heads/"}
@@ -144,7 +142,7 @@ jobs:
           echo "Version is $version"
 
           rm -rf docs/$version || true
-          cp -r artifacts/* docs
+          cp -r artifacts/$version docs/
 
       - name: 🚀 Commit & deploy
         if: env.ARTIFACT_COUNT != '0'
