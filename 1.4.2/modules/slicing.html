@@ -383,7 +383,7 @@ the default), or also return an unconfigured slicer (False).</p></li>
 <dt id="octoprint.slicing.SlicingManager.load_profile">
 <code class="sig-name descname">load_profile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">slicer</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">require_configured</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.slicing.SlicingManager.load_profile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads the slicing profile for <code class="docutils literal notranslate"><span class="pre">slicer</span></code> with the given profile <code class="docutils literal notranslate"><span class="pre">name</span></code> and returns it. If it can’t be loaded
-due to an <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#IOError" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IOError</span></code></a> <code class="docutils literal notranslate"><span class="pre">None</span></code> will be returned instead.</p>
+due to an <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#IOError" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IOError</span></code></a> <code class="docutils literal notranslate"><span class="pre">None</span></code> will be returned instead.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">require_configured</span></code> is True (the default) a <code class="xref py py-class docutils literal notranslate"><span class="pre">SlicerNotConfigured</span></code> exception will be raised
 if the indicated <code class="docutils literal notranslate"><span class="pre">slicer</span></code> has not yet been configured.</p>
 <dl class="field-list simple">
@@ -468,7 +468,7 @@ already exists, it will be overwritten. Otherwise an exception will be thrown.</
 </dd>
 <dt class="field-even">Raises</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.8)"><strong>ValueError</strong></a> – The supplied <code class="docutils literal notranslate"><span class="pre">profile</span></code> is neither a <a class="reference internal" href="#octoprint.slicing.SlicingProfile" title="octoprint.slicing.SlicingProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlicingProfile</span></code></a> nor a <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – The supplied <code class="docutils literal notranslate"><span class="pre">profile</span></code> is neither a <a class="reference internal" href="#octoprint.slicing.SlicingProfile" title="octoprint.slicing.SlicingProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlicingProfile</span></code></a> nor a <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p></li>
 <li><p><a class="reference internal" href="#octoprint.slicing.exceptions.UnknownSlicer" title="octoprint.slicing.exceptions.UnknownSlicer"><strong>UnknownSlicer</strong></a> – The slicer <code class="docutils literal notranslate"><span class="pre">slicer</span></code> is unknown.</p></li>
 <li><p><a class="reference internal" href="#octoprint.slicing.exceptions.ProfileAlreadyExists" title="octoprint.slicing.exceptions.ProfileAlreadyExists"><strong>ProfileAlreadyExists</strong></a> – A profile with name <code class="docutils literal notranslate"><span class="pre">name</span></code> already exists for <code class="docutils literal notranslate"><span class="pre">slicer</span></code> and <code class="docutils literal notranslate"><span class="pre">allow_overwrite</span></code> is
     False.</p></li>
@@ -547,14 +547,14 @@ be supplied as a dictionary defining the <code class="docutils literal notransla
 <li><p><strong>dest_path</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The absolute path to the destination file to slice to.</p></li>
 <li><p><strong>profile_name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The name of the slicing profile to use.</p></li>
 <li><p><strong>callback</strong> (<em>callable</em>) – A callback to call after slicing has finished.</p></li>
-<li><p><strong>callback_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a>) – Arguments of the callback to call after slicing has finished. Defaults to
+<li><p><strong>callback_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – Arguments of the callback to call after slicing has finished. Defaults to
 an empty list.</p></li>
 <li><p><strong>callback_kwargs</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Keyword arguments for the callback to call after slicing has finished, will be
 extended by <code class="docutils literal notranslate"><span class="pre">_analysis</span></code>, <code class="docutils literal notranslate"><span class="pre">_error</span></code> or <code class="docutils literal notranslate"><span class="pre">_cancelled</span></code> as described above! Defaults to an empty
 dictionary.</p></li>
 <li><p><strong>overrides</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Overrides for the printer profile to apply.</p></li>
 <li><p><strong>on_progress</strong> (<em>callable</em>) – Callback to call upon slicing progress.</p></li>
-<li><p><strong>on_progress_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a>) – Arguments of the progress callback. Defaults to an empty list.</p></li>
+<li><p><strong>on_progress_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – Arguments of the progress callback. Defaults to an empty list.</p></li>
 <li><p><strong>on_progress_kwargs</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Keyword arguments of the progress callback, will be extended by <code class="docutils literal notranslate"><span class="pre">_progress</span></code>
 as described above! Defaults to an empty dictionary.</p></li>
 <li><p><strong>printer_profile_id</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Identifier of the printer profile for which to slice, if another than the
@@ -755,9 +755,8 @@ supplied <code class="docutils literal notranslate"><span class="pre">overrides<
     <dl>
       <dt>Tags</dt>
       <dd><a href="https://docs.octoprint.org/en/1.3.12/modules/slicing.html">1.3.12</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.4.0/modules/slicing.html">1.4.0</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.4.1/modules/slicing.html">1.4.1</a></dd>
       <dd><a href="https://docs.octoprint.org/en/1.4.2/modules/slicing.html">1.4.2</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.5.0rc1/modules/slicing.html">1.5.0rc1</a></dd>
     </dl>
     <dl>
       <dt>Branches</dt>

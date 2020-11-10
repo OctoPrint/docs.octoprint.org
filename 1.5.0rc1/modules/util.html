@@ -1,0 +1,1424 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>octoprint.util &mdash; OctoPrint 1.5.0rc1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="JavaScript Client Library" href="../jsclientlib/index.html" />
+    <link rel="prev" title="octoprint.access.users" href="users.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> OctoPrint
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5.0rc1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Internal Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cli.html">octoprint.cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#module-octoprint.cli.dev">octoprint.cli.dev</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#module-octoprint.cli.plugins">octoprint.cli.plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#module-octoprint.cli.server">octoprint.cli.server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filemanager.html">octoprint.filemanager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filemanager.html#module-octoprint.filemanager.analysis">octoprint.filemanager.analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filemanager.html#module-octoprint.filemanager.destinations">octoprint.filemanager.destinations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filemanager.html#module-octoprint.filemanager.storage">octoprint.filemanager.storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filemanager.html#module-octoprint.filemanager.util">octoprint.filemanager.util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugin.html">octoprint.plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugin.html#module-octoprint.plugin.core">octoprint.plugin.core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugin.html#module-octoprint.plugin.types">octoprint.plugin.types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html">octoprint.printer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#module-octoprint.printer.profile">octoprint.printer.profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">octoprint.server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html#module-octoprint.server.util">octoprint.server.util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html#module-octoprint.server.util.flask">octoprint.server.util.flask</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html#module-octoprint.server.util.sockjs">octoprint.server.util.sockjs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html#module-octoprint.server.util.tornado">octoprint.server.util.tornado</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html">octoprint.settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html">octoprint.slicing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html#module-octoprint.slicing.exceptions">octoprint.slicing.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html">octoprint.access.users</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">octoprint.util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-octoprint.util.commandline">octoprint.util.commandline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-octoprint.util.platform">octoprint.util.platform</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
+    <strong>Note:</strong>
+    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.4.2" style="color: white;text-decoration: underline">here</a>.
+  </p>
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Internal Modules</a> &raquo;</li>
+        
+      <li>octoprint.util</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/modules/util.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-octoprint.util">
+<span id="octoprint-util"></span><span id="sec-modules-util"></span><h1>octoprint.util<a class="headerlink" href="#module-octoprint.util" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="octoprint.util.CaseInsensitiveSet">
+<em class="property">class </em><code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">CaseInsensitiveSet</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.CaseInsensitiveSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic case insensitive set</p>
+<p>Any str or unicode values will be stored and compared in lower case. Other value types are left as-is.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="octoprint.util.DefaultOrderedDict">
+<em class="property">class </em><code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">DefaultOrderedDict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">default_factory</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">a</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.DefaultOrderedDict" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="octoprint.util.DefaultOrderedDict.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; a shallow copy of od<a class="headerlink" href="#octoprint.util.DefaultOrderedDict.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="octoprint.util.PrependableQueue">
+<em class="property">class </em><code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">PrependableQueue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">maxsize</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.PrependableQueue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="octoprint.util.RepeatedTimer">
+<em class="property">class </em><code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">RepeatedTimer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interval</span></em>, <em class="sig-param"><span class="n">function</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">kwargs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">run_first</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">condition</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_condition_false</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_cancelled</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_finish</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">daemon</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.RepeatedTimer" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class represents an action that should be run repeatedly in an interval. It is similar to python’s
+own <a class="reference external" href="https://docs.python.org/2/library/threading.html#threading.Timer" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">threading.Timer</span></code></a> class, but instead of only running once the <code class="docutils literal notranslate"><span class="pre">function</span></code> will be run again and again,
+sleeping the stated <code class="docutils literal notranslate"><span class="pre">interval</span></code> in between.</p>
+<p>RepeatedTimers are started, as with threads, by calling their <code class="docutils literal notranslate"><span class="pre">start()</span></code> method. The timer can be stopped (in
+between runs) by calling the <code class="xref py py-func docutils literal notranslate"><span class="pre">cancel()</span></code> method. The interval the time waited before execution of a loop may
+not be exactly the same as the interval specified by the user.</p>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">RepeatedTimer</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="c1"># prints &quot;Hello World!&quot; every second</span>
+</pre></div>
+</div>
+<p>Another example with dynamic interval and loop condition:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">maximum</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">factor</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">interval</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">count</span>
+    <span class="k">global</span> <span class="n">factor</span>
+    <span class="k">return</span> <span class="n">count</span> <span class="o">*</span> <span class="n">factor</span>
+
+<span class="k">def</span> <span class="nf">condition</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">count</span>
+    <span class="k">global</span> <span class="n">maximum</span>
+    <span class="k">return</span> <span class="n">count</span> <span class="o">&lt;=</span> <span class="n">maximum</span>
+
+<span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">count</span>
+    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">RepeatedTimer</span><span class="p">(</span><span class="n">interval</span><span class="p">,</span> <span class="n">hello</span><span class="p">,</span> <span class="n">run_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="n">condition</span><span class="p">)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="c1"># prints &quot;Hello World!&quot; 5 times, printing the first one</span>
+          <span class="c1"># directly, then waiting 1, 2, 3, 4s in between (adaptive interval)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interval</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em> or </em><em>callable</em>) – The interval between each <code class="docutils literal notranslate"><span class="pre">function</span></code> call, in seconds. Can also be a callable
+returning the interval to use, in case the interval is not static.</p></li>
+<li><p><strong>function</strong> (<em>callable</em>) – The function to call.</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty list.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The keyword arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty dict.</p></li>
+<li><p><strong>run_first</strong> (<em>boolean</em>) – If set to True, the function will be run for the first time <em>before</em> the first wait period.
+If set to False (the default), the function will be run for the first time <em>after</em> the first wait period.</p></li>
+<li><p><strong>condition</strong> (<em>callable</em>) – Condition that needs to be True for loop to continue. Defaults to <code class="docutils literal notranslate"><span class="pre">lambda:</span> <span class="pre">True</span></code>.</p></li>
+<li><p><strong>on_condition_false</strong> (<em>callable</em>) – Callback to call when the timer finishes due to condition becoming false. Will
+be called before the <code class="docutils literal notranslate"><span class="pre">on_finish</span></code> callback.</p></li>
+<li><p><strong>on_cancelled</strong> (<em>callable</em>) – Callback to call when the timer finishes due to being cancelled. Will be called
+before the <code class="docutils literal notranslate"><span class="pre">on_finish</span></code> callback.</p></li>
+<li><p><strong>on_finish</strong> (<em>callable</em>) – Callback to call when the timer finishes, either due to being cancelled or since
+the condition became false.</p></li>
+<li><p><strong>daemon</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – daemon flag to set on underlying thread.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="octoprint.util.RepeatedTimer.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.RepeatedTimer.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method representing the thread’s activity.</p>
+<p>You may override this method in a subclass. The standard run() method
+invokes the callable object passed to the object’s constructor as the
+target argument, if any, with sequential and keyword arguments taken
+from the args and kwargs arguments, respectively.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="octoprint.util.ResettableTimer">
+<em class="property">class </em><code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">ResettableTimer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interval</span></em>, <em class="sig-param"><span class="n">function</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">kwargs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_reset</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_cancelled</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">daemon</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.ResettableTimer" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class represents an action that should be run after a specified amount of time. It is similar to python’s
+own <a class="reference external" href="https://docs.python.org/2/library/threading.html#threading.Timer" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">threading.Timer</span></code></a> class, with the addition of being able to reset the counter to zero.</p>
+<p>ResettableTimers are started, as with threads, by calling their <code class="docutils literal notranslate"><span class="pre">start()</span></code> method. The timer can be stopped (in
+between runs) by calling the <code class="xref py py-func docutils literal notranslate"><span class="pre">cancel()</span></code> method. Resetting the counter can be done with the <code class="xref py py-func docutils literal notranslate"><span class="pre">reset()</span></code> method.</p>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ran hello() at </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">ResettableTimer</span><span class="p">(</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Started at </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reset at </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interval</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em> or </em><em>callable</em>) – The interval before calling <code class="docutils literal notranslate"><span class="pre">function</span></code>, in seconds. Can also be a callable
+returning the interval to use, in case the interval is not static.</p></li>
+<li><p><strong>function</strong> (<em>callable</em>) – The function to call.</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty list.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The keyword arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty dict.</p></li>
+<li><p><strong>on_cancelled</strong> (<em>callable</em>) – Callback to call when the timer finishes due to being cancelled.</p></li>
+<li><p><strong>on_reset</strong> (<em>callable</em>) – Callback to call when the timer is reset.</p></li>
+<li><p><strong>daemon</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – daemon flag to set on underlying thread.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="octoprint.util.ResettableTimer.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.ResettableTimer.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method representing the thread’s activity.</p>
+<p>You may override this method in a subclass. The standard run() method
+invokes the callable object passed to the object’s constructor as the
+target argument, if any, with sequential and keyword arguments taken
+from the args and kwargs arguments, respectively.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="octoprint.util.TypeAlreadyInQueue">
+<em class="property">exception </em><code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">TypeAlreadyInQueue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.TypeAlreadyInQueue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="octoprint.util.TypedQueue">
+<em class="property">class </em><code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">TypedQueue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">maxsize</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.TypedQueue" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="octoprint.util.TypedQueue.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.TypedQueue.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove and return an item from the queue.</p>
+<p>If optional args ‘block’ is true and ‘timeout’ is None (the default),
+block if necessary until an item is available. If ‘timeout’ is
+a non-negative number, it blocks at most ‘timeout’ seconds and raises
+the Empty exception if no item was available within that time.
+Otherwise (‘block’ is false), return an item if one is immediately
+available, else raise the Empty exception (‘timeout’ is ignored
+in that case).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="octoprint.util.TypedQueue.put">
+<code class="sig-name descname">put</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em>, <em class="sig-param"><span class="n">item_type</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.TypedQueue.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>Put an item into the queue.</p>
+<p>If optional args ‘block’ is true and ‘timeout’ is None (the default),
+block if necessary until a free slot is available. If ‘timeout’ is
+a non-negative number, it blocks at most ‘timeout’ seconds and raises
+the Full exception if no free slot was available within that time.
+Otherwise (‘block’ is false), put an item on the queue if a free slot
+is immediately available, else raise the Full exception (‘timeout’
+is ignored in that case).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.chunks">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">chunks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">l</span></em>, <em class="sig-param"><span class="n">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.chunks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yield successive n-sized chunks from l.</p>
+<p>Taken from <a class="reference external" href="http://stackoverflow.com/a/312464/2028598">http://stackoverflow.com/a/312464/2028598</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.count">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">count</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gen</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used instead of len(generator), which doesn’t work</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.deprecated">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">deprecated</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">stacklevel</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">since</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">includedoc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">extenddoc</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.deprecated" title="Permalink to this definition">¶</a></dt>
+<dd><p>A decorator for deprecated methods. Logs a deprecation warning via Python’s <cite>:mod:`warnings</cite> module including the
+supplied <code class="docutils literal notranslate"><span class="pre">message</span></code>. The call stack level used (for adding the source location of the offending call to the
+warning) can be overridden using the optional <code class="docutils literal notranslate"><span class="pre">stacklevel</span></code> parameter. If both <code class="docutils literal notranslate"><span class="pre">since</span></code> and <code class="docutils literal notranslate"><span class="pre">includedoc</span></code> are
+provided, a deprecation warning will also be added to the function’s docstring by providing or extending its <code class="docutils literal notranslate"><span class="pre">__doc__</span></code>
+property.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<em>string</em>) – The message to include in the deprecation warning.</p></li>
+<li><p><strong>stacklevel</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
+meaning the direct caller of the method. It might make sense to increase this in case of the function call
+happening dynamically from a fixed position to not shadow the real caller (e.g. in case of overridden
+<code class="docutils literal notranslate"><span class="pre">getattr</span></code> methods).</p></li>
+<li><p><strong>includedoc</strong> (<em>string</em>) – Message about the deprecation to include in the wrapped function’s docstring.</p></li>
+<li><p><strong>extenddoc</strong> (<em>boolean</em>) – If True the original docstring of the wrapped function will be extended by the deprecation
+message, if False (default) it will be replaced with the deprecation message.</p></li>
+<li><p><strong>since</strong> (<em>string</em>) – Version since when the function was deprecated, must be present for the docstring to get extended.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The wrapped function with the deprecation warnings in place.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.dict_clean">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">dict_clean</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.dict_clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recursively deep-sanitizes <code class="docutils literal notranslate"><span class="pre">a</span></code> based on <code class="docutils literal notranslate"><span class="pre">b</span></code>, removing all keys (and
+associated values) from <code class="docutils literal notranslate"><span class="pre">a</span></code> that do not appear in <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">fnord</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;some&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fnord</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expected</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="n">fnord</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_sanitize</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_clean</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary to clean against <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p></li>
+<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary containing the key structure to clean from <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Results:</dt><dd><p>dict: A new dict based on <code class="docutils literal notranslate"><span class="pre">a</span></code> with all keys (and corresponding values) found in <code class="docutils literal notranslate"><span class="pre">b</span></code> removed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.dict_contains_keys">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">dict_contains_keys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.dict_contains_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recursively deep-checks if <code class="docutils literal notranslate"><span class="pre">dictionary</span></code> contains all keys found in <code class="docutils literal notranslate"><span class="pre">keys</span></code>.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">positive</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s2">&quot;some_other_bar&quot;</span><span class="p">,</span> <span class="n">fnord</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="mi">100</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">negative</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s2">&quot;some_other_bar&quot;</span><span class="p">,</span> <span class="n">fnord</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">20</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dictionary</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">fnord</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_contains_keys</span><span class="p">(</span><span class="n">positive</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_contains_keys</span><span class="p">(</span><span class="n">negative</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary to check for the keys from <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p></li>
+<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary whose keys to check <code class="docutils literal notranslate"><span class="pre">a</span></code> for.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if all keys found in <code class="docutils literal notranslate"><span class="pre">b</span></code> are also present in <code class="docutils literal notranslate"><span class="pre">a</span></code>, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>boolean</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.dict_filter">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">dict_filter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em>, <em class="sig-param"><span class="n">filter_function</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.dict_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filters a dictionary with the provided filter_function</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">key1</span><span class="o">=</span><span class="s2">&quot;value1&quot;</span><span class="p">,</span> <span class="n">key2</span><span class="o">=</span><span class="s2">&quot;value2&quot;</span><span class="p">,</span> <span class="n">other_key</span><span class="o">=</span><span class="s2">&quot;other_value&quot;</span><span class="p">,</span> <span class="n">foo</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_filter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">))</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">(</span><span class="n">key1</span><span class="o">=</span><span class="s2">&quot;value1&quot;</span><span class="p">,</span> <span class="n">key2</span><span class="o">=</span><span class="s2">&quot;value2&quot;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_filter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">))</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">(</span><span class="n">key1</span><span class="o">=</span><span class="s2">&quot;value1&quot;</span><span class="p">,</span> <span class="n">key2</span><span class="o">=</span><span class="s2">&quot;value2&quot;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_filter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="o">==</span> <span class="s2">&quot;foo&quot;</span> <span class="ow">or</span> <span class="n">v</span> <span class="o">==</span> <span class="s2">&quot;foo&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_filter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="kc">False</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_filter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="kc">True</span><span class="p">)</span> <span class="o">==</span> <span class="n">data</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_filter</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="kc">True</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">AssertionError</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_filter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">AssertionError</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dictionary</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary to filter</p></li>
+<li><p><strong>filter_function</strong> (<em>callable</em>) – The filter function to apply, called with key and
+value of an entry in the dictionary, must return <code class="docutils literal notranslate"><span class="pre">True</span></code> for values to
+keep and <code class="docutils literal notranslate"><span class="pre">False</span></code> for values to strip</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A shallow copy of the provided dictionary, stripped of the key-value-pairs</dt><dd><p>for which the <code class="docutils literal notranslate"><span class="pre">filter_function</span></code> returned <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.dict_flatten">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">dict_flatten</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">separator</span><span class="o">=</span><span class="default_value">'.'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.dict_flatten" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flatten a dictionary.</p>
+<dl>
+<dt>Example::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;a1&#39;</span><span class="p">:</span> <span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="p">:</span> <span class="s1">&#39;a2&#39;</span><span class="p">},</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expected</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a.a1&#39;</span><span class="p">:</span> <span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a.a2&#39;</span><span class="p">:</span> <span class="s1">&#39;a2&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">actual</span> <span class="o">=</span> <span class="n">dict_flatten</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shared</span> <span class="o">=</span> <span class="p">{(</span><span class="n">k</span><span class="p">,</span> <span class="n">actual</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">actual</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">expected</span> <span class="ow">and</span> <span class="n">actual</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="n">expected</span><span class="p">[</span><span class="n">k</span><span class="p">]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">shared</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">expected</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dictionary</strong> – the dictionary to flatten</p></li>
+<li><p><strong>prefix</strong> – the key prefix, initially an empty string</p></li>
+<li><p><strong>separator</strong> – key separator, ‘.’ by default</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns: a flattened dict</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.dict_merge">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">dict_merge</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">leaf_merger</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">in_place</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.dict_merge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recursively deep-merges two dictionaries.</p>
+<p>Based on <a class="reference external" href="https://www.xormedia.com/recursively-merge-dictionaries-in-python/">https://www.xormedia.com/recursively-merge-dictionaries-in-python/</a></p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">fnord</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s2">&quot;other foo&quot;</span><span class="p">,</span> <span class="n">fnord</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;some&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expected</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s2">&quot;other foo&quot;</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">fnord</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;some&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="n">a</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_merge</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">==</span> <span class="n">b</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_merge</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">leaf_merger</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="gp">... </span>    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">dict_merge</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">l1</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">l2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">),</span> <span class="nb">dict</span><span class="p">(</span><span class="n">l1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">l2</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">),</span> <span class="n">leaf_merger</span><span class="o">=</span><span class="n">leaf_merger</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;l1&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;l2&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;foo&quot;</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;a&quot;</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;b&quot;</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_merge</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">})</span> <span class="ow">is</span> <span class="n">c</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_merge</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">},</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="ow">is</span> <span class="n">c</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary to merge <code class="docutils literal notranslate"><span class="pre">b</span></code> into</p></li>
+<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary to merge into <code class="docutils literal notranslate"><span class="pre">a</span></code></p></li>
+<li><p><strong>leaf_merger</strong> (<em>callable</em>) – An optional callable to use to merge leaves (non-dict values)</p></li>
+<li><p><strong>in_place</strong> (<em>boolean</em>) – If set to True, a will be merged with b in place, meaning a will be modified</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">b</span></code> deep-merged into <code class="docutils literal notranslate"><span class="pre">a</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.dict_minimal_mergediff">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">dict_minimal_mergediff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source</span></em>, <em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.dict_minimal_mergediff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recursively calculates the minimal dict that would be needed to be deep merged with
+a in order to produce the same result as deep merging a and b.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">bar</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">bar</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span> <span class="n">fnord</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">dict_minimal_mergediff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">(</span><span class="n">bar</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span> <span class="n">fnord</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">==</span> <span class="n">dict_merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Source dictionary</p></li>
+<li><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Dictionary to compare to source dictionary and derive diff for</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The minimal dictionary to deep merge on <code class="docutils literal notranslate"><span class="pre">source</span></code> to get the same result</dt><dd><p>as deep merging <code class="docutils literal notranslate"><span class="pre">target</span></code> on <code class="docutils literal notranslate"><span class="pre">source</span></code>.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.dict_sanitize">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">dict_sanitize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.dict_sanitize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recursively deep-sanitizes <code class="docutils literal notranslate"><span class="pre">a</span></code> based on <code class="docutils literal notranslate"><span class="pre">b</span></code>, removing all keys (and
+associated values) from <code class="docutils literal notranslate"><span class="pre">a</span></code> that do not appear in <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">fnord</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;some&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fnord</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expected</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="n">fnord</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_sanitize</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_clean</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary to clean against <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p></li>
+<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary containing the key structure to clean from <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Results:</dt><dd><p>dict: A new dict based on <code class="docutils literal notranslate"><span class="pre">a</span></code> with all keys (and corresponding values) found in <code class="docutils literal notranslate"><span class="pre">b</span></code> removed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="octoprint.util.fallback_dict">
+<em class="property">class </em><code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">fallback_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">custom</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">fallbacks</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.fallback_dict" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="octoprint.util.fallback_dict.items">
+<code class="sig-name descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; a set-like object providing a view on D’s items<a class="headerlink" href="#octoprint.util.fallback_dict.items" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="octoprint.util.fallback_dict.keys">
+<code class="sig-name descname">keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; a set-like object providing a view on D’s keys<a class="headerlink" href="#octoprint.util.fallback_dict.keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="octoprint.util.fallback_dict.values">
+<code class="sig-name descname">values</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; an object providing a view on D’s values<a class="headerlink" href="#octoprint.util.fallback_dict.values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.filter_non_ascii">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">filter_non_ascii</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.filter_non_ascii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter predicate to test if a line contains non ASCII characters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>line</strong> (<em>string</em>) – The line to test</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the line contains non ASCII characters, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>boolean</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.find_collision_free_name">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">find_collision_free_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">extension</span></em>, <em class="sig-param"><span class="n">existing_filenames</span></em>, <em class="sig-param"><span class="n">max_power</span><span class="o">=</span><span class="default_value">2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.find_collision_free_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to find a collision free translation of “&lt;filename&gt;.&lt;extension&gt;” to the 8.3 DOS compatible format,
+preventing collisions with any of the <code class="docutils literal notranslate"><span class="pre">existing_filenames</span></code>.</p>
+<p>First strips all of <code class="docutils literal notranslate"><span class="pre">.&quot;/\[]:;=,</span></code> from the filename and extensions, converts them to lower case and truncates
+the <code class="docutils literal notranslate"><span class="pre">extension</span></code> to a maximum length of 3 characters.</p>
+<p>If the filename is already equal or less than 8 characters in length after that procedure and “&lt;filename&gt;.&lt;extension&gt;”
+are not contained in the <code class="docutils literal notranslate"><span class="pre">existing_files</span></code>, that concatenation will be returned as the result.</p>
+<p>If not, the following algorithm will be applied to try to find a collision free name:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span> <span class="n">counter</span> <span class="o">:=</span> <span class="n">power</span> <span class="o">:=</span> <span class="mi">1</span>
+<span class="k">while</span> <span class="n">counter</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">^</span><span class="n">max_power</span><span class="p">:</span>
+    <span class="nb">set</span> <span class="n">truncated</span> <span class="o">:=</span> <span class="n">substr</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span> <span class="o">-</span> <span class="n">power</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;~&quot;</span> <span class="o">+</span> <span class="n">counter</span>
+    <span class="nb">set</span> <span class="n">result</span> <span class="o">:=</span> <span class="s2">&quot;&lt;truncated&gt;.&lt;extension&gt;&quot;</span>
+    <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="n">collision</span> <span class="n">free</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="n">counter</span><span class="o">++</span>
+    <span class="k">if</span> <span class="n">counter</span> <span class="o">&gt;=</span> <span class="mi">10</span> <span class="o">**</span> <span class="n">power</span><span class="p">:</span>
+        <span class="n">power</span><span class="o">++</span>
+<span class="k">raise</span> <span class="ne">ValueError</span>
+</pre></div>
+</div>
+<p>This will basically – for a given original filename of <code class="docutils literal notranslate"><span class="pre">some_filename</span></code> and an extension of <code class="docutils literal notranslate"><span class="pre">gco</span></code> – iterate
+through names of the format <code class="docutils literal notranslate"><span class="pre">some_f~1.gco</span></code>, <code class="docutils literal notranslate"><span class="pre">some_f~2.gco</span></code>, …, <code class="docutils literal notranslate"><span class="pre">some_~10.gco</span></code>, <code class="docutils literal notranslate"><span class="pre">some_~11.gco</span></code>, …,
+<code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;~&lt;n&gt;.gco</span></code> for <code class="docutils literal notranslate"><span class="pre">n</span></code> less than 10 ^ <code class="docutils literal notranslate"><span class="pre">max_power</span></code>, returning as soon as one is found that is not colliding.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>string</em>) – The filename without the extension to convert to 8.3.</p></li>
+<li><p><strong>extension</strong> (<em>string</em>) – The extension to convert to 8.3 – will be truncated to 3 characters if it’s longer than
+that.</p></li>
+<li><p><strong>existing_filenames</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – A list of existing filenames to prevent name collisions with.</p></li>
+<li><p><strong>max_power</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Limits the possible attempts of generating a collision free name to 10 ^ <code class="docutils literal notranslate"><span class="pre">max_power</span></code>
+variations. Defaults to 2, so the name generation will maximally reach <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;~99.&lt;ext&gt;</span></code> before
+aborting and raising an exception.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A 8.3 representation of the provided original filename, ensured to not collide with the provided</dt><dd><p><code class="docutils literal notranslate"><span class="pre">existing_filenames</span></code></p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – No collision free name could be found.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test1234&quot;</span><span class="p">,</span> <span class="s2">&quot;gco&quot;</span><span class="p">,</span> <span class="p">[])</span> 
+<span class="go">&#39;test1234.gco&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test1234&quot;</span><span class="p">,</span> <span class="s2">&quot;gcode&quot;</span><span class="p">,</span> <span class="p">[])</span> 
+<span class="go">&#39;test1234.gco&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test12345&quot;</span><span class="p">,</span> <span class="s2">&quot;gco&quot;</span><span class="p">,</span> <span class="p">[])</span> 
+<span class="go">&#39;test12~1.gco&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test 123&quot;</span><span class="p">,</span> <span class="s2">&quot;gco&quot;</span><span class="p">,</span> <span class="p">[])</span> 
+<span class="go">&#39;test_123.gco&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test1234&quot;</span><span class="p">,</span> <span class="s2">&quot;g o&quot;</span><span class="p">,</span> <span class="p">[])</span> 
+<span class="go">&#39;test1234.g_o&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test12345&quot;</span><span class="p">,</span> <span class="s2">&quot;gco&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;/test12~1.gco&quot;</span><span class="p">])</span> 
+<span class="go">&#39;test12~2.gco&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">many_files</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;/test12~</span><span class="si">{}</span><span class="s2">.gco&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test12345&quot;</span><span class="p">,</span> <span class="s2">&quot;gco&quot;</span><span class="p">,</span> <span class="n">many_files</span><span class="p">)</span> 
+<span class="go">&#39;test1~10.gco&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">many_more_files</span> <span class="o">=</span> <span class="n">many_files</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;/test1~</span><span class="si">{}</span><span class="s2">.gco&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">99</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test12345&quot;</span><span class="p">,</span> <span class="s2">&quot;gco&quot;</span><span class="p">,</span> <span class="n">many_more_files</span><span class="p">)</span> 
+<span class="go">&#39;test1~99.gco&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">many_more_files_plus_one</span> <span class="o">=</span> <span class="n">many_more_files</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;/test1~99.gco&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test12345&quot;</span><span class="p">,</span> <span class="s2">&quot;gco&quot;</span><span class="p">,</span> <span class="n">many_more_files_plus_one</span><span class="p">)</span> 
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">ValueError</span>: <span class="n">Can&#39;t create a collision free filename</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test12345&quot;</span><span class="p">,</span> <span class="s2">&quot;gco&quot;</span><span class="p">,</span> <span class="n">many_more_files_plus_one</span><span class="p">,</span> <span class="n">max_power</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> 
+<span class="go">&#39;test~100.gco&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.get_class">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">get_class</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.get_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the class object for a given fully qualified class name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>string</em>) – The fully qualified class name, including all modules separated by <code class="docutils literal notranslate"><span class="pre">.</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The class if it could be found.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2/library/functions.html#type" title="(in Python v2.7)">type</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ImportError" title="(in Python v3.9)"><strong>ImportError</strong></a> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.get_dos_filename">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">get_dos_filename</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">existing_filenames</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">extension</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">whitelisted_extensions</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.get_dos_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the provided input filename to a 8.3 DOS compatible filename. If <code class="docutils literal notranslate"><span class="pre">existing_filenames</span></code> is provided, the
+conversion result will be guaranteed not to collide with any of the filenames provided thus.</p>
+<p>Uses <a class="reference internal" href="#octoprint.util.find_collision_free_name" title="octoprint.util.find_collision_free_name"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_collision_free_name()</span></code></a> internally.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> (<em>string</em>) – The original filename incl. extension to convert to the 8.3 format.</p></li>
+<li><p><strong>existing_filenames</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – A list of existing filenames with which the generated 8.3 name must not collide.
+Optional.</p></li>
+<li><p><strong>extension</strong> (<em>string</em>) – The .3 file extension to use for the generated filename. If not provided, the extension of
+the provided <code class="docutils literal notranslate"><span class="pre">filename</span></code> will simply be truncated to 3 characters.</p></li>
+<li><p><strong>whitelisted_extensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – A list of extensions on <code class="docutils literal notranslate"><span class="pre">input</span></code> that will be left as-is instead of
+exchanging for <code class="docutils literal notranslate"><span class="pre">extension</span></code>.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Additional keyword arguments to provide to <a class="reference internal" href="#octoprint.util.find_collision_free_name" title="octoprint.util.find_collision_free_name"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_collision_free_name()</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A 8.3 compatible translation of the original filename, not colliding with the optionally provided</dt><dd><p><code class="docutils literal notranslate"><span class="pre">existing_filenames</span></code> and with the provided <code class="docutils literal notranslate"><span class="pre">extension</span></code> or the original extension shortened to
+a maximum of 3 characters.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – No 8.3 compatible name could be found that doesn’t collide with the provided <code class="docutils literal notranslate"><span class="pre">existing_filenames</span></code>.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_dos_filename</span><span class="p">(</span><span class="s2">&quot;test1234.gco&quot;</span><span class="p">)</span> 
+<span class="go">&#39;test1234.gco&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_dos_filename</span><span class="p">(</span><span class="s2">&quot;test1234.gcode&quot;</span><span class="p">)</span> 
+<span class="go">&#39;test1234.gco&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_dos_filename</span><span class="p">(</span><span class="s2">&quot;test12345.gco&quot;</span><span class="p">)</span> 
+<span class="go">&#39;test12~1.gco&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_dos_filename</span><span class="p">(</span><span class="s2">&quot;test1234.fnord&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;gco&quot;</span><span class="p">)</span> 
+<span class="go">&#39;test1234.gco&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_dos_filename</span><span class="p">(</span><span class="s2">&quot;auto0.g&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;gco&quot;</span><span class="p">)</span> 
+<span class="go">&#39;auto0.gco&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_dos_filename</span><span class="p">(</span><span class="s2">&quot;auto0.g&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;gco&quot;</span><span class="p">,</span> <span class="n">whitelisted_extensions</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;g&quot;</span><span class="p">])</span> 
+<span class="go">&#39;auto0.g&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_dos_filename</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_dos_filename</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span> 
+<span class="go">&#39;foo&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.get_exception_string">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">get_exception_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.get_exception_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the exception info of the last raised exception and returns it as a string formatted as
+<code class="docutils literal notranslate"><span class="pre">&lt;exception</span> <span class="pre">type&gt;:</span> <span class="pre">&lt;exception</span> <span class="pre">message&gt;</span> <span class="pre">&#64;</span> <span class="pre">&lt;source</span> <span class="pre">file&gt;:&lt;function</span> <span class="pre">name&gt;:&lt;line</span> <span class="pre">number&gt;</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The formatted exception information.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.get_formatted_datetime">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">get_formatted_datetime</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">d</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.get_formatted_datetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats a datetime instance as “YYYY-mm-dd HH:MM” and returns the resulting string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/2/library/datetime.html#datetime.datetime" title="(in Python v2.7)"><em>datetime.datetime</em></a>) – The datetime instance to format</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The datetime formatted as “YYYY-mm-dd HH:MM”</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.get_formatted_size">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">get_formatted_size</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.get_formatted_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the given byte count as a human readable rounded size expressed in the most pressing unit among B(ytes),
+K(ilo)B(ytes), M(ega)B(ytes), G(iga)B(ytes) and T(era)B(ytes), with one decimal place.</p>
+<p>Based on <a class="reference external" href="http://stackoverflow.com/a/1094933/2028598">http://stackoverflow.com/a/1094933/2028598</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – The byte count to format</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The formatted byte count.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.get_formatted_timedelta">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">get_formatted_timedelta</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">d</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.get_formatted_timedelta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats a timedelta instance as “HH:MM:ss” and returns the resulting string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/2/library/datetime.html#datetime.timedelta" title="(in Python v2.7)"><em>datetime.timedelta</em></a>) – The timedelta instance to format</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The timedelta formatted as “HH:MM:ss”</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.get_free_bytes">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">get_free_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.get_free_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 1.2.5: </span>Replaced by <a class="reference external" href="http://pythonhosted.org/psutil/#psutil.disk_usage">psutil.disk_usage</a>.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.get_fully_qualified_classname">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">get_fully_qualified_classname</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.get_fully_qualified_classname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the fully qualified class name for an object.</p>
+<p>Based on <a class="reference external" href="https://stackoverflow.com/a/2020083">https://stackoverflow.com/a/2020083</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>o</strong> – the object of which to determine the fqcn</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(str) the fqcn of the object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.is_allowed_file">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">is_allowed_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">extensions</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.is_allowed_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines if the provided <code class="docutils literal notranslate"><span class="pre">filename</span></code> has one of the supplied <code class="docutils literal notranslate"><span class="pre">extensions</span></code>. The check is done case-insensitive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>string</em>) – The file name to check against the extensions.</p></li>
+<li><p><strong>extensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The extensions to check against, a list of strings</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the file name’s extension matches one of the allowed extensions, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>boolean</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.pending_deprecation">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">pending_deprecation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">stacklevel</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">since</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">includedoc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">extenddoc</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.pending_deprecation" title="Permalink to this definition">¶</a></dt>
+<dd><p>A decorator for methods pending deprecation. Logs a pending deprecation warning via Python’s <cite>:mod:`warnings</cite> module
+including the supplied <code class="docutils literal notranslate"><span class="pre">message</span></code>. The call stack level used (for adding the source location of the offending call to
+the warning) can be overridden using the optional <code class="docutils literal notranslate"><span class="pre">stacklevel</span></code> parameter. If both <code class="docutils literal notranslate"><span class="pre">since</span></code> and <code class="docutils literal notranslate"><span class="pre">includedoc</span></code> are
+provided, a deprecation warning will also be added to the function’s docstring by providing or extending its <code class="docutils literal notranslate"><span class="pre">__doc__</span></code>
+property.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<em>string</em>) – The message to include in the deprecation warning.</p></li>
+<li><p><strong>stacklevel</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
+meaning the direct caller of the method. It might make sense to increase this in case of the function call
+happening dynamically from a fixed position to not shadow the real caller (e.g. in case of overridden
+<code class="docutils literal notranslate"><span class="pre">getattr</span></code> methods).</p></li>
+<li><p><strong>extenddoc</strong> (<em>boolean</em>) – If True the original docstring of the wrapped function will be extended by the deprecation
+message, if False (default) it will be replaced with the deprecation message.</p></li>
+<li><p><strong>includedoc</strong> (<em>string</em>) – Message about the deprecation to include in the wrapped function’s docstring.</p></li>
+<li><p><strong>since</strong> (<em>string</em>) – Version since when the function was deprecated, must be present for the docstring to get extended.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The wrapped function with the deprecation warnings in place.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.pp">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">pp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.pp" title="Permalink to this definition">¶</a></dt>
+<dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">(</span><span class="nb">dict</span><span class="p">())</span> 
+<span class="go">&#39;dict()&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span> 
+<span class="go">&#39;dict(a=1, b=2, c=3)&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">(</span><span class="nb">set</span><span class="p">())</span> 
+<span class="go">&#39;set()&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">({</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">})</span> 
+<span class="go">&quot;{&#39;a&#39;, &#39;b&#39;}&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">([</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">])</span> 
+<span class="go">&quot;[&#39;a&#39;, &#39;b&#39;, &#39;d&#39;, &#39;c&#39;]&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">((</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">))</span> 
+<span class="go">&quot;(&#39;a&#39;, &#39;b&#39;, &#39;d&#39;, &#39;c&#39;)&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span> 
+<span class="go">&quot;&#39;foo&#39;&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">([</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">},</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;foo&quot;</span><span class="p">])</span> 
+<span class="go">&quot;[dict(a=1, b=2), {&#39;a&#39;, &#39;b&#39;, &#39;c&#39;}, (1, 2), None, 1, True, &#39;foo&#39;]&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.silent_remove">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">silent_remove</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.silent_remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Silently removes a file. Does not raise an error if the file doesn’t exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – The path of the file to be removed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.to_bytes">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">to_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s_or_u</span></em>, <em class="sig-param"><span class="n">encoding</span><span class="o">=</span><span class="default_value">'utf-8'</span></em>, <em class="sig-param"><span class="n">errors</span><span class="o">=</span><span class="default_value">'strict'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.to_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make sure <code class="docutils literal notranslate"><span class="pre">s_or_u</span></code> is a byte string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s_or_u</strong> (<em>string</em><em> or </em><em>unicode</em>) – The value to convert</p></li>
+<li><p><strong>encoding</strong> (<em>string</em>) – encoding to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str.encode" title="(in Python v3.9)"><code class="docutils literal notranslate"><span class="pre">str.encode()</span></code></a></p></li>
+<li><p><strong>errors</strong> (<em>string</em>) – error handling to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str.encode" title="(in Python v3.9)"><code class="docutils literal notranslate"><span class="pre">str.encode()</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>converted bytes.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.9)">bytes</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.to_native_str">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">to_native_str</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s_or_u</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.to_native_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make sure <code class="docutils literal notranslate"><span class="pre">s_or_u</span></code> is a native ‘str’ for the current Python version</p>
+<p>Will ensure a byte string under Python 2 and a unicode string under Python 3.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.to_str">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">to_str</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s_or_u</span></em>, <em class="sig-param"><span class="n">encoding</span><span class="o">=</span><span class="default_value">'utf-8'</span></em>, <em class="sig-param"><span class="n">errors</span><span class="o">=</span><span class="default_value">'strict'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.to_str" title="Permalink to this definition">¶</a></dt>
+<dd><div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 1.3.11: </span>to_str has been renamed to to_bytes</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.to_unicode">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">to_unicode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s_or_u</span></em>, <em class="sig-param"><span class="n">encoding</span><span class="o">=</span><span class="default_value">'utf-8'</span></em>, <em class="sig-param"><span class="n">errors</span><span class="o">=</span><span class="default_value">'strict'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.to_unicode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make sure <code class="docutils literal notranslate"><span class="pre">s_or_u</span></code> is a unicode string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s_or_u</strong> (<em>string</em><em> or </em><em>unicode</em>) – The value to convert</p></li>
+<li><p><strong>encoding</strong> (<em>string</em>) – encoding to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes.decode" title="(in Python v3.9)"><code class="docutils literal notranslate"><span class="pre">bytes.decode()</span></code></a></p></li>
+<li><p><strong>errors</strong> (<em>string</em>) – error handling to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes.decode" title="(in Python v3.9)"><code class="docutils literal notranslate"><span class="pre">bytes.decode()</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>converted string.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.variable_deprecated">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">variable_deprecated</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">stacklevel</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">since</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">includedoc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">extenddoc</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.variable_deprecated" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function for deprecated variables. Logs a deprecation warning via Python’s <cite>:mod:`warnings</cite> module including the
+supplied <code class="docutils literal notranslate"><span class="pre">message</span></code>. The call stack level used (for adding the source location of the offending call to the
+warning) can be overridden using the optional <code class="docutils literal notranslate"><span class="pre">stacklevel</span></code> parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<em>string</em>) – The message to include in the deprecation warning.</p></li>
+<li><p><strong>stacklevel</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
+meaning the direct caller of the method. It might make sense to increase this in case of the function call
+happening dynamically from a fixed position to not shadow the real caller (e.g. in case of overridden
+<code class="docutils literal notranslate"><span class="pre">getattr</span></code> methods).</p></li>
+<li><p><strong>since</strong> (<em>string</em>) – Version since when the function was deprecated, must be present for the docstring to get extended.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The value of the variable with the deprecation warnings in place.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.variable_pending_deprecation">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">variable_pending_deprecation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">stacklevel</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">since</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">includedoc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">extenddoc</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.variable_pending_deprecation" title="Permalink to this definition">¶</a></dt>
+<dd><p>A decorator for variables pending deprecation. Logs a pending deprecation warning via Python’s <cite>:mod:`warnings</cite> module
+including the supplied <code class="docutils literal notranslate"><span class="pre">message</span></code>. The call stack level used (for adding the source location of the offending call to
+the warning) can be overridden using the optional <code class="docutils literal notranslate"><span class="pre">stacklevel</span></code> parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<em>string</em>) – The message to include in the deprecation warning.</p></li>
+<li><p><strong>stacklevel</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Stack level for including the caller of the offending method in the logged warning. Defaults to 1,
+meaning the direct caller of the method. It might make sense to increase this in case of the function call
+happening dynamically from a fixed position to not shadow the real caller (e.g. in case of overridden
+<code class="docutils literal notranslate"><span class="pre">getattr</span></code> methods).</p></li>
+<li><p><strong>since</strong> (<em>string</em>) – Version since when the function was deprecated, must be present for the docstring to get extended.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The value of the variable with the deprecation warnings in place.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>value</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-octoprint.util.commandline">
+<span id="octoprint-util-commandline"></span><span id="sec-modules-util-commandline"></span><h1>octoprint.util.commandline<a class="headerlink" href="#module-octoprint.util.commandline" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="octoprint.util.commandline.CommandlineCaller">
+<em class="property">class </em><code class="sig-prename descclassname">octoprint.util.commandline.</code><code class="sig-name descname">CommandlineCaller</code><a class="headerlink" href="#octoprint.util.commandline.CommandlineCaller" title="Permalink to this definition">¶</a></dt>
+<dd><p>The CommandlineCaller is a utility class that allows running command line commands while logging their stdout
+and stderr via configurable callback functions.</p>
+<p>Callbacks are expected to have a signature matching</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="o">*</span><span class="n">lines</span><span class="p">):</span>
+    <span class="n">do_something_with_the_passed_lines</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The class utilizes sarge underneath.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">octoprint.util.commandline</span> <span class="kn">import</span> <span class="n">CommandLineCaller</span><span class="p">,</span> <span class="n">CommandLineError</span>
+
+<span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="o">*</span><span class="n">lines</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">line</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">log_stdout</span><span class="p">(</span><span class="o">*</span><span class="n">lines</span><span class="p">):</span>
+    <span class="n">log</span><span class="p">(</span><span class="s2">&quot;&gt;&gt;&gt;&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">lines</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">log_stderr</span><span class="p">(</span><span class="o">*</span><span class="n">lines</span><span class="p">):</span>
+    <span class="n">log</span><span class="p">(</span><span class="s2">&quot;!!!&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">lines</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">log_call</span><span class="p">(</span><span class="o">*</span><span class="n">lines</span><span class="p">)</span>
+    <span class="n">log</span><span class="p">(</span><span class="s2">&quot;---&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">lines</span><span class="p">)</span>
+
+<span class="n">caller</span> <span class="o">=</span> <span class="n">CommandLineCaller</span><span class="p">()</span>
+<span class="n">caller</span><span class="o">.</span><span class="n">on_log_call</span> <span class="o">=</span> <span class="n">log_call</span>
+<span class="n">caller</span><span class="o">.</span><span class="n">on_log_stdout</span> <span class="o">=</span> <span class="n">log_stdout</span>
+<span class="n">caller</span><span class="o">.</span><span class="n">on_log_stderr</span> <span class="o">=</span> <span class="n">log_stderr</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">caller</span><span class="o">.</span><span class="n">checked_call</span><span class="p">([</span><span class="s2">&quot;some&quot;</span><span class="p">,</span> <span class="s2">&quot;command&quot;</span><span class="p">,</span> <span class="s2">&quot;with&quot;</span><span class="p">,</span> <span class="s2">&quot;parameters&quot;</span><span class="p">])</span>
+<span class="k">except</span> <span class="n">CommandLineError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Command returned </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">returncode</span><span class="p">))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Command finished successfully&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="octoprint.util.commandline.CommandlineCaller.call">
+<code class="sig-name descname">call</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">command</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.commandline.CommandlineCaller.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls a command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a><em> or </em><a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – command to call</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – additional keyword arguments to pass to the sarge <code class="docutils literal notranslate"><span class="pre">run</span></code> call (note that <code class="docutils literal notranslate"><span class="pre">_async</span></code>,
+<code class="docutils literal notranslate"><span class="pre">stdout</span></code> and <code class="docutils literal notranslate"><span class="pre">stderr</span></code> will be overwritten)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(tuple) a 3-tuple of return code, full stdout and full stderr output</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="octoprint.util.commandline.CommandlineCaller.checked_call">
+<code class="sig-name descname">checked_call</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">command</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.commandline.CommandlineCaller.checked_call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls a command and raises an error if it doesn’t return with return code 0</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a><em> or </em><a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – command to call</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – additional keyword arguments to pass to the sarge <code class="docutils literal notranslate"><span class="pre">run</span></code> call (note that <code class="docutils literal notranslate"><span class="pre">_async</span></code>,
+<code class="docutils literal notranslate"><span class="pre">stdout</span></code> and <code class="docutils literal notranslate"><span class="pre">stderr</span></code> will be overwritten)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(tuple) a 3-tuple of return code, full stdout and full stderr output</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#octoprint.util.commandline.CommandlineError" title="octoprint.util.commandline.CommandlineError"><strong>CommandlineError</strong></a> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="octoprint.util.commandline.CommandlineCaller.on_log_call">
+<code class="sig-name descname">on_log_call</code><a class="headerlink" href="#octoprint.util.commandline.CommandlineCaller.on_log_call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback for the called command line</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="octoprint.util.commandline.CommandlineCaller.on_log_stderr">
+<code class="sig-name descname">on_log_stderr</code><a class="headerlink" href="#octoprint.util.commandline.CommandlineCaller.on_log_stderr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback for stderr output</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="octoprint.util.commandline.CommandlineCaller.on_log_stdout">
+<code class="sig-name descname">on_log_stdout</code><a class="headerlink" href="#octoprint.util.commandline.CommandlineCaller.on_log_stdout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback for stdout output</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="octoprint.util.commandline.CommandlineError">
+<em class="property">exception </em><code class="sig-prename descclassname">octoprint.util.commandline.</code><code class="sig-name descname">CommandlineError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">returncode</span></em>, <em class="sig-param"><span class="n">stdout</span></em>, <em class="sig-param"><span class="n">stderr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.commandline.CommandlineError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised by <code class="xref py py-func docutils literal notranslate"><span class="pre">checked_call()</span></code> on non zero return codes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>returncode</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – the return code of the command</p></li>
+<li><p><strong>stdout</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – the stdout output produced by the command</p></li>
+<li><p><strong>stderr</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – the stderr output produced by the command</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="octoprint.util.commandline.DelimiterCapture">
+<em class="property">class </em><code class="sig-prename descclassname">octoprint.util.commandline.</code><code class="sig-name descname">DelimiterCapture</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">b'\n'</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.commandline.DelimiterCapture" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.commandline.clean_ansi">
+<code class="sig-prename descclassname">octoprint.util.commandline.</code><code class="sig-name descname">clean_ansi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.commandline.clean_ansi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes ANSI control codes from <code class="docutils literal notranslate"><span class="pre">line</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>line</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.9)"><em>bytes</em></a><em> or </em><em>unicode</em>) – the line to process</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(bytes or unicode) The line without any ANSI control codes</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">text</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;Some text with some [31mred words[39m in it&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clean_ansi</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> 
+<span class="go">&#39;Some text with some red words in it&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;We [?25lhide the cursor here and then [?25hshow it again here&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clean_ansi</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> 
+<span class="go">&#39;We hide the cursor here and then show it again here&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-octoprint.util.platform">
+<span id="octoprint-util-platform"></span><span id="sec-modules-util-platform"></span><h1>octoprint.util.platform<a class="headerlink" href="#module-octoprint.util.platform" title="Permalink to this headline">¶</a></h1>
+<dl class="py data">
+<dt id="octoprint.util.platform.CLOSE_FDS">
+<code class="sig-prename descclassname">octoprint.util.platform.</code><code class="sig-name descname">CLOSE_FDS</code><em class="property"> = True</em><a class="headerlink" href="#octoprint.util.platform.CLOSE_FDS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default setting for close_fds parameter to Popen/sarge.run.</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">close_fds</span></code> on every sub process to this to ensure file handlers will be closed
+on child processes on platforms that support this (anything Python 3.7+ or anything
+but win32 in earlier Python versions).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.platform.get_os">
+<code class="sig-prename descclassname">octoprint.util.platform.</code><code class="sig-name descname">get_os</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.platform.get_os" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a canonical OS identifier.</p>
+<p>Currently the following OS are recognized: <code class="docutils literal notranslate"><span class="pre">win32</span></code>, <code class="docutils literal notranslate"><span class="pre">linux</span></code> (<code class="docutils literal notranslate"><span class="pre">sys.platform</span></code> = <code class="docutils literal notranslate"><span class="pre">linux*</span></code>),
+<code class="docutils literal notranslate"><span class="pre">macos</span></code> (<code class="docutils literal notranslate"><span class="pre">sys.platform</span></code> = <code class="docutils literal notranslate"><span class="pre">darwin</span></code>) and <code class="docutils literal notranslate"><span class="pre">freebsd</span></code> (<code class="docutils literal notranslate"><span class="pre">sys.platform</span></code> = <code class="docutils literal notranslate"><span class="pre">freebsd*</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>(str) mapped OS identifier</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.platform.is_os_compatible">
+<code class="sig-prename descclassname">octoprint.util.platform.</code><code class="sig-name descname">is_os_compatible</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">compatibility_entries</span></em>, <em class="sig-param"><span class="n">current_os</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.platform.is_os_compatible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests if the <code class="docutils literal notranslate"><span class="pre">current_os</span></code> or <code class="docutils literal notranslate"><span class="pre">sys.platform</span></code> are blacklisted or whitelisted in <code class="docutils literal notranslate"><span class="pre">compatibility_entries</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>(bool) True if the os is compatible, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.platform.set_close_exec">
+<code class="sig-prename descclassname">octoprint.util.platform.</code><code class="sig-name descname">set_close_exec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">handle</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.platform.set_close_exec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set <code class="docutils literal notranslate"><span class="pre">close_exec</span></code> flag on handle, if supported by the OS.</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../jsclientlib/index.html" class="btn btn-neutral float-right" title="JavaScript Client Library" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="users.html" class="btn btn-neutral float-left" title="octoprint.access.users" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2020, Gina Häußge
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.5.0rc1
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.3.12/modules/util.html">1.3.12</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.4.2/modules/util.html">1.4.2</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.5.0rc1/modules/util.html">1.5.0rc1</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/modules/util.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/modules/util.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/modules/util.html">devel</a></dd>
+    </dl>
+  </div>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
