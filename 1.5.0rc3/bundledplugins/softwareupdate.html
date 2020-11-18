@@ -1,0 +1,973 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Software Update Plugin &mdash; OctoPrint 1.5.0rc3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Virtual Printer" href="virtual_printer.html" />
+    <link rel="prev" title="Plugin Manager" href="pluginmanager.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> OctoPrint
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5.0rc3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Bundled Plugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="action_command_notification.html">Action Command Notification support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="action_command_prompt.html">Action Command Prompt support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="announcements.html">Announcement Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracking.html">Anonymous Usage Tracking Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appkeys.html">Application Keys Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backup.html">Backup Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discovery.html">Discovery Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="errortracking.html">Error Tracking Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_check.html">File Check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firmware_check.html">Firmware Check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gcodeviewer.html">GCode Viewer Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pluginmanager.html">Plugin Manager</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Software Update Plugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#first-steps">First Steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#command-line-usage">Command line usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-the-plugin">Configuring the Plugin</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#version-checks">Version checks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#update-methods">Update methods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#common-configuration-patterns">Common configuration patterns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#global-credentials">Global credentials</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#events">Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hooks">Hooks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint-plugin-softwareupdate-check-config">octoprint.plugin.softwareupdate.check_config</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#helpers">Helpers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sec-bundledplugins-softwareupdate-helpers-version-checks">version_checks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#updaters">updaters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#exceptions">exceptions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#util">util</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#source-code">Source Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="virtual_printer.html">Virtual Printer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
+    <strong>Note:</strong>
+    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.4.2" style="color: white;text-decoration: underline">here</a>.
+  </p>
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Bundled Plugins</a> &raquo;</li>
+        
+      <li>Software Update Plugin</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/bundledplugins/softwareupdate.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="software-update-plugin">
+<span id="sec-bundledplugins-softwareupdate"></span><h1>Software Update Plugin<a class="headerlink" href="#software-update-plugin" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.0.</span></p>
+</div>
+<p>The Software Update Plugin allows receiving notifications about new releases
+of OctoPrint or installed plugins which registered with it and – if properly
+configured – also applying the found updates.</p>
+<p>It comes bundled with OctoPrint.</p>
+<div class="section" id="first-steps">
+<span id="sec-bundledplugins-softwareupdate-firststeps"></span><h2>First Steps<a class="headerlink" href="#first-steps" title="Permalink to this headline">¶</a></h2>
+<p>Out of the box the Software Update Plugin will be able to notify you of any
+updates that might be available for your OctoPrint installation or any plugins
+that registered themselves with it. In order for automatic restarts after updates
+to work, you should configure the restart commands for OctoPrint and the whole server.</p>
+<p>Out of the box the plugin should already be ready to update your OctoPrint installation to current
+stable release versions, but you can also switch to one of the available release candidate channels
+or outright git commit tracking via the plugin’s configuration dialog. To open this dialog, fire up OctoPrint’s
+Settings Dialog, navigate to the Software Update section therein and once you are there click on the little
+wrench icon in the upper right corner.</p>
+<div class="figure align-center" id="id2">
+<span id="fig-bundledplugins-softwareupdate-plugin-configuration"></span><img alt="Software Update plugin configuration dialog" src="../_images/bundledplugins-softwareupdate-configuration.png" />
+<p class="caption"><span class="caption-number">Fig. 21 </span><span class="caption-text">The Software Update plugin configuration dialog</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>There you can adjust the following settings:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>OctoPrint version tracking</strong>: Whether you want to track OctoPrint <em>releases</em> or every <em>commit</em>. Usually you want to
+select “Release” here which is also the default, unless you are a developer.</p></li>
+<li><p><strong>Tracked branch</strong> (if tracking is set to “Github Commit”): The branch that will be tracked if you set version tracking to “Github Commit”.</p></li>
+<li><p><strong>OctoPrint ``pip`` target</strong> (if tracking is set to “Release” or “Github Commit”): The argument that will be provided to <code class="docutils literal notranslate"><span class="pre">pip</span></code> when updating OctoPrint.
+Usually you don’t want to change this from its default value of <code class="docutils literal notranslate"><span class="pre">https://github.com/OctoPrint/OctoPrint/archive/{target_version}.zip</span></code>.</p></li>
+<li><p><strong>OctoPrint checkout folder</strong> (if tracking is set to “Local checkout”): This must be the path to OctoPrint’s git checkout folder
+(<code class="docutils literal notranslate"><span class="pre">/home/pi/OctoPrint</span></code> for OctoPi or <a class="reference external" href="https://community.octoprint.org/t/setting-up-octoprint-on-a-raspberry-pi-running-raspbian/2337/">manual installs following the Raspberry Pi setup guide</a>).
+Note that since OctoPrint 1.3.6 you will no longer need to set this to be able to update to releases, only if you
+want to be able to update against some bleeding edge git branch.</p></li>
+<li><p><strong>Enable ``pip`` update checks</strong>: Whether to have OctoPrint automatically check for updates of
+the <code class="docutils literal notranslate"><span class="pre">pip</span></code> tool that is used for updating most components.</p></li>
+<li><p><strong>Version cache TTL</strong>: The “time to live” of the cache OctoPrint will use to temporarily persist the version information
+for the various components registered with the plugin, so that they don’t have to be queried from the internet every time
+you load the page. Defaults to 24h, you usually shouldn’t need to change that value.</p></li>
+<li><p><strong>Show notifications to users</strong>: Whether to display update notifications (without “Update now” button) to users that cannot
+apply updates.</p></li>
+<li><p><strong>Minimum free disk space</strong>: The minimum amount of free disk space needed in order to allow software updates to be run.</p></li>
+</ul>
+</div></blockquote>
+<p>More settings are available by <a class="reference internal" href="#sec-bundledplugins-softwareupdate-configuration"><span class="std std-ref">editing the corresponding section in config.yaml</span></a>.</p>
+<p>Restart commands for OctoPrint and the whole server can be configured under Settings &gt; Server.</p>
+</div>
+<div class="section" id="command-line-usage">
+<span id="sec-bundledplugins-softwareupdate-cli"></span><h2>Command line usage<a class="headerlink" href="#command-line-usage" title="Permalink to this headline">¶</a></h2>
+<p>The functionality of the Software Update Plugin is also available on OctoPrint’s command line interface under the
+<code class="docutils literal notranslate"><span class="pre">plugins</span></code> sub command. It’s possible to check for updates via <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">plugins</span> <span class="pre">softwareupdate:check</span></code>
+and to apply available updates via <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">plugins</span> <span class="pre">softwareupdate:update</span></code>. Please see the corresponding
+<code class="docutils literal notranslate"><span class="pre">--help</span></code> pages for details:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ octoprint plugins softwareupdate:check --help
+Usage: octoprint plugins softwareupdate:check [OPTIONS] [TARGETS]...
+
+  Check for updates.
+
+  If any TARGETs are provided, only those components will be checked.
+
+  Examples:
+  - octoprint plugins softwareupdate:check
+      This will check all components for available updates,
+      utilizing cached version information.
+  - octoprint plugins softwareupdate:check --force
+      This will check all components for available updates,
+      ignoring any cached version information even if it&#39;s
+      still valid.
+  - octoprint plugins softwareupdate:check octoprint
+      This will only check OctoPrint itself for available
+      updates.
+
+Options:
+  --force  Ignore the cache for the update check
+  --help   Show this message and exit.
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ octoprint plugins softwareupdate:update --help
+Usage: octoprint plugins softwareupdate:update [OPTIONS] [TARGETS]...
+
+  Apply updates.
+
+  If any TARGETs are provided, only those components will be updated.
+
+  Examples:
+  - octoprint plugins softwareupdate:update
+      This will update all components with a pending update
+      that can be updated.
+  - octoprint plugins softwareupdate:update --force
+      This will force an update of all registered components
+      that can be updated, even if they don&#39;t have an updated
+      pending.
+  - octoprint plugins softwareupdate:update octoprint
+      This will only update OctoPrint and leave any further
+      components with pending updates at their current versions.
+
+Options:
+  --force  Update even if already up to date
+  --help   Show this message and exit.
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuring-the-plugin">
+<span id="sec-bundledplugins-softwareupdate-configuration"></span><h2>Configuring the Plugin<a class="headerlink" href="#configuring-the-plugin" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+  <span class="nt">softwareupdate</span><span class="p">:</span>
+    <span class="c1"># configured version check and update methods</span>
+    <span class="nt">checks</span><span class="p">:</span>
+      <span class="c1"># &quot;octoprint&quot; is reserved for OctoPrint</span>
+      <span class="nt">octoprint</span><span class="p">:</span>
+        <span class="c1"># this defines a version check that will check against releases</span>
+        <span class="c1"># published on OctoPrint&#39;s Github repository and pip as update method</span>
+        <span class="c1"># against the release archives on Github - this is the default</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">github_release</span>
+        <span class="nt">user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">foosel</span>
+        <span class="nt">repo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">OctoPrint</span>
+        <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pip</span>
+        <span class="nt">pip</span><span class="p">:</span> <span class="s">&#39;https://github.com/OctoPrint/OctoPrint/archive/{target_version}.zip&#39;</span>
+
+      <span class="c1"># further checks may be defined here</span>
+
+    <span class="c1"># pip command, if another one than the automatically detected one should be</span>
+    <span class="c1"># used - should normally NOT be necessary and hence set</span>
+    <span class="nt">pip_command</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/path/to/pip</span>
+
+    <span class="c1"># the time-to-live of the version cache, in minutes, defaults to 24h</span>
+    <span class="nt">cache_ttl</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1440</span>
+
+    <span class="c1"># whether to show update notifications to users that cannot apply updates</span>
+    <span class="nt">notify_users</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+
+    <span class="c1"># whether to ignore the system throttled state reported by the pisupport plugin and</span>
+    <span class="c1"># allow updating even when the system is not running stable - really not recommended</span>
+    <span class="nt">ignore_throttled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+
+    <span class="c1"># minimum free storage in MB for updates to be enabled</span>
+    <span class="nt">minimum_free_storage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">150</span>
+
+    <span class="c1"># URL from which to fetch check overlays</span>
+    <span class="nt">check_overlay_url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://plugins.octoprint.org/update_check_overlay.json</span>
+
+    <span class="c1"># time to live of the overlay cache, defaults to 6h</span>
+    <span class="nt">check_overlay_ttl</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">360</span>
+
+    <span class="c1"># global credentials to provide to version checks</span>
+    <span class="nt">credentials</span><span class="p">:</span>
+
+      <span class="c1"># GitHub API token to use for the github_release and github_commit version checks.</span>
+      <span class="c1"># Helpful if you regularly run into rate limit issues with the GitHub API using</span>
+      <span class="c1"># the default anonymous access. Use a personal access token:</span>
+      <span class="c1">#   https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token</span>
+      <span class="c1"># Unset by default</span>
+      <span class="nt">github</span><span class="p">:</span>
+
+      <span class="c1"># Bitbucket user name and password, used by the bitbucket_commit version check if</span>
+      <span class="c1"># provided, but only if the check doesn&#39;t specify credentials on its own.</span>
+      <span class="c1"># Unset by default</span>
+      <span class="nt">bitbucket_user</span><span class="p">:</span>
+      <span class="nt">bitbucket_password</span><span class="p">:</span>
+</pre></div>
+</div>
+<div class="section" id="version-checks">
+<span id="sec-bundledplugins-softwareupdate-configuration-versionchecks"></span><h3>Version checks<a class="headerlink" href="#version-checks" title="Permalink to this headline">¶</a></h3>
+<p>Version check types are configured through the <code class="docutils literal notranslate"><span class="pre">type</span></code> parameter. The following
+types are currently recognized:</p>
+<blockquote>
+<div><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">github_release</span></code>: Checks against releases published on Github. Additional
+config parameters:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>: (mandatory) Github user the repository to check belongs to</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">repo</span></code>: (mandatory) Github repository to check</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prerelease</span></code>: <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>, default <code class="docutils literal notranslate"><span class="pre">False</span></code>, set to
+<code class="docutils literal notranslate"><span class="pre">True</span></code> to also include releases on Github marked as prerelease.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prerelease_branches</span></code>: Prerelease channel definitions, optional. List of:
+* <code class="docutils literal notranslate"><span class="pre">branch</span></code>: Branch associated with the channel, acts as ID
+* <code class="docutils literal notranslate"><span class="pre">name</span></code>: Human readable name of the release channel
+* <code class="docutils literal notranslate"><span class="pre">committish</span></code>: List of values to check against <code class="docutils literal notranslate"><span class="pre">target_comittish</span></code></p>
+<blockquote>
+<div><p>field in Github release data - release will only be included if the
+values match. Defaults to being unset, in which case the <code class="docutils literal notranslate"><span class="pre">branch</span></code>
+will be matched.</p>
+</div></blockquote>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.16.</span></p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stable_branch</span></code>: Stable channel definition, optional. Structure:
+* <code class="docutils literal notranslate"><span class="pre">branch</span></code>: Branch associated with the channel, acts as ID
+* <code class="docutils literal notranslate"><span class="pre">name</span></code>: Human readable name of the release channel
+* <code class="docutils literal notranslate"><span class="pre">commitish</span></code>: List of values to check against <code class="docutils literal notranslate"><span class="pre">target_comittish</span></code></p>
+<blockquote>
+<div><p>field in Github release data - release will only be included if the
+values match. Defaults to being unset, in which case the <code class="docutils literal notranslate"><span class="pre">branch</span></code>
+will be matched.</p>
+</div></blockquote>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.16.</span></p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prerelease_channel</span></code>: Release channel to limit updates to. If set only
+those releases will be included if their <code class="docutils literal notranslate"><span class="pre">target_comittish</span></code> matches
+the ones associated with the release channel identified by this, either
+included in <code class="docutils literal notranslate"><span class="pre">prerelease_channels</span></code> or the <code class="docutils literal notranslate"><span class="pre">stable_channel</span></code>. Only
+taken into account if <code class="docutils literal notranslate"><span class="pre">prerelease</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code>.
+.. versionadded:: 1.2.16</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">release_compare</span></code>: Method to use to compare between current version
+information and release versions on Github. One of <code class="docutils literal notranslate"><span class="pre">python</span></code> (version
+comparison using <code class="docutils literal notranslate"><span class="pre">pkg_resources.parse_version</span></code>, newer version detected
+if remote &gt; current), <code class="docutils literal notranslate"><span class="pre">semantic</span></code> (version comparison using
+<code class="docutils literal notranslate"><span class="pre">semantic_version</span></code> package, newer version detected if remote &gt; current)
+and <code class="docutils literal notranslate"><span class="pre">unequal</span></code> (string comparison, newer version detected if
+remote != current).</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">github_commit</span></code>: Checks against commits pushed to Github. Additional
+config parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>: (mandatory) Github user the repository to check belongs to</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">repo</span></code>: (mandatory) Github repository to check</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">branch</span></code>: Branch of the Github repository to check, defaults to
+<code class="docutils literal notranslate"><span class="pre">master</span></code> if not set.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">current</span></code>: Current commit hash. Will be updated automatically.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bitbucket_commit</span></code>: Checks against commits pushed to Bitbucket. Additional
+config parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>: (mandatory) Bitbucket user the repository to check belongs to</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">repo</span></code>: (mandatory) Bitbucket repository to check</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">branch</span></code>: Branch of the Bitbucket repository to check, defaults to
+<code class="docutils literal notranslate"><span class="pre">master</span></code> if not set.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">current</span></code>: Current commit hash. Will be updated automatically.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">api_user</span></code>: (mandatory only for private repositories) Bitbucket user name (not email address).
+Requires <code class="docutils literal notranslate"><span class="pre">api_password</span></code> to be set. Hint: This is used for the check only. For the actual
+download you might register your public SSH key as access key for the according repo and
+configure this as pip URL in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>: <code class="docutils literal notranslate"><span class="pre">git+ssh://git&#64;bitbucket.org/my_user/my_repo.git&#64;{target_version}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">api_password</span></code>: (mandatory only for private repositories) App password. Requires
+<code class="docutils literal notranslate"><span class="pre">api_user</span></code> to be set. <strong>Important</strong>: Never use your actual Bitbucket login password. Generate
+a new app password. App passwords are user specific on Bitbucket.</p></li>
+</ul>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.3.5.</span></p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git_commit</span></code>: Checks a local git repository for new commits on its
+configured remote. Additional config parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">checkout_folder</span></code>: (mandatory) The full path to the folder with a valid git
+repository to check.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pypi_release</span></code>: Checks <a class="reference external" href="https://pypi.org">pypi.org</a> for new releases of a specified package. Additional
+config parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">package</span></code>: (mandatory) Name of the package which to check.</p></li>
+</ul>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.4.0.</span></p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">httpheader</span></code>: Checks an HTTP header on a defined URL for changes. This can be used for easy checks
+against things like <code class="docutils literal notranslate"><span class="pre">ETag</span></code> or <code class="docutils literal notranslate"><span class="pre">Last-Modified</span></code> headers. Additional
+config parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">header_url</span></code> or <code class="docutils literal notranslate"><span class="pre">url</span></code>: (mandatory) URL to check. <code class="docutils literal notranslate"><span class="pre">url</span></code> can be used to avoid duplication in case of updater
+methods such as <code class="docutils literal notranslate"><span class="pre">single_file_plugin</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">header_name</span></code>: (mandatory) HTTP header to check, case-insensitive, e.g. <code class="docutils literal notranslate"><span class="pre">ETag</span></code> or <code class="docutils literal notranslate"><span class="pre">Last-Modified</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">header_method</span></code>: HTTP request method to use for the check, defaults to <code class="docutils literal notranslate"><span class="pre">HEAD</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">header_prefix</span></code>: Prefix to use for the obtained value in the version display. If not provided <code class="docutils literal notranslate"><span class="pre">header_name</span></code>
+will be used. If set to an empty string, no prefix will be added.</p></li>
+</ul>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.4.1.</span></p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jsondata</span></code>: Checks the provided JSON endpoint for changes. The JSON endpoint must return an object with the
+property <code class="docutils literal notranslate"><span class="pre">version</span></code>, which should contain the latest version, e.g. <code class="docutils literal notranslate"><span class="pre">{&quot;version&quot;:&quot;1.2.3&quot;}</span></code>. Additional
+config parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">jsondata</span></code>: (mandatory) URL from which to fetch the JSON data</p></li>
+</ul>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.4.1.</span></p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">command_line</span></code>: Uses a provided script to determine whether an update
+is available. Additional config parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">command</span></code>: (mandatory) The full path to the script to execute. The script is
+expected to return a <code class="docutils literal notranslate"><span class="pre">0</span></code> return code if an update is available and to
+return the display name of the available version as the final and
+optionally the display name of the current version as the next to final
+line on stdout.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python_checker</span></code>: Can only be specified by plugins through the
+<a class="reference internal" href="#sec-bundledplugins-softwareupdate-hooks"><span class="std std-ref">hook</span></a>. Additional config
+parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">python_checker</span></code>: (mandatory) A Python callable which returns version
+information and whether the current version is up-to-date or not, see
+below for details.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">always_current</span></code>: Always reports that no update is necessary. Useful for debugging
+software update mechanisms during development. Additional config parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">current_version</span></code>: Version to report for both local and remote version.</p></li>
+</ul>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.3.7.</span></p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">never_current</span></code>: Always reports that an update is necessary. Useful for debugging
+software update mechanisms during development. Additional config parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">local_version</span></code>: Current local version. Defaults to <code class="docutils literal notranslate"><span class="pre">1.0.0</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">remote_version</span></code>: Remote version to offer update to. Defaults to <code class="docutils literal notranslate"><span class="pre">1.0.1</span></code>.</p></li>
+</ul>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.3.7.</span></p>
+</div>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="update-methods">
+<span id="sec-bundledplugins-softwareupdate-configuration-updatemethods"></span><h3>Update methods<a class="headerlink" href="#update-methods" title="Permalink to this headline">¶</a></h3>
+<p>Update methods are specified via the <code class="docutils literal notranslate"><span class="pre">method</span></code> parameter. Some update methods are assigned implicitly
+through the presence of their mandatory configuration parameters. The following methods are currently
+supported:</p>
+<blockquote>
+<div><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span></code>: Update by <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install``ing</span> <span class="pre">the</span> <span class="pre">supplied</span> <span class="pre">URL.</span> <span class="pre">May</span> <span class="pre">contain</span> <span class="pre">a</span>
+<span class="pre">placeholder</span> <span class="pre">``{target}</span></code> which will be the most recent version specifier as retrieved from the update check.
+Additional config parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span></code>: The URL to use for installing. Presence implies <code class="docutils literal notranslate"><span class="pre">method:</span> <span class="pre">pip</span></code>.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">single_file_plugin</span></code>: Update a single file plugin by re-downloading it from a configured URL.
+Additional config parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">url</span></code>: (mandatory) The URL from which to install the single file plugin. Must be a single self contained
+python file.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">update_script</span></code>: Update by executing a script.
+Additional config parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">update_script</span></code>: (mandatory) The path of the script to run. May
+contain placeholders <code class="docutils literal notranslate"><span class="pre">{target}</span></code> (for the most recent version specified
+as retrieved from the update check), <code class="docutils literal notranslate"><span class="pre">{branch}</span></code> for the branch to switch
+to to access the release, <code class="docutils literal notranslate"><span class="pre">{folder}</span></code> for the working directory
+of the script and <code class="docutils literal notranslate"><span class="pre">{python}</span></code> for the python executable OctoPrint is
+running under. Presence implies <code class="docutils literal notranslate"><span class="pre">method:</span> <span class="pre">update_script</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">update_folder</span></code> or <code class="docutils literal notranslate"><span class="pre">checkout_folder</span></code>: (mandatory) The working directory.
+<code class="docutils literal notranslate"><span class="pre">checkout_folder</span></code> can be used to avoid duplication in case of check
+types such as <code class="docutils literal notranslate"><span class="pre">git_commit</span></code>.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python_updater</span></code>: Update by executing a custom python callable.
+Additional config parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">python_updater</span></code>: (mandatory) Can only be specified by plugins through the
+<a class="reference internal" href="#sec-bundledplugins-softwareupdate-hooks"><span class="std std-ref">hook</span></a>. A Python callable
+which performs the update, see below for details. Presence implies <code class="docutils literal notranslate"><span class="pre">method:</span> <span class="pre">python_updater</span></code>.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sleep_a_bit</span></code>: Does nothing but block for a configurable <code class="docutils literal notranslate"><span class="pre">duration</span></code> and log
+a countdown in the meantime. Useful for debugging software update mechanisms
+during development.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.3.7.</span></p>
+</div>
+</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To allow default configurations for multiple update methods, if more than one of
+the above update method specific settings is set the one to use can be selected
+by setting the property <code class="docutils literal notranslate"><span class="pre">method</span></code> to the method specific setting in question.</p>
+<p><strong>Example</strong></p>
+<p>The following example defines both <code class="docutils literal notranslate"><span class="pre">pip</span></code> and <code class="docutils literal notranslate"><span class="pre">update_script</span></code>. By setting to
+<code class="docutils literal notranslate"><span class="pre">method</span></code> to <code class="docutils literal notranslate"><span class="pre">pip</span></code>, the Software Update plugin is instructed to use that as
+update method.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+  <span class="nt">softwareupdate</span><span class="p">:</span>
+    <span class="nt">checks</span><span class="p">:</span>
+      <span class="nt">octoprint</span><span class="p">:</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">github_release</span>
+        <span class="nt">user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">foosel</span>
+        <span class="nt">repo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">OctoPrint</span>
+        <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pip</span>
+        <span class="nt">pip</span><span class="p">:</span> <span class="s">&#39;https://github.com/OctoPrint/OctoPrint/archive/{target_version}.zip&#39;</span>
+        <span class="nt">update_script</span><span class="p">:</span> <span class="s">&#39;{python}</span><span class="nv"> </span><span class="s">&quot;/path/to/octoprint-update.py&quot;</span><span class="nv"> </span><span class="s">--python=&quot;{python}&quot;</span><span class="nv"> </span><span class="s">&quot;{folder}&quot;</span><span class="nv"> </span><span class="s">&quot;{target}&quot;&#39;</span>
+        <span class="nt">checkout_folder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/path/to/octoprint/checkout/folder</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="common-configuration-patterns">
+<span id="sec-bundledplugins-softwareupdate-configuration-patterns"></span><h3>Common configuration patterns<a class="headerlink" href="#common-configuration-patterns" title="Permalink to this headline">¶</a></h3>
+<p>Example for a setup that allows “bleeding edge” updates of OctoPrint under
+OctoPi (the <code class="docutils literal notranslate"><span class="pre">update_script</span></code> gets configured correctly automatically by the
+plugin itself):</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+  <span class="nt">softwareupdate</span><span class="p">:</span>
+    <span class="nt">checks</span><span class="p">:</span>
+      <span class="nt">octoprint</span><span class="p">:</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">github_commit</span>
+        <span class="nt">user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">foosel</span>
+        <span class="nt">repo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">OctoPrint</span>
+        <span class="nt">branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">devel</span>
+        <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">update_script</span>
+        <span class="nt">update_folder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/home/pi/OctoPrint</span>
+</pre></div>
+</div>
+<p>Plugin installed via pip and hosted on Github under
+<code class="docutils literal notranslate"><span class="pre">https://github.com/someUser/OctoPrint-SomePlugin</span></code>, only releases should be
+tracked:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+  <span class="nt">softwareupdate</span><span class="p">:</span>
+    <span class="nt">checks</span><span class="p">:</span>
+      <span class="nt">some_plugin</span><span class="p">:</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">github_release</span>
+        <span class="nt">user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">someUser</span>
+        <span class="nt">repo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">OctoPrint-SomePlugin</span>
+        <span class="nt">pip</span><span class="p">:</span> <span class="s">&#39;https://github.com/someUser/OctoPrint-SomePlugin/archive/{target}.zip&#39;</span>
+</pre></div>
+</div>
+<p>The same, but declaring three release channels “Stable”, “Maintenance RCs” (tagged on <code class="docutils literal notranslate"><span class="pre">rc/maintenance</span></code> or <code class="docutils literal notranslate"><span class="pre">master</span></code>,
+id <code class="docutils literal notranslate"><span class="pre">rc/maintenance</span></code>) and “Devel RCs” (tagged on <code class="docutils literal notranslate"><span class="pre">rc/maintenance</span></code>, <code class="docutils literal notranslate"><span class="pre">rc/devel</span></code> or <code class="docutils literal notranslate"><span class="pre">master</span></code>, id <code class="docutils literal notranslate"><span class="pre">rc/devel</span></code>),
+but with “Stable” active:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+  <span class="nt">softwareupdate</span><span class="p">:</span>
+    <span class="nt">checks</span><span class="p">:</span>
+      <span class="nt">some_plugin</span><span class="p">:</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">github_release</span>
+        <span class="nt">user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">someUser</span>
+        <span class="nt">repo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">OctoPrint-SomePlugin</span>
+        <span class="nt">stable_branch</span><span class="p">:</span>
+          <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Stable</span>
+          <span class="nt">branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+          <span class="nt">comittish</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+        <span class="nt">prerelease_branches</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Maintenance RCs</span>
+          <span class="nt">branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rc/maintenance</span>
+          <span class="nt">comittish</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">rc/maintenance</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Devel RCs</span>
+          <span class="nt">branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rc/devel</span>
+          <span class="nt">comittish</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">rc/devel</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">rc/maintenance</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+        <span class="nt">pip</span><span class="p">:</span> <span class="s">&#39;https://github.com/someUser/OctoPrint-SomePlugin/archive/{target}.zip&#39;</span>
+</pre></div>
+</div>
+<p>And now with “Maintenance RCs” active (note the <code class="docutils literal notranslate"><span class="pre">prerelease</span></code> and <code class="docutils literal notranslate"><span class="pre">prerelease_channel</span></code> settings):</p>
+<blockquote>
+<div><dl>
+<dt>plugins:</dt><dd><dl>
+<dt>softwareupdate:</dt><dd><dl>
+<dt>checks:</dt><dd><dl>
+<dt>some_plugin:</dt><dd><p>type: github_release
+user: someUser
+repo: OctoPrint-SomePlugin
+stable_branch:</p>
+<blockquote>
+<div><p>name: Stable
+branch: master
+comittish:
+- master</p>
+</div></blockquote>
+<p>prerelease_branches:
+- name: Maintenance RCs</p>
+<blockquote>
+<div><p>branch: rc/maintenance
+comittish:
+- rc/maintenance
+- master</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>name: Devel RCs
+branch: rc/devel
+comittish:
+- rc/devel
+- rc/maintenance
+- master</p></li>
+</ul>
+<p>prerelease: True
+prerelease_channel: rc/maintenance
+pip: ‘<a class="reference external" href="https://github.com/someUser/OctoPrint-SomePlugin/archive">https://github.com/someUser/OctoPrint-SomePlugin/archive</a>/{target}.zip’</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<p>The same plugin again, but tracking all commits pushed to branch <code class="docutils literal notranslate"><span class="pre">devel</span></code> (thus allowing
+“bleeding edge” updates):</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+  <span class="nt">softwareupdate</span><span class="p">:</span>
+    <span class="nt">checks</span><span class="p">:</span>
+      <span class="nt">some_plugin</span><span class="p">:</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">github_commit</span>
+        <span class="nt">user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">someUser</span>
+        <span class="nt">repo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">OctoPrint-SomePlugin</span>
+        <span class="nt">branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">devel</span>
+        <span class="nt">pip</span><span class="p">:</span> <span class="s">&#39;https://github.com/someUser/OctoPrint-SomePlugin/archive/{target}.zip&#39;</span>
+</pre></div>
+</div>
+<p>Single file plugin hosted in a gist <code class="docutils literal notranslate"><span class="pre">https://gist.github.com/someUser/somegist</span></code> and updated whenever there are changes:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+  <span class="nt">softwareupdate</span><span class="p">:</span>
+    <span class="nt">checks</span><span class="p">:</span>
+      <span class="nt">some_plugin</span><span class="p">:</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">httpheader</span>
+        <span class="nt">header_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ETag</span>
+        <span class="nt">url</span><span class="p">:</span> <span class="s">&#39;https://gist.github.com/someUser/somegist/raw/some_plugin.py&#39;</span>
+        <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">single_file_plugin</span>
+</pre></div>
+</div>
+<p>The same but updated when a <code class="docutils literal notranslate"><span class="pre">version.json</span></code> hosted alongside gets updated with a new version can be found at</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+  <span class="nt">softwareupdate</span><span class="p">:</span>
+    <span class="nt">checks</span><span class="p">:</span>
+      <span class="nt">some_plugin</span><span class="p">:</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jsondata</span>
+        <span class="nt">jsondata</span><span class="p">:</span> <span class="s">&#39;https://gist.github.com/someUser/somegist/raw/version.json&#39;</span>
+        <span class="nt">url</span><span class="p">:</span> <span class="s">&#39;https://gist.github.com/someUser/somegist/raw/some_plugin.py&#39;</span>
+        <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">single_file_plugin</span>
+</pre></div>
+</div>
+<p>Note that for gist hosted single file plugins, you need to use the “Raw” install link but should remove the
+commit identifier. E.g. <code class="docutils literal notranslate"><span class="pre">https://gist.githubusercontent.com/&lt;user&gt;/&lt;gistid&gt;/raw/my_plugin.py</span></code> instead of
+<code class="docutils literal notranslate"><span class="pre">https://gist.githubusercontent.com/&lt;user&gt;/&lt;gistid&gt;/raw/&lt;commit&gt;/my_plugin.py</span></code>. Note that these URLs will
+be cached by Github for a bit, so an update will not be immediately picked up.</p>
+</div>
+<div class="section" id="global-credentials">
+<span id="sec-bundledplugins-softwareupdate-configuration-credentials"></span><h3>Global credentials<a class="headerlink" href="#global-credentials" title="Permalink to this headline">¶</a></h3>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.5.0.</span></p>
+</div>
+<p>Starting with OctoPrint 1.5.0, the Software Update Plugin supports supplyting a GitHub
+API token to use for the <code class="docutils literal notranslate"><span class="pre">github_release</span></code> and <code class="docutils literal notranslate"><span class="pre">github_commit</span></code> version check types,
+to work around possible rate limit problems if a lot of checks are to be made from a single
+external IP. You may create a <a class="reference external" href="https://docs.github.com/en/free-pro-team&#64;latest/github/authenticating-to-github/creating-a-personal-access-token">personal access token</a>
+and configure that as <code class="docutils literal notranslate"><span class="pre">plugins.softwareupdate.credentials.github</span></code> via
+<a class="reference internal" href="../configuration/config_yaml.html#sec-configuration-config-yaml"><span class="std std-ref">config.yaml</span></a> in order to get a higher rate limit than with purely anonymous access.</p>
+<p>Additionally, the username and password to use with the <code class="docutils literal notranslate"><span class="pre">bitbucket_commit</span></code> version check
+type may also be configured via <code class="docutils literal notranslate"><span class="pre">plugins.softwareupdate.credentials.bitbucket_user</span></code> and
+<code class="docutils literal notranslate"><span class="pre">plugins.softwareupdate.credentials.bitbucket_password</span></code> respectively.</p>
+<p>None of these configuration options are currently exposed on the UI and can only be used
+via <a class="reference internal" href="../configuration/config_yaml.html#sec-configuration-config-yaml"><span class="std std-ref">config.yaml</span></a> or the
+<a class="reference internal" href="../configuration/cli.html#sec-configuration-cli"><span class="std std-ref">config command line interface</span></a>.</p>
+</div>
+</div>
+<div class="section" id="events">
+<span id="sec-bundledplugins-softwareupdate-events"></span><h2>Events<a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h2>
+<dl>
+<dt>plugin_softwareupdate_update_succeeded</dt><dd><p>An update succeeded.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">target</span></code>: update target</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from_version</span></code>: version from which was updated</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">to_version</span></code>: version to which was updated</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>plugin_softwareupdate_update_failed</dt><dd><p>An update failed.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">target</span></code>: update target</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from_version</span></code>: version from which was updated</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">to_version</span></code>: version to which was updated</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</div>
+<div class="section" id="hooks">
+<span id="sec-bundledplugins-softwareupdate-hooks"></span><h2>Hooks<a class="headerlink" href="#hooks" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="octoprint-plugin-softwareupdate-check-config">
+<span id="sec-bundledplugins-softwareupdate-hooks-check-config"></span><h3>octoprint.plugin.softwareupdate.check_config<a class="headerlink" href="#octoprint-plugin-softwareupdate-check-config" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
+<dt id="update_config_hook">
+<code class="sig-name descname">update_config_hook</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#update_config_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns additional check configurations for the Software Update plugin.</p>
+<p>Handlers should return a Python dict containing one entry per check. Usually
+this will probably only be the check configuration for the plugin providing
+the handler itself, using the plugin’s identifier as key.</p>
+<p>The check configuration must match the format expected in the configuration
+(see description above). Handlers may also utilize the <code class="docutils literal notranslate"><span class="pre">python_checker</span></code>
+and <code class="docutils literal notranslate"><span class="pre">python_updater</span></code> properties to return Python callables that take care
+of performing the version check or the update.</p>
+<p><code class="docutils literal notranslate"><span class="pre">python_checker</span></code> is expected to be a callable matching signature and return
+value of the <code class="docutils literal notranslate"><span class="pre">get_latest</span></code> methods found in the provided version checkers in
+<code class="docutils literal notranslate"><span class="pre">src/octoprint/plugins/softwareupdate/version_checks</span></code>. <code class="docutils literal notranslate"><span class="pre">python_updater</span></code>
+is expected to be a callable matching signature and return value of the
+<code class="docutils literal notranslate"><span class="pre">perform_update</span></code> methods found in the provided updaters in
+<code class="docutils literal notranslate"><span class="pre">src/octoprint/plugins/softwareupdate/updaters</span></code>.</p>
+<p><strong>Example</strong></p>
+<p>The example single-file-plugin updates itself from Github releases published
+at the (fictional) repository <code class="docutils literal notranslate"><span class="pre">https://github.com/someUser/OctoPrint-UpdatePluginDemo</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="k">def</span> <span class="nf">get_update_information</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">updateplugindemo</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+            <span class="n">displayName</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_plugin_name</span><span class="p">,</span>
+            <span class="n">displayVersion</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_plugin_version</span><span class="p">,</span>
+
+            <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;github_release&quot;</span><span class="p">,</span>
+            <span class="n">current</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_plugin_version</span><span class="p">,</span>
+            <span class="n">user</span><span class="o">=</span><span class="s2">&quot;someUser&quot;</span><span class="p">,</span>
+            <span class="n">repo</span><span class="o">=</span><span class="s2">&quot;OctoPrint-UpdatePluginDemo&quot;</span><span class="p">,</span>
+
+            <span class="n">pip</span><span class="o">=</span><span class="s2">&quot;https://github.com/someUser/OctoPrint-UpdatePluginDemo/archive/</span><span class="si">{target}</span><span class="s2">.zip&quot;</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
+<span class="s2">&quot;octoprint.plugin.softwareupdate.check_config&quot;</span><span class="p">:</span> <span class="n">get_update_information</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dictionary of check configurations as described above</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="helpers">
+<span id="sec-bundledplugins-softwareupdate-helpers"></span><h2>Helpers<a class="headerlink" href="#helpers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sec-bundledplugins-softwareupdate-helpers-version-checks">
+<span id="id1"></span><h3>version_checks<a class="headerlink" href="#sec-bundledplugins-softwareupdate-helpers-version-checks" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">version_checks</span></code> module of the Software Update plugin, allows reusing the
+bundled version check variants from plugins (e.g. wrapped in a <code class="docutils literal notranslate"><span class="pre">python_checker</span></code>).</p>
+</div>
+<div class="section" id="updaters">
+<span id="sec-bundledplugins-softwareupdate-helpers-updaters"></span><h3>updaters<a class="headerlink" href="#updaters" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">updaters</span></code> module of the Software Update plugin, allows reusing the bundled
+updater variants from plugins (e.g. wrapped in a <code class="docutils literal notranslate"><span class="pre">python_updater</span></code>).</p>
+</div>
+<div class="section" id="exceptions">
+<span id="sec-bundledplugins-softwareupdate-helpers-exceptions"></span><h3>exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">exceptions</span></code> module of the Software Update plugin.</p>
+</div>
+<div class="section" id="util">
+<span id="sec-bundledplugins-softwareupdate-helpers-util"></span><h3>util<a class="headerlink" href="#util" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">util</span></code> module of the Software Update plugin.</p>
+</div>
+</div>
+<div class="section" id="source-code">
+<span id="sec-bundledplugins-softwareupdate-source"></span><h2>Source Code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
+<p>The source of the Software Update plugin is bundled with OctoPrint and can be
+found in its source repository under <code class="docutils literal notranslate"><span class="pre">src/octoprint/plugins/softwareupdate</span></code>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="virtual_printer.html" class="btn btn-neutral float-right" title="Virtual Printer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pluginmanager.html" class="btn btn-neutral float-left" title="Plugin Manager" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2020, Gina Häußge
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.5.0rc3
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.3.12/bundledplugins/softwareupdate.html">1.3.12</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.4.2/bundledplugins/softwareupdate.html">1.4.2</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.5.0rc3/bundledplugins/softwareupdate.html">1.5.0rc3</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/bundledplugins/softwareupdate.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/bundledplugins/softwareupdate.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/bundledplugins/softwareupdate.html">devel</a></dd>
+    </dl>
+  </div>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
