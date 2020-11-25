@@ -105,7 +105,6 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Settings</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#retrieve-current-settings">Retrieve current settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#save-settings">Save settings</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#regenerate-the-system-wide-api-key">Regenerate the system wide API key</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fetch-template-data">Fetch template data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#data-model">Data model</a></li>
 </ul>
@@ -208,9 +207,8 @@
 <ul>
 <li><p><a class="reference internal" href="#retrieve-current-settings" id="id2">Retrieve current settings</a></p></li>
 <li><p><a class="reference internal" href="#save-settings" id="id3">Save settings</a></p></li>
-<li><p><a class="reference internal" href="#regenerate-the-system-wide-api-key" id="id4">Regenerate the system wide API key</a></p></li>
-<li><p><a class="reference internal" href="#fetch-template-data" id="id5">Fetch template data</a></p></li>
-<li><p><a class="reference internal" href="#data-model" id="id6">Data model</a></p></li>
+<li><p><a class="reference internal" href="#fetch-template-data" id="id4">Fetch template data</a></p></li>
+<li><p><a class="reference internal" href="#data-model" id="id5">Data model</a></p></li>
 </ul>
 </li>
 </ul>
@@ -270,28 +268,8 @@ be updated.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="regenerate-the-system-wide-api-key">
-<span id="sec-api-settings-generateapikey"></span><h2><a class="toc-backref" href="#id4">Regenerate the system wide API key</a><a class="headerlink" href="#regenerate-the-system-wide-api-key" title="Permalink to this headline">¶</a></h2>
-<dl class="http post">
-<dt id="post--api-settings-apikey">
-<code class="sig-name descname">POST </code><code class="sig-name descname">/api/settings/apikey</code><a class="headerlink" href="#post--api-settings-apikey" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generates a new system wide API key.</p>
-<p>Does not expect a body. Will return the generated API key as <code class="docutils literal notranslate"><span class="pre">apikey</span></code>
-property in the JSON object contained in the response body.</p>
-<p>Requires admin rights.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Status Codes</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – No error</p></li>
-<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4">403 Forbidden</a> – No admin rights</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
 <div class="section" id="fetch-template-data">
-<span id="sec-api-settings-fetchtemplaatedata"></span><h2><a class="toc-backref" href="#id5">Fetch template data</a><a class="headerlink" href="#fetch-template-data" title="Permalink to this headline">¶</a></h2>
+<span id="sec-api-settings-fetchtemplaatedata"></span><h2><a class="toc-backref" href="#id4">Fetch template data</a><a class="headerlink" href="#fetch-template-data" title="Permalink to this headline">¶</a></h2>
 <dl class="http get">
 <dt id="get--api-settings-templates">
 <code class="sig-name descname">GET </code><code class="sig-name descname">/api/settings/templates</code><a class="headerlink" href="#get--api-settings-templates" title="Permalink to this definition">¶</a></dt>
@@ -551,7 +529,7 @@ me an email to make sure I can give you a heads-up when something changes in an 
 
 </div>
 <div class="section" id="data-model">
-<span id="sec-api-settings-datamodel"></span><h2><a class="toc-backref" href="#id6">Data model</a><a class="headerlink" href="#data-model" title="Permalink to this headline">¶</a></h2>
+<span id="sec-api-settings-datamodel"></span><h2><a class="toc-backref" href="#id5">Data model</a><a class="headerlink" href="#data-model" title="Permalink to this headline">¶</a></h2>
 <p>The data model on the settings API mostly reflects the contents of
 <a class="reference internal" href="../configuration/config_yaml.html#sec-configuration-config-yaml"><span class="std std-ref">config.yaml</span></a>. The settings tree
 returned by the API contains the following fields, which are directly
@@ -573,7 +551,7 @@ mapped from the same fields in <code class="docutils literal notranslate"><span 
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">api.key</span></code></p></td>
 <td><p>Only maps to <code class="docutils literal notranslate"><span class="pre">api.key</span></code> in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> if request is sent with admin rights, set to <code class="docutils literal notranslate"><span class="pre">n/a</span></code> otherwise.
 Starting with OctoPrint 1.3.3 setting this field via <a class="reference internal" href="#sec-api-settings-save"><span class="std std-ref">the API</span></a> is not possible,
-only <a class="reference internal" href="#sec-api-settings-generateapikey"><span class="std std-ref">regenerating it</span></a> is supported. Setting a custom value is only
+only <span class="xref std std-ref">regenerating it</span> is supported. Setting a custom value is only
 possible through <cite>config.yaml</cite>.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">api.allowCrossOrigin</span></code></p></td>
