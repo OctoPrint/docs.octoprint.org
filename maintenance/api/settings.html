@@ -553,9 +553,8 @@ me an email to make sure I can give you a heads-up when something changes in an 
 <div class="section" id="data-model">
 <span id="sec-api-settings-datamodel"></span><h2><a class="toc-backref" href="#id6">Data model</a><a class="headerlink" href="#data-model" title="Permalink to this headline">¶</a></h2>
 <p>The data model on the settings API mostly reflects the contents of
-<a class="reference internal" href="../configuration/config_yaml.html#sec-configuration-config-yaml"><span class="std std-ref">config.yaml</span></a>. The settings tree
-returned by the API contains the following fields, which are directly
-mapped from the same fields in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> unless otherwise noted:</p>
+<a class="reference internal" href="../configuration/config_yaml.html#sec-configuration-config-yaml"><span class="std std-ref">config.yaml</span></a>, which are directly
+mapped, with the following exceptions:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -567,33 +566,6 @@ mapped from the same fields in <code class="docutils literal notranslate"><span 
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">api.enabled</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">api.key</span></code></p></td>
-<td><p>Only maps to <code class="docutils literal notranslate"><span class="pre">api.key</span></code> in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> if request is sent with admin rights, set to <code class="docutils literal notranslate"><span class="pre">n/a</span></code> otherwise.
-Starting with OctoPrint 1.3.3 setting this field via <a class="reference internal" href="#sec-api-settings-save"><span class="std std-ref">the API</span></a> is not possible,
-only <a class="reference internal" href="#sec-api-settings-generateapikey"><span class="std std-ref">regenerating it</span></a> is supported. Setting a custom value is only
-possible through <cite>config.yaml</cite>.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">api.allowCrossOrigin</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">appearance.name</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">appearance.color</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">appearance.colorTransparent</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">appearance.defaultLanguage</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">appearance.showFahrenheitAlso</span></code></p></td>
-<td></td>
-</tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">feature.gcodeViewer</span></code></p></td>
 <td><p>Maps to <code class="docutils literal notranslate"><span class="pre">gcodeViewer.enabled</span></code> in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code></p></td>
 </tr>
@@ -603,95 +575,29 @@ possible through <cite>config.yaml</cite>.</p></td>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">feature.mobileSizeThreshold</span></code></p></td>
 <td><p>Maps to <code class="docutils literal notranslate"><span class="pre">gcodeViewer.mobileSizeThreshold</span></code> in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">feature.temperatureGraph</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">feature.waitForStart</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">feature.alwaysSendChecksum</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">feature.neverSendChecksum</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">feature.sdSupport</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">feature.sdRelativePath</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">feature.sdAlwaysAvailable</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">feature.swallowOkAfterResend</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">feature.repetierTargetTemp</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">feature.externalHeatupDetection</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">feature.keyboardControl</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">feature.pollWatched</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">feature.ignoreIdenticalResends</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">feature.modelSizeDetection</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">feature.firmwareDetection</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">feature.printCancelConfirmation</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">feature.blockWhileDwelling</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">folder.uploads</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">folder.timelapse</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">folder.timelapseTmp</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">folder.timelapseTmp</span></code></p></td>
 <td><p>Maps to <code class="docutils literal notranslate"><span class="pre">folder.timelapse_tmp</span></code> in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">folder.logs</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">folder.watched</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">plugins</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">plugins</span></code></p></td>
 <td><p>Plugin settings as available from <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> and <a class="reference internal" href="../plugins/mixins.html#octoprint.plugin.SettingsPlugin" title="octoprint.plugin.SettingsPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SettingsPlugin</span></code></a> implementations</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">printer.defaultExtrusionLength</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">printer.defaultExtrusionLength</span></code></p></td>
 <td><p>Maps to <code class="docutils literal notranslate"><span class="pre">printerParameters.defaultExtrusionLength</span></code> in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">scripts.gcode</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">scripts.gcode</span></code></p></td>
 <td><p>Whole subtree of configured <a class="reference internal" href="../features/gcode_scripts.html#sec-features-gcode-scripts"><span class="std std-ref">GCODE scripts</span></a></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">serial.port</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">serial.port</span></code></p></td>
 <td><p>Current serial port</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">serial.baudrate</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">serial.baudrate</span></code></p></td>
 <td><p>Current serial baudrate</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">serial.portOptions</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">serial.portOptions</span></code></p></td>
 <td><p>Available serial ports</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">serial.baudrateOptions</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">serial.baudrateOptions</span></code></p></td>
 <td><p>Available serial baudrates</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">serial.autoconnect</span></code></p></td>
-<td></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">serial.timeoutConnection</span></code></p></td>
 <td><p>Maps to <code class="docutils literal notranslate"><span class="pre">serial.timeout.connection</span></code> in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code></p></td>
@@ -711,36 +617,6 @@ possible through <cite>config.yaml</cite>.</p></td>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">serial.timeoutSdStatus</span></code></p></td>
 <td><p>Maps to <code class="docutils literal notranslate"><span class="pre">serial.timeout.sdStatus</span></code> in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">serial.log</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">serial.additionalPorts</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">serial.additionalBaudrates</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">serial.longRunningCommands</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">serial.checksumRequiringCommands</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">serial.helloCommand</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">serial.ignoreErrorsFromFirmware</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">serial.disconnectOnErrors</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">serial.triggerOkForM29</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">serial.supportResendsWIthoutOk</span></code></p></td>
-<td></td>
-</tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">serial.maxTimeoutsIdle</span></code></p></td>
 <td><p>Maps to <code class="docutils literal notranslate"><span class="pre">serial.maxCommunicationTimeouts.idle</span></code> in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code></p></td>
 </tr>
@@ -750,32 +626,14 @@ possible through <cite>config.yaml</cite>.</p></td>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">serial.maxTimeoutsLong</span></code></p></td>
 <td><p>Maps to <code class="docutils literal notranslate"><span class="pre">serial.maxCommunicationTimeouts.long</span></code> in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">server.commands.systemShutdownCommand</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">server.commands.systemRestartCommand</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">server.commands.serverRestartCommand</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">server.diskspace.warning</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">server.diskspace.critical</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">system.actions</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">system.actions</span></code></p></td>
 <td><p>Whole subtree taken from <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">system.events</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">system.events</span></code></p></td>
 <td><p>Whole subtree taken from <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">temperature.profiles</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">temperature.profiles</span></code></p></td>
 <td><p>Whole subtree taken from <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">temperature.cutoff</span></code></p></td>
-<td></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">terminalFilters</span></code></p></td>
 <td><p>Whole subtree taken from <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code></p></td>
@@ -788,27 +646,6 @@ possible through <cite>config.yaml</cite>.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">webcam.ffmpegPath</span></code></p></td>
 <td><p>Maps to <code class="docutils literal notranslate"><span class="pre">webcam.ffmpeg</span></code> in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">webcam.bitrate</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">webcam.ffmpegThreads</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">webcam.ffmpegVideoCodec</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">webcam.watermark</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">webcam.flipH</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">webcam.flipV</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">webcam.rotate90</span></code></p></td>
-<td></td>
 </tr>
 </tbody>
 </table>
