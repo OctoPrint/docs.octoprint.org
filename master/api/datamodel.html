@@ -94,6 +94,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">REST API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="general.html">General information</a></li>
 <li class="toctree-l2"><a class="reference internal" href="version.html">Version information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">Server information</a></li>
 <li class="toctree-l2"><a class="reference internal" href="connection.html">Connection handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">File operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="job.html">Job operations</a></li>
@@ -115,6 +116,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#temperature-data">Temperature Data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#historic-temperature-data-point">Historic Temperature Data Point</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#temperature-offset">Temperature offset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#resend-stats">Resend stats</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#job-related">Job related</a><ul>
@@ -227,33 +229,34 @@
 <li><p><a class="reference internal" href="#temperature-data" id="id4">Temperature Data</a></p></li>
 <li><p><a class="reference internal" href="#historic-temperature-data-point" id="id5">Historic Temperature Data Point</a></p></li>
 <li><p><a class="reference internal" href="#temperature-offset" id="id6">Temperature offset</a></p></li>
+<li><p><a class="reference internal" href="#resend-stats" id="id7">Resend stats</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#job-related" id="id7">Job related</a></p>
+<li><p><a class="reference internal" href="#job-related" id="id8">Job related</a></p>
 <ul>
-<li><p><a class="reference internal" href="#job-information" id="id8">Job information</a></p></li>
-<li><p><a class="reference internal" href="#progress-information" id="id9">Progress information</a></p></li>
+<li><p><a class="reference internal" href="#job-information" id="id9">Job information</a></p></li>
+<li><p><a class="reference internal" href="#progress-information" id="id10">Progress information</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#file-related" id="id10">File related</a></p>
+<li><p><a class="reference internal" href="#file-related" id="id11">File related</a></p>
 <ul>
-<li><p><a class="reference internal" href="#file-information" id="id11">File information</a></p>
+<li><p><a class="reference internal" href="#file-information" id="id12">File information</a></p>
 <ul>
-<li><p><a class="reference internal" href="#folders" id="id12">Folders</a></p></li>
-<li><p><a class="reference internal" href="#files" id="id13">Files</a></p></li>
+<li><p><a class="reference internal" href="#folders" id="id13">Folders</a></p></li>
+<li><p><a class="reference internal" href="#files" id="id14">Files</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#abridged-file-or-folder-information" id="id14">Abridged file or folder information</a></p></li>
-<li><p><a class="reference internal" href="#gcode-analysis-information" id="id15">GCODE analysis information</a></p></li>
-<li><p><a class="reference internal" href="#references" id="id16">References</a></p></li>
+<li><p><a class="reference internal" href="#abridged-file-or-folder-information" id="id15">Abridged file or folder information</a></p></li>
+<li><p><a class="reference internal" href="#gcode-analysis-information" id="id16">GCODE analysis information</a></p></li>
+<li><p><a class="reference internal" href="#references" id="id17">References</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#access-control" id="id17">Access control</a></p>
+<li><p><a class="reference internal" href="#access-control" id="id18">Access control</a></p>
 <ul>
-<li><p><a class="reference internal" href="#user-record" id="id18">User record</a></p></li>
-<li><p><a class="reference internal" href="#permission-record" id="id19">Permission record</a></p></li>
-<li><p><a class="reference internal" href="#group-record" id="id20">Group record</a></p></li>
-<li><p><a class="reference internal" href="#needs" id="id21">Needs</a></p></li>
+<li><p><a class="reference internal" href="#user-record" id="id19">User record</a></p></li>
+<li><p><a class="reference internal" href="#permission-record" id="id20">Permission record</a></p></li>
+<li><p><a class="reference internal" href="#group-record" id="id21">Group record</a></p></li>
+<li><p><a class="reference internal" href="#needs" id="id22">Needs</a></p></li>
 </ul>
 </li>
 </ul>
@@ -439,11 +442,46 @@ bed state.</p></td>
 </tbody>
 </table>
 </div>
+<div class="section" id="resend-stats">
+<span id="sec-api-datamodel-printer-resends"></span><h3><a class="toc-backref" href="#id7">Resend stats</a><a class="headerlink" href="#resend-stats" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">count</span></code></p></td>
+<td><p>1</p></td>
+<td><p>int</p></td>
+<td><p>Number of resend requests received since connecting.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">transmitted</span></code></p></td>
+<td><p>1</p></td>
+<td><p>int</p></td>
+<td><p>Number of transmitted lines since connecting.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ratio</span></code></p></td>
+<td><p>1</p></td>
+<td><p>int</p></td>
+<td><p>Percentage of resend requests vs transmitted lines. Value between 0 and 100.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section" id="job-related">
-<span id="sec-api-datamodel-jobs"></span><h2><a class="toc-backref" href="#id7">Job related</a><a class="headerlink" href="#job-related" title="Permalink to this headline">¶</a></h2>
+<span id="sec-api-datamodel-jobs"></span><h2><a class="toc-backref" href="#id8">Job related</a><a class="headerlink" href="#job-related" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="job-information">
-<span id="sec-api-datamodel-jobs-job"></span><h3><a class="toc-backref" href="#id8">Job information</a><a class="headerlink" href="#job-information" title="Permalink to this headline">¶</a></h3>
+<span id="sec-api-datamodel-jobs-job"></span><h3><a class="toc-backref" href="#id9">Job information</a><a class="headerlink" href="#job-information" title="Permalink to this headline">¶</a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -493,7 +531,7 @@ bed state.</p></td>
 </table>
 </div>
 <div class="section" id="progress-information">
-<span id="sec-api-datamodel-jobs-progress"></span><h3><a class="toc-backref" href="#id9">Progress information</a><a class="headerlink" href="#progress-information" title="Permalink to this headline">¶</a></h3>
+<span id="sec-api-datamodel-jobs-progress"></span><h3><a class="toc-backref" href="#id10">Progress information</a><a class="headerlink" href="#progress-information" title="Permalink to this headline">¶</a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -550,9 +588,9 @@ bed state.</p></td>
 </div>
 </div>
 <div class="section" id="file-related">
-<span id="sec-api-datamodel-files"></span><h2><a class="toc-backref" href="#id10">File related</a><a class="headerlink" href="#file-related" title="Permalink to this headline">¶</a></h2>
+<span id="sec-api-datamodel-files"></span><h2><a class="toc-backref" href="#id11">File related</a><a class="headerlink" href="#file-related" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="file-information">
-<span id="sec-api-datamodel-files-file"></span><h3><a class="toc-backref" href="#id11">File information</a><a class="headerlink" href="#file-information" title="Permalink to this headline">¶</a></h3>
+<span id="sec-api-datamodel-files-file"></span><h3><a class="toc-backref" href="#id12">File information</a><a class="headerlink" href="#file-information" title="Permalink to this headline">¶</a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -604,7 +642,7 @@ for <code class="docutils literal notranslate"><span class="pre">.gcode</span></
 For a <code class="docutils literal notranslate"><span class="pre">type</span></code> value of <code class="docutils literal notranslate"><span class="pre">folder</span></code>, see <a class="reference internal" href="#sec-api-datamodel-files-folders"><span class="std std-ref">Folders</span></a>.
 For any other value see <a class="reference internal" href="#sec-api-datamodel-files-files"><span class="std std-ref">Files</span></a>.</p>
 <div class="section" id="folders">
-<span id="sec-api-datamodel-files-folders"></span><h4><a class="toc-backref" href="#id12">Folders</a><a class="headerlink" href="#folders" title="Permalink to this headline">¶</a></h4>
+<span id="sec-api-datamodel-files-folders"></span><h4><a class="toc-backref" href="#id13">Folders</a><a class="headerlink" href="#folders" title="Permalink to this headline">¶</a></h4>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -635,7 +673,7 @@ sub folders!</p></td>
 </table>
 </div>
 <div class="section" id="files">
-<span id="sec-api-datamodel-files-files"></span><h4><a class="toc-backref" href="#id13">Files</a><a class="headerlink" href="#files" title="Permalink to this headline">¶</a></h4>
+<span id="sec-api-datamodel-files-files"></span><h4><a class="toc-backref" href="#id14">Files</a><a class="headerlink" href="#files" title="Permalink to this headline">¶</a></h4>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -688,7 +726,7 @@ printer’s SD card (if available)</p></td>
 </div>
 </div>
 <div class="section" id="abridged-file-or-folder-information">
-<span id="sec-api-datamodel-files-fileabridged"></span><h3><a class="toc-backref" href="#id14">Abridged file or folder information</a><a class="headerlink" href="#abridged-file-or-folder-information" title="Permalink to this headline">¶</a></h3>
+<span id="sec-api-datamodel-files-fileabridged"></span><h3><a class="toc-backref" href="#id15">Abridged file or folder information</a><a class="headerlink" href="#abridged-file-or-folder-information" title="Permalink to this headline">¶</a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -737,7 +775,7 @@ printer’s SD card (if available)</p></td>
 </table>
 </div>
 <div class="section" id="gcode-analysis-information">
-<span id="sec-api-datamodel-files-gcodeanalysis"></span><h3><a class="toc-backref" href="#id15">GCODE analysis information</a><a class="headerlink" href="#gcode-analysis-information" title="Permalink to this headline">¶</a></h3>
+<span id="sec-api-datamodel-files-gcodeanalysis"></span><h3><a class="toc-backref" href="#id16">GCODE analysis information</a><a class="headerlink" href="#gcode-analysis-information" title="Permalink to this headline">¶</a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -832,7 +870,7 @@ printer’s SD card (if available)</p></td>
 </table>
 </div>
 <div class="section" id="references">
-<span id="sec-api-datamodel-files-ref"></span><h3><a class="toc-backref" href="#id16">References</a><a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+<span id="sec-api-datamodel-files-ref"></span><h3><a class="toc-backref" href="#id17">References</a><a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -869,9 +907,9 @@ folders.</p></td>
 </div>
 </div>
 <div class="section" id="access-control">
-<span id="sec-api-datamodel-access"></span><h2><a class="toc-backref" href="#id17">Access control</a><a class="headerlink" href="#access-control" title="Permalink to this headline">¶</a></h2>
+<span id="sec-api-datamodel-access"></span><h2><a class="toc-backref" href="#id18">Access control</a><a class="headerlink" href="#access-control" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="user-record">
-<span id="sec-api-datamodel-access-users"></span><h3><a class="toc-backref" href="#id18">User record</a><a class="headerlink" href="#user-record" title="Permalink to this headline">¶</a></h3>
+<span id="sec-api-datamodel-access-users"></span><h3><a class="toc-backref" href="#id19">User record</a><a class="headerlink" href="#user-record" title="Permalink to this headline">¶</a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -936,7 +974,7 @@ folders.</p></td>
 </table>
 </div>
 <div class="section" id="permission-record">
-<span id="sec-api-datamodel-access-permissions"></span><h3><a class="toc-backref" href="#id19">Permission record</a><a class="headerlink" href="#permission-record" title="Permalink to this headline">¶</a></h3>
+<span id="sec-api-datamodel-access-permissions"></span><h3><a class="toc-backref" href="#id20">Permission record</a><a class="headerlink" href="#permission-record" title="Permalink to this headline">¶</a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -986,7 +1024,7 @@ folders.</p></td>
 </table>
 </div>
 <div class="section" id="group-record">
-<span id="sec-api-datamodel-access-groups"></span><h3><a class="toc-backref" href="#id20">Group record</a><a class="headerlink" href="#group-record" title="Permalink to this headline">¶</a></h3>
+<span id="sec-api-datamodel-access-groups"></span><h3><a class="toc-backref" href="#id21">Group record</a><a class="headerlink" href="#group-record" title="Permalink to this headline">¶</a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -1057,7 +1095,7 @@ subgroups).</p></td>
 </table>
 </div>
 <div class="section" id="needs">
-<span id="sec-api-datamodel-access-needs"></span><h3><a class="toc-backref" href="#id21">Needs</a><a class="headerlink" href="#needs" title="Permalink to this headline">¶</a></h3>
+<span id="sec-api-datamodel-access-needs"></span><h3><a class="toc-backref" href="#id22">Needs</a><a class="headerlink" href="#needs" title="Permalink to this headline">¶</a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />

@@ -297,7 +297,7 @@ from the args and kwargs arguments, respectively.</p>
 
 <dl class="py class">
 <dt id="octoprint.util.ResettableTimer">
-<em class="property">class </em><code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">ResettableTimer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interval</span></em>, <em class="sig-param"><span class="n">function</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">kwargs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_reset</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_cancelled</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.ResettableTimer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">ResettableTimer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interval</span></em>, <em class="sig-param"><span class="n">function</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">kwargs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_reset</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">on_cancelled</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">daemon</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.ResettableTimer" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class represents an action that should be run after a specified amount of time. It is similar to python’s
 own <a class="reference external" href="https://docs.python.org/2/library/threading.html#threading.Timer" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">threading.Timer</span></code></a> class, with the addition of being able to reset the counter to zero.</p>
 <p>ResettableTimers are started, as with threads, by calling their <code class="docutils literal notranslate"><span class="pre">start()</span></code> method. The timer can be stopped (in
@@ -306,7 +306,7 @@ between runs) by calling the <code class="xref py py-func docutils literal notra
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ran hello() at </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
 
-<span class="n">t</span> <span class="o">=</span> <span class="n">ResettableTimers</span><span class="p">(</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">ResettableTimer</span><span class="p">(</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
 <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Started at </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
 <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
@@ -324,6 +324,7 @@ returning the interval to use, in case the interval is not static.</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The keyword arguments for the <code class="docutils literal notranslate"><span class="pre">function</span></code> call. Defaults to an empty dict.</p></li>
 <li><p><strong>on_cancelled</strong> (<em>callable</em>) – Callback to call when the timer finishes due to being cancelled.</p></li>
 <li><p><strong>on_reset</strong> (<em>callable</em>) – Callback to call when the timer is reset.</p></li>
+<li><p><strong>daemon</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – daemon flag to set on underlying thread.</p></li>
 </ul>
 </dd>
 </dl>
@@ -527,10 +528,37 @@ keep and <code class="docutils literal notranslate"><span class="pre">False</spa
 </dd></dl>
 
 <dl class="py function">
+<dt id="octoprint.util.dict_flatten">
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">dict_flatten</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">separator</span><span class="o">=</span><span class="default_value">'.'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.dict_flatten" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flatten a dictionary.</p>
+<dl>
+<dt>Example::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;a1&#39;</span><span class="p">:</span> <span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="p">:</span> <span class="s1">&#39;a2&#39;</span><span class="p">},</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expected</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a.a1&#39;</span><span class="p">:</span> <span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="s1">&#39;a.a2&#39;</span><span class="p">:</span> <span class="s1">&#39;a2&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">actual</span> <span class="o">=</span> <span class="n">dict_flatten</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shared</span> <span class="o">=</span> <span class="p">{(</span><span class="n">k</span><span class="p">,</span> <span class="n">actual</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">actual</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">expected</span> <span class="ow">and</span> <span class="n">actual</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="n">expected</span><span class="p">[</span><span class="n">k</span><span class="p">]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">shared</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">expected</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dictionary</strong> – the dictionary to flatten</p></li>
+<li><p><strong>prefix</strong> – the key prefix, initially an empty string</p></li>
+<li><p><strong>separator</strong> – key separator, ‘.’ by default</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns: a flattened dict</p>
+</dd></dl>
+
+<dl class="py function">
 <dt id="octoprint.util.dict_merge">
-<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">dict_merge</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">leaf_merger</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.dict_merge" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">octoprint.util.</code><code class="sig-name descname">dict_merge</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">leaf_merger</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">in_place</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.dict_merge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recursively deep-merges two dictionaries.</p>
-<p>Taken from <a class="reference external" href="https://www.xormedia.com/recursively-merge-dictionaries-in-python/">https://www.xormedia.com/recursively-merge-dictionaries-in-python/</a></p>
+<p>Based on <a class="reference external" href="https://www.xormedia.com/recursively-merge-dictionaries-in-python/">https://www.xormedia.com/recursively-merge-dictionaries-in-python/</a></p>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">fnord</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s2">&quot;other foo&quot;</span><span class="p">,</span> <span class="n">fnord</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;some&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">]))</span>
@@ -556,6 +584,11 @@ keep and <code class="docutils literal notranslate"><span class="pre">False</spa
 <span class="go">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;b&quot;</span>
 <span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_merge</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">})</span> <span class="ow">is</span> <span class="n">c</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_merge</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">},</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="ow">is</span> <span class="n">c</span>
+<span class="go">True</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -564,6 +597,7 @@ keep and <code class="docutils literal notranslate"><span class="pre">False</spa
 <li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary to merge <code class="docutils literal notranslate"><span class="pre">b</span></code> into</p></li>
 <li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The dictionary to merge into <code class="docutils literal notranslate"><span class="pre">a</span></code></p></li>
 <li><p><strong>leaf_merger</strong> (<em>callable</em>) – An optional callable to use to merge leaves (non-dict values)</p></li>
+<li><p><strong>in_place</strong> (<em>boolean</em>) – If set to True, a will be merged with b in place, meaning a will be modified</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

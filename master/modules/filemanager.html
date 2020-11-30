@@ -657,7 +657,7 @@ the whole <code class="docutils literal notranslate"><span class="pre">path</spa
 
 <dl class="py method">
 <dt id="octoprint.filemanager.storage.LocalFileStorage.list_files">
-<code class="sig-name descname">list_files</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">filter</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">recursive</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.list_files" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">list_files</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">filter</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">recursive</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">force_refresh</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.list_files" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all files in storage starting at <code class="docutils literal notranslate"><span class="pre">path</span></code>. If <code class="docutils literal notranslate"><span class="pre">recursive</span></code> is set to True (the default), also dives into
 subfolders.</p>
 <p>An optional filter function can be supplied which will be called with a file name and file data and which has
@@ -1150,7 +1150,7 @@ the whole <code class="docutils literal notranslate"><span class="pre">path</spa
 
 <dl class="py method">
 <dt id="octoprint.filemanager.storage.StorageInterface.list_files">
-<code class="sig-name descname">list_files</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">filter</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">recursive</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.list_files" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">list_files</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">filter</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">recursive</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">force_refresh</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.list_files" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all files in storage starting at <code class="docutils literal notranslate"><span class="pre">path</span></code>. If <code class="docutils literal notranslate"><span class="pre">recursive</span></code> is set to True (the default), also dives into
 subfolders.</p>
 <p>An optional filter function can be supplied which will be called with a file name and file data and which has
@@ -1419,11 +1419,14 @@ will be merged</p></li>
 </dl>
 <dl class="py method">
 <dt id="octoprint.filemanager.util.AbstractFileWrapper.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.AbstractFileWrapper.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">permissions</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.AbstractFileWrapper.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Saves the file’s content to the given absolute path.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The absolute path to where to save the file</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The absolute path to where to save the file</p></li>
+<li><p><strong>permissions</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – The permissions to set on the file</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -1461,11 +1464,14 @@ move the file.</p>
 </dl>
 <dl class="py method">
 <dt id="octoprint.filemanager.util.DiskFileWrapper.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.DiskFileWrapper.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">permissions</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.DiskFileWrapper.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Saves the file’s content to the given absolute path.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The absolute path to where to save the file</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The absolute path to where to save the file</p></li>
+<li><p><strong>permissions</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – The permissions to set on the file</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -1606,7 +1612,7 @@ This method may need to do a test seek().</p>
 </dl>
 <dl class="py method">
 <dt id="octoprint.filemanager.util.StreamWrapper.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.StreamWrapper.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">permissions</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.StreamWrapper.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Will dump the contents of all streams provided during construction into the target file, in the order they were
 provided.</p>
 </dd></dl>
