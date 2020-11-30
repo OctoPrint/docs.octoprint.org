@@ -1,0 +1,355 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CLI &mdash; OctoPrint 1.5.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="REST API" href="../api/index.html" />
+    <link rel="prev" title="logging.yaml" href="logging_yaml.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> OctoPrint
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Configuration</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="yaml.html">A YAML Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html">config.yaml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging_yaml.html">logging.yaml</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">CLI</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Configuration</a> &raquo;</li>
+        
+      <li>CLI</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/configuration/cli.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cli">
+<span id="sec-configuration-cli"></span><h1>CLI<a class="headerlink" href="#cli" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.3.0.</span></p>
+</div>
+<p>OctoPrint provides a basic command line interface for manipulation of <a class="reference internal" href="config_yaml.html#sec-configuration-config-yaml"><span class="std std-ref">config.yaml</span></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ octoprint config --help
+Usage: octoprint config [OPTIONS] COMMAND [ARGS]...
+
+  Basic config manipulation.
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  append_value  Appends value to list behind config path.
+  effective     Retrieves the full effective config.
+  get           Retrieves value from config path.
+  insert_value  Inserts value at index of list behind config key.
+  remove        Removes a config path.
+  remove_value  Removes value from list at config path.
+  set           Sets a config path to the provided value.
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ octoprint config append_value --help
+Usage: octoprint config append_value [OPTIONS] PATH VALUE
+
+  Appends value to list behind config path.
+
+Options:
+  --json
+  --help  Show this message and exit.
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ octoprint config effective --help
+Usage: octoprint config effective [OPTIONS]
+
+  Retrieves the full effective config.
+
+Options:
+  --json  Output value formatted as JSON
+  --yaml  Output value formatted as YAML
+  --raw   Output value as raw string representation
+  --help  Show this message and exit.
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ octoprint config get --help
+Usage: octoprint config get [OPTIONS] PATH
+
+  Retrieves value from config path.
+
+Options:
+  --json  Output value formatted as JSON
+  --yaml  Output value formatted as YAML
+  --raw   Output value as raw string representation
+  --help  Show this message and exit.
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ octoprint config insert_value --help
+Usage: octoprint config insert_value [OPTIONS] PATH INDEX VALUE
+
+  Inserts value at index of list behind config key.
+
+Options:
+  --json
+  --help  Show this message and exit.
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ octoprint config remove --help
+Usage: octoprint config remove [OPTIONS] PATH
+
+  Removes a config path.
+
+Options:
+  --help  Show this message and exit.
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ octoprint config remove_value --help
+Usage: octoprint config remove_value [OPTIONS] PATH VALUE
+
+  Removes value from list at config path.
+
+Options:
+  --json
+  --help  Show this message and exit.
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ octoprint config set --help
+Usage: octoprint config set [OPTIONS] PATH VALUE
+
+  Sets a config path to the provided value.
+
+Options:
+  --bool   Interpret value as bool
+  --float  Interpret value as float
+  --int    Interpret value as int
+  --json   Parse value from json
+  --help   Show this message and exit.
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../api/index.html" class="btn btn-neutral float-right" title="REST API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="logging_yaml.html" class="btn btn-neutral float-left" title="logging.yaml" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2020, Gina Häußge
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.5.0
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.3.12/configuration/cli.html">1.3.12</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.4.2/configuration/cli.html">1.4.2</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.5.0/configuration/cli.html">1.5.0</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/configuration/cli.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/configuration/cli.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/configuration/cli.html">devel</a></dd>
+    </dl>
+  </div>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
