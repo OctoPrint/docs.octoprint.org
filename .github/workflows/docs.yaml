@@ -69,7 +69,7 @@ jobs:
       - name: 🐍 Preinstall some dependencies
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
         run: |
-          pip install sphinx==${{ matrix.sphinx }} sphinxcontrib-mermaid==0.4.0
+          pip install sphinx==${{ matrix.sphinx }} sphinxcontrib-mermaid==0.4.0 watchdog==0.10.4
 
       - name: ⬇ Checkout OctoPrint
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
