@@ -96,7 +96,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#octoprint-plugin-loginui-theming">octoprint.plugin.loginui.theming</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#rerunning-the-wizard">Rerunning the wizard</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="custom_controls.html">Custom Controls</a></li>
@@ -187,7 +186,7 @@
   <div class="section" id="access-control">
 <span id="sec-features-access-control"></span><h1>Access Control<a class="headerlink" href="#access-control" title="Permalink to this headline">¶</a></h1>
 <div class="versionchanged">
-<p><span class="versionmodified changed">Changed in version 1.4.0.</span></p>
+<p><span class="versionmodified changed">Changed in version 1.5.0.</span></p>
 </div>
 <p>OctoPrint’s bundled access control feature allows granular permission control
 over which users or user groups are allowed to access which parts of OctoPrint.</p>
@@ -216,17 +215,14 @@ users</p></li>
 </div></blockquote>
 <p>Logged in users without admin flag will be allowed to access everything besides the
 Settings and System Commands, which are admin-only.</p>
-<p>If Access Control is disabled, everything is directly accessible. <strong>That also
-includes all administrative functionality as well as full control over the
-printer</strong>, and without the need for an <a class="reference internal" href="../api/general.html#sec-api-general-authorization"><span class="std std-ref">API key</span></a>!</p>
 <p>Upon first start a configuration wizard is provided which allows configuration
-of the first administrator account or alternatively disabling Access Control
-(which is <strong>NOT</strong> recommended for systems that are directly accessible via the
-internet or other untrusted networks!).</p>
+of the first administrator account to be used for OctoPrint. After initial setup,
+you can then create more users under Settings &gt; Access Control for customisation of
+the granular permission system.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>If you plan to have your OctoPrint instance accessible over the internet,
-<strong>always enable Access Control</strong> and ideally <strong>don’t make it accessible to
+<strong>please use additional security measures</strong> and ideally <strong>don’t make it accessible to
 everyone over the internet but instead use a VPN</strong> or at the very least
 HTTP basic authentication on a layer above OctoPrint.</p>
 <p>A physical device that includes heaters and stepper motors really should not be
@@ -246,38 +242,6 @@ login dialog.</p>
 <span id="sec-features-access-control-hooks-loginui"></span><h3>octoprint.plugin.loginui.theming<a class="headerlink" href="#octoprint-plugin-loginui-theming" title="Permalink to this headline">¶</a></h3>
 <p>See <span class="xref std std-ref">here</span>.</p>
 </div>
-</div>
-<div class="section" id="rerunning-the-wizard">
-<span id="sec-features-access-control-rerunning-wizard"></span><h2>Rerunning the wizard<a class="headerlink" href="#rerunning-the-wizard" title="Permalink to this headline">¶</a></h2>
-<p>In case Access Control was disabled in the configuration wizard, it is
-possible to re-run it by editing <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> <a class="footnote-reference brackets" href="#f1" id="id1">1</a> and setting <code class="docutils literal notranslate"><span class="pre">firstRun</span></code>
-in the <code class="docutils literal notranslate"><span class="pre">server</span></code> section and <code class="docutils literal notranslate"><span class="pre">enabled</span></code> in the <code class="docutils literal notranslate"><span class="pre">accessControl</span></code> section to
-<code class="docutils literal notranslate"><span class="pre">true</span></code>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">accessControl</span><span class="p">:</span>
-  <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="c1"># ...</span>
-<span class="nt">server</span><span class="p">:</span>
-  <span class="nt">firstRun</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-</pre></div>
-</div>
-<p>Then restart the server and connect to the web interface - the wizard should
-be shown again.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If user accounts were created prior to disabling Access Control and those
-user accounts are not to be used any more, remove <code class="docutils literal notranslate"><span class="pre">.octoprint/users.yaml</span></code>.
-If you don’t remove this file, the above changes won’t lead to the
-configuration being shown again, instead Access Control will just be
-enabled using the already existing login data. This is to prevent you from
-resetting access control by accident.</p>
-</div>
-<p class="rubric">Footnotes</p>
-<dl class="footnote brackets">
-<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>For Linux that will be <code class="docutils literal notranslate"><span class="pre">~/.octoprint/config.yaml</span></code>, for Windows it will be <code class="docutils literal notranslate"><span class="pre">%APPDATA%/OctoPrint/config.yaml</span></code> and for
-Mac <code class="docutils literal notranslate"><span class="pre">~/Library/Application</span> <span class="pre">Support/OctoPrint/config.yaml</span></code></p>
-</dd>
-</dl>
 </div>
 </div>
 
