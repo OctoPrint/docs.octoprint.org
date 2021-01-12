@@ -107,6 +107,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#octoprint-plugin-backup-additional-excludes">octoprint.plugin.backup.additional_excludes</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#helpers">Helpers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#create-backup">create_backup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-backup">delete_backup</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#source-code">Source code</a></li>
 </ul>
 </li>
@@ -362,6 +367,81 @@ backup if uploaded GCODE files are also excluded:</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="helpers">
+<h2>Helpers<a class="headerlink" href="#helpers" title="Permalink to this headline">¶</a></h2>
+<p id="sec-bundledplugins-backup-helpers">The Backup plugin exports two helpers that can be used by other plugins or internal methods
+from within OctoPrint, without going via the API.</p>
+<div class="section" id="create-backup">
+<span id="sec-bundledplugins-backup-helpers-create-backup"></span><h3>create_backup<a class="headerlink" href="#create-backup" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
+<dt id="octoprint.plugins.backup.BackupPlugin.create_backup_helper">
+<code class="sig-prename descclassname">octoprint.plugins.backup.BackupPlugin.</code><code class="sig-name descname">create_backup_helper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">exclude</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">filename</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugins.backup.BackupPlugin.create_backup_helper" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 1.6.0.</span></p>
+</div>
+<p>Create a backup from a plugin or other internal call</p>
+<p>This helper is exported as <code class="docutils literal notranslate"><span class="pre">create_backup</span></code> and can be used from the plugin
+manager’s <code class="docutils literal notranslate"><span class="pre">get_helpers</span></code> method.</p>
+<p><strong>Example</strong></p>
+<p>The following code snippet can be used from within a plugin, and will create a backup
+excluding two folders (<code class="docutils literal notranslate"><span class="pre">timelapse</span></code> and <code class="docutils literal notranslate"><span class="pre">uploads</span></code>)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">helpers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_manager</span><span class="o">.</span><span class="n">get_helpers</span><span class="p">(</span><span class="s2">&quot;backup&quot;</span><span class="p">,</span> <span class="s2">&quot;create_backup&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">helpers</span> <span class="ow">and</span> <span class="s2">&quot;create_backup&quot;</span> <span class="ow">in</span> <span class="n">helpers</span><span class="p">:</span>
+    <span class="n">helpers</span><span class="p">[</span><span class="s2">&quot;create_backup&quot;</span><span class="p">](</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;timelapse&quot;</span><span class="p">,</span> <span class="s2">&quot;uploads&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>By using the <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">helpers</span> <span class="pre">[...]</span></code> clause, plugins can fall back to other methods
+when they are running under versions where these helpers did not exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exclude</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – Names of data folders to exclude, defaults to None</p></li>
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Name of backup to be created, if None (default) the backup
+name will be auto-generated. This should use a <code class="docutils literal notranslate"><span class="pre">.zip</span></code> extension.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="delete-backup">
+<span id="sec-bundledplugins-backup-helpers-delete-backup"></span><h3>delete_backup<a class="headerlink" href="#delete-backup" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
+<dt id="octoprint.plugins.backup.BackupPlugin.delete_backup_helper">
+<code class="sig-prename descclassname">octoprint.plugins.backup.BackupPlugin.</code><code class="sig-name descname">delete_backup_helper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugins.backup.BackupPlugin.delete_backup_helper" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 1.6.0.</span></p>
+</div>
+<p>Delete the specified backup from a plugin or other internal call</p>
+<p>This helper is exported as <code class="docutils literal notranslate"><span class="pre">delete_backup</span></code> and can be used through the plugin
+manager’s <code class="docutils literal notranslate"><span class="pre">get_helpers</span></code> method.</p>
+<p><strong>Example</strong>
+The following code snippet can be used from within a plugin, and will attempt to
+delete the backup named <code class="docutils literal notranslate"><span class="pre">ExampleBackup.zip</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">helpers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_manager</span><span class="o">.</span><span class="n">get_helpers</span><span class="p">(</span><span class="s2">&quot;backup&quot;</span><span class="p">,</span> <span class="s2">&quot;delete_backup&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">helpers</span> <span class="ow">and</span> <span class="s2">&quot;delete_backup&quot;</span> <span class="ow">in</span> <span class="n">helpers</span><span class="p">:</span>
+    <span class="n">helpers</span><span class="p">[</span><span class="s2">&quot;delete_backup&quot;</span><span class="p">](</span><span class="s2">&quot;ExampleBackup.zip&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>By using the <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">helpers</span> <span class="pre">[...]</span></code> clause, plugins can fall back to other methods
+when they are running under versions where these helpers did not exist.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This method will fail silently if the backup does not exist, and so
+it is recommended that you make sure the name comes from a verified source,
+for example the name from the events or other helpers.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The name of the backup to delete</p>
 </dd>
 </dl>
 </dd></dl>
