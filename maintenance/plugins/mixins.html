@@ -692,23 +692,32 @@ the transformed value.</p>
 <code class="sig-name descname">get_settings_restricted_paths</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.get_settings_restricted_paths" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves the list of paths in the plugin’s settings which be restricted on the REST API.</p>
 <p>Override this in your plugin’s implementation to restrict whether a path should only be returned to users with
-the SETTINGS permission, any logged in users, or never on the REST API.</p>
-<p>Return a <code class="docutils literal notranslate"><span class="pre">dict</span></code> with the keys <code class="docutils literal notranslate"><span class="pre">admin</span></code>, <code class="docutils literal notranslate"><span class="pre">user</span></code>, <code class="docutils literal notranslate"><span class="pre">never</span></code> mapping to a list of paths (as tuples or lists of
-the path elements) for which to restrict access via the REST API accordingly. Paths returned for the <code class="docutils literal notranslate"><span class="pre">admin</span></code>
-key will only be available on the REST API when access with admin rights, <code class="docutils literal notranslate"><span class="pre">user</span></code> will only be available when accessed
-as a logged in user. <code class="docutils literal notranslate"><span class="pre">never</span></code> will never be returned on the API.</p>
+certain permissions, or never on the REST API.</p>
+<p>Return a <code class="docutils literal notranslate"><span class="pre">dict</span></code> with one of the following keys, mapping to a list of paths (as tuples or lists of
+the path elements) for which to restrict access via the REST API accordingly.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>An <code class="xref py py-class docutils literal notranslate"><span class="pre">OctoPrintPermission</span></code> instance: Paths will only be available on the REST API for users with the permission</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">admin</span></code>: Paths will only be available on the REST API for users with admin rights (any user with the SETTINGS permission)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>: Paths will only be available on the REST API when accessed as a logged in user</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">never</span></code>: Paths will never be returned on the API</p></li>
+</ul>
+</div></blockquote>
 <p>Example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">some</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">admin_only</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="n">foo</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">),</span>
                           <span class="n">user_only</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">)),</span>
                 <span class="n">another</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">admin_only</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;path&quot;</span><span class="p">),</span>
                              <span class="n">field</span><span class="o">=</span><span class="s2">&quot;field&quot;</span><span class="p">),</span>
-                <span class="n">path</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">never</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="k">return</span><span class="o">=</span><span class="s2">&quot;return&quot;</span><span class="p">))))</span>
+                <span class="n">path</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">never</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="k">return</span><span class="o">=</span><span class="s2">&quot;return&quot;</span><span class="p">))),</span>
+                <span class="n">the</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">webcam</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;webcam&quot;</span><span class="p">)))</span>
 
 <span class="k">def</span> <span class="nf">get_settings_restricted_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">admin</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;some&quot;</span><span class="p">,</span> <span class="s2">&quot;admin_only&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;another&quot;</span><span class="p">,</span> <span class="s2">&quot;admin_only&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">],],</span>
-                <span class="n">user</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;some&quot;</span><span class="p">,</span> <span class="s2">&quot;user_only&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">],],</span>
-                <span class="n">never</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="s2">&quot;to&quot;</span><span class="p">,</span> <span class="s2">&quot;never&quot;</span><span class="p">,</span> <span class="s2">&quot;return&quot;</span><span class="p">],])</span>
+    <span class="kn">from</span> <span class="nn">octoprint.access.permissions</span> <span class="kn">import</span> <span class="n">Permissions</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;admin&#39;</span><span class="p">:[[</span><span class="s2">&quot;some&quot;</span><span class="p">,</span> <span class="s2">&quot;admin_only&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;another&quot;</span><span class="p">,</span> <span class="s2">&quot;admin_only&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">],],</span>
+            <span class="s1">&#39;user&#39;</span><span class="p">:[[</span><span class="s2">&quot;some&quot;</span><span class="p">,</span> <span class="s2">&quot;user_only&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">],],</span>
+            <span class="s1">&#39;never&#39;</span><span class="p">:[[</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="s2">&quot;to&quot;</span><span class="p">,</span> <span class="s2">&quot;never&quot;</span><span class="p">,</span> <span class="s2">&quot;return&quot;</span><span class="p">],],</span>
+            <span class="n">Permissions</span><span class="o">.</span><span class="n">WEBCAM</span><span class="p">:[[</span><span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;webcam&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">],]}</span>
 
 <span class="c1"># this will make the plugin return settings on the REST API like this for an anonymous user</span>
 <span class="c1">#</span>
@@ -716,15 +725,26 @@ as a logged in user. <code class="docutils literal notranslate"><span class="pre
 <span class="c1">#                    user_only=dict(path=None, bar=&quot;bar&quot;)),</span>
 <span class="c1">#          another=dict(admin_only=dict(path=None),</span>
 <span class="c1">#                       field=&quot;field&quot;),</span>
-<span class="c1">#          path=dict(to=dict(never=dict(return=None))))</span>
+<span class="c1">#          path=dict(to=dict(never=dict(return=None))),</span>
+<span class="c1">#          the=dict(webcam=dict(data=None)))</span>
 <span class="c1">#</span>
-<span class="c1"># like this for a logged in user</span>
+<span class="c1"># like this for a logged in user without the webcam permission</span>
 <span class="c1">#</span>
 <span class="c1">#     dict(some=dict(admin_only=dict(path=None, foo=&quot;foo&quot;),</span>
 <span class="c1">#                    user_only=dict(path=&quot;path&quot;, bar=&quot;bar&quot;)),</span>
 <span class="c1">#          another=dict(admin_only=dict(path=None),</span>
 <span class="c1">#                       field=&quot;field&quot;),</span>
-<span class="c1">#          path=dict(to=dict(never=dict(return=None))))</span>
+<span class="c1">#          path=dict(to=dict(never=dict(return=None))),</span>
+<span class="c1">#          the=dict(webcam=dict(data=None)))</span>
+<span class="c1">#</span>
+<span class="c1"># like this for a logged in user with the webcam permission</span>
+<span class="c1">#</span>
+<span class="c1">#     dict(some=dict(admin_only=dict(path=None, foo=&quot;foo&quot;),</span>
+<span class="c1">#                    user_only=dict(path=&quot;path&quot;, bar=&quot;bar&quot;)),</span>
+<span class="c1">#          another=dict(admin_only=dict(path=None),</span>
+<span class="c1">#                       field=&quot;field&quot;),</span>
+<span class="c1">#          path=dict(to=dict(never=dict(return=None))),</span>
+<span class="c1">#          the=dict(webcam=dict(data=&quot;webcam&quot;)))</span>
 <span class="c1">#</span>
 <span class="c1"># and like this for an admin user</span>
 <span class="c1">#</span>
@@ -732,7 +752,8 @@ as a logged in user. <code class="docutils literal notranslate"><span class="pre
 <span class="c1">#                    user_only=dict(path=&quot;path&quot;, bar=&quot;bar&quot;)),</span>
 <span class="c1">#          another=dict(admin_only=dict(path=&quot;path&quot;),</span>
 <span class="c1">#                       field=&quot;field&quot;),</span>
-<span class="c1">#          path=dict(to=dict(never=dict(return=None))))</span>
+<span class="c1">#          path=dict(to=dict(never=dict(return=None))),</span>
+<span class="c1">#          the=dict(webcam=dict(data=&quot;webcam&quot;)))</span>
 </pre></div>
 </div>
 <p>..versionadded:: 1.2.17</p>
