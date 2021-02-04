@@ -390,7 +390,7 @@ config parameters:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">prerelease_branches</span></code>: Prerelease channel definitions, optional. List of:
 * <code class="docutils literal notranslate"><span class="pre">branch</span></code>: Branch associated with the channel, acts as ID
 * <code class="docutils literal notranslate"><span class="pre">name</span></code>: Human readable name of the release channel
-* <code class="docutils literal notranslate"><span class="pre">committish</span></code>: List of values to check against <code class="docutils literal notranslate"><span class="pre">target_comittish</span></code></p>
+* <code class="docutils literal notranslate"><span class="pre">commitish</span></code>: List of values to check against <code class="docutils literal notranslate"><span class="pre">target_commitish</span></code></p>
 <blockquote>
 <div><p>field in Github release data - release will only be included if the
 values match. Defaults to being unset, in which case the <code class="docutils literal notranslate"><span class="pre">branch</span></code>
@@ -403,7 +403,7 @@ will be matched.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">stable_branch</span></code>: Stable channel definition, optional. Structure:
 * <code class="docutils literal notranslate"><span class="pre">branch</span></code>: Branch associated with the channel, acts as ID
 * <code class="docutils literal notranslate"><span class="pre">name</span></code>: Human readable name of the release channel
-* <code class="docutils literal notranslate"><span class="pre">commitish</span></code>: List of values to check against <code class="docutils literal notranslate"><span class="pre">target_comittish</span></code></p>
+* <code class="docutils literal notranslate"><span class="pre">commitish</span></code>: List of values to check against <code class="docutils literal notranslate"><span class="pre">target_commitish</span></code></p>
 <blockquote>
 <div><p>field in Github release data - release will only be included if the
 values match. Defaults to being unset, in which case the <code class="docutils literal notranslate"><span class="pre">branch</span></code>
@@ -414,7 +414,7 @@ will be matched.</p>
 </div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">prerelease_channel</span></code>: Release channel to limit updates to. If set only
-those releases will be included if their <code class="docutils literal notranslate"><span class="pre">target_comittish</span></code> matches
+those releases will be included if their <code class="docutils literal notranslate"><span class="pre">target_commitish</span></code> matches
 the ones associated with the release channel identified by this, either
 included in <code class="docutils literal notranslate"><span class="pre">prerelease_channels</span></code> or the <code class="docutils literal notranslate"><span class="pre">stable_channel</span></code>. Only
 taken into account if <code class="docutils literal notranslate"><span class="pre">prerelease</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code>.
@@ -659,17 +659,17 @@ but with “Stable” active:</p>
         <span class="nt">stable_branch</span><span class="p">:</span>
           <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Stable</span>
           <span class="nt">branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
-          <span class="nt">comittish</span><span class="p">:</span>
+          <span class="nt">commitish</span><span class="p">:</span>
           <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
         <span class="nt">prerelease_branches</span><span class="p">:</span>
         <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Maintenance RCs</span>
           <span class="nt">branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rc/maintenance</span>
-          <span class="nt">comittish</span><span class="p">:</span>
+          <span class="nt">commitish</span><span class="p">:</span>
           <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">rc/maintenance</span>
           <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
         <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Devel RCs</span>
           <span class="nt">branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rc/devel</span>
-          <span class="nt">comittish</span><span class="p">:</span>
+          <span class="nt">commitish</span><span class="p">:</span>
           <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">rc/devel</span>
           <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">rc/maintenance</span>
           <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
@@ -677,49 +677,35 @@ but with “Stable” active:</p>
 </pre></div>
 </div>
 <p>And now with “Maintenance RCs” active (note the <code class="docutils literal notranslate"><span class="pre">prerelease</span></code> and <code class="docutils literal notranslate"><span class="pre">prerelease_channel</span></code> settings):</p>
-<blockquote>
-<div><dl>
-<dt>plugins:</dt><dd><dl>
-<dt>softwareupdate:</dt><dd><dl>
-<dt>checks:</dt><dd><dl>
-<dt>some_plugin:</dt><dd><p>type: github_release
-user: someUser
-repo: OctoPrint-SomePlugin
-stable_branch:</p>
-<blockquote>
-<div><p>name: Stable
-branch: master
-comittish:
-- master</p>
-</div></blockquote>
-<p>prerelease_branches:
-- name: Maintenance RCs</p>
-<blockquote>
-<div><p>branch: rc/maintenance
-comittish:
-- rc/maintenance
-- master</p>
-</div></blockquote>
-<ul class="simple">
-<li><p>name: Devel RCs
-branch: rc/devel
-comittish:
-- rc/devel
-- rc/maintenance
-- master</p></li>
-</ul>
-<p>prerelease: True
-prerelease_channel: rc/maintenance
-pip: ‘<a class="reference external" href="https://github.com/someUser/OctoPrint-SomePlugin/archive">https://github.com/someUser/OctoPrint-SomePlugin/archive</a>/{target}.zip’</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd>
-</dl>
-</div></blockquote>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+  <span class="nt">softwareupdate</span><span class="p">:</span>
+    <span class="nt">checks</span><span class="p">:</span>
+      <span class="nt">some_plugin</span><span class="p">:</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">github_release</span>
+        <span class="nt">user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">someUser</span>
+        <span class="nt">repo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">OctoPrint-SomePlugin</span>
+        <span class="nt">stable_branch</span><span class="p">:</span>
+          <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Stable</span>
+          <span class="nt">branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+          <span class="nt">commitish</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+        <span class="nt">prerelease_branches</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Maintenance RCs</span>
+          <span class="nt">branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rc/maintenance</span>
+          <span class="nt">commitish</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">rc/maintenance</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Devel RCs</span>
+          <span class="nt">branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rc/devel</span>
+          <span class="nt">commitish</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">rc/devel</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">rc/maintenance</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+        <span class="nt">prerelease</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+        <span class="nt">prerelease_channel</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rc/maintenance</span>
+        <span class="nt">pip</span><span class="p">:</span> <span class="s">&#39;https://github.com/someUser/OctoPrint-SomePlugin/archive/{target}.zip&#39;</span>
+</pre></div>
+</div>
 <p>The same plugin again, but tracking all commits pushed to branch <code class="docutils literal notranslate"><span class="pre">devel</span></code> (thus allowing
 “bleeding edge” updates):</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
