@@ -349,11 +349,24 @@ the current rate requires and a slower rate might be necessary.</p>
 </dd></dl>
 
 <div class="section" id="sample-to-setup-an-authed-socket">
-<h2>Sample to setup an authed socket<a class="headerlink" href="#sample-to-setup-an-authed-socket" title="Permalink to this headline">¶</a></h2>
+<span id="sec-jsclient-socket-authsample"></span><h2>Sample to setup an authed socket<a class="headerlink" href="#sample-to-setup-an-authed-socket" title="Permalink to this headline">¶</a></h2>
+<p>If you have a username and a password:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span>
 <span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">login</span><span class="p">(</span><span class="s2">&quot;myusername&quot;</span><span class="p">,</span> <span class="s2">&quot;mypassword&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
     <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">sendAuth</span><span class="p">(</span><span class="s2">&quot;myusername&quot;</span><span class="p">,</span> <span class="nx">response</span><span class="p">.</span><span class="nx">session</span><span class="p">);</span>
+    <span class="p">});</span>
+</pre></div>
+</div>
+<p>If you have an API key:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OctoPrintClient</span><span class="p">({</span>
+    <span class="nx">baseurl</span><span class="o">:</span> <span class="s2">&quot;http://example.com/&quot;</span><span class="p">,</span>
+    <span class="nx">apikey</span><span class="o">:</span> <span class="s2">&quot;abcdef&quot;</span>
+<span class="p">});</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">passiveLogin</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">client</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">sendAuth</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">response</span><span class="p">.</span><span class="nx">session</span><span class="p">);</span>
     <span class="p">});</span>
 </pre></div>
 </div>
