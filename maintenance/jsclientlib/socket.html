@@ -114,6 +114,7 @@
 <li class="toctree-l2"><a class="reference internal" href="settings.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.settings</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="slicing.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.slicing</span></code></a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.socket</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sample-to-setup-an-authed-socket">Sample to setup an authed socket</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#communication-throttling">Communication Throttling</a></li>
 </ul>
 </li>
@@ -275,13 +276,30 @@ for details on the possible message types and their payloads.</p>
 <dt id="OctoPrintClient.socket.sendMessage">
 <code class="sig-prename descclassname">OctoPrintClient.socket.</code><code class="sig-name descname">sendMessage</code><span class="sig-paren">(</span><em class="sig-param">type</em>, <em class="sig-param">payload</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.socket.sendMessage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sends a message of type <code class="docutils literal notranslate"><span class="pre">type</span></code> with the provided <code class="docutils literal notranslate"><span class="pre">payload</span></code> to the server.</p>
-<p>Note that at the time of writing, OctoPrint only supports the <code class="docutils literal notranslate"><span class="pre">throttle</span></code> message. See
+<p>Note that at the time of writing, OctoPrint only supports the <code class="docutils literal notranslate"><span class="pre">throttle</span></code> and <code class="docutils literal notranslate"><span class="pre">auth</span></code> messages. See
 also the <a class="reference internal" href="../api/push.html#sec-api-push"><span class="std std-ref">Push API documentation</span></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Arguments</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>type</strong> (<em>string</em>) – Type of message to send</p></li>
 <li><p><strong>payload</strong> (<em>object</em>) – Payload to send</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt id="OctoPrintClient.socket.sendAuth">
+<code class="sig-prename descclassname">OctoPrintClient.socket.</code><code class="sig-name descname">sendAuth</code><span class="sig-paren">(</span><em class="sig-param">userId</em>, <em class="sig-param">session</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.socket.sendAuth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends an <code class="docutils literal notranslate"><span class="pre">auth</span></code> message with the provided <code class="docutils literal notranslate"><span class="pre">userId</span></code> and <code class="docutils literal notranslate"><span class="pre">session</span></code> to the server.</p>
+<p><code class="docutils literal notranslate"><span class="pre">session</span></code> is expected to be the <code class="docutils literal notranslate"><span class="pre">session</span></code> value retrieved
+from any valid <a class="reference internal" href="browser.html#sec-jsclientlib-browser"><span class="std std-ref">OctoPrint.browser.login(userId,…)</span></a> response.</p>
+<p>See also the <a class="reference internal" href="../api/push.html#sec-api-push"><span class="std std-ref">Push API documentation</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>userId</strong> (<em>string</em>) – An existing OctoPrint username</p></li>
+<li><p><strong>session</strong> (<em>string</em>) – A valid session id for the provided username</p></li>
 </ul>
 </dd>
 </dl>
@@ -335,6 +353,29 @@ the current rate requires and a slower rate might be necessary.</p>
 <dd><p>Instructs the server to decrease the message rate by 500ms.</p>
 </dd></dl>
 
+<div class="section" id="sample-to-setup-an-authed-socket">
+<span id="sec-jsclient-socket-authsample"></span><h2>Sample to setup an authed socket<a class="headerlink" href="#sample-to-setup-an-authed-socket" title="Permalink to this headline">¶</a></h2>
+<p>If you have a username and a password:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span>
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">login</span><span class="p">(</span><span class="s2">&quot;myusername&quot;</span><span class="p">,</span> <span class="s2">&quot;mypassword&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">sendAuth</span><span class="p">(</span><span class="s2">&quot;myusername&quot;</span><span class="p">,</span> <span class="nx">response</span><span class="p">.</span><span class="nx">session</span><span class="p">);</span>
+    <span class="p">});</span>
+</pre></div>
+</div>
+<p>If you have an API key:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OctoPrintClient</span><span class="p">({</span>
+    <span class="nx">baseurl</span><span class="o">:</span> <span class="s2">&quot;http://example.com/&quot;</span><span class="p">,</span>
+    <span class="nx">apikey</span><span class="o">:</span> <span class="s2">&quot;abcdef&quot;</span>
+<span class="p">});</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">passiveLogin</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">client</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">sendAuth</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">response</span><span class="p">.</span><span class="nx">session</span><span class="p">);</span>
+    <span class="p">});</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="communication-throttling">
 <span id="sec-jsclient-socket-throttling"></span><h2>Communication Throttling<a class="headerlink" href="#communication-throttling" title="Permalink to this headline">¶</a></h2>
 <p>The socket client supports communication throttling. It will measure how long each incoming message takes
