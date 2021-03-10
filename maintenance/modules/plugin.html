@@ -1782,7 +1782,7 @@ which behaves exactly the same like Flask’s regular <code class="docutils lite
     <span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/echo&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
     <span class="k">def</span> <span class="nf">myEcho</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;text&quot;</span> <span class="ow">in</span> <span class="n">flask</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">flask</span><span class="o">.</span><span class="n">make_response</span><span class="p">(</span><span class="s2">&quot;Expected a text to echo back.&quot;</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+            <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Expected a text to echo back.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">flask</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
 
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">MyBlueprintPlugin</span><span class="p">()</span>
@@ -1820,6 +1820,17 @@ information.</p>
 <dd class="field-odd"><p>the blueprint ready to be registered with Flask</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="octoprint.plugin.types.BlueprintPlugin.get_blueprint_api_prefixes">
+<code class="sig-name descname">get_blueprint_api_prefixes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.types.BlueprintPlugin.get_blueprint_api_prefixes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all prefixes of your endpoint that are an API that should be containing JSON only.</p>
+<p>Anything that matches this will generate JSON error messages in case of flask.abort
+calls, instead of the default HTML ones.</p>
+<p>Defaults to all endpoints under the blueprint. Limit this further as needed. E.g.,
+if you only want your endpoints /foo, /foo/1 and /bar to be declared as API,
+return <code class="docutils literal notranslate"><span class="pre">[&quot;/foo&quot;,</span> <span class="pre">&quot;/bar&quot;]</span></code>. A match will be determined via startswith.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -2482,7 +2493,7 @@ example given above, for the <code class="docutils literal notranslate"><span cl
 <code class="docutils literal notranslate"><span class="pre">dict(command=&quot;command2&quot;,</span> <span class="pre">some_parameter=&quot;some_value&quot;)</span></code>.</p>
 <p>If your plugin returns nothing here, OctoPrint will return an empty response with return code <code class="docutils literal notranslate"><span class="pre">204</span> <span class="pre">No</span> <span class="pre">content</span></code>
 for you. You may also return regular responses as you would return from any Flask view here though, e.g.
-<code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">flask.jsonify(result=&quot;some</span> <span class="pre">json</span> <span class="pre">result&quot;)</span></code> or <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">flask.make_response(&quot;Not</span> <span class="pre">found&quot;,</span> <span class="pre">404)</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">flask.jsonify(result=&quot;some</span> <span class="pre">json</span> <span class="pre">result&quot;)</span></code> or <code class="docutils literal notranslate"><span class="pre">flask.abort(404)</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -2505,7 +2516,7 @@ received <a class="reference external" href="http://flask.pocoo.org/docs/0.9/api
 for additional arguments supplied with the request.</p>
 <p>If your plugin returns nothing here, OctoPrint will return an empty response with return code <code class="docutils literal notranslate"><span class="pre">204</span> <span class="pre">No</span> <span class="pre">content</span></code>
 for you. You may also return regular responses as you would return from any Flask view here though, e.g.
-<code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">flask.jsonify(result=&quot;some</span> <span class="pre">json</span> <span class="pre">result&quot;)</span></code> or <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">flask.make_response(&quot;Not</span> <span class="pre">found&quot;,</span> <span class="pre">404)</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">flask.jsonify(result=&quot;some</span> <span class="pre">json</span> <span class="pre">result&quot;)</span></code> or <code class="docutils literal notranslate"><span class="pre">flask.abort(404)</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>request</strong> – the Flask request object</p>
