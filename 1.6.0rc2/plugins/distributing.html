@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Distributing your plugin &mdash; OctoPrint 1.6.0rc2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Migrating to Python 3" href="python3_migration.html" />
+    <link rel="prev" title="Plugin Tutorial" href="gettingstarted.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> OctoPrint
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.6.0rc2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developing Plugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="concepts.html">General Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controlproperties.html">Control Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mixins.html">Mixins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hooks.html">Hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="helpers.html">Helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="injectedproperties.html">Injected Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="viewmodels.html">Viewmodels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted.html">Plugin Tutorial</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Distributing your plugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#manual-file-distribution">Manual file distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#proper-packages-installable-via-pip">Proper packages installable via pip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#registering-with-the-official-plugin-repository">Registering with the official plugin repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#version-management-after-the-official-plugin-repository-release">Version management after the official plugin repository release</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="python3_migration.html">Migrating to Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
+    <strong>Note:</strong>
+    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.5.3" style="color: white;text-decoration: underline">here</a>.
+  </p>
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Developing Plugins</a> &raquo;</li>
+        
+      <li>Distributing your plugin</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/plugins/distributing.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="distributing-your-plugin">
+<span id="sec-plugins-distribution"></span><h1>Distributing your plugin<a class="headerlink" href="#distributing-your-plugin" title="Permalink to this headline">¶</a></h1>
+<p>You can distribute a plugin with OctoPrint via two ways.</p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#manual-file-distribution" id="id3">Manual file distribution</a></p></li>
+<li><p><a class="reference internal" href="#proper-packages-installable-via-pip" id="id4">Proper packages installable via pip</a></p></li>
+<li><p><a class="reference internal" href="#registering-with-the-official-plugin-repository" id="id5">Registering with the official plugin repository</a></p></li>
+<li><p><a class="reference internal" href="#version-management-after-the-official-plugin-repository-release" id="id6">Version management after the official plugin repository release</a></p></li>
+</ul>
+</div>
+<div class="section" id="manual-file-distribution">
+<span id="sec-plugins-distribution-manual"></span><h2><a class="toc-backref" href="#id3">Manual file distribution</a><a class="headerlink" href="#manual-file-distribution" title="Permalink to this headline">¶</a></h2>
+<p>You can have your users copy it to OctoPrint’s plugin folder (normally located at <code class="docutils literal notranslate"><span class="pre">~/.octoprint/plugins</span></code> under Linux,
+<code class="docutils literal notranslate"><span class="pre">%APPDATA%\OctoPrint\plugins</span></code> on Windows and <code class="docutils literal notranslate"><span class="pre">~/Library/Application</span> <span class="pre">Support/OctoPrint</span></code> on Mac). In this case your plugin will be distributed directly
+as a Python module (a single <code class="docutils literal notranslate"><span class="pre">.py</span></code> file containing all of your plugin’s code directly and named
+like your plugin) or a package (a folder named like your plugin + <code class="docutils literal notranslate"><span class="pre">__init.py__</span></code> contained within).</p>
+</div>
+<div class="section" id="proper-packages-installable-via-pip">
+<span id="sec-plugins-distribution-pip"></span><h2><a class="toc-backref" href="#id4">Proper packages installable via pip</a><a class="headerlink" href="#proper-packages-installable-via-pip" title="Permalink to this headline">¶</a></h2>
+<p>You can have your users install it via <code class="docutils literal notranslate"><span class="pre">pip</span></code> and register it for the <a class="reference external" href="http://setuptools.readthedocs.io/en/latest/setuptools.html#dynamic-discovery-of-services-and-plugins">entry point</a> <code class="docutils literal notranslate"><span class="pre">octoprint.plugin</span></code> via
+your plugin’s <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>, this way it will be found automatically by OctoPrint upon initialization of the
+plugin subsystem <a class="footnote-reference brackets" href="#f1" id="id1">1</a>.</p>
+<p>For an example of how the directory structure and related files would look like in this case, please take a
+look at the <a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/tree/master/helloworld">helloworld example from OctoPrint’s example plugins</a>.</p>
+<p>This variant is highly recommended for pretty much any plugin besides the most basic ones since it also allows
+requirements management and pretty much any thing else that Python’s setuptools provide to the developer.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://github.com/OctoPrint/cookiecutter-octoprint-plugin">OctoPrint Plugin Cookiecutter Template</a></dt><dd><p>A <a class="reference external" href="https://github.com/audreyr/cookiecutter">Cookiecutter Template</a> providing
+you with all you need to get started with writing a properly packaged OctoPrint plugin. See the
+<a class="reference internal" href="gettingstarted.html#sec-plugins-gettingstarted"><span class="std std-ref">Plugin Tutorial</span></a> for an <a class="reference internal" href="gettingstarted.html#sec-plugins-gettingstarted-growingup"><span class="std std-ref">example</span></a>
+on how to use this.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>The automatic registration will only work within the same Python installation (this also includes virtual
+environments), so make sure to instruct your users to use the exact same Python installation for installing
+the plugin that they also used for installing &amp; running OctoPrint. For OctoPi this means using
+<code class="docutils literal notranslate"><span class="pre">~/oprint/bin/pip</span></code> for installing plugins instead of just <code class="docutils literal notranslate"><span class="pre">pip</span></code>.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="registering-with-the-official-plugin-repository">
+<span id="sec-plugins-distribution-pluginrepo"></span><h2><a class="toc-backref" href="#id5">Registering with the official plugin repository</a><a class="headerlink" href="#registering-with-the-official-plugin-repository" title="Permalink to this headline">¶</a></h2>
+<p>Once it is ready for general consumption, you might want to register your plugin with the
+<a class="reference external" href="http://plugins.octoprint.org">official OctoPrint Plugin Repository</a>. You can find instructions on how to do
+that in the <a class="reference external" href="http://plugins.octoprint.org/help/registering/">Plugin Repository’s help pages</a>.</p>
+<p>If you used the <a class="reference external" href="https://github.com/OctoPrint/cookiecutter-octoprint-plugin">OctoPrint Plugin Cookiecutter Template</a>
+when creating your plugin, you can find a prepared registration entry <code class="docutils literal notranslate"><span class="pre">.md</span></code> file in the <code class="docutils literal notranslate"><span class="pre">extras</span></code> folder of your
+plugin.</p>
+</div>
+<div class="section" id="version-management-after-the-official-plugin-repository-release">
+<h2><a class="toc-backref" href="#id6">Version management after the official plugin repository release</a><a class="headerlink" href="#version-management-after-the-official-plugin-repository-release" title="Permalink to this headline">¶</a></h2>
+<p>Once your plugin is available in the official plugin repository, you probably want to create and distribute new versions.
+For “beta” users you can use the manual file distribution method, or a more elegant release channels (see below).
+After you finalized a new plugin version, don’t forget to actually update the version in the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>,
+and <a class="reference external" href="https://docs.github.com/en/free-pro-team&#64;latest/github/administering-a-repository/managing-releases-in-a-repository#creating-a-release">submit a new release on github</a>.</p>
+<p>After you published the new release, you can verify it on your installed octoprint,
+with force checking the updates under the advanced options (in the software updates menu in the settings).
+The new versions will appear to the plugin users in the next 24 hours (it depends on their cache refreshes).</p>
+<p>The <a class="reference external" href="https://docs.octoprint.org/en/master/bundledplugins/softwareupdate.html#">Software Update Plugin</a> has options to define multiple release channels,
+and you can let the users decide if they want to test your pre-releases or not.
+This can be achieved with defining <code class="docutils literal notranslate"><span class="pre">stable_branch</span></code> and <code class="docutils literal notranslate"><span class="pre">prerelease_branches</span></code> in the <code class="docutils literal notranslate"><span class="pre">get_update_information</span></code> function,
+and creating github releases to the newly configured branches too.
+For more information you can check the <a class="reference external" href="https://docs.octoprint.org/en/master/bundledplugins/softwareupdate.html#version-checks">Software Update Plugin documentation</a>
+or read a more step-by-step writeup <a class="reference external" href="https://github.com/cp2004/OctoPrint-Knowledge/blob/main/release-channels.md">here</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="python3_migration.html" class="btn btn-neutral float-right" title="Migrating to Python 3" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="gettingstarted.html" class="btn btn-neutral float-left" title="Plugin Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2013-2021, Gina Häußge.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.6.0rc2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.4.2/plugins/distributing.html">1.4.2</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.5.3/plugins/distributing.html">1.5.3</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.6.0rc2/plugins/distributing.html">1.6.0rc2</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/plugins/distributing.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/plugins/distributing.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/plugins/distributing.html">devel</a></dd>
+    </dl>
+  </div>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
