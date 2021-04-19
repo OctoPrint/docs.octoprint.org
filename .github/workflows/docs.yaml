@@ -20,26 +20,32 @@ jobs:
             source: "tags"
             python: "3.7"
             sphinx: "3.1.2"
+            mermaid: "0.4.0"
           - version: "1.5.3"
             source: "tags"
             python: "3.7"
             sphinx: "3.3.0"
+            mermaid: "0.4.0"
           - version: "1.6.0rc2"
             source: "tags"
             python: "3.7"
             sphinx: "3.3.0"
+            mermaid: "0.4.0"
           - version: "master"
             source: "heads"
             python: "3.7"
-            sphinx: "3.1.2"
+            sphinx: "3.5.4"
+            mermaid: "0.6.3"
           - version: "maintenance"
             source: "heads"
             python: "3.7"
             sphinx: "3.3.0"
+            mermaid: "0.4.0"
           - version: "devel"
             source: "heads"
             python: "3.7"
             sphinx: "3.3.0"
+            mermaid: "0.4.0"
     steps:
       - name: 🧾 Log event & matrix
         run: |
@@ -69,7 +75,7 @@ jobs:
       - name: 🐍 Preinstall some dependencies
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
         run: |
-          pip install sphinx==${{ matrix.sphinx }} sphinxcontrib-mermaid==0.4.0 watchdog==0.10.4
+          pip install sphinx==${{ matrix.sphinx }} sphinxcontrib-mermaid==${{ matrix.mermaid }} watchdog==0.10.4
 
       - name: ⬇ Checkout OctoPrint
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
