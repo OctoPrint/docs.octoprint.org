@@ -232,7 +232,8 @@
 <dt id="get--api-files">
 <code class="sig-name descname"><span class="pre">GET</span> </code><code class="sig-name descname"><span class="pre">/api/files</span></code><a class="headerlink" href="#get--api-files" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve information regarding all files currently available and regarding the disk space still available
-locally in the system.</p>
+locally in the system. The results are cached for performance reasons. If you
+want to override the cache, supply the query parameter <code class="docutils literal notranslate"><span class="pre">force</span></code> and set it to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
 <p>By default only returns the files and folders in the root directory. If the query parameter <code class="docutils literal notranslate"><span class="pre">recursive</span></code>
 is provided and set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, returns all files and folders.</p>
 <p>Returns a <a class="reference internal" href="#sec-api-fileops-datamodel-retrieveresponse"><span class="std std-ref">Retrieve response</span></a>.</p>
@@ -442,6 +443,7 @@ is provided and set to <code class="docutils literal notranslate"><span class="p
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>force</strong> – If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, forces a refresh, overriding the cache.</p></li>
 <li><p><strong>recursive</strong> – If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, return all files and folders recursively. Otherwise only return items on same level.</p></li>
 </ul>
 </dd>
@@ -460,7 +462,8 @@ is provided and set to <code class="docutils literal notranslate"><span class="p
 <dt id="get--api-files-(string-location)">
 <code class="sig-name descname"><span class="pre">GET</span> </code><code class="sig-name descname"><span class="pre">/api/files/</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">string:</span> </em><em class="sig-param"><span class="pre">location</span></em><span class="sig-paren">)</span><a class="headerlink" href="#get--api-files-(string-location)" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve information regarding the files currently available on the selected <cite>location</cite> and – if targeting
-the <code class="docutils literal notranslate"><span class="pre">local</span></code> location – regarding the disk space still available locally in the system.</p>
+the <code class="docutils literal notranslate"><span class="pre">local</span></code> location – regarding the disk space still available locally in the system. The results are cached for performance reasons. If you
+want to override the cache, supply the query parameter <code class="docutils literal notranslate"><span class="pre">force</span></code> and set it to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
 <p>By default only returns the files and folders in the root directory. If the query parameter <code class="docutils literal notranslate"><span class="pre">recursive</span></code>
 is provided and set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, returns all files and folders.</p>
 <p>Returns a <a class="reference internal" href="#sec-api-fileops-datamodel-retrieveresponse"><span class="std std-ref">Retrieve response</span></a>.</p>
@@ -516,6 +519,7 @@ is provided and set to <code class="docutils literal notranslate"><span class="p
 <li><p><strong>location</strong> – The origin location from which to retrieve the files. Currently only <code class="docutils literal notranslate"><span class="pre">local</span></code> and <code class="docutils literal notranslate"><span class="pre">sdcard</span></code> are
 supported, with <code class="docutils literal notranslate"><span class="pre">local</span></code> referring to files stored in OctoPrint’s <code class="docutils literal notranslate"><span class="pre">uploads</span></code> folder and <code class="docutils literal notranslate"><span class="pre">sdcard</span></code>
 referring to files stored on the printer’s SD card (if available).</p></li>
+<li><p><strong>force</strong> – If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, forces a refresh, overriding the cache.</p></li>
 <li><p><strong>recursive</strong> – If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, return all files and folders recursively. Otherwise only return items on same level.</p></li>
 </ul>
 </dd>

@@ -199,6 +199,11 @@
             
   <div class="section" id="module-octoprint.server">
 <span id="octoprint-server"></span><span id="sec-modules-server"></span><h1>octoprint.server<a class="headerlink" href="#module-octoprint.server" title="Permalink to this headline">¶</a></h1>
+<dl class="py exception">
+<dt id="octoprint.server.CannotStartServerException">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.</span></code><code class="sig-name descname"><span class="pre">CannotStartServerException</span></code><a class="headerlink" href="#octoprint.server.CannotStartServerException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-octoprint.server.util">
 <span id="octoprint-server-util"></span><span id="sec-modules-server-util"></span><h1>octoprint.server.util<a class="headerlink" href="#module-octoprint.server.util" title="Permalink to this headline">¶</a></h1>
@@ -590,6 +595,40 @@ user session if available.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="octoprint.server.util.flask.make_api_error">
+<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">make_api_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.make_api_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper to generate API error responses in JSON format.</p>
+<p>Turns something like <code class="docutils literal notranslate"><span class="pre">make_api_error(&quot;Not</span> <span class="pre">Found&quot;,</span> <span class="pre">404)</span></code> into a JSON response
+with body <code class="docutils literal notranslate"><span class="pre">{&quot;error&quot;:</span> <span class="pre">&quot;Not</span> <span class="pre">Found&quot;}</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> – The error message to put into the response</p></li>
+<li><p><strong>status</strong> – The HTTP status code</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns: a flask response to return to the client</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.server.util.flask.make_text_response">
+<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">make_text_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.make_text_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper to generate basic text responses.</p>
+<p>Response will have the provided message as body, the provided status code, and
+a content type of “text/plain”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> – The message in the response body</p></li>
+<li><p><strong>status</strong> – The HTTP status code</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
 <dt id="octoprint.server.util.flask.no_firstrun_access">
 <code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">no_firstrun_access</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.no_firstrun_access" title="Permalink to this definition">¶</a></dt>
 <dd><p>If you decorate a view with this, it will ensure that first setup has been
@@ -787,6 +826,32 @@ supplied as keyword arguments to initialize().</p>
 </dd></dl>
 
 <dl class="py class">
+<dt id="octoprint.server.util.tornado.DynamicZipBundleHandler">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">DynamicZipBundleHandler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.DynamicZipBundleHandler" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="octoprint.server.util.tornado.DynamicZipBundleHandler.initialize">
+<code class="sig-name descname"><span class="pre">initialize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_validation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_processor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_attachment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attachment_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">access_validation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.DynamicZipBundleHandler.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook for subclass initialization. Called for each request.</p>
+<p>A dictionary passed as the third argument of a url spec will be
+supplied as keyword arguments to initialize().</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ProfileHandler</span><span class="p">(</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">database</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">database</span> <span class="o">=</span> <span class="n">database</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+        <span class="o">...</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Application</span><span class="p">([</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;/user/(.*)&#39;</span><span class="p">,</span> <span class="n">ProfileHandler</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="n">database</span><span class="p">)),</span>
+    <span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="octoprint.server.util.tornado.GlobalHeaderTransform">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">GlobalHeaderTransform</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.GlobalHeaderTransform" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -935,6 +1000,58 @@ static <code class="docutils literal notranslate"><span class="pre">data</span><
 <dl class="py method">
 <dt id="octoprint.server.util.tornado.StaticDataHandler.initialize">
 <code class="sig-name descname"><span class="pre">initialize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'text/plain'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.StaticDataHandler.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook for subclass initialization. Called for each request.</p>
+<p>A dictionary passed as the third argument of a url spec will be
+supplied as keyword arguments to initialize().</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ProfileHandler</span><span class="p">(</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">database</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">database</span> <span class="o">=</span> <span class="n">database</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+        <span class="o">...</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Application</span><span class="p">([</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;/user/(.*)&#39;</span><span class="p">,</span> <span class="n">ProfileHandler</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="n">database</span><span class="p">)),</span>
+    <span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="octoprint.server.util.tornado.StaticZipBundleHandler">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">StaticZipBundleHandler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.StaticZipBundleHandler" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="octoprint.server.util.tornado.StaticZipBundleHandler.initialize">
+<code class="sig-name descname"><span class="pre">initialize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_attachment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attachment_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">access_validation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.StaticZipBundleHandler.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook for subclass initialization. Called for each request.</p>
+<p>A dictionary passed as the third argument of a url spec will be
+supplied as keyword arguments to initialize().</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ProfileHandler</span><span class="p">(</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">database</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">database</span> <span class="o">=</span> <span class="n">database</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+        <span class="o">...</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Application</span><span class="p">([</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;/user/(.*)&#39;</span><span class="p">,</span> <span class="n">ProfileHandler</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="n">database</span><span class="p">)),</span>
+    <span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="octoprint.server.util.tornado.SystemInfoBundleHandler">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">SystemInfoBundleHandler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.SystemInfoBundleHandler" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="octoprint.server.util.tornado.SystemInfoBundleHandler.initialize">
+<code class="sig-name descname"><span class="pre">initialize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">access_validation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.SystemInfoBundleHandler.initialize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hook for subclass initialization. Called for each request.</p>
 <p>A dictionary passed as the third argument of a url spec will be
 supplied as keyword arguments to initialize().</p>
