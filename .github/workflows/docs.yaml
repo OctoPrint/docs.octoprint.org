@@ -21,36 +21,42 @@ jobs:
             python: "3.7"
             sphinx: "3.1.2"
             mermaid: "0.4.0"
+            mermaid_fix: "true"
           - version: "1.5.3"
             source: "tags"
             python: "3.7"
             sphinx: "3.3.0"
             mermaid: "0.4.0"
+            mermaid_fix: "true"
           - version: "1.6.0"
             source: "tags"
             python: "3.7"
-            sphinx: "3.3.0"
-            mermaid: "0.4.0"
+            sphinx: "3.5.4"
+            mermaid: "0.6.3"
+            mermaid_fix: "true"
           - version: "master"
             source: "heads"
             python: "3.7"
             sphinx: "3.5.4"
             mermaid: "0.6.3"
+            mermaid_fix: "true"
           - version: "maintenance"
             source: "heads"
             python: "3.7"
-            sphinx: "3.3.0"
-            mermaid: "0.4.0"
+            sphinx: "3.5.4"
+            mermaid: "0.6.3"
+            mermaid_fix: "true"
           - version: "devel"
             source: "heads"
             python: "3.7"
-            sphinx: "3.3.0"
-            mermaid: "0.4.0"
+            sphinx: "3.5.4"
+            mermaid: "0.6.3"
+            mermaid_fix: "true"
     steps:
       - name: 🧾 Log event & matrix
         run: |
           echo "Event: ${{ github.event_name }} - ${{ toJson(github.event.client_payload) }}"
-          echo "Matrix: ${{ matrix.version }}, ${{ matrix.source }}, ${{ matrix.python }}"
+          echo "Matrix: ${{ matrix.version }}, ${{ matrix.source }}, ${{ matrix.python }}, ${{ matrix.mermaid }}, ${{ matrix.mermaid_fix }}"
           echo "Formatted ref: ${{ format('refs/{0}/{1}', matrix.source, matrix.version) }}"
 
       - name: ⬇ Checkout docs.octoprint.org
@@ -77,6 +83,17 @@ jobs:
         run: |
           pip install sphinx==${{ matrix.sphinx }} sphinxcontrib-mermaid==${{ matrix.mermaid }} watchdog==0.10.4
 
+      - name: 🏗 Set up NodeJS
+        if: matrix.mermaid_fix == 'true' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version))
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      - name: 🏗 Install mermaid-cli
+        if: matrix.mermaid_fix == 'true' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version))
+        run: |
+          npm install @mermaid-js/mermaid-cli
+
       - name: ⬇ Checkout OctoPrint
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
         uses: actions/checkout@v2
@@ -100,7 +117,12 @@ jobs:
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
         run: |
           cd ${{ github.workspace }}/docs.octoprint.org/util/versionselector
-          python versionselector.py ${{ github.workspace }}/OctoPrint/docs/ ${{ matrix.version }} ${{ steps.latest.outputs.release }} ${{ github.workspace }}/versions.json
+          if ["${{ matrix.mermaid_fix }}"=="true"]; then
+            python versionselector.py ${{ github.workspace }}/OctoPrint/docs/ ${{ matrix.version }} ${{ steps.latest.outputs.release }} ${{ github.workspace }}/versions.json -D mermaid_cmd=${{ github.workspace }}/node_modules/.bin/mmdc -D mermaid_output_format=svg -D mermaid_version=
+            echo ".rst-content object[type^='image/']{width: 100%;}" >> ${{ github.workspace }}/OctoPrint/docs/_build/html/${{ matrix.version }}/_static/theme_verrides.css
+          else
+            python versionselector.py ${{ github.workspace }}/OctoPrint/docs/ ${{ matrix.version }} ${{ steps.latest.outputs.release }} ${{ github.workspace }}/versions.json
+          fi
 
       #- name: 🔎 Run link check
       #  id: lc
