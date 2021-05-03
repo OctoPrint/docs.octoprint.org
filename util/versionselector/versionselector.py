@@ -1,17 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, print_function, unicode_literals
 
-import json
 import collections
+import json
 import logging
 
 DATE_FMT = "%Y-%m-%d %H:%M:%S %z"
 
 logger = logging.getLogger(__name__)
 
-Version = collections.namedtuple(
-    "Version", ["name", "url", "is_released", "source"]
-)
+Version = collections.namedtuple("Version", ["name", "url", "is_released", "source"])
 
 
 class VersionInfo:
@@ -23,10 +21,7 @@ class VersionInfo:
 
     def _dict_to_versionobj(self, v):
         return Version(
-            name=v["name"],
-            url=v["url"],
-            is_released=v["is_released"],
-            source=v["source"]
+            name=v["name"], url=v["url"], is_released=v["is_released"], source=v["source"]
         )
 
     @property
@@ -117,31 +112,44 @@ def setup(app):
         "parallel_write_safe": True,
     }
 
+
 if __name__ == "__main__":
-    import sys
     import os
+    import sys
 
     argv_prefix = []
     try:
         from sphinx.cmd import build
+
         sphinx_build = build.main
     except ImportError:
         from sphinx import build_main as sphinx_build
+
         argv_prefix = ["sphinx-build"]
 
     from sphinx import config as sphinx_config
+
     if not hasattr(sphinx_config.Config, "read"):
         from sphinx.util.tags import Tags
-        sphinx_config.Config.read = staticmethod(lambda path: sphinx_config.Config(path, os.path.join(path, "conf.py"), {}, Tags()))
 
-    if len(sys.argv) != 5:
-        print("versionselector.py DOCSFOLDER CURRENT LATEST METADATA", file=sys.stderr)
+        sphinx_config.Config.read = staticmethod(
+            lambda path: sphinx_config.Config(
+                path, os.path.join(path, "conf.py"), {}, Tags()
+            )
+        )
+
+    if len(sys.argv) < 5:
+        print(
+            "versionselector.py DOCSFOLDER CURRENT LATEST METADATA [ ADDITIONAL ]",
+            file=sys.stderr,
+        )
         sys.exit(-1)
 
     docsfolder = sys.argv[1]
     current = sys.argv[2]
     latest = sys.argv[3]
     metadata = sys.argv[4]
+    add_argv = sys.argv[5:] if len(sys.argv) > 5 else []
 
     basefolder = os.path.dirname(os.path.abspath(__file__))
     docsfolder = os.path.abspath(os.path.join(basefolder, docsfolder))
@@ -152,18 +160,42 @@ if __name__ == "__main__":
     sys.path.insert(0, basefolder)
 
     config = sphinx_config.Config.read(docsfolder)
-    extensions = ",".join(config.extensions + ["versionselector",])
-    templates = ",".join(config.templates_path + [os.path.relpath(template_path, docsfolder),])
+    extensions = ",".join(
+        config.extensions
+        + [
+            "versionselector",
+        ]
+    )
+    templates = ",".join(
+        config.templates_path
+        + [
+            os.path.relpath(template_path, docsfolder),
+        ]
+    )
 
-    argv = ['-D', 'versionselector_metadata_path={metadata}',
-            '-D', 'versionselector_current_version={current}',
-            '-D', 'versionselector_latest_version={latest}',
-            '-D', 'version={current}',
-            '-D', 'release={current}',
-            '-D', 'templates_path={templates}',
-            '-D', 'extensions={extensions}',
-            '{docsfolder}',
-            '_build/html/{current}']
+    argv = (
+        [
+            "-D",
+            "versionselector_metadata_path={metadata}",
+            "-D",
+            "versionselector_current_version={current}",
+            "-D",
+            "versionselector_latest_version={latest}",
+            "-D",
+            "version={current}",
+            "-D",
+            "release={current}",
+            "-D",
+            "templates_path={templates}",
+            "-D",
+            "extensions={extensions}",
+            "{docsfolder}",
+        ]
+        + add_argv
+        + [
+            "_build/html/{current}",
+        ]
+    )
     if argv_prefix:
         argv = argv_prefix + argv
 
@@ -182,4 +214,3 @@ if __name__ == "__main__":
             sys.exit(-2)
     finally:
         os.chdir(cwd)
-
