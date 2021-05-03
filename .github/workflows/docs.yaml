@@ -119,7 +119,7 @@ jobs:
           cd ${{ github.workspace }}/docs.octoprint.org/util/versionselector
           if [[ "${{ matrix.mermaid_fix }}" == "true" ]]; then
             python versionselector.py ${{ github.workspace }}/OctoPrint/docs/ ${{ matrix.version }} ${{ steps.latest.outputs.release }} ${{ github.workspace }}/versions.json -D mermaid_cmd=${{ github.workspace }}/node_modules/.bin/mmdc -D mermaid_output_format=svg -D mermaid_version=
-            echo ".rst-content object[type^='image/']{width: 100%;}" >> ${{ github.workspace }}/OctoPrint/docs/_build/html/${{ matrix.version }}/_static/theme_verrides.css
+            echo ".rst-content object[type^='image/']{width: 100%;}" >> ${{ github.workspace }}/OctoPrint/docs/_build/html/${{ matrix.version }}/_static/theme_overrides.css
           else
             python versionselector.py ${{ github.workspace }}/OctoPrint/docs/ ${{ matrix.version }} ${{ steps.latest.outputs.release }} ${{ github.workspace }}/versions.json
           fi
