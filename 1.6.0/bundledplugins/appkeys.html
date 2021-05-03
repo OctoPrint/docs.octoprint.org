@@ -33,9 +33,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
         <script src="../_static/mermaid.min.js"></script>
-        <script src="https://unpkg.com/mermaid@/dist/mermaid.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -319,7 +317,7 @@ an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/
 <span id="sec-bundledplugins-appkeys-api-probe"></span><h3>Probe for workflow support<a class="headerlink" href="#probe-for-workflow-support" title="Permalink to this headline">¶</a></h3>
 <dl class="http get">
 <dt id="get--plugin-appkeys-probe">
-<code class="sig-name descname">GET </code><code class="sig-name descname">/plugin/appkeys/probe</code><a class="headerlink" href="#get--plugin-appkeys-probe" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">GET</span> </code><code class="sig-name descname"><span class="pre">/plugin/appkeys/probe</span></code><a class="headerlink" href="#get--plugin-appkeys-probe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Probes for support of the workflow.</p>
 <p>Normally returns an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a>, indicating workflow availability. If a different status code is returned
 (usually an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a>), the plugin is disabled or not installed. Fall back to manual api key exchange.</p>
@@ -337,7 +335,7 @@ an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/
 <span id="sec-bundledplugins-appkeys-api-startauthprocess"></span><h3>Start authorization process<a class="headerlink" href="#start-authorization-process" title="Permalink to this headline">¶</a></h3>
 <dl class="http post">
 <dt id="post--plugin-appkeys-request">
-<code class="sig-name descname">POST </code><code class="sig-name descname">/plugin/appkeys/request</code><a class="headerlink" href="#post--plugin-appkeys-request" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">POST</span> </code><code class="sig-name descname"><span class="pre">/plugin/appkeys/request</span></code><a class="headerlink" href="#post--plugin-appkeys-request" title="Permalink to this definition">¶</a></dt>
 <dd><p>Starts the authorization process.</p>
 <p>Expects a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-keyrequest"><span class="std std-ref">Key request</span></a> as request body.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">app</span></code> parameter should be a human readable identifier to use
@@ -368,7 +366,7 @@ is logged in on.</p>
 <span id="sec-bundledplugins-appkeys-api-polldecision"></span><h3>Poll for decision on existing request<a class="headerlink" href="#poll-for-decision-on-existing-request" title="Permalink to this headline">¶</a></h3>
 <dl class="http get">
 <dt id="get--plugin-appkeys-request--str-app_token-">
-<code class="sig-name descname">GET </code><code class="sig-name descname">/plugin/appkeys/request/&lt;str:app_token&gt;</code><a class="headerlink" href="#get--plugin-appkeys-request--str-app_token-" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">GET</span> </code><code class="sig-name descname"><span class="pre">/plugin/appkeys/request/&lt;str:app_token&gt;</span></code><a class="headerlink" href="#get--plugin-appkeys-request--str-app_token-" title="Permalink to this definition">¶</a></dt>
 <dd><p>Endpoint generated per authorization request to poll for the result.</p>
 <p>Returns an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.3">202 Accepted</a> while no decision has been made yet, an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> and
 a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-keyresponse"><span class="std std-ref">Key response</span></a> if access has been granted and an
@@ -394,7 +392,7 @@ for more than 5s.</p>
 <span id="sec-bundledplugins-appkeys-api-decide"></span><h3>Decide on existing request<a class="headerlink" href="#decide-on-existing-request" title="Permalink to this headline">¶</a></h3>
 <dl class="http post">
 <dt id="post--plugin-appkeys-decision--str-user_token-">
-<code class="sig-name descname">POST </code><code class="sig-name descname">/plugin/appkeys/decision/&lt;str:user_token&gt;</code><a class="headerlink" href="#post--plugin-appkeys-decision--str-user_token-" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">POST</span> </code><code class="sig-name descname"><span class="pre">/plugin/appkeys/decision/&lt;str:user_token&gt;</span></code><a class="headerlink" href="#post--plugin-appkeys-decision--str-user_token-" title="Permalink to this definition">¶</a></dt>
 <dd><p>Endpoint to decide on the authorization request.</p>
 <p>Expects a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-decisionrequest"><span class="std std-ref">Decision request</span></a> as request body.</p>
 <p>Returns an HTTP <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> on success.</p>
@@ -417,7 +415,7 @@ for more than 5s.</p>
 <span id="sec-bundledplugins-appkeys-api-fetchlist"></span><h3>Fetch list of existing application keys<a class="headerlink" href="#fetch-list-of-existing-application-keys" title="Permalink to this headline">¶</a></h3>
 <dl class="http get">
 <dt id="get--api-plugin-appkeys">
-<code class="sig-name descname">GET </code><code class="sig-name descname">/api/plugin/appkeys</code><a class="headerlink" href="#get--api-plugin-appkeys" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">GET</span> </code><code class="sig-name descname"><span class="pre">/api/plugin/appkeys</span></code><a class="headerlink" href="#get--api-plugin-appkeys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetches a list of existing application keys and pending requests registered in the system for the current user.</p>
 <p>If the additional optional parameter <code class="docutils literal notranslate"><span class="pre">all</span></code> is provided and the user has administrator rights, fetches a list
 of <em>all*</em> application keys and pending requests registered in the system for any user.</p>
@@ -437,7 +435,7 @@ body upon success.</p>
 <span id="sec-bundledplugins-appkeys-api-issuecommand"></span><h3>Issue an application key command<a class="headerlink" href="#issue-an-application-key-command" title="Permalink to this headline">¶</a></h3>
 <dl class="http post">
 <dt id="post--api-plugin-appkeys">
-<code class="sig-name descname">POST </code><code class="sig-name descname">/api/plugin/appkeys</code><a class="headerlink" href="#post--api-plugin-appkeys" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">POST</span> </code><code class="sig-name descname"><span class="pre">/api/plugin/appkeys</span></code><a class="headerlink" href="#post--api-plugin-appkeys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Application key commands allow revoking existing application keys and manually generating new ones. The available
 commands are:</p>
 <dl class="simple">
@@ -687,7 +685,7 @@ in which case they make revoke any application key in the system. Expects the ke
 <span id="sec-bundledplugins-appkeys-jsclientlib"></span><h2>JavaScript Client Library<a class="headerlink" href="#javascript-client-library" title="Permalink to this headline">¶</a></h2>
 <dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.getKeys">
-<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">getKeys</code><span class="sig-paren">(</span><em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getKeys" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">OctoPrintClient.plugins.appkeys.</span></code><code class="sig-name descname"><span class="pre">getKeys</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">opts</span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getKeys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves registered keys and pending requests for the current user.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-fetchlist"><span class="std std-ref">Fetch list of existing application keys</span></a> for more details.</p>
 <dl class="field-list simple">
@@ -704,7 +702,7 @@ in which case they make revoke any application key in the system. Expects the ke
 
 <dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.getAllKeys">
-<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">getAllKeys</code><span class="sig-paren">(</span><em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getAllKeys" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">OctoPrintClient.plugins.appkeys.</span></code><code class="sig-name descname"><span class="pre">getAllKeys</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">opts</span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getAllKeys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves registered keys and pending requests for all users.</p>
 <p>Needs administrator rights.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-fetchlist"><span class="std std-ref">Fetch list of existing application keys</span></a> for more details.</p>
@@ -722,7 +720,7 @@ in which case they make revoke any application key in the system. Expects the ke
 
 <dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.generateKey">
-<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">generateKey</code><span class="sig-paren">(</span><em class="sig-param">app</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.generateKey" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">OctoPrintClient.plugins.appkeys.</span></code><code class="sig-name descname"><span class="pre">generateKey</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">app</span></em>, <em class="sig-param"><span class="pre">opts</span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.generateKey" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a key for the given <code class="docutils literal notranslate"><span class="pre">app</span></code> and the current user.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-issuecommand"><span class="std std-ref">Issue an application key command</span></a> for details.</p>
 <dl class="field-list simple">
@@ -740,7 +738,7 @@ in which case they make revoke any application key in the system. Expects the ke
 
 <dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.revokeKey">
-<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">revokeKey</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.revokeKey" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">OctoPrintClient.plugins.appkeys.</span></code><code class="sig-name descname"><span class="pre">revokeKey</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">key</span></em>, <em class="sig-param"><span class="pre">opts</span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.revokeKey" title="Permalink to this definition">¶</a></dt>
 <dd><p>Revokes the given <code class="docutils literal notranslate"><span class="pre">key</span></code>. The key must belong to the current user, or the current user must have administrator
 rights.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-issuecommand"><span class="std std-ref">Issue an application key command</span></a> for details.</p>
@@ -759,7 +757,7 @@ rights.</p>
 
 <dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.decide">
-<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">decide</code><span class="sig-paren">(</span><em class="sig-param">token</em>, <em class="sig-param">decision</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.decide" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">OctoPrintClient.plugins.appkeys.</span></code><code class="sig-name descname"><span class="pre">decide</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">token</span></em>, <em class="sig-param"><span class="pre">decision</span></em>, <em class="sig-param"><span class="pre">opts</span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.decide" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decides on an existing authorization request.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-decide"><span class="std std-ref">Decide on existing request</span></a> for more details.</p>
 <dl class="field-list simple">
@@ -778,7 +776,7 @@ rights.</p>
 
 <dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.probe">
-<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">probe</code><span class="sig-paren">(</span><em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.probe" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">OctoPrintClient.plugins.appkeys.</span></code><code class="sig-name descname"><span class="pre">probe</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">opts</span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.probe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Probes for workflow support.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-probe"><span class="std std-ref">Probe for workflow support</span></a> for more details.</p>
 <dl class="field-list simple">
@@ -795,7 +793,7 @@ rights.</p>
 
 <dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.request">
-<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">request</code><span class="sig-paren">(</span><em class="sig-param">app</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.request" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">OctoPrintClient.plugins.appkeys.</span></code><code class="sig-name descname"><span class="pre">request</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">app</span></em>, <em class="sig-param"><span class="pre">opts</span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.request" title="Permalink to this definition">¶</a></dt>
 <dd><p>Starts a new authorization request for the provided <code class="docutils literal notranslate"><span class="pre">app</span></code> identifier.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-startauthprocess"><span class="std std-ref">Start authorization process</span></a> for more details.</p>
 <dl class="field-list simple">
@@ -812,7 +810,7 @@ rights.</p>
 
 <dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.requestForUser">
-<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">requestForUser</code><span class="sig-paren">(</span><em class="sig-param">app</em>, <em class="sig-param">user</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.requestForUser" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">OctoPrintClient.plugins.appkeys.</span></code><code class="sig-name descname"><span class="pre">requestForUser</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">app</span></em>, <em class="sig-param"><span class="pre">user</span></em>, <em class="sig-param"><span class="pre">opts</span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.requestForUser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Starts a new authorization request for the provided <code class="docutils literal notranslate"><span class="pre">app</span></code> and <code class="docutils literal notranslate"><span class="pre">user</span></code> identifiers.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-startauthprocess"><span class="std std-ref">Start authorization process</span></a> for more details.</p>
 <dl class="field-list simple">
@@ -829,7 +827,7 @@ rights.</p>
 
 <dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.checkDecision">
-<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">checkDecision</code><span class="sig-paren">(</span><em class="sig-param">token</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.checkDecision" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">OctoPrintClient.plugins.appkeys.</span></code><code class="sig-name descname"><span class="pre">checkDecision</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">token</span></em>, <em class="sig-param"><span class="pre">opts</span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.checkDecision" title="Permalink to this definition">¶</a></dt>
 <dd><p>Polls for a decision on an existing authorization request identified by <code class="docutils literal notranslate"><span class="pre">token</span></code>.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-polldecision"><span class="std std-ref">Poll for decision on existing request</span></a> for more details.</p>
 <dl class="field-list simple">
@@ -846,7 +844,7 @@ rights.</p>
 
 <dl class="js function">
 <dt id="OctoPrintClient.plugins.appkeys.authenticate">
-<code class="sig-prename descclassname">OctoPrintClient.plugins.appkeys.</code><code class="sig-name descname">authenticate</code><span class="sig-paren">(</span><em class="sig-param">app</em>, <em class="sig-param">user</em>, <em class="sig-param">opts</em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.authenticate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">OctoPrintClient.plugins.appkeys.</span></code><code class="sig-name descname"><span class="pre">authenticate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">app</span></em>, <em class="sig-param"><span class="pre">user</span></em>, <em class="sig-param"><span class="pre">opts</span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.authenticate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience function that probes for support, issues a request and then automatically starts polling for a decision
 on the returned polling endpoint every 1s, until either a positive or negative decision is returned. On success the
 returned promise is resolved with the generated API key as argument. If anything goes wrong or there is no support
