@@ -718,87 +718,6 @@ associated values) from <code class="docutils literal notranslate"><span class="
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.util.find_collision_free_name">
-<code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">find_collision_free_name</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extension</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">existing_filenames</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_power</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.find_collision_free_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tries to find a collision free translation of “&lt;filename&gt;.&lt;extension&gt;” to the 8.3 DOS compatible format,
-preventing collisions with any of the <code class="docutils literal notranslate"><span class="pre">existing_filenames</span></code>.</p>
-<p>First strips all of <code class="docutils literal notranslate"><span class="pre">.&quot;/\[]:;=,</span></code> from the filename and extensions, converts them to lower case and truncates
-the <code class="docutils literal notranslate"><span class="pre">extension</span></code> to a maximum length of 3 characters.</p>
-<p>If the filename is already equal or less than 8 characters in length after that procedure and “&lt;filename&gt;.&lt;extension&gt;”
-are not contained in the <code class="docutils literal notranslate"><span class="pre">existing_files</span></code>, that concatenation will be returned as the result.</p>
-<p>If not, the following algorithm will be applied to try to find a collision free name:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span> <span class="n">counter</span> <span class="o">:=</span> <span class="n">power</span> <span class="o">:=</span> <span class="mi">1</span>
-<span class="k">while</span> <span class="n">counter</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">^</span><span class="n">max_power</span><span class="p">:</span>
-    <span class="nb">set</span> <span class="n">truncated</span> <span class="o">:=</span> <span class="n">substr</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span> <span class="o">-</span> <span class="n">power</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;~&quot;</span> <span class="o">+</span> <span class="n">counter</span>
-    <span class="nb">set</span> <span class="n">result</span> <span class="o">:=</span> <span class="s2">&quot;&lt;truncated&gt;.&lt;extension&gt;&quot;</span>
-    <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="n">collision</span> <span class="n">free</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">result</span>
-    <span class="n">counter</span><span class="o">++</span>
-    <span class="k">if</span> <span class="n">counter</span> <span class="o">&gt;=</span> <span class="mi">10</span> <span class="o">**</span> <span class="n">power</span><span class="p">:</span>
-        <span class="n">power</span><span class="o">++</span>
-<span class="k">raise</span> <span class="ne">ValueError</span>
-</pre></div>
-</div>
-<p>This will basically – for a given original filename of <code class="docutils literal notranslate"><span class="pre">some_filename</span></code> and an extension of <code class="docutils literal notranslate"><span class="pre">gco</span></code> – iterate
-through names of the format <code class="docutils literal notranslate"><span class="pre">some_f~1.gco</span></code>, <code class="docutils literal notranslate"><span class="pre">some_f~2.gco</span></code>, …, <code class="docutils literal notranslate"><span class="pre">some_~10.gco</span></code>, <code class="docutils literal notranslate"><span class="pre">some_~11.gco</span></code>, …,
-<code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;~&lt;n&gt;.gco</span></code> for <code class="docutils literal notranslate"><span class="pre">n</span></code> less than 10 ^ <code class="docutils literal notranslate"><span class="pre">max_power</span></code>, returning as soon as one is found that is not colliding.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<em>string</em>) – The filename without the extension to convert to 8.3.</p></li>
-<li><p><strong>extension</strong> (<em>string</em>) – The extension to convert to 8.3 – will be truncated to 3 characters if it’s longer than
-that.</p></li>
-<li><p><strong>existing_filenames</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – A list of existing filenames to prevent name collisions with.</p></li>
-<li><p><strong>max_power</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Limits the possible attempts of generating a collision free name to 10 ^ <code class="docutils literal notranslate"><span class="pre">max_power</span></code>
-variations. Defaults to 2, so the name generation will maximally reach <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;~99.&lt;ext&gt;</span></code> before
-aborting and raising an exception.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>A 8.3 representation of the provided original filename, ensured to not collide with the provided</dt><dd><p><code class="docutils literal notranslate"><span class="pre">existing_filenames</span></code></p>
-</dd>
-</dl>
-</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>string</p>
-</dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – No collision free name could be found.</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test1234&quot;</span><span class="p">,</span> <span class="s2">&quot;gco&quot;</span><span class="p">,</span> <span class="p">[])</span> 
-<span class="go">&#39;test1234.gco&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test1234&quot;</span><span class="p">,</span> <span class="s2">&quot;gcode&quot;</span><span class="p">,</span> <span class="p">[])</span> 
-<span class="go">&#39;test1234.gco&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test12345&quot;</span><span class="p">,</span> <span class="s2">&quot;gco&quot;</span><span class="p">,</span> <span class="p">[])</span> 
-<span class="go">&#39;test12~1.gco&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test 123&quot;</span><span class="p">,</span> <span class="s2">&quot;gco&quot;</span><span class="p">,</span> <span class="p">[])</span> 
-<span class="go">&#39;test_123.gco&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test1234&quot;</span><span class="p">,</span> <span class="s2">&quot;g o&quot;</span><span class="p">,</span> <span class="p">[])</span> 
-<span class="go">&#39;test1234.g_o&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test12345&quot;</span><span class="p">,</span> <span class="s2">&quot;gco&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;/test12~1.gco&quot;</span><span class="p">])</span> 
-<span class="go">&#39;test12~2.gco&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">many_files</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;/test12~</span><span class="si">{}</span><span class="s2">.gco&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test12345&quot;</span><span class="p">,</span> <span class="s2">&quot;gco&quot;</span><span class="p">,</span> <span class="n">many_files</span><span class="p">)</span> 
-<span class="go">&#39;test1~10.gco&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">many_more_files</span> <span class="o">=</span> <span class="n">many_files</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;/test1~</span><span class="si">{}</span><span class="s2">.gco&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">99</span><span class="p">)]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test12345&quot;</span><span class="p">,</span> <span class="s2">&quot;gco&quot;</span><span class="p">,</span> <span class="n">many_more_files</span><span class="p">)</span> 
-<span class="go">&#39;test1~99.gco&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">many_more_files_plus_one</span> <span class="o">=</span> <span class="n">many_more_files</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;/test1~99.gco&quot;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test12345&quot;</span><span class="p">,</span> <span class="s2">&quot;gco&quot;</span><span class="p">,</span> <span class="n">many_more_files_plus_one</span><span class="p">)</span> 
-<span class="gt">Traceback (most recent call last):</span>
-<span class="c">...</span>
-<span class="gr">ValueError</span>: <span class="n">Can&#39;t create a collision free filename</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">find_collision_free_name</span><span class="p">(</span><span class="s2">&quot;test12345&quot;</span><span class="p">,</span> <span class="s2">&quot;gco&quot;</span><span class="p">,</span> <span class="n">many_more_files_plus_one</span><span class="p">,</span> <span class="n">max_power</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> 
-<span class="go">&#39;test~100.gco&#39;</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
 <dt id="octoprint.util.get_class">
 <code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">get_class</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.get_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves the class object for a given fully qualified class name.</p>
@@ -816,60 +735,6 @@ aborting and raising an exception.</p></li>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ImportError" title="(in Python v3.9)"><strong>ImportError</strong></a> – </p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="octoprint.util.get_dos_filename">
-<code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">get_dos_filename</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">existing_filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extension</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">whitelisted_extensions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.get_dos_filename" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts the provided input filename to a 8.3 DOS compatible filename. If <code class="docutils literal notranslate"><span class="pre">existing_filenames</span></code> is provided, the
-conversion result will be guaranteed not to collide with any of the filenames provided thus.</p>
-<p>Uses <a class="reference internal" href="#octoprint.util.find_collision_free_name" title="octoprint.util.find_collision_free_name"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_collision_free_name()</span></code></a> internally.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>input</strong> (<em>string</em>) – The original filename incl. extension to convert to the 8.3 format.</p></li>
-<li><p><strong>existing_filenames</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – A list of existing filenames with which the generated 8.3 name must not collide.
-Optional.</p></li>
-<li><p><strong>extension</strong> (<em>string</em>) – The .3 file extension to use for the generated filename. If not provided, the extension of
-the provided <code class="docutils literal notranslate"><span class="pre">filename</span></code> will simply be truncated to 3 characters.</p></li>
-<li><p><strong>whitelisted_extensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – A list of extensions on <code class="docutils literal notranslate"><span class="pre">input</span></code> that will be left as-is instead of
-exchanging for <code class="docutils literal notranslate"><span class="pre">extension</span></code>.</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Additional keyword arguments to provide to <a class="reference internal" href="#octoprint.util.find_collision_free_name" title="octoprint.util.find_collision_free_name"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_collision_free_name()</span></code></a>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>A 8.3 compatible translation of the original filename, not colliding with the optionally provided</dt><dd><p><code class="docutils literal notranslate"><span class="pre">existing_filenames</span></code> and with the provided <code class="docutils literal notranslate"><span class="pre">extension</span></code> or the original extension shortened to
-a maximum of 3 characters.</p>
-</dd>
-</dl>
-</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>string</p>
-</dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – No 8.3 compatible name could be found that doesn’t collide with the provided <code class="docutils literal notranslate"><span class="pre">existing_filenames</span></code>.</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_dos_filename</span><span class="p">(</span><span class="s2">&quot;test1234.gco&quot;</span><span class="p">)</span> 
-<span class="go">&#39;test1234.gco&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">get_dos_filename</span><span class="p">(</span><span class="s2">&quot;test1234.gcode&quot;</span><span class="p">)</span> 
-<span class="go">&#39;test1234.gco&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">get_dos_filename</span><span class="p">(</span><span class="s2">&quot;test12345.gco&quot;</span><span class="p">)</span> 
-<span class="go">&#39;test12~1.gco&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">get_dos_filename</span><span class="p">(</span><span class="s2">&quot;test1234.fnord&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;gco&quot;</span><span class="p">)</span> 
-<span class="go">&#39;test1234.gco&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">get_dos_filename</span><span class="p">(</span><span class="s2">&quot;auto0.g&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;gco&quot;</span><span class="p">)</span> 
-<span class="go">&#39;auto0.gco&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">get_dos_filename</span><span class="p">(</span><span class="s2">&quot;auto0.g&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;gco&quot;</span><span class="p">,</span> <span class="n">whitelisted_extensions</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;g&quot;</span><span class="p">])</span> 
-<span class="go">&#39;auto0.g&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">get_dos_filename</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">get_dos_filename</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span> 
-<span class="go">&#39;foo&#39;</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <dl class="py function">
@@ -938,14 +803,6 @@ K(ilo)B(ytes), M(ega)B(ytes), G(iga)B(ytes) and T(era)B(ytes), with one decimal 
 <dd class="field-odd"><p>string</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="octoprint.util.get_free_bytes">
-<code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">get_free_bytes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.get_free_bytes" title="Permalink to this definition">¶</a></dt>
-<dd><div class="deprecated">
-<p><span class="versionmodified deprecated">Deprecated since version 1.2.5: </span>Replaced by <a class="reference external" href="http://pythonhosted.org/psutil/#psutil.disk_usage">psutil.disk_usage</a>.</p>
-</div>
 </dd></dl>
 
 <dl class="py function">
@@ -1035,17 +892,6 @@ message, if False (default) it will be replaced with the deprecation message.</p
 <span class="go">&quot;[dict(a=1, b=2), {&#39;a&#39;, &#39;b&#39;, &#39;c&#39;}, (1, 2), None, 1, True, &#39;foo&#39;]&quot;</span>
 </pre></div>
 </div>
-</dd></dl>
-
-<dl class="py function">
-<dt id="octoprint.util.silent_remove">
-<code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">silent_remove</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.silent_remove" title="Permalink to this definition">¶</a></dt>
-<dd><p>Silently removes a file. Does not raise an error if the file doesn’t exist.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – The path of the file to be removed</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">
