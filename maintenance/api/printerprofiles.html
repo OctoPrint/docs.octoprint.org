@@ -239,8 +239,8 @@ for both slicing and gcode visualization.</p>
 <dl class="http get">
 <dt id="get--api-printerprofiles">
 <code class="sig-name descname"><span class="pre">GET</span> </code><code class="sig-name descname"><span class="pre">/api/printerprofiles</span></code><a class="headerlink" href="#get--api-printerprofiles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieves a list of all configured printer profiles.</p>
-<p>Returns a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a list of <a class="reference internal" href="#sec-api-printerprofiles-datamodel-profile"><span class="std std-ref">profiles</span></a>.</p>
+<dd><p>Retrieves an object representing all configured printer profiles.</p>
+<p>Returns a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a <a class="reference internal" href="#sec-api-printerprofiles-datamodel-profilelist"><span class="std std-ref">profile list</span></a>.</p>
 <p>Requires the <code class="docutils literal notranslate"><span class="pre">CONNECTION</span></code> permission.</p>
 <p><strong>Example</strong></p>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/printerprofiles</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -252,8 +252,8 @@ for both slicing and gcode visualization.</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 
 <span class="p">{</span>
-  <span class="nt">&quot;profiles&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
+  <span class="nt">&quot;profiles&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;_default&quot;</span><span class="p">:</span> <span class="p">{</span>
       <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;_default&quot;</span><span class="p">,</span>
       <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Default&quot;</span><span class="p">,</span>
       <span class="nt">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
@@ -295,7 +295,7 @@ for both slicing and gcode visualization.</p>
         <span class="p">]</span>
       <span class="p">}</span>
     <span class="p">},</span>
-    <span class="p">{</span>
+    <span class="nt">&quot;my_profile&quot;</span><span class="p">:</span> <span class="p">{</span>
       <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;my_profile&quot;</span><span class="p">,</span>
       <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;My Profile&quot;</span><span class="p">,</span>
       <span class="nt">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
@@ -337,7 +337,7 @@ for both slicing and gcode visualization.</p>
         <span class="p">]</span>
       <span class="p">}</span>
     <span class="p">},</span>
-  <span class="p">]</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -654,7 +654,7 @@ returned.</p>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">profiles.&lt;profile</span> <span class="pre">id&gt;</span></code></p></td>
 <td><p>0..1</p></td>
-<td><p><a class="reference internal" href="slicing.html#sec-api-slicing-datamodel-profile"><span class="std std-ref">Profile</span></a></p></td>
+<td><p><a class="reference internal" href="#sec-api-printerprofiles-datamodel-profile"><span class="std std-ref">Profile</span></a></p></td>
 <td><p>Information about a profile stored in the system.</p></td>
 </tr>
 </tbody>
@@ -679,7 +679,7 @@ returned.</p>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">profiles</span></code></p></td>
 <td><p>1</p></td>
-<td><p><a class="reference internal" href="slicing.html#sec-api-slicing-datamodel-profile"><span class="std std-ref">Profile</span></a></p></td>
+<td><p><a class="reference internal" href="#sec-api-printerprofiles-datamodel-profile"><span class="std std-ref">Profile</span></a></p></td>
 <td><p>Information about the profile being added/updated. Only the values to be overwritten need to be supplied.
 Unset fields will be taken from the base profile, which for add requests will be the
 current default profile unless a different base is defined in the <code class="docutils literal notranslate"><span class="pre">basedOn</span></code> property
