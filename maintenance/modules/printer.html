@@ -204,15 +204,17 @@
             
   <div class="section" id="module-octoprint.printer">
 <span id="octoprint-printer"></span><span id="sec-modules-printer"></span><h1>octoprint.printer<a class="headerlink" href="#module-octoprint.printer" title="Permalink to this headline">¶</a></h1>
-<dl class="py exception">
-<dt id="octoprint.printer.InvalidFileLocation">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.printer.</span></code><code class="sig-name descname"><span class="pre">InvalidFileLocation</span></code><a class="headerlink" href="#octoprint.printer.InvalidFileLocation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py exception">
-<dt id="octoprint.printer.InvalidFileType">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.printer.</span></code><code class="sig-name descname"><span class="pre">InvalidFileType</span></code><a class="headerlink" href="#octoprint.printer.InvalidFileType" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<p>This module defines the interface for communicating with a connected printer.</p>
+<p>The communication is in fact divided in two components, the <a class="reference internal" href="#octoprint.printer.PrinterInterface" title="octoprint.printer.PrinterInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterInterface</span></code></a> and a deeper lying
+communication layer. However, plugins should only ever need to use the <a class="reference internal" href="#octoprint.printer.PrinterInterface" title="octoprint.printer.PrinterInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterInterface</span></code></a> as the
+abstracted version of the actual printer communication.</p>
+<dl class="py function">
+<dt id="octoprint.printer.get_connection_options">
+<code class="sig-prename descclassname"><span class="pre">octoprint.printer.</span></code><code class="sig-name descname"><span class="pre">get_connection_options</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.printer.get_connection_options" title="Permalink to this definition">¶</a></dt>
+<dd><div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 1.3.0: </span>Replaced by <a class="reference internal" href="#octoprint.printer.PrinterInterface.get_connection_options" title="octoprint.printer.PrinterInterface.get_connection_options"><code class="xref py py-func docutils literal notranslate"><span class="pre">PrinterInterface.get_connection_options()</span></code></a></p>
+</div>
+</dd></dl>
 
 <dl class="py class">
 <dt id="octoprint.printer.PrinterInterface">
@@ -692,10 +694,10 @@ profile will be used.</p></li>
 <dl class="py method">
 <dt id="octoprint.printer.PrinterInterface.register_callback">
 <code class="sig-name descname"><span class="pre">register_callback</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.printer.PrinterInterface.register_callback" title="Permalink to this definition">¶</a></dt>
-<dd><p>Registers a <code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterCallback</span></code> with the instance.</p>
+<dd><p>Registers a <a class="reference internal" href="#octoprint.printer.PrinterCallback" title="octoprint.printer.PrinterCallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterCallback</span></code></a> with the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>callback</strong> (<em>PrinterCallback</em>) – The callback object to register.</p>
+<dd class="field-odd"><p><strong>callback</strong> (<a class="reference internal" href="#octoprint.printer.PrinterCallback" title="octoprint.printer.PrinterCallback"><em>PrinterCallback</em></a>) – The callback object to register.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -750,8 +752,8 @@ after the file is selected.</p></li>
 </dd>
 <dt class="field-even">Raises</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><a class="reference internal" href="#octoprint.printer.InvalidFileType" title="octoprint.printer.InvalidFileType"><strong>InvalidFileType</strong></a> – if the file is not a machinecode file and hence cannot be printed</p></li>
-<li><p><a class="reference internal" href="#octoprint.printer.InvalidFileLocation" title="octoprint.printer.InvalidFileLocation"><strong>InvalidFileLocation</strong></a> – if an absolute path was provided and not contained within local storage or
+<li><p><strong>InvalidFileType</strong> – if the file is not a machinecode file and hence cannot be printed</p></li>
+<li><p><strong>InvalidFileLocation</strong> – if an absolute path was provided and not contained within local storage or
     doesn’t exist</p></li>
 </ul>
 </dd>
@@ -761,10 +763,10 @@ after the file is selected.</p></li>
 <dl class="py method">
 <dt id="octoprint.printer.PrinterInterface.send_initial_callback">
 <code class="sig-name descname"><span class="pre">send_initial_callback</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.printer.PrinterInterface.send_initial_callback" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sends the initial printer update to <code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterCallback</span></code>.</p>
+<dd><p>Sends the initial printer update to <a class="reference internal" href="#octoprint.printer.PrinterCallback" title="octoprint.printer.PrinterCallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterCallback</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>callback</strong> (<em>PrinterCallback</em>) – The callback object to send initial data to.</p>
+<dd class="field-odd"><p><strong>callback</strong> (<a class="reference internal" href="#octoprint.printer.PrinterCallback" title="octoprint.printer.PrinterCallback"><em>PrinterCallback</em></a>) – The callback object to send initial data to.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -860,10 +862,10 @@ parameter to <a class="reference internal" href="#octoprint.printer.PrinterInter
 <dl class="py method">
 <dt id="octoprint.printer.PrinterInterface.unregister_callback">
 <code class="sig-name descname"><span class="pre">unregister_callback</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.printer.PrinterInterface.unregister_callback" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unregisters a <code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterCallback</span></code> from the instance.</p>
+<dd><p>Unregisters a <a class="reference internal" href="#octoprint.printer.PrinterCallback" title="octoprint.printer.PrinterCallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterCallback</span></code></a> from the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>callback</strong> (<em>PrinterCallback</em>) – The callback object to unregister.</p>
+<dd class="field-odd"><p><strong>callback</strong> (<a class="reference internal" href="#octoprint.printer.PrinterCallback" title="octoprint.printer.PrinterCallback"><em>PrinterCallback</em></a>) – The callback object to unregister.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -894,22 +896,318 @@ parameter to <a class="reference internal" href="#octoprint.printer.PrinterInter
 
 </dd></dl>
 
-<dl class="py exception">
-<dt id="octoprint.printer.UnknownScript">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.printer.</span></code><code class="sig-name descname"><span class="pre">UnknownScript</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.printer.UnknownScript" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py class">
+<dt id="octoprint.printer.PrinterCallback">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.printer.</span></code><code class="sig-name descname"><span class="pre">PrinterCallback</span></code><a class="headerlink" href="#octoprint.printer.PrinterCallback" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="octoprint.printer.PrinterCallback.on_printer_add_log">
+<code class="sig-name descname"><span class="pre">on_printer_add_log</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.printer.PrinterCallback.on_printer_add_log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when the <a class="reference internal" href="#octoprint.printer.PrinterInterface" title="octoprint.printer.PrinterInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterInterface</span></code></a> receives a new communication log entry from the communication layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The received log line.</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="py function">
-<dt id="octoprint.printer.get_connection_options">
-<code class="sig-prename descclassname"><span class="pre">octoprint.printer.</span></code><code class="sig-name descname"><span class="pre">get_connection_options</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.printer.get_connection_options" title="Permalink to this definition">¶</a></dt>
-<dd><div class="deprecated">
-<p><span class="versionmodified deprecated">Deprecated since version 1.3.0: </span>Replaced by <a class="reference internal" href="#octoprint.printer.PrinterInterface.get_connection_options" title="octoprint.printer.PrinterInterface.get_connection_options"><code class="xref py py-func docutils literal notranslate"><span class="pre">PrinterInterface.get_connection_options()</span></code></a></p>
+<dl class="py method">
+<dt id="octoprint.printer.PrinterCallback.on_printer_add_message">
+<code class="sig-name descname"><span class="pre">on_printer_add_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.printer.PrinterCallback.on_printer_add_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when the <a class="reference internal" href="#octoprint.printer.PrinterInterface" title="octoprint.printer.PrinterInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterInterface</span></code></a> receives a new message from the communication layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The received message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="octoprint.printer.PrinterCallback.on_printer_add_temperature">
+<code class="sig-name descname"><span class="pre">on_printer_add_temperature</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.printer.PrinterCallback.on_printer_add_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when the <a class="reference internal" href="#octoprint.printer.PrinterInterface" title="octoprint.printer.PrinterInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterInterface</span></code></a> receives a new temperature data set from the communication layer.</p>
+<p><code class="docutils literal notranslate"><span class="pre">data</span></code> is a <code class="docutils literal notranslate"><span class="pre">dict</span></code> of the following structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tool0</span><span class="p">:</span>
+    <span class="n">actual</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">temperature</span> <span class="n">of</span> <span class="n">the</span> <span class="n">first</span> <span class="n">hotend</span><span class="p">,</span> <span class="ow">in</span> <span class="n">degC</span><span class="o">&gt;</span>
+    <span class="n">target</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">target</span> <span class="n">temperature</span> <span class="n">of</span> <span class="n">the</span> <span class="n">first</span> <span class="n">hotend</span><span class="p">,</span> <span class="ow">in</span> <span class="n">degC</span><span class="o">&gt;</span>
+<span class="o">...</span>
+<span class="n">bed</span><span class="p">:</span>
+    <span class="n">actual</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">temperature</span> <span class="n">of</span> <span class="n">the</span> <span class="n">bed</span><span class="p">,</span> <span class="ow">in</span> <span class="n">degC</span><span class="o">&gt;</span>
+    <span class="n">target</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">target</span> <span class="n">temperature</span> <span class="n">of</span> <span class="n">the</span> <span class="n">bed</span><span class="p">,</span> <span class="ow">in</span> <span class="n">degC</span><span class="o">&gt;</span>
+<span class="n">chamber</span><span class="p">:</span>
+    <span class="n">actual</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">temperature</span> <span class="n">of</span> <span class="n">the</span> <span class="n">chamber</span><span class="p">,</span> <span class="ow">in</span> <span class="n">degC</span><span class="o">&gt;</span>
+    <span class="n">target</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">target</span> <span class="n">temperature</span> <span class="n">of</span> <span class="n">the</span> <span class="n">chamber</span><span class="p">,</span> <span class="ow">in</span> <span class="n">degC</span><span class="o">&gt;</span>
+</pre></div>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – A dict of all current temperatures in the format as specified above</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="octoprint.printer.PrinterCallback.on_printer_received_registered_message">
+<code class="sig-name descname"><span class="pre">on_printer_received_registered_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.printer.PrinterCallback.on_printer_received_registered_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when the <a class="reference internal" href="#octoprint.printer.PrinterInterface" title="octoprint.printer.PrinterInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterInterface</span></code></a> received a registered message, e.g. from a feedback command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Name of the registered message (e.g. the feedback command)</p></li>
+<li><p><strong>output</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Output for the registered message</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="octoprint.printer.PrinterCallback.on_printer_send_current_data">
+<code class="sig-name descname"><span class="pre">on_printer_send_current_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.printer.PrinterCallback.on_printer_send_current_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when the internal state of the <a class="reference internal" href="#octoprint.printer.PrinterInterface" title="octoprint.printer.PrinterInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterInterface</span></code></a> changes, due to changes in the printer state,
+temperatures, log lines, job progress etc. Updates via this method are guaranteed to be throttled to a maximum
+of 2 calls per second.</p>
+<p><code class="docutils literal notranslate"><span class="pre">data</span></code> is a <code class="docutils literal notranslate"><span class="pre">dict</span></code> of the following structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">state</span><span class="p">:</span>
+    <span class="n">text</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">current</span> <span class="n">state</span> <span class="n">string</span><span class="o">&gt;</span>
+    <span class="n">flags</span><span class="p">:</span>
+        <span class="n">operational</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">whether</span> <span class="n">the</span> <span class="n">printer</span> <span class="ow">is</span> <span class="n">currently</span> <span class="n">connected</span> <span class="ow">and</span> <span class="n">responding</span><span class="o">&gt;</span>
+        <span class="n">printing</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">whether</span> <span class="n">the</span> <span class="n">printer</span> <span class="ow">is</span> <span class="n">currently</span> <span class="n">printing</span><span class="o">&gt;</span>
+        <span class="n">closedOrError</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">whether</span> <span class="n">the</span> <span class="n">printer</span> <span class="ow">is</span> <span class="n">currently</span> <span class="n">disconnected</span> <span class="ow">and</span><span class="o">/</span><span class="ow">or</span> <span class="ow">in</span> <span class="n">an</span> <span class="n">error</span> <span class="n">state</span><span class="o">&gt;</span>
+        <span class="n">error</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">whether</span> <span class="n">the</span> <span class="n">printer</span> <span class="ow">is</span> <span class="n">currently</span> <span class="ow">in</span> <span class="n">an</span> <span class="n">error</span> <span class="n">state</span><span class="o">&gt;</span>
+        <span class="n">paused</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">whether</span> <span class="n">the</span> <span class="n">printer</span> <span class="ow">is</span> <span class="n">currently</span> <span class="n">paused</span><span class="o">&gt;</span>
+        <span class="n">ready</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">whether</span> <span class="n">the</span> <span class="n">printer</span> <span class="ow">is</span> <span class="n">operational</span> <span class="ow">and</span> <span class="n">ready</span> <span class="k">for</span> <span class="n">jobs</span><span class="o">&gt;</span>
+        <span class="n">sdReady</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">whether</span> <span class="n">an</span> <span class="n">SD</span> <span class="n">card</span> <span class="ow">is</span> <span class="n">present</span><span class="o">&gt;</span>
+<span class="n">job</span><span class="p">:</span>
+    <span class="n">file</span><span class="p">:</span>
+        <span class="n">name</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">file</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="n">size</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">size</span> <span class="n">of</span> <span class="n">the</span> <span class="n">file</span> <span class="ow">in</span> <span class="nb">bytes</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="n">origin</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">origin</span> <span class="n">of</span> <span class="n">the</span> <span class="n">file</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span> <span class="ow">or</span> <span class="s2">&quot;sdcard&quot;</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="n">date</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">last</span> <span class="n">modification</span> <span class="n">date</span> <span class="n">of</span> <span class="n">the</span> <span class="n">file</span><span class="o">&gt;</span>
+    <span class="n">estimatedPrintTime</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">estimated</span> <span class="nb">print</span> <span class="n">time</span> <span class="n">of</span> <span class="n">the</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">seconds</span><span class="o">&gt;</span>
+    <span class="n">lastPrintTime</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">last</span> <span class="nb">print</span> <span class="n">time</span> <span class="n">of</span> <span class="n">the</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">seconds</span><span class="o">&gt;</span>
+    <span class="n">filament</span><span class="p">:</span>
+        <span class="n">length</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">estimated</span> <span class="n">length</span> <span class="n">of</span> <span class="n">filament</span> <span class="n">needed</span> <span class="k">for</span> <span class="n">this</span> <span class="n">file</span><span class="p">,</span> <span class="ow">in</span> <span class="n">mm</span><span class="o">&gt;</span>
+        <span class="n">volume</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">estimated</span> <span class="n">volume</span> <span class="n">of</span> <span class="n">filament</span> <span class="n">needed</span> <span class="k">for</span> <span class="n">this</span> <span class="n">file</span><span class="p">,</span> <span class="ow">in</span> <span class="n">ccm</span><span class="o">&gt;</span>
+<span class="n">progress</span><span class="p">:</span>
+    <span class="n">completion</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">progress</span> <span class="n">of</span> <span class="n">the</span> <span class="nb">print</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">percent</span> <span class="p">(</span><span class="mi">0</span><span class="o">-</span><span class="mi">100</span><span class="p">)</span><span class="o">&gt;</span>
+    <span class="n">filepos</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">current</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">file</span> <span class="ow">in</span> <span class="nb">bytes</span><span class="o">&gt;</span>
+    <span class="n">printTime</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">current</span> <span class="n">time</span> <span class="n">elapsed</span> <span class="k">for</span> <span class="n">printing</span><span class="p">,</span> <span class="ow">in</span> <span class="n">seconds</span><span class="o">&gt;</span>
+    <span class="n">printTimeLeft</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">estimated</span> <span class="n">time</span> <span class="n">left</span> <span class="n">to</span> <span class="n">finish</span> <span class="n">printing</span><span class="p">,</span> <span class="ow">in</span> <span class="n">seconds</span><span class="o">&gt;</span>
+<span class="n">currentZ</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">current</span> <span class="n">position</span> <span class="n">of</span> <span class="n">the</span> <span class="n">z</span> <span class="n">axis</span><span class="p">,</span> <span class="ow">in</span> <span class="n">mm</span><span class="o">&gt;</span>
+<span class="n">offsets</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">current</span> <span class="n">configured</span> <span class="n">temperature</span> <span class="n">offsets</span><span class="p">,</span> <span class="n">keys</span> <span class="n">are</span> <span class="s2">&quot;bed&quot;</span> <span class="ow">or</span> <span class="s2">&quot;tool[0-9]+&quot;</span><span class="p">,</span> <span class="n">values</span> <span class="n">the</span> <span class="n">offset</span> <span class="ow">in</span> <span class="n">degC</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The current data in the format as specified above.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="octoprint.printer.PrinterCallback.on_printer_send_initial_data">
+<code class="sig-name descname"><span class="pre">on_printer_send_initial_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.printer.PrinterCallback.on_printer_send_initial_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when registering as a callback with the <a class="reference internal" href="#octoprint.printer.PrinterInterface" title="octoprint.printer.PrinterInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterInterface</span></code></a> to receive the initial data (state,
+log and temperature history etc) from the printer.</p>
+<p><code class="docutils literal notranslate"><span class="pre">data</span></code> is a <code class="docutils literal notranslate"><span class="pre">dict</span></code> of the following structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">temps</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">time</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">timestamp</span> <span class="n">of</span> <span class="n">the</span> <span class="n">temperature</span> <span class="n">data</span> <span class="n">point</span><span class="o">&gt;</span>
+    <span class="n">tool0</span><span class="p">:</span>
+        <span class="n">actual</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">temperature</span> <span class="n">of</span> <span class="n">the</span> <span class="n">first</span> <span class="n">hotend</span><span class="p">,</span> <span class="ow">in</span> <span class="n">degC</span><span class="o">&gt;</span>
+        <span class="n">target</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">target</span> <span class="n">temperature</span> <span class="n">of</span> <span class="n">the</span> <span class="n">first</span> <span class="n">hotend</span><span class="p">,</span> <span class="ow">in</span> <span class="n">degC</span><span class="o">&gt;</span>
+    <span class="o">...</span>
+    <span class="n">bed</span><span class="p">:</span>
+        <span class="n">actual</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">temperature</span> <span class="n">of</span> <span class="n">the</span> <span class="n">bed</span><span class="p">,</span> <span class="ow">in</span> <span class="n">degC</span><span class="o">&gt;</span>
+        <span class="n">target</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">target</span> <span class="n">temperature</span> <span class="n">of</span> <span class="n">the</span> <span class="n">bed</span><span class="p">,</span> <span class="ow">in</span> <span class="n">degC</span><span class="o">&gt;</span>
+  <span class="o">-</span> <span class="o">...</span>
+<span class="n">logs</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">list</span> <span class="n">of</span> <span class="n">current</span> <span class="n">communication</span> <span class="n">log</span> <span class="n">lines</span><span class="o">&gt;</span>
+<span class="n">messages</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">list</span> <span class="n">of</span> <span class="n">current</span> <span class="n">messages</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">firmware</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The initial data in the format as specified above.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>
 <div class="section" id="module-octoprint.printer.profile">
 <span id="octoprint-printer-profile"></span><span id="sec-modules-printer-profile"></span><h1>octoprint.printer.profile<a class="headerlink" href="#module-octoprint.printer.profile" title="Permalink to this headline">¶</a></h1>
+<p>This module contains printer profile related code.</p>
+<p>A printer profile is a <code class="docutils literal notranslate"><span class="pre">dict</span></code> of the following structure:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 10%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">id</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Internal id of the printer profile</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Human readable name of the printer profile</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">model</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Printer model</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">color</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Color to associate with the printer profile</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">volume</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+<td><p>Information about the print volume</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">volume.width</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Width of the print volume (X axis)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">volume.depth</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Depth of the print volume (Y axis)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">volume.height</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Height of the print volume (Z axis)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">volume.formFactor</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Form factor of the print bed, either <code class="docutils literal notranslate"><span class="pre">rectangular</span></code> or <code class="docutils literal notranslate"><span class="pre">circular</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">volume.origin</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Location of gcode origin in the print volume, either <code class="docutils literal notranslate"><span class="pre">lowerleft</span></code> or <code class="docutils literal notranslate"><span class="pre">center</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">volume.custom_box</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dict</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+<td><p>Custom boundary box overriding the default bounding box based on the provided width, depth, height and origin.
+If <code class="docutils literal notranslate"><span class="pre">False</span></code>, the default boundary box will be used.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">volume.custom_box.x_min</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Minimum valid X coordinate</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">volume.custom_box.y_min</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Minimum valid Y coordinate</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">volume.custom_box.z_min</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Minimum valid Z coordinate</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">volume.custom_box.x_max</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Maximum valid X coordinate</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">volume.custom_box.y_max</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Maximum valid Y coordinate</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">volume.custom_box.z_max</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Maximum valid Z coordinate</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">heatedBed</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether the printer has a heated bed (<code class="docutils literal notranslate"><span class="pre">True</span></code>) or not (<code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">heatedChamber</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether the printer has a heated chamber (<code class="docutils literal notranslate"><span class="pre">True</span></code>) or not (<code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">extruder</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+<td><p>Information about the printer’s extruders</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">extruder.count</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>How many extruders the printer has (default 1)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">extruder.offsets</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list</span></code> of <code class="docutils literal notranslate"><span class="pre">tuple</span></code></p></td>
+<td><p>Extruder offsets relative to first extruder, list of (x, y) tuples, first is always (0,0)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">extruder.nozzleDiameter</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Diameter of the printer nozzle(s)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">extruder.sharedNozzle</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
+<td><p>Whether there’s only one nozzle shared among all extruders (true) or one nozzle per extruder (false).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">axes</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+<td><p>Information about the printer axes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">axes.x</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+<td><p>Information about the printer’s X axis</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">axes.x.speed</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Speed of the X axis in mm/s</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">axes.x.inverted</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether a positive value change moves the nozzle away from the print bed’s origin (False, default) or towards it (True)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">axes.y</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+<td><p>Information about the printer’s Y axis</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">axes.y.speed</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Speed of the Y axis in mm/s</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">axes.y.inverted</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether a positive value change moves the nozzle away from the print bed’s origin (False, default) or towards it (True)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">axes.z</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+<td><p>Information about the printer’s Z axis</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">axes.z.speed</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Speed of the Z axis in mm/s</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">axes.z.inverted</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether a positive value change moves the nozzle away from the print bed (False, default) or towards it (True)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">axes.e</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+<td><p>Information about the printer’s E axis</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">axes.e.speed</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Speed of the E axis in mm/s</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">axes.e.inverted</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether a positive value change extrudes (False, default) or retracts (True) filament</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="octoprint.printer.profile.PrinterProfileManager">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.printer.profile.</span></code><code class="sig-name descname"><span class="pre">PrinterProfileManager</span></code><a class="headerlink" href="#octoprint.printer.profile.PrinterProfileManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manager for printer profiles. Offers methods to select the globally used printer profile and to list, add, remove,
+load and save printer profiles.</p>
+</dd></dl>
+
 <dl class="py class">
 <dt id="octoprint.printer.profile.BedFormFactor">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.printer.profile.</span></code><code class="sig-name descname"><span class="pre">BedFormFactor</span></code><a class="headerlink" href="#octoprint.printer.profile.BedFormFactor" title="Permalink to this definition">¶</a></dt>
@@ -946,36 +1244,22 @@ parameter to <a class="reference internal" href="#octoprint.printer.PrinterInter
 
 </dd></dl>
 
-<dl class="py attribute">
-<dt id="octoprint.printer.profile.BedTypes">
-<code class="sig-prename descclassname"><span class="pre">octoprint.printer.profile.</span></code><code class="sig-name descname"><span class="pre">BedTypes</span></code><a class="headerlink" href="#octoprint.printer.profile.BedTypes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deprecated name of <code class="xref py py-class docutils literal notranslate"><span class="pre">BedFormFactors</span></code></p>
-<p>alias of <a class="reference internal" href="#octoprint.printer.profile.BedFormFactor" title="octoprint.printer.profile.BedFormFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.printer.profile.BedFormFactor</span></code></a></p>
-</dd></dl>
-
-<dl class="py exception">
-<dt id="octoprint.printer.profile.CouldNotOverwriteError">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.printer.profile.</span></code><code class="sig-name descname"><span class="pre">CouldNotOverwriteError</span></code><a class="headerlink" href="#octoprint.printer.profile.CouldNotOverwriteError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overwriting of a profile not allowed</p>
-</dd></dl>
-
-<dl class="py exception">
-<dt id="octoprint.printer.profile.InvalidProfileError">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.printer.profile.</span></code><code class="sig-name descname"><span class="pre">InvalidProfileError</span></code><a class="headerlink" href="#octoprint.printer.profile.InvalidProfileError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Profile invalid</p>
+<dl class="py class">
+<dt id="octoprint.printer.profile.SaveError">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.printer.profile.</span></code><code class="sig-name descname"><span class="pre">SaveError</span></code><a class="headerlink" href="#octoprint.printer.profile.SaveError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saving a profile failed</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.printer.profile.PrinterProfileManager">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.printer.profile.</span></code><code class="sig-name descname"><span class="pre">PrinterProfileManager</span></code><a class="headerlink" href="#octoprint.printer.profile.PrinterProfileManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Manager for printer profiles. Offers methods to select the globally used printer profile and to list, add, remove,
-load and save printer profiles.</p>
+<dt id="octoprint.printer.profile.CouldNotOverwriteError">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.printer.profile.</span></code><code class="sig-name descname"><span class="pre">CouldNotOverwriteError</span></code><a class="headerlink" href="#octoprint.printer.profile.CouldNotOverwriteError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overwriting of a profile not allowed</p>
 </dd></dl>
 
-<dl class="py exception">
-<dt id="octoprint.printer.profile.SaveError">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.printer.profile.</span></code><code class="sig-name descname"><span class="pre">SaveError</span></code><a class="headerlink" href="#octoprint.printer.profile.SaveError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Saving a profile failed</p>
+<dl class="py class">
+<dt id="octoprint.printer.profile.InvalidProfileError">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.printer.profile.</span></code><code class="sig-name descname"><span class="pre">InvalidProfileError</span></code><a class="headerlink" href="#octoprint.printer.profile.InvalidProfileError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Profile invalid</p>
 </dd></dl>
 
 </div>

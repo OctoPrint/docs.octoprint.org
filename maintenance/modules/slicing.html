@@ -204,6 +204,50 @@
             
   <div class="section" id="module-octoprint.slicing">
 <span id="octoprint-slicing"></span><span id="sec-modules-slicing"></span><h1>octoprint.slicing<a class="headerlink" href="#module-octoprint.slicing" title="Permalink to this headline">¶</a></h1>
+<p>In this module the slicing support of OctoPrint is encapsulated.</p>
+<dl class="py class">
+<dt id="octoprint.slicing.SlicingProfile">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.</span></code><code class="sig-name descname"><span class="pre">SlicingProfile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.slicing.SlicingProfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for slicing profiles, both meta data and actual profile data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slicer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Identifier of the slicer this profile belongs to.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Identifier of this slicing profile.</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><em>object</em></a>) – Profile data, actual structure depends on individual slicer implementation.</p></li>
+<li><p><strong>display_name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Displayable name for this slicing profile.</p></li>
+<li><p><strong>description</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Description of this slicing profile.</p></li>
+<li><p><strong>default</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Whether this is the default slicing profile for the slicer.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="octoprint.slicing.TemporaryProfile">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.</span></code><code class="sig-name descname"><span class="pre">TemporaryProfile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_profile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overrides</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.slicing.TemporaryProfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a temporary slicing profile to be used for a slicing job, based on a <a class="reference internal" href="#octoprint.slicing.SlicingProfile" title="octoprint.slicing.SlicingProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlicingProfile</span></code></a> with
+optional <code class="docutils literal notranslate"><span class="pre">overrides</span></code> applied through the supplied <code class="docutils literal notranslate"><span class="pre">save_profile</span></code> method.</p>
+<p>Usage example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temporary</span> <span class="o">=</span> <span class="n">TemporaryProfile</span><span class="p">(</span><span class="n">my_slicer</span><span class="o">.</span><span class="n">save_slicer_profile</span><span class="p">,</span> <span class="n">my_default_profile</span><span class="p">,</span>
+                             <span class="n">overrides</span><span class="o">=</span><span class="n">my_overrides</span><span class="p">)</span>
+<span class="k">with</span> <span class="p">(</span><span class="n">temporary</span><span class="p">)</span> <span class="k">as</span> <span class="n">profile_path</span><span class="p">:</span>
+    <span class="n">my_slicer</span><span class="o">.</span><span class="n">do_slice</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">profile_path</span><span class="o">=</span><span class="n">profile_path</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>save_profile</strong> (<em>callable</em>) – Method to use for saving the temporary profile, also responsible for applying the
+supplied <code class="docutils literal notranslate"><span class="pre">overrides</span></code>. This will be called according to the method signature of
+<a class="reference internal" href="../plugins/mixins.html#octoprint.plugin.SlicerPlugin.save_slicer_profile" title="octoprint.plugin.SlicerPlugin.save_slicer_profile"><code class="xref py py-meth docutils literal notranslate"><span class="pre">save_slicer_profile()</span></code></a>.</p></li>
+<li><p><strong>profile</strong> (<a class="reference internal" href="#octoprint.slicing.SlicingProfile" title="octoprint.slicing.SlicingProfile"><em>SlicingProfile</em></a>) – The profile from which to derive the temporary profile.</p></li>
+<li><p><strong>overrides</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Optional overrides to apply to the <code class="docutils literal notranslate"><span class="pre">profile</span></code> for creation of the temporary profile.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py class">
 <dt id="octoprint.slicing.SlicingManager">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.</span></code><code class="sig-name descname"><span class="pre">SlicingManager</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profile_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printer_profile_manager</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.slicing.SlicingManager" title="Permalink to this definition">¶</a></dt>
@@ -302,7 +346,7 @@ exception will be raised.</p></li>
 <dt class="field-even">Raises</dt>
 <dd class="field-even"><ul class="simple">
 <li><p><a class="reference internal" href="#octoprint.slicing.exceptions.UnknownSlicer" title="octoprint.slicing.exceptions.UnknownSlicer"><strong>UnknownSlicer</strong></a> – The slicer <code class="docutils literal notranslate"><span class="pre">slicer</span></code> is unknown.</p></li>
-<li><p><a class="reference internal" href="#octoprint.slicing.exceptions.CouldNotDeleteProfile" title="octoprint.slicing.exceptions.CouldNotDeleteProfile"><strong>CouldNotDeleteProfile</strong></a> – There was an error while deleting the profile.</p></li>
+<li><p><strong>CouldNotDeleteProfile</strong> – There was an error while deleting the profile.</p></li>
 </ul>
 </dd>
 </dl>
@@ -589,67 +633,53 @@ Example: <code class="docutils literal notranslate"><span class="pre">dict(x=10,
 
 </dd></dl>
 
-<dl class="py class">
-<dt id="octoprint.slicing.SlicingProfile">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.</span></code><code class="sig-name descname"><span class="pre">SlicingProfile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.slicing.SlicingProfile" title="Permalink to this definition">¶</a></dt>
-<dd><p>A wrapper for slicing profiles, both meta data and actual profile data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>slicer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Identifier of the slicer this profile belongs to.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Identifier of this slicing profile.</p></li>
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><em>object</em></a>) – Profile data, actual structure depends on individual slicer implementation.</p></li>
-<li><p><strong>display_name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Displayable name for this slicing profile.</p></li>
-<li><p><strong>description</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Description of this slicing profile.</p></li>
-<li><p><strong>default</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Whether this is the default slicing profile for the slicer.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py class">
-<dt id="octoprint.slicing.TemporaryProfile">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.</span></code><code class="sig-name descname"><span class="pre">TemporaryProfile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_profile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overrides</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.slicing.TemporaryProfile" title="Permalink to this definition">¶</a></dt>
-<dd><p>A wrapper for a temporary slicing profile to be used for a slicing job, based on a <a class="reference internal" href="#octoprint.slicing.SlicingProfile" title="octoprint.slicing.SlicingProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlicingProfile</span></code></a> with
-optional <code class="docutils literal notranslate"><span class="pre">overrides</span></code> applied through the supplied <code class="docutils literal notranslate"><span class="pre">save_profile</span></code> method.</p>
-<p>Usage example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temporary</span> <span class="o">=</span> <span class="n">TemporaryProfile</span><span class="p">(</span><span class="n">my_slicer</span><span class="o">.</span><span class="n">save_slicer_profile</span><span class="p">,</span> <span class="n">my_default_profile</span><span class="p">,</span>
-                             <span class="n">overrides</span><span class="o">=</span><span class="n">my_overrides</span><span class="p">)</span>
-<span class="k">with</span> <span class="p">(</span><span class="n">temporary</span><span class="p">)</span> <span class="k">as</span> <span class="n">profile_path</span><span class="p">:</span>
-    <span class="n">my_slicer</span><span class="o">.</span><span class="n">do_slice</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">profile_path</span><span class="o">=</span><span class="n">profile_path</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>save_profile</strong> (<em>callable</em>) – Method to use for saving the temporary profile, also responsible for applying the
-supplied <code class="docutils literal notranslate"><span class="pre">overrides</span></code>. This will be called according to the method signature of
-<a class="reference internal" href="../plugins/mixins.html#octoprint.plugin.SlicerPlugin.save_slicer_profile" title="octoprint.plugin.SlicerPlugin.save_slicer_profile"><code class="xref py py-meth docutils literal notranslate"><span class="pre">save_slicer_profile()</span></code></a>.</p></li>
-<li><p><strong>profile</strong> (<a class="reference internal" href="#octoprint.slicing.SlicingProfile" title="octoprint.slicing.SlicingProfile"><em>SlicingProfile</em></a>) – The profile from which to derive the temporary profile.</p></li>
-<li><p><strong>overrides</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Optional overrides to apply to the <code class="docutils literal notranslate"><span class="pre">profile</span></code> for creation of the temporary profile.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
 </div>
 <div class="section" id="module-octoprint.slicing.exceptions">
 <span id="octoprint-slicing-exceptions"></span><span id="sec-modules-slicing-exceptions"></span><h1>octoprint.slicing.exceptions<a class="headerlink" href="#module-octoprint.slicing.exceptions" title="Permalink to this headline">¶</a></h1>
-<dl class="py exception">
-<dt id="octoprint.slicing.exceptions.CouldNotDeleteProfile">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.exceptions.</span></code><code class="sig-name descname"><span class="pre">CouldNotDeleteProfile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cause</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.slicing.exceptions.CouldNotDeleteProfile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Raised if there is an unexpected error trying to delete a known profile.</p>
+<p>Slicing related exceptions.</p>
+<dl class="py class">
+<dt id="octoprint.slicing.exceptions.SlicingException">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.exceptions.</span></code><code class="sig-name descname"><span class="pre">SlicingException</span></code><a class="headerlink" href="#octoprint.slicing.exceptions.SlicingException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base exception of all slicing related exceptions.</p>
 </dd></dl>
 
-<dl class="py exception">
-<dt id="octoprint.slicing.exceptions.ProfileAlreadyExists">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.exceptions.</span></code><code class="sig-name descname"><span class="pre">ProfileAlreadyExists</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.slicing.exceptions.ProfileAlreadyExists" title="Permalink to this definition">¶</a></dt>
-<dd><p>Raised if a slicing profile already exists and must not be overwritten.</p>
+<dl class="py class">
+<dt id="octoprint.slicing.exceptions.SlicingCancelled">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.exceptions.</span></code><code class="sig-name descname"><span class="pre">SlicingCancelled</span></code><a class="headerlink" href="#octoprint.slicing.exceptions.SlicingCancelled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#octoprint.slicing.exceptions.SlicingException" title="octoprint.slicing.exceptions.SlicingException"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.slicing.exceptions.SlicingException</span></code></a></p>
+<p>Raised if a slicing job was cancelled.</p>
 </dd></dl>
 
-<dl class="py exception">
+<dl class="py class">
+<dt id="octoprint.slicing.exceptions.SlicerException">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.exceptions.</span></code><code class="sig-name descname"><span class="pre">SlicerException</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.slicing.exceptions.SlicerException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#octoprint.slicing.exceptions.SlicingException" title="octoprint.slicing.exceptions.SlicingException"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.slicing.exceptions.SlicingException</span></code></a></p>
+<p>Base exception of all slicer related exceptions.</p>
+<dl class="py attribute">
+<dt id="octoprint.slicing.exceptions.SlicerException.slicer">
+<code class="sig-name descname"><span class="pre">slicer</span></code><a class="headerlink" href="#octoprint.slicing.exceptions.SlicerException.slicer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identifier of the slicer for which the exception was raised.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="octoprint.slicing.exceptions.UnknownSlicer">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.exceptions.</span></code><code class="sig-name descname"><span class="pre">UnknownSlicer</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.slicing.exceptions.UnknownSlicer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#octoprint.slicing.exceptions.SlicerException" title="octoprint.slicing.exceptions.SlicerException"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.slicing.exceptions.SlicerException</span></code></a></p>
+<p>Raised if a slicer is unknown.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="octoprint.slicing.exceptions.SlicerNotConfigured">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.exceptions.</span></code><code class="sig-name descname"><span class="pre">SlicerNotConfigured</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.slicing.exceptions.SlicerNotConfigured" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#octoprint.slicing.exceptions.SlicerException" title="octoprint.slicing.exceptions.SlicerException"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.slicing.exceptions.SlicerException</span></code></a></p>
+<p>Raised if a slicer is not yet configured but must be configured to proceed.</p>
+</dd></dl>
+
+<dl class="py class">
 <dt id="octoprint.slicing.exceptions.ProfileException">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.exceptions.</span></code><code class="sig-name descname"><span class="pre">ProfileException</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.slicing.exceptions.ProfileException" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.exceptions.</span></code><code class="sig-name descname"><span class="pre">ProfileException</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.slicing.exceptions.ProfileException" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base exception of all slicing profile related exceptions.</p>
 <dl class="py attribute">
 <dt id="octoprint.slicing.exceptions.ProfileException.slicer">
@@ -665,46 +695,18 @@ supplied <code class="docutils literal notranslate"><span class="pre">overrides<
 
 </dd></dl>
 
-<dl class="py exception">
-<dt id="octoprint.slicing.exceptions.SlicerException">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.exceptions.</span></code><code class="sig-name descname"><span class="pre">SlicerException</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.slicing.exceptions.SlicerException" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base exception of all slicer related exceptions.</p>
-<dl class="py attribute">
-<dt id="octoprint.slicing.exceptions.SlicerException.slicer">
-<code class="sig-name descname"><span class="pre">slicer</span></code><a class="headerlink" href="#octoprint.slicing.exceptions.SlicerException.slicer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Identifier of the slicer for which the exception was raised.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py exception">
-<dt id="octoprint.slicing.exceptions.SlicerNotConfigured">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.exceptions.</span></code><code class="sig-name descname"><span class="pre">SlicerNotConfigured</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.slicing.exceptions.SlicerNotConfigured" title="Permalink to this definition">¶</a></dt>
-<dd><p>Raised if a slicer is not yet configured but must be configured to proceed.</p>
-</dd></dl>
-
-<dl class="py exception">
-<dt id="octoprint.slicing.exceptions.SlicingCancelled">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.exceptions.</span></code><code class="sig-name descname"><span class="pre">SlicingCancelled</span></code><a class="headerlink" href="#octoprint.slicing.exceptions.SlicingCancelled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Raised if a slicing job was cancelled.</p>
-</dd></dl>
-
-<dl class="py exception">
-<dt id="octoprint.slicing.exceptions.SlicingException">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.exceptions.</span></code><code class="sig-name descname"><span class="pre">SlicingException</span></code><a class="headerlink" href="#octoprint.slicing.exceptions.SlicingException" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base exception of all slicing related exceptions.</p>
-</dd></dl>
-
-<dl class="py exception">
+<dl class="py class">
 <dt id="octoprint.slicing.exceptions.UnknownProfile">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.exceptions.</span></code><code class="sig-name descname"><span class="pre">UnknownProfile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.slicing.exceptions.UnknownProfile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Raised if a slicing profile does not exist but must exist to proceed.</p>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.exceptions.</span></code><code class="sig-name descname"><span class="pre">UnknownProfile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.slicing.exceptions.UnknownProfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#octoprint.slicing.exceptions.ProfileException" title="octoprint.slicing.exceptions.ProfileException"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.slicing.exceptions.ProfileException</span></code></a></p>
+<p>Raised if a slicing profile does not exist but must exist to proceed.</p>
 </dd></dl>
 
-<dl class="py exception">
-<dt id="octoprint.slicing.exceptions.UnknownSlicer">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.exceptions.</span></code><code class="sig-name descname"><span class="pre">UnknownSlicer</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.slicing.exceptions.UnknownSlicer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Raised if a slicer is unknown.</p>
+<dl class="py class">
+<dt id="octoprint.slicing.exceptions.ProfileAlreadyExists">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.slicing.exceptions.</span></code><code class="sig-name descname"><span class="pre">ProfileAlreadyExists</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.slicing.exceptions.ProfileAlreadyExists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#octoprint.slicing.exceptions.ProfileException" title="octoprint.slicing.exceptions.ProfileException"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.slicing.exceptions.ProfileException</span></code></a></p>
+<p>Raised if a slicing profile already exists and must not be overwritten.</p>
 </dd></dl>
 
 </div>
