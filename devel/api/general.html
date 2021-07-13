@@ -259,8 +259,7 @@ fallback on directing the user to manually supply the the user specific API key.
 </div>
 <p>Please be advised that clients should use the header field variant if at all possible.</p>
 <p>If the key is missing or invalid, OctoPrint will treat the request as it would any unauthenticated anonymous request to the endpoint.
-Consequently, if the bundled <span class="xref std std-ref">ForceLogin plugin</span> is active (which is the default), that means
-that any requests without or with an invalid API key targeting other API endpoints than <a class="reference internal" href="#sec-api-general-login"><span class="std std-ref">Login</span></a>
+That means that any requests without or with an invalid API key targeting other API endpoints than <a class="reference internal" href="#sec-api-general-login"><span class="std std-ref">Login</span></a>
 will be denied with a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4">403 Forbidden</a>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -310,14 +309,22 @@ check the corresponding checkbox in the API settings dialog.</p>
 <span id="fig-api-general-apicors"></span><img alt="CORS configuration in the API settings" src="../_images/settings-api-cors.png" />
 <p class="caption"><span class="caption-number">Fig. 24 </span><span class="caption-text">Support for CORS can be enabled in the “API” settings</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
 <p>This means any browser page can send requests to the OctoPrint API. Authorization is still required however.</p>
 </div>
 <p>If CORS is not enabled you will get errors like the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">XMLHttpRequest</span> <span class="n">cannot</span> <span class="n">load</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">8081</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">files</span><span class="o">.</span> <span class="n">No</span> <span class="s1">&#39;Access-Control-Allow-Origin&#39;</span>
 <span class="n">header</span> <span class="ow">is</span> <span class="n">present</span> <span class="n">on</span> <span class="n">the</span> <span class="n">requested</span> <span class="n">resource</span><span class="o">.</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For security reasons, OctoPrint will not set the <code class="docutils literal notranslate"><span class="pre">Access-Control-Allow-Credentials</span></code>
+header, even if CORS support is enabled. That means that cookies will not be sent by
+the browser to OctoPrint, effectively making it impossible to authenticate through
+the login mechanism (or reusing an existing login session). When accessing OctoPrint
+via CORS, you’ll therefore always need to use an API key.</p>
 </div>
 </div>
 <div class="section" id="login">
@@ -337,6 +344,12 @@ case of a username/password mismatch, unknown user or a deactivated account.</p>
 <p>Previous versions of this API endpoint did return a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> in case of a username/password
 mismatch or an unknown user. That was incompatible with basic authentication since it was a wrong use of
 the <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> code and got therefore changed as part of a bug fix.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You cannot use this endpoint to login from a third party page via CORS, see above. You can however use it
+to retrieve user information via passive login with an API key (e.g. if you need the <code class="docutils literal notranslate"><span class="pre">session</span></code> to authenticate
+on the web socket.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">JSON Parameters</dt>
