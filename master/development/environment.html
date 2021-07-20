@@ -108,6 +108,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#sec-development-environment-ides">IDE Setup</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#pycharm">PyCharm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#visual-studio-code-vscode">Visual Studio Code (vscode)</a></li>
 </ul>
 </li>
 </ul>
@@ -594,6 +595,100 @@ Otherwise go through Settings.</p>
 <a class="reference external" href="https://youtrack.jetbrains.com/issue/PY-18365">a debugger bug contained in earlier versions</a> or plugin management
 will not work in your developer install when running OctoPrint from PyCharm in debug mode.</p>
 </div>
+</div>
+<div class="section" id="visual-studio-code-vscode">
+<h3>Visual Studio Code (vscode)<a class="headerlink" href="#visual-studio-code-vscode" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul>
+<li><p>Install Visual Studio Code from <a class="reference external" href="https://code.visualstudio.com/Download">code.visualstudio.com</a></p></li>
+<li><p>Open folder select OctoPrint checkout folder (e.g. <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint</span></code> or <code class="docutils literal notranslate"><span class="pre">C:\Devel\OctoPrint</span></code>)</p></li>
+<li><p>Create a directory <code class="docutils literal notranslate"><span class="pre">.vscode</span></code> if not already present in the root of the project</p></li>
+<li><p>Create the following files inside the <code class="docutils literal notranslate"><span class="pre">.vscode</span></code> directory</p>
+<dl>
+<dt>settings.json</dt><dd><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;python.defaultInterpreterPath&quot;</span><span class="p">:</span> <span class="s2">&quot;venv3/bin/python&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;python.formatting.provider&quot;</span><span class="p">:</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;python.formatting.blackArgs&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;--config&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;black.toml&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;editor.formatOnSave&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;python.sortImports.args&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;--profile=black&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;[python]&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;editor.codeActionsOnSave&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;source.organizeImports&quot;</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;python.linting.pylintEnabled&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;python.linting.flake8Enabled&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;python.linting.enabled&quot;</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+<dt>tasks.json</dt><dd><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.0&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;tasks&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;clean build artifacts&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;python ./setup.py clean&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;build docs&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;sphinx-build -b html ./docs ./docs/_build&quot;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+<dt>launch.json</dt><dd><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.2.0&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;configurations&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+          <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;OctoPrint&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;request&quot;</span><span class="p">:</span> <span class="s2">&quot;launch&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;module&quot;</span><span class="p">:</span> <span class="s2">&quot;octoprint&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;args&quot;</span><span class="p">:</span> <span class="p">[</span>
+              <span class="s2">&quot;serve&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;--debug&quot;</span>
+          <span class="p">],</span>
+          <span class="nt">&quot;cwd&quot;</span><span class="p">:</span> <span class="s2">&quot;${workspaceFolder}/src&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;preLaunchTask&quot;</span><span class="p">:</span> <span class="s2">&quot;clean build artifacts&quot;</span>
+      <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+<p>In the terminal install the python extension by running this command:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>code --install-extension ms-python.python
+</pre></div>
+</div>
+</div></blockquote>
+<p>In vscode terminal, or with venv active install code formatter black and linter flake8 by running:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -m pip install -U black flake8 flake8-bugbear
+</pre></div>
+</div>
+</div></blockquote>
+<p>Summary of vscode config:</p>
+<ul class="simple">
+<li><p>Pressing <code class="docutils literal notranslate"><span class="pre">F5</span></code> will now start OctoPrint in debug mode</p></li>
+<li><p>Your terminal inside vscode uses the virtual python environment</p></li>
+<li><p>Saving a file will run an auto formatter and import sort</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+Shift+B</span></code> can be used to run the <code class="docutils literal notranslate"><span class="pre">build</span> <span class="pre">docs</span></code> task to rebuild the documentation</p></li>
+</ul>
+</div></blockquote>
 </div>
 </div>
 </div>
