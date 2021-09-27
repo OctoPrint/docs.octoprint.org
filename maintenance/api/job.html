@@ -169,13 +169,13 @@ actual print job.</p>
 <dd><p>Job commands allow starting, pausing and cancelling print jobs. Available commands are:</p>
 <dl>
 <dt>start</dt><dd><p>Starts the print of the currently selected file. For selecting a file, see <a class="reference internal" href="files.html#sec-api-fileops-filecommand"><span class="std std-ref">Issue a file command</span></a>.
-If a print job is already active, a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> will be returned.</p>
+If a print job is already active, a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> will be returned.</p>
 </dd>
-<dt>cancel</dt><dd><p>Cancels the current print job.  If no print job is active (either paused or printing), a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a>
+<dt>cancel</dt><dd><p>Cancels the current print job.  If no print job is active (either paused or printing), a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a>
 will be returned.</p>
 </dd>
 <dt>restart</dt><dd><p>Restart the print of the currently selected file from the beginning. There must be an active print job for this to work
-and the print job must currently be paused. If either is not the case, a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> will be returned.</p>
+and the print job must currently be paused. If either is not the case, a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> will be returned.</p>
 <p>Equivalent to issuing a <code class="docutils literal notranslate"><span class="pre">cancel</span></code> command while paused, directly followed by a <code class="docutils literal notranslate"><span class="pre">start</span></code> command.</p>
 </dd>
 <dt>pause</dt><dd><p>Pauses/resumes/toggles the current print job. Accepts one optional additional parameter <code class="docutils literal notranslate"><span class="pre">action</span></code>
@@ -190,7 +190,7 @@ specifying which action to take. Valid values for this parameter are:</p>
 </dl>
 <p>In order to stay backwards compatible to earlier iterations of this API, the default
 action to take if no <code class="docutils literal notranslate"><span class="pre">action</span></code> parameter is supplied is to toggle the print job status.</p>
-<p>If no print job is active (either paused or printing), a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> will be returned.</p>
+<p>If no print job is active (either paused or printing), a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> will be returned.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>While the approach to implement pause/resume/toggle behaviour through sub commands via the <code class="docutils literal notranslate"><span class="pre">action</span></code>
@@ -200,7 +200,7 @@ behaviour under the <code class="docutils literal notranslate"><span class="pre"
 </div>
 </dd>
 </dl>
-<p>Upon success, a status code of <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> and an empty body is returned.</p>
+<p>Upon success, a status code of <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> and an empty body is returned.</p>
 <p>Requires the <code class="docutils literal notranslate"><span class="pre">PRINT</span></code> permission.</p>
 <p><strong>Example Start Request</strong></p>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/job</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -297,8 +297,8 @@ behaviour under the <code class="docutils literal notranslate"><span class="pre"
 </dd>
 <dt class="field-even">Status Codes</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No error</p></li>
-<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – If the printer is not operational or the current print job state does not match the preconditions
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No error</p></li>
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – If the printer is not operational or the current print job state does not match the preconditions
 for the command.</p></li>
 </ul>
 </dd>
@@ -312,7 +312,7 @@ for the command.</p></li>
 <dt id="get--api-job">
 <code class="sig-name descname"><span class="pre">GET</span> </code><code class="sig-name descname"><span class="pre">/api/job</span></code><a class="headerlink" href="#get--api-job" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve information about the current job (if there is one).</p>
-<p>Returns a <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a <a class="reference internal" href="#sec-api-job-datamodel-response"><span class="std std-ref">Job information response</span></a> in the body.</p>
+<p>Returns a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a <a class="reference internal" href="#sec-api-job-datamodel-response"><span class="std std-ref">Job information response</span></a> in the body.</p>
 <p>Requires the <code class="docutils literal notranslate"><span class="pre">STATUS</span></code> permission.</p>
 <p><strong>Example</strong></p>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/job</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -352,7 +352,7 @@ for the command.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Status Codes</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – No error</p></li>
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – No error</p></li>
 </ul>
 </dd>
 </dl>
