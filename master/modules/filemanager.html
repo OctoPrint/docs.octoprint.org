@@ -362,7 +362,7 @@ At the moment, only <code class="docutils literal notranslate"><span class="pre"
 <span id="octoprint-filemanager-storage"></span><span id="sec-modules-filemanager-storage"></span><h1>octoprint.filemanager.storage<a class="headerlink" href="#module-octoprint.filemanager.storage" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="octoprint.filemanager.storage.LocalFileStorage">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.filemanager.storage.</span></code><code class="sig-name descname"><span class="pre">LocalFileStorage</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basefolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.filemanager.storage.</span></code><code class="sig-name descname"><span class="pre">LocalFileStorage</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basefolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">really_universal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage" title="Permalink to this definition">¶</a></dt>
 <dd><p>The <code class="docutils literal notranslate"><span class="pre">LocalFileStorage</span></code> is a storage implementation which holds all files, folders and metadata on disk.</p>
 <p>Metadata is managed inside <code class="docutils literal notranslate"><span class="pre">.metadata.json</span></code> files in the respective folders, indexed by the sanitized filenames
 stored within the folder. Metadata access is managed through an LRU cache to minimize access overhead.</p>
@@ -813,8 +813,8 @@ include a trailing slash for a string <code class="docutils literal notranslate"
 <dt id="octoprint.filemanager.storage.LocalFileStorage.sanitize_name">
 <code class="sig-name descname"><span class="pre">sanitize_name</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.sanitize_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raises a <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></a> for a <code class="docutils literal notranslate"><span class="pre">name</span></code> containing <code class="docutils literal notranslate"><span class="pre">/</span></code> or <code class="docutils literal notranslate"><span class="pre">\</span></code>. Otherwise
-slugifies the given <code class="docutils literal notranslate"><span class="pre">name</span></code> by converting it to ASCII, leaving <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">_</span></code>, <code class="docutils literal notranslate"><span class="pre">.</span></code>,
-<code class="docutils literal notranslate"><span class="pre">(</span></code>, and <code class="docutils literal notranslate"><span class="pre">)</span></code> as is.</p>
+sanitizes the given <code class="docutils literal notranslate"><span class="pre">name</span></code> using <code class="docutils literal notranslate"><span class="pre">octoprint.files.sanitize_filename</span></code>. Also
+strips any leading <code class="docutils literal notranslate"><span class="pre">.</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1507,7 +1507,7 @@ This method may need to do a test seek().</p>
 their contents in the order they are provided to the constructor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>*streams</strong> – One or more <a href="#id1"><span class="problematic" id="id2">:py:`io.IOBase`</span></a> streams to concatenate.</p>
+<dd class="field-odd"><p><strong>*streams</strong> – One or more <a class="reference external" href="https://docs.python.org/2/library/io.html#io.IOBase" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.IOBase</span></code></a> streams to concatenate.</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -1547,7 +1547,7 @@ This method may need to do a test seek().</p>
 <dd><p>A wrapper allowing processing of one or more consecutive streams.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>*streams</strong> – One or more <a href="#id3"><span class="problematic" id="id4">:py:`io.IOBase`</span></a> streams to process one after another to save to storage.</p>
+<dd class="field-odd"><p><strong>*streams</strong> – One or more <a class="reference external" href="https://docs.python.org/2/library/io.html#io.IOBase" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.IOBase</span></code></a> streams to process one after another to save to storage.</p>
 </dd>
 </dl>
 <dl class="py method">
