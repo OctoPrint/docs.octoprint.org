@@ -368,6 +368,25 @@ message, if False (default) it will be replaced with the deprecation message.</p
 </dd></dl>
 
 <dl class="py function">
+<dt id="octoprint.util.deserialize">
+<code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">deserialize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.deserialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deserializes data from a file</p>
+<p>In the current implementation this uses json.loads and - if the file is found to be
+compressed - zlib.decompress.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The file to deserialize from</p></li>
+<li><p><strong>encoding</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The encoding to use for the file, defaults to utf-8</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The deserialized data structure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="octoprint.util.dict_clean">
 <code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">dict_clean</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.dict_clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recursively deep-sanitizes <code class="docutils literal notranslate"><span class="pre">a</span></code> based on <code class="docutils literal notranslate"><span class="pre">b</span></code>, removing all keys (and
@@ -848,6 +867,27 @@ message, if False (default) it will be replaced with the deprecation message.</p
 <span class="go">&quot;[dict(a=1, b=2), {&#39;a&#39;, &#39;b&#39;, &#39;c&#39;}, (1, 2), None, 1, True, &#39;foo&#39;]&quot;</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.util.serialize">
+<code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">serialize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compressed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.serialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serializes data to a file</p>
+<p>In the current implementation this uses json.dumps and - if compressed is True (the
+default) - zlib.compress. Only data that can be serialized by json.dumps in the stock
+configuration is supported.</p>
+<p>This is not thread-safe, if concurrent access is required, the caller needs to ensure
+that only one thread is writing to the file at any given time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The file to write to</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><em>object</em></a>) – The data to serialize</p></li>
+<li><p><strong>encoding</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The encoding to use for the file</p></li>
+<li><p><strong>compressed</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Whether to compress the data before writing it to the file</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
