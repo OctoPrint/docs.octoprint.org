@@ -142,7 +142,7 @@ below.</p>
 <div><ul>
 <li><p>Prerequisites:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://python.org">Python 3.8</a> including <code class="docutils literal notranslate"><span class="pre">pip</span></code>, <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> and <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code></p></li>
+<li><p><a class="reference external" href="https://python.org">Latest stable Python 3</a> including <code class="docutils literal notranslate"><span class="pre">pip</span></code>, <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> and <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code></p></li>
 <li><p><a class="reference external" href="https://git-scm.com">Git</a></p></li>
 </ul>
 </li>
@@ -156,14 +156,11 @@ below.</p>
 <li><p>Enter the checked out source folder: <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">OctoPrint</span></code></p></li>
 <li><p>Create a virtual environment in the checked out source folder to use for
 installing and running OctoPrint and its dependencies. Creating virtual environments avoids potential versioning
-issues for the dependencies with system wide installed instances:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">virtualenv</span> <span class="pre">--python=python3</span> <span class="pre">venv</span></code></p></li>
-</ul>
+issues for the dependencies with system wide installed instances: <code class="docutils literal notranslate"><span class="pre">virtualenv</span> <span class="pre">--python=python3</span> <span class="pre">venv</span></code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This assumes that <cite>python3</cite> is a binary available directly on your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. If your Python 3
-binary cannot be found on your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> like this you’ll need to specify the full path to it here,
+<p>This assumes that the <code class="docutils literal notranslate"><span class="pre">python3</span></code> binary is available directly on your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. If
+it cannot be found on your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> like this you’ll need to specify the full path here,
 e.g. <code class="docutils literal notranslate"><span class="pre">virtualenv</span> <span class="pre">--python=/path/to/python3/bin/python</span> <span class="pre">venv</span></code></p>
 </div>
 </li>
@@ -215,7 +212,7 @@ directory. You can simply browse it locally by opening <code class="docutils lit
 <span id="sec-development-environment-source-linux"></span><h3>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
 <p>This assumes you’ll host your OctoPrint development checkout at <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint</span></code>. If you want to use a different
 location, please substitute accordingly.</p>
-<p>First make sure you have python 2 and 3 including their header files, pip, setuptools, virtualenv, git and some build requirements
+<p>First make sure you have python 3 including its header files, pip, setuptools, virtualenv, git and some build requirements
 installed:</p>
 <blockquote>
 <div><ul>
@@ -244,7 +241,6 @@ pre-commit install
 git config blame.ignoreRevsFile .git-blame-ignore-revs
 </pre></div>
 </div>
-<p>You can then start OctoPrint via <code class="docutils literal notranslate"><span class="pre">octoprint</span></code> after activating one of the two virtual environments.</p>
 </div>
 <div class="section" id="windows">
 <span id="sec-development-environment-windows"></span><h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
@@ -275,9 +271,9 @@ different install locations please substitute accordingly</p></li>
 cd /c/Devel
 git clone https://github.com/OctoPrint/OctoPrint.git
 cd OctoPrint
-virtualenv --python=C:/Python3/python.exe venv3
+virtualenv --python=C:/Python3/python.exe venv
 source ./venv/Scripts/activate
-python -m pip install --upgrade pip
+pip install --upgrade pip
 python -m pip install -e &#39;.[develop,plugins,docs]&#39;
 pre-commit install
 git config blame.ignoreRevsFile .git-blame-ignore-revs
@@ -315,12 +311,6 @@ easily start Git Bash from the terminal:</p>
 <p>This guide is based on the <a class="reference external" href="https://community.octoprint.org/t/setting-up-octoprint-on-macos/13425">Setup Guide for Mac OS X on OctoPrint’s Community Forum</a>.
 Please report back if it works for you, due to lack of access to a Mac I cannot test it myself. Thanks.</p>
 </div>
-<div class="admonition-todo admonition" id="id3">
-<p class="admonition-title">Todo</p>
-<p>This guide is not yet adapted to the concurrent use of Python 2 and 3 environments during development. Please send a
-<a class="reference external" href="https://github.com/OctoPrint/OctoPrint/blob/master/CONTRIBUTING.md#pull-requests">Pull Request</a> to get the necessary
-steps into this guide!</p>
-</div>
 <p>This assumes you’ll host your OctoPrint development checkout at <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint</span></code>. If you want to use a different
 location, please substitute accordingly.</p>
 <p>You’ll need a user account with administrator privileges.</p>
@@ -334,7 +324,7 @@ location, please substitute accordingly.</p>
 <li><p>If you have more than one Xcode installed: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">xcode-select</span> <span class="pre">-s</span> <span class="pre">/Applications/Xcode.app/Contents/Developer</span></code></p></li>
 </ul>
 </li>
-<li><p>Install Homebrew and use that to install Python:</p>
+<li><p>Install Homebrew and use that to install Python 3:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ruby</span> <span class="pre">-e</span> <span class="pre">&quot;$(curl</span> <span class="pre">-fsSL</span> <span class="pre">https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">python</span></code></p></li>
@@ -369,7 +359,7 @@ git config blame.ignoreRevsFile .git-blame-ignore-revs
 </div>
 <div class="section" id="sec-development-environment-ides">
 <span id="ide-setup"></span><h2>IDE Setup<a class="headerlink" href="#sec-development-environment-ides" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="id5">
+<div class="admonition-todo admonition" id="id3">
 <p class="admonition-title">Todo</p>
 <p>Using another IDE than the ones below? Please send a
 <a class="reference external" href="https://github.com/OctoPrint/OctoPrint/blob/master/CONTRIBUTING.md#pull-requests">Pull Request</a> to get the necessary
@@ -387,7 +377,7 @@ select OctoPrint <code class="docutils literal notranslate"><span class="pre">ve
 <li><p><strong>(macOS)</strong> “PyCharm” &gt; “Preferences …” &gt; “Project: OctoPrint” &gt; “Project Interpreter” &gt; “Add …” &gt;
 “Virtualenv Environment &gt; “Existing Environment”, select OctoPrint <code class="docutils literal notranslate"><span class="pre">venv</span></code> folder (e.g. <code class="docutils literal notranslate"><span class="pre">~/devel/OctoPrint/venv</span></code>).</p></li>
 </ul>
-<p>If desired, repeat for any other additional Python venvs (e.g. different versions).</p>
+<p>If desired, repeat for any other additional Python venvs (e.g. for separate Python 3 versions).</p>
 </li>
 <li><p>Right click “src” in project tree, mark as source folder</p></li>
 <li><p>Add Run/Debug Configuration, select “Python”:</p>
@@ -449,7 +439,7 @@ described above via <code class="docutils literal notranslate"><span class="pre"
 <li><p>Name: pre-commit</p></li>
 <li><p>File type: Python</p></li>
 <li><p>Scope: Module ‘OctoPrint’</p></li>
-<li><p>Program: <code class="docutils literal notranslate"><span class="pre">$PyInterpreterDirectory$/bin/pre-commit</span></code> (Linux) or <code class="docutils literal notranslate"><span class="pre">$PyInterpreterDirectory$/Scripts/pre-commit</span></code> (Windows)</p></li>
+<li><p>Program: <code class="docutils literal notranslate"><span class="pre">&lt;OctoPrint</span> <span class="pre">venv</span> <span class="pre">folder&gt;/bin/pre-commit</span></code> (Linux) or <code class="docutils literal notranslate"><span class="pre">&lt;OctoPrint</span> <span class="pre">venv</span> <span class="pre">folder&gt;/Scripts/pre-commit</span></code> (Windows)</p></li>
 <li><p>Arguments: <code class="docutils literal notranslate"><span class="pre">run</span> <span class="pre">--hook-stage</span> <span class="pre">manual</span> <span class="pre">--files</span> <span class="pre">$FilePath$</span></code></p></li>
 <li><p>Output paths to refresh: <code class="docutils literal notranslate"><span class="pre">$FilePath$</span></code></p></li>
 <li><p>Working directory: <code class="docutils literal notranslate"><span class="pre">$ProjectFileDir$</span></code></p></li>
@@ -479,7 +469,7 @@ will not work in your developer install when running OctoPrint from PyCharm in d
 <li><p>Create the following files inside the <code class="docutils literal notranslate"><span class="pre">.vscode</span></code> directory</p>
 <dl>
 <dt>settings.json</dt><dd><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;python.defaultInterpreterPath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;venv3/bin/python&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;python.defaultInterpreterPath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;venv/bin/python&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;python.formatting.provider&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;black&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;python.formatting.blackArgs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="s2">&quot;--config&quot;</span><span class="p">,</span><span class="w"></span>

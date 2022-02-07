@@ -198,10 +198,19 @@ response body.</p>
 <div class="section" id="delete-a-timelapse">
 <span id="sec-api-timelapse-delete"></span><h2><a class="toc-backref" href="#id3">Delete a timelapse</a><a class="headerlink" href="#delete-a-timelapse" title="Permalink to this headline">¶</a></h2>
 <dl class="http delete">
-<dt id="delete--api-timelapse-(string-filename)">
-<code class="sig-name descname"><span class="pre">DELETE</span> </code><code class="sig-name descname"><span class="pre">/api/timelapse/</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">string:</span> </em><em class="sig-param"><span class="pre">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#delete--api-timelapse-(string-filename)" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete the timelapse <code class="docutils literal notranslate"><span class="pre">filename</span></code>.</p>
+<dt id="delete--api-timelapse-(string-name)">
+<code class="sig-name descname"><span class="pre">DELETE</span> </code><code class="sig-name descname"><span class="pre">/api/timelapse/</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">string:</span> </em><em class="sig-param"><span class="pre">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#delete--api-timelapse-(string-name)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the timelapse <code class="docutils literal notranslate"><span class="pre">name</span></code>.</p>
+<p>Returns a <a class="reference internal" href="#sec-api-timelapse-datamodel-list"><span class="std std-ref">timelapse list</span></a> in the
+response body with the updated information.</p>
 <p>Requires the <code class="docutils literal notranslate"><span class="pre">TIMELAPSE_DELETE</span></code> permission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>unrendered</strong> – If provided and true, also include unrendered timelapses in the response</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -229,7 +238,16 @@ response body.</p>
 <dt id="delete--api-timelapse-unrendered-(string-name)">
 <code class="sig-name descname"><span class="pre">DELETE</span> </code><code class="sig-name descname"><span class="pre">/api/timelapse/unrendered/</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">string:</span> </em><em class="sig-param"><span class="pre">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#delete--api-timelapse-unrendered-(string-name)" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete the unrendered timelapse <code class="docutils literal notranslate"><span class="pre">name</span></code>.</p>
+<p>Returns a <a class="reference internal" href="#sec-api-timelapse-datamodel-list"><span class="std std-ref">timelapse list</span></a> in the
+response body.</p>
 <p>Requires the <code class="docutils literal notranslate"><span class="pre">TIMELAPSE_DELETE</span></code> permission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>unrendered</strong> – If provided and true, also include unrendered timelapses in the response</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -238,9 +256,19 @@ response body.</p>
 <dl class="http post">
 <dt id="post--api-timelapse">
 <code class="sig-name descname"><span class="pre">POST</span> </code><code class="sig-name descname"><span class="pre">/api/timelapse</span></code><a class="headerlink" href="#post--api-timelapse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save a new <a class="reference internal" href="#sec-api-timelapse-datamodel-config"><span class="std std-ref">timelapse configuration</span></a> to use for the next print.</p>
+<dd><p>Save a new <a class="reference internal" href="#sec-api-timelapse-datamodel-config"><span class="std std-ref">timelapse configuration</span></a> to use for the next print. Set the optional <code class="docutils literal notranslate"><span class="pre">save</span></code> flag in the
+configuration to <code class="docutils literal notranslate"><span class="pre">true</span></code> in order to make the new configuration persist accross restarts.</p>
 <p>The configuration is expected as the request body.</p>
+<p>Returns a <a class="reference internal" href="#sec-api-timelapse-datamodel-list"><span class="std std-ref">timelapse list</span></a> in the
+response body.</p>
 <p>Requires the <code class="docutils literal notranslate"><span class="pre">TIMELAPSE_ADMIN</span></code> permission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>unrendered</strong> – If provided and true, also include unrendered timelapses in the response</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -323,6 +351,11 @@ response body.</p>
 <td><p>string</p></td>
 <td><p>URL for downloading the timelapse</p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">thumbnail</span></code></p></td>
+<td><p>1</p></td>
+<td><p>string</p></td>
+<td><p>URL for downloading a thumbnail of the timelapse (optional)</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -402,6 +435,11 @@ response body.</p>
 <td><p>1</p></td>
 <td><p>string</p></td>
 <td><p>Type of the timelapse, either <code class="docutils literal notranslate"><span class="pre">off</span></code>, <code class="docutils literal notranslate"><span class="pre">zchange</span></code> or <code class="docutils literal notranslate"><span class="pre">timed</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">save</span></code></p></td>
+<td><p>1</p></td>
+<td><p>bool</p></td>
+<td><p>Optional flag to be included when when saving a configuration to make the configuration persist accross restarts</p></td>
 </tr>
 </tbody>
 </table>

@@ -169,9 +169,11 @@ provided.</p>
 </dl>
 <dl id="sec-plugins-controlproperties-plugin-pythoncompat">
 <dt><code class="docutils literal notranslate"><span class="pre">__plugin_pythoncompat__</span></code></dt><dd><p>Python compatibility string of your plugin, optional, defaults to <code class="docutils literal notranslate"><span class="pre">&gt;=2.7,&lt;3</span></code> if not set and thus Python 2 but no
-Python 3 compatibility.</p>
-<p>If your plugin is compatible to Python 3, you should set this to <code class="docutils literal notranslate"><span class="pre">&gt;=2.7,&lt;4</span></code>, otherwise your plugin will not load
-on OctoPrint instances installed under Python 3.</p>
+Python 3 compatibility. This is used as a precaution against issues with some of the Python 2 only plugins
+that are still out there, as OctoPrint will not even attempt to load plugins whose Python compatibility
+information doesn’t match its current environment.</p>
+<p>If your plugin is compatible to Python 3 only, you should set this to <code class="docutils literal notranslate"><span class="pre">&gt;=3.7,&lt;4</span></code>.</p>
+<p>If your plugin is compatible to Python 2 and Python 3, you should set this to <code class="docutils literal notranslate"><span class="pre">&gt;=2.7,&lt;4</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
 </pre></div>
 </div>

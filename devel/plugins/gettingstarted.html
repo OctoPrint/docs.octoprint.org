@@ -193,16 +193,10 @@ web interface.</p>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
-
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
 <span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
 <span class="n">__plugin_description__</span> <span class="o">=</span> <span class="s2">&quot;A quick </span><span class="se">\&quot;</span><span class="s2">Hello World</span><span class="se">\&quot;</span><span class="s2"> example plugin for OctoPrint&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 </pre></div>
 </td></tr></table></div>
 <p>Saving this as <code class="docutils literal notranslate"><span class="pre">helloworld.py</span></code> in <code class="docutils literal notranslate"><span class="pre">~/.octoprint/plugins</span></code> yields you something resembling these log entries upon server startup:</p>
@@ -221,8 +215,9 @@ web interface.</p>
 entry it got from the <code class="docutils literal notranslate"><span class="pre">__plugin_name__</span></code> and <code class="docutils literal notranslate"><span class="pre">__plugin_version__</span></code> lines. It also read the description from
 <code class="docutils literal notranslate"><span class="pre">__plugin_description__</span></code> and stored it in an internal data structure, but we’ll just ignore this for now. Additionally
 there is <code class="docutils literal notranslate"><span class="pre">__plugin_pythoncompat__</span></code> which tells OctoPrint here that your plugin can be run under any Python versions
-between 2.7 and 4. That is necessary so that your plugin will be loadable in OctoPrint instances running under either
-Python 2 or Python 3, and compatibility to both should be your goal.</p>
+between 3.7 and 4. That is necessary so that your plugin will be loadable in OctoPrint instances running under Python 3
+but not Python 2 (so you can use modern language features), and going forward you really should no longer have to care about
+the end-of-life Python 2.</p>
 <div class="section" id="saying-hello-how-to-make-the-plugin-actually-do-something">
 <span id="sec-plugins-gettingstarted-sayinghello"></span><h2><a class="toc-backref" href="#id7">Saying hello: How to make the plugin actually do something</a><a class="headerlink" href="#saying-hello-how-to-make-the-plugin-actually-do-something" title="Permalink to this headline">¶</a></h2>
 <p>Apart from being discovered by OctoPrint, our plugin does nothing yet. We want to change that. Let’s make it print
@@ -237,24 +232,18 @@ Python 2 or Python 3, and compatibility to both should be your goal.</p>
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
-<span class="hll"><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
-</span><span class="hll">
-</span><span class="hll"><span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
-</span><span class="hll">    <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
+<span class="hll">    <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
-</span>
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-<span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
-<span class="n">__plugin_description__</span> <span class="o">=</span> <span class="s2">&quot;A quick </span><span class="se">\&quot;</span><span class="s2">Hello World</span><span class="se">\&quot;</span><span class="s2"> example plugin for OctoPrint&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
-<span class="hll"><span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
-</span></pre></div>
+</span><span class="hll">
+</span><span class="hll"><span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
+</span><span class="hll"><span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
+</span><span class="n">__plugin_description__</span> <span class="o">=</span> <span class="s2">&quot;A quick </span><span class="se">\&quot;</span><span class="s2">Hello World</span><span class="se">\&quot;</span><span class="s2"> example plugin for OctoPrint&quot;</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
+<span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
+</pre></div>
 </td></tr></table></div>
 <p>and restart OctoPrint. You now get this output in the log:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>2015-01-27 11:17:10,792 - octoprint.plugins.helloworld - INFO - Hello World!
@@ -433,26 +422,20 @@ of information now defined twice:</p>
 <p>The nice thing about our plugin now being a proper Python package is that OctoPrint can and will access the metadata defined
 within <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>! So, we don’t really need to define all this data twice. Remove <code class="docutils literal notranslate"><span class="pre">__plugin_name__</span></code>, <code class="docutils literal notranslate"><span class="pre">__plugin_version__</span></code>
 and <code class="docutils literal notranslate"><span class="pre">__plugin_description__</span></code> from <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>, but leave <code class="docutils literal notranslate"><span class="pre">__plugin_implementation__</span></code> and <code class="docutils literal notranslate"><span class="pre">__plugin_pythoncompat__</span></code>:</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
-
-<span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
 
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
@@ -465,28 +448,22 @@ and <code class="docutils literal notranslate"><span class="pre">__plugin_descri
 </div>
 <p>Our “Hello World” Plugin still gets detected fine, but it’s now listed under the same name it’s installed under,
 “OctoPrint-HelloWorld”. That’s a bit redundant and squashed, so we’ll override that bit via <code class="docutils literal notranslate"><span class="pre">__plugin_name__</span></code> again:</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
-
-<span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
 
 <span class="hll"><span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-</span><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+</span><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
@@ -524,13 +501,7 @@ add the <code class="xref py py-class docutils literal notranslate"><span class=
 <span class="normal"> 7</span>
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
-
-<span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
 <span class="hll">                       <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">):</span>
@@ -538,7 +509,7 @@ add the <code class="xref py py-class docutils literal notranslate"><span class=
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
 
 <span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
@@ -591,13 +562,7 @@ mixin.</p>
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
-
-<span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
@@ -609,7 +574,7 @@ mixin.</p>
 </span><span class="hll">        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://en.wikipedia.org/wiki/Hello_world&quot;</span><span class="p">)</span>
 </span>
 <span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
@@ -640,13 +605,7 @@ to add our URL as a template variable.</p>
 <span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
-
-<span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
@@ -661,7 +620,7 @@ to add our URL as a template variable.</p>
 </span><span class="hll">        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;url&quot;</span><span class="p">]))</span>
 </span>
 <span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
@@ -755,13 +714,7 @@ again since we don’t use that anymore:</p>
 <span class="normal">17</span>
 <span class="normal">18</span>
 <span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
-
-<span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
@@ -779,7 +732,7 @@ again since we don’t use that anymore:</p>
 </span><span class="hll">    <span class="p">]</span>
 </span>
 <span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
@@ -872,13 +825,7 @@ like so:</p>
 <span class="normal">23</span>
 <span class="normal">24</span>
 <span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
-
-<span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
@@ -902,7 +849,7 @@ like so:</p>
 </span><span class="hll">     <span class="p">)</span>
 </span>
 <span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
@@ -1112,13 +1059,7 @@ a reference to our CSS file:</p>
 <span class="normal">25</span>
 <span class="normal">26</span>
 <span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
-
-<span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
@@ -1144,7 +1085,7 @@ a reference to our CSS file:</p>
 </span>     <span class="p">)</span>
 
 <span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
@@ -1220,13 +1161,7 @@ in the process. The folder structure of our plugin should now look like this:</p
 <span class="normal">26</span>
 <span class="normal">27</span>
 <span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
-
-<span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
                       <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
@@ -1253,7 +1188,7 @@ in the process. The folder structure of our plugin should now look like this:</p
 </span>    <span class="p">)</span>
 
 <span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>

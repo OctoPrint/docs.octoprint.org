@@ -550,7 +550,9 @@ true
 <span class="w">      </span><span class="p">}</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="w">  </span><span class="p">},</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&quot;done&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;done&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;effectiveSelect&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;effectivePrint&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
@@ -588,7 +590,9 @@ G90
 <span class="w">      </span><span class="p">}</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="w">  </span><span class="p">},</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&quot;done&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;done&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;effectiveSelect&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;effectivePrint&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
@@ -639,9 +643,12 @@ the printer’s SD card. If an upload targets the SD card, it will also be store
 filename or <code class="docutils literal notranslate"><span class="pre">foldername</span></code> - basically the parent folder). If unset will be taken from the provided
 <code class="docutils literal notranslate"><span class="pre">file</span></code>’s name or <code class="docutils literal notranslate"><span class="pre">foldername</span></code> and default to the root folder of the <code class="docutils literal notranslate"><span class="pre">location</span></code>.</p></li>
 <li><p><strong>select</strong> – Whether to select the file directly after upload (<code class="docutils literal notranslate"><span class="pre">true</span></code>) or not (<code class="docutils literal notranslate"><span class="pre">false</span></code>). Optional, defaults
-to <code class="docutils literal notranslate"><span class="pre">false</span></code>. Ignored when creating a folder.</p></li>
+to <code class="docutils literal notranslate"><span class="pre">false</span></code>. If the printer is not operational, this will have no
+effect and the <code class="docutils literal notranslate"><span class="pre">effectiveSelect</span></code> field in the response will be set to <code class="docutils literal notranslate"><span class="pre">false</span></code>. Ignored when creating a folder.</p></li>
 <li><p><strong>print</strong> – Whether to start printing the file directly after upload (<code class="docutils literal notranslate"><span class="pre">true</span></code>) or not (<code class="docutils literal notranslate"><span class="pre">false</span></code>). If set, <code class="docutils literal notranslate"><span class="pre">select</span></code>
-is implicitly <code class="docutils literal notranslate"><span class="pre">true</span></code> as well. Optional, defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>. Ignored when creating a folder.</p></li>
+is implicitly <code class="docutils literal notranslate"><span class="pre">true</span></code> as well. Optional, defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>. If the
+printer is not operational, this will have no effect and the <code class="docutils literal notranslate"><span class="pre">effectivePrint</span></code> field in the response will be set
+to <code class="docutils literal notranslate"><span class="pre">false</span></code>. Ignored when creating a folder.</p></li>
 <li><p><strong>userdata</strong> – [Optional] An optional string that if specified will be interpreted as JSON and then saved along
 with the file as metadata (metadata key <code class="docutils literal notranslate"><span class="pre">userdata</span></code>). Ignored when creating a folder.</p></li>
 <li><p><strong>foldername</strong> – The name of the folder to create. Ignored when uploading a file.</p></li>
@@ -1035,9 +1042,8 @@ returned if file list was requested for origin <code class="docutils literal not
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">files</span></code></p></td>
 <td><p>0..1</p></td>
 <td><p>Object</p></td>
-<td><p>Abridged information regarding the file that was just uploaded. If only uploaded to <code class="docutils literal notranslate"><span class="pre">local</span></code> this will only
-contain the <code class="docutils literal notranslate"><span class="pre">local</span></code> property. If uploaded to SD card, this will contain both <code class="docutils literal notranslate"><span class="pre">local</span></code> and <code class="docutils literal notranslate"><span class="pre">sdcard</span></code> properties.
-Only contained if a file was uploaded, not present if only a new folder was created.</p></td>
+<td><p>(File only) Abridged information regarding the file that was just uploaded. If only uploaded to <code class="docutils literal notranslate"><span class="pre">local</span></code> this will only
+contain the <code class="docutils literal notranslate"><span class="pre">local</span></code> property. If uploaded to SD card, this will contain both <code class="docutils literal notranslate"><span class="pre">local</span></code> and <code class="docutils literal notranslate"><span class="pre">sdcard</span></code> properties.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">files.local</span></code></p></td>
 <td><p>1</p></td>
@@ -1052,15 +1058,28 @@ Only contained if a file was uploaded, not present if only a new folder was crea
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">folder</span></code></p></td>
 <td><p>0..1</p></td>
 <td><p><a class="reference internal" href="datamodel.html#sec-api-datamodel-files-fileabridged"><span class="std std-ref">Abridged file or folder information</span></a></p></td>
-<td><p>Abridged information regarding the folder that was just created. Only contained if a folder
-was created, not present if a file was uploaded.</p></td>
+<td><p>(Folder only) Abridged information regarding the folder that was just created.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">done</span></code></p></td>
 <td><p>1</p></td>
 <td><p>Boolean</p></td>
 <td><p>Whether any file processing after upload has already finished (<code class="docutils literal notranslate"><span class="pre">true</span></code>) or not, e.g. due to first needing
 to perform a slicing step (<code class="docutils literal notranslate"><span class="pre">false</span></code>). Clients may use this information to direct progress displays related to
-the upload.</p></td>
+the upload. Always <code class="docutils literal notranslate"><span class="pre">true</span></code> for folders.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">effectiveSelect</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p>Boolean</p></td>
+<td><p>(File only) Whether the file that was just uploaded was selected for printing (<code class="docutils literal notranslate"><span class="pre">true</span></code>) or not (<code class="docutils literal notranslate"><span class="pre">false</span></code>). If this
+is <code class="docutils literal notranslate"><span class="pre">false</span></code> but was requested to be <code class="docutils literal notranslate"><span class="pre">true</span></code> in the upload request, the user lacked permissions, the printer was not
+operational or already printing and thus the request could not be fulfilled.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">effectivePrint</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p>Boolean</p></td>
+<td><p>(File only) Whether the file that was just uploaded was started to print (<code class="docutils literal notranslate"><span class="pre">true</span></code>) or not (<code class="docutils literal notranslate"><span class="pre">false</span></code>). If this
+is <code class="docutils literal notranslate"><span class="pre">false</span></code> but was requested to be <code class="docutils literal notranslate"><span class="pre">true</span></code> in the upload request, the user lacked permissions, the printer was not
+operational or already printing and thus the request could not be fulfilled.</p></td>
 </tr>
 </tbody>
 </table>
