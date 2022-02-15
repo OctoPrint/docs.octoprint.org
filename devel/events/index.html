@@ -451,6 +451,31 @@ path and then <code class="docutils literal notranslate"><span class="pre">FileA
 <p><span class="versionmodified added">New in version 1.3.3.</span></p>
 </div>
 </dd>
+<dt>FileMoved</dt><dd><blockquote>
+<div><p>A file has been moved from one location to an other location.</p>
+<dl class="simple">
+<dt>Payload:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">storage</span></code>: the storage’s identifier</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">source_path</span></code>: the source file’s path within its storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">source_name</span></code>: the source file’s name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">source_type</span></code>: the source file’s type, a list of the path within the type hierarchy, e.g. <code class="docutils literal notranslate"><span class="pre">[&quot;machinecode&quot;,</span> <span class="pre">&quot;gcode&quot;]</span></code> or
+<code class="docutils literal notranslate"><span class="pre">[&quot;model&quot;,</span> <span class="pre">&quot;stl&quot;]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">destination_path</span></code>: the source file’s path within its storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">destination_name</span></code>: the source file’s name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">destination_type</span></code>: the source file’s type, a list of the path within the type hierarchy, e.g. <code class="docutils literal notranslate"><span class="pre">[&quot;machinecode&quot;,</span> <span class="pre">&quot;gcode&quot;]</span></code> or
+<code class="docutils literal notranslate"><span class="pre">[&quot;model&quot;,</span> <span class="pre">&quot;stl&quot;]</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A moved file still triggers first a <code class="docutils literal notranslate"><span class="pre">FileRemoved</span></code> for its original path and then <code class="docutils literal notranslate"><span class="pre">FileAdded</span></code> event for the new one. After that a <code class="docutils literal notranslate"><span class="pre">`UpdatedFiles`</span></code> event is also fired.</p>
+</div>
+</div></blockquote>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.8.0.</span></p>
+</div>
+</dd>
 <dt>FolderAdded</dt><dd><blockquote>
 <div><p>A folder has been added to a storage.</p>
 <dl class="simple">
@@ -488,6 +513,27 @@ path and then <code class="docutils literal notranslate"><span class="pre">Folde
 </div></blockquote>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 1.3.3.</span></p>
+</div>
+</dd>
+<dt>FolderMoved</dt><dd><blockquote>
+<div><p>A folder has been moved from one location to an other location.</p>
+<dl class="simple">
+<dt>Payload:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">storage</span></code>: the storage’s identifier</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">source_path</span></code>: the source folder’s path within its storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">source_name</span></code>: the source folder’s name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">destination_path</span></code>: the source folder’s path within its storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">destination_name</span></code>: the source folder’s name</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A moved folder still triggers first a <code class="docutils literal notranslate"><span class="pre">FolderRemoved</span></code> for its original path and then <code class="docutils literal notranslate"><span class="pre">FolderAdded</span></code> event for the new one. After that a <code class="docutils literal notranslate"><span class="pre">`UpdatedFiles`</span></code> event is also fired.</p>
+</div>
+</div></blockquote>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.8.0.</span></p>
 </div>
 </dd>
 <dt>UpdatedFiles</dt><dd><p>A file list was modified.</p>

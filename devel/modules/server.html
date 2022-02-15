@@ -464,10 +464,9 @@ serialized, they are handled before this method.</p>
 <dd><dl class="py method">
 <dt id="octoprint.server.util.flask.OctoPrintSessionInterface.save_session">
 <code class="sig-name descname"><span class="pre">save_session</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintSessionInterface.save_session" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is called for actual sessions returned by <code class="xref py py-meth docutils literal notranslate"><span class="pre">open_session()</span></code>
-at the end of the request.  This is still called during a request
-context so if you absolutely need access to the request you can do
-that.</p>
+<dd><p>This is called at the end of each request, after generating
+a response, before removing the request context. It is skipped
+if <code class="xref py py-meth docutils literal notranslate"><span class="pre">is_null_session()</span></code> returns <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -542,6 +541,30 @@ joining here.</p>
 <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.server.util.flask.check_lastmodified">
+<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">check_lastmodified</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lastmodified</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><span class="pre">datetime.datetime</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a><a class="headerlink" href="#octoprint.server.util.flask.check_lastmodified" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compares the provided lastmodified value with the value of the If-Modified-Since header.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">lastmodified</span></code> is an int or float, it’s assumed to be a Unix timestamp and converted
+to a timezone aware datetime instance in UTC.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">lastmodified</span></code> is a datetime instance, it needs to be timezone aware or the
+result will always be <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>lastmodified</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>datetime</em><em>]</em>) – The last modified value to compare against</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.10)"><strong>ValueError</strong></a> – If anything but an int, float or datetime instance is passed</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>true if the values indicate that the document is still up to date</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">

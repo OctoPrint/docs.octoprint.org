@@ -584,14 +584,16 @@ can be accessed as <code class="docutils literal notranslate"><span class="pre">
 suffice.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">dangerous</span></code>: Whether this permission should be considered dangerous (<code class="docutils literal notranslate"><span class="pre">True</span></code>) or not (<code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">default_groups</span></code>: A list of standard groups this permission should be apply to by default. Standard groups
-are <code class="docutils literal notranslate"><span class="pre">admins</span></code>, <code class="docutils literal notranslate"><span class="pre">users</span></code>, <code class="docutils literal notranslate"><span class="pre">readonly</span></code> and <code class="docutils literal notranslate"><span class="pre">guests</span></code></p></li>
+are <code class="docutils literal notranslate"><span class="pre">octoprint.access.ADMIN_GROUP</span></code>, <code class="docutils literal notranslate"><span class="pre">octoprint.access.USER_GROUP</span></code>, <code class="docutils literal notranslate"><span class="pre">octoprint.access.READONLY_GROUP</span></code> and <code class="docutils literal notranslate"><span class="pre">octoprint.access.GUEST_GROUP</span></code></p></li>
 </ul>
 </div></blockquote>
 <p>The following example is based on some actual code included in the bundled Application Keys plugin and defines
 one additional permission called <code class="docutils literal notranslate"><span class="pre">ADMIN</span></code> with a role <code class="docutils literal notranslate"><span class="pre">admin</span></code> which is marked as dangerous (since it gives
 access to the management to other user’s application keys) and by default will only be given to the standard admin
 group:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_additional_permissions</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">octoprint.access</span> <span class="kn">import</span> <span class="n">ADMIN_GROUP</span>
+
+<span class="k">def</span> <span class="nf">get_additional_permissions</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">[</span>
         <span class="nb">dict</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;ADMIN&quot;</span><span class="p">,</span>
              <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Admin access&quot;</span><span class="p">,</span>
