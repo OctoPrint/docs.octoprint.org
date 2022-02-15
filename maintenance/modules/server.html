@@ -464,10 +464,9 @@ serialized, they are handled before this method.</p>
 <dd><dl class="py method">
 <dt id="octoprint.server.util.flask.OctoPrintSessionInterface.save_session">
 <code class="sig-name descname"><span class="pre">save_session</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintSessionInterface.save_session" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is called for actual sessions returned by <code class="xref py py-meth docutils literal notranslate"><span class="pre">open_session()</span></code>
-at the end of the request.  This is still called during a request
-context so if you absolutely need access to the request you can do
-that.</p>
+<dd><p>This is called at the end of each request, after generating
+a response, before removing the request context. It is skipped
+if <code class="xref py py-meth docutils literal notranslate"><span class="pre">is_null_session()</span></code> returns <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
