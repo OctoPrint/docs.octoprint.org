@@ -2009,10 +2009,10 @@ to wrap it further. Handlers which do not wish to handle the <cite>file_object</
 
 <span class="k">class</span> <span class="nc">CommentStripper</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">filemanager</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">LineProcessorStream</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">process_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
-        <span class="n">line</span> <span class="o">=</span> <span class="n">strip_comment</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+        <span class="n">decoded_line</span> <span class="o">=</span> <span class="n">strip_comment</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">decoded_line</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">line</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">decoded_line</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">strip_all_comments</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">file_object</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">printer_profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">octoprint</span><span class="o">.</span><span class="n">filemanager</span><span class="o">.</span><span class="n">valid_file_type</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;gcode&quot;</span><span class="p">):</span>
@@ -2028,7 +2028,7 @@ to wrap it further. Handlers which do not wish to handle the <cite>file_object</
 <span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Strip comments from GCODE&quot;</span>
 <span class="n">__plugin_description__</span> <span class="o">=</span> <span class="s2">&quot;Strips all comments and empty lines from uploaded/generated GCODE files ending on the name &quot;</span> \
                          <span class="s2">&quot;postfix </span><span class="se">\&quot;</span><span class="s2">_strip</span><span class="se">\&quot;</span><span class="s2">, e.g. </span><span class="se">\&quot;</span><span class="s2">some_file_strip.gcode</span><span class="se">\&quot;</span><span class="s2">.&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3,&lt;4&quot;</span>
 <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;octoprint.filemanager.preprocessor&quot;</span><span class="p">:</span> <span class="n">strip_all_comments</span>
 <span class="p">}</span>
@@ -3230,6 +3230,7 @@ CSS file URLs to inject into the dialog HTML.</p>
     <dl>
       <dt>Tags</dt>
       <dd><a href="https://docs.octoprint.org/en/1.7.3/plugins/hooks.html">1.7.3</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.8.0rc1/plugins/hooks.html">1.8.0rc1</a></dd>
     </dl>
     <dl>
       <dt>Branches</dt>
