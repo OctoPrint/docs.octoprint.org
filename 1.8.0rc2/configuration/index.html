@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuration &mdash; OctoPrint 1.8.0rc2 documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="A YAML Primer" href="yaml.html" />
+    <link rel="prev" title="Virtual Printer" href="../bundledplugins/virtual_printer.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OctoPrint
+          </a>
+              <div class="version">
+                1.8.0rc2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="yaml.html">A YAML Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html">config.yaml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging_yaml.html">logging.yaml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">CLI</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
+    <strong>Note:</strong>
+    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.7.3" style="color: white;text-decoration: underline">here</a>.
+  </p>
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Configuration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/configuration/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="configuration">
+<span id="sec-configuration"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="yaml.html">A YAML Primer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="yaml.html#basic-rules">Basic Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yaml.html#interesting-data-types">Interesting data types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yaml.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="config_yaml.html">config.yaml</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#access-control">Access Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#api">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#appearance">Appearance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#controls">Controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#development-settings">Development settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#estimation">Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#events">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#feature">Feature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#folder">Folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#gcode-analysis">GCODE Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#gcode-viewer">GCODE Viewer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#plugin-settings">Plugin settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#printer-profiles">Printer Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#scripts">Scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#serial">Serial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#server">Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#slicing">Slicing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#system">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#temperature">Temperature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#terminal-filters">Terminal Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_yaml.html#webcam">Webcam</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="logging_yaml.html">logging.yaml</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="logging_yaml.html#changing-log-levels">Changing log levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging_yaml.html#changing-logging-handlers">Changing logging handlers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging_yaml.html#changing-logging-formatters">Changing logging formatters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">CLI</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../bundledplugins/virtual_printer.html" class="btn btn-neutral float-left" title="Virtual Printer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="yaml.html" class="btn btn-neutral float-right" title="A YAML Primer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2022, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.8.0rc2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.7.3/configuration/index.html">1.7.3</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.8.0rc2/configuration/index.html">1.8.0rc2</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/configuration/index.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/configuration/index.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/configuration/index.html">devel</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
