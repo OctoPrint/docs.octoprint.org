@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Plugin Tutorial &mdash; OctoPrint maintenance documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -136,7 +137,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="plugin-tutorial">
+  <section id="plugin-tutorial">
 <span id="sec-plugins-gettingstarted"></span><h1>Plugin Tutorial<a class="headerlink" href="#plugin-tutorial" title="Permalink to this headline"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -218,7 +219,7 @@ there is <code class="docutils literal notranslate"><span class="pre">__plugin_p
 between 3.7 and 4. That is necessary so that your plugin will be loadable in OctoPrint instances running under Python 3
 but not Python 2 (so you can use modern language features), and going forward you really should no longer have to care about
 the end-of-life Python 2.</p>
-<div class="section" id="saying-hello-how-to-make-the-plugin-actually-do-something">
+<section id="saying-hello-how-to-make-the-plugin-actually-do-something">
 <span id="sec-plugins-gettingstarted-sayinghello"></span><h2><a class="toc-backref" href="#id7">Saying hello: How to make the plugin actually do something</a><a class="headerlink" href="#saying-hello-how-to-make-the-plugin-actually-do-something" title="Permalink to this headline"></a></h2>
 <p>Apart from being discovered by OctoPrint, our plugin does nothing yet. We want to change that. Let’s make it print
 “Hello World!” to the log upon server startup. Modify our <code class="docutils literal notranslate"><span class="pre">helloworld.py</span></code> like this:</p>
@@ -251,8 +252,8 @@ injects <a class="reference internal" href="mixins.html#sec-plugins-mixins-injec
 one of those being a fully instantiated <a class="reference external" href="https://docs.python.org/3/library/logging.html#module-logging" title="(in Python v3.10)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">python</span> <span class="pre">logger</span></code></a> ready to be
 used by your plugin. As you can see in the log output above, that logger uses the namespace <code class="docutils literal notranslate"><span class="pre">octoprint.plugins.helloworld</span></code>
 for our little plugin here, or more generally <code class="docutils literal notranslate"><span class="pre">octoprint.plugins.&lt;plugin</span> <span class="pre">identifier&gt;</span></code>.</p>
-</div>
-<div class="section" id="growing-up-how-to-make-it-distributable">
+</section>
+<section id="growing-up-how-to-make-it-distributable">
 <span id="sec-plugins-gettingstarted-growingup"></span><h2><a class="toc-backref" href="#id8">Growing up: How to make it distributable</a><a class="headerlink" href="#growing-up-how-to-make-it-distributable" title="Permalink to this headline"></a></h2>
 <p>If you now want to distribute this plugin to other OctoPrint users (since it is so awesome to be greeted upon server
 startup), let’s take a look at how you’d go about that now before our plugin gets more complicated.</p>
@@ -454,8 +455,8 @@ already publish your plugin on Github and it would be directly installable by ot
 </pre></div>
 </div>
 <p>But let’s add some more features instead.</p>
-</div>
-<div class="section" id="frontend-fun-how-to-add-functionality-to-octoprint-s-web-interface">
+</section>
+<section id="frontend-fun-how-to-add-functionality-to-octoprint-s-web-interface">
 <span id="sec-plugins-gettingstarted-templates"></span><h2><a class="toc-backref" href="#id9">Frontend fun: How to add functionality to OctoPrint’s web interface</a><a class="headerlink" href="#frontend-fun-how-to-add-functionality-to-octoprint-s-web-interface" title="Permalink to this headline"></a></h2>
 <p>Outputting a log line upon server startup is all nice and well, but we want to greet not only the administrator of
 our OctoPrint instance but actually everyone that opens OctoPrint in their browser. Therefore, we need to modify
@@ -497,8 +498,8 @@ add the <code class="xref py py-class docutils literal notranslate"><span class=
 <p>Restart OctoPrint and open the web interface in your browser (make sure to clear your browser’s cache!).</p>
 <img alt="Our &quot;Hello World&quot; navigation bar element in action" class="align-center" src="../_images/plugins_gettingstarted_helloworld_navbar.png" />
 <p>Now look at that!</p>
-</div>
-<div class="section" id="settings-galore-how-to-make-parts-of-your-plugin-user-adjustable">
+</section>
+<section id="settings-galore-how-to-make-parts-of-your-plugin-user-adjustable">
 <span id="sec-plugins-gettingstarted-settings"></span><h2><a class="toc-backref" href="#id10">Settings Galore: How to make parts of your plugin user adjustable</a><a class="headerlink" href="#settings-galore-how-to-make-parts-of-your-plugin-user-adjustable" title="Permalink to this headline"></a></h2>
 <p>Remember that Wikipedia link we added to our little link in the navigation bar? It links to the English Wikipedia. But
 what if we want to allow our users to adjust that according to their wishes, e.g. to link to the German language node
@@ -657,8 +658,8 @@ not storing a copy of the settings data while it is being edited, which might be
 prevent this unexpected behaviour from occurring.</p>
 </div>
 <p>Congratulations, you’ve just made your Plugin configurable :)</p>
-</div>
-<div class="section" id="more-frontend-fun-adding-custom-javascript-to-your-frontend-components">
+</section>
+<section id="more-frontend-fun-adding-custom-javascript-to-your-frontend-components">
 <h2><a class="toc-backref" href="#id11">More frontend fun: Adding custom javascript to your frontend components</a><a class="headerlink" href="#more-frontend-fun-adding-custom-javascript-to-your-frontend-components" title="Permalink to this headline"></a></h2>
 <p>In the previous section we set that <code class="docutils literal notranslate"><span class="pre">custom_bindings</span></code> parameter to <code class="docutils literal notranslate"><span class="pre">False</span></code> since we wanted OctoPrint to bind the
 <code class="docutils literal notranslate"><span class="pre">SettingsViewModel</span></code> to our settings dialog and the <code class="docutils literal notranslate"><span class="pre">NavigationViewModel</span></code> to our entry in the nav bar.</p>
@@ -795,8 +796,8 @@ tab bar. Click on it!</p>
 <p>The desktop version of that article looks a bit squished in there, so let’s enter <code class="docutils literal notranslate"><span class="pre">https://de.m.wikipedia.org/wiki/Hallo-Welt-Programm</span></code>
 into the input field and click the “Go” button. The page inside the iframe should be replaced with the mobile version
 of the same article.</p>
-</div>
-<div class="section" id="style-matters-injecting-custom-css-into-the-page">
+</section>
+<section id="style-matters-injecting-custom-css-into-the-page">
 <h2><a class="toc-backref" href="#id12">Style matters: Injecting custom CSS into the page</a><a class="headerlink" href="#style-matters-injecting-custom-css-into-the-page" title="Permalink to this headline"></a></h2>
 <p>So it appears that this stuff is working great already. Only one thing is a bit ugly, let’s take another look at
 our <code class="docutils literal notranslate"><span class="pre">helloworld_tab.jinja2</span></code>:</p>
@@ -1033,8 +1034,8 @@ as soon as you need it just switch over.</p>
 those, lessjs will take care of the compilation. Please keep in mind though that also providing CSS files is the
 cleaner way.</p>
 </div>
-</div>
-<div class="section" id="where-do-we-go-from-here">
+</section>
+<section id="where-do-we-go-from-here">
 <h2><a class="toc-backref" href="#id13">Where do we go from here?</a><a class="headerlink" href="#where-do-we-go-from-here" title="Permalink to this headline"></a></h2>
 <p>You’ve now seen how easy it is to add functionality to OctoPrint with this little tutorial. You can find the full
 source code of the little Hello World plugin we built together here <a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/tree/master/helloworld">on Github</a>.</p>
@@ -1077,8 +1078,8 @@ compatibility reasons OctoPrint currently sadly has to rely on an older version 
 available at <a class="reference external" href="http://jinja.octoprint.org">jinja.octoprint.org</a> matches that older version.</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
