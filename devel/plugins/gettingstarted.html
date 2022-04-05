@@ -3,17 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Plugin Tutorial &mdash; OctoPrint devel documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <title>Plugin Tutorial &mdash; OctoPrint devel documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -134,7 +137,7 @@
            <div itemprop="articleBody">
              
   <div class="section" id="plugin-tutorial">
-<span id="sec-plugins-gettingstarted"></span><h1>Plugin Tutorial<a class="headerlink" href="#plugin-tutorial" title="Permalink to this headline">¶</a></h1>
+<span id="sec-plugins-gettingstarted"></span><h1>Plugin Tutorial<a class="headerlink" href="#plugin-tutorial" title="Permalink to this headline"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#saying-hello-how-to-make-the-plugin-actually-do-something" id="id7">Saying hello: How to make the plugin actually do something</a></p></li>
@@ -190,15 +193,12 @@ by running <code class="docutils literal notranslate"><span class="pre">octoprin
 web interface.</p>
 </div>
 <p>We’ll start at the most basic form a plugin can take - just a few simple lines of Python code:</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
 <span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
 <span class="n">__plugin_description__</span> <span class="o">=</span> <span class="s2">&quot;A quick </span><span class="se">\&quot;</span><span class="s2">Hello World</span><span class="se">\&quot;</span><span class="s2"> example plugin for OctoPrint&quot;</span>
 <span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Saving this as <code class="docutils literal notranslate"><span class="pre">helloworld.py</span></code> in <code class="docutils literal notranslate"><span class="pre">~/.octoprint/plugins</span></code> yields you something resembling these log entries upon server startup:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(venv) $ octoprint serve
 2015-01-27 11:14:35,124 - octoprint.server - INFO - Starting OctoPrint 1.2.0-dev-448-gd96e56e (devel branch)
@@ -219,32 +219,22 @@ between 3.7 and 4. That is necessary so that your plugin will be loadable in Oct
 but not Python 2 (so you can use modern language features), and going forward you really should no longer have to care about
 the end-of-life Python 2.</p>
 <div class="section" id="saying-hello-how-to-make-the-plugin-actually-do-something">
-<span id="sec-plugins-gettingstarted-sayinghello"></span><h2><a class="toc-backref" href="#id7">Saying hello: How to make the plugin actually do something</a><a class="headerlink" href="#saying-hello-how-to-make-the-plugin-actually-do-something" title="Permalink to this headline">¶</a></h2>
+<span id="sec-plugins-gettingstarted-sayinghello"></span><h2><a class="toc-backref" href="#id7">Saying hello: How to make the plugin actually do something</a><a class="headerlink" href="#saying-hello-how-to-make-the-plugin-actually-do-something" title="Permalink to this headline"></a></h2>
 <p>Apart from being discovered by OctoPrint, our plugin does nothing yet. We want to change that. Let’s make it print
 “Hello World!” to the log upon server startup. Modify our <code class="docutils literal notranslate"><span class="pre">helloworld.py</span></code> like this:</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
-
-<span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
-<span class="hll">    <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 </span><span class="hll">
-</span><span class="hll"><span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-</span><span class="hll"><span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
-</span><span class="n">__plugin_description__</span> <span class="o">=</span> <span class="s2">&quot;A quick </span><span class="se">\&quot;</span><span class="s2">Hello World</span><span class="se">\&quot;</span><span class="s2"> example plugin for OctoPrint&quot;</span>
+</span><span class="hll"><span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
+</span><span class="hll">    <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
+</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
+<span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
+<span class="n">__plugin_description__</span> <span class="o">=</span> <span class="s2">&quot;A quick </span><span class="se">\&quot;</span><span class="s2">Hello World</span><span class="se">\&quot;</span><span class="s2"> example plugin for OctoPrint&quot;</span>
 <span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
-<span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
-</pre></div>
-</td></tr></table></div>
+<span class="hll"><span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
+</span></pre></div>
+</div>
 <p>and restart OctoPrint. You now get this output in the log:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>2015-01-27 11:17:10,792 - octoprint.plugins.helloworld - INFO - Hello World!
 </pre></div>
@@ -258,12 +248,12 @@ used <a class="reference internal" href="mixins.html#octoprint.plugin.StartupPlu
 up and ready to serve requests.</p>
 <p>You’ll also note that we are using <code class="docutils literal notranslate"><span class="pre">self._logger</span></code> for logging. Where did that one come from? OctoPrint’s plugin system
 injects <a class="reference internal" href="mixins.html#sec-plugins-mixins-injectedproperties"><span class="std std-ref">a some useful objects</span></a> into our plugin implementation classes,
-one of those being a fully instantiated <span class="xref std std-ref">python logger</span> ready to be
+one of those being a fully instantiated <a class="reference external" href="https://docs.python.org/3/library/logging.html#module-logging" title="(in Python v3.10)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">python</span> <span class="pre">logger</span></code></a> ready to be
 used by your plugin. As you can see in the log output above, that logger uses the namespace <code class="docutils literal notranslate"><span class="pre">octoprint.plugins.helloworld</span></code>
 for our little plugin here, or more generally <code class="docutils literal notranslate"><span class="pre">octoprint.plugins.&lt;plugin</span> <span class="pre">identifier&gt;</span></code>.</p>
 </div>
 <div class="section" id="growing-up-how-to-make-it-distributable">
-<span id="sec-plugins-gettingstarted-growingup"></span><h2><a class="toc-backref" href="#id8">Growing up: How to make it distributable</a><a class="headerlink" href="#growing-up-how-to-make-it-distributable" title="Permalink to this headline">¶</a></h2>
+<span id="sec-plugins-gettingstarted-growingup"></span><h2><a class="toc-backref" href="#id8">Growing up: How to make it distributable</a><a class="headerlink" href="#growing-up-how-to-make-it-distributable" title="Permalink to this headline"></a></h2>
 <p>If you now want to distribute this plugin to other OctoPrint users (since it is so awesome to be greeted upon server
 startup), let’s take a look at how you’d go about that now before our plugin gets more complicated.</p>
 <p>You basically have two options to distribute your plugin. One would be about the exact same way we are using it now,
@@ -400,36 +390,25 @@ Finished processing dependencies for OctoPrint-HelloWorld==1.0.0
 <p>Something is still a bit ugly though. Take a look into <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> and <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>. It seems like we have a bunch
 of information now defined twice:</p>
 <div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-number">Listing 39 </span><span class="caption-text">__init__.py</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
+<div class="code-block-caption"><span class="caption-number">Listing 39 </span><span class="caption-text">__init__.py</span><a class="headerlink" href="#id5" title="Permalink to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
 <span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
 <span class="n">__plugin_description__</span> <span class="o">=</span> <span class="s2">&quot;A quick </span><span class="se">\&quot;</span><span class="s2">Hello World</span><span class="se">\&quot;</span><span class="s2"> example plugin for OctoPrint&quot;</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-number">Listing 40 </span><span class="caption-text">setup.py</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">plugin_name</span> <span class="o">=</span> <span class="s2">&quot;OctoPrint-HelloWorld&quot;</span>
+<div class="code-block-caption"><span class="caption-number">Listing 40 </span><span class="caption-text">setup.py</span><a class="headerlink" href="#id6" title="Permalink to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plugin_name</span> <span class="o">=</span> <span class="s2">&quot;OctoPrint-HelloWorld&quot;</span>
 <span class="n">plugin_version</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
 <span class="n">plugin_description</span> <span class="o">=</span> <span class="s2">&quot;A quick </span><span class="se">\&quot;</span><span class="s2">Hello World</span><span class="se">\&quot;</span><span class="s2"> example plugin for OctoPrint&quot;</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 </div>
 <p>The nice thing about our plugin now being a proper Python package is that OctoPrint can and will access the metadata defined
 within <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>! So, we don’t really need to define all this data twice. Remove <code class="docutils literal notranslate"><span class="pre">__plugin_name__</span></code>, <code class="docutils literal notranslate"><span class="pre">__plugin_version__</span></code>
 and <code class="docutils literal notranslate"><span class="pre">__plugin_description__</span></code> from <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>, but leave <code class="docutils literal notranslate"><span class="pre">__plugin_implementation__</span></code> and <code class="docutils literal notranslate"><span class="pre">__plugin_pythoncompat__</span></code>:</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -438,7 +417,7 @@ and <code class="docutils literal notranslate"><span class="pre">__plugin_descri
 <span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>and restart OctoPrint:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2015</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">27</span> <span class="mi">13</span><span class="p">:</span><span class="mi">46</span><span class="p">:</span><span class="mi">33</span><span class="p">,</span><span class="mi">786</span> <span class="o">-</span> <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">core</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">-</span> <span class="mi">3</span> <span class="n">plugin</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">registered</span> <span class="k">with</span> <span class="n">the</span> <span class="n">system</span><span class="p">:</span>
 <span class="p">[</span><span class="o">...</span><span class="p">]</span>
@@ -448,15 +427,7 @@ and <code class="docutils literal notranslate"><span class="pre">__plugin_descri
 </div>
 <p>Our “Hello World” Plugin still gets detected fine, but it’s now listed under the same name it’s installed under,
 “OctoPrint-HelloWorld”. That’s a bit redundant and squashed, so we’ll override that bit via <code class="docutils literal notranslate"><span class="pre">__plugin_name__</span></code> again:</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -466,7 +437,7 @@ and <code class="docutils literal notranslate"><span class="pre">__plugin_descri
 </span><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Restart OctoPrint again:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2015</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">27</span> <span class="mi">13</span><span class="p">:</span><span class="mi">48</span><span class="p">:</span><span class="mi">54</span><span class="p">,</span><span class="mi">122</span> <span class="o">-</span> <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">core</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">-</span> <span class="mi">3</span> <span class="n">plugin</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">registered</span> <span class="k">with</span> <span class="n">the</span> <span class="n">system</span><span class="p">:</span>
 <span class="p">[</span><span class="o">...</span><span class="p">]</span>
@@ -485,23 +456,14 @@ already publish your plugin on Github and it would be directly installable by ot
 <p>But let’s add some more features instead.</p>
 </div>
 <div class="section" id="frontend-fun-how-to-add-functionality-to-octoprint-s-web-interface">
-<span id="sec-plugins-gettingstarted-templates"></span><h2><a class="toc-backref" href="#id9">Frontend fun: How to add functionality to OctoPrint’s web interface</a><a class="headerlink" href="#frontend-fun-how-to-add-functionality-to-octoprint-s-web-interface" title="Permalink to this headline">¶</a></h2>
+<span id="sec-plugins-gettingstarted-templates"></span><h2><a class="toc-backref" href="#id9">Frontend fun: How to add functionality to OctoPrint’s web interface</a><a class="headerlink" href="#frontend-fun-how-to-add-functionality-to-octoprint-s-web-interface" title="Permalink to this headline"></a></h2>
 <p>Outputting a log line upon server startup is all nice and well, but we want to greet not only the administrator of
 our OctoPrint instance but actually everyone that opens OctoPrint in their browser. Therefore, we need to modify
 OctoPrint’s web interface itself.</p>
 <p>We can do this using the <code class="xref py py-class docutils literal notranslate"><span class="pre">TemplatePlugin</span></code> mixin. For now, let’s start with a little “Hello World!” in OctoPrint’s
 navigation bar right at the top that links to the Wikipedia node about “Hello World” programs. For this we’ll first
 add the <code class="xref py py-class docutils literal notranslate"><span class="pre">TemplatePlugin</span></code> to our <code class="docutils literal notranslate"><span class="pre">HelloWorldPlugin</span></code> class:</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
 <span class="hll">                       <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">):</span>
@@ -512,12 +474,12 @@ add the <code class="xref py py-class docutils literal notranslate"><span class=
 <span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Next, we’ll create a sub folder <code class="docutils literal notranslate"><span class="pre">templates</span></code> underneath our <code class="docutils literal notranslate"><span class="pre">octoprint_helloworld</span></code> folder, and within that a file
 <code class="docutils literal notranslate"><span class="pre">helloworld_navbar.jinja2</span></code> like so:</p>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://en.wikipedia.org/wiki/Hello_world&quot;</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://en.wikipedia.org/wiki/Hello_world&quot;</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Our plugin’s directory structure should now look like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">octoprint_helloworld</span><span class="o">/</span>
     <span class="n">templates</span><span class="o">/</span>
@@ -537,7 +499,7 @@ add the <code class="xref py py-class docutils literal notranslate"><span class=
 <p>Now look at that!</p>
 </div>
 <div class="section" id="settings-galore-how-to-make-parts-of-your-plugin-user-adjustable">
-<span id="sec-plugins-gettingstarted-settings"></span><h2><a class="toc-backref" href="#id10">Settings Galore: How to make parts of your plugin user adjustable</a><a class="headerlink" href="#settings-galore-how-to-make-parts-of-your-plugin-user-adjustable" title="Permalink to this headline">¶</a></h2>
+<span id="sec-plugins-gettingstarted-settings"></span><h2><a class="toc-backref" href="#id10">Settings Galore: How to make parts of your plugin user adjustable</a><a class="headerlink" href="#settings-galore-how-to-make-parts-of-your-plugin-user-adjustable" title="Permalink to this headline"></a></h2>
 <p>Remember that Wikipedia link we added to our little link in the navigation bar? It links to the English Wikipedia. But
 what if we want to allow our users to adjust that according to their wishes, e.g. to link to the German language node
 about “Hello World” programs instead?</p>
@@ -549,20 +511,7 @@ extend our little startup message to also log the current setting to the console
 which is a little settings manager OctoPrint conveniently injects into our Plugin when we include the <a class="reference internal" href="mixins.html#octoprint.plugin.SettingsPlugin" title="octoprint.plugin.SettingsPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SettingsPlugin</span></code></a>
 mixin.</p>
 <p>Let’s take a look at how all that would look in our plugin’s <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>:</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
@@ -577,7 +526,7 @@ mixin.</p>
 <span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Restart OctoPrint. You should see something like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>2015-01-30 11:41:06,058 - octoprint.plugins.helloworld - INFO - Hello World! (more: https://en.wikipedia.org/wiki/Hello_world)
 </pre></div>
@@ -589,23 +538,7 @@ take a look at the static version using template variables. We already have the 
 mixin included in our plugin, we just need to override its method <a class="reference internal" href="mixins.html#octoprint.plugin.TemplatePlugin.get_template_vars" title="octoprint.plugin.TemplatePlugin.get_template_vars"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_template_vars()</span></code></a>
 to add our URL as a template variable.</p>
 <p>Adjust your plugin’s <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> like this:</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
@@ -623,11 +556,11 @@ to add our URL as a template variable.</p>
 <span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Also adjust your plugin’s <code class="docutils literal notranslate"><span class="pre">templates/helloworld_navbar.jinja2</span></code> like this:</p>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ plugin_helloworld_url|escape }}&quot;</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ plugin_helloworld_url|escape }}&quot;</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>OctoPrint injects the template variables that your plugin defines prefixed with <code class="docutils literal notranslate"><span class="pre">plugin_&lt;plugin</span> <span class="pre">identifier&gt;_</span></code> into
 the template renderer, so your <code class="docutils literal notranslate"><span class="pre">url</span></code> got turned into <code class="docutils literal notranslate"><span class="pre">plugin_helloworld_url</span></code> which you can now use as a simple
 <a class="reference external" href="http://jinja.octoprint.org/templates.html#variables">Jinja2 Variable</a> in your plugin’s template.</p>
@@ -653,14 +586,7 @@ for our plugin in which we can edit the URL and take any changes take immediate 
 <p>First of all, we’ll create the settings dialog. You might already have guessed that we’ll need another template for that.
 So in your plugin’s <code class="docutils literal notranslate"><span class="pre">templates</span></code> folder create a new file <code class="docutils literal notranslate"><span class="pre">helloworld_settings.jinja2</span></code> and put the following content
 into it:</p>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">form</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-horizontal&quot;</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">form</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-horizontal&quot;</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;control-group&quot;</span><span class="p">&gt;</span>
         <span class="p">&lt;</span><span class="nt">label</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;control-label&quot;</span><span class="p">&gt;</span>{{ _(&#39;URL&#39;) }}<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
         <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;controls&quot;</span><span class="p">&gt;</span>
@@ -669,7 +595,7 @@ into it:</p>
     <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Note how we access our plugin’s property via <code class="docutils literal notranslate"><span class="pre">settings.plugins.helloworld.url</span></code>. The <code class="docutils literal notranslate"><span class="pre">settings</span></code> observable is made
 available in the <code class="docutils literal notranslate"><span class="pre">SettingsViewModel</span></code> and holds the exact data structure returned from the server for all of
 OctoPrint’s settings. Accessing plugin settings hence works by following the path under which they are stored in
@@ -678,9 +604,9 @@ We’ll bind our own settings dialog to the existing <code class="docutils liter
 property.</p>
 <p>Now adjust your <code class="docutils literal notranslate"><span class="pre">templates/helloworld_navbar.jinja2</span></code> file to use a <code class="docutils literal notranslate"><span class="pre">data-bind</span></code> attribute to set the value from the
 settings view model into the <code class="docutils literal notranslate"><span class="pre">href</span></code> attribute of the link tag:</p>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;attr: {href: settings.settings.plugins.helloworld.url}&quot;</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;attr: {href: settings.settings.plugins.helloworld.url}&quot;</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>You might have noticed the quite ugly way to access our plugin’s <code class="docutils literal notranslate"><span class="pre">url</span></code> property here: <code class="docutils literal notranslate"><span class="pre">settings.settings.plugins.helloworld.url</span></code>.
 The reason for this is that we’ll make our plugin use the existing <code class="docutils literal notranslate"><span class="pre">NavigationViewModel</span></code> which holds the
 <code class="docutils literal notranslate"><span class="pre">SettingsViewModel</span></code> as a property called <code class="docutils literal notranslate"><span class="pre">settings</span></code>. So to get to the <code class="docutils literal notranslate"><span class="pre">settings</span></code> property of the <code class="docutils literal notranslate"><span class="pre">SettingsViewModel</span></code>
@@ -695,26 +621,7 @@ don’t do this here (since we <em>do</em> want to use both <code class="docutil
 override the default template configuration using the <code class="xref py py-class docutils literal notranslate"><span class="pre">get_template_configs</span></code> method. We’ll tell OctoPrint to use no custom bindings
 for both our <code class="docutils literal notranslate"><span class="pre">navbar</span></code> and our <code class="docutils literal notranslate"><span class="pre">settings</span></code> plugin. We’ll also remove the override of <a class="reference internal" href="mixins.html#octoprint.plugin.TemplatePlugin.get_template_vars" title="octoprint.plugin.TemplatePlugin.get_template_vars"><code class="xref py py-func docutils literal notranslate"><span class="pre">octoprint.plugin.TemplatePlugin.get_template_vars()</span></code></a>
 again since we don’t use that anymore:</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
@@ -735,7 +642,7 @@ again since we don’t use that anymore:</p>
 <span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Restart OctoPrint and shift-reload your browser. Your link in the navigation bar should still point to the URL we
 defined in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> earlier. Open the “Settings” and click on the new “Hello World” entry that shows up under
 “Plugins”.</p>
@@ -752,7 +659,7 @@ prevent this unexpected behaviour from occurring.</p>
 <p>Congratulations, you’ve just made your Plugin configurable :)</p>
 </div>
 <div class="section" id="more-frontend-fun-adding-custom-javascript-to-your-frontend-components">
-<h2><a class="toc-backref" href="#id11">More frontend fun: Adding custom javascript to your frontend components</a><a class="headerlink" href="#more-frontend-fun-adding-custom-javascript-to-your-frontend-components" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">More frontend fun: Adding custom javascript to your frontend components</a><a class="headerlink" href="#more-frontend-fun-adding-custom-javascript-to-your-frontend-components" title="Permalink to this headline"></a></h2>
 <p>In the previous section we set that <code class="docutils literal notranslate"><span class="pre">custom_bindings</span></code> parameter to <code class="docutils literal notranslate"><span class="pre">False</span></code> since we wanted OctoPrint to bind the
 <code class="docutils literal notranslate"><span class="pre">SettingsViewModel</span></code> to our settings dialog and the <code class="docutils literal notranslate"><span class="pre">NavigationViewModel</span></code> to our entry in the nav bar.</p>
 <p>But what if we want to define our own, with more functionality that is already available? Let’s take a look. We’ll now
@@ -761,13 +668,7 @@ showing the website behind the URL from the settings in an IFrame but also allow
 without having to change the settings.</p>
 <p>First let us create the Jinja2 template for our tab. In your plugin’s <code class="docutils literal notranslate"><span class="pre">templates</span></code> folder create a new file
 <code class="docutils literal notranslate"><span class="pre">helloworld_tab.jinja2</span></code> like so:</p>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input-append&quot;</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input-append&quot;</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input-xxlarge&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;value: newUrl&quot;</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-primary&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;click: goToUrl&quot;</span><span class="p">&gt;</span>{{ _(&#39;Go&#39;) }}<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
@@ -775,7 +676,7 @@ without having to change the settings.</p>
 
 <span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;attr: {src: currentUrl}&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;width: 100%; height: 600px; border: 1px solid #808080&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Then we create a new folder in your plugin’s root called <code class="docutils literal notranslate"><span class="pre">static</span></code> and within that folder another folder by the name of
 <code class="docutils literal notranslate"><span class="pre">js</span></code>. Finally, within that folder create a file <code class="docutils literal notranslate"><span class="pre">helloworld.js</span></code>. Our plugin’s folder structure should now
 look like this:</p>
@@ -800,32 +701,7 @@ look like this:</p>
 <p>We need to tell OctoPrint about this new static asset so that it will properly inject it into the page. For this we
 just need to subclass <a class="reference internal" href="mixins.html#octoprint.plugin.AssetPlugin" title="octoprint.plugin.AssetPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">AssetPlugin</span></code></a> and override its method <a class="reference internal" href="mixins.html#octoprint.plugin.AssetPlugin.get_assets" title="octoprint.plugin.AssetPlugin.get_assets"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_assets()</span></code></a>
 like so:</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
@@ -852,56 +728,14 @@ like so:</p>
 <span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Note how we did not add another entry to the return value of <a class="reference internal" href="mixins.html#octoprint.plugin.TemplatePlugin.get_template_configs" title="octoprint.plugin.TemplatePlugin.get_template_configs"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_template_configs()</span></code></a>.
 Remember how we only added those since we wanted OctoPrint to use existing bindings on our navigation bar and settings
 menu entries? We don’t want this this time, and we named our tab template such that OctoPrint will pick it up automatically
 so we don’t have to do anything here.</p>
 <p>Then we’ll create our custom <a class="reference external" href="http://knockoutjs.com/documentation/introduction.html">Knockout</a> view model in <code class="docutils literal notranslate"><span class="pre">helloworld.js</span></code>
 like so:</p>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">function</span> <span class="nx">HelloWorldViewModel</span><span class="p">(</span><span class="nx">parameters</span><span class="p">)</span> <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
 
@@ -945,7 +779,7 @@ like so:</p>
     <span class="p">]);</span>
 <span class="p">});</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Take a close look at lines 31 to 42. This is how our plugin tells OctoPrint about our new view model, how to
 instantiate it, which dependencies to inject and to which elements in the final page to bind. Since we want to access
 the URL from the settings of our plugin, we’ll have OctoPrint inject the <code class="docutils literal notranslate"><span class="pre">SettingsViewModel</span></code> into our own view model,
@@ -963,22 +797,17 @@ into the input field and click the “Go” button. The page inside the iframe s
 of the same article.</p>
 </div>
 <div class="section" id="style-matters-injecting-custom-css-into-the-page">
-<h2><a class="toc-backref" href="#id12">Style matters: Injecting custom CSS into the page</a><a class="headerlink" href="#style-matters-injecting-custom-css-into-the-page" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">Style matters: Injecting custom CSS into the page</a><a class="headerlink" href="#style-matters-injecting-custom-css-into-the-page" title="Permalink to this headline"></a></h2>
 <p>So it appears that this stuff is working great already. Only one thing is a bit ugly, let’s take another look at
 our <code class="docutils literal notranslate"><span class="pre">helloworld_tab.jinja2</span></code>:</p>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input-append&quot;</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input-append&quot;</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input-xxlarge&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;value: newUrl&quot;</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-primary&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;click: goToUrl&quot;</span><span class="p">&gt;</span>{{ _(&#39;Go&#39;) }}<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
 <span class="hll"><span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;attr: {src: currentUrl}&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;width: 100%; height: 600px; border: 1px solid #808080&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
 </span></pre></div>
-</td></tr></table></div>
+</div>
 <p>We hardcoded some <code class="docutils literal notranslate"><span class="pre">style</span></code> on our <code class="docutils literal notranslate"><span class="pre">iframe</span></code> in line 6, to make it look a bit better. It would be nicer if that was actually
 located inside a stylesheet instead of directly inside our HTML template. Of course that’s no problem, we’ll just
 add a CSS file to our plugin’s provided static assets.</p>
@@ -1005,61 +834,25 @@ add a CSS file to our plugin’s provided static assets.</p>
 </pre></div>
 </div>
 <p>Put something like the following into <code class="docutils literal notranslate"><span class="pre">helloworld.css</span></code>:</p>
-<div class="highlight-css notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">#</span><span class="nn">tab_plugin_helloworld</span><span class="w"> </span><span class="nt">iframe</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="p">#</span><span class="nn">tab_plugin_helloworld</span><span class="w"> </span><span class="nt">iframe</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">600</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mh">#808080</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Don’t forget to remove the <code class="docutils literal notranslate"><span class="pre">style</span></code> attribute from the <code class="docutils literal notranslate"><span class="pre">iframe</span></code> tag in <code class="docutils literal notranslate"><span class="pre">helloworld_tab.jinja2</span></code>:</p>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input-append&quot;</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input-append&quot;</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input-xxlarge&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;value: newUrl&quot;</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-primary&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;click: goToUrl&quot;</span><span class="p">&gt;</span>{{ _(&#39;Go&#39;) }}<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
 <span class="hll"><span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;attr: {src: currentUrl}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
 </span></pre></div>
-</td></tr></table></div>
+</div>
 <p>Then adjust our plugin’s <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> so that the <a class="reference internal" href="mixins.html#octoprint.plugin.AssetPlugin.get_assets" title="octoprint.plugin.AssetPlugin.get_assets"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_assets()</span></code></a> method returns
 a reference to our CSS file:</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
@@ -1088,7 +881,7 @@ a reference to our CSS file:</p>
 <span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>OctoPrint by default bundles all CSS, JavaScript and LESS files to reduce the amount of requests necessary to fully
 load the page. But in order to fully be able to see how what we just did changes how our plugin interacts with OctoPrint
 we want to disable that behaviour for now. Open up OctoPrint’s <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> and disable bundling of the webassets:</p>
@@ -1133,35 +926,7 @@ in the process. The folder structure of our plugin should now look like this:</p
 </pre></div>
 </div>
 <p>Then adjust our returned assets to include our LESS file as well:</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
                       <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
@@ -1191,7 +956,7 @@ in the process. The folder structure of our plugin should now look like this:</p
 <span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>and enable LESS mode by adjusting one of OctoPrint’s <code class="docutils literal notranslate"><span class="pre">devel</span></code> flags via the <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> file:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># [...]</span><span class="w"></span>
 <span class="nt">devel</span><span class="p">:</span><span class="w"></span>
@@ -1204,15 +969,7 @@ in the process. The folder structure of our plugin should now look like this:</p
 <p>Restart OctoPrint and shift-reload. Your “Hello World” tab should still look like before. Take a look at the site’s
 source code. In the <code class="docutils literal notranslate"><span class="pre">head</span></code> section of the page you’ll see that instead of your <code class="docutils literal notranslate"><span class="pre">helloworld.css</span></code> OctoPrint now
 embedded the <code class="docutils literal notranslate"><span class="pre">helloworld.less</span></code> file instead:</p>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
     <span class="cm">&lt;!-- [...] --&gt;</span>
     <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/static/less/octoprint.less&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet/less&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="na">media</span><span class="o">=</span><span class="s">&quot;screen&quot;</span><span class="p">&gt;</span>
     <span class="cm">&lt;!-- [...] --&gt;</span>
@@ -1222,7 +979,7 @@ embedded the <code class="docutils literal notranslate"><span class="pre">hellow
     <span class="cm">&lt;!-- [...] --&gt;</span>
 <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Switch your config back to CSS mode by either removing the <code class="docutils literal notranslate"><span class="pre">stylesheet</span></code> setting we just added to <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> or
 setting it to <code class="docutils literal notranslate"><span class="pre">css</span></code>, e.g.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># [...]</span><span class="w"></span>
@@ -1234,15 +991,7 @@ setting it to <code class="docutils literal notranslate"><span class="pre">css</
 </pre></div>
 </div>
 <p>Restart and shift-reload and take another look at the <code class="docutils literal notranslate"><span class="pre">head</span></code>:</p>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
     <span class="cm">&lt;!-- [...] --&gt;</span>
     <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/static/css/octoprint.css&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="na">media</span><span class="o">=</span><span class="s">&quot;screen&quot;</span><span class="p">&gt;</span>
     <span class="cm">&lt;!-- [...] --&gt;</span>
@@ -1252,7 +1001,7 @@ setting it to <code class="docutils literal notranslate"><span class="pre">css</
     <span class="cm">&lt;!-- [...] --&gt;</span>
 <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Now the CSS file is linked and no trace of the LESS links is left in the source. This should help to speed up your development
 tremendously when you have to work with complex stylesheets, just don’t forgot to check the generated CSS file in with
 the rest of your plugin or people will miss it when trying to run your plugin!</p>
@@ -1265,13 +1014,7 @@ stop it from doing that at the start of this section, we should switch this back
 </pre></div>
 </div>
 <p>Just out of curiosity, restart, shift-reload and take a final look at the <code class="docutils literal notranslate"><span class="pre">head</span></code>:</p>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
     <span class="cm">&lt;!-- [...] --&gt;</span>
 <span class="hll">    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/static/webassets/packed.css?85a134&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="na">media</span><span class="o">=</span><span class="s">&quot;screen&quot;</span><span class="p">&gt;</span>
 </span><span class="hll">    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/static/webassets/packed.less?85a134&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet/less&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="na">media</span><span class="o">=</span><span class="s">&quot;screen&quot;</span><span class="p">&gt;</span>
@@ -1279,7 +1022,7 @@ stop it from doing that at the start of this section, we should switch this back
 </span>    <span class="cm">&lt;!-- [...] --&gt;</span>
 <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Way more compact, isn’t it?</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1292,7 +1035,7 @@ cleaner way.</p>
 </div>
 </div>
 <div class="section" id="where-do-we-go-from-here">
-<h2><a class="toc-backref" href="#id13">Where do we go from here?</a><a class="headerlink" href="#where-do-we-go-from-here" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">Where do we go from here?</a><a class="headerlink" href="#where-do-we-go-from-here" title="Permalink to this headline"></a></h2>
 <p>You’ve now seen how easy it is to add functionality to OctoPrint with this little tutorial. You can find the full
 source code of the little Hello World plugin we built together here <a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/tree/master/helloworld">on Github</a>.</p>
 <p>But I want to invite you to dive deeper into OctoPrint’s plugin system. To get an idea of all the other various plugin types
@@ -1372,7 +1115,7 @@ available at <a class="reference external" href="http://jinja.octoprint.org">jin
     <dl>
       <dt>Tags</dt>
       <dd><a href="https://docs.octoprint.org/en/1.7.3/plugins/gettingstarted.html">1.7.3</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.8.0rc3/plugins/gettingstarted.html">1.8.0rc3</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.8.0rc4/plugins/gettingstarted.html">1.8.0rc4</a></dd>
     </dl>
     <dl>
       <dt>Branches</dt>

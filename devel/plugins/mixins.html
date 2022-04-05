@@ -3,17 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mixins &mdash; OctoPrint devel documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <title>Mixins &mdash; OctoPrint devel documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -147,7 +150,7 @@
            <div itemprop="articleBody">
              
   <div class="section" id="mixins">
-<span id="sec-plugins-mixins"></span><h1>Mixins<a class="headerlink" href="#mixins" title="Permalink to this headline">¶</a></h1>
+<span id="sec-plugins-mixins"></span><h1>Mixins<a class="headerlink" href="#mixins" title="Permalink to this headline"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#general-concepts" id="id12">General Concepts</a></p></li>
@@ -174,7 +177,7 @@
 </ul>
 </div>
 <div class="section" id="general-concepts">
-<span id="sec-plugins-mixins-general"></span><h2><a class="toc-backref" href="#id12">General Concepts</a><a class="headerlink" href="#general-concepts" title="Permalink to this headline">¶</a></h2>
+<span id="sec-plugins-mixins-general"></span><h2><a class="toc-backref" href="#id12">General Concepts</a><a class="headerlink" href="#general-concepts" title="Permalink to this headline"></a></h2>
 <p>Plugin mixins are the heart of OctoPrint’s plugin system. They are <a class="reference internal" href="#sec-plugins-mixins"><span class="std std-ref">special base classes</span></a>
 which are to be subclassed and extended to add functionality to OctoPrint. Plugins declare their instances that
 implement one or multiple mixins using the <code class="docutils literal notranslate"><span class="pre">__plugin_implementation__</span></code> control property. OctoPrint’s plugin core
@@ -186,25 +189,7 @@ calling the specific mixin’s methods as defined and necessary.</p>
 implementations are collected and then all assets they return via their <code class="docutils literal notranslate"><span class="pre">get_assets</span></code> methods are retrieved and
 merged into one big asset map (differing between javascripts and stylesheets of various types) for use during
 rendition of the UI.</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">asset_plugins</span> <span class="o">=</span> <span class="n">pluginManager</span><span class="o">.</span><span class="n">get_implementations</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">AssetPlugin</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">asset_plugins</span> <span class="o">=</span> <span class="n">pluginManager</span><span class="o">.</span><span class="n">get_implementations</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">AssetPlugin</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">implementation</span> <span class="ow">in</span> <span class="n">asset_plugins</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="n">all_assets</span> <span class="o">=</span> <span class="n">implementation</span><span class="o">.</span><span class="n">get_assets</span><span class="p">()</span>
 
@@ -224,7 +209,7 @@ rendition of the UI.</p>
                 <span class="n">assets</span><span class="p">[</span><span class="s2">&quot;stylesheets&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">stylesheet</span><span class="p">,</span> <span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;plugin_assets&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">asset</span><span class="p">)))</span>
             <span class="k">break</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
@@ -234,7 +219,7 @@ rendition of the UI.</p>
 </div>
 </div>
 <div class="section" id="execution-order">
-<span id="sec-plugins-mixins-ordering"></span><h2><a class="toc-backref" href="#id13">Execution Order</a><a class="headerlink" href="#execution-order" title="Permalink to this headline">¶</a></h2>
+<span id="sec-plugins-mixins-ordering"></span><h2><a class="toc-backref" href="#id13">Execution Order</a><a class="headerlink" href="#execution-order" title="Permalink to this headline"></a></h2>
 <p>Some mixin types, such as <a class="reference internal" href="#octoprint.plugin.StartupPlugin" title="octoprint.plugin.StartupPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">StartupPlugin</span></code></a>, <a class="reference internal" href="#octoprint.plugin.ShutdownPlugin" title="octoprint.plugin.ShutdownPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShutdownPlugin</span></code></a> and
 <a class="reference internal" href="#octoprint.plugin.UiPlugin" title="octoprint.plugin.UiPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">UiPlugin</span></code></a>, support influencing the execution order for various execution contexts by also
 implementing the <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.SortablePlugin" title="octoprint.plugin.core.SortablePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SortablePlugin</span></code></a> mixin.</p>
@@ -256,18 +241,8 @@ with OctoPrint or not, then by their identifier.</p></li>
 and <code class="docutils literal notranslate"><span class="pre">plugin_d</span></code> don’t override <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.SortablePlugin.get_sorting_key" title="octoprint.plugin.core.SortablePlugin.get_sorting_key"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_sorting_key()</span></code></a>.
 <code class="docutils literal notranslate"><span class="pre">plugin_b</span></code> and <code class="docutils literal notranslate"><span class="pre">plugin_c</span></code> both return <code class="docutils literal notranslate"><span class="pre">1</span></code> for the sorting context <code class="docutils literal notranslate"><span class="pre">StartupPlugin.on_startup</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code> otherwise:</p>
 <div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-number">Listing 8 </span><span class="caption-text">plugin_a.py</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="code-block-caption"><span class="caption-number">Listing 8 </span><span class="caption-text">plugin_a.py</span><a class="headerlink" href="#id4" title="Permalink to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">PluginA</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
 
@@ -279,26 +254,11 @@ and <code class="docutils literal notranslate"><span class="pre">plugin_d</span>
 
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">PluginA</span><span class="p">()</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-number">Listing 9 </span><span class="caption-text">plugin_b.py</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="code-block-caption"><span class="caption-number">Listing 9 </span><span class="caption-text">plugin_b.py</span><a class="headerlink" href="#id5" title="Permalink to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">PluginB</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
 
@@ -315,27 +275,11 @@ and <code class="docutils literal notranslate"><span class="pre">plugin_d</span>
 
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">PluginB</span><span class="p">()</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-number">Listing 10 </span><span class="caption-text">plugin_c.py</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="code-block-caption"><span class="caption-number">Listing 10 </span><span class="caption-text">plugin_c.py</span><a class="headerlink" href="#id6" title="Permalink to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">PluginC</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
 
@@ -353,22 +297,11 @@ and <code class="docutils literal notranslate"><span class="pre">plugin_d</span>
 
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">PluginC</span><span class="p">()</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-number">Listing 11 </span><span class="caption-text">plugin_d.py</span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># in this example this is bundled with OctoPrint</span>
+<div class="code-block-caption"><span class="caption-number">Listing 11 </span><span class="caption-text">plugin_d.py</span><a class="headerlink" href="#id7" title="Permalink to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># in this example this is bundled with OctoPrint</span>
 <span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">PluginD</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
@@ -381,7 +314,7 @@ and <code class="docutils literal notranslate"><span class="pre">plugin_d</span>
 
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">PluginD</span><span class="p">()</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 </div>
 <p>OctoPrint will detect that <code class="docutils literal notranslate"><span class="pre">plugin_b</span></code> and <code class="docutils literal notranslate"><span class="pre">plugin_c</span></code> define a order number, and since it’s identical for both (<code class="docutils literal notranslate"><span class="pre">1</span></code>)
 will order both plugins based first on their bundling status and then on their plugin identifier.
@@ -404,7 +337,7 @@ Plugin C started up
 </div>
 </div>
 <div class="section" id="injected-properties">
-<span id="sec-plugins-mixins-injectedproperties"></span><h2><a class="toc-backref" href="#id14">Injected Properties</a><a class="headerlink" href="#injected-properties" title="Permalink to this headline">¶</a></h2>
+<span id="sec-plugins-mixins-injectedproperties"></span><h2><a class="toc-backref" href="#id14">Injected Properties</a><a class="headerlink" href="#injected-properties" title="Permalink to this headline"></a></h2>
 <p>OctoPrint’s plugin subsystem will inject a bunch of properties into each <a class="reference internal" href="#sec-plugins-mixins"><span class="std std-ref">mixin implementation</span></a>.
 An overview of these properties can be found in the section <a class="reference internal" href="injectedproperties.html#sec-plugins-injectedproperties"><span class="std std-ref">Injected Properties</span></a>.</p>
 <div class="admonition seealso">
@@ -416,7 +349,7 @@ An overview of these properties can be found in the section <a class="reference 
 </div>
 </div>
 <div class="section" id="available-plugin-mixins">
-<span id="sec-plugins-mixins-available"></span><h2><a class="toc-backref" href="#id15">Available plugin mixins</a><a class="headerlink" href="#available-plugin-mixins" title="Permalink to this headline">¶</a></h2>
+<span id="sec-plugins-mixins-available"></span><h2><a class="toc-backref" href="#id15">Available plugin mixins</a><a class="headerlink" href="#available-plugin-mixins" title="Permalink to this headline"></a></h2>
 <p>The following plugin mixins are currently available:</p>
 <div class="contents local topic" id="id1">
 <ul class="simple">
@@ -439,10 +372,10 @@ An overview of these properties can be found in the section <a class="reference 
 <p>Please note that all plugin mixins inherit from <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.Plugin" title="octoprint.plugin.core.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code></a> and
 <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">OctoPrintPlugin</span></code></a>,  which also provide attributes of interest to plugin developers.</p>
 <div class="section" id="startupplugin">
-<span id="sec-plugins-mixins-startupplugin"></span><h3><a class="toc-backref" href="#id30">StartupPlugin</a><a class="headerlink" href="#startupplugin" title="Permalink to this headline">¶</a></h3>
+<span id="sec-plugins-mixins-startupplugin"></span><h3><a class="toc-backref" href="#id30">StartupPlugin</a><a class="headerlink" href="#startupplugin" title="Permalink to this headline"></a></h3>
 <dl class="py class">
-<dt id="octoprint.plugin.StartupPlugin">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></code><code class="sig-name descname"><span class="pre">StartupPlugin</span></code><a class="headerlink" href="#octoprint.plugin.StartupPlugin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.StartupPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></span><span class="sig-name descname"><span class="pre">StartupPlugin</span></span><a class="headerlink" href="#octoprint.plugin.StartupPlugin" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.SortablePlugin" title="octoprint.plugin.core.SortablePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.SortablePlugin</span></code></a></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">StartupPlugin</span></code> allows hooking into the startup of OctoPrint. It can be used to start up additional services
 on or just after the startup of the server.</p>
@@ -450,8 +383,8 @@ on or just after the startup of the server.</p>
 sorting contexts for <a class="reference internal" href="#octoprint.plugin.StartupPlugin.on_startup" title="octoprint.plugin.StartupPlugin.on_startup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">on_startup()</span></code></a> as well as
 <a class="reference internal" href="#octoprint.plugin.StartupPlugin.on_after_startup" title="octoprint.plugin.StartupPlugin.on_after_startup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">on_after_startup()</span></code></a>.</p>
 <dl class="py method">
-<dt id="octoprint.plugin.StartupPlugin.on_after_startup">
-<code class="sig-name descname"><span class="pre">on_after_startup</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.StartupPlugin.on_after_startup" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.StartupPlugin.on_after_startup">
+<span class="sig-name descname"><span class="pre">on_after_startup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.StartupPlugin.on_after_startup" title="Permalink to this definition"></a></dt>
 <dd><p>Called just after launch of the server, so when the listen loop is actually running already.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -461,8 +394,8 @@ sorting contexts for <a class="reference internal" href="#octoprint.plugin.Start
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.StartupPlugin.on_startup">
-<code class="sig-name descname"><span class="pre">on_startup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.StartupPlugin.on_startup" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.StartupPlugin.on_startup">
+<span class="sig-name descname"><span class="pre">on_startup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.StartupPlugin.on_startup" title="Permalink to this definition"></a></dt>
 <dd><p>Called just before the server is actually launched. Plugins get supplied with the <code class="docutils literal notranslate"><span class="pre">host</span></code> and <code class="docutils literal notranslate"><span class="pre">port</span></code> the server
 will listen on. Note that the <code class="docutils literal notranslate"><span class="pre">host</span></code> may be <code class="docutils literal notranslate"><span class="pre">0.0.0.0</span></code> if it will listen on all interfaces, so you can’t just
 blindly use this for constructing publicly reachable URLs. Also note that when this method is called, the server
@@ -487,10 +420,10 @@ externally reachable, use <a class="reference internal" href="#octoprint.plugin.
 
 </div>
 <div class="section" id="shutdownplugin">
-<span id="sec-plugins-mixins-shutdownplugin"></span><h3><a class="toc-backref" href="#id31">ShutdownPlugin</a><a class="headerlink" href="#shutdownplugin" title="Permalink to this headline">¶</a></h3>
+<span id="sec-plugins-mixins-shutdownplugin"></span><h3><a class="toc-backref" href="#id31">ShutdownPlugin</a><a class="headerlink" href="#shutdownplugin" title="Permalink to this headline"></a></h3>
 <dl class="py class">
-<dt id="octoprint.plugin.ShutdownPlugin">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></code><code class="sig-name descname"><span class="pre">ShutdownPlugin</span></code><a class="headerlink" href="#octoprint.plugin.ShutdownPlugin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.ShutdownPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></span><span class="sig-name descname"><span class="pre">ShutdownPlugin</span></span><a class="headerlink" href="#octoprint.plugin.ShutdownPlugin" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.SortablePlugin" title="octoprint.plugin.core.SortablePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.SortablePlugin</span></code></a></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">ShutdownPlugin</span></code> allows hooking into the shutdown of OctoPrint. It’s usually used in conjunction with the
 <a class="reference internal" href="#octoprint.plugin.StartupPlugin" title="octoprint.plugin.StartupPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">StartupPlugin</span></code></a> mixin, to cleanly shut down additional services again that where started by the <a class="reference internal" href="#octoprint.plugin.StartupPlugin" title="octoprint.plugin.StartupPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">StartupPlugin</span></code></a>
@@ -498,8 +431,8 @@ part of the plugin.</p>
 <p><code class="docutils literal notranslate"><span class="pre">ShutdownPlugin</span></code> is a <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.SortablePlugin" title="octoprint.plugin.core.SortablePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SortablePlugin</span></code></a> and provides a sorting context for
 <a class="reference internal" href="#octoprint.plugin.ShutdownPlugin.on_shutdown" title="octoprint.plugin.ShutdownPlugin.on_shutdown"><code class="xref py py-meth docutils literal notranslate"><span class="pre">on_shutdown()</span></code></a>.</p>
 <dl class="py method">
-<dt id="octoprint.plugin.ShutdownPlugin.on_shutdown">
-<code class="sig-name descname"><span class="pre">on_shutdown</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.ShutdownPlugin.on_shutdown" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.ShutdownPlugin.on_shutdown">
+<span class="sig-name descname"><span class="pre">on_shutdown</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.ShutdownPlugin.on_shutdown" title="Permalink to this definition"></a></dt>
 <dd><p>Called upon the imminent shutdown of OctoPrint.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -512,10 +445,10 @@ part of the plugin.</p>
 
 </div>
 <div class="section" id="settingsplugin">
-<span id="sec-plugins-mixins-settingsplugin"></span><h3><a class="toc-backref" href="#id32">SettingsPlugin</a><a class="headerlink" href="#settingsplugin" title="Permalink to this headline">¶</a></h3>
+<span id="sec-plugins-mixins-settingsplugin"></span><h3><a class="toc-backref" href="#id32">SettingsPlugin</a><a class="headerlink" href="#settingsplugin" title="Permalink to this headline"></a></h3>
 <dl class="py class">
-<dt id="octoprint.plugin.SettingsPlugin">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></code><code class="sig-name descname"><span class="pre">SettingsPlugin</span></code><a class="headerlink" href="#octoprint.plugin.SettingsPlugin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SettingsPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></span><span class="sig-name descname"><span class="pre">SettingsPlugin</span></span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a></p>
 <p>Including the <code class="docutils literal notranslate"><span class="pre">SettingsPlugin</span></code> mixin allows plugins to store and retrieve their own settings within OctoPrint’s
 configuration.</p>
@@ -569,22 +502,22 @@ return its settings on the REST API even to anonymous clients, but will filter o
 therefore you <strong>must</strong> make sure that you specify sensitive information accordingly to limit access as required!</p>
 </div>
 <dl class="py attribute">
-<dt id="octoprint.plugin.SettingsPlugin.config_version_key">
-<code class="sig-name descname"><span class="pre">config_version_key</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'_config_version'</span></em><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.config_version_key" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SettingsPlugin.config_version_key">
+<span class="sig-name descname"><span class="pre">config_version_key</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'_config_version'</span></em><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.config_version_key" title="Permalink to this definition"></a></dt>
 <dd><p>Key of the field in the settings that holds the configuration format version.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SettingsPlugin.get_settings_defaults">
-<code class="sig-name descname"><span class="pre">get_settings_defaults</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.get_settings_defaults" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SettingsPlugin.get_settings_defaults">
+<span class="sig-name descname"><span class="pre">get_settings_defaults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.get_settings_defaults" title="Permalink to this definition"></a></dt>
 <dd><p>Retrieves the plugin’s default settings with which the plugin’s settings manager will be initialized.</p>
 <p>Override this in your plugin’s implementation and return a dictionary defining your settings data structure
 with included default values.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SettingsPlugin.get_settings_preprocessors">
-<code class="sig-name descname"><span class="pre">get_settings_preprocessors</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.get_settings_preprocessors" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SettingsPlugin.get_settings_preprocessors">
+<span class="sig-name descname"><span class="pre">get_settings_preprocessors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.get_settings_preprocessors" title="Permalink to this definition"></a></dt>
 <dd><p>Retrieves the plugin’s preprocessors to use for preprocessing returned or set values prior to returning/setting
 them.</p>
 <p>The preprocessors should be provided as a dictionary mapping the path of the values to preprocess
@@ -622,8 +555,8 @@ getters, the second the preprocessors for setters</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SettingsPlugin.get_settings_restricted_paths">
-<code class="sig-name descname"><span class="pre">get_settings_restricted_paths</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.get_settings_restricted_paths" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SettingsPlugin.get_settings_restricted_paths">
+<span class="sig-name descname"><span class="pre">get_settings_restricted_paths</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.get_settings_restricted_paths" title="Permalink to this definition"></a></dt>
 <dd><p>Retrieves the list of paths in the plugin’s settings which be restricted on the REST API.</p>
 <p>Override this in your plugin’s implementation to restrict whether a path should only be returned to users with
 certain permissions, or never on the REST API.</p>
@@ -696,8 +629,8 @@ the path elements) for which to restrict access via the REST API accordingly.</p
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SettingsPlugin.get_settings_version">
-<code class="sig-name descname"><span class="pre">get_settings_version</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.get_settings_version" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SettingsPlugin.get_settings_version">
+<span class="sig-name descname"><span class="pre">get_settings_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.get_settings_version" title="Permalink to this definition"></a></dt>
 <dd><p>Retrieves the settings format version of the plugin.</p>
 <p>Use this to have OctoPrint trigger your migration function if it detects an outdated settings version in
 config.yaml.</p>
@@ -708,14 +641,14 @@ are backwards incompatible changes. Returning None here disables the version tra
 plugin’s configuration.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)">None</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a> or None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SettingsPlugin.on_settings_cleanup">
-<code class="sig-name descname"><span class="pre">on_settings_cleanup</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.on_settings_cleanup" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SettingsPlugin.on_settings_cleanup">
+<span class="sig-name descname"><span class="pre">on_settings_cleanup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.on_settings_cleanup" title="Permalink to this definition"></a></dt>
 <dd><p>Called after migration and initialization but before call to <a class="reference internal" href="#octoprint.plugin.SettingsPlugin.on_settings_initialized" title="octoprint.plugin.SettingsPlugin.on_settings_initialized"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_settings_initialized()</span></code></a>.</p>
 <p>Plugins may overwrite this method to perform additional clean up tasks.</p>
 <p>The default implementation just minimizes the data persisted on disk to only contain
@@ -727,16 +660,16 @@ version of OctoPrint that still duplicated default data).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SettingsPlugin.on_settings_initialized">
-<code class="sig-name descname"><span class="pre">on_settings_initialized</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.on_settings_initialized" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SettingsPlugin.on_settings_initialized">
+<span class="sig-name descname"><span class="pre">on_settings_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.on_settings_initialized" title="Permalink to this definition"></a></dt>
 <dd><p>Called after the settings have been initialized and - if necessary - also been migrated through a call to
 func:<cite>on_settings_migrate</cite>.</p>
 <p>This method will always be called after the <cite>initialize</cite> method.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SettingsPlugin.on_settings_load">
-<code class="sig-name descname"><span class="pre">on_settings_load</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.on_settings_load" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SettingsPlugin.on_settings_load">
+<span class="sig-name descname"><span class="pre">on_settings_load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.on_settings_load" title="Permalink to this definition"></a></dt>
 <dd><p>Loads the settings for the plugin, called by the Settings API view in order to retrieve all settings from
 all plugins. Override this if you want to inject additional settings properties that are not stored within
 OctoPrint’s configuration.</p>
@@ -761,8 +694,8 @@ Make sure to do your own restriction if you decide to fully overload this method
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SettingsPlugin.on_settings_migrate">
-<code class="sig-name descname"><span class="pre">on_settings_migrate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.on_settings_migrate" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SettingsPlugin.on_settings_migrate">
+<span class="sig-name descname"><span class="pre">on_settings_migrate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.on_settings_migrate" title="Permalink to this definition"></a></dt>
 <dd><p>Called by OctoPrint if it detects that the installed version of the plugin necessitates a higher settings version
 than the one currently stored in _config.yaml. Will also be called if the settings data stored in config.yaml
 doesn’t have version information, in which case the <code class="docutils literal notranslate"><span class="pre">current</span></code> parameter will be None.</p>
@@ -776,7 +709,7 @@ having taken place. You can therefore depend on the configuration having been mi
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The settings format version the plugin requires, this should always be the same value as
 returned by <a class="reference internal" href="#octoprint.plugin.SettingsPlugin.get_settings_version" title="octoprint.plugin.SettingsPlugin.get_settings_version"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_settings_version()</span></code></a>.</p></li>
-<li><p><strong>current</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a>) – The settings format version as currently stored in config.yaml. May be None if
+<li><p><strong>current</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> or </em><em>None</em>) – The settings format version as currently stored in config.yaml. May be None if
 no version information can be found.</p></li>
 </ul>
 </dd>
@@ -784,8 +717,8 @@ no version information can be found.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SettingsPlugin.on_settings_save">
-<code class="sig-name descname"><span class="pre">on_settings_save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.on_settings_save" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SettingsPlugin.on_settings_save">
+<span class="sig-name descname"><span class="pre">on_settings_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.on_settings_save" title="Permalink to this definition"></a></dt>
 <dd><p>Saves the settings for the plugin, called by the Settings API view in order to persist all settings
 from all plugins. Override this if you need to directly react to settings changes or want to extract
 additional settings properties that are not stored within OctoPrint’s configuration.</p>
@@ -815,10 +748,10 @@ and using the proper setter methods on the settings manager to persist the data 
 
 </div>
 <div class="section" id="assetplugin">
-<span id="sec-plugins-mixins-assetplugin"></span><h3><a class="toc-backref" href="#id33">AssetPlugin</a><a class="headerlink" href="#assetplugin" title="Permalink to this headline">¶</a></h3>
+<span id="sec-plugins-mixins-assetplugin"></span><h3><a class="toc-backref" href="#id33">AssetPlugin</a><a class="headerlink" href="#assetplugin" title="Permalink to this headline"></a></h3>
 <dl class="py class">
-<dt id="octoprint.plugin.AssetPlugin">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></code><code class="sig-name descname"><span class="pre">AssetPlugin</span></code><a class="headerlink" href="#octoprint.plugin.AssetPlugin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.AssetPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></span><span class="sig-name descname"><span class="pre">AssetPlugin</span></span><a class="headerlink" href="#octoprint.plugin.AssetPlugin" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.RestartNeedingPlugin" title="octoprint.plugin.core.RestartNeedingPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.RestartNeedingPlugin</span></code></a></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">AssetPlugin</span></code> mixin allows plugins to define additional static assets such as JavaScript or CSS files to
 be automatically embedded into the pages delivered by the server to be used within the client sided part of
@@ -827,8 +760,8 @@ the plugin.</p>
 through a <a class="reference internal" href="#octoprint.plugin.TemplatePlugin" title="octoprint.plugin.TemplatePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplatePlugin</span></code></a>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">AssetPlugin</span></code> is a <code class="xref py py-class docutils literal notranslate"><span class="pre">RestartNeedingPlugin</span></code>.</p>
 <dl class="py method">
-<dt id="octoprint.plugin.AssetPlugin.get_asset_folder">
-<code class="sig-name descname"><span class="pre">get_asset_folder</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.AssetPlugin.get_asset_folder" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.AssetPlugin.get_asset_folder">
+<span class="sig-name descname"><span class="pre">get_asset_folder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.AssetPlugin.get_asset_folder" title="Permalink to this definition"></a></dt>
 <dd><p>Defines the folder where the plugin stores its static assets as defined in <a class="reference internal" href="#octoprint.plugin.AssetPlugin.get_assets" title="octoprint.plugin.AssetPlugin.get_assets"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_assets()</span></code></a>. Override this if
 your plugin stores its assets at some other place than the <code class="docutils literal notranslate"><span class="pre">static</span></code> sub folder in the plugin base directory.</p>
 <dl class="field-list simple">
@@ -839,8 +772,8 @@ your plugin stores its assets at some other place than the <code class="docutils
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.AssetPlugin.get_assets">
-<code class="sig-name descname"><span class="pre">get_assets</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.AssetPlugin.get_assets" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.AssetPlugin.get_assets">
+<span class="sig-name descname"><span class="pre">get_assets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.AssetPlugin.get_assets" title="Permalink to this definition"></a></dt>
 <dd><p>Defines the static assets the plugin offers. The following asset types are recognized and automatically
 imported at the appropriate places to be available:</p>
 <dl class="simple">
@@ -880,10 +813,10 @@ Example:</p>
 
 </div>
 <div class="section" id="templateplugin">
-<span id="sec-plugins-mixins-templateplugin"></span><h3><a class="toc-backref" href="#id34">TemplatePlugin</a><a class="headerlink" href="#templateplugin" title="Permalink to this headline">¶</a></h3>
+<span id="sec-plugins-mixins-templateplugin"></span><h3><a class="toc-backref" href="#id34">TemplatePlugin</a><a class="headerlink" href="#templateplugin" title="Permalink to this headline"></a></h3>
 <dl class="py class">
-<dt id="octoprint.plugin.TemplatePlugin">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></code><code class="sig-name descname"><span class="pre">TemplatePlugin</span></code><a class="headerlink" href="#octoprint.plugin.TemplatePlugin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.TemplatePlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></span><span class="sig-name descname"><span class="pre">TemplatePlugin</span></span><a class="headerlink" href="#octoprint.plugin.TemplatePlugin" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.ReloadNeedingPlugin" title="octoprint.plugin.types.ReloadNeedingPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.ReloadNeedingPlugin</span></code></a></p>
 <p>Using the <code class="docutils literal notranslate"><span class="pre">TemplatePlugin</span></code> mixin plugins may inject their own components into the OctoPrint web interface.</p>
 <p>Currently OctoPrint supports the following types of injections out of the box:</p>
@@ -963,11 +896,11 @@ add overlays or dialogs to be called from within the plugin’s JavaScript code.
 </dl>
 <div class="figure align-center" id="id8">
 <img alt="Template injection types in the main part of the interface" src="../_images/template-plugin-types-main.png" />
-<p class="caption"><span class="caption-number">Fig. 25 </span><span class="caption-text">Template injection types in the main part of the interface</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 25 </span><span class="caption-text">Template injection types in the main part of the interface</span><a class="headerlink" href="#id8" title="Permalink to this image"></a></p>
 </div>
 <div class="figure align-center" id="id9">
 <img alt="Template injection types in the settings" src="../_images/template-plugin-types-settings.png" />
-<p class="caption"><span class="caption-number">Fig. 26 </span><span class="caption-text">Template injection types in the settings</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 26 </span><span class="caption-text">Template injection types in the settings</span><a class="headerlink" href="#id9" title="Permalink to this image"></a></p>
 </div>
 <p>You can find an example for a simple plugin which injects navbar, tab and settings content into the interface in
 the “helloworld” plugin in OctoPrint’s <a class="reference internal" href="gettingstarted.html#sec-plugins-gettingstarted"><span class="std std-ref">Plugin Tutorial</span></a>.</p>
@@ -977,8 +910,8 @@ responsibility to ensure that all core functionality is still maintained.</p>
 <p>Plugins can also add additional template types by implementing the <a class="reference internal" href="hooks.html#sec-plugins-hook-ui-web-templatetypes"><span class="std std-ref">octoprint.ui.web.templatetypes</span></a> hook.</p>
 <p><code class="docutils literal notranslate"><span class="pre">TemplatePlugin</span></code> is a <code class="xref py py-class docutils literal notranslate"><span class="pre">ReloadNeedingPlugin</span></code>.</p>
 <dl class="py method">
-<dt id="octoprint.plugin.TemplatePlugin.get_template_configs">
-<code class="sig-name descname"><span class="pre">get_template_configs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.TemplatePlugin.get_template_configs" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.TemplatePlugin.get_template_configs">
+<span class="sig-name descname"><span class="pre">get_template_configs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.TemplatePlugin.get_template_configs" title="Permalink to this definition"></a></dt>
 <dd><p>Allows configuration of injected navbar, sidebar, tab and settings templates (and also additional templates of
 types specified by plugins through the <a class="reference internal" href="hooks.html#sec-plugins-hook-ui-web-templatetypes"><span class="std std-ref">octoprint.ui.web.templatetypes</span></a> hook).
 Should be a list containing one configuration object per template to inject. Each configuration object is
@@ -1185,8 +1118,8 @@ injection of the default template. You’ll have to include it explicitly:</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.TemplatePlugin.get_template_folder">
-<code class="sig-name descname"><span class="pre">get_template_folder</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.TemplatePlugin.get_template_folder" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.TemplatePlugin.get_template_folder">
+<span class="sig-name descname"><span class="pre">get_template_folder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.TemplatePlugin.get_template_folder" title="Permalink to this definition"></a></dt>
 <dd><p>Defines the folder where the plugin stores its templates. Override this if your plugin stores its templates at
 some other place than the <code class="docutils literal notranslate"><span class="pre">templates</span></code> sub folder in the plugin base directory.</p>
 <dl class="field-list simple">
@@ -1197,8 +1130,8 @@ some other place than the <code class="docutils literal notranslate"><span class
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.TemplatePlugin.get_template_vars">
-<code class="sig-name descname"><span class="pre">get_template_vars</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.TemplatePlugin.get_template_vars" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.TemplatePlugin.get_template_vars">
+<span class="sig-name descname"><span class="pre">get_template_vars</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.TemplatePlugin.get_template_vars" title="Permalink to this definition"></a></dt>
 <dd><p>Defines additional template variables to include into the template renderer. Variable names will be prefixed
 with <code class="docutils literal notranslate"><span class="pre">plugin_&lt;plugin</span> <span class="pre">identifier&gt;_</span></code>.</p>
 <dl class="field-list simple">
@@ -1212,10 +1145,10 @@ with <code class="docutils literal notranslate"><span class="pre">plugin_&lt;plu
 
 </div>
 <div class="section" id="wizardplugin">
-<span id="sec-plugins-mixins-wizardplugin"></span><h3><a class="toc-backref" href="#id35">WizardPlugin</a><a class="headerlink" href="#wizardplugin" title="Permalink to this headline">¶</a></h3>
+<span id="sec-plugins-mixins-wizardplugin"></span><h3><a class="toc-backref" href="#id35">WizardPlugin</a><a class="headerlink" href="#wizardplugin" title="Permalink to this headline"></a></h3>
 <dl class="py class">
-<dt id="octoprint.plugin.WizardPlugin">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></code><code class="sig-name descname"><span class="pre">WizardPlugin</span></code><a class="headerlink" href="#octoprint.plugin.WizardPlugin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.WizardPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></span><span class="sig-name descname"><span class="pre">WizardPlugin</span></span><a class="headerlink" href="#octoprint.plugin.WizardPlugin" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.ReloadNeedingPlugin" title="octoprint.plugin.types.ReloadNeedingPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.ReloadNeedingPlugin</span></code></a></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">WizardPlugin</span></code> mixin allows plugins to report to OctoPrint whether
 the <code class="docutils literal notranslate"><span class="pre">wizard</span></code> templates they define via the <a class="reference internal" href="#octoprint.plugin.TemplatePlugin" title="octoprint.plugin.TemplatePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplatePlugin</span></code></a>
@@ -1275,8 +1208,8 @@ have OctoPrint reshow the dialog. E.g.</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">WizardPlugin</span></code> is a <code class="xref py py-class docutils literal notranslate"><span class="pre">ReloadNeedingPlugin</span></code>.</p>
 <dl class="py method">
-<dt id="octoprint.plugin.WizardPlugin.get_wizard_details">
-<code class="sig-name descname"><span class="pre">get_wizard_details</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.WizardPlugin.get_wizard_details" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.WizardPlugin.get_wizard_details">
+<span class="sig-name descname"><span class="pre">get_wizard_details</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.WizardPlugin.get_wizard_details" title="Permalink to this definition"></a></dt>
 <dd><p>Called by OctoPrint when the wizard wrapper dialog is shown. Allows the plugin to return data
 that will then be made available to the view models via the view model callback <code class="docutils literal notranslate"><span class="pre">onWizardDetails</span></code>.</p>
 <p>Use this if your plugin’s view model that handles your wizard dialog needs additional
@@ -1296,8 +1229,8 @@ data to perform its task.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.WizardPlugin.get_wizard_version">
-<code class="sig-name descname"><span class="pre">get_wizard_version</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.WizardPlugin.get_wizard_version" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.WizardPlugin.get_wizard_version">
+<span class="sig-name descname"><span class="pre">get_wizard_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.WizardPlugin.get_wizard_version" title="Permalink to this definition"></a></dt>
 <dd><p>The version of this plugin’s wizard. OctoPrint will only display a wizard
 of the same plugin and wizard version once to the user. After they
 finish the wizard, OctoPrint will remember that it already showed this
@@ -1316,14 +1249,14 @@ so far</p>
 </p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)">None</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a> or None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.WizardPlugin.is_wizard_ignored">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">is_wizard_ignored</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seen_wizards</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">implementation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.WizardPlugin.is_wizard_ignored" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.WizardPlugin.is_wizard_ignored">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_wizard_ignored</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seen_wizards</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">implementation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.WizardPlugin.is_wizard_ignored" title="Permalink to this definition"></a></dt>
 <dd><p>Determines whether the provided implementation is ignored based on the
 provided information about already seen wizards and their versions or not.</p>
 <p>A wizard is ignored if</p>
@@ -1369,8 +1302,8 @@ version (int or None) that was already seen by the user.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.WizardPlugin.is_wizard_required">
-<code class="sig-name descname"><span class="pre">is_wizard_required</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.WizardPlugin.is_wizard_required" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.WizardPlugin.is_wizard_required">
+<span class="sig-name descname"><span class="pre">is_wizard_required</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.WizardPlugin.is_wizard_required" title="Permalink to this definition"></a></dt>
 <dd><p>Allows the plugin to report whether it needs to display a wizard to the
 user or not.</p>
 <p>Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
@@ -1382,8 +1315,8 @@ method returns <code class="docutils literal notranslate"><span class="pre">True
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.WizardPlugin.on_wizard_finish">
-<code class="sig-name descname"><span class="pre">on_wizard_finish</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handled</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.WizardPlugin.on_wizard_finish" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.WizardPlugin.on_wizard_finish">
+<span class="sig-name descname"><span class="pre">on_wizard_finish</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handled</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.WizardPlugin.on_wizard_finish" title="Permalink to this definition"></a></dt>
 <dd><p>Called by OctoPrint whenever the user finishes a wizard session.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">handled</span></code> parameter will indicate whether that plugin’s wizard was
 included in the wizard dialog presented to the user (so the plugin providing
@@ -1403,10 +1336,10 @@ False otherwise</p>
 
 </div>
 <div class="section" id="uiplugin">
-<span id="sec-plugins-mixins-uiplugin"></span><h3><a class="toc-backref" href="#id36">UiPlugin</a><a class="headerlink" href="#uiplugin" title="Permalink to this headline">¶</a></h3>
+<span id="sec-plugins-mixins-uiplugin"></span><h3><a class="toc-backref" href="#id36">UiPlugin</a><a class="headerlink" href="#uiplugin" title="Permalink to this headline"></a></h3>
 <dl class="py class">
-<dt id="octoprint.plugin.UiPlugin">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></code><code class="sig-name descname"><span class="pre">UiPlugin</span></code><a class="headerlink" href="#octoprint.plugin.UiPlugin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.UiPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></span><span class="sig-name descname"><span class="pre">UiPlugin</span></span><a class="headerlink" href="#octoprint.plugin.UiPlugin" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.SortablePlugin" title="octoprint.plugin.core.SortablePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.SortablePlugin</span></code></a></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">UiPlugin</span></code> mixin allows plugins to completely replace the UI served
 by OctoPrint when requesting the main page hosted at <cite>/</cite>.</p>
@@ -1437,32 +1370,8 @@ mixin.</p>
 only exemplary) UI if the requesting client has a UserAgent string hinting
 at it being a mobile device:</p>
 <div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-number">Listing 12 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/dummy_mobile_ui/__init__.py">dummy_mobile_ui/__init__.py</a></span><a class="headerlink" href="#id10" title="Permalink to this code">¶</a></div>
-<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># coding=utf-8</span>
+<div class="code-block-caption"><span class="caption-number">Listing 12 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/dummy_mobile_ui/__init__.py">dummy_mobile_ui/__init__.py</a></span><a class="headerlink" href="#id10" title="Permalink to this code"></a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># coding=utf-8</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
 
 <span class="kn">import</span> <span class="nn">octoprint.plugin</span>
@@ -1488,41 +1397,11 @@ at it being a mobile device:</p>
 <span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">DummyMobileUiPlugin</span><span class="p">()</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-number">Listing 13 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/dummy_mobile_ui/templates/dummy_mobile_ui_index.jinja2">dummy_mobile_ui/templates/dummy_mobile_ui_index.jinja2</a></span><a class="headerlink" href="#id11" title="Permalink to this code">¶</a></div>
-<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span>&lt;html&gt;
+<div class="code-block-caption"><span class="caption-number">Listing 13 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/dummy_mobile_ui/templates/dummy_mobile_ui_index.jinja2">dummy_mobile_ui/templates/dummy_mobile_ui_index.jinja2</a></span><a class="headerlink" href="#id11" title="Permalink to this code"></a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;html&gt;
     &lt;head&gt;
         &lt;title&gt;Dummy Mobile OctoPrint UI&lt;/title&gt;
         &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0&quot;/&gt;
@@ -1554,7 +1433,7 @@ at it being a mobile device:</p>
     &lt;/body&gt;
 &lt;/html&gt;
 </pre></div>
-</td></tr></table></div>
+</div>
 </div>
 <p>Try installing the above plugin <code class="docutils literal notranslate"><span class="pre">dummy_mobile_ui</span></code> (also available in the
 <a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/dummy_mobile_ui">plugin examples repository</a>)
@@ -1576,8 +1455,8 @@ server startup (basically eager caching instead of lazily waiting for the first 
 <p><span class="versionmodified added">New in version 1.3.0.</span></p>
 </div>
 <dl class="py method">
-<dt id="octoprint.plugin.UiPlugin.get_ui_additional_etag">
-<code class="sig-name descname"><span class="pre">get_ui_additional_etag</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_additional</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_additional_etag" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.UiPlugin.get_ui_additional_etag">
+<span class="sig-name descname"><span class="pre">get_ui_additional_etag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_additional</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_additional_etag" title="Permalink to this definition"></a></dt>
 <dd><p>Allows to provide a list of additional fields to use for ETag generation.</p>
 <p>By default the same list will be returned that is also used in the stock UI (and injected
 via the parameter <code class="docutils literal notranslate"><span class="pre">default_additional</span></code>).</p>
@@ -1598,8 +1477,8 @@ via the parameter <code class="docutils literal notranslate"><span class="pre">d
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.UiPlugin.get_ui_additional_key_data_for_cache">
-<code class="sig-name descname"><span class="pre">get_ui_additional_key_data_for_cache</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_additional_key_data_for_cache" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.UiPlugin.get_ui_additional_key_data_for_cache">
+<span class="sig-name descname"><span class="pre">get_ui_additional_key_data_for_cache</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_additional_key_data_for_cache" title="Permalink to this definition"></a></dt>
 <dd><p>Allows to return additional data to use in the cache key.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1620,8 +1499,8 @@ cache key. Ignored if <code class="docutils literal notranslate"><span class="pr
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.UiPlugin.get_ui_additional_request_data_for_preemptive_caching">
-<code class="sig-name descname"><span class="pre">get_ui_additional_request_data_for_preemptive_caching</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_additional_request_data_for_preemptive_caching" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.UiPlugin.get_ui_additional_request_data_for_preemptive_caching">
+<span class="sig-name descname"><span class="pre">get_ui_additional_request_data_for_preemptive_caching</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_additional_request_data_for_preemptive_caching" title="Permalink to this definition"></a></dt>
 <dd><p>Allows defining additional request data to persist in the preemptive cache configuration and
 to use for the fake request used for populating the preemptive cache.</p>
 <p>Keys and values are used as keyword arguments for creating the
@@ -1645,8 +1524,8 @@ used for creating the fake request.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.UiPlugin.get_ui_additional_tracked_files">
-<code class="sig-name descname"><span class="pre">get_ui_additional_tracked_files</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_additional_tracked_files" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.UiPlugin.get_ui_additional_tracked_files">
+<span class="sig-name descname"><span class="pre">get_ui_additional_tracked_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_additional_tracked_files" title="Permalink to this definition"></a></dt>
 <dd><p>Allows to return additional files to track for validating existing caches. By default OctoPrint
 will track all declared templates, assets and translation files in the system. Additional
 files can be added by a plugin through this callback.</p>
@@ -1668,8 +1547,8 @@ files can be added by a plugin through this callback.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.UiPlugin.get_ui_custom_etag">
-<code class="sig-name descname"><span class="pre">get_ui_custom_etag</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_custom_etag" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.UiPlugin.get_ui_custom_etag">
+<span class="sig-name descname"><span class="pre">get_ui_custom_etag</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_custom_etag" title="Permalink to this definition"></a></dt>
 <dd><p>Allows to use a custom way to calculate the ETag, instead of the default method (hashing
 OctoPrint’s version, tracked file paths and <code class="docutils literal notranslate"><span class="pre">LastModified</span></code> value).</p>
 <dl class="field-list simple">
@@ -1686,8 +1565,8 @@ OctoPrint’s version, tracked file paths and <code class="docutils literal notr
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.UiPlugin.get_ui_custom_lastmodified">
-<code class="sig-name descname"><span class="pre">get_ui_custom_lastmodified</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_custom_lastmodified" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.UiPlugin.get_ui_custom_lastmodified">
+<span class="sig-name descname"><span class="pre">get_ui_custom_lastmodified</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_custom_lastmodified" title="Permalink to this definition"></a></dt>
 <dd><p>Allows to calculate the LastModified differently than using the most recent modification
 date of all tracked files.</p>
 <dl class="field-list simple">
@@ -1704,8 +1583,8 @@ date of all tracked files.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.UiPlugin.get_ui_custom_template_filter">
-<code class="sig-name descname"><span class="pre">get_ui_custom_template_filter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_template_filter</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_custom_template_filter" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.UiPlugin.get_ui_custom_template_filter">
+<span class="sig-name descname"><span class="pre">get_ui_custom_template_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_template_filter</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_custom_template_filter" title="Permalink to this definition"></a></dt>
 <dd><p>Allows to specify a custom template filter to use for filtering the template contained in the
 <code class="docutils literal notranslate"><span class="pre">render_kwargs</span></code> provided to the templating sub system.</p>
 <p>Only relevant for UiPlugins that actually utilize the stock templates of OctoPrint.</p>
@@ -1726,8 +1605,8 @@ filtering will take place.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.UiPlugin.get_ui_custom_tracked_files">
-<code class="sig-name descname"><span class="pre">get_ui_custom_tracked_files</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_custom_tracked_files" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.UiPlugin.get_ui_custom_tracked_files">
+<span class="sig-name descname"><span class="pre">get_ui_custom_tracked_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_custom_tracked_files" title="Permalink to this definition"></a></dt>
 <dd><p>Allows to define a complete separate set of files to track for (in)validating the cache. If this
 method returns something, the templates, assets and translation files won’t be tracked, only the
 files specified in the returned list.</p>
@@ -1749,8 +1628,8 @@ files specified in the returned list.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.UiPlugin.get_ui_data_for_preemptive_caching">
-<code class="sig-name descname"><span class="pre">get_ui_data_for_preemptive_caching</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_data_for_preemptive_caching" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.UiPlugin.get_ui_data_for_preemptive_caching">
+<span class="sig-name descname"><span class="pre">get_ui_data_for_preemptive_caching</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_data_for_preemptive_caching" title="Permalink to this definition"></a></dt>
 <dd><p>Allows defining additional data to be persisted in the preemptive cache configuration, on
 top of the request path, base URL and used locale.</p>
 <dl class="field-list simple">
@@ -1767,8 +1646,8 @@ top of the request path, base URL and used locale.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.UiPlugin.get_ui_permissions">
-<code class="sig-name descname"><span class="pre">get_ui_permissions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_permissions" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.UiPlugin.get_ui_permissions">
+<span class="sig-name descname"><span class="pre">get_ui_permissions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_permissions" title="Permalink to this definition"></a></dt>
 <dd><p>Determines a list of permissions that need to be on the current user session. If
 these requirements are not met, OctoPrint will instead redirect to a login
 screen.</p>
@@ -1785,8 +1664,8 @@ May be empty to indicate that no permission checks should be made by OctoPrint.<
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.UiPlugin.get_ui_preemptive_caching_additional_unless">
-<code class="sig-name descname"><span class="pre">get_ui_preemptive_caching_additional_unless</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_preemptive_caching_additional_unless" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.UiPlugin.get_ui_preemptive_caching_additional_unless">
+<span class="sig-name descname"><span class="pre">get_ui_preemptive_caching_additional_unless</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_preemptive_caching_additional_unless" title="Permalink to this definition"></a></dt>
 <dd><p>Allows defining additional reasons for temporarily not adding a preemptive cache record for
 your plugin’s UI.</p>
 <p>OctoPrint will call this method when processing a UI request, to determine whether to record the
@@ -1805,8 +1684,8 @@ access or not. If you return <code class="docutils literal notranslate"><span cl
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.UiPlugin.get_ui_preemptive_caching_enabled">
-<code class="sig-name descname"><span class="pre">get_ui_preemptive_caching_enabled</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_preemptive_caching_enabled" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.UiPlugin.get_ui_preemptive_caching_enabled">
+<span class="sig-name descname"><span class="pre">get_ui_preemptive_caching_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.get_ui_preemptive_caching_enabled" title="Permalink to this definition"></a></dt>
 <dd><p>Allows to control whether the view provided by the plugin should be preemptively
 cached on server startup (default) or not.</p>
 <p>Have this return False if you do not want your plugin’s UI to ever be preemptively cached.</p>
@@ -1821,8 +1700,8 @@ cached on server startup (default) or not.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.UiPlugin.on_ui_render">
-<code class="sig-name descname"><span class="pre">on_ui_render</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">now</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">render_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.on_ui_render" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.UiPlugin.on_ui_render">
+<span class="sig-name descname"><span class="pre">on_ui_render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">now</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">render_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.on_ui_render" title="Permalink to this definition"></a></dt>
 <dd><p>Called by OctoPrint to retrieve the response to send to the client
 for the <code class="docutils literal notranslate"><span class="pre">request</span></code> to <code class="docutils literal notranslate"><span class="pre">/</span></code>. Only called if <a class="reference internal" href="#octoprint.plugin.UiPlugin.will_handle_ui" title="octoprint.plugin.UiPlugin.will_handle_ui"><code class="xref py py-meth docutils literal notranslate"><span class="pre">will_handle_ui()</span></code></a>
 returned <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
@@ -1898,15 +1777,15 @@ template to render.</p>
 </table>
 </td>
 </tr>
-<tr class="row-odd"><td><p>pluginNames</p></td>
+<tr class="row-even"><td><p>pluginNames</p></td>
 <td><p>A list of names of <a class="reference internal" href="#octoprint.plugin.TemplatePlugin" title="octoprint.plugin.TemplatePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplatePlugin</span></code></a>
 implementation that were enabled when creating the <code class="docutils literal notranslate"><span class="pre">templates</span></code>
 value.</p></td>
 </tr>
-<tr class="row-even"><td><p>locales</p></td>
+<tr class="row-odd"><td><p>locales</p></td>
 <td><p>The locales for which there are translations available.</p></td>
 </tr>
-<tr class="row-odd"><td><p>supportedExtensions</p></td>
+<tr class="row-even"><td><p>supportedExtensions</p></td>
 <td><p>The file extensions supported for uploads.</p></td>
 </tr>
 </tbody>
@@ -1941,8 +1820,8 @@ created with <code class="docutils literal notranslate"><span class="pre">flask.
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.UiPlugin.will_handle_ui">
-<code class="sig-name descname"><span class="pre">will_handle_ui</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.will_handle_ui" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.UiPlugin.will_handle_ui">
+<span class="sig-name descname"><span class="pre">will_handle_ui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.UiPlugin.will_handle_ui" title="Permalink to this definition"></a></dt>
 <dd><p>Called by OctoPrint to determine if the mixin implementation will be
 able to handle the <code class="docutils literal notranslate"><span class="pre">request</span></code> provided as a parameter.</p>
 <p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> here to signal that your implementation will handle
@@ -1973,10 +1852,10 @@ object.</p>
 
 </div>
 <div class="section" id="simpleapiplugin">
-<span id="sec-plugins-mixins-simpleapiplugin"></span><h3><a class="toc-backref" href="#id37">SimpleApiPlugin</a><a class="headerlink" href="#simpleapiplugin" title="Permalink to this headline">¶</a></h3>
+<span id="sec-plugins-mixins-simpleapiplugin"></span><h3><a class="toc-backref" href="#id37">SimpleApiPlugin</a><a class="headerlink" href="#simpleapiplugin" title="Permalink to this headline"></a></h3>
 <dl class="py class">
-<dt id="octoprint.plugin.SimpleApiPlugin">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></code><code class="sig-name descname"><span class="pre">SimpleApiPlugin</span></code><a class="headerlink" href="#octoprint.plugin.SimpleApiPlugin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SimpleApiPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></span><span class="sig-name descname"><span class="pre">SimpleApiPlugin</span></span><a class="headerlink" href="#octoprint.plugin.SimpleApiPlugin" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a></p>
 <p>Utilizing the <code class="docutils literal notranslate"><span class="pre">SimpleApiPlugin</span></code> mixin plugins may implement a simple API based around one GET resource and one
 resource accepting JSON commands POSTed to it. This is the easy alternative for plugin’s which don’t need the
@@ -1990,31 +1869,7 @@ OctoPrint will do some preliminary request validation for your defined commands,
 the correct format (content type must be JSON) and contains all obligatory parameters for your command.</p>
 <p>Let’s take a look at a small example for such a simple API and how you would go about calling it.</p>
 <p>Take this example of a plugin registered under plugin identifier <code class="docutils literal notranslate"><span class="pre">mysimpleapiplugin</span></code>:</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="kn">import</span> <span class="nn">flask</span>
 
@@ -2040,7 +1895,7 @@ the correct format (content type must be JSON) and contains all obligatory param
 
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">MySimpleApiPlugin</span><span class="p">()</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Our plugin defines two commands, <code class="docutils literal notranslate"><span class="pre">command1</span></code> with no mandatory parameters and <code class="docutils literal notranslate"><span class="pre">command2</span></code> with one
 mandatory parameter <code class="docutils literal notranslate"><span class="pre">some_parameter</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">command1</span></code> can also accept an optional parameter <code class="docutils literal notranslate"><span class="pre">parameter</span></code>, and will log whether
@@ -2076,21 +1931,21 @@ that parameter was set or unset. <code class="docutils literal notranslate"><spa
 </pre></div>
 </div>
 <dl class="py method">
-<dt id="octoprint.plugin.SimpleApiPlugin.get_api_commands">
-<code class="sig-name descname"><span class="pre">get_api_commands</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SimpleApiPlugin.get_api_commands" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SimpleApiPlugin.get_api_commands">
+<span class="sig-name descname"><span class="pre">get_api_commands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SimpleApiPlugin.get_api_commands" title="Permalink to this definition"></a></dt>
 <dd><p>Return a dictionary here with the keys representing the accepted commands and the values being lists of
 mandatory parameter names.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SimpleApiPlugin.is_api_adminonly">
-<code class="sig-name descname"><span class="pre">is_api_adminonly</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SimpleApiPlugin.is_api_adminonly" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SimpleApiPlugin.is_api_adminonly">
+<span class="sig-name descname"><span class="pre">is_api_adminonly</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SimpleApiPlugin.is_api_adminonly" title="Permalink to this definition"></a></dt>
 <dd><p>Return True if the API is only available to users having the admin role.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SimpleApiPlugin.on_api_command">
-<code class="sig-name descname"><span class="pre">on_api_command</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SimpleApiPlugin.on_api_command" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SimpleApiPlugin.on_api_command">
+<span class="sig-name descname"><span class="pre">on_api_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SimpleApiPlugin.on_api_command" title="Permalink to this definition"></a></dt>
 <dd><p>Called by OctoPrint upon a POST request to <code class="docutils literal notranslate"><span class="pre">/api/plugin/&lt;plugin</span> <span class="pre">identifier&gt;</span></code>. <code class="docutils literal notranslate"><span class="pre">command</span></code> will contain one of
 the commands as specified via <a class="reference internal" href="#octoprint.plugin.SimpleApiPlugin.get_api_commands" title="octoprint.plugin.SimpleApiPlugin.get_api_commands"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_api_commands()</span></code></a>, <code class="docutils literal notranslate"><span class="pre">data</span></code> will contain the full request body parsed
 from JSON into a Python dictionary. Note that this will also contain the <code class="docutils literal notranslate"><span class="pre">command</span></code> attribute itself. For the
@@ -2114,8 +1969,8 @@ a proper Flask response.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SimpleApiPlugin.on_api_get">
-<code class="sig-name descname"><span class="pre">on_api_get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SimpleApiPlugin.on_api_get" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SimpleApiPlugin.on_api_get">
+<span class="sig-name descname"><span class="pre">on_api_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SimpleApiPlugin.on_api_get" title="Permalink to this definition"></a></dt>
 <dd><p>Called by OctoPrint upon a GET request to <code class="docutils literal notranslate"><span class="pre">/api/plugin/&lt;plugin</span> <span class="pre">identifier&gt;</span></code>. <code class="docutils literal notranslate"><span class="pre">request</span></code> will contain the
 received <a class="reference external" href="http://flask.pocoo.org/docs/0.9/api/#flask.Request">Flask request object</a> which you may evaluate
 for additional arguments supplied with the request.</p>
@@ -2137,10 +1992,10 @@ a proper Flask response.</p>
 
 </div>
 <div class="section" id="blueprintplugin">
-<span id="sec-plugins-mixins-blueprintplugin"></span><h3><a class="toc-backref" href="#id38">BlueprintPlugin</a><a class="headerlink" href="#blueprintplugin" title="Permalink to this headline">¶</a></h3>
+<span id="sec-plugins-mixins-blueprintplugin"></span><h3><a class="toc-backref" href="#id38">BlueprintPlugin</a><a class="headerlink" href="#blueprintplugin" title="Permalink to this headline"></a></h3>
 <dl class="py class">
-<dt id="octoprint.plugin.BlueprintPlugin">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></code><code class="sig-name descname"><span class="pre">BlueprintPlugin</span></code><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.BlueprintPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></span><span class="sig-name descname"><span class="pre">BlueprintPlugin</span></span><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.RestartNeedingPlugin" title="octoprint.plugin.core.RestartNeedingPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.RestartNeedingPlugin</span></code></a></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">BlueprintPlugin</span></code> mixin allows plugins to define their own full fledged endpoints for whatever purpose,
 be it a more sophisticated API than what is possible via the <a class="reference internal" href="#octoprint.plugin.SimpleApiPlugin" title="octoprint.plugin.SimpleApiPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleApiPlugin</span></code></a> or a custom web frontend.</p>
@@ -2148,17 +2003,7 @@ be it a more sophisticated API than what is possible via the <a class="reference
 <p>The mixin automatically creates a blueprint for you that will be registered under <code class="docutils literal notranslate"><span class="pre">/plugin/&lt;plugin</span> <span class="pre">identifier&gt;/</span></code>.
 All you need to do is decorate all of your view functions with the <a class="reference internal" href="#octoprint.plugin.BlueprintPlugin.route" title="octoprint.plugin.BlueprintPlugin.route"><code class="xref py py-func docutils literal notranslate"><span class="pre">route()</span></code></a> decorator,
 which behaves exactly the same like Flask’s regular <code class="docutils literal notranslate"><span class="pre">route</span></code> decorators. Example:</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 <span class="kn">import</span> <span class="nn">flask</span>
 
 <span class="k">class</span> <span class="nc">MyBlueprintPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="p">):</span>
@@ -2170,7 +2015,7 @@ which behaves exactly the same like Flask’s regular <code class="docutils lite
 
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">MyBlueprintPlugin</span><span class="p">()</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Your blueprint will be published by OctoPrint under the base URL <code class="docutils literal notranslate"><span class="pre">/plugin/&lt;plugin</span> <span class="pre">identifier&gt;/</span></code>, so the above
 example of a plugin with the identifier “myblueprintplugin” would be reachable under
 <code class="docutils literal notranslate"><span class="pre">/plugin/myblueprintplugin/echo</span></code>.</p>
@@ -2181,8 +2026,8 @@ example of a plugin with the identifier “myblueprintplugin” would be reachab
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">BlueprintPlugin</span></code> implements <code class="xref py py-class docutils literal notranslate"><span class="pre">RestartNeedingPlugin</span></code>.</p>
 <dl class="py method">
-<dt id="octoprint.plugin.BlueprintPlugin.errorhandler">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">errorhandler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code_or_exception</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin.errorhandler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.BlueprintPlugin.errorhandler">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">errorhandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code_or_exception</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin.errorhandler" title="Permalink to this definition"></a></dt>
 <dd><p>A decorator to mark errorhandlings methods in your BlueprintPlugin subclass. Works just the same as Flask’s
 own <code class="docutils literal notranslate"><span class="pre">errorhandler</span></code> decorator available on blueprints.</p>
 <p>See <a class="reference external" href="http://flask.pocoo.org/docs/0.10/api/#flask.Blueprint.errorhandler">the documentation for flask.Blueprint.errorhandler</a>
@@ -2194,8 +2039,8 @@ information.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.BlueprintPlugin.get_blueprint">
-<code class="sig-name descname"><span class="pre">get_blueprint</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin.get_blueprint" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.BlueprintPlugin.get_blueprint">
+<span class="sig-name descname"><span class="pre">get_blueprint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin.get_blueprint" title="Permalink to this definition"></a></dt>
 <dd><p>Creates and returns the blueprint for your plugin. Override this if you want to define and handle your blueprint yourself.</p>
 <p>This method will only be called once during server initialization.</p>
 <dl class="field-list simple">
@@ -2206,8 +2051,8 @@ information.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.BlueprintPlugin.get_blueprint_api_prefixes">
-<code class="sig-name descname"><span class="pre">get_blueprint_api_prefixes</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin.get_blueprint_api_prefixes" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.BlueprintPlugin.get_blueprint_api_prefixes">
+<span class="sig-name descname"><span class="pre">get_blueprint_api_prefixes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin.get_blueprint_api_prefixes" title="Permalink to this definition"></a></dt>
 <dd><p>Return all prefixes of your endpoint that are an API that should be containing JSON only.</p>
 <p>Anything that matches this will generate JSON error messages in case of flask.abort
 calls, instead of the default HTML ones.</p>
@@ -2217,8 +2062,8 @@ return <code class="docutils literal notranslate"><span class="pre">[&quot;/foo&
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.BlueprintPlugin.get_blueprint_kwargs">
-<code class="sig-name descname"><span class="pre">get_blueprint_kwargs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin.get_blueprint_kwargs" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.BlueprintPlugin.get_blueprint_kwargs">
+<span class="sig-name descname"><span class="pre">get_blueprint_kwargs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin.get_blueprint_kwargs" title="Permalink to this definition"></a></dt>
 <dd><p>Override this if you want your blueprint constructed with additional options such as <code class="docutils literal notranslate"><span class="pre">static_folder</span></code>,
 <code class="docutils literal notranslate"><span class="pre">template_folder</span></code>, etc.</p>
 <p>Defaults to the blueprint’s <code class="docutils literal notranslate"><span class="pre">static_folder</span></code> and <code class="docutils literal notranslate"><span class="pre">template_folder</span></code> to be set to the plugin’s basefolder
@@ -2227,8 +2072,8 @@ plus <code class="docutils literal notranslate"><span class="pre">/static</span>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.BlueprintPlugin.is_blueprint_protected">
-<code class="sig-name descname"><span class="pre">is_blueprint_protected</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin.is_blueprint_protected" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.BlueprintPlugin.is_blueprint_protected">
+<span class="sig-name descname"><span class="pre">is_blueprint_protected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin.is_blueprint_protected" title="Permalink to this definition"></a></dt>
 <dd><p>Whether a login session by a registered user is needed to access the blueprint’s endpoints. Requiring
 a session is the default. Note that this only restricts access to the blueprint’s dynamic methods, static files
 are always accessible.</p>
@@ -2237,8 +2082,8 @@ permissions checks explicitly.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.BlueprintPlugin.route">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">route</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rule</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin.route" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.BlueprintPlugin.route">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">route</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rule</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin.route" title="Permalink to this definition"></a></dt>
 <dd><p>A decorator to mark view methods in your BlueprintPlugin subclass. Works just the same as Flask’s
 own <code class="docutils literal notranslate"><span class="pre">route</span></code> decorator available on blueprints.</p>
 <p>See <a class="reference external" href="http://flask.pocoo.org/docs/0.10/api/#flask.Blueprint.route">the documentation for flask.Blueprint.route</a>
@@ -2250,10 +2095,10 @@ information.</p>
 
 </div>
 <div class="section" id="eventhandlerplugin">
-<span id="sec-plugins-mixins-eventhandlerplugin"></span><h3><a class="toc-backref" href="#id39">EventHandlerPlugin</a><a class="headerlink" href="#eventhandlerplugin" title="Permalink to this headline">¶</a></h3>
+<span id="sec-plugins-mixins-eventhandlerplugin"></span><h3><a class="toc-backref" href="#id39">EventHandlerPlugin</a><a class="headerlink" href="#eventhandlerplugin" title="Permalink to this headline"></a></h3>
 <dl class="py class">
-<dt id="octoprint.plugin.EventHandlerPlugin">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></code><code class="sig-name descname"><span class="pre">EventHandlerPlugin</span></code><a class="headerlink" href="#octoprint.plugin.EventHandlerPlugin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.EventHandlerPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></span><span class="sig-name descname"><span class="pre">EventHandlerPlugin</span></span><a class="headerlink" href="#octoprint.plugin.EventHandlerPlugin" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">EventHandlerPlugin</span></code> mixin allows OctoPrint plugins to react to any of <a class="reference internal" href="../events/index.html#sec-events"><span class="std std-ref">OctoPrint’s events</span></a>.
 OctoPrint will call the <a class="reference internal" href="#octoprint.plugin.EventHandlerPlugin.on_event" title="octoprint.plugin.EventHandlerPlugin.on_event"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_event()</span></code></a> method for any event fired on its internal event bus, supplying the
@@ -2263,8 +2108,8 @@ but the processing of the events within the queue itself happens consecutively.<
 <p>This mixin is especially interesting for plugins which want to react on things like print jobs finishing, timelapse
 videos rendering etc.</p>
 <dl class="py method">
-<dt id="octoprint.plugin.EventHandlerPlugin.on_event">
-<code class="sig-name descname"><span class="pre">on_event</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.EventHandlerPlugin.on_event" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.EventHandlerPlugin.on_event">
+<span class="sig-name descname"><span class="pre">on_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.EventHandlerPlugin.on_event" title="Permalink to this definition"></a></dt>
 <dd><p>Called by OctoPrint upon processing of a fired event on the platform.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -2285,16 +2130,16 @@ for possible values</p></li>
 
 </div>
 <div class="section" id="progressplugin">
-<span id="sec-plugins-mixins-progressplugin"></span><h3><a class="toc-backref" href="#id40">ProgressPlugin</a><a class="headerlink" href="#progressplugin" title="Permalink to this headline">¶</a></h3>
+<span id="sec-plugins-mixins-progressplugin"></span><h3><a class="toc-backref" href="#id40">ProgressPlugin</a><a class="headerlink" href="#progressplugin" title="Permalink to this headline"></a></h3>
 <dl class="py class">
-<dt id="octoprint.plugin.ProgressPlugin">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></code><code class="sig-name descname"><span class="pre">ProgressPlugin</span></code><a class="headerlink" href="#octoprint.plugin.ProgressPlugin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.ProgressPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></span><span class="sig-name descname"><span class="pre">ProgressPlugin</span></span><a class="headerlink" href="#octoprint.plugin.ProgressPlugin" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a></p>
 <p>Via the <code class="docutils literal notranslate"><span class="pre">ProgressPlugin</span></code> mixing plugins can let themselves be called upon progress in print jobs or slicing jobs,
 limited to minimally 1% steps.</p>
 <dl class="py method">
-<dt id="octoprint.plugin.ProgressPlugin.on_print_progress">
-<code class="sig-name descname"><span class="pre">on_print_progress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.ProgressPlugin.on_print_progress" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.ProgressPlugin.on_print_progress">
+<span class="sig-name descname"><span class="pre">on_print_progress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.ProgressPlugin.on_print_progress" title="Permalink to this definition"></a></dt>
 <dd><p>Called by OctoPrint on minimally 1% increments during a running print job.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2308,8 +2153,8 @@ limited to minimally 1% steps.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.ProgressPlugin.on_slicing_progress">
-<code class="sig-name descname"><span class="pre">on_slicing_progress</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination_location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.ProgressPlugin.on_slicing_progress" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.ProgressPlugin.on_slicing_progress">
+<span class="sig-name descname"><span class="pre">on_slicing_progress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination_location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.ProgressPlugin.on_slicing_progress" title="Permalink to this definition"></a></dt>
 <dd><p>Called by OctoPrint on minimally 1% increments during a running slicing job.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2329,15 +2174,15 @@ limited to minimally 1% steps.</p>
 
 </div>
 <div class="section" id="slicerplugin">
-<span id="sec-plugins-mixins-slicerplugin"></span><h3><a class="toc-backref" href="#id41">SlicerPlugin</a><a class="headerlink" href="#slicerplugin" title="Permalink to this headline">¶</a></h3>
+<span id="sec-plugins-mixins-slicerplugin"></span><h3><a class="toc-backref" href="#id41">SlicerPlugin</a><a class="headerlink" href="#slicerplugin" title="Permalink to this headline"></a></h3>
 <dl class="py class">
-<dt id="octoprint.plugin.SlicerPlugin">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></code><code class="sig-name descname"><span class="pre">SlicerPlugin</span></code><a class="headerlink" href="#octoprint.plugin.SlicerPlugin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SlicerPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></span><span class="sig-name descname"><span class="pre">SlicerPlugin</span></span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a></p>
 <p>Via the <code class="docutils literal notranslate"><span class="pre">SlicerPlugin</span></code> mixin plugins can add support for slicing engines to be used by OctoPrint.</p>
 <dl class="py method">
-<dt id="octoprint.plugin.SlicerPlugin.cancel_slicing">
-<code class="sig-name descname"><span class="pre">cancel_slicing</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">machinecode_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.cancel_slicing" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SlicerPlugin.cancel_slicing">
+<span class="sig-name descname"><span class="pre">cancel_slicing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">machinecode_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.cancel_slicing" title="Permalink to this definition"></a></dt>
 <dd><p>Cancels the slicing to the indicated file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2347,8 +2192,8 @@ limited to minimally 1% steps.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SlicerPlugin.do_slice">
-<code class="sig-name descname"><span class="pre">do_slice</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printer_profile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">machinecode_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_progress_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_progress_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.do_slice" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SlicerPlugin.do_slice">
+<span class="sig-name descname"><span class="pre">do_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printer_profile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">machinecode_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_progress_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_progress_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.do_slice" title="Permalink to this definition"></a></dt>
 <dd><p>Called by OctoPrint to slice <code class="docutils literal notranslate"><span class="pre">model_path</span></code> for the indicated <code class="docutils literal notranslate"><span class="pre">printer_profile</span></code>. If the <code class="docutils literal notranslate"><span class="pre">machinecode_path</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>,
 slicer implementations should generate it from the provided <code class="docutils literal notranslate"><span class="pre">model_path</span></code>.</p>
 <p>If provided, the <code class="docutils literal notranslate"><span class="pre">profile_path</span></code> is guaranteed by OctoPrint to be a serialized slicing profile created through the slicing
@@ -2399,8 +2244,8 @@ containing a human readable reason for the error.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SlicerPlugin.get_slicer_default_profile">
-<code class="sig-name descname"><span class="pre">get_slicer_default_profile</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.get_slicer_default_profile" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SlicerPlugin.get_slicer_default_profile">
+<span class="sig-name descname"><span class="pre">get_slicer_default_profile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.get_slicer_default_profile" title="Permalink to this definition"></a></dt>
 <dd><p>Should return a <a class="reference internal" href="../modules/slicing.html#octoprint.slicing.SlicingProfile" title="octoprint.slicing.SlicingProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlicingProfile</span></code></a> containing the default slicing profile to use with
 this slicer if no other profile has been selected.</p>
 <dl class="field-list simple">
@@ -2418,8 +2263,8 @@ this slicer if no other profile has been selected.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SlicerPlugin.get_slicer_extension_tree">
-<code class="sig-name descname"><span class="pre">get_slicer_extension_tree</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.get_slicer_extension_tree" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SlicerPlugin.get_slicer_extension_tree">
+<span class="sig-name descname"><span class="pre">get_slicer_extension_tree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.get_slicer_extension_tree" title="Permalink to this definition"></a></dt>
 <dd><p>Fetch additional entries to put into the extension tree for accepted files</p>
 <p>By default, a subtree for <code class="docutils literal notranslate"><span class="pre">model</span></code> files with <code class="docutils literal notranslate"><span class="pre">stl</span></code> extension is returned. Slicers who want to support
 additional/other file types will want to override this.</p>
@@ -2431,8 +2276,8 @@ additional/other file types will want to override this.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SlicerPlugin.get_slicer_profile">
-<code class="sig-name descname"><span class="pre">get_slicer_profile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.get_slicer_profile" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SlicerPlugin.get_slicer_profile">
+<span class="sig-name descname"><span class="pre">get_slicer_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.get_slicer_profile" title="Permalink to this definition"></a></dt>
 <dd><p>Should return a <a class="reference internal" href="../modules/slicing.html#octoprint.slicing.SlicingProfile" title="octoprint.slicing.SlicingProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlicingProfile</span></code></a> parsed from the slicing profile stored at the
 indicated <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
 <dl class="field-list simple">
@@ -2449,8 +2294,8 @@ indicated <code class="docutils literal notranslate"><span class="pre">path</spa
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SlicerPlugin.get_slicer_profiles">
-<code class="sig-name descname"><span class="pre">get_slicer_profiles</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profile_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.get_slicer_profiles" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SlicerPlugin.get_slicer_profiles">
+<span class="sig-name descname"><span class="pre">get_slicer_profiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profile_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.get_slicer_profiles" title="Permalink to this definition"></a></dt>
 <dd><p>Fetch all <a class="reference internal" href="../modules/slicing.html#octoprint.slicing.SlicingProfile" title="octoprint.slicing.SlicingProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlicingProfile</span></code></a> stored for this slicer.</p>
 <p>For compatibility reasons with existing slicing plugins this method defaults to returning profiles parsed from
 .profile files in the plugin’s <code class="docutils literal notranslate"><span class="pre">profile_path</span></code>, utilizing the <code class="xref py py-func docutils literal notranslate"><span class="pre">SlicingPlugin.get_slicer_profile()</span></code> method
@@ -2466,16 +2311,16 @@ of the plugin implementation.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SlicerPlugin.get_slicer_profiles_lastmodified">
-<code class="sig-name descname"><span class="pre">get_slicer_profiles_lastmodified</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profile_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.get_slicer_profiles_lastmodified" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SlicerPlugin.get_slicer_profiles_lastmodified">
+<span class="sig-name descname"><span class="pre">get_slicer_profiles_lastmodified</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profile_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.get_slicer_profiles_lastmodified" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 1.3.0.</span></p>
 </div>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SlicerPlugin.get_slicer_properties">
-<code class="sig-name descname"><span class="pre">get_slicer_properties</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.get_slicer_properties" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SlicerPlugin.get_slicer_properties">
+<span class="sig-name descname"><span class="pre">get_slicer_properties</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.get_slicer_properties" title="Permalink to this definition"></a></dt>
 <dd><p>Plugins should override this method to return a <code class="docutils literal notranslate"><span class="pre">dict</span></code> containing a bunch of meta data about the implemented slicer.</p>
 <p>The expected keys in the returned <code class="docutils literal notranslate"><span class="pre">dict</span></code> have the following meaning:</p>
 <dl class="simple">
@@ -2510,8 +2355,8 @@ targeted slicer’s <code class="docutils literal notranslate"><span class="pre"
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SlicerPlugin.is_slicer_configured">
-<code class="sig-name descname"><span class="pre">is_slicer_configured</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.is_slicer_configured" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SlicerPlugin.is_slicer_configured">
+<span class="sig-name descname"><span class="pre">is_slicer_configured</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.is_slicer_configured" title="Permalink to this definition"></a></dt>
 <dd><p>Unless the return value of this method is <code class="docutils literal notranslate"><span class="pre">True</span></code>, OctoPrint will not register the slicer within the slicing
 sub system upon startup. Plugins may use this to do some start up checks to verify that e.g. the path to
 a slicing binary as set and the binary is executable, or credentials of a cloud slicing platform are properly
@@ -2519,8 +2364,8 @@ entered etc.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.plugin.SlicerPlugin.save_slicer_profile">
-<code class="sig-name descname"><span class="pre">save_slicer_profile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overrides</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.save_slicer_profile" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.SlicerPlugin.save_slicer_profile">
+<span class="sig-name descname"><span class="pre">save_slicer_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overrides</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SlicerPlugin.save_slicer_profile" title="Permalink to this definition"></a></dt>
 <dd><p>Should save the provided <a class="reference internal" href="../modules/slicing.html#octoprint.slicing.SlicingProfile" title="octoprint.slicing.SlicingProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlicingProfile</span></code></a> to the indicated <code class="docutils literal notranslate"><span class="pre">path</span></code>, after applying
 any supplied <code class="docutils literal notranslate"><span class="pre">overrides</span></code>. If a profile is already saved under the indicated path and <code class="docutils literal notranslate"><span class="pre">allow_overwrite</span></code> is
 set to False (defaults to True), an <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#IOError" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IOError</span></code></a> should be raised.</p>
@@ -2542,20 +2387,20 @@ default) or not (False). If a profile already exists on the path and this is Fal
 
 </div>
 <div class="section" id="restartneedingplugin">
-<span id="sec-plugins-mixins-restartneeding"></span><h3><a class="toc-backref" href="#id42">RestartNeedingPlugin</a><a class="headerlink" href="#restartneedingplugin" title="Permalink to this headline">¶</a></h3>
+<span id="sec-plugins-mixins-restartneeding"></span><h3><a class="toc-backref" href="#id42">RestartNeedingPlugin</a><a class="headerlink" href="#restartneedingplugin" title="Permalink to this headline"></a></h3>
 <dl class="py class">
-<dt id="octoprint.plugin.RestartNeedingPlugin">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></code><code class="sig-name descname"><span class="pre">RestartNeedingPlugin</span></code><a class="headerlink" href="#octoprint.plugin.RestartNeedingPlugin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.RestartNeedingPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></span><span class="sig-name descname"><span class="pre">RestartNeedingPlugin</span></span><a class="headerlink" href="#octoprint.plugin.RestartNeedingPlugin" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.Plugin" title="octoprint.plugin.core.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.Plugin</span></code></a></p>
 <p>Mixin for plugin types that need a restart after enabling/disabling them.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="reloadneedingplugin">
-<span id="sec-plugins-mixins-reloadneeding"></span><h3><a class="toc-backref" href="#id43">ReloadNeedingPlugin</a><a class="headerlink" href="#reloadneedingplugin" title="Permalink to this headline">¶</a></h3>
+<span id="sec-plugins-mixins-reloadneeding"></span><h3><a class="toc-backref" href="#id43">ReloadNeedingPlugin</a><a class="headerlink" href="#reloadneedingplugin" title="Permalink to this headline"></a></h3>
 <dl class="py class">
-<dt id="octoprint.plugin.ReloadNeedingPlugin">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></code><code class="sig-name descname"><span class="pre">ReloadNeedingPlugin</span></code><a class="headerlink" href="#octoprint.plugin.ReloadNeedingPlugin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.plugin.ReloadNeedingPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.plugin.</span></span><span class="sig-name descname"><span class="pre">ReloadNeedingPlugin</span></span><a class="headerlink" href="#octoprint.plugin.ReloadNeedingPlugin" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.Plugin" title="octoprint.plugin.core.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.Plugin</span></code></a></p>
 <p>Mixin for plugin types that need a reload of the UI after enabling/disabling them.</p>
 </dd></dl>
@@ -2599,7 +2444,7 @@ default) or not (False). If a profile already exists on the path and this is Fal
     <dl>
       <dt>Tags</dt>
       <dd><a href="https://docs.octoprint.org/en/1.7.3/plugins/mixins.html">1.7.3</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.8.0rc3/plugins/mixins.html">1.8.0rc3</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.8.0rc4/plugins/mixins.html">1.8.0rc4</a></dd>
     </dl>
     <dl>
       <dt>Branches</dt>
