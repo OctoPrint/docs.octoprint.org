@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Printer operations &mdash; OctoPrint 1.8.0rc5 documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Printer profile operations" href="printerprofiles.html" />
+    <link rel="prev" title="Log file management" href="logs.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OctoPrint
+          </a>
+              <div class="version">
+                1.8.0rc5
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">REST API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="general.html">General information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version.html">Version information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">Server information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection.html">Connection handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">File operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="job.html">Job operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="languages.html">Languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logs.html">Log file management</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Printer operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#retrieve-the-current-printer-state">Retrieve the current printer state</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#issue-a-print-head-command">Issue a print head command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#issue-a-tool-command">Issue a tool command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#retrieve-the-current-tool-state">Retrieve the current tool state</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#issue-a-bed-command">Issue a bed command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#retrieve-the-current-bed-state">Retrieve the current bed state</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#issue-a-chamber-command">Issue a chamber command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#retrieve-the-current-chamber-state">Retrieve the current chamber state</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#issue-an-sd-command">Issue an SD command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#retrieve-the-current-sd-state">Retrieve the current SD state</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#send-an-arbitrary-command-to-the-printer">Send an arbitrary command to the printer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#retrieve-custom-controls">Retrieve custom controls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-model">Data model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#full-state-response">Full State Response</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#temperature-state">Temperature State</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sd-state">SD State</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#arbitrary-command-request">Arbitrary Command Request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#custom-controls-response">Custom Controls Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="printerprofiles.html">Printer profile operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html">Slicing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html">Timelapse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="access.html">Access control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">Util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wizard.html">Wizard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="push.html">Push updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datamodel.html">Common data model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
+    <strong>Note:</strong>
+    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.7.3" style="color: white;text-decoration: underline">here</a>.
+  </p>
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">REST API</a> &raquo;</li>
+        
+      <li>Printer operations</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/printer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="printer-operations">
+<span id="sec-api-printer"></span><h1><a class="toc-backref" href="#id1">Printer operations</a><a class="headerlink" href="#printer-operations" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#printer-operations" id="id1">Printer operations</a></p>
+<ul>
+<li><p><a class="reference internal" href="#retrieve-the-current-printer-state" id="id2">Retrieve the current printer state</a></p></li>
+<li><p><a class="reference internal" href="#issue-a-print-head-command" id="id3">Issue a print head command</a></p></li>
+<li><p><a class="reference internal" href="#issue-a-tool-command" id="id4">Issue a tool command</a></p></li>
+<li><p><a class="reference internal" href="#retrieve-the-current-tool-state" id="id5">Retrieve the current tool state</a></p></li>
+<li><p><a class="reference internal" href="#issue-a-bed-command" id="id6">Issue a bed command</a></p></li>
+<li><p><a class="reference internal" href="#retrieve-the-current-bed-state" id="id7">Retrieve the current bed state</a></p></li>
+<li><p><a class="reference internal" href="#issue-a-chamber-command" id="id8">Issue a chamber command</a></p></li>
+<li><p><a class="reference internal" href="#retrieve-the-current-chamber-state" id="id9">Retrieve the current chamber state</a></p></li>
+<li><p><a class="reference internal" href="#issue-an-sd-command" id="id10">Issue an SD command</a></p></li>
+<li><p><a class="reference internal" href="#retrieve-the-current-sd-state" id="id11">Retrieve the current SD state</a></p></li>
+<li><p><a class="reference internal" href="#send-an-arbitrary-command-to-the-printer" id="id12">Send an arbitrary command to the printer</a></p></li>
+<li><p><a class="reference internal" href="#retrieve-custom-controls" id="id13">Retrieve custom controls</a></p></li>
+<li><p><a class="reference internal" href="#data-model" id="id14">Data model</a></p>
+<ul>
+<li><p><a class="reference internal" href="#full-state-response" id="id15">Full State Response</a></p></li>
+<li><p><a class="reference internal" href="#temperature-state" id="id16">Temperature State</a></p></li>
+<li><p><a class="reference internal" href="#sd-state" id="id17">SD State</a></p></li>
+<li><p><a class="reference internal" href="#arbitrary-command-request" id="id18">Arbitrary Command Request</a></p></li>
+<li><p><a class="reference internal" href="#custom-controls-response" id="id19">Custom Controls Response</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Printer control is mostly achieved through the use of commands, issued to resources reflecting components of the
+printer. OctoPrint currently knows the following components:</p>
+<dl class="simple">
+<dt>Print head</dt><dd><p>Print head commands allow jogging and homing the print head in all three axes. Querying the resource is currently
+not supported.
+See <a class="reference internal" href="#sec-api-printer-printheadcommand"><span class="std std-ref">Issue a print head command</span></a>.</p>
+</dd>
+<dt>Tool</dt><dd><p>Tool commands allow setting the temperature and temperature offsets for the printer’s hotends/tools. Querying the
+corresponding resource returns temperature information including an optional history.
+See <a class="reference internal" href="#sec-api-printer-toolcommand"><span class="std std-ref">Issue a tool command</span></a>.</p>
+</dd>
+<dt>Bed</dt><dd><p>Bed commands allow setting the temperature and temperature offset for the printer’s heated bed. Querying the
+corresponding resource returns temperature information including an optional history. Note that Bed commands
+are only available if the currently selected printer profile has a heated bed.
+See <a class="reference internal" href="#sec-api-printer-bedcommand"><span class="std std-ref">Issue a bed command</span></a>.</p>
+</dd>
+<dt>Chamber</dt><dd><p>Chamber commands allow setting the temperature and temperature offset for the printer’s heated chamber. Querying
+the corresponding resource returns temperature information including an option history. Note that Chamber commands
+are only available if the currently selected printer profile has a heated chamber.
+See <a class="reference internal" href="#sec-api-printer-chambercommand"><span class="std std-ref">Issue a chamber command</span></a>.</p>
+</dd>
+<dt>SD card</dt><dd><p>SD commands allow initialization, refresh and release of the printer’s SD card (if available). Querying the
+corresponding resource returns the current SD card state.
+See <a class="reference internal" href="#sec-api-printer-sdcommand"><span class="std std-ref">Issue an SD command</span></a>.</p>
+</dd>
+</dl>
+<p>Besides that, OctoPrint also provides a <a class="reference internal" href="#sec-api-printer-state"><span class="std std-ref">full state report of the printer</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You might be wondering why all command responses below only return a <code class="docutils literal notranslate"><span class="pre">204</span></code> with an empty body instead of
+the output of the just sent commands. There are two reasons for this.</p>
+<p>OctoPrint’s internal webserver is single threaded and can only handle one request at a time. This is
+not a problem generally since asynchronous programming allows to just have one request which is waiting for
+data from a long running backend operation to sleep while handling other requests. The internal framework
+used for providing the REST API though, Flask, is based on WSGI, which is synchronous in nature. This means
+that it is impossible to wait in a non blocking wait while handling a request on the REST API. So in order to
+return the response of a command sent to the printer, the single thread of the webserver would have to be blocked
+by the API while the response wasn’t available yet. Which in turn would mean that the whole web server would
+stop responding while waiting for the printer to reply, which, depending on the command in question (e.g. homing)
+can take a long while. That would be a bad idea.</p>
+<p>The second reason is that thanks to a large number of firmwares out there having a <a class="reference external" href="https://github.com/MarlinFirmware/Marlin/commit/acc0e7527914948656ccabba35f7faedc94ef885">particular bug</a>
+that makes it impossible to track the output of sent commands, identifying the correct response to a given
+sent command is pretty much hit-and-miss. That situation gets even worse considering that it’s next to impossible
+to distinguish firmware versions which have that bug from firmware versions which don’t have it.</p>
+<p>Hence OctoPrint currently doesn’t offer any synchronous way of retrieving the output of responses from the printer.
+If you need the printer’s serial communication, you’ll need to subscribe to <a class="reference internal" href="push.html#sec-api-push"><span class="std std-ref">push updates</span></a>.</p>
+</div>
+<div class="section" id="retrieve-the-current-printer-state">
+<span id="sec-api-printer-state"></span><h2><a class="toc-backref" href="#id2">Retrieve the current printer state</a><a class="headerlink" href="#retrieve-the-current-printer-state" title="Permalink to this headline">¶</a></h2>
+<dl class="http get">
+<dt id="get--api-printer">
+<code class="sig-name descname"><span class="pre">GET</span> </code><code class="sig-name descname"><span class="pre">/api/printer</span></code><a class="headerlink" href="#get--api-printer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the current state of the printer. Returned information includes:</p>
+<ul class="simple">
+<li><p>temperature information (see also <a class="reference internal" href="#sec-api-printer-toolstate"><span class="std std-ref">Retrieve the current tool state</span></a> and
+<a class="reference internal" href="#sec-api-printer-bedstate"><span class="std std-ref">Retrieve the current bed state</span></a>)</p></li>
+<li><p>sd state (if available, see also <a class="reference internal" href="#sec-api-printer-sdstate"><span class="std std-ref">Retrieve the current SD state</span></a>)</p></li>
+<li><p>general printer state</p></li>
+</ul>
+<p>Temperature information can also be made to include the printer’s temperature history by supplying the <code class="docutils literal notranslate"><span class="pre">history</span></code>
+query parameter. The amount of data points to return here can be limited using the <code class="docutils literal notranslate"><span class="pre">limit</span></code> query parameter.</p>
+<p>Clients can specific a list of attributes to not return in the response (e.g. if they don’t need it) via the
+<code class="docutils literal notranslate"><span class="pre">exclude</span></code> query parameter.</p>
+<p>Returns a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a <a class="reference internal" href="#sec-api-printer-datamodel-fullstate"><span class="std std-ref">Full State Response</span></a> in the
+body upon success.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">STATUS</span></code> permission.</p>
+<p><strong>Example 1</strong></p>
+<p>Include temperature history data, but limit it to two entries.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/printer?history=true&amp;limit=2</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;temperature&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;tool0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">214.8821</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">220.0</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;offset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;tool1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">25.3</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;offset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;bed&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">50.221</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">70.0</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;offset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;history&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1395651928</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;tool0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">214.8821</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">220.0</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;tool1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">25.3</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;bed&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">50.221</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">70.0</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1395651926</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;tool0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">212.32</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">220.0</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;tool1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">25.1</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;bed&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">49.1123</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">70.0</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;sd&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;ready&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Operational&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;flags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;operational&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;paused&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;printing&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;cancelling&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;pausing&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;sdReady&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;ready&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;closedOrError&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p><strong>Example 2</strong></p>
+<p>Exclude temperature and sd data.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/printer?exclude=temperature,sd</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Operational&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;flags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;operational&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;paused&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;printing&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;cancelling&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;pausing&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;sdReady&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;ready&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;closedOrError&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Query Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exclude</strong> – An optional comma-separated list of fields to exclude from the response (e.g. if not needed by
+the client). Valid values to supply here are <code class="docutils literal notranslate"><span class="pre">temperature</span></code>, <code class="docutils literal notranslate"><span class="pre">sd</span></code> and <code class="docutils literal notranslate"><span class="pre">state</span></code>.</p></li>
+<li><p><strong>history</strong> – If set to <code class="docutils literal notranslate"><span class="pre">true</span></code> (or: <code class="docutils literal notranslate"><span class="pre">yes</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>), history information will be included in the response
+too. If no <code class="docutils literal notranslate"><span class="pre">limit</span></code> parameter is given, all available temperature history data will be returned.</p></li>
+<li><p><strong>limit</strong> – If set to an integer (<code class="docutils literal notranslate"><span class="pre">n</span></code>), only the last <code class="docutils literal notranslate"><span class="pre">n</span></code> data points from the printer’s temperature history
+will be returned. Will be ignored if <code class="docutils literal notranslate"><span class="pre">history</span></code> is not enabled.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – No error</p></li>
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – If the printer is not operational.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="issue-a-print-head-command">
+<span id="sec-api-printer-printheadcommand"></span><h2><a class="toc-backref" href="#id3">Issue a print head command</a><a class="headerlink" href="#issue-a-print-head-command" title="Permalink to this headline">¶</a></h2>
+<dl class="http post">
+<dt id="post--api-printer-printhead">
+<code class="sig-name descname"><span class="pre">POST</span> </code><code class="sig-name descname"><span class="pre">/api/printer/printhead</span></code><a class="headerlink" href="#post--api-printer-printhead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print head commands allow jogging and homing the print head in all three axes. Available commands are:</p>
+<dl class="simple">
+<dt>jog</dt><dd><p>Jogs the print head (relatively) by a defined amount in one or more axes. Additional parameters are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Optional. Amount/coordinate to jog print head on x axis, must be a valid number corresponding to the distance to travel in mm.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code>: Optional. Amount/coordinate to jog print head on y axis, must be a valid number corresponding to the distance to travel in mm.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code>: Optional. Amount/coordinate to jog print head on z axis, must be a valid number corresponding to the distance to travel in mm.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">absolute</span></code>: Optional. Boolean value specifying whether to move relative to current position (provided
+axes values are relative amounts) or to absolute position (provided axes values are coordinates)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">speed</span></code>: Optional. Speed at which to move. If not provided, minimum speed for all selected axes from printer
+profile will be used. If provided but <code class="docutils literal notranslate"><span class="pre">false</span></code>, no speed parameter will be appended to the command. Otherwise
+interpreted as an integer signifying the speed in mm/min, to append to the command.</p></li>
+</ul>
+</dd>
+<dt>home</dt><dd><p>Homes the print head in all of the given axes. Additional parameters are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">axes</span></code>: A list of axes which to home, valid values are one or more of <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>.</p></li>
+</ul>
+</dd>
+<dt>feedrate</dt><dd><p>Changes the feedrate factor to apply to the movements of the axes.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">factor</span></code>: The new factor, percentage between 50 and 200% as integer (<code class="docutils literal notranslate"><span class="pre">50</span></code> to <code class="docutils literal notranslate"><span class="pre">200</span></code>) or float (<code class="docutils literal notranslate"><span class="pre">0.5</span></code> to <code class="docutils literal notranslate"><span class="pre">2.0</span></code>).</p></li>
+</ul>
+</dd>
+</dl>
+<p>All of these commands except <code class="docutils literal notranslate"><span class="pre">feedrate</span></code> may only be sent if the printer is currently operational and not printing.
+Otherwise a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> is returned.</p>
+<p>Upon success, a status code of <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> and an empty body is returned.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">CONTROL</span></code> permission.</p>
+<p><strong>Example Jog Request</strong></p>
+<p>Jog the print head by 10mm in X, -5mm in Y and 0.02mm in Z.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/printhead</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jog&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;x&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;y&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-5</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;z&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.02</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example Home Request</strong></p>
+<p>Home the X and Y axes.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/printhead</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;home&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;axes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;y&quot;</span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example feed rate request (1/2)</strong></p>
+<p>Set the feed rate factor to 105% using an integer argument.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/printhead</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;feedrate&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;factor&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">105</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example feed rate request (2/2)</strong></p>
+<p>Set the feed rate factor to 105% using a float argument.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/printhead</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;feedrate&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;factor&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.05</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">JSON Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> (<em>string</em>) – The command to issue, either <code class="docutils literal notranslate"><span class="pre">jog</span></code> or <code class="docutils literal notranslate"><span class="pre">home</span></code>.</p></li>
+<li><p><strong>x</strong> (<em>number</em>) – <code class="docutils literal notranslate"><span class="pre">jog</span></code> command: The amount to travel on the X axis in mm.</p></li>
+<li><p><strong>y</strong> (<em>number</em>) – <code class="docutils literal notranslate"><span class="pre">jog</span></code> command: The amount to travel on the Y axis in mm.</p></li>
+<li><p><strong>z</strong> (<em>number</em>) – <code class="docutils literal notranslate"><span class="pre">jog</span></code> command: The amount to travel on the Z axis in mm.</p></li>
+<li><p><strong>axes</strong> (<em>array</em>) – <code class="docutils literal notranslate"><span class="pre">home</span></code> command: The axes which to home, valid values are one or more of <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> and <code class="docutils literal notranslate"><span class="pre">z</span></code>.</p></li>
+<li><p><strong>factor</strong> (<em>number</em>) – <code class="docutils literal notranslate"><span class="pre">feedrate</span></code> command: The factor to apply to the feed rate, percentage between 50 and 200% as integer or float.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No error</p></li>
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – Invalid axis specified, invalid value for travel amount for a jog command or factor for feed rate or otherwise invalid
+request.</p></li>
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – If the printer is not operational or currently printing.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="issue-a-tool-command">
+<span id="sec-api-printer-toolcommand"></span><h2><a class="toc-backref" href="#id4">Issue a tool command</a><a class="headerlink" href="#issue-a-tool-command" title="Permalink to this headline">¶</a></h2>
+<dl class="http post">
+<dt id="post--api-printer-tool">
+<code class="sig-name descname"><span class="pre">POST</span> </code><code class="sig-name descname"><span class="pre">/api/printer/tool</span></code><a class="headerlink" href="#post--api-printer-tool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tool commands allow setting the temperature and temperature offsets for the printer’s tools (hotends), selecting
+the current tool and extruding/retracting from the currently selected tool. Available commands are:</p>
+<dl class="simple">
+<dt>target</dt><dd><p>Sets the given target temperature on the printer’s tools. Additional parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">targets</span></code>: Target temperature(s) to set, properties must match the format <code class="docutils literal notranslate"><span class="pre">tool{n}</span></code> with <code class="docutils literal notranslate"><span class="pre">n</span></code> being the
+tool’s index starting with 0. A value of <cite>0</cite> will turn the heater off.</p></li>
+</ul>
+</dd>
+<dt>offset</dt><dd><p>Sets the given temperature offset on the printer’s tools. Additional parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">offsets</span></code>: Offset(s) to set, properties must match the format <code class="docutils literal notranslate"><span class="pre">tool{n}</span></code> with <code class="docutils literal notranslate"><span class="pre">n</span></code> being the tool’s index
+starting with 0.</p></li>
+</ul>
+</dd>
+<dt>select</dt><dd><p>Selects the printer’s current tool. Additional parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tool</span></code>: Tool to select, format <code class="docutils literal notranslate"><span class="pre">tool{n}</span></code> with <code class="docutils literal notranslate"><span class="pre">n</span></code> being the tool’s index starting with 0.</p></li>
+</ul>
+</dd>
+<dt>extrude</dt><dd><p>Extrudes the given amount of filament from the currently selected tool. Additional parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">amount</span></code>: The amount of filament to extrude in mm. May be negative to retract.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">speed</span></code>: Optional. Speed at which to extrude. If not provided, maximum speed for E axis from printer
+profile will be used. Otherwise interpreted as an integer signifying the speed in mm/min, to append to the command.</p></li>
+</ul>
+</dd>
+<dt>flowrate</dt><dd><p>Changes the flow rate factor to apply to extrusion of the tool.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">factor</span></code>: The new factor, percentage between 75 and 125% as integer (<code class="docutils literal notranslate"><span class="pre">75</span></code> to <code class="docutils literal notranslate"><span class="pre">125</span></code>) or float (<code class="docutils literal notranslate"><span class="pre">0.75</span></code> to <code class="docutils literal notranslate"><span class="pre">1.25</span></code>).</p></li>
+</ul>
+</dd>
+</dl>
+<p>All of these commands may only be sent if the printer is currently operational and – in case of <code class="docutils literal notranslate"><span class="pre">select</span></code> and
+<code class="docutils literal notranslate"><span class="pre">extrude</span></code> – not printing. Otherwise a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> is returned.</p>
+<p>Upon success, a status code of <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> and an empty body is returned.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">CONTROL</span></code> permission.</p>
+<p><strong>Example Target Temperature Request</strong></p>
+<p>Set the target temperature for the printer’s first hotend to 220°C and the printer’s second extruder to 205°C.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/tool</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;target&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;targets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;tool0&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">220</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;tool1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">205</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example Offset Temperature Request</strong></p>
+<p>Set the offset for temperatures on <code class="docutils literal notranslate"><span class="pre">tool0</span></code> to +10°C and on <code class="docutils literal notranslate"><span class="pre">tool1</span></code> to -5°C.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/tool</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;offset&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;offsets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;tool0&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;tool1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-5</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example Tool Select Request</strong></p>
+<p>Select the second hotend of the printer for any following <code class="docutils literal notranslate"><span class="pre">extrude</span></code> commands.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/tool</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;select&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tool1&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example Extrude Request</strong></p>
+<p>Extrude 5mm on the currently selected tool.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/tool</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;extrude&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example Retract Request</strong></p>
+<p>Retract 3mm of filament on the currently selected tool.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/tool</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;extrude&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-3</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example flow rate request (1/2)</strong></p>
+<p>Set the flow rate factor to 95% using an integer attribute.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/tool</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;flowrate&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;factor&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">95</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example flow rate request (2/2)</strong></p>
+<p>Set the flow rate factor to 95% using a float attribute.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/tool</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;flowrate&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;factor&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.95</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">JSON Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> (<em>string</em>) – The command to issue, either <code class="docutils literal notranslate"><span class="pre">target</span></code>, <code class="docutils literal notranslate"><span class="pre">offset</span></code>, <code class="docutils literal notranslate"><span class="pre">select</span></code> or <code class="docutils literal notranslate"><span class="pre">extrude</span></code>.</p></li>
+<li><p><strong>targets</strong> (<em>object</em>) – <code class="docutils literal notranslate"><span class="pre">target</span></code> command: The target temperatures to set. Valid properties have to match the format <code class="docutils literal notranslate"><span class="pre">tool{n}</span></code>.</p></li>
+<li><p><strong>offsets</strong> (<em>object</em>) – <code class="docutils literal notranslate"><span class="pre">offset</span></code> command: The offset temperature to set. Valid properties have to match the format <code class="docutils literal notranslate"><span class="pre">tool{n}</span></code>.</p></li>
+<li><p><strong>tool</strong> (<em>object</em>) – <code class="docutils literal notranslate"><span class="pre">select</span></code> command: The tool to select, value has to match the format <code class="docutils literal notranslate"><span class="pre">tool{n}</span></code>.</p></li>
+<li><p><strong>amount</strong> (<em>object</em>) – <code class="docutils literal notranslate"><span class="pre">extrude</span></code> command: The amount of filament to extrude from the currently selected tool.</p></li>
+<li><p><strong>factor</strong> (<em>number</em>) – <code class="docutils literal notranslate"><span class="pre">flowrate</span></code> command: The factor to apply to the flow rate, percentage between 75 and 125% as integer or float.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No error</p></li>
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – If <code class="docutils literal notranslate"><span class="pre">targets</span></code> or <code class="docutils literal notranslate"><span class="pre">offsets</span></code> contains a property or <code class="docutils literal notranslate"><span class="pre">tool</span></code> contains a value not matching the format
+<code class="docutils literal notranslate"><span class="pre">tool{n}</span></code>, the target/offset temperature, extrusion amount or flow rate factor is not a valid number or outside of
+the supported range, or if the request is otherwise invalid.</p></li>
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – If the printer is not operational or – in case of <code class="docutils literal notranslate"><span class="pre">select</span></code> or <code class="docutils literal notranslate"><span class="pre">extrude</span></code> – currently printing.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="retrieve-the-current-tool-state">
+<span id="sec-api-printer-toolstate"></span><h2><a class="toc-backref" href="#id5">Retrieve the current tool state</a><a class="headerlink" href="#retrieve-the-current-tool-state" title="Permalink to this headline">¶</a></h2>
+<dl class="http get">
+<dt id="get--api-printer-tool">
+<code class="sig-name descname"><span class="pre">GET</span> </code><code class="sig-name descname"><span class="pre">/api/printer/tool</span></code><a class="headerlink" href="#get--api-printer-tool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the current temperature data (actual, target and offset) plus optionally a (limited) history (actual, target,
+timestamp) for all of the printer’s available tools.</p>
+<p>It’s also possible to retrieve the temperature history by supplying the <code class="docutils literal notranslate"><span class="pre">history</span></code> query parameter set to <code class="docutils literal notranslate"><span class="pre">true</span></code>. The
+amount of returned history data points can be limited using the <code class="docutils literal notranslate"><span class="pre">limit</span></code> query parameter.</p>
+<p>Returns a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a Temperature Response in the body upon success.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">STATUS</span></code> permission.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want both tool and bed temperature information at the same time, take a look at
+<a class="reference internal" href="#sec-api-printer-state"><span class="std std-ref">Retrieve the current printer state</span></a>.</p>
+</div>
+<p><strong>Example</strong></p>
+<p>Query the tool temperature data and also include the temperature history but limit it to two entries.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/printer/tool?history=true&amp;limit=2</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;tool0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">214.8821</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">220.0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;offset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;tool1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">25.3</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;offset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;history&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1395651928</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;tool0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">214.8821</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">220.0</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;tool1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">25.3</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1395651926</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;tool0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">212.32</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">220.0</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;tool1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">25.1</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Query Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>history</strong> – If set to <code class="docutils literal notranslate"><span class="pre">true</span></code> (or: <code class="docutils literal notranslate"><span class="pre">yes</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>), history information will be included in the response
+too. If no <code class="docutils literal notranslate"><span class="pre">limit</span></code> parameter is given, all available temperature history data will be returned.</p></li>
+<li><p><strong>limit</strong> – If set to an integer (<code class="docutils literal notranslate"><span class="pre">n</span></code>), only the last <code class="docutils literal notranslate"><span class="pre">n</span></code> data points from the printer’s temperature history
+will be returned. Will be ignored if <code class="docutils literal notranslate"><span class="pre">history</span></code> is not enabled.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – No error</p></li>
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – If the printer is not operational.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="issue-a-bed-command">
+<span id="sec-api-printer-bedcommand"></span><h2><a class="toc-backref" href="#id6">Issue a bed command</a><a class="headerlink" href="#issue-a-bed-command" title="Permalink to this headline">¶</a></h2>
+<dl class="http post">
+<dt id="post--api-printer-bed">
+<code class="sig-name descname"><span class="pre">POST</span> </code><code class="sig-name descname"><span class="pre">/api/printer/bed</span></code><a class="headerlink" href="#post--api-printer-bed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bed commands allow setting the temperature and temperature offsets for the printer’s heated bed. Available commands
+are:</p>
+<dl class="simple">
+<dt>target</dt><dd><p>Sets the given target temperature on the printer’s bed. Additional parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">target</span></code>: Target temperature to set. A value of <cite>0</cite> will turn the heater off.</p></li>
+</ul>
+</dd>
+<dt>offset</dt><dd><p>Sets the given temperature offset on the printer’s bed. Additional parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">offset</span></code>: Offset to set.</p></li>
+</ul>
+</dd>
+</dl>
+<p>All of these commands may only be sent if the printer is currently operational. Otherwise a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a>
+is returned.</p>
+<p>Upon success, a status code of <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> and an empty body is returned.</p>
+<p>If no heated bed is configured for the currently selected printer profile, the resource will return
+an <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a>.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">CONTROL</span></code> permission.</p>
+<p><strong>Example Target Temperature Request</strong></p>
+<p>Set the target temperature for the printer’s heated bed to 75°C.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/bed</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;target&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">75</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example Offset Temperature Request</strong></p>
+<p>Set the temperature offset for the heated bed to -5°C.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/bed</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;offset&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;offset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-5</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">JSON Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> (<em>string</em>) – The command to issue, either <code class="docutils literal notranslate"><span class="pre">target</span></code> or <code class="docutils literal notranslate"><span class="pre">offset</span></code>.</p></li>
+<li><p><strong>target</strong> (<em>object</em>) – <code class="docutils literal notranslate"><span class="pre">target</span></code> command: The target temperature to set.</p></li>
+<li><p><strong>offset</strong> (<em>object</em>) – <code class="docutils literal notranslate"><span class="pre">offset</span></code> command: The offset temperature to set.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No error</p></li>
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – If <code class="docutils literal notranslate"><span class="pre">target</span></code> or <code class="docutils literal notranslate"><span class="pre">offset</span></code> is not a valid number or outside of the supported range, or if the
+request is otherwise invalid.</p></li>
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – If the printer is not operational or the selected printer profile
+does not have a heated bed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="retrieve-the-current-bed-state">
+<span id="sec-api-printer-bedstate"></span><h2><a class="toc-backref" href="#id7">Retrieve the current bed state</a><a class="headerlink" href="#retrieve-the-current-bed-state" title="Permalink to this headline">¶</a></h2>
+<dl class="http get">
+<dt id="get--api-printer-bed">
+<code class="sig-name descname"><span class="pre">GET</span> </code><code class="sig-name descname"><span class="pre">/api/printer/bed</span></code><a class="headerlink" href="#get--api-printer-bed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the current temperature data (actual, target and offset) plus optionally a (limited) history (actual, target,
+timestamp) for the printer’s heated bed.</p>
+<p>It’s also possible to retrieve the temperature history by supplying the <code class="docutils literal notranslate"><span class="pre">history</span></code> query parameter set to <code class="docutils literal notranslate"><span class="pre">true</span></code>. The
+amount of returned history data points can be limited using the <code class="docutils literal notranslate"><span class="pre">limit</span></code> query parameter.</p>
+<p>Returns a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a Temperature Response in the body upon success.</p>
+<p>If no heated bed is configured for the currently selected printer profile, the resource will return
+an <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a>.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">STATUS</span></code> permission.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want tool, bed and chamber temperature information at the same time, take a look at
+<a class="reference internal" href="#sec-api-printer-state"><span class="std std-ref">Retrieve the current printer state</span></a>.</p>
+</div>
+<p><strong>Example</strong></p>
+<p>Query the bed temperature data and also include the temperature history but limit it to two entries.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/printer/bed?history=true&amp;limit=2</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;bed&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">50.221</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">70.0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;offset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;history&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1395651928</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;bed&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">50.221</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">70.0</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1395651926</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;bed&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">49.1123</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">70.0</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Query Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>history</strong> – If set to <code class="docutils literal notranslate"><span class="pre">true</span></code> (or: <code class="docutils literal notranslate"><span class="pre">yes</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>), history information will be included in the response
+too. If no <code class="docutils literal notranslate"><span class="pre">limit</span></code> parameter is given, all available temperature history data will be returned.</p></li>
+<li><p><strong>limit</strong> – If set to an integer (<code class="docutils literal notranslate"><span class="pre">n</span></code>), only the last <code class="docutils literal notranslate"><span class="pre">n</span></code> data points from the printer’s temperature history
+will be returned. Will be ignored if <code class="docutils literal notranslate"><span class="pre">history</span></code> is not enabled.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – No error</p></li>
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – If the printer is not operational or the selected printer profile
+does not have a heated bed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="issue-a-chamber-command">
+<span id="sec-api-printer-chambercommand"></span><h2><a class="toc-backref" href="#id8">Issue a chamber command</a><a class="headerlink" href="#issue-a-chamber-command" title="Permalink to this headline">¶</a></h2>
+<dl class="http post">
+<dt id="post--api-printer-chamber">
+<code class="sig-name descname"><span class="pre">POST</span> </code><code class="sig-name descname"><span class="pre">/api/printer/chamber</span></code><a class="headerlink" href="#post--api-printer-chamber" title="Permalink to this definition">¶</a></dt>
+<dd><p>Chamber commands allow setting the temperature and temperature offsets for the printer’s heated chamber. Available commands
+are:</p>
+<dl class="simple">
+<dt>target</dt><dd><p>Sets the given target temperature on the printer’s chamber. Additional parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">target</span></code>: Target temperature to set. A value of <cite>0</cite> will turn the heater off.</p></li>
+</ul>
+</dd>
+<dt>offset</dt><dd><p>Sets the given temperature offset on the printer’s chamber. Additional parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">offset</span></code>: Offset to set.</p></li>
+</ul>
+</dd>
+</dl>
+<p>All of these commands may only be sent if the printer is currently operational. Otherwise a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a>
+is returned.</p>
+<p>Upon success, a status code of <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> and an empty body is returned.</p>
+<p>If no heated chamber is configured for the currently selected printer profile, the resource will return
+an <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a>.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">CONTROL</span></code> permission.</p>
+<p><strong>Example Target Temperature Request</strong></p>
+<p>Set the target temperature for the printer’s heated chamber to 50°C.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/chamber</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;target&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example Offset Temperature Request</strong></p>
+<p>Set the temperature offset for the heated chamber to -5°C.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/chamber</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;offset&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;offset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-5</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">JSON Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> (<em>string</em>) – The command to issue, either <code class="docutils literal notranslate"><span class="pre">target</span></code> or <code class="docutils literal notranslate"><span class="pre">offset</span></code>.</p></li>
+<li><p><strong>target</strong> (<em>object</em>) – <code class="docutils literal notranslate"><span class="pre">target</span></code> command: The target temperature to set.</p></li>
+<li><p><strong>offset</strong> (<em>object</em>) – <code class="docutils literal notranslate"><span class="pre">offset</span></code> command: The offset temperature to set.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No error</p></li>
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> – If <code class="docutils literal notranslate"><span class="pre">target</span></code> or <code class="docutils literal notranslate"><span class="pre">offset</span></code> is not a valid number or outside of the supported range, or if the
+request is otherwise invalid.</p></li>
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – If the printer is not operational or the selected printer profile
+does not have a heated chamber.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="retrieve-the-current-chamber-state">
+<span id="sec-api-printer-chamberstate"></span><h2><a class="toc-backref" href="#id9">Retrieve the current chamber state</a><a class="headerlink" href="#retrieve-the-current-chamber-state" title="Permalink to this headline">¶</a></h2>
+<dl class="http get">
+<dt id="get--api-printer-chamber">
+<code class="sig-name descname"><span class="pre">GET</span> </code><code class="sig-name descname"><span class="pre">/api/printer/chamber</span></code><a class="headerlink" href="#get--api-printer-chamber" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the current temperature data (actual, target and offset) plus optionally a (limited) history (actual, target,
+timestamp) for the printer’s heated chamber.</p>
+<p>It’s also possible to retrieve the temperature history by supplying the <code class="docutils literal notranslate"><span class="pre">history</span></code> query parameter set to <code class="docutils literal notranslate"><span class="pre">true</span></code>. The
+amount of returned history data points can be limited using the <code class="docutils literal notranslate"><span class="pre">limit</span></code> query parameter.</p>
+<p>Returns a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a Temperature Response in the body upon success.</p>
+<p>If no heated chamber is configured for the currently selected printer profile, the resource will return
+an <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a>.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">STATUS</span></code> permission.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want tool, bed and chamber temperature information at the same time, take a look at
+<a class="reference internal" href="#sec-api-printer-state"><span class="std std-ref">Retrieve the current printer state</span></a>.</p>
+</div>
+<p><strong>Example</strong></p>
+<p>Query the chamber temperature data and also include the temperature history but limit it to two entries.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/printer/chamber?history=true&amp;limit=2</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;chamber&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">50.221</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">70.0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;offset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;history&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1395651928</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;chamber&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">50.221</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">70.0</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1395651926</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;chamber&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;actual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">49.1123</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">70.0</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Query Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>history</strong> – If set to <code class="docutils literal notranslate"><span class="pre">true</span></code> (or: <code class="docutils literal notranslate"><span class="pre">yes</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>), history information will be included in the response
+too. If no <code class="docutils literal notranslate"><span class="pre">limit</span></code> parameter is given, all available temperature history data will be returned.</p></li>
+<li><p><strong>limit</strong> – If set to an integer (<code class="docutils literal notranslate"><span class="pre">n</span></code>), only the last <code class="docutils literal notranslate"><span class="pre">n</span></code> data points from the printer’s temperature history
+will be returned. Will be ignored if <code class="docutils literal notranslate"><span class="pre">history</span></code> is not enabled.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – No error</p></li>
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – If the printer is not operational or the selected printer profile
+does not have a heated chamber.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="issue-an-sd-command">
+<span id="sec-api-printer-sdcommand"></span><h2><a class="toc-backref" href="#id10">Issue an SD command</a><a class="headerlink" href="#issue-an-sd-command" title="Permalink to this headline">¶</a></h2>
+<dl class="http post">
+<dt id="post--api-printer-sd">
+<code class="sig-name descname"><span class="pre">POST</span> </code><code class="sig-name descname"><span class="pre">/api/printer/sd</span></code><a class="headerlink" href="#post--api-printer-sd" title="Permalink to this definition">¶</a></dt>
+<dd><p>SD commands allow initialization, refresh and release of the printer’s SD card (if available).</p>
+<p>Available commands are:</p>
+<dl>
+<dt>init</dt><dd><p>Initializes the printer’s SD card, making it available for use. This also includes an initial retrieval of the
+list of files currently stored on the SD card, so after issuing that command a <a class="reference internal" href="files.html#sec-api-fileops-retrievelocation"><span class="std std-ref">retrieval of the files
+on SD card</span></a> will return a successful result.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If OctoPrint detects the availability of a SD card on the printer during connection, it will automatically attempt
+to initialize it.</p>
+</div>
+</dd>
+<dt>refresh</dt><dd><p>Refreshes the list of files stored on the printer’s SD card. Will return a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> if the card
+has not been initialized yet (see the <code class="docutils literal notranslate"><span class="pre">init</span></code> command and <a class="reference internal" href="#sec-api-printer-sdstate"><span class="std std-ref">SD state</span></a>).</p>
+</dd>
+<dt>release</dt><dd><p>Releases the SD card from the printer. The reverse operation to <code class="docutils literal notranslate"><span class="pre">init</span></code>. After issuing this command, the SD
+card won’t be available anymore, hence and operations targeting files stored on it will fail. Will return a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a>
+if the card has not been initialized yet (see the <code class="docutils literal notranslate"><span class="pre">init</span></code> command and <a class="reference internal" href="#sec-api-printer-sdstate"><span class="std std-ref">SD state</span></a>).</p>
+</dd>
+</dl>
+<p>Upon success, a status code of <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> and an empty body is returned.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">CONTROL</span></code> permission.</p>
+<p><strong>Example Init Request</strong></p>
+<p>Initialize the SD card.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/sd</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;init&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example Refresh Request</strong></p>
+<p>Refresh the file list of the SD card</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/sd</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;refresh&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example Release Request</strong></p>
+<p>Release the SD card</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/sd</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;release&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">JSON Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> (<em>string</em>) – The command to issue, either <code class="docutils literal notranslate"><span class="pre">init</span></code>, <code class="docutils literal notranslate"><span class="pre">refresh</span></code> or <code class="docutils literal notranslate"><span class="pre">release</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No error</p></li>
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a> – If a <code class="docutils literal notranslate"><span class="pre">refresh</span></code> or <code class="docutils literal notranslate"><span class="pre">release</span></code> command is issued but the SD card has not been initialized (e.g.
+via <code class="docutils literal notranslate"><span class="pre">init</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="retrieve-the-current-sd-state">
+<span id="sec-api-printer-sdstate"></span><h2><a class="toc-backref" href="#id11">Retrieve the current SD state</a><a class="headerlink" href="#retrieve-the-current-sd-state" title="Permalink to this headline">¶</a></h2>
+<dl class="http get">
+<dt id="get--api-printer-sd">
+<code class="sig-name descname"><span class="pre">GET</span> </code><code class="sig-name descname"><span class="pre">/api/printer/sd</span></code><a class="headerlink" href="#get--api-printer-sd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the current state of the printer’s SD card. For this request no authentication is needed.</p>
+<p>If SD support has been disabled in OctoPrint’s settings, a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> is returned.</p>
+<p>Returns a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with an <a class="reference internal" href="#sec-api-printer-datamodel-sdstate"><span class="std std-ref">SD State Response</span></a> in the body
+upon success.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">STATUS</span></code> permission.</p>
+<p><strong>Example</strong></p>
+<p>Read the current state of the SD card.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/printer/sd</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;ready&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Status Codes</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – No error</p></li>
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> – If SD support has been disabled in OctoPrint’s config.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="send-an-arbitrary-command-to-the-printer">
+<span id="sec-api-printer-arbcommand"></span><h2><a class="toc-backref" href="#id12">Send an arbitrary command to the printer</a><a class="headerlink" href="#send-an-arbitrary-command-to-the-printer" title="Permalink to this headline">¶</a></h2>
+<dl class="http post">
+<dt id="post--api-printer-command">
+<code class="sig-name descname"><span class="pre">POST</span> </code><code class="sig-name descname"><span class="pre">/api/printer/command</span></code><a class="headerlink" href="#post--api-printer-command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends any command to the printer via the serial interface. Should be used with some care as some commands can interfere with
+or even stop a running print job.</p>
+<p>Expects a <a class="reference internal" href="#sec-api-printer-datamodel-arbcommand"><span class="std std-ref">Arbitrary Command Request</span></a> as the request’s body.</p>
+<p>If successful returns a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> and an empty body.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">CONTROL</span></code> permission.</p>
+<p><strong>Example for sending a single command</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/command</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;M106&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example for sending multiple commands</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/command</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;commands&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;M18&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;M106 S0&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">JSON Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> (<em>string</em>) – Single command to send to the printer, mutually exclusive with <code class="docutils literal notranslate"><span class="pre">commands</span></code>.</p></li>
+<li><p><strong>commands</strong> (<em>string</em>) – List of commands to send to the printer, mutually exclusive with <code class="docutils literal notranslate"><span class="pre">command</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> – No error</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="retrieve-custom-controls">
+<span id="sec-api-printer-customcontrols"></span><h2><a class="toc-backref" href="#id13">Retrieve custom controls</a><a class="headerlink" href="#retrieve-custom-controls" title="Permalink to this headline">¶</a></h2>
+<dl class="http get">
+<dt id="get--api-printer-command-custom">
+<code class="sig-name descname"><span class="pre">GET</span> </code><code class="sig-name descname"><span class="pre">/api/printer/command/custom</span></code><a class="headerlink" href="#get--api-printer-command-custom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the <a class="reference internal" href="../features/custom_controls.html#sec-features-custom-controls"><span class="std std-ref">custom controls</span></a> as configured in
+<a class="reference internal" href="../configuration/config_yaml.html#sec-configuration-config-yaml"><span class="std std-ref">config.yaml</span></a>.</p>
+<p>Please refer to the documentation of <a class="reference internal" href="../features/custom_controls.html#sec-features-custom-controls"><span class="std std-ref">custom controls</span></a> on what
+data structure to expect here.</p>
+<p>Returns a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with an <a class="reference internal" href="#sec-api-printer-datamodel-customcontrols"><span class="std std-ref">Custom Controls Response</span></a>
+in the body upon success.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">CONTROL</span></code> permission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Status Codes</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> – No error</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="data-model">
+<span id="sec-api-printer-datamodel"></span><h2><a class="toc-backref" href="#id14">Data model</a><a class="headerlink" href="#data-model" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="full-state-response">
+<span id="sec-api-printer-datamodel-fullstate"></span><h3><a class="toc-backref" href="#id15">Full State Response</a><a class="headerlink" href="#full-state-response" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">temperature</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p><a class="reference internal" href="#sec-api-printer-datamodel-temps"><span class="std std-ref">Temperature State</span></a></p></td>
+<td><p>The printer’s temperature state data</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sd</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p><a class="reference internal" href="#sec-api-printer-datamodel-sdstate"><span class="std std-ref">SD State</span></a></p></td>
+<td><p>The printer’s sd state data</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">state</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p><a class="reference internal" href="datamodel.html#sec-api-datamodel-printer-state"><span class="std std-ref">Printer State</span></a></p></td>
+<td><p>The printer’s general state</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="temperature-state">
+<span id="sec-api-printer-datamodel-temps"></span><h3><a class="toc-backref" href="#id16">Temperature State</a><a class="headerlink" href="#temperature-state" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tool{n}</span></code></p></td>
+<td><p>0..*</p></td>
+<td><p><a class="reference internal" href="datamodel.html#sec-api-datamodel-printer-tempdata"><span class="std std-ref">Temperature Data</span></a></p></td>
+<td><p>Current temperature stats for tool <em>n</em>. Enumeration starts at 0 for the first tool. Not included if querying
+only bed state.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bed</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p><a class="reference internal" href="datamodel.html#sec-api-datamodel-printer-tempdata"><span class="std std-ref">Temperature Data</span></a></p></td>
+<td><p>Current temperature stats for the printer’s heated bed. Not included if querying only tool state or if
+the currently selected printer profile does not have a heated bed.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">history</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p>List of <a class="reference internal" href="datamodel.html#sec-api-datamodel-printer-temphistory"><span class="std std-ref">Historic Temperature Datapoint</span></a></p></td>
+<td><p>Temperature history</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="sd-state">
+<span id="sec-api-printer-datamodel-sdstate"></span><h3><a class="toc-backref" href="#id17">SD State</a><a class="headerlink" href="#sd-state" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ready</span></code></p></td>
+<td><p>1</p></td>
+<td><p>Boolean</p></td>
+<td><p>Whether the SD card has been initialized (<code class="docutils literal notranslate"><span class="pre">true</span></code>) or not (<code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="arbitrary-command-request">
+<span id="sec-api-printer-datamodel-arbcommand"></span><h3><a class="toc-backref" href="#id18">Arbitrary Command Request</a><a class="headerlink" href="#arbitrary-command-request" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">command</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p>String</p></td>
+<td><p>Single command to send to the printer, mutually exclusive with <code class="docutils literal notranslate"><span class="pre">commands</span></code> and <code class="docutils literal notranslate"><span class="pre">script</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">commands</span></code></p></td>
+<td><p>0..*</p></td>
+<td><p>Array of String</p></td>
+<td><p>Multiple commands to send to the printer (in the given order), mutually exclusive with <code class="docutils literal notranslate"><span class="pre">command</span></code> and <code class="docutils literal notranslate"><span class="pre">script</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">script</span></code></p></td>
+<td><p>0..*</p></td>
+<td><p>String</p></td>
+<td><p>Name of the GCODE script template to send to the printer, mutually exclusive with <code class="docutils literal notranslate"><span class="pre">command</span></code> and <code class="docutils literal notranslate"><span class="pre">commands</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parameters</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p>Map of key value pairs</p></td>
+<td><p>Key value pairs of parameters to replace in sent commands/provide to the script renderer</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">context</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p>Map of key value pairs</p></td>
+<td><p>(only if <code class="docutils literal notranslate"><span class="pre">script</span></code> is set) additional template variables to provide to the script renderer</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="custom-controls-response">
+<span id="sec-api-printer-datamodel-customcontrols"></span><h3><a class="toc-backref" href="#id19">Custom Controls Response</a><a class="headerlink" href="#custom-controls-response" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">controls</span></code></p></td>
+<td><p>0..n</p></td>
+<td><p>List of <a class="reference internal" href="../features/custom_controls.html#sec-features-custom-controls"><span class="std std-ref">custom controls</span></a></p></td>
+<td><p>A list of custom control definitions as defined in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="logs.html" class="btn btn-neutral float-left" title="Log file management" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="printerprofiles.html" class="btn btn-neutral float-right" title="Printer profile operations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2022, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.8.0rc5
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.7.3/api/printer.html">1.7.3</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.8.0rc5/api/printer.html">1.8.0rc5</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/api/printer.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/api/printer.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/api/printer.html">devel</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
