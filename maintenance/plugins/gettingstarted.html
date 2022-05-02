@@ -736,49 +736,49 @@ menu entries? We don’t want this this time, and we named our tab template such
 so we don’t have to do anything here.</p>
 <p>Then we’ll create our custom <a class="reference external" href="http://knockoutjs.com/documentation/introduction.html">Knockout</a> view model in <code class="docutils literal notranslate"><span class="pre">helloworld.js</span></code>
 like so:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">function</span> <span class="nx">HelloWorldViewModel</span><span class="p">(</span><span class="nx">parameters</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">HelloWorldViewModel</span><span class="p">(</span><span class="nx">parameters</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">self</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">;</span><span class="w"></span>
 
-        <span class="nx">self</span><span class="p">.</span><span class="nx">settings</span> <span class="o">=</span> <span class="nx">parameters</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span>
+<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">settings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">parameters</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span><span class="w"></span>
 
-        <span class="c1">// this will hold the URL currently displayed by the iframe</span>
-        <span class="nx">self</span><span class="p">.</span><span class="nx">currentUrl</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">();</span>
+<span class="w">        </span><span class="c1">// this will hold the URL currently displayed by the iframe</span><span class="w"></span>
+<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">currentUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">();</span><span class="w"></span>
 
-        <span class="c1">// this will hold the URL entered in the text field</span>
-        <span class="nx">self</span><span class="p">.</span><span class="nx">newUrl</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">();</span>
+<span class="w">        </span><span class="c1">// this will hold the URL entered in the text field</span><span class="w"></span>
+<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">newUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">();</span><span class="w"></span>
 
-        <span class="c1">// this will be called when the user clicks the &quot;Go&quot; button and set the iframe&#39;s URL to</span>
-        <span class="c1">// the entered URL</span>
-        <span class="nx">self</span><span class="p">.</span><span class="nx">goToUrl</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="nx">self</span><span class="p">.</span><span class="nx">currentUrl</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">newUrl</span><span class="p">());</span>
-        <span class="p">};</span>
+<span class="w">        </span><span class="c1">// this will be called when the user clicks the &quot;Go&quot; button and set the iframe&#39;s URL to</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// the entered URL</span><span class="w"></span>
+<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">goToUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">self</span><span class="p">.</span><span class="nx">currentUrl</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">newUrl</span><span class="p">());</span><span class="w"></span>
+<span class="w">        </span><span class="p">};</span><span class="w"></span>
 
-        <span class="c1">// This will get called before the HelloWorldViewModel gets bound to the DOM, but after its</span>
-        <span class="c1">// dependencies have already been initialized. It is especially guaranteed that this method</span>
-        <span class="c1">// gets called _after_ the settings have been retrieved from the OctoPrint backend and thus</span>
-        <span class="c1">// the SettingsViewModel been properly populated.</span>
-        <span class="nx">self</span><span class="p">.</span><span class="nx">onBeforeBinding</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="nx">self</span><span class="p">.</span><span class="nx">newUrl</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="nx">helloworld</span><span class="p">.</span><span class="nx">url</span><span class="p">());</span>
-            <span class="nx">self</span><span class="p">.</span><span class="nx">goToUrl</span><span class="p">();</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
+<span class="w">        </span><span class="c1">// This will get called before the HelloWorldViewModel gets bound to the DOM, but after its</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// dependencies have already been initialized. It is especially guaranteed that this method</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// gets called _after_ the settings have been retrieved from the OctoPrint backend and thus</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// the SettingsViewModel been properly populated.</span><span class="w"></span>
+<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">onBeforeBinding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">self</span><span class="p">.</span><span class="nx">newUrl</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="nx">helloworld</span><span class="p">.</span><span class="nx">url</span><span class="p">());</span><span class="w"></span>
+<span class="w">            </span><span class="nx">self</span><span class="p">.</span><span class="nx">goToUrl</span><span class="p">();</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="c1">// This is how our plugin registers itself with the application, by adding some configuration</span>
-    <span class="c1">// information to the global variable OCTOPRINT_VIEWMODELS</span>
-    <span class="nx">OCTOPRINT_VIEWMODELS</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span>
-        <span class="c1">// This is the constructor to call for instantiating the plugin</span>
-        <span class="nx">HelloWorldViewModel</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// This is how our plugin registers itself with the application, by adding some configuration</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// information to the global variable OCTOPRINT_VIEWMODELS</span><span class="w"></span>
+<span class="w">    </span><span class="nx">OCTOPRINT_VIEWMODELS</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// This is the constructor to call for instantiating the plugin</span><span class="w"></span>
+<span class="w">        </span><span class="nx">HelloWorldViewModel</span><span class="p">,</span><span class="w"></span>
 
-        <span class="c1">// This is a list of dependencies to inject into the plugin, the order which you request</span>
-        <span class="c1">// here is the order in which the dependencies will be injected into your view model upon</span>
-        <span class="c1">// instantiation via the parameters argument</span>
-        <span class="p">[</span><span class="s2">&quot;settingsViewModel&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="c1">// This is a list of dependencies to inject into the plugin, the order which you request</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// here is the order in which the dependencies will be injected into your view model upon</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// instantiation via the parameters argument</span><span class="w"></span>
+<span class="w">        </span><span class="p">[</span><span class="s2">&quot;settingsViewModel&quot;</span><span class="p">],</span><span class="w"></span>
 
-        <span class="c1">// Finally, this is the list of selectors for all elements we want this view model to be bound to.</span>
-        <span class="p">[</span><span class="s2">&quot;#tab_plugin_helloworld&quot;</span><span class="p">]</span>
-    <span class="p">]);</span>
-<span class="p">});</span>
+<span class="w">        </span><span class="c1">// Finally, this is the list of selectors for all elements we want this view model to be bound to.</span><span class="w"></span>
+<span class="w">        </span><span class="p">[</span><span class="s2">&quot;#tab_plugin_helloworld&quot;</span><span class="p">]</span><span class="w"></span>
+<span class="w">    </span><span class="p">]);</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Take a close look at lines 31 to 42. This is how our plugin tells OctoPrint about our new view model, how to

@@ -183,26 +183,26 @@ default client instance <code class="docutils literal notranslate"><span class="
 use the implementation and registration approach as described below.</p>
 </div>
 <p><strong>Example:</strong></p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nb">global</span><span class="p">,</span> <span class="nx">factory</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="ow">typeof</span> <span class="nx">define</span> <span class="o">===</span> <span class="s2">&quot;function&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">define</span><span class="p">.</span><span class="nx">amd</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">define</span><span class="p">([</span><span class="s2">&quot;OctoPrintClient&quot;</span><span class="p">],</span> <span class="nx">factory</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="nx">factory</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">OctoPrintClient</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">})(</span><span class="nb">window</span> <span class="o">||</span> <span class="k">this</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">OctoPrintClient</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">MyPluginClient</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">base</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">base</span> <span class="o">=</span> <span class="nx">base</span><span class="p">;</span>
-    <span class="p">};</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nb">global</span><span class="p">,</span><span class="w"> </span><span class="nx">factory</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="nx">define</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;function&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">define</span><span class="p">.</span><span class="nx">amd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">define</span><span class="p">([</span><span class="s2">&quot;OctoPrintClient&quot;</span><span class="p">],</span><span class="w"> </span><span class="nx">factory</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">factory</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">OctoPrintClient</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">})(</span><span class="nb">window</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">OctoPrintClient</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">MyPluginClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">base</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">base</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
 
-    <span class="nx">MyPluginClient</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">someFunction</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="c1">// do something</span>
-    <span class="p">};</span>
+<span class="w">    </span><span class="nx">MyPluginClient</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">someFunction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// do something</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
 
-    <span class="c1">// further define API</span>
+<span class="w">    </span><span class="c1">// further define API</span><span class="w"></span>
 
-    <span class="nx">OctoPrintClient</span><span class="p">.</span><span class="nx">registerPluginComponent</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">,</span> <span class="nx">MyPluginClient</span><span class="p">);</span>
-    <span class="k">return</span> <span class="nx">MyPluginClient</span><span class="p">;</span>
-<span class="p">});</span>
+<span class="w">    </span><span class="nx">OctoPrintClient</span><span class="p">.</span><span class="nx">registerPluginComponent</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">MyPluginClient</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">MyPluginClient</span><span class="p">;</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 </dd></dl>
@@ -293,10 +293,10 @@ may be defined by providing them through <code class="docutils literal notransla
 <span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">get</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.get" title="Permalink to this definition"></a></dt>
 <dd><p>Performs a <code class="docutils literal notranslate"><span class="pre">GET</span></code> request against <code class="docutils literal notranslate"><span class="pre">url</span></code>.</p>
 <p><strong>Example:</strong></p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;api/version&quot;</span><span class="p">)</span>
-    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;API:&quot;</span><span class="p">,</span> <span class="nx">response</span><span class="p">.</span><span class="nx">api</span><span class="p">,</span> <span class="s2">&quot;Server:&quot;</span><span class="p">,</span> <span class="nx">response</span><span class="p">.</span><span class="nx">server</span><span class="p">);</span>
-    <span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;api/version&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;API:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">api</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Server:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">server</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -317,8 +317,8 @@ may be defined by providing them through <code class="docutils literal notransla
 <span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">getWithQuery</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.getWithQuery" title="Permalink to this definition"></a></dt>
 <dd><p>Performs a <code class="docutils literal notranslate"><span class="pre">GET</span></code> request against <code class="docutils literal notranslate"><span class="pre">url</span></code> using the provided <code class="docutils literal notranslate"><span class="pre">data</span></code> as URL query.</p>
 <p><strong>Example:</strong></p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// this should perform a GET of &quot;api/timelapse?unrendered=true&quot;</span>
-<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getWithQuery</span><span class="p">(</span><span class="s2">&quot;api/timelapse&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;unrendered&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// this should perform a GET of &quot;api/timelapse?unrendered=true&quot;</span><span class="w"></span>
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getWithQuery</span><span class="p">(</span><span class="s2">&quot;api/timelapse&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;unrendered&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -340,11 +340,11 @@ may be defined by providing them through <code class="docutils literal notransla
 <span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">post</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.post" title="Permalink to this definition"></a></dt>
 <dd><p>Performs a <code class="docutils literal notranslate"><span class="pre">POST</span></code> request against <code class="docutils literal notranslate"><span class="pre">url</span></code> using the provided <code class="docutils literal notranslate"><span class="pre">data</span></code> as request body.</p>
 <p><strong>Example:</strong></p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getBlueprintUrl</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;endpoint&quot;</span><span class="p">;</span>
-<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="s2">&quot;a whole lot of data&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;contentType&quot;</span><span class="o">:</span> <span class="s2">&quot;application/octet-stream&quot;</span><span class="p">})</span>
-    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// do something with the response</span>
-    <span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getBlueprintUrl</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;endpoint&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;a whole lot of data&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;contentType&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;application/octet-stream&quot;</span><span class="p">})</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// do something with the response</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -368,11 +368,11 @@ may be defined by providing them through <code class="docutils literal notransla
 <dd><p>Performs a <code class="docutils literal notranslate"><span class="pre">POST</span></code> request against <code class="docutils literal notranslate"><span class="pre">url</span></code> using the provided <code class="docutils literal notranslate"><span class="pre">data</span></code> object as request body
 after serializing it to JSON.</p>
 <p><strong>Example:</strong></p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getBlueprintUrl</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;endpoint&quot;</span><span class="p">;</span>
-<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">postJson</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;someKey&quot;</span><span class="o">:</span> <span class="s2">&quot;someValue&quot;</span><span class="p">})</span>
-    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// do something with the response</span>
-    <span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getBlueprintUrl</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;endpoint&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">postJson</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;someKey&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;someValue&quot;</span><span class="p">})</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// do something with the response</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -492,26 +492,26 @@ object that will be used in the request.</p>
 <p><strong>Example:</strong></p>
 <p>Uploading a file to <code class="docutils literal notranslate"><span class="pre">some/path</span></code> on the blueprint of plugin <code class="docutils literal notranslate"><span class="pre">myplugin</span></code>, from a file input element,
 updating a label with the current upload progress.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">fileInput</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#my-file-input&quot;</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">progressOutput</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#progress-output&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">fileInput</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#my-file-input&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">progressOutput</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#progress-output&quot;</span><span class="p">);</span><span class="w"></span>
 
-<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">upload</span><span class="p">(</span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getBlueprintUrl</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;some/path&quot;</span><span class="p">,</span>
-                 <span class="nx">fileInput</span><span class="p">,</span>
-                 <span class="s2">&quot;myfilename.dat&quot;</span><span class="p">,</span>
-                 <span class="p">{</span><span class="s2">&quot;somekey&quot;</span><span class="o">:</span> <span class="s2">&quot;somevalue&quot;</span><span class="p">})</span>
-    <span class="p">.</span><span class="nx">progress</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">total</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">percentage</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">loaded</span> <span class="o">*</span> <span class="mf">100</span> <span class="o">/</span> <span class="nx">data</span><span class="p">.</span><span class="nx">total</span><span class="p">);</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">percentage</span> <span class="o">||</span> <span class="nx">percentage</span> <span class="o">==</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nx">progressOutput</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="nx">percentage</span> <span class="o">+</span> <span class="s2">&quot;%&quot;</span><span class="p">);</span>
-                <span class="k">return</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="nx">progressOutput</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
-    <span class="p">})</span>
-    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">,</span> <span class="nx">textStatus</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">progressOutput</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Uploaded!&quot;</span><span class="p">);</span>
-    <span class="p">});</span>
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">upload</span><span class="p">(</span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getBlueprintUrl</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;some/path&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                 </span><span class="nx">fileInput</span><span class="p">,</span><span class="w"></span>
+<span class="w">                 </span><span class="s2">&quot;myfilename.dat&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                 </span><span class="p">{</span><span class="s2">&quot;somekey&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;somevalue&quot;</span><span class="p">})</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="nx">progress</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">total</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="nx">percentage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">loaded</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">100</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">total</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">percentage</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">percentage</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nx">progressOutput</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="nx">percentage</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;%&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="nx">progressOutput</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">})</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">textStatus</span><span class="p">,</span><span class="w"> </span><span class="nx">request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">progressOutput</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Uploaded!&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -539,12 +539,12 @@ the <code class="docutils literal notranslate"><span class="pre">url</span></cod
 <p>The function will take care of wrapping the <code class="docutils literal notranslate"><span class="pre">command</span></code> and the <code class="docutils literal notranslate"><span class="pre">payload</span></code> into one JSON object and
 POSTing that to the endpoint with the correct JSON content type.</p>
 <p><strong>Example:</strong></p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getBlueprintUrl</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;myendpoint&quot;</span><span class="p">;</span>
-<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">issueCommand</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="s2">&quot;mycommand&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;someParameter&quot;</span><span class="o">:</span> <span class="s2">&quot;someValue&quot;</span><span class="p">,</span>
-                                          <span class="s2">&quot;someOtherParameter&quot;</span><span class="o">:</span> <span class="s2">&quot;someOtherValue&quot;</span><span class="p">})</span>
-    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// do something with the response</span>
-    <span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getBlueprintUrl</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;myendpoint&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">issueCommand</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mycommand&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;someParameter&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;someValue&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                          </span><span class="s2">&quot;someOtherParameter&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;someOtherValue&quot;</span><span class="p">})</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// do something with the response</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -568,8 +568,8 @@ POSTing that to the endpoint with the correct JSON content type.</p>
 <dd><p>Returns the proper URL for the endpoint of a <a class="reference internal" href="../plugins/mixins.html#octoprint.plugin.SimpleApiPlugin" title="octoprint.plugin.SimpleApiPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleApiPlugin</span></code></a>, based on the
 plugin identifier.</p>
 <p><strong>Example:</strong></p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// prints &quot;api/plugin/myplugin&quot;</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getSimpleApiUrl</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">)</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// prints &quot;api/plugin/myplugin&quot;</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getSimpleApiUrl</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -589,10 +589,10 @@ plugin identifier.</p>
 <span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">simpleApiGet</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.simpleApiGet" title="Permalink to this definition"></a></dt>
 <dd><p>Performs a <code class="docutils literal notranslate"><span class="pre">GET</span></code> request against the endpoint of a <a class="reference internal" href="../plugins/mixins.html#octoprint.plugin.SimpleApiPlugin" title="octoprint.plugin.SimpleApiPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleApiPlugin</span></code></a> with
 identifier <code class="docutils literal notranslate"><span class="pre">plugin</span></code>.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">simpleApiGet</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">)</span>
-    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// do something with the response</span>
-    <span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">simpleApiGet</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// do something with the response</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -614,11 +614,11 @@ identifier <code class="docutils literal notranslate"><span class="pre">plugin</
 <dd><p>Performs the API command <code class="docutils literal notranslate"><span class="pre">command</span></code> against the endpoint of a <a class="reference internal" href="../plugins/mixins.html#octoprint.plugin.SimpleApiPlugin" title="octoprint.plugin.SimpleApiPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleApiPlugin</span></code></a> with
 identifier <code class="docutils literal notranslate"><span class="pre">plugin</span></code>, including the optional <code class="docutils literal notranslate"><span class="pre">payload</span></code>.</p>
 <p><strong>Example:</strong></p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">simpleApiCommand</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">,</span> <span class="s2">&quot;mycommand&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;someParameter&quot;</span><span class="o">:</span> <span class="s2">&quot;someValue&quot;</span><span class="p">,</span>
-                                                     <span class="s2">&quot;otherParameter&quot;</span><span class="o">:</span> <span class="s2">&quot;otherValue&quot;</span><span class="p">})</span>
-    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// do something with the response</span>
-    <span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">simpleApiCommand</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mycommand&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;someParameter&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;someValue&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                     </span><span class="s2">&quot;otherParameter&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;otherValue&quot;</span><span class="p">})</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// do something with the response</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -642,8 +642,8 @@ identifier <code class="docutils literal notranslate"><span class="pre">plugin</
 <dd><p>Returns the proper base URL for blueprint endpoints of a <a class="reference internal" href="../plugins/mixins.html#octoprint.plugin.BlueprintPlugin" title="octoprint.plugin.BlueprintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlueprintPlugin</span></code></a> with
 identifier <code class="docutils literal notranslate"><span class="pre">plugin</span></code>.</p>
 <p><strong>Example:</strong></p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// prints &quot;plugin/myplugin/&quot;</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getBlueprintUrl</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">));</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// prints &quot;plugin/myplugin/&quot;</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getBlueprintUrl</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">));</span><span class="w"></span>
 </pre></div>
 </div>
 </dd></dl>
@@ -664,8 +664,8 @@ as constructor for the new exception class, or a string, in which case a constru
 <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code> and <code class="docutils literal notranslate"><span class="pre">stack</span></code> attributes will be created. The class hierarchy will be properly
 setup to subclass <code class="docutils literal notranslate"><span class="pre">Error</span></code>.</p>
 <p><strong>Example:</strong></p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">MyCustomException</span> <span class="o">=</span> <span class="nx">OctoPrintClient</span><span class="p">.</span><span class="nx">createCustomException</span><span class="p">(</span><span class="s2">&quot;MyCustomException&quot;</span><span class="p">);</span>
-<span class="k">throw</span> <span class="ow">new</span> <span class="nx">MyCustomException</span><span class="p">(</span><span class="s2">&quot;Something went horribly wrong!&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">MyCustomException</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">OctoPrintClient</span><span class="p">.</span><span class="nx">createCustomException</span><span class="p">(</span><span class="s2">&quot;MyCustomException&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">MyCustomException</span><span class="p">(</span><span class="s2">&quot;Something went horribly wrong!&quot;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </dd></dl>
@@ -678,17 +678,17 @@ setup to subclass <code class="docutils literal notranslate"><span class="pre">E
 <a class="reference internal" href="#OctoPrintClient.plugins" title="OctoPrintClient.plugins"><code class="xref js js-attr docutils literal notranslate"><span class="pre">OctoPrintClient.plugins</span></code></a> registry.</p>
 <p><code class="docutils literal notranslate"><span class="pre">clientClass</span></code> must have a constructor that follows the signature <code class="docutils literal notranslate"><span class="pre">ClientClass(base)</span></code> and in which it sets
 the attribute <code class="docutils literal notranslate"><span class="pre">base</span></code> on the instance to:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">MyPluginClient</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">base</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">base</span> <span class="o">=</span> <span class="nx">base</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">MyPluginClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">base</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">base</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Each <a class="reference internal" href="#OctoPrintClient" title="OctoPrintClient"><code class="xref js js-class docutils literal notranslate"><span class="pre">OctoPrintClient()</span></code></a> will create its own instance of registered plugin classes and make them available
 under <a class="reference internal" href="#OctoPrintClient.plugins" title="OctoPrintClient.plugins"><code class="xref js js-attr docutils literal notranslate"><span class="pre">OctoPrintClient.plugins</span></code></a>. It will inject itself into those instances in order to allow plugin
 clients to access its functionality via <code class="docutils literal notranslate"><span class="pre">this.base</span></code>:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">MyPluginClient</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">doSomething</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">opts</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">base</span><span class="p">.</span><span class="nx">simpleApiCommand</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">,</span> <span class="s2">&quot;doSomething&quot;</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">opts</span><span class="p">);</span>
-<span class="p">};</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">MyPluginClient</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">doSomething</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">opts</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">base</span><span class="p">.</span><span class="nx">simpleApiCommand</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;doSomething&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">opts</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <dl class="field-list simple">
