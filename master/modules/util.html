@@ -363,6 +363,25 @@ message, if False (default) it will be replaced with the deprecation message.</p
 </dd></dl>
 
 <dl class="py function">
+<dt id="octoprint.util.deserialize">
+<code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">deserialize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.deserialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deserializes data from a file</p>
+<p>In the current implementation this uses json.loads and - if the file is found to be
+compressed - zlib.decompress.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The file to deserialize from</p></li>
+<li><p><strong>encoding</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The encoding to use for the file, defaults to utf-8</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The deserialized data structure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="octoprint.util.dict_clean">
 <code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">dict_clean</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.dict_clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recursively deep-sanitizes <code class="docutils literal notranslate"><span class="pre">a</span></code> based on <code class="docutils literal notranslate"><span class="pre">b</span></code>, removing all keys (and
@@ -653,6 +672,22 @@ associated values) from <code class="docutils literal notranslate"><span class="
 </dd></dl>
 
 <dl class="py function">
+<dt id="octoprint.util.get_bom">
+<code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">get_bom</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.get_bom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the file has a BOM and if so return it.</p>
+<dl class="simple">
+<dt>Params:</dt><dd><p>filename (str): The file to check.
+encoding (str): The encoding to check for.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>(bytes) the BOM or None if there is no BOM.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="octoprint.util.get_class">
 <code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">get_class</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.get_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves the class object for a given fully qualified class name.</p>
@@ -809,36 +844,59 @@ message, if False (default) it will be replaced with the deprecation message.</p
 <dl class="py function">
 <dt id="octoprint.util.pp">
 <code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">pp</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.pp" title="Permalink to this definition">¶</a></dt>
-<dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">(</span><span class="nb">dict</span><span class="p">())</span> 
+<dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">(</span><span class="nb">dict</span><span class="p">())</span>
 <span class="go">&#39;dict()&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
 <span class="go">&#39;dict(a=1, b=2, c=3)&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">(</span><span class="nb">set</span><span class="p">())</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">(</span><span class="nb">set</span><span class="p">())</span>
 <span class="go">&#39;set()&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">({</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">})</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">({</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">})</span>
 <span class="go">&quot;{&#39;a&#39;, &#39;b&#39;}&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">([</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">])</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">([</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">])</span>
 <span class="go">&quot;[&#39;a&#39;, &#39;b&#39;, &#39;d&#39;, &#39;c&#39;]&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">((</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">))</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">((</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">))</span>
 <span class="go">&quot;(&#39;a&#39;, &#39;b&#39;, &#39;d&#39;, &#39;c&#39;)&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span>
 <span class="go">&quot;&#39;foo&#39;&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">([</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">},</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;foo&quot;</span><span class="p">])</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pp</span><span class="p">([</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">},</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;foo&quot;</span><span class="p">])</span>
 <span class="go">&quot;[dict(a=1, b=2), {&#39;a&#39;, &#39;b&#39;, &#39;c&#39;}, (1, 2), None, 1, True, &#39;foo&#39;]&quot;</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py function">
+<dt id="octoprint.util.serialize">
+<code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">serialize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compressed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.serialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serializes data to a file</p>
+<p>In the current implementation this uses json.dumps.</p>
+<p>If <cite>compressed</cite> is True (the default), the serialized data put through zlib.compress.</p>
+<p>Supported data types are listed at the bottom of
+<span class="xref std std-ref">octoprint.util.comprehensive_json</span>, and include some data types that are not
+supported by json.dumps by default.</p>
+<p>This is not thread-safe, if concurrent access is required, the caller needs to ensure
+that only one thread is writing to the file at any given time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The file to write to</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><em>object</em></a>) – The data to serialize</p></li>
+<li><p><strong>encoding</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The encoding to use for the file</p></li>
+<li><p><strong>compressed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to compress the data before writing it to the file</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="octoprint.util.to_bytes">
-<code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">to_bytes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s_or_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'strict'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.to_bytes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">to_bytes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s_or_u</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'strict'</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><span class="pre">bytes</span></a><a class="headerlink" href="#octoprint.util.to_bytes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make sure <code class="docutils literal notranslate"><span class="pre">s_or_u</span></code> is a byte string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>s_or_u</strong> (<em>string</em><em> or </em><em>unicode</em>) – The value to convert</p></li>
-<li><p><strong>encoding</strong> (<em>string</em>) – encoding to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str.encode" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">str.encode()</span></code></a></p></li>
-<li><p><strong>errors</strong> (<em>string</em>) – error handling to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str.encode" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">str.encode()</span></code></a></p></li>
+<li><p><strong>s_or_u</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><em>bytes</em></a>) – The value to convert</p></li>
+<li><p><strong>encoding</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – encoding to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str.encode" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">str.encode()</span></code></a></p></li>
+<li><p><strong>errors</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – error handling to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str.encode" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">str.encode()</span></code></a></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -852,36 +910,37 @@ message, if False (default) it will be replaced with the deprecation message.</p
 
 <dl class="py function">
 <dt id="octoprint.util.to_native_str">
-<code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">to_native_str</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s_or_u</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.to_native_str" title="Permalink to this definition">¶</a></dt>
-<dd><p>Make sure <code class="docutils literal notranslate"><span class="pre">s_or_u</span></code> is a native ‘str’ for the current Python version</p>
-<p>Will ensure a byte string under Python 2 and a unicode string under Python 3.</p>
+<code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">to_native_str</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s_or_u</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'strict'</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><a class="headerlink" href="#octoprint.util.to_native_str" title="Permalink to this definition">¶</a></dt>
+<dd><div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 1.8.0: </span>to_native_str is no longer needed, use to_unicode instead</p>
+</div>
 </dd></dl>
 
 <dl class="py function">
 <dt id="octoprint.util.to_str">
-<code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">to_str</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s_or_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'strict'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.to_str" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">to_str</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s_or_u</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'strict'</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><span class="pre">bytes</span></a><a class="headerlink" href="#octoprint.util.to_str" title="Permalink to this definition">¶</a></dt>
 <dd><div class="deprecated">
-<p><span class="versionmodified deprecated">Deprecated since version 1.3.11: </span>to_str has been renamed to to_bytes</p>
+<p><span class="versionmodified deprecated">Deprecated since version 1.3.11: </span>to_str has been renamed to to_bytes and in a future version will become the new to_unicode</p>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt id="octoprint.util.to_unicode">
-<code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">to_unicode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s_or_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'strict'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.to_unicode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Make sure <code class="docutils literal notranslate"><span class="pre">s_or_u</span></code> is a unicode string.</p>
+<code class="sig-prename descclassname"><span class="pre">octoprint.util.</span></code><code class="sig-name descname"><span class="pre">to_unicode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s_or_u</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'strict'</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><a class="headerlink" href="#octoprint.util.to_unicode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make sure <code class="docutils literal notranslate"><span class="pre">s_or_u</span></code> is a unicode string (str).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>s_or_u</strong> (<em>string</em><em> or </em><em>unicode</em>) – The value to convert</p></li>
-<li><p><strong>encoding</strong> (<em>string</em>) – encoding to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes.decode" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">bytes.decode()</span></code></a></p></li>
-<li><p><strong>errors</strong> (<em>string</em>) – error handling to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes.decode" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">bytes.decode()</span></code></a></p></li>
+<li><p><strong>s_or_u</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><em>bytes</em></a>) – The value to convert</p></li>
+<li><p><strong>encoding</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – encoding to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes.decode" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">bytes.decode()</span></code></a></p></li>
+<li><p><strong>errors</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – error handling to use if necessary, see <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes.decode" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">bytes.decode()</span></code></a></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>converted string.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>string</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -983,7 +1042,7 @@ and stderr via configurable callback functions.</p>
 </div>
 <dl class="py method">
 <dt id="octoprint.util.commandline.CommandlineCaller.call">
-<code class="sig-name descname"><span class="pre">call</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.commandline.CommandlineCaller.call" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">call</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delimiter</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><span class="pre">bytes</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">b'\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#octoprint.util.commandline.CommandlineCaller.call" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calls a command</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1001,7 +1060,7 @@ and stderr via configurable callback functions.</p>
 
 <dl class="py method">
 <dt id="octoprint.util.commandline.CommandlineCaller.checked_call">
-<code class="sig-name descname"><span class="pre">checked_call</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.commandline.CommandlineCaller.checked_call" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">checked_call</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#octoprint.util.commandline.CommandlineCaller.checked_call" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calls a command and raises an error if it doesn’t return with return code 0</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1062,25 +1121,20 @@ and stderr via configurable callback functions.</p>
 
 <dl class="py function">
 <dt id="octoprint.util.commandline.clean_ansi">
-<code class="sig-prename descclassname"><span class="pre">octoprint.util.commandline.</span></code><code class="sig-name descname"><span class="pre">clean_ansi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.util.commandline.clean_ansi" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">octoprint.util.commandline.</span></code><code class="sig-name descname"><span class="pre">clean_ansi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#octoprint.util.commandline.clean_ansi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes ANSI control codes from <code class="docutils literal notranslate"><span class="pre">line</span></code>.</p>
+<p>Note: This function also still supports an input of <code class="docutils literal notranslate"><span class="pre">bytes</span></code>, leading to an
+<code class="docutils literal notranslate"><span class="pre">output</span></code> of <code class="docutils literal notranslate"><span class="pre">bytes</span></code>. This if for reasons of backwards compatibility only,
+should no longer be used and considered to be deprecated and to be removed in
+a future version of OctoPrint. A warning will be logged.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>line</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><em>bytes</em></a><em> or </em><em>unicode</em>) – the line to process</p>
+<dd class="field-odd"><p><strong>line</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><em>bytes</em></a>) – the line to process</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>(bytes or unicode) The line without any ANSI control codes</p>
+<dd class="field-even"><p>(str or bytes) The line without any ANSI control codes</p>
 </dd>
 </dl>
-<p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">text</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;Some text with some [31mred words[39m in it&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">clean_ansi</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> 
-<span class="go">&#39;Some text with some red words in it&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;We [?25lhide the cursor here and then [?25hshow it again here&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">clean_ansi</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> 
-<span class="go">&#39;We hide the cursor here and then show it again here&#39;</span>
-</pre></div>
-</div>
 </dd></dl>
 
 </div>
@@ -1092,8 +1146,7 @@ and stderr via configurable callback functions.</p>
 <code class="sig-prename descclassname"><span class="pre">octoprint.util.platform.</span></code><code class="sig-name descname"><span class="pre">CLOSE_FDS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="headerlink" href="#octoprint.util.platform.CLOSE_FDS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default setting for close_fds parameter to Popen/sarge.run.</p>
 <p>Set <code class="docutils literal notranslate"><span class="pre">close_fds</span></code> on every sub process to this to ensure file handlers will be closed
-on child processes on platforms that support this (anything Python 3.7+ or anything
-but win32 in earlier Python versions).</p>
+on child processes on platforms.</p>
 </dd></dl>
 
 <dl class="py function">

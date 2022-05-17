@@ -150,9 +150,20 @@ any <a class="reference internal" href="controlproperties.html#sec-plugins-contr
 <a class="reference internal" href="mixins.html#sec-plugins-mixins-injectedproperties"><span class="std std-ref">inject the required properties</span></a> into its declared
 <a class="reference internal" href="mixins.html#sec-plugins-mixins"><span class="std std-ref">mixin implementation</span></a> and register those as well.</p>
 <p>On disabling a plugin, its hook handlers, helpers, mixin implementations and settings overlays will be de-registered again.</p>
+<p>When a plugin gets enabled, OctoPrint will also call the <code class="xref py py-func docutils literal notranslate"><span class="pre">on_plugin_enabled()</span></code> callback on its implementation
+(if it exists). Likewise, when a plugin gets disabled OctoPrint will call the <code class="xref py py-func docutils literal notranslate"><span class="pre">on_plugin_disabled()</span></code> callback on
+its implementation (again, if it exists).</p>
 <p>Some plugin types require a reload of the frontend or a restart of OctoPrint for enabling/disabling them. You
 can recognize such plugins by their implementations implementing <a class="reference internal" href="mixins.html#octoprint.plugin.ReloadNeedingPlugin" title="octoprint.plugin.ReloadNeedingPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReloadNeedingPlugin</span></code></a> or
-<a class="reference internal" href="mixins.html#octoprint.plugin.RestartNeedingPlugin" title="octoprint.plugin.RestartNeedingPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">RestartNeedingPlugin</span></code></a> or providing handlers for one of the hooks marked correspondingly.</p>
+<a class="reference internal" href="mixins.html#octoprint.plugin.RestartNeedingPlugin" title="octoprint.plugin.RestartNeedingPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">RestartNeedingPlugin</span></code></a> or providing handlers for one of the hooks marked correspondingly.
+For these plugins, disabling them will <em>not</em> trigger the respective callback at runtime as they will not actually
+be disabled right away but only marked as such so that they won’t even load during the required restart.</p>
+<p>Note that uninstalling a plugin through the bundled Plugin Manager will make a plugin first get disabled and
+then unloaded, but only if it doesn’t require a restart. Plugins wishing to react to an uninstall through the
+Plugin Manager may implement <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin.on_plugin_pending_uninstall" title="octoprint.plugin.types.OctoPrintPlugin.on_plugin_pending_uninstall"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_plugin_pending_uninstall()</span></code></a> (added in OctoPrint 1.8.0) which will always be called by the Plugin Manager,
+regardless of whether the plugin requires a restart of OctoPrint to be fully uninstalled or not. Please be aware
+that the Plugin Manager is not the only way to uninstall a plugin from the system, a user may also uninstall it
+manually through the command line, circumventing Plugin Manager completely.</p>
 <img alt="The lifecycle of OctoPrint plugins." class="align-center" src="../_images/plugins_lifecycle.svg" /></div>
 </div>
 

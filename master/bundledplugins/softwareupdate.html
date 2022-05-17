@@ -489,7 +489,15 @@ supported:</p>
 Additional config parameters:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">pip</span></code>: The URL to use for installing. Presence implies <code class="docutils literal notranslate"><span class="pre">method:</span> <span class="pre">pip</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip_command</span></code>: The command to use for installing. Defaults to the <code class="docutils literal notranslate"><span class="pre">pip</span></code> instance belong to OctoPrint’s environment.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip_cwd</span></code>: The working directory to use for installing. Defaults to the current working directory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">force_reinstall</span></code>: Whether to force reinstallation of the package. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>. Helpful
+for development and version checks that don’t guarantee a Python package version change (e.g. commit based
+version checks like <code class="docutils literal notranslate"><span class="pre">git_commit</span></code>, <code class="docutils literal notranslate"><span class="pre">github_commit</span></code>, <code class="docutils literal notranslate"><span class="pre">bitbucket_commit</span></code>).</p></li>
 </ul>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.8.0: </span>Added <code class="docutils literal notranslate"><span class="pre">force_reinstall</span></code> parameter.</p>
+</div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">single_file_plugin</span></code>: Update a single file plugin by re-downloading it from a configured URL.
 Additional config parameters:</p>
@@ -751,10 +759,7 @@ is expected to be a callable matching signature and return value of the
 <p><strong>Example</strong></p>
 <p>The example single-file-plugin updates itself from Github releases published
 at the (fictional) repository <code class="docutils literal notranslate"><span class="pre">https://github.com/someUser/OctoPrint-UpdatePluginDemo</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
-
-<span class="k">def</span> <span class="nf">get_update_information</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_update_information</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
         <span class="n">updateplugindemo</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
             <span class="n">displayName</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_plugin_name</span><span class="p">,</span>

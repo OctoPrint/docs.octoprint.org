@@ -240,6 +240,21 @@ not met.</p>
 <p>Returns: a flask redirect response to return if a login is required, or None</p>
 </dd></dl>
 
+<dl class="py function">
+<dt id="octoprint.server.util.require_login_with">
+<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></code><code class="sig-name descname"><span class="pre">require_login_with</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">permissions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.require_login_with" title="Permalink to this definition">¶</a></dt>
+<dd><p>Requires a login with the given permissions and/or user id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>permissions</strong> – list of all permissions required to pass the check</p></li>
+<li><p><strong>user_id</strong> – required user to pass the check</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns: a flask redirect response to return if a login is required, or None</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-octoprint.server.util.flask">
 <span id="octoprint-server-util-flask"></span><span id="sec-modules-server-util-flask"></span><h1>octoprint.server.util.flask<a class="headerlink" href="#module-octoprint.server.util.flask" title="Permalink to this headline">¶</a></h1>
@@ -345,6 +360,13 @@ one who happens to listen on the same address albeit a different port or script 
 </dd></dl>
 
 <dl class="py method">
+<dt id="octoprint.server.util.flask.OctoPrintFlaskRequest.cookies">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">cookies</span></code><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskRequest.cookies" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> with the contents of all cookies transmitted with
+the request.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="octoprint.server.util.flask.OctoPrintFlaskRequest.server_name">
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">server_name</span></code><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskRequest.server_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Short cut to the request’s server name header</p>
@@ -360,7 +382,7 @@ one who happens to listen on the same address albeit a different port or script 
 
 <dl class="py class">
 <dt id="octoprint.server.util.flask.OctoPrintFlaskResponse">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">OctoPrintFlaskResponse</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mimetype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direct_passthrough</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskResponse" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">OctoPrintFlaskResponse</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><span class="pre">bytes</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/http.html#http.HTTPStatus" title="(in Python v3.10)"><span class="pre">http.HTTPStatus</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mimetype</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direct_passthrough</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskResponse" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt id="octoprint.server.util.flask.OctoPrintFlaskResponse.delete_cookie">
 <code class="sig-name descname"><span class="pre">delete_cookie</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskResponse.delete_cookie" title="Permalink to this definition">¶</a></dt>
@@ -373,6 +395,11 @@ one who happens to listen on the same address albeit a different port or script 
 path, the path has to be defined here.</p></li>
 <li><p><strong>domain</strong> – if the cookie that should be deleted was limited to a
 domain, that domain has to be defined here.</p></li>
+<li><p><strong>secure</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the cookie will only be available
+via HTTPS.</p></li>
+<li><p><strong>httponly</strong> – Disallow JavaScript access to the cookie.</p></li>
+<li><p><strong>samesite</strong> – Limit the scope of the cookie to only be
+attached to requests that are “same-site”.</p></li>
 </ul>
 </dd>
 </dl>
@@ -381,8 +408,7 @@ domain, that domain has to be defined here.</p></li>
 <dl class="py method">
 <dt id="octoprint.server.util.flask.OctoPrintFlaskResponse.set_cookie">
 <code class="sig-name descname"><span class="pre">set_cookie</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskResponse.set_cookie" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets a cookie. The parameters are the same as in the cookie <cite>Morsel</cite>
-object in the Python standard library but it accepts unicode data, too.</p>
+<dd><p>Sets a cookie.</p>
 <p>A warning is raised if the size of the cookie header exceeds
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">max_cookie_size</span></code>, but the header will still be set.</p>
 <dl class="field-list simple">
@@ -401,13 +427,11 @@ span the whole domain.</p></li>
 readable by the domain <code class="docutils literal notranslate"><span class="pre">www.example.com</span></code>,
 <code class="docutils literal notranslate"><span class="pre">foo.example.com</span></code> etc.  Otherwise, a cookie will only
 be readable by the domain that set it.</p></li>
-<li><p><strong>secure</strong> – If <cite>True</cite>, the cookie will only be available via HTTPS</p></li>
-<li><p><strong>httponly</strong> – disallow JavaScript to access the cookie.  This is an
-extension to the cookie standard and probably not
-supported by all browsers.</p></li>
-<li><p><strong>samesite</strong> – Limits the scope of the cookie such that it will only
-be attached to requests if those requests are
-“same-site”.</p></li>
+<li><p><strong>secure</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the cookie will only be available
+via HTTPS.</p></li>
+<li><p><strong>httponly</strong> – Disallow JavaScript access to the cookie.</p></li>
+<li><p><strong>samesite</strong> – Limit the scope of the cookie to only be
+attached to requests that are “same-site”.</p></li>
 </ul>
 </dd>
 </dl>
@@ -421,21 +445,10 @@ be attached to requests if those requests are
 <dd><dl class="py method">
 <dt id="octoprint.server.util.flask.OctoPrintJsonEncoder.default">
 <code class="sig-name descname"><span class="pre">default</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintJsonEncoder.default" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implement this method in a subclass such that it returns a
-serializable object for <code class="docutils literal notranslate"><span class="pre">o</span></code>, or calls the base implementation (to
-raise a <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.10)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a>).</p>
-<p>For example, to support arbitrary iterators, you could implement
-default like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">iterable</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-        <span class="k">pass</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">JSONEncoder</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span>
-</pre></div>
-</div>
+<dd><p>Convert <code class="docutils literal notranslate"><span class="pre">o</span></code> to a JSON serializable type. See
+<a class="reference external" href="https://docs.python.org/3/library/json.html#json.JSONEncoder.default" title="(in Python v3.10)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">json.JSONEncoder.default()</span></code></a>. Python does not support
+overriding how basic types like <code class="docutils literal notranslate"><span class="pre">str</span></code> or <code class="docutils literal notranslate"><span class="pre">list</span></code> are
+serialized, they are handled before this method.</p>
 </dd></dl>
 
 </dd></dl>
@@ -446,10 +459,9 @@ default like this:</p>
 <dd><dl class="py method">
 <dt id="octoprint.server.util.flask.OctoPrintSessionInterface.save_session">
 <code class="sig-name descname"><span class="pre">save_session</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintSessionInterface.save_session" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is called for actual sessions returned by <code class="xref py py-meth docutils literal notranslate"><span class="pre">open_session()</span></code>
-at the end of the request.  This is still called during a request
-context so if you absolutely need access to the request you can do
-that.</p>
+<dd><p>This is called at the end of each request, after generating
+a response, before removing the request context. It is skipped
+if <code class="xref py py-meth docutils literal notranslate"><span class="pre">is_null_session()</span></code> returns <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -492,6 +504,23 @@ still unresolved at this point.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt id="octoprint.server.util.flask.PrefixAwareJinjaEnvironment">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">PrefixAwareJinjaEnvironment</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.PrefixAwareJinjaEnvironment" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="octoprint.server.util.flask.PrefixAwareJinjaEnvironment.join_path">
+<code class="sig-name descname"><span class="pre">join_path</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.PrefixAwareJinjaEnvironment.join_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Join a template with the parent.  By default all the lookups are
+relative to the loader root so this method returns the <cite>template</cite>
+parameter unchanged, but if the paths should be relative to the
+parent template, this function can be used to calculate the real
+template name.</p>
+<p>Subclasses may override this method and implement template path
+joining here.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="octoprint.server.util.flask.SettingsCheckUpdater">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">SettingsCheckUpdater</span></code><a class="headerlink" href="#octoprint.server.util.flask.SettingsCheckUpdater" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="py method">
@@ -507,6 +536,30 @@ still unresolved at this point.</p>
 <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.server.util.flask.check_lastmodified">
+<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">check_lastmodified</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lastmodified</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><span class="pre">datetime.datetime</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a><a class="headerlink" href="#octoprint.server.util.flask.check_lastmodified" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compares the provided lastmodified value with the value of the If-Modified-Since header.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">lastmodified</span></code> is an int or float, it’s assumed to be a Unix timestamp and converted
+to a timezone aware datetime instance in UTC.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">lastmodified</span></code> is a datetime instance, it needs to be timezone aware or the
+result will always be <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>lastmodified</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>datetime</em><em>]</em>) – The last modified value to compare against</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.10)"><strong>ValueError</strong></a> – If anything but an int, float or datetime instance is passed</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>true if the values indicate that the document is still up to date</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -1095,6 +1148,13 @@ supplied, <code class="docutils literal notranslate"><span class="pre">request.b
 <dd class="field-even"><p>an access validator taking a request as parameter and performing the request validation</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.server.util.tornado.enable_per_message_deflate_extension">
+<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">enable_per_message_deflate_extension</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.enable_per_message_deflate_extension" title="Permalink to this definition">¶</a></dt>
+<dd><p>This configures tornado.websocket.WebSocketHandler.get_compression_options to support the permessage-deflate extension
+to the websocket protocol, minimizing data bandwidth if clients support the extension as well</p>
 </dd></dl>
 
 <dl class="py function">
