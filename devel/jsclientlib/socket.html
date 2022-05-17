@@ -110,7 +110,7 @@
 
   <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
     <strong>Note:</strong>
-    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.7.3" style="color: white;text-decoration: underline">here</a>.
+    These are not the docs of the latest released version. Those can be found <a href="" style="color: white;text-decoration: underline">here</a>.
   </p>
 
 
@@ -192,9 +192,9 @@ to the SockJS constructor. See the <a class="reference external" href="https://g
 <p>To register for all message types, provide <code class="docutils literal notranslate"><span class="pre">*</span></code> as the type to register for.</p>
 <p><code class="docutils literal notranslate"><span class="pre">handler</span></code> is expected to be a function accepting one object parameter <code class="docutils literal notranslate"><span class="pre">eventObj</span></code>, consisting
 of the received message as property <code class="docutils literal notranslate"><span class="pre">event</span></code> and the received payload (if any) as property <code class="docutils literal notranslate"><span class="pre">data</span></code>.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">onMessage</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// do something with the message object</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">onMessage</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// do something with the message object</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The socket client will measure how long message processing over all handlers will take and utilize
@@ -296,23 +296,23 @@ the current rate requires and a slower rate might be necessary.</p>
 <div class="section" id="sample-to-setup-an-authed-socket">
 <span id="sec-jsclient-socket-authsample"></span><h2>Sample to setup an authed socket<a class="headerlink" href="#sample-to-setup-an-authed-socket" title="Permalink to this headline"></a></h2>
 <p>If you have a username and a password:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span>
-<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">login</span><span class="p">(</span><span class="s2">&quot;myusername&quot;</span><span class="p">,</span> <span class="s2">&quot;mypassword&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
-    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">sendAuth</span><span class="p">(</span><span class="s2">&quot;myusername&quot;</span><span class="p">,</span> <span class="nx">response</span><span class="p">.</span><span class="nx">session</span><span class="p">);</span>
-    <span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span><span class="w"></span>
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">login</span><span class="p">(</span><span class="s2">&quot;myusername&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mypassword&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">sendAuth</span><span class="p">(</span><span class="s2">&quot;myusername&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">session</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <p>If you have an API key:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">client</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">OctoPrintClient</span><span class="p">({</span>
-    <span class="nx">baseurl</span><span class="o">:</span> <span class="s2">&quot;http://example.com/&quot;</span><span class="p">,</span>
-    <span class="nx">apikey</span><span class="o">:</span> <span class="s2">&quot;abcdef&quot;</span>
-<span class="p">});</span>
-<span class="nx">client</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span>
-<span class="nx">client</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">passiveLogin</span><span class="p">()</span>
-    <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">client</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">sendAuth</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">response</span><span class="p">.</span><span class="nx">session</span><span class="p">);</span>
-    <span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">OctoPrintClient</span><span class="p">({</span><span class="w"></span>
+<span class="w">    </span><span class="nx">baseurl</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">apikey</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;abcdef&quot;</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span><span class="w"></span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">passiveLogin</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">client</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">sendAuth</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">session</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
