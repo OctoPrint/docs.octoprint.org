@@ -2174,7 +2174,50 @@ example of a plugin with the identifier “myblueprintplugin” would be reachab
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">flask</span><span class="o">.</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;plugin.myblueprintplugin.myEcho&quot;</span><span class="p">)</span> <span class="c1"># will return &quot;/plugin/myblueprintplugin/echo&quot;</span>
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>As of OctoPrint 1.8.3, endpoints provided through a <code class="docutils literal notranslate"><span class="pre">BlueprintPlugin</span></code> do <strong>not</strong> automatically fall under
+OctoPrint’s <a class="reference internal" href="../api/general.html#sec-api-general-csrf"><span class="std std-ref">CSRF protection</span></a>, for reasons of backwards compatibility. There will be a short grace period before this changes. You
+can and should however already opt into CSRF protection for your endpoints by implementing <code class="docutils literal notranslate"><span class="pre">is_blueprint_csrf_protected</span></code>
+and returning <code class="docutils literal notranslate"><span class="pre">True</span></code> from it. You can exempt certain endpoints from CSRF protection by decorating them with
+<code class="docutils literal notranslate"><span class="pre">&#64;octoprint.plugin.BlueprintPlugin.csrf_exempt</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="p">):</span>
+    <span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/hello_world&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">hello_world</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># This is a GET request and thus not subject to CSRF protection</span>
+        <span class="k">return</span> <span class="s2">&quot;Hello world!&quot;</span>
+
+    <span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/hello_you&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">hello_you</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># This is a POST request and thus subject to CSRF protection. It is not exempt.</span>
+        <span class="k">return</span> <span class="s2">&quot;Hello you!&quot;</span>
+
+    <span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/hello_me&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+    <span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">csrf_exempt</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">hello_me</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># This is a POST request and thus subject to CSRF protection, but this one is exempt.</span>
+        <span class="k">return</span> <span class="s2">&quot;Hello me!&quot;</span>
+
+    <span class="k">def</span> <span class="nf">is_blueprint_csrf_protected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
 <p><code class="docutils literal notranslate"><span class="pre">BlueprintPlugin</span></code> implements <code class="xref py py-class docutils literal notranslate"><span class="pre">RestartNeedingPlugin</span></code>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.8.3.</span></p>
+</div>
+<dl class="py method">
+<dt id="octoprint.plugin.BlueprintPlugin.csrf_exempt">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">csrf_exempt</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin.csrf_exempt" title="Permalink to this definition">¶</a></dt>
+<dd><p>A decorator to mark a view method in your BlueprintPlugin as exempt from <a class="reference internal" href="../api/general.html#sec-api-general-csrf"><span class="std std-ref">CSRF protection</span></a>. This makes sense
+if you offer an authenticated API for a certain workflow (see e.g. the bundled appkeys plugin) but in most
+cases should not be needed.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.8.3.</span></p>
+</div>
+</dd></dl>
+
 <dl class="py method">
 <dt id="octoprint.plugin.BlueprintPlugin.errorhandler">
 <em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">errorhandler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code_or_exception</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin.errorhandler" title="Permalink to this definition">¶</a></dt>
@@ -2219,6 +2262,20 @@ return <code class="docutils literal notranslate"><span class="pre">[&quot;/foo&
 <p>Defaults to the blueprint’s <code class="docutils literal notranslate"><span class="pre">static_folder</span></code> and <code class="docutils literal notranslate"><span class="pre">template_folder</span></code> to be set to the plugin’s basefolder
 plus <code class="docutils literal notranslate"><span class="pre">/static</span></code> or respectively <code class="docutils literal notranslate"><span class="pre">/templates</span></code>, or – if the plugin also implements <a class="reference internal" href="#octoprint.plugin.AssetPlugin" title="octoprint.plugin.AssetPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">AssetPlugin</span></code></a> and/or
 <a class="reference internal" href="#octoprint.plugin.TemplatePlugin" title="octoprint.plugin.TemplatePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplatePlugin</span></code></a> – the paths provided by <code class="docutils literal notranslate"><span class="pre">get_asset_folder</span></code> and <code class="docutils literal notranslate"><span class="pre">get_template_folder</span></code> respectively.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="octoprint.plugin.BlueprintPlugin.is_blueprint_csrf_protected">
+<code class="sig-name descname"><span class="pre">is_blueprint_csrf_protected</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin.is_blueprint_csrf_protected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether a blueprint’s endpoints are <a class="reference internal" href="../api/general.html#sec-api-general-csrf"><span class="std std-ref">CSRF protected</span></a>. For now, this defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code> to leave it up to
+plugins to decide which endpoints <em>should</em> be protected. Long term, this will default to <code class="docutils literal notranslate"><span class="pre">True</span></code> and hence
+enforce protection unless a plugin opts out by returning False here.</p>
+<p>If you do not override this method in your mixin implementation, a warning will be logged to the console
+to alert you of the requirement to make a decision here and to not rely on the default implementation, due to the
+forthcoming change in implemented default behaviour.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.8.3.</span></p>
+</div>
 </dd></dl>
 
 <dl class="py method">

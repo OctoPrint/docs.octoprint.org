@@ -261,16 +261,27 @@ further down there’s also a dedicated list of steps for OctoPi specifically.</
 <ol class="arabic">
 <li><p>Shutdown OctoPrint</p></li>
 <li><p>Make a backup of your config.yaml</p></li>
-<li><p>Open it in a text editor (e.g. nano). Right at the very top it’ll say something like
+<li><p>Open it in a text editor (e.g. nano). Look if right at the very top it says something like
 this:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">accessControl</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="nt">salt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aabbccddee1234523452345</span><span class="w"></span>
 </pre></div>
 </div>
-<p>Edit this, adding lines so it looks like this (making absolutely sure not to touch the
+<p>If so, edit this, adding lines so it looks like this (making absolutely sure not to touch the
 salt line):</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">accessControl</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="nt">salt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aabbccddee1234523452345</span><span class="w"></span>
+<span class="w">    </span><span class="nt">autologinLocal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">    </span><span class="nt">autologinAs</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;yourUsername&gt;&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">localNetworks</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;127.0.0.0/8&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;::1/128&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;&lt;yourAddressRange&gt;&quot;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Otherwise, add the following lines to the very top of the file, making sure to keep the
+indentation:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">accessControl</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="nt">autologinLocal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 <span class="w">    </span><span class="nt">autologinAs</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;yourUsername&gt;&quot;</span><span class="w"></span>
 <span class="w">    </span><span class="nt">localNetworks</span><span class="p">:</span><span class="w"></span>
@@ -292,7 +303,7 @@ the following commands:</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">service</span> <span class="pre">octoprint</span> <span class="pre">stop</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cp</span> <span class="pre">~/.octoprint/config.yaml</span> <span class="pre">~/.octoprint/config.yaml.back</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">~/.octoprint/config.yaml,</span> <span class="pre">make</span> <span class="pre">the</span> <span class="pre">edits</span> <span class="pre">as</span> <span class="pre">described</span> <span class="pre">above</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">~/.octoprint/config.yaml</span></code>, make the edits as described above</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">service</span> <span class="pre">octoprint</span> <span class="pre">start</span></code></p></li>
 </ol>
 <p>If something went wrong, you can restore the config backup with</p>
