@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anonymous Usage Tracking Plugin &mdash; OctoPrint 1.8.4 documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Application Keys Plugin" href="appkeys.html" />
+    <link rel="prev" title="Announcement Plugin" href="announcements.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OctoPrint
+          </a>
+              <div class="version">
+                1.8.4
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Bundled Plugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="action_command_notification.html">Action Command Notification support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="action_command_prompt.html">Action Command Prompt support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="announcements.html">Announcement Plugin</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Anonymous Usage Tracking Plugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-the-plugin">Configuring the plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#source-code">Source Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="appkeys.html">Application Keys Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backup.html">Backup Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discovery.html">Discovery Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="errortracking.html">Error Tracking Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_check.html">File Check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firmware_check.html">Firmware Check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gcodeviewer.html">GCode Viewer Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pluginmanager.html">Plugin Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="softwareupdate.html">Software Update Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtual_printer.html">Virtual Printer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Bundled Plugins</a> &raquo;</li>
+        
+      <li>Anonymous Usage Tracking Plugin</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/bundledplugins/tracking.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="anonymous-usage-tracking-plugin">
+<span id="sec-bundledplugins-tracking"></span><h1>Anonymous Usage Tracking Plugin<a class="headerlink" href="#anonymous-usage-tracking-plugin" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.3.10.</span></p>
+</div>
+<p>The Anonymous Usage Tracking plugin provides valuable insights into how many instances running what versions of
+OctoPrint are out there, whether they are successfully completing print jobs and various other metrics.</p>
+<p>By enabling it you help to identify problems with new releases and release candidates early on, and to better tailor
+OctoPrint’s future development to actual use.</p>
+<p>For details on what gets tracked, please refer to <a class="reference external" href="https://tracking.octoprint.org">tracking.octoprint.org</a>
+and also the <a class="reference external" href="https://tracking.octoprint.org/privacy">Privacy Policy at tracking.octoprint.org</a>.</p>
+<p>The Anonymous Usage Tracking plugin has been bundled with OctoPrint since version 1.3.10.</p>
+<div class="section" id="configuring-the-plugin">
+<span id="sec-bundledplugins-tracking-configuration"></span><h2>Configuring the plugin<a class="headerlink" href="#configuring-the-plugin" title="Permalink to this headline">¶</a></h2>
+<p>The plugin supports the following configuration keys:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">enabled</span></code>:  Whether to enable usage tracking. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unique_id</span></code>: Unique instance identifier, auto generated on first activation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">server</span></code>: The tracking server to track against. Defaults to a tracking endpoint on <code class="docutils literal notranslate"><span class="pre">https://tracking.octoprint.org</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ping</span></code>: How often to send a <code class="docutils literal notranslate"><span class="pre">ping</span></code> tracking event, in seconds. Defaults to a 15min interval.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">events</span></code>: Granular configuration of enabled tracking events. All default to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">startup</span></code>: Whether to track startup/shutdown events</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">printjob</span></code>: Whether to track print job related events (start, completion, cancel, …)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">commerror</span></code>: Whether to track communication errors with the printer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plugin</span></code>: Whether to track plugin related events (install, uninstall, …)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">update</span></code>: Whether to track update related events (update successful or not, …)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">printer</span></code>: Whether to track printer related events (connected, firmware, …)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">printer_safety_check</span></code>: Whether to track warnings of the Printer Safety Check plugin</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">throttled</span></code>: Whether to track throttle events detected on the underlying system</p></li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="source-code">
+<span id="sec-bundledplugins-tracking-sourcecode"></span><h2>Source Code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
+<p>The source of the Anonymous Usage Tracking plugin is bundled with OctoPrint and can be
+found in its source repository under <code class="docutils literal notranslate"><span class="pre">src/octoprint/plugins/tracking</span></code>.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="announcements.html" class="btn btn-neutral float-left" title="Announcement Plugin" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="appkeys.html" class="btn btn-neutral float-right" title="Application Keys Plugin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2022, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.8.4
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.8.4/bundledplugins/tracking.html">1.8.4</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/bundledplugins/tracking.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/bundledplugins/tracking.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/bundledplugins/tracking.html">devel</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

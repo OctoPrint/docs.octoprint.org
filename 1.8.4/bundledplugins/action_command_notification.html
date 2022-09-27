@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Action Command Notification support &mdash; OctoPrint 1.8.4 documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Action Command Prompt support" href="action_command_prompt.html" />
+    <link rel="prev" title="Bundled Plugins" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OctoPrint
+          </a>
+              <div class="version">
+                1.8.4
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Bundled Plugins</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Action Command Notification support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-the-plugin">Configuring the plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#supported-action-commands">Supported action commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-communication-with-the-firmware">Example communication with the firmware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#source-code">Source code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="action_command_prompt.html">Action Command Prompt support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="announcements.html">Announcement Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracking.html">Anonymous Usage Tracking Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appkeys.html">Application Keys Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backup.html">Backup Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discovery.html">Discovery Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="errortracking.html">Error Tracking Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_check.html">File Check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firmware_check.html">Firmware Check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gcodeviewer.html">GCode Viewer Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pluginmanager.html">Plugin Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="softwareupdate.html">Software Update Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtual_printer.html">Virtual Printer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Bundled Plugins</a> &raquo;</li>
+        
+      <li>Action Command Notification support</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/bundledplugins/action_command_notification.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="action-command-notification-support">
+<span id="sec-bundledplugins-action-command-notification"></span><h1>Action Command Notification support<a class="headerlink" href="#action-command-notification-support" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.4.1.</span></p>
+</div>
+<p>The OctoPrint Action Command Notification Support Plugin comes bundled with OctoPrint.</p>
+<p>It allows firmware to trigger notifications users with the <code class="docutils literal notranslate"><span class="pre">PLUGIN_ACTION_COMMAND_NOTIFICATION_SHOW</span></code> permission
+using <a class="reference internal" href="../features/action_commands.html#sec-features-action-commands"><span class="std std-ref">action commands</span></a> about relevant events. These notifications will be shown
+in the sidebar and if configured also as popup messages. The notifications in the sidebar panel can also be cleared
+by users with the <code class="docutils literal notranslate"><span class="pre">PLUGIN_ACTION_COMMAND_NOTIFICATION_CLEAR</span></code> permission.</p>
+<div class="figure align-center" id="id1">
+<span id="fig-bundledplugins-action-command-notification-example"></span><img alt="Simple notification example" src="../_images/bundledplugins-action_command_notification-example.png" />
+<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">A simple notification example triggered by the firmware</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<div class="section" id="configuring-the-plugin">
+<span id="sec-bundledplugins-action-command-notification-configuration"></span><h2>Configuring the plugin<a class="headerlink" href="#configuring-the-plugin" title="Permalink to this headline">¶</a></h2>
+<p>The plugin supports the following configuration keys:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">enable</span></code>: Whether to enable the support of notifications (enabled by default).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enable_popup</span></code>: Whether to enable the additional display of notifications as popups in the UI (disabled by default).</p></li>
+</ul>
+</div></blockquote>
+<p>You can modify them either through the plugin’s configuration dialog under Settings, or by directly editing <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>.</p>
+</div>
+<div class="section" id="supported-action-commands">
+<span id="sec-bundledplugins-action-command-notification-action-commands"></span><h2>Supported action commands<a class="headerlink" href="#supported-action-commands" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt>notification &lt;message&gt;</dt><dd><p>Displays the notification <code class="docutils literal notranslate"><span class="pre">&lt;message&gt;</span></code></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="example-communication-with-the-firmware">
+<span id="sec-bundledplugins-action-command-notification-example"></span><h2>Example communication with the firmware<a class="headerlink" href="#example-communication-with-the-firmware" title="Permalink to this headline">¶</a></h2>
+<p>To display the <a class="reference internal" href="#fig-bundledplugins-action-command-notification-example"><span class="std std-ref">above notification</span></a> the firmware sent this action command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>//action:notification Hello World!
+</pre></div>
+</div>
+</div>
+<div class="section" id="source-code">
+<span id="sec-bundledplugins-action-command-notification-sourcecode"></span><h2>Source code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
+<p>The source of the Action Command Prompt Notification plugin is bundled with OctoPrint and can be found in
+its source repository under <code class="docutils literal notranslate"><span class="pre">src/octoprint/plugins/action_command_notification</span></code>.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Bundled Plugins" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="action_command_prompt.html" class="btn btn-neutral float-right" title="Action Command Prompt support" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2022, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.8.4
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.8.4/bundledplugins/action_command_notification.html">1.8.4</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/bundledplugins/action_command_notification.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/bundledplugins/action_command_notification.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/bundledplugins/action_command_notification.html">devel</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
