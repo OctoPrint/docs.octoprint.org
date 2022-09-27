@@ -387,15 +387,6 @@ errors. Pickling errors, however, will raise a subclass of
 <dt id="octoprint.server.util.flask.OctoPrintFlaskRequest">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">OctoPrintFlaskRequest</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">environ</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskRequest" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="py method">
-<dt id="octoprint.server.util.flask.OctoPrintFlaskRequest.cookie_suffix">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">cookie_suffix</span></code><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskRequest.cookie_suffix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Request specific suffix for set and read cookies</p>
-<p>We need this because cookies are not port-specific and we don’t want to overwrite our
-session and other cookies from one OctoPrint instance on our machine with those of another
-one who happens to listen on the same address albeit a different port or script root.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt id="octoprint.server.util.flask.OctoPrintFlaskRequest.cookies">
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">cookies</span></code><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskRequest.cookies" title="Permalink to this definition">¶</a></dt>
 <dd><p>A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> with the contents of all cookies transmitted with
@@ -604,6 +595,15 @@ result will always be <code class="docutils literal notranslate"><span class="pr
 <dd><p>If you decorate a view with this, it will ensure that first setup has _not_ been
 done for OctoPrint’s Access Control. Otherwise it
 will cause a HTTP 403 status code to be returned by the decorated resource.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="octoprint.server.util.flask.get_cookie_suffix">
+<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">get_cookie_suffix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.get_cookie_suffix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request specific suffix for set and read cookies</p>
+<p>We need this because cookies are not port-specific and we don’t want to overwrite our
+session and other cookies from one OctoPrint instance on our machine with those of another
+one who happens to listen on the same address albeit a different port or script root.</p>
 </dd></dl>
 
 <dl class="py function">
