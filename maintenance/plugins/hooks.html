@@ -290,7 +290,7 @@ by using a small trick. Instead of defining it directly via <code class="docutil
 property instead, manually instantiate your implementation instance and then add its hook handler method to the
 <code class="docutils literal notranslate"><span class="pre">__plugin_hooks__</span></code> property and itself to the <code class="docutils literal notranslate"><span class="pre">__plugin_implementation__</span></code> property. See the following example.</p>
 <div class="literal-block-wrapper docutils container" id="sec-plugin-concepts-hooks-example">
-<div class="code-block-caption"><span class="caption-number">Listing 14 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/custom_action_command.py">custom_action_command.py</a></span><a class="headerlink" href="#sec-plugin-concepts-hooks-example" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 12 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/custom_action_command.py">custom_action_command.py</a></span><a class="headerlink" href="#sec-plugin-concepts-hooks-example" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># coding=utf-8</span>
 
 <span class="kn">import</span> <span class="nn">octoprint.plugin</span>
@@ -328,7 +328,7 @@ all hook handlers without a order number sorted only by their identifier.</p>
 <p>An example should help clear this up. Let’s assume we have the following plugin <code class="docutils literal notranslate"><span class="pre">ordertest</span></code> which defines a new
 hook called <code class="docutils literal notranslate"><span class="pre">octoprint.plugin.ordertest.callback</span></code>:</p>
 <div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-number">Listing 15 </span><span class="caption-text">ordertest.py</span><a class="headerlink" href="#id4" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 13 </span><span class="caption-text">ordertest.py</span><a class="headerlink" href="#id4" title="Permalink to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
 <span class="k">class</span> <span class="nc">OrderTestPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
@@ -352,7 +352,7 @@ hook called <code class="docutils literal notranslate"><span class="pre">octopri
 </div>
 <p>And these three plugins defining handlers for that hook:</p>
 <div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-number">Listing 16 </span><span class="caption-text">oneorderedhook.py</span><a class="headerlink" href="#id5" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 14 </span><span class="caption-text">oneorderedhook.py</span><a class="headerlink" href="#id5" title="Permalink to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
 
  <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -367,7 +367,7 @@ hook called <code class="docutils literal notranslate"><span class="pre">octopri
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-number">Listing 17 </span><span class="caption-text">anotherorderedhook.py</span><a class="headerlink" href="#id6" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 15 </span><span class="caption-text">anotherorderedhook.py</span><a class="headerlink" href="#id6" title="Permalink to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -382,7 +382,7 @@ hook called <code class="docutils literal notranslate"><span class="pre">octopri
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-number">Listing 18 </span><span class="caption-text">yetanotherhook.py</span><a class="headerlink" href="#id7" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 16 </span><span class="caption-text">yetanotherhook.py</span><a class="headerlink" href="#id7" title="Permalink to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -547,10 +547,10 @@ be called only once during initial server startup.</p>
 <blockquote>
 <div><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">plugin_manager</span></code>: The <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.PluginManager" title="octoprint.plugin.core.PluginManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PluginManager</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">printer_profile_manager</span></code>: The <a class="reference internal" href="../modules/printer.html#octoprint.printer.profile.PrinterProfileManager" title="octoprint.printer.profile.PrinterProfileManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterProfileManager</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">printer_profile_manager</span></code>: The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterProfileManager</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">event_bus</span></code>: The <code class="xref py py-class docutils literal notranslate"><span class="pre">EventManager</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">analysis_queue</span></code>: The <a class="reference internal" href="../modules/filemanager.html#octoprint.filemanager.analysis.AnalysisQueue" title="octoprint.filemanager.analysis.AnalysisQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnalysisQueue</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">slicing_manager</span></code>: The <a class="reference internal" href="../modules/slicing.html#octoprint.slicing.SlicingManager" title="octoprint.slicing.SlicingManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlicingManager</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">analysis_queue</span></code>: The <code class="xref py py-class docutils literal notranslate"><span class="pre">AnalysisQueue</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slicing_manager</span></code>: The <code class="xref py py-class docutils literal notranslate"><span class="pre">SlicingManager</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">file_manager</span></code>: The <code class="xref py py-class docutils literal notranslate"><span class="pre">FileManager</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">plugin_lifecycle_manager</span></code>: The <code class="xref py py-class docutils literal notranslate"><span class="pre">LifecycleManager</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">preemptive_cache</span></code>: The <code class="xref py py-class docutils literal notranslate"><span class="pre">PreemptiveCache</span></code></p></li>
@@ -588,14 +588,14 @@ file <code class="docutils literal notranslate"><span class="pre">~/.octoprint/u
 </div>
 <p>Via this hook plugins may validate their own customized API keys to be used to access OctoPrint’s API.</p>
 <p><code class="docutils literal notranslate"><span class="pre">apikey</span></code> will be the API key as read from the request headers.</p>
-<p>Hook handlers are expected to return a <a class="reference internal" href="../modules/users.html#octoprint.access.users.User" title="octoprint.access.users.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a> instance here that will then be considered that
+<p>Hook handlers are expected to return a <code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code> instance here that will then be considered that
 user making the request. By returning <code class="docutils literal notranslate"><span class="pre">None</span></code> or nothing at all, hook handlers signal that they do not handle the
 provided key.</p>
 <p><strong>Example:</strong></p>
 <p>Allows using a user’s id as their API key (for obvious reasons this is NOT recommended in production environments
 and merely provided for educational purposes):</p>
 <div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-number">Listing 19 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/custom_keyvalidator.py">custom_keyvalidator.py</a></span><a class="headerlink" href="#id8" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 17 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/custom_keyvalidator.py">custom_keyvalidator.py</a></span><a class="headerlink" href="#id8" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Needs OctoPrint 1.3.6 or newer</span>
 
 <span class="k">def</span> <span class="nf">hook</span><span class="p">(</span><span class="n">apikey</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -621,7 +621,7 @@ and merely provided for educational purposes):</p>
 <dd class="field-even"><p>The user in whose name the request will be processed further</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="../modules/users.html#octoprint.access.users.User" title="octoprint.access.users.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a></p>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -639,13 +639,13 @@ and merely provided for educational purposes):</p>
 <p>Handlers are expected to return a list of callables annotated as <a class="reference external" href="http://click.pocoo.org/5/">Click commands</a> to register with the
 CLI.</p>
 <p>The custom <code class="docutils literal notranslate"><span class="pre">MultiCommand</span></code> instance <a class="reference internal" href="../modules/cli.html#octoprint.cli.plugins.OctoPrintPluginCommands" title="octoprint.cli.plugins.OctoPrintPluginCommands"><code class="xref py py-class docutils literal notranslate"><span class="pre">OctoPrintPluginCommands</span></code></a> is provided
-as parameter. Via that object handlers may access the <em>global</em> <a class="reference internal" href="../modules/settings.html#octoprint.settings.Settings" title="octoprint.settings.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code></a>
+as parameter. Via that object handlers may access the <em>global</em> <code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code>
 and the <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.PluginManager" title="octoprint.plugin.core.PluginManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PluginManager</span></code></a> instance as <code class="docutils literal notranslate"><span class="pre">cli_group.settings</span></code> and <code class="docutils literal notranslate"><span class="pre">cli_group.plugin_manager</span></code>.</p>
 <p><strong>Example:</strong></p>
 <p>Registers two new commands, <code class="docutils literal notranslate"><span class="pre">custom_cli_command:greet</span></code> and <code class="docutils literal notranslate"><span class="pre">custom_cli_command:random</span></code> with
 OctoPrint:</p>
 <div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-number">Listing 20 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/custom_cli_command.py">custom_cli_command.py</a></span><a class="headerlink" href="#id9" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 18 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/custom_cli_command.py">custom_cli_command.py</a></span><a class="headerlink" href="#id9" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Needs OctoPrint 1.3.x or newer</span>
 
 <span class="kn">import</span> <span class="nn">click</span>
@@ -742,8 +742,8 @@ called without OctoPrint initializing your implementation instance. That means t
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">initialize()</span></code> method will not be called.</p>
 <p>Your hook handler will have access to the plugin manager as <code class="docutils literal notranslate"><span class="pre">cli_group.plugin_manager</span></code> and to the
 <em>global</em> settings as <code class="docutils literal notranslate"><span class="pre">cli_group.settings</span></code>. You can have your handler turn the latter into a
-<a class="reference internal" href="../modules/plugin.html#octoprint.plugin.PluginSettings" title="octoprint.plugin.PluginSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">PluginSettings</span></code></a> instance by using <code class="xref py py-func docutils literal notranslate"><span class="pre">octoprint.plugin.plugin_settings_from_settings_plugin()</span></code>
-if your plugin’s implementation implements the <a class="reference internal" href="mixins.html#octoprint.plugin.SettingsPlugin" title="octoprint.plugin.SettingsPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SettingsPlugin</span></code></a> mixin and inject
+<code class="xref py py-class docutils literal notranslate"><span class="pre">PluginSettings</span></code> instance by using <code class="xref py py-func docutils literal notranslate"><span class="pre">octoprint.plugin.plugin_settings_from_settings_plugin()</span></code>
+if your plugin’s implementation implements the <code class="xref py py-class docutils literal notranslate"><span class="pre">SettingsPlugin</span></code> mixin and inject
 that and the plugin manager instance yourself:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
@@ -901,7 +901,7 @@ you will effectively block the receive loop, causing the communication with the 
 <p><strong>Example:</strong></p>
 <p>Logs if the <code class="docutils literal notranslate"><span class="pre">custom</span></code> action (<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">action:custom</span></code>) is received from the printer’s firmware.</p>
 <div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-number">Listing 21 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/custom_action_command.py">custom_action_command.py</a></span><a class="headerlink" href="#id10" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 19 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/custom_action_command.py">custom_action_command.py</a></span><a class="headerlink" href="#id10" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># coding=utf-8</span>
 
 <span class="kn">import</span> <span class="nn">octoprint.plugin</span>
@@ -978,7 +978,7 @@ you will effectively block the send/receive loops, causing the communication wit
 <p>Pause the print on <code class="docutils literal notranslate"><span class="pre">&#64;wait</span></code> (this mirrors the implementation of the built-in <code class="docutils literal notranslate"><span class="pre">&#64;pause</span></code> command, just with a
 different name).</p>
 <div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-number">Listing 22 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/custom_atcommand.py">custom_action_command.py</a></span><a class="headerlink" href="#id11" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 20 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/custom_atcommand.py">custom_action_command.py</a></span><a class="headerlink" href="#id11" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># coding=utf-8</span>
 
 <span class="k">def</span> <span class="nf">custom_atcommand_handler</span><span class="p">(</span><span class="n">comm</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -1155,7 +1155,7 @@ you will effectively block the send loop, causing the communication with the pri
 <p>The following hook handler replaces all <code class="docutils literal notranslate"><span class="pre">M107</span></code> (“Fan Off”, deprecated) with an <code class="docutils literal notranslate"><span class="pre">M106</span> <span class="pre">S0</span></code> (“Fan On” with speed
 parameter) upon queuing and logs all sent <code class="docutils literal notranslate"><span class="pre">M106</span></code>.</p>
 <div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-number">Listing 23 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/rewrite_m107.py">rewrite_m107.py</a></span><a class="headerlink" href="#id12" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 21 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/rewrite_m107.py">rewrite_m107.py</a></span><a class="headerlink" href="#id12" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># coding=utf-8</span>
 
 <span class="kn">import</span> <span class="nn">octoprint.plugin</span>
@@ -1228,7 +1228,7 @@ you will effectively block the receive loop, causing the communication with the 
 <p><strong>Example:</strong></p>
 <p>Looks for the response of an <code class="docutils literal notranslate"><span class="pre">M115</span></code>, which contains information about the <code class="docutils literal notranslate"><span class="pre">MACHINE_TYPE</span></code>, among other things.</p>
 <div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-number">Listing 24 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/read_m115_response.py">read_m115_response.py</a></span><a class="headerlink" href="#id13" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 22 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/read_m115_response.py">read_m115_response.py</a></span><a class="headerlink" href="#id13" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># coding=utf-8</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
@@ -1295,7 +1295,7 @@ you will effectively block the receive loop, causing the communication with the 
 <p>Looks for error messages containing “fan error” or “bed missing” (ignoring case) and marks them as handled by the
 plugin.</p>
 <div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-number">Listing 25 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/comm_error_handler_test.py">comm_error_handler_test.py</a></span><a class="headerlink" href="#id14" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 23 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/comm_error_handler_test.py">comm_error_handler_test.py</a></span><a class="headerlink" href="#id14" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="n">_HANDLED_ERRORS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;fan error&#39;</span><span class="p">,</span> <span class="s1">&#39;bed missing&#39;</span><span class="p">)</span>
@@ -1355,7 +1355,7 @@ will be split by the caller if necessary).</p>
 <p><strong>Example 1:</strong></p>
 <p>Appends an <code class="docutils literal notranslate"><span class="pre">M117</span> <span class="pre">OctoPrint</span> <span class="pre">connected</span></code> to the configured <code class="docutils literal notranslate"><span class="pre">afterPrinterConnected</span></code> GCODE script.</p>
 <div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-number">Listing 26 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/message_on_connect.py">message_on_connect.py</a></span><a class="headerlink" href="#id15" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 24 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/message_on_connect.py">message_on_connect.py</a></span><a class="headerlink" href="#id15" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># coding=utf-8</span>
 
 <span class="k">def</span> <span class="nf">message_on_connect</span><span class="p">(</span><span class="n">comm</span><span class="p">,</span> <span class="n">script_type</span><span class="p">,</span> <span class="n">script_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -1375,7 +1375,7 @@ will be split by the caller if necessary).</p>
 <p><strong>Example 2:</strong></p>
 <p>Provides the variable <code class="docutils literal notranslate"><span class="pre">myvariable</span></code> to the configured <code class="docutils literal notranslate"><span class="pre">beforePrintStarted</span></code> GCODE script.</p>
 <div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-number">Listing 27 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/gcode_script_variables.py">gcode_script_variables.py</a></span><a class="headerlink" href="#id16" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 25 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/gcode_script_variables.py">gcode_script_variables.py</a></span><a class="headerlink" href="#id16" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># coding=utf-8</span>
 
 <span class="k">def</span> <span class="nf">gcode_script_variables</span><span class="p">(</span><span class="n">comm</span><span class="p">,</span> <span class="n">script_type</span><span class="p">,</span> <span class="n">script_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -1435,7 +1435,7 @@ you will effectively block the receive loop, causing the communication with the 
 <p><strong>Example</strong></p>
 <p>The following example shows how to filter out actual temperatures that are outside a sane range of 1°C to 300°C.</p>
 <div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-number">Listing 28 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/sanitize_temperatures.py">sanitize_temperatures.py</a></span><a class="headerlink" href="#id17" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 26 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/sanitize_temperatures.py">sanitize_temperatures.py</a></span><a class="headerlink" href="#id17" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># coding=utf-8</span>
 
 <span class="k">def</span> <span class="nf">sanitize_temperatures</span><span class="p">(</span><span class="n">comm</span><span class="p">,</span> <span class="n">parsed_temps</span><span class="p">):</span>
@@ -1607,11 +1607,11 @@ and <code class="docutils literal notranslate"><span class="pre">octoprint.event
 </div>
 <p>Return additional (or replacement) analysis queue factories used for analysing uploaded files.</p>
 <p>Should return a dictionary to merge with the existing dictionary of factories, mapping from extension tree leaf
-to analysis queue factory. Analysis queue factories are expected to be <a class="reference internal" href="../modules/filemanager.html#octoprint.filemanager.analysis.AbstractAnalysisQueue" title="octoprint.filemanager.analysis.AbstractAnalysisQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractAnalysisQueue</span></code></a>
+to analysis queue factory. Analysis queue factories are expected to be <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractAnalysisQueue</span></code>
 subclasses or factory methods taking one argument (the finish callback to be used by the queue implementation
-to signal that an analysis has been finished to the system). See the source of <a class="reference internal" href="../modules/filemanager.html#octoprint.filemanager.analysis.GcodeAnalysisQueue" title="octoprint.filemanager.analysis.GcodeAnalysisQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">GcodeAnalysisQueue</span></code></a>
+to signal that an analysis has been finished to the system). See the source of <code class="xref py py-class docutils literal notranslate"><span class="pre">GcodeAnalysisQueue</span></code>
 for an example.</p>
-<p>By default, only one analysis queue factory is registered in the system, for file type <code class="docutils literal notranslate"><span class="pre">gcode</span></code>: <a class="reference internal" href="../modules/filemanager.html#octoprint.filemanager.analysis.GcodeAnalysisQueue" title="octoprint.filemanager.analysis.GcodeAnalysisQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">GcodeAnalysisQueue</span></code></a>.
+<p>By default, only one analysis queue factory is registered in the system, for file type <code class="docutils literal notranslate"><span class="pre">gcode</span></code>: <code class="xref py py-class docutils literal notranslate"><span class="pre">GcodeAnalysisQueue</span></code>.
 This can be replaced by plugins using this hook, allowing other approaches to file analysis.</p>
 <p>This is useful for plugins wishing to provide (alternative) methods of metadata analysis for printable files.</p>
 <p><strong>Example:</strong></p>
@@ -1683,16 +1683,16 @@ in the rest of the system (e.g. handling/preprocessing new machine code file typ
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 1.2.0.</span></p>
 </div>
-<p>Replace the <code class="docutils literal notranslate"><span class="pre">file_object</span></code> used for saving added files to storage by calling <a class="reference internal" href="../modules/filemanager.html#octoprint.filemanager.util.AbstractFileWrapper.save" title="octoprint.filemanager.util.AbstractFileWrapper.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">save()</span></code></a>.</p>
+<p>Replace the <code class="docutils literal notranslate"><span class="pre">file_object</span></code> used for saving added files to storage by calling <code class="xref py py-func docutils literal notranslate"><span class="pre">save()</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">path</span></code> will be the future path of the file on the storage. The file’s name is accessible via
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">filename</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">file_object</span></code> will be a subclass of <a class="reference internal" href="../modules/filemanager.html#octoprint.filemanager.util.AbstractFileWrapper" title="octoprint.filemanager.util.AbstractFileWrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractFileWrapper</span></code></a>. Handlers may
-access the raw data of the file via <a class="reference internal" href="../modules/filemanager.html#octoprint.filemanager.util.AbstractFileWrapper.stream" title="octoprint.filemanager.util.AbstractFileWrapper.stream"><code class="xref py py-func docutils literal notranslate"><span class="pre">stream()</span></code></a>, e.g.
+<p><code class="docutils literal notranslate"><span class="pre">file_object</span></code> will be a subclass of <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractFileWrapper</span></code>. Handlers may
+access the raw data of the file via <code class="xref py py-func docutils literal notranslate"><span class="pre">stream()</span></code>, e.g.
 to wrap it further. Handlers which do not wish to handle the <cite>file_object</cite> should just return it untouched.</p>
 <p><strong>Example</strong></p>
 <p>The following plugin example strips all comments from uploaded/generated GCODE files ending on the name postfix <code class="docutils literal notranslate"><span class="pre">_strip</span></code>.</p>
 <div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-number">Listing 29 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/strip_all_comments.py">strip_all_comments.py</a></span><a class="headerlink" href="#id18" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 27 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/strip_all_comments.py">strip_all_comments.py</a></span><a class="headerlink" href="#id18" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># coding=utf-8</span>
 
 <span class="kn">import</span> <span class="nn">octoprint.plugin</span>
@@ -1733,7 +1733,7 @@ to wrap it further. Handlers which do not wish to handle the <cite>file_object</
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The path on storage the <cite>file_object</cite> is to be stored</p></li>
-<li><p><strong>file_object</strong> (<a class="reference internal" href="../modules/filemanager.html#octoprint.filemanager.util.AbstractFileWrapper" title="octoprint.filemanager.util.AbstractFileWrapper"><em>AbstractFileWrapper</em></a>) – The <a class="reference internal" href="../modules/filemanager.html#octoprint.filemanager.util.AbstractFileWrapper" title="octoprint.filemanager.util.AbstractFileWrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractFileWrapper</span></code></a> instance
+<li><p><strong>file_object</strong> (<em>AbstractFileWrapper</em>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractFileWrapper</span></code> instance
 representing the file object to store.</p></li>
 <li><p><strong>links</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – The links that are going to be stored with the file.</p></li>
 <li><p><strong>printer_profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – The printer profile associated with the file.</p></li>
@@ -1744,7 +1744,7 @@ representing the file object to store.</p></li>
 <dd class="field-even"><p>The <cite>file_object</cite> as passed in or None, or a replaced version to use instead for further processing.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="../modules/filemanager.html#octoprint.filemanager.util.AbstractFileWrapper" title="octoprint.filemanager.util.AbstractFileWrapper">AbstractFileWrapper</a> or None</p>
+<dd class="field-odd"><p>AbstractFileWrapper or None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1780,7 +1780,7 @@ representing the file object to store.</p></li>
 <p><span class="versionmodified added">New in version 1.5.0.</span></p>
 </div>
 <p>Use this to inject additional data into the data structure returned from the printer backend to the frontend
-on the push socket or other registered <a class="reference internal" href="../modules/printer.html#octoprint.printer.PrinterCallback" title="octoprint.printer.PrinterCallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.printer.PrinterCallback</span></code></a>. Anything you return here
+on the push socket or other registered <code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.printer.PrinterCallback</span></code>. Anything you return here
 will be located beneath <code class="docutils literal notranslate"><span class="pre">plugins.&lt;your</span> <span class="pre">plugin</span> <span class="pre">id&gt;</span></code> in the resulting initial and current data push structure.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">initial</span></code> parameter will be <code class="docutils literal notranslate"><span class="pre">True</span></code> if this the additional update sent to the callback. Your handler should
 return a <code class="docutils literal notranslate"><span class="pre">dict</span></code>, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if nothing should be included.</p>
@@ -1819,10 +1819,10 @@ be called only once during initial server startup.</p>
 <blockquote>
 <div><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">plugin_manager</span></code>: The <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.PluginManager" title="octoprint.plugin.core.PluginManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PluginManager</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">printer_profile_manager</span></code>: The <a class="reference internal" href="../modules/printer.html#octoprint.printer.profile.PrinterProfileManager" title="octoprint.printer.profile.PrinterProfileManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterProfileManager</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">printer_profile_manager</span></code>: The <code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterProfileManager</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">event_bus</span></code>: The <code class="xref py py-class docutils literal notranslate"><span class="pre">EventManager</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">analysis_queue</span></code>: The <a class="reference internal" href="../modules/filemanager.html#octoprint.filemanager.analysis.AnalysisQueue" title="octoprint.filemanager.analysis.AnalysisQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnalysisQueue</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">slicing_manager</span></code>: The <a class="reference internal" href="../modules/slicing.html#octoprint.slicing.SlicingManager" title="octoprint.slicing.SlicingManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlicingManager</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">analysis_queue</span></code>: The <code class="xref py py-class docutils literal notranslate"><span class="pre">AnalysisQueue</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slicing_manager</span></code>: The <code class="xref py py-class docutils literal notranslate"><span class="pre">SlicingManager</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">file_manager</span></code>: The <code class="xref py py-class docutils literal notranslate"><span class="pre">FileManager</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">plugin_lifecycle_manager</span></code>: The <code class="xref py py-class docutils literal notranslate"><span class="pre">LifecycleManager</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">user_manager</span></code>: The <code class="xref py py-class docutils literal notranslate"><span class="pre">UserManager</span></code></p></li>
@@ -1991,7 +1991,7 @@ own thread, which is important in order to not block the main application!</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>printer</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em></a>) – the <a class="reference internal" href="../modules/printer.html#octoprint.printer.PrinterInterface" title="octoprint.printer.PrinterInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterInterface</span></code></a> instance the hook was called from</p></li>
+<li><p><strong>printer</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em></a>) – the <code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterInterface</span></code> instance the hook was called from</p></li>
 <li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – filename on the <code class="docutils literal notranslate"><span class="pre">local</span></code> storage</p></li>
 <li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – path of the file in the local file system</p></li>
 <li><p><strong>sd_upload_started</strong> (<em>function</em>) – callback for when the upload started</p></li>
@@ -2088,7 +2088,7 @@ with a <code class="docutils literal notranslate"><span class="pre">/</span></co
 500 and 1024KB. To test its functionality try uploading files larger or smaller than an endpoint’s configured maximum
 size (as multipart request with the file upload residing in request parameter <code class="docutils literal notranslate"><span class="pre">file</span></code>) and observe the behaviour.</p>
 <div class="literal-block-wrapper docutils container" id="id19">
-<div class="code-block-caption"><span class="caption-number">Listing 30 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/increase_bodysize.py">increase_bodysize.py</a></span><a class="headerlink" href="#id19" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 28 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/increase_bodysize.py">increase_bodysize.py</a></span><a class="headerlink" href="#id19" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># coding=utf-8</span>
 
 <span class="kn">import</span> <span class="nn">octoprint.plugin</span>
@@ -2173,7 +2173,7 @@ with a <code class="docutils literal notranslate"><span class="pre">/</span></co
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Static routes provided through this hook take precedence over routes defined through blueprints.</p>
-<p>If your plugin also implements the <a class="reference internal" href="mixins.html#octoprint.plugin.BlueprintPlugin" title="octoprint.plugin.BlueprintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlueprintPlugin</span></code></a> mixin and has defined a route for a
+<p>If your plugin also implements the <code class="xref py py-class docutils literal notranslate"><span class="pre">BlueprintPlugin</span></code> mixin and has defined a route for a
 view on that which matches one of the paths provided via its <code class="docutils literal notranslate"><span class="pre">octoprint.server.http.routes</span></code> hook handler, the
 view of the blueprint will thus not be reachable since processing of the request will directly be handed over
 to your defined handler class.</p>
@@ -2181,9 +2181,9 @@ to your defined handler class.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>If you want your route to support CORS if it’s enabled in OctoPrint, your <a class="reference external" href="http://tornado.readthedocs.org/en/branch4.0/web.html#request-handlers">RequestHandler</a>
-needs to implement the <a class="reference internal" href="../modules/server.html#octoprint.server.util.tornado.CorsSupportMixin" title="octoprint.server.util.tornado.CorsSupportMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">CorsSupportMixin</span></code></a> for this to work. Note that all of
-<a class="reference internal" href="../modules/server.html#octoprint.server.util.tornado.LargeResponseHandler" title="octoprint.server.util.tornado.LargeResponseHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">LargeResponseHandler</span></code></a>, <a class="reference internal" href="../modules/server.html#octoprint.server.util.tornado.UrlProxyHandler" title="octoprint.server.util.tornado.UrlProxyHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlProxyHandler</span></code></a>,
-<a class="reference internal" href="../modules/server.html#octoprint.server.util.tornado.StaticDataHandler" title="octoprint.server.util.tornado.StaticDataHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">StaticDataHandler</span></code></a> and <a class="reference internal" href="../modules/server.html#octoprint.server.util.tornado.DeprecatedEndpointHandler" title="octoprint.server.util.tornado.DeprecatedEndpointHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeprecatedEndpointHandler</span></code></a>
+needs to implement the <code class="xref py py-class docutils literal notranslate"><span class="pre">CorsSupportMixin</span></code> for this to work. Note that all of
+<code class="xref py py-class docutils literal notranslate"><span class="pre">LargeResponseHandler</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">UrlProxyHandler</span></code>,
+<code class="xref py py-class docutils literal notranslate"><span class="pre">StaticDataHandler</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">DeprecatedEndpointHandler</span></code>
 already implement this mixin.</p>
 </div>
 <div class="admonition important">
@@ -2194,7 +2194,7 @@ already implement this mixin.</p>
 <p>The following example registers two new routes <code class="docutils literal notranslate"><span class="pre">/plugin/add_tornado_route/download</span></code> and <code class="docutils literal notranslate"><span class="pre">/plugin/add_tornado_route/forward</span></code>
 in the webserver which roughly replicate the functionality of <code class="docutils literal notranslate"><span class="pre">/downloads/files/local</span></code> and <code class="docutils literal notranslate"><span class="pre">/downloads/camera/current</span></code>.</p>
 <div class="literal-block-wrapper docutils container" id="id20">
-<div class="code-block-caption"><span class="caption-number">Listing 31 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/add_tornado_route.py">add_tornado_route.py</a></span><a class="headerlink" href="#id20" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 29 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/add_tornado_route.py">add_tornado_route.py</a></span><a class="headerlink" href="#id20" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># coding=utf-8</span>
 
 <span class="kn">import</span> <span class="nn">octoprint.plugin</span>
@@ -2232,7 +2232,7 @@ in the webserver which roughly replicate the functionality of <code class="docut
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="../modules/server.html#octoprint.server.util.tornado.LargeResponseHandler" title="octoprint.server.util.tornado.LargeResponseHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">LargeResponseHandler</span></code></a></dt><dd><p>Customized <a class="reference external" href="http://tornado.readthedocs.org/en/branch4.0/web.html#tornado.web.StaticFileHandler">tornado.web.StaticFileHandler</a>
+<dt><code class="xref py py-class docutils literal notranslate"><span class="pre">LargeResponseHandler</span></code></dt><dd><p>Customized <a class="reference external" href="http://tornado.readthedocs.org/en/branch4.0/web.html#tornado.web.StaticFileHandler">tornado.web.StaticFileHandler</a>
 that allows delivery of the requested resource as attachment and access validation through an optional callback.</p>
 </dd>
 <dt><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlForwardHandler</span></code></dt><dd><p><a class="reference external" href="http://tornado.readthedocs.org/en/branch4.0/web.html#request-handlers">tornado.web.RequestHandler</a> that proxies
@@ -2540,7 +2540,7 @@ context variable for the current template type.</p></td>
 </tbody>
 </table>
 <p>The third entry must be a rule specification in form of a dict which tells OctoPrint how to process the template
-configuration entries provided by <a class="reference internal" href="mixins.html#octoprint.plugin.TemplatePlugin.get_template_configs" title="octoprint.plugin.TemplatePlugin.get_template_configs"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_template_configs()</span></code></a> by providing
+configuration entries provided by <code class="xref py py-func docutils literal notranslate"><span class="pre">get_template_configs()</span></code> by providing
 transformation functions of various kinds:</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
@@ -2587,7 +2587,7 @@ template rule).</p>
 <p>The example consists of two plugins, one providing a custom template type and the other consuming it.</p>
 <p>First the provider:</p>
 <div class="literal-block-wrapper docutils container" id="id21">
-<div class="code-block-caption"><span class="caption-number">Listing 32 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/custom_template_provider/__init__.py">custom_template_provider/__init__.py</a></span><a class="headerlink" href="#id21" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 30 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/custom_template_provider/__init__.py">custom_template_provider/__init__.py</a></span><a class="headerlink" href="#id21" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># coding=utf-8</span>
 
 <span class="kn">import</span> <span class="nn">octoprint.plugin</span>
@@ -2613,7 +2613,7 @@ template rule).</p>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id22">
-<div class="code-block-caption"><span class="caption-number">Listing 33 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/custom_template_provider/templates/custom_template_provider_settings.jinja2">custom_template_provider/templates/custom_template_provider_settings.jinja2</a></span><a class="headerlink" href="#id22" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 31 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/custom_template_provider/templates/custom_template_provider_settings.jinja2">custom_template_provider/templates/custom_template_provider_settings.jinja2</a></span><a class="headerlink" href="#id22" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Awesome Template Injections&#39;</span><span class="p">)</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
 
 <span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">templates</span><span class="o">.</span><span class="n">plugin_custom_template_provider_awesometemplate</span><span class="o">.</span><span class="n">order</span> <span class="o">%</span><span class="p">}</span>
@@ -2628,7 +2628,7 @@ template rule).</p>
 </div>
 <p>Then the consumer:</p>
 <div class="literal-block-wrapper docutils container" id="id23">
-<div class="code-block-caption"><span class="caption-number">Listing 34 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/custom_template_consumer/__init__.py">custom_template_consumer/__init__.py</a></span><a class="headerlink" href="#id23" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 32 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/custom_template_consumer/__init__.py">custom_template_consumer/__init__.py</a></span><a class="headerlink" href="#id23" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># coding=utf-8</span>
 
 <span class="kn">import</span> <span class="nn">octoprint.plugin</span>
@@ -2652,7 +2652,7 @@ template rule).</p>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id24">
-<div class="code-block-caption"><span class="caption-number">Listing 35 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/custom_template_consumer/templates/custom_template_consumer_awesometemplate.jinja2">custom_template_consumer/templates/custom_template_consumer_awesometemplate.jinja2</a></span><a class="headerlink" href="#id24" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 33 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/custom_template_consumer/templates/custom_template_consumer_awesometemplate.jinja2">custom_template_consumer/templates/custom_template_consumer_awesometemplate.jinja2</a></span><a class="headerlink" href="#id24" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;Hello World!&quot;</span> <span class="kn">from</span> <span class="nn">an</span> <span class="n">injected</span> <span class="n">awesome</span> <span class="n">template</span><span class="o">.</span>
 </pre></div>
 </div>
