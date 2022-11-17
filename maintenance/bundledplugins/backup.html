@@ -57,6 +57,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#events">Events</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hooks">Hooks</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#octoprint-plugin-backup-additional-excludes">octoprint.plugin.backup.additional_excludes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint-plugin-backup-before-backup">octoprint.plugin.backup.before_backup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint-plugin-backup-after-backup">octoprint.plugin.backup.after_backup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint-plugin-backup-before-restore">octoprint.plugin.backup.before_restore</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint-plugin-backup-after-restore">octoprint.plugin.backup.after_restore</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#helpers">Helpers</a><ul>
@@ -310,10 +314,70 @@ backup if uploaded GCODE files are also excluded:</p>
 </dd></dl>
 
 </section>
+<section id="octoprint-plugin-backup-before-backup">
+<span id="sec-bundledplugins-backup-hooks-before-backup"></span><h3>octoprint.plugin.backup.before_backup<a class="headerlink" href="#octoprint-plugin-backup-before-backup" title="Permalink to this headline"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="before_backup_hook">
+<span class="sig-name descname"><span class="pre">before_backup_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#before_backup_hook" title="Permalink to this definition"></a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 1.9.0.</span></p>
+</div>
+<p>Use this to perform actions right before a backup is created.</p>
+</dd></dl>
+
+</section>
+<section id="octoprint-plugin-backup-after-backup">
+<span id="sec-bundledplugins-backup-hooks-after-backup"></span><h3>octoprint.plugin.backup.after_backup<a class="headerlink" href="#octoprint-plugin-backup-after-backup" title="Permalink to this headline"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="after_backup_hook">
+<span class="sig-name descname"><span class="pre">after_backup_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#after_backup_hook" title="Permalink to this definition"></a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 1.9.0.</span></p>
+</div>
+<p>Use this to perform actions right after a backup was created or backup creation failed. The <code class="docutils literal notranslate"><span class="pre">error</span></code> parameter will be set to <code class="docutils literal notranslate"><span class="pre">True</span></code> if
+the backup creation failed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bool</strong> (<em>error</em>) – Whether the backup creation failed or not</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="octoprint-plugin-backup-before-restore">
+<span id="sec-bundledplugins-backup-hooks-before-restore"></span><h3>octoprint.plugin.backup.before_restore<a class="headerlink" href="#octoprint-plugin-backup-before-restore" title="Permalink to this headline"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="before_restore_hook">
+<span class="sig-name descname"><span class="pre">before_restore_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#before_restore_hook" title="Permalink to this definition"></a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 1.9.0.</span></p>
+</div>
+<p>Use this to perform actions right before a backup is restored.</p>
+</dd></dl>
+
+</section>
+<section id="octoprint-plugin-backup-after-restore">
+<span id="sec-bundledplugins-backup-hooks-after-restore"></span><h3>octoprint.plugin.backup.after_restore<a class="headerlink" href="#octoprint-plugin-backup-after-restore" title="Permalink to this headline"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="after_restore_hook">
+<span class="sig-name descname"><span class="pre">after_restore_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#after_restore_hook" title="Permalink to this definition"></a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 1.9.0.</span></p>
+</div>
+<p>Use this to perform actions right after a backup was restored or backup restoration failed. The <code class="docutils literal notranslate"><span class="pre">error</span></code> parameter will be set to <code class="docutils literal notranslate"><span class="pre">True</span></code> if
+the backup restoration failed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bool</strong> (<em>error</em>) – Whether the backup restoration failed or not</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 </section>
 <section id="helpers">
-<h2>Helpers<a class="headerlink" href="#helpers" title="Permalink to this headline"></a></h2>
-<p id="sec-bundledplugins-backup-helpers">The Backup plugin exports two helpers that can be used by other plugins or internal methods
+<span id="sec-bundledplugins-backup-helpers"></span><h2>Helpers<a class="headerlink" href="#helpers" title="Permalink to this headline"></a></h2>
+<p>The Backup plugin exports two helpers that can be used by other plugins or internal methods
 from within OctoPrint, without going via the API.</p>
 <section id="create-backup">
 <span id="sec-bundledplugins-backup-helpers-create-backup"></span><h3>create_backup<a class="headerlink" href="#create-backup" title="Permalink to this headline"></a></h3>
