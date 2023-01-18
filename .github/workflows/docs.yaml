@@ -60,7 +60,7 @@ jobs:
       - name: 👀 Determine latest OctoPrint release
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
         run: |
-          OCTOPRINT_VERSION=$(curl -i https://github.com/OctoPrint/OctoPrint/releases/latest | grep -i location: | awk -F/ '{print $NF}')
+          OCTOPRINT_VERSION=$(curl -i https://github.com/OctoPrint/OctoPrint/releases/latest | grep -i location: | head -n1 | awk -F/ '{print $NF}' | tr -d '\r')
           echo "OCTOPRINT_VERSION=$OCTOPRINT_VERSION" >> $GITHUB_ENV
 
       - name: 🐍 Set up Python ${{ matrix.python }}
