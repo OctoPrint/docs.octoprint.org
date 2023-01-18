@@ -59,11 +59,9 @@ jobs:
 
       - name: 👀 Determine latest OctoPrint release
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
-        id: latest
-        uses: pozetroninc/github-action-get-latest-release@master
-        with:
-          repository: "OctoPrint/OctoPrint"
-          excludes: prerelease,draft
+        run: |
+          OCTOPRINT_VERSION=$(curl -i https://github.com/OctoPrint/OctoPrint/releases/latest | grep -i location: | awk -F/ '{print $NF}')
+          echo "OCTOPRINT_VERSION=$OCTOPRINT_VERSION" >> $GITHUB_ENV
 
       - name: 🐍 Set up Python ${{ matrix.python }}
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
@@ -111,10 +109,10 @@ jobs:
         run: |
           cd ${{ github.workspace }}/docs.octoprint.org/util/versionselector
           if [[ "${{ matrix.mermaid_fix }}" == "true" ]]; then
-            python versionselector.py ${{ github.workspace }}/OctoPrint/docs/ ${{ matrix.version }} ${{ steps.latest.outputs.release }} ${{ github.workspace }}/versions.json -D mermaid_cmd=${{ github.workspace }}/node_modules/.bin/mmdc -D mermaid_output_format=svg -D mermaid_version=
+            python versionselector.py ${{ github.workspace }}/OctoPrint/docs/ ${{ matrix.version }} ${{ env.OCTOPRINT_VERSION }} ${{ github.workspace }}/versions.json -D mermaid_cmd=${{ github.workspace }}/node_modules/.bin/mmdc -D mermaid_output_format=svg -D mermaid_version=
             echo ".rst-content object[type^='image/']{width: 100%;}" >> ${{ github.workspace }}/OctoPrint/docs/_build/html/${{ matrix.version }}/_static/theme_overrides.css
           else
-            python versionselector.py ${{ github.workspace }}/OctoPrint/docs/ ${{ matrix.version }} ${{ steps.latest.outputs.release }} ${{ github.workspace }}/versions.json
+            python versionselector.py ${{ github.workspace }}/OctoPrint/docs/ ${{ matrix.version }} ${{ env.OCTOPRINT_VERSION }} ${{ github.workspace }}/versions.json
           fi
 
       #- name: 🔎 Run link check
