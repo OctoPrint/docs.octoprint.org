@@ -167,32 +167,32 @@ number of components, make sure to at the very least include that one to be able
 <p>When you import the client library as described above, a global variable <code class="docutils literal notranslate"><span class="pre">OctoPrint</span></code> will become available, which is
 a prepared instance of the <code class="docutils literal notranslate"><span class="pre">OctoPrintClient</span></code> class the library assembles from registered components. You can directly
 use that singular <code class="docutils literal notranslate"><span class="pre">OctoPrint</span></code> instance if you only need to talk to one OctoPrint server:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">baseurl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;http://example.com/octoprint/&quot;</span><span class="w"></span>
-<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">apikey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;apikey&quot;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">baseurl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;http://example.com/octoprint/&quot;</span>
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">apikey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;apikey&quot;</span><span class="p">;</span>
 
-<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">list</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="c1">// do something with the response</span><span class="w"></span>
-<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">list</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// do something with the response</span>
+<span class="w">    </span><span class="p">});</span>
 </pre></div>
 </div>
 <p>If you want to access multiple servers, you should however instead instantiate your own clients. You can provide the
 connection options (<code class="docutils literal notranslate"><span class="pre">baseurl</span></code> and <code class="docutils literal notranslate"><span class="pre">apikey</span></code>) directly in the constructor or set them later:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">client1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">OctoPrintClient</span><span class="p">({</span><span class="nx">baseurl</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/octoprint1/&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">apikey</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;apikey1&quot;</span><span class="p">});</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">client1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">OctoPrintClient</span><span class="p">({</span><span class="nx">baseurl</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/octoprint1/&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">apikey</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;apikey1&quot;</span><span class="p">});</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">client2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">OctoPrintClient</span><span class="p">();</span><span class="w"></span>
-<span class="nx">client2</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">baseurl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;http://example.com/octoprint2/&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="nx">client2</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">apikey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;apikey2&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">client2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">OctoPrintClient</span><span class="p">();</span>
+<span class="nx">client2</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">baseurl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;http://example.com/octoprint2/&quot;</span><span class="p">;</span>
+<span class="nx">client2</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">apikey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;apikey2&quot;</span><span class="p">;</span>
 
-<span class="nx">client1</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">list</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="c1">// do something with the response for server 1</span><span class="w"></span>
-<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="nx">client1</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">list</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// do something with the response for server 1</span>
+<span class="w">    </span><span class="p">});</span>
 
-<span class="nx">client2</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">list</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="c1">// do something with the response for server 2</span><span class="w"></span>
-<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="nx">client2</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">list</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// do something with the response for server 2</span>
+<span class="w">    </span><span class="p">});</span>
 </pre></div>
 </div>
 <div class="admonition seealso">
@@ -242,7 +242,7 @@ methods to the JS Client Library.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2022, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2023, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

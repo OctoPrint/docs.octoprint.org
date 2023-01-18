@@ -138,11 +138,11 @@ order to change size after which to rollover the <code class="docutils literal n
 <p>with <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;</span></code> being the internal OctoPrint component for which to change the loglevel, and <code class="docutils literal notranslate"><span class="pre">&lt;loglevel&gt;</span></code> being the
 new log level to set. An example for increasing the log level of the events and the file management components to
 <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> (the highest amount of logging) would be this <code class="docutils literal notranslate"><span class="pre">logging.yaml</span></code>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">loggers</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">octoprint.events</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG</span><span class="w"></span>
-<span class="w">  </span><span class="nt">octoprint.filemanager</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">loggers</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">octoprint.events</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG</span>
+<span class="w">  </span><span class="nt">octoprint.filemanager</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG</span>
 </pre></div>
 </div>
 <p>A list of important components for which an increase in logging might be interesting follows:</p>
@@ -165,30 +165,30 @@ to change the log level of the <a class="reference internal" href="../bundledplu
 for debugging long running communications or to change the behaviour of the <code class="docutils literal notranslate"><span class="pre">octoprint.log</span></code>.</p>
 <p>You can find the default configurations of the <code class="docutils literal notranslate"><span class="pre">file</span></code> handler used for the <code class="docutils literal notranslate"><span class="pre">octoprint.log</span></code>, the <code class="docutils literal notranslate"><span class="pre">serialFile</span></code> handler
 used for the <code class="docutils literal notranslate"><span class="pre">serial.log</span></code> and the <code class="docutils literal notranslate"><span class="pre">console</span></code> handler used for the output to stdout in YAML format below:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># stdout</span><span class="w"></span>
-<span class="w">  </span><span class="nt">console</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logging.StreamHandler</span><span class="w"></span>
-<span class="w">    </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG</span><span class="w"></span>
-<span class="w">    </span><span class="nt">formatter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">simple</span><span class="w"></span>
-<span class="w">    </span><span class="nt">stream</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ext://sys.stdout</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">handlers</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># stdout</span>
+<span class="w">  </span><span class="nt">console</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logging.StreamHandler</span>
+<span class="w">    </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG</span>
+<span class="w">    </span><span class="nt">formatter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">simple</span>
+<span class="w">    </span><span class="nt">stream</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ext://sys.stdout</span>
 
-<span class="w">  </span><span class="c1"># octoprint.log</span><span class="w"></span>
-<span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logging.handlers.TimedRotatingFileHandler</span><span class="w"></span>
-<span class="w">    </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG</span><span class="w"></span>
-<span class="w">    </span><span class="nt">formatter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">simple</span><span class="w"></span>
-<span class="w">    </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D</span><span class="w"></span>
-<span class="w">    </span><span class="nt">backupCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">    </span><span class="nt">filename</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/octoprints/logs/octoprint.log</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># octoprint.log</span>
+<span class="w">  </span><span class="nt">file</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logging.handlers.TimedRotatingFileHandler</span>
+<span class="w">    </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG</span>
+<span class="w">    </span><span class="nt">formatter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">simple</span>
+<span class="w">    </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D</span>
+<span class="w">    </span><span class="nt">backupCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">filename</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/octoprints/logs/octoprint.log</span>
 
-<span class="w">  </span><span class="c1"># serial.log</span><span class="w"></span>
-<span class="w">  </span><span class="nt">serialFile</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logging.handlers.RotatingFileHandler</span><span class="w"></span>
-<span class="w">    </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG</span><span class="w"></span>
-<span class="w">    </span><span class="nt">formatter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">simple</span><span class="w"></span>
-<span class="w">    </span><span class="nt">maxBytes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2097152</span><span class="w"> </span><span class="c1"># 2 * 1024 * 1024 = 2 MB in bytes</span><span class="w"></span>
-<span class="w">    </span><span class="nt">filename</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/octoprints/logs/serial.log</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># serial.log</span>
+<span class="w">  </span><span class="nt">serialFile</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logging.handlers.RotatingFileHandler</span>
+<span class="w">    </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG</span>
+<span class="w">    </span><span class="nt">formatter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">simple</span>
+<span class="w">    </span><span class="nt">maxBytes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2097152</span><span class="w"> </span><span class="c1"># 2 * 1024 * 1024 = 2 MB in bytes</span>
+<span class="w">    </span><span class="nt">filename</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/octoprints/logs/serial.log</span>
 </pre></div>
 </div>
 <p>You can find more information on the used logging handlers in the Python documentation on
@@ -198,9 +198,9 @@ used for the <code class="docutils literal notranslate"><span class="pre">serial
 <h2>Changing logging formatters<a class="headerlink" href="#changing-logging-formatters" title="Permalink to this headline">¶</a></h2>
 <p>The logging formatters can be defined via <code class="docutils literal notranslate"><span class="pre">logging.yaml</span></code> as well. The <code class="docutils literal notranslate"><span class="pre">simple</span></code> formatter as referenced above is
 expressed in YAML as follows:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">formatters</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">simple</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;%(asctime)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(name)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(levelname)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(message)s&quot;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">formatters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">simple</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;%(asctime)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(name)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(levelname)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(message)s&quot;</span>
 </pre></div>
 </div>
 <p>The possible keys for the logging format can be found in the
@@ -219,7 +219,7 @@ expressed in YAML as follows:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2022, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2023, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -306,8 +306,8 @@ additional template variables:</p>
 <span class="x">M84</span>
 
 <span class="x">;disable all heaters</span>
-<span class="cp">{%</span> <span class="k">snippet</span> <span class="s1">&#39;disable_hotends&#39;</span> <span class="cp">%}</span><span class="x"></span>
-<span class="cp">{%</span> <span class="k">snippet</span> <span class="s1">&#39;disable_bed&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">snippet</span> <span class="s1">&#39;disable_hotends&#39;</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">snippet</span> <span class="s1">&#39;disable_bed&#39;</span> <span class="cp">%}</span>
 
 <span class="x">;disable fan</span>
 <span class="x">M106 S0</span>
@@ -317,22 +317,22 @@ additional template variables:</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">disable_hotends</span></code> snippet is defined as follows:</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-number">Listing 4 </span><span class="caption-text">Default <code class="docutils literal notranslate"><span class="pre">disable_hotends</span></code> snippet</span><a class="headerlink" href="#id2" title="Permalink to this code"></a></div>
-<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">printer_profile.extruder.sharedNozzle</span> <span class="cp">%}</span><span class="x"></span>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">printer_profile.extruder.sharedNozzle</span> <span class="cp">%}</span>
 <span class="x">M104 T0 S0</span>
-<span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span><span class="x"></span>
-<span class="cp">{%</span> <span class="k">for</span> <span class="nv">tool</span> <span class="k">in</span> <span class="nv">range</span><span class="o">(</span><span class="nv">printer_profile.extruder.count</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">tool</span> <span class="k">in</span> <span class="nv">range</span><span class="o">(</span><span class="nv">printer_profile.extruder.count</span><span class="o">)</span> <span class="cp">%}</span>
 <span class="x">M104 T</span><span class="cp">{{</span> <span class="nv">tool</span> <span class="cp">}}</span><span class="x"> S0</span>
-<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
-<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span>
 </pre></div>
 </div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">disable_bed</span></code> snippet is defined as follows:</p>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-number">Listing 5 </span><span class="caption-text">Default <code class="docutils literal notranslate"><span class="pre">disable_bed</span></code> snippet</span><a class="headerlink" href="#id3" title="Permalink to this code"></a></div>
-<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">printer_profile.heatedBed</span> <span class="cp">%}</span><span class="x"></span>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">printer_profile.heatedBed</span> <span class="cp">%}</span>
 <span class="x">M140 S0</span>
-<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span>
 </pre></div>
 </div>
 </div>
@@ -352,7 +352,7 @@ out of the way to a safe rest position (here <code class="docutils literal notra
 to the persisted pause position on resume, making sure to also reset the extruder and feedrate.</p>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-number">Listing 6 </span><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">afterPrintPaused</span></code> script</span><a class="headerlink" href="#id4" title="Permalink to this code"></a></div>
-<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">pause_position.x</span> <span class="k">is</span> <span class="k">not</span> <span class="nf">none</span> <span class="cp">%}</span><span class="x"></span>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">pause_position.x</span> <span class="k">is</span> <span class="k">not</span> <span class="nf">none</span> <span class="cp">%}</span>
 <span class="x">; relative XYZE</span>
 <span class="x">G91</span>
 <span class="x">M83</span>
@@ -366,13 +366,13 @@ to the persisted pause position on resume, making sure to also reset the extrude
 
 <span class="x">; move to a safe rest position, adjust as necessary</span>
 <span class="x">G1 X0 Y0</span>
-<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span>
 </pre></div>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-number">Listing 7 </span><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">beforePrintResumed</span></code> script</span><a class="headerlink" href="#id5" title="Permalink to this code"></a></div>
-<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">pause_position.x</span> <span class="k">is</span> <span class="k">not</span> <span class="nf">none</span> <span class="cp">%}</span><span class="x"></span>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">pause_position.x</span> <span class="k">is</span> <span class="k">not</span> <span class="nf">none</span> <span class="cp">%}</span>
 <span class="x">; relative extruder</span>
 <span class="x">M83</span>
 
@@ -388,14 +388,14 @@ to the persisted pause position on resume, making sure to also reset the extrude
 <span class="x">G90</span>
 
 <span class="x">; reset E</span>
-<span class="x">G92 E</span><span class="cp">{{</span> <span class="nv">pause_position.e</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">G92 E</span><span class="cp">{{</span> <span class="nv">pause_position.e</span> <span class="cp">}}</span>
 
 <span class="x">; move back to pause position XYZ</span>
 <span class="x">G1 X</span><span class="cp">{{</span> <span class="nv">pause_position.x</span> <span class="cp">}}</span><span class="x"> Y</span><span class="cp">{{</span> <span class="nv">pause_position.y</span> <span class="cp">}}</span><span class="x"> Z</span><span class="cp">{{</span> <span class="nv">pause_position.z</span> <span class="cp">}}</span><span class="x"> F4500</span>
 
 <span class="x">; reset to feed rate before pause if available</span>
-<span class="cp">{%</span> <span class="k">if</span> <span class="nv">pause_position.f</span> <span class="k">is</span> <span class="k">not</span> <span class="nf">none</span> <span class="cp">%}</span><span class="x">G1 F</span><span class="cp">{{</span> <span class="nv">pause_position.f</span> <span class="cp">}}{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
-<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">if</span> <span class="nv">pause_position.f</span> <span class="k">is</span> <span class="k">not</span> <span class="nf">none</span> <span class="cp">%}</span><span class="x">G1 F</span><span class="cp">{{</span> <span class="nv">pause_position.f</span> <span class="cp">}}{%</span> <span class="k">endif</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span>
 </pre></div>
 </div>
 </div>
@@ -428,7 +428,7 @@ also by OctoPrint’s GCODE scripts.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2022, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2023, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

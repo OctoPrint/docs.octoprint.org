@@ -166,9 +166,9 @@ something changes.</p>
 <a class="reference external" href="https://github.com/sockjs/sockjs-protocol">SockJS</a> to push
 status updates, temperature changes etc to connected web interface instances.</p>
 <p>Each pushed message consists of a simple JSON object that follows this basic structure:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="s2">&quot;&lt;type&gt;&quot;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">payload</span><span class="o">&gt;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;&lt;type&gt;&quot;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">payload</span><span class="o">&gt;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">type</span></code> indicates the type of message being pushed to the client, the attached <code class="docutils literal notranslate"><span class="pre">payload</span></code> is message specific. The
@@ -220,34 +220,34 @@ types to receive event messages for.</p></li>
 <p>If you send a <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> message, OctoPrint will default the connection to not subscribe you to anything you did’t explicitly
 request. <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> messages do replace previous ones.</p>
 <p>Example for a <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> message subscribing only to updates from plugin <code class="docutils literal notranslate"><span class="pre">example</span></code> but neither state nor events:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="s2">&quot;subscribe&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;plugins&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;example&quot;</span><span class="p">]</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;subscribe&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;plugins&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;example&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Example for a <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> message subscribing to state, event and plugin updates,
 but filtering logs in state updates to only contain lines matching <code class="docutils literal notranslate"><span class="pre">^Recv:</span> <span class="pre">Cap</span></code> and also
 filtering out all messages:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="s2">&quot;subscribe&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;state&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;logs&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;^Recv: Cap&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;messages&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">    </span><span class="p">},</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;events&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;plugins&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;subscribe&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;state&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s2">&quot;logs&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;^Recv: Cap&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;messages&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="s2">&quot;events&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;plugins&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Example for a <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> message subscribing only to events of type <code class="docutils literal notranslate"><span class="pre">PrintFailed</span></code>:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="s2">&quot;subscribe&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;events&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;PrintFailed&quot;</span><span class="p">]</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;subscribe&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;events&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;PrintFailed&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -265,9 +265,9 @@ clients lacking the <code class="docutils literal notranslate"><span class="pre"
 <p>The <code class="docutils literal notranslate"><span class="pre">auth</span></code> message expects the user id of the user to authenticate followed by <code class="docutils literal notranslate"><span class="pre">:</span></code> and a session key to be
 obtained from the successful payload of a <a class="reference internal" href="general.html#sec-api-general-login"><span class="std std-ref">(passive or active) login via the API</span></a>.</p>
 <p>Example for a <code class="docutils literal notranslate"><span class="pre">auth</span></code> client-server-message:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="s2">&quot;auth&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;someuser:LGZ0trf8By&quot;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;auth&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;someuser:LGZ0trf8By&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>An example for an auth roundtrip with only an API key using the <a class="reference internal" href="../jsclientlib/base.html#sec-jsclientlib-base"><span class="std std-ref">JS Client Library</span></a>
@@ -294,9 +294,9 @@ the multiplier for the base rate limit of one message every 500ms. A value of
 2 will set the rate limit to maximally one message every 1s, 3 to maximally one
 message every 1.5s and so on.</p>
 <p>Example for a <code class="docutils literal notranslate"><span class="pre">throttle</span></code> client-server-message:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="s2">&quot;throttle&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;throttle&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </li>
@@ -523,7 +523,7 @@ indexed by plugin identifier. Structure of additional data is determined by the 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2022, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2023, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -173,58 +173,58 @@ basically represents a hierarchical structure of all configured custom controls 
 “Fan”, two example controls with multiple commands in a section “Example for multiple commands”, a command with printer
 feedback evaluation for the result of the M114 “Get Position” gcode inside a section named “Reporting” and finally
 a GCODE script including user input.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">controls</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Fan</span><span class="w"></span>
-<span class="w">    </span><span class="nt">layout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horizontal</span><span class="w"></span>
-<span class="w">    </span><span class="nt">children</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Enable Fan</span><span class="w"></span>
-<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">M106 S%(speed)s</span><span class="w"></span>
-<span class="w">      </span><span class="nt">input</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Speed (0-255)</span><span class="w"></span>
-<span class="w">        </span><span class="nt">parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">speed</span><span class="w"></span>
-<span class="w">        </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255</span><span class="w"></span>
-<span class="w">        </span><span class="nt">slider</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
-<span class="w">          </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Disable Fan</span><span class="w"></span>
-<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">M107</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Example for multiple commands</span><span class="w"></span>
-<span class="w">    </span><span class="nt">children</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Move X (static)</span><span class="w"></span>
-<span class="w">      </span><span class="nt">confirm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">You are about to move the X axis right by 10mm with 3000mm/min.</span><span class="w"></span>
-<span class="w">      </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">G91</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">G1 X10 F3000</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">G90</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Move X (parametric)</span><span class="w"></span>
-<span class="w">      </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">G91</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">G1 X%(distance)s F%(speed)s</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">G90</span><span class="w"></span>
-<span class="w">      </span><span class="nt">input</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w"></span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Distance</span><span class="w"></span>
-<span class="w">        </span><span class="nt">parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">distance</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3000</span><span class="w"></span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Speed</span><span class="w"></span>
-<span class="w">        </span><span class="nt">parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">speed</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reporting</span><span class="w"></span>
-<span class="w">    </span><span class="nt">children</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Get Position</span><span class="w"></span>
-<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">M114</span><span class="w"></span>
-<span class="w">      </span><span class="nt">regex</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;X:([-+]?[0-9.]+)</span><span class="nv"> </span><span class="s">Y:([-+]?[0-9.]+)</span><span class="nv"> </span><span class="s">Z:([-+]?[0-9.]+)</span><span class="nv"> </span><span class="s">E:([-+]?[0-9.]+)&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Position:</span><span class="nv"> </span><span class="s">X={0},</span><span class="nv"> </span><span class="s">Y={1},</span><span class="nv"> </span><span class="s">Z={2},</span><span class="nv"> </span><span class="s">E={3}&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Fun stuff</span><span class="w"></span>
-<span class="w">    </span><span class="nt">children</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dance</span><span class="w"></span>
-<span class="w">      </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom/dance.gco</span><span class="w"></span>
-<span class="w">      </span><span class="nt">input</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Go arounds</span><span class="w"></span>
-<span class="w">        </span><span class="nt">parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">repetitions</span><span class="w"></span>
-<span class="w">        </span><span class="nt">slider</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w"></span>
-<span class="w">          </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">          </span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">controls</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Fan</span>
+<span class="w">    </span><span class="nt">layout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horizontal</span>
+<span class="w">    </span><span class="nt">children</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Enable Fan</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">M106 S%(speed)s</span>
+<span class="w">      </span><span class="nt">input</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Speed (0-255)</span>
+<span class="w">        </span><span class="nt">parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">speed</span>
+<span class="w">        </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255</span>
+<span class="w">        </span><span class="nt">slider</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">          </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Disable Fan</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">M107</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Example for multiple commands</span>
+<span class="w">    </span><span class="nt">children</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Move X (static)</span>
+<span class="w">      </span><span class="nt">confirm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">You are about to move the X axis right by 10mm with 3000mm/min.</span>
+<span class="w">      </span><span class="nt">commands</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">G91</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">G1 X10 F3000</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">G90</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Move X (parametric)</span>
+<span class="w">      </span><span class="nt">commands</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">G91</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">G1 X%(distance)s F%(speed)s</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">G90</span>
+<span class="w">      </span><span class="nt">input</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Distance</span>
+<span class="w">        </span><span class="nt">parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">distance</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3000</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Speed</span>
+<span class="w">        </span><span class="nt">parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">speed</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reporting</span>
+<span class="w">    </span><span class="nt">children</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Get Position</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">M114</span>
+<span class="w">      </span><span class="nt">regex</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;X:([-+]?[0-9.]+)</span><span class="nv"> </span><span class="s">Y:([-+]?[0-9.]+)</span><span class="nv"> </span><span class="s">Z:([-+]?[0-9.]+)</span><span class="nv"> </span><span class="s">E:([-+]?[0-9.]+)&quot;</span>
+<span class="w">      </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Position:</span><span class="nv"> </span><span class="s">X={0},</span><span class="nv"> </span><span class="s">Y={1},</span><span class="nv"> </span><span class="s">Z={2},</span><span class="nv"> </span><span class="s">E={3}&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Fun stuff</span>
+<span class="w">    </span><span class="nt">children</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dance</span>
+<span class="w">      </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom/dance.gco</span>
+<span class="w">      </span><span class="nt">input</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Go arounds</span>
+<span class="w">        </span><span class="nt">parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">repetitions</span>
+<span class="w">        </span><span class="nt">slider</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">          </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">          </span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 </pre></div>
 </div>
 <p>Adding this to <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>, restarting the OctoPrint server and switching to the “Control” tab within its
@@ -332,15 +332,15 @@ in a context where the control it is part of is provided as local variable <code
 <td><p>(Optional) A list of definitions of input parameters for a <code class="docutils literal notranslate"><span class="pre">command</span></code> or <code class="docutils literal notranslate"><span class="pre">commands</span></code>, to be rendered as
 additional input fields. <code class="docutils literal notranslate"><span class="pre">command</span></code>/<code class="docutils literal notranslate"><span class="pre">commands</span></code> may contain placeholders to be replaced by the values obtained
 from the user for the defined input fields:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Enable Fan</span><span class="w"></span>
-<span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">M106 S%(speed)s</span><span class="w"></span>
-<span class="nt">input</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Speed (0-255)</span><span class="w"></span>
-<span class="w">    </span><span class="nt">parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">speed</span><span class="w"></span>
-<span class="w">    </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255</span><span class="w"></span>
-<span class="w">    </span><span class="nt">slider</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
-<span class="w">        </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Enable Fan</span>
+<span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">M106 S%(speed)s</span>
+<span class="nt">input</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Speed (0-255)</span>
+<span class="w">    </span><span class="nt">parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">speed</span>
+<span class="w">    </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255</span>
+<span class="w">    </span><span class="nt">slider</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">        </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255</span>
 </pre></div>
 </div>
 <p>In OctoPrint’s default UI input fields are always rendered left to right (inline).</p>
@@ -411,47 +411,47 @@ view model callback.</p>
 <span id="sec-features-custom-controls-examples-gcode-script"></span><h3><a class="toc-backref" href="#id9">Parameterized GCODE Script</a><a class="headerlink" href="#parameterized-gcode-script" title="Permalink to this headline"></a></h3>
 <div class="literal-block-wrapper docutils container" id="code-features-custom-controls-example-gcode-script-config-yaml">
 <div class="code-block-caption"><span class="caption-number">Listing 1 </span><span class="caption-text">Control definition in ~/.octoprint/config.yaml</span><a class="headerlink" href="#code-features-custom-controls-example-gcode-script-config-yaml" title="Permalink to this code"></a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dance</span><span class="w"></span>
-<span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom/dance.gco</span><span class="w"></span>
-<span class="nt">input</span><span class="p">:</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w"></span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Go arounds</span><span class="w"></span>
-<span class="w">  </span><span class="nt">parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">repetitions</span><span class="w"></span>
-<span class="w">  </span><span class="nt">slider</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w"></span>
-<span class="w">    </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">    </span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dance</span>
+<span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom/dance.gco</span>
+<span class="nt">input</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Go arounds</span>
+<span class="w">  </span><span class="nt">parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">repetitions</span>
+<span class="w">  </span><span class="nt">slider</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 </pre></div>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="code-features-custom-controls-example-gcode-script-dance-gco">
 <div class="code-block-caption"><span class="caption-number">Listing 2 </span><span class="caption-text">~/.octoprint/scripts/gcode/custom/dance.gco</span><a class="headerlink" href="#code-features-custom-controls-example-gcode-script-dance-gco" title="Permalink to this code"></a></div>
-<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">set</span> <span class="nv">center_x</span> <span class="o">=</span> <span class="nv">printer_profile.volume.width</span> <span class="o">/</span> <span class="m">2</span> <span class="cp">%}</span><span class="x"></span>
-<span class="cp">{%</span> <span class="k">set</span> <span class="nv">center_y</span> <span class="o">=</span> <span class="nv">printer_profile.volume.depth</span> <span class="o">/</span> <span class="m">2</span> <span class="cp">%}</span><span class="x"></span>
-<span class="cp">{%</span> <span class="k">set</span> <span class="nv">speed_x</span> <span class="o">=</span> <span class="nv">printer_profile.axes.x.speed</span> <span class="cp">%}</span><span class="x"></span>
-<span class="cp">{%</span> <span class="k">set</span> <span class="nv">speed_y</span> <span class="o">=</span> <span class="nv">printer_profile.axes.y.speed</span> <span class="cp">%}</span><span class="x"></span>
-<span class="cp">{%</span> <span class="k">set</span> <span class="nv">speed_z</span> <span class="o">=</span> <span class="nv">printer_profile.axes.z.speed</span> <span class="cp">%}</span><span class="x"></span>
-<span class="x">M117 run </span><span class="cp">{{</span> <span class="nv">script.name</span> <span class="cp">}}</span><span class="x"></span>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">set</span> <span class="nv">center_x</span> <span class="o">=</span> <span class="nv">printer_profile.volume.width</span> <span class="o">/</span> <span class="m">2</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">set</span> <span class="nv">center_y</span> <span class="o">=</span> <span class="nv">printer_profile.volume.depth</span> <span class="o">/</span> <span class="m">2</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">set</span> <span class="nv">speed_x</span> <span class="o">=</span> <span class="nv">printer_profile.axes.x.speed</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">set</span> <span class="nv">speed_y</span> <span class="o">=</span> <span class="nv">printer_profile.axes.y.speed</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">set</span> <span class="nv">speed_z</span> <span class="o">=</span> <span class="nv">printer_profile.axes.z.speed</span> <span class="cp">%}</span>
+<span class="x">M117 run </span><span class="cp">{{</span> <span class="nv">script.name</span> <span class="cp">}}</span>
 <span class="x">G4 P500</span>
 <span class="x">G1 Z10</span>
-<span class="x">G1 X</span><span class="cp">{{</span> <span class="nv">center_x</span> <span class="cp">}}</span><span class="x"> Y</span><span class="cp">{{</span> <span class="nv">center_y</span> <span class="cp">}}</span><span class="x"> F</span><span class="cp">{{</span> <span class="nv">speed_x</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">G1 X</span><span class="cp">{{</span> <span class="nv">center_x</span> <span class="cp">}}</span><span class="x"> Y</span><span class="cp">{{</span> <span class="nv">center_y</span> <span class="cp">}}</span><span class="x"> F</span><span class="cp">{{</span> <span class="nv">speed_x</span> <span class="cp">}}</span>
 <span class="x">M117 let&#39;s dance!</span>
 <span class="x">G91</span>
-<span class="x">G1 X-1 Y-1 F</span><span class="cp">{{</span> <span class="nv">speed_x</span> <span class="cp">}}</span><span class="x"></span>
-<span class="cp">{%</span> <span class="k">for</span> <span class="nv">n</span> <span class="k">in</span> <span class="nv">range</span><span class="o">(</span><span class="nv">parameters.repetitions</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
-<span class="x">M117 and </span><span class="cp">{{</span> <span class="nv">n</span> <span class="o">+</span> <span class="m">1</span> <span class="cp">}}</span><span class="x"></span>
-<span class="x">  </span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">n</span> <span class="o">%</span> <span class="m">2</span> <span class="o">==</span> <span class="m">0</span> <span class="cp">%}</span><span class="x"></span>
-<span class="x">    G1 Z1 F</span><span class="cp">{{</span> <span class="nv">speed_z</span> <span class="cp">}}</span><span class="x"></span>
-<span class="x">    G1 Z-2 F</span><span class="cp">{{</span> <span class="nv">speed_z</span> <span class="cp">}}</span><span class="x"></span>
-<span class="x">    G1 Z1 F</span><span class="cp">{{</span> <span class="nv">speed_z</span> <span class="cp">}}</span><span class="x"></span>
-<span class="x">  </span><span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
-<span class="x">  G1 X2 F</span><span class="cp">{{</span> <span class="nv">speed_x</span> <span class="cp">}}</span><span class="x"></span>
-<span class="x">  G1 Y2 F</span><span class="cp">{{</span> <span class="nv">speed_y</span> <span class="cp">}}</span><span class="x"></span>
-<span class="x">  G1 X-2 F</span><span class="cp">{{</span> <span class="nv">speed_x</span> <span class="cp">}}</span><span class="x"></span>
-<span class="x">  G1 Y-2 F</span><span class="cp">{{</span> <span class="nv">speed_y</span> <span class="cp">}}</span><span class="x"></span>
-<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">G1 X-1 Y-1 F</span><span class="cp">{{</span> <span class="nv">speed_x</span> <span class="cp">}}</span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">n</span> <span class="k">in</span> <span class="nv">range</span><span class="o">(</span><span class="nv">parameters.repetitions</span><span class="o">)</span> <span class="cp">%}</span>
+<span class="x">M117 and </span><span class="cp">{{</span> <span class="nv">n</span> <span class="o">+</span> <span class="m">1</span> <span class="cp">}}</span>
+<span class="x">  </span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">n</span> <span class="o">%</span> <span class="m">2</span> <span class="o">==</span> <span class="m">0</span> <span class="cp">%}</span>
+<span class="x">    G1 Z1 F</span><span class="cp">{{</span> <span class="nv">speed_z</span> <span class="cp">}}</span>
+<span class="x">    G1 Z-2 F</span><span class="cp">{{</span> <span class="nv">speed_z</span> <span class="cp">}}</span>
+<span class="x">    G1 Z1 F</span><span class="cp">{{</span> <span class="nv">speed_z</span> <span class="cp">}}</span>
+<span class="x">  </span><span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span>
+<span class="x">  G1 X2 F</span><span class="cp">{{</span> <span class="nv">speed_x</span> <span class="cp">}}</span>
+<span class="x">  G1 Y2 F</span><span class="cp">{{</span> <span class="nv">speed_y</span> <span class="cp">}}</span>
+<span class="x">  G1 X-2 F</span><span class="cp">{{</span> <span class="nv">speed_x</span> <span class="cp">}}</span>
+<span class="x">  G1 Y-2 F</span><span class="cp">{{</span> <span class="nv">speed_y</span> <span class="cp">}}</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
 <span class="x">G90</span>
-<span class="x">G1 X</span><span class="cp">{{</span> <span class="nv">center_x</span> <span class="cp">}}</span><span class="x"> Y</span><span class="cp">{{</span> <span class="nv">center_y</span> <span class="cp">}}</span><span class="x"> F</span><span class="cp">{{</span> <span class="nv">speed_x</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">G1 X</span><span class="cp">{{</span> <span class="nv">center_x</span> <span class="cp">}}</span><span class="x"> Y</span><span class="cp">{{</span> <span class="nv">center_y</span> <span class="cp">}}</span><span class="x"> F</span><span class="cp">{{</span> <span class="nv">speed_x</span> <span class="cp">}}</span>
 <span class="x">G28 X0 Y0</span>
 </pre></div>
 </div>
@@ -480,7 +480,7 @@ Mac <code class="docutils literal notranslate"><span class="pre">~/Library/Appli
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2022, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2023, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

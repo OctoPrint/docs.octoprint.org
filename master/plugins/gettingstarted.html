@@ -630,11 +630,11 @@ the template renderer, so your <code class="docutils literal notranslate"><span 
 still work and point to the URL we defined as default.</p>
 <p>Let’s change the URL! Open up your OctoPrint instance’s <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> file and add the following to it (if a <code class="docutils literal notranslate"><span class="pre">plugins</span></code>
 section doesn’t yet exist in the file, create it):</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># [...]</span><span class="w"></span>
-<span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
-<span class="hll"><span class="w">  </span><span class="nt">helloworld</span><span class="p">:</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://de.wikipedia.org/wiki/Hallo-Welt-Programm</span><span class="w"></span>
-</span><span class="c1"># [...]</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># [...]</span>
+<span class="nt">plugins</span><span class="p">:</span>
+<span class="hll"><span class="w">  </span><span class="nt">helloworld</span><span class="p">:</span>
+</span><span class="hll"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://de.wikipedia.org/wiki/Hallo-Welt-Programm</span>
+</span><span class="c1"># [...]</span>
 </pre></div>
 </div>
 <p>Restart OctoPrint. Not only should the URL displayed in the log file have changed, but also the link should now (after
@@ -896,49 +896,49 @@ like so:</p>
 <span class="normal">40</span>
 <span class="normal">41</span>
 <span class="normal">42</span>
-<span class="normal">43</span></pre></div></td><td class="code"><div><pre><span></span><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">HelloWorldViewModel</span><span class="p">(</span><span class="nx">parameters</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">self</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">;</span><span class="w"></span>
+<span class="normal">43</span></pre></div></td><td class="code"><div><pre><span></span><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">HelloWorldViewModel</span><span class="p">(</span><span class="nx">parameters</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">self</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">;</span>
 
-<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">settings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">parameters</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">settings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">parameters</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span>
 
-<span class="w">        </span><span class="c1">// this will hold the URL currently displayed by the iframe</span><span class="w"></span>
-<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">currentUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">();</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// this will hold the URL currently displayed by the iframe</span>
+<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">currentUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">();</span>
 
-<span class="w">        </span><span class="c1">// this will hold the URL entered in the text field</span><span class="w"></span>
-<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">newUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">();</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// this will hold the URL entered in the text field</span>
+<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">newUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">();</span>
 
-<span class="w">        </span><span class="c1">// this will be called when the user clicks the &quot;Go&quot; button and set the iframe&#39;s URL to</span><span class="w"></span>
-<span class="w">        </span><span class="c1">// the entered URL</span><span class="w"></span>
-<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">goToUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nx">self</span><span class="p">.</span><span class="nx">currentUrl</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">newUrl</span><span class="p">());</span><span class="w"></span>
-<span class="w">        </span><span class="p">};</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// this will be called when the user clicks the &quot;Go&quot; button and set the iframe&#39;s URL to</span>
+<span class="w">        </span><span class="c1">// the entered URL</span>
+<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">goToUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">self</span><span class="p">.</span><span class="nx">currentUrl</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">newUrl</span><span class="p">());</span>
+<span class="w">        </span><span class="p">};</span>
 
-<span class="w">        </span><span class="c1">// This will get called before the HelloWorldViewModel gets bound to the DOM, but after its</span><span class="w"></span>
-<span class="w">        </span><span class="c1">// dependencies have already been initialized. It is especially guaranteed that this method</span><span class="w"></span>
-<span class="w">        </span><span class="c1">// gets called _after_ the settings have been retrieved from the OctoPrint backend and thus</span><span class="w"></span>
-<span class="w">        </span><span class="c1">// the SettingsViewModel been properly populated.</span><span class="w"></span>
-<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">onBeforeBinding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nx">self</span><span class="p">.</span><span class="nx">newUrl</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="nx">helloworld</span><span class="p">.</span><span class="nx">url</span><span class="p">());</span><span class="w"></span>
-<span class="w">            </span><span class="nx">self</span><span class="p">.</span><span class="nx">goToUrl</span><span class="p">();</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// This will get called before the HelloWorldViewModel gets bound to the DOM, but after its</span>
+<span class="w">        </span><span class="c1">// dependencies have already been initialized. It is especially guaranteed that this method</span>
+<span class="w">        </span><span class="c1">// gets called _after_ the settings have been retrieved from the OctoPrint backend and thus</span>
+<span class="w">        </span><span class="c1">// the SettingsViewModel been properly populated.</span>
+<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">onBeforeBinding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">self</span><span class="p">.</span><span class="nx">newUrl</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="nx">helloworld</span><span class="p">.</span><span class="nx">url</span><span class="p">());</span>
+<span class="w">            </span><span class="nx">self</span><span class="p">.</span><span class="nx">goToUrl</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="c1">// This is how our plugin registers itself with the application, by adding some configuration</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// information to the global variable OCTOPRINT_VIEWMODELS</span><span class="w"></span>
-<span class="w">    </span><span class="nx">OCTOPRINT_VIEWMODELS</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="w"></span>
-<span class="w">        </span><span class="c1">// This is the constructor to call for instantiating the plugin</span><span class="w"></span>
-<span class="w">        </span><span class="nx">HelloWorldViewModel</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// This is how our plugin registers itself with the application, by adding some configuration</span>
+<span class="w">    </span><span class="c1">// information to the global variable OCTOPRINT_VIEWMODELS</span>
+<span class="w">    </span><span class="nx">OCTOPRINT_VIEWMODELS</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span>
+<span class="w">        </span><span class="c1">// This is the constructor to call for instantiating the plugin</span>
+<span class="w">        </span><span class="nx">HelloWorldViewModel</span><span class="p">,</span>
 
-<span class="w">        </span><span class="c1">// This is a list of dependencies to inject into the plugin, the order which you request</span><span class="w"></span>
-<span class="w">        </span><span class="c1">// here is the order in which the dependencies will be injected into your view model upon</span><span class="w"></span>
-<span class="w">        </span><span class="c1">// instantiation via the parameters argument</span><span class="w"></span>
-<span class="w">        </span><span class="p">[</span><span class="s2">&quot;settingsViewModel&quot;</span><span class="p">],</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// This is a list of dependencies to inject into the plugin, the order which you request</span>
+<span class="w">        </span><span class="c1">// here is the order in which the dependencies will be injected into your view model upon</span>
+<span class="w">        </span><span class="c1">// instantiation via the parameters argument</span>
+<span class="w">        </span><span class="p">[</span><span class="s2">&quot;settingsViewModel&quot;</span><span class="p">],</span>
 
-<span class="w">        </span><span class="c1">// Finally, this is the list of selectors for all elements we want this view model to be bound to.</span><span class="w"></span>
-<span class="w">        </span><span class="p">[</span><span class="s2">&quot;#tab_plugin_helloworld&quot;</span><span class="p">]</span><span class="w"></span>
-<span class="w">    </span><span class="p">]);</span><span class="w"></span>
-<span class="p">});</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Finally, this is the list of selectors for all elements we want this view model to be bound to.</span>
+<span class="w">        </span><span class="p">[</span><span class="s2">&quot;#tab_plugin_helloworld&quot;</span><span class="p">]</span>
+<span class="w">    </span><span class="p">]);</span>
+<span class="p">});</span>
 </pre></div></td></tr></table></div>
 </div>
 <p>Take a close look at lines 31 to 42. This is how our plugin tells OctoPrint about our new view model, how to
@@ -1004,11 +1004,11 @@ add a CSS file to our plugin’s provided static assets.</p>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><span class="p">#</span><span class="nn">tab_plugin_helloworld</span><span class="w"> </span><span class="nt">iframe</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">600</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mh">#808080</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><span class="p">#</span><span class="nn">tab_plugin_helloworld</span><span class="w"> </span><span class="nt">iframe</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+<span class="w">  </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">600</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mh">#808080</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div>
 <p>Don’t forget to remove the <code class="docutils literal notranslate"><span class="pre">style</span></code> attribute from the <code class="docutils literal notranslate"><span class="pre">iframe</span></code> tag in <code class="docutils literal notranslate"><span class="pre">helloworld_tab.jinja2</span></code>:</p>
@@ -1087,11 +1087,11 @@ a reference to our CSS file:</p>
 <p>OctoPrint by default bundles all CSS, JavaScript and LESS files to reduce the amount of requests necessary to fully
 load the page. But in order to fully be able to see how what we just did changes how our plugin interacts with OctoPrint
 we want to disable that behaviour for now. Open up OctoPrint’s <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> and disable bundling of the webassets:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1"># [...]</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="nt">devel</span><span class="p">:</span><span class="w"></span>
-</span><span class="hll"><span class="w">      </span><span class="nt">webassets</span><span class="p">:</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-</span><span class="w">    </span><span class="c1"># [...]</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1"># [...]</span>
+<span class="hll"><span class="w">    </span><span class="nt">devel</span><span class="p">:</span>
+</span><span class="hll"><span class="w">      </span><span class="nt">webassets</span><span class="p">:</span>
+</span><span class="hll"><span class="w">        </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span><span class="w">    </span><span class="c1"># [...]</span>
 </pre></div>
 </div>
 <p>Restart OctoPrint, shift-reload your browser and take a look. Everything should still look like before, but now
@@ -1188,12 +1188,12 @@ in the process. The folder structure of our plugin should now look like this:</p
 </pre></div></td></tr></table></div>
 </div>
 <p>and enable LESS mode by adjusting one of OctoPrint’s <code class="docutils literal notranslate"><span class="pre">devel</span></code> flags via the <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> file:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># [...]</span><span class="w"></span>
-<span class="nt">devel</span><span class="p">:</span><span class="w"></span>
-<span class="hll"><span class="w">  </span><span class="nt">stylesheet</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">less</span><span class="w"></span>
-</span><span class="w">  </span><span class="nt">webassets</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="c1"># [...]</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># [...]</span>
+<span class="nt">devel</span><span class="p">:</span>
+<span class="hll"><span class="w">  </span><span class="nt">stylesheet</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">less</span>
+</span><span class="w">  </span><span class="nt">webassets</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="c1"># [...]</span>
 </pre></div>
 </div>
 <p>Restart OctoPrint and shift-reload. Your “Hello World” tab should still look like before. Take a look at the site’s
@@ -1220,12 +1220,12 @@ embedded the <code class="docutils literal notranslate"><span class="pre">hellow
 </div>
 <p>Switch your config back to CSS mode by either removing the <code class="docutils literal notranslate"><span class="pre">stylesheet</span></code> setting we just added to <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> or
 setting it to <code class="docutils literal notranslate"><span class="pre">css</span></code>, e.g.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># [...]</span><span class="w"></span>
-<span class="nt">devel</span><span class="p">:</span><span class="w"></span>
-<span class="hll"><span class="w">  </span><span class="nt">stylesheet</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">css</span><span class="w"></span>
-</span><span class="w">  </span><span class="nt">webassets</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="c1"># [...]</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># [...]</span>
+<span class="nt">devel</span><span class="p">:</span>
+<span class="hll"><span class="w">  </span><span class="nt">stylesheet</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">css</span>
+</span><span class="w">  </span><span class="nt">webassets</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="c1"># [...]</span>
 </pre></div>
 </div>
 <p>Restart and shift-reload and take another look at the <code class="docutils literal notranslate"><span class="pre">head</span></code>:</p>
@@ -1253,10 +1253,10 @@ tremendously when you have to work with complex stylesheets, just don’t forgot
 the rest of your plugin or people will miss it when trying to run your plugin!</p>
 <p>Remember when I mentioned that OctoPrint by default bundles all our assets for us? We adjusted our <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> to
 stop it from doing that at the start of this section, we should switch this back now:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># [...]</span><span class="w"></span>
-<span class="nt">devel</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">stylesheet</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">css</span><span class="w"></span>
-<span class="c1"># [...]</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># [...]</span>
+<span class="nt">devel</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">stylesheet</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">css</span>
+<span class="c1"># [...]</span>
 </pre></div>
 </div>
 <p>Just out of curiosity, restart, shift-reload and take a final look at the <code class="docutils literal notranslate"><span class="pre">head</span></code>:</p>
@@ -1343,7 +1343,7 @@ available at <a class="reference external" href="http://jinja.octoprint.org">jin
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2022, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2023, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
