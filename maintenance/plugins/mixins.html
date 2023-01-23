@@ -1350,7 +1350,7 @@ False otherwise</p>
 by OctoPrint when requesting the main page hosted at <cite>/</cite>.</p>
 <p>OctoPrint will query whether your mixin implementation will handle a
 provided request by calling <a class="reference internal" href="#octoprint.plugin.UiPlugin.will_handle_ui" title="octoprint.plugin.UiPlugin.will_handle_ui"><code class="xref py py-meth docutils literal notranslate"><span class="pre">will_handle_ui()</span></code></a> with the Flask
-<a class="reference external" href="http://flask.pocoo.org/docs/0.10/api/#flask.Request">Request</a> object as
+<a class="reference external" href="https://flask.palletsprojects.com/api/#flask.Request">Request</a> object as
 parameter. If you plugin returns <cite>True</cite> here, OctoPrint will next call
 <a class="reference internal" href="#octoprint.plugin.UiPlugin.on_ui_render" title="octoprint.plugin.UiPlugin.on_ui_render"><code class="xref py py-meth docutils literal notranslate"><span class="pre">on_ui_render()</span></code></a> with a few parameters like
 - again - the Flask Request object and the render keyword arguments as
@@ -1803,7 +1803,7 @@ will be contained in the dictionary as well.</p>
 <li><p><strong>now</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.11)"><em>datetime.datetime</em></a>) – The datetime instance representing “now”
 for this request, in case your plugin implementation needs this
 information.</p></li>
-<li><p><strong>request</strong> (<em>flask.Request</em>) – <p>A Flask <a class="reference external" href="http://flask.pocoo.org/docs/0.10/api/#flask.Request">Request</a> object.</p>
+<li><p><strong>request</strong> (<em>flask.Request</em>) – <p>A Flask <a class="reference external" href="https://flask.palletsprojects.com/api/#flask.Request">Request</a> object.</p>
 </p></li>
 <li><p><strong>render_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – The (cached) render keyword arguments that
 would usually be provided to the core UI render function.</p></li>
@@ -1811,7 +1811,7 @@ would usually be provided to the core UI render function.</p></li>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><dl class="simple">
-<dt>Should return a Flask <a class="reference external" href="http://flask.pocoo.org/docs/0.10/api/#flask.Response">Response</a></dt><dd><p>object that can be served to the requesting client directly. May be
+<dt>Should return a Flask <a class="reference external" href="https://flask.palletsprojects.com/api/#flask.Response">Response</a></dt><dd><p>object that can be served to the requesting client directly. May be
 created with <code class="docutils literal notranslate"><span class="pre">flask.make_response</span></code> combined with something like
 <code class="docutils literal notranslate"><span class="pre">flask.render_template</span></code>.</p>
 </dd>
@@ -1836,7 +1836,7 @@ is what should be served to the user.</p>
 <code class="docutils literal notranslate"><span class="pre">UiPlugin.will_handle_ui</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<em>flask.Request</em>) – <p>A Flask <a class="reference external" href="http://flask.pocoo.org/docs/0.10/api/#flask.Request">Request</a>
+<dd class="field-odd"><p><strong>request</strong> (<em>flask.Request</em>) – <p>A Flask <a class="reference external" href="https://flask.palletsprojects.com/api/#flask.Request">Request</a>
 object.</p>
 </p>
 </dd>
@@ -1864,7 +1864,7 @@ object.</p>
 <dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a></p>
 <p>Utilizing the <code class="docutils literal notranslate"><span class="pre">SimpleApiPlugin</span></code> mixin plugins may implement a simple API based around one GET resource and one
 resource accepting JSON commands POSTed to it. This is the easy alternative for plugin’s which don’t need the
-full power of a <a class="reference external" href="http://flask.pocoo.org/docs/0.10/blueprints/">Flask Blueprint</a> that the <a class="reference internal" href="#octoprint.plugin.BlueprintPlugin" title="octoprint.plugin.BlueprintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlueprintPlugin</span></code></a>
+full power of a <a class="reference external" href="https://flask.palletsprojects.com/blueprints/">Flask Blueprint</a> that the <a class="reference internal" href="#octoprint.plugin.BlueprintPlugin" title="octoprint.plugin.BlueprintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlueprintPlugin</span></code></a>
 mixin offers.</p>
 <p>Use this mixin if all you need to do is return some kind of dynamic data to your plugin from the backend
 and/or want to react to simple commands which boil down to a type of command and a few flat parameters
@@ -1977,7 +1977,7 @@ a proper Flask response.</p>
 <dt class="sig sig-object py" id="octoprint.plugin.SimpleApiPlugin.on_api_get">
 <span class="sig-name descname"><span class="pre">on_api_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SimpleApiPlugin.on_api_get" title="Permalink to this definition"></a></dt>
 <dd><p>Called by OctoPrint upon a GET request to <code class="docutils literal notranslate"><span class="pre">/api/plugin/&lt;plugin</span> <span class="pre">identifier&gt;</span></code>. <code class="docutils literal notranslate"><span class="pre">request</span></code> will contain the
-received <a class="reference external" href="http://flask.pocoo.org/docs/0.9/api/#flask.Request">Flask request object</a> which you may evaluate
+received <a class="reference external" href="https://flask.palletsprojects.com/api/#flask.Request">Flask request object</a> which you may evaluate
 for additional arguments supplied with the request.</p>
 <p>If your plugin returns nothing here, OctoPrint will return an empty response with return code <code class="docutils literal notranslate"><span class="pre">204</span> <span class="pre">No</span> <span class="pre">content</span></code>
 for you. You may also return regular responses as you would return from any Flask view here though, e.g.
@@ -2004,7 +2004,7 @@ a proper Flask response.</p>
 <dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.types.OctoPrintPlugin</span></code></a>, <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.RestartNeedingPlugin" title="octoprint.plugin.core.RestartNeedingPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.RestartNeedingPlugin</span></code></a></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">BlueprintPlugin</span></code> mixin allows plugins to define their own full fledged endpoints for whatever purpose,
 be it a more sophisticated API than what is possible via the <a class="reference internal" href="#octoprint.plugin.SimpleApiPlugin" title="octoprint.plugin.SimpleApiPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleApiPlugin</span></code></a> or a custom web frontend.</p>
-<p>The mechanism at work here is <a class="reference external" href="http://flask.pocoo.org/">Flask’s</a> own <a class="reference external" href="http://flask.pocoo.org/docs/0.10/blueprints/">Blueprint mechanism</a>.</p>
+<p>The mechanism at work here is <a class="reference external" href="https://flask.palletsprojects.com/">Flask’s</a> own <a class="reference external" href="https://flask.palletsprojects.com/blueprints/">Blueprint mechanism</a>.</p>
 <p>The mixin automatically creates a blueprint for you that will be registered under <code class="docutils literal notranslate"><span class="pre">/plugin/&lt;plugin</span> <span class="pre">identifier&gt;/</span></code>.
 All you need to do is decorate all of your view functions with the <a class="reference internal" href="#octoprint.plugin.BlueprintPlugin.route" title="octoprint.plugin.BlueprintPlugin.route"><code class="xref py py-func docutils literal notranslate"><span class="pre">route()</span></code></a> decorator,
 which behaves exactly the same like Flask’s regular <code class="docutils literal notranslate"><span class="pre">route</span></code> decorators. Example:</p>
@@ -2078,8 +2078,8 @@ cases should not be needed.</p>
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">errorhandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code_or_exception</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin.errorhandler" title="Permalink to this definition"></a></dt>
 <dd><p>A decorator to mark errorhandlings methods in your BlueprintPlugin subclass. Works just the same as Flask’s
 own <code class="docutils literal notranslate"><span class="pre">errorhandler</span></code> decorator available on blueprints.</p>
-<p>See <a class="reference external" href="http://flask.pocoo.org/docs/0.10/api/#flask.Blueprint.errorhandler">the documentation for flask.Blueprint.errorhandler</a>
-and <a class="reference external" href="http://flask.pocoo.org/docs/0.10/api/#flask.Flask.errorhandler">the documentation for flask.Flask.errorhandler</a> for more
+<p>See <a class="reference external" href="https://flask.palletsprojects.com/api/#flask.Blueprint.errorhandler">the documentation for flask.Blueprint.errorhandler</a>
+and <a class="reference external" href="https://flask.palletsprojects.com/api/#flask.Flask.errorhandler">the documentation for flask.Flask.errorhandler</a> for more
 information.</p>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 1.3.0.</span></p>
@@ -2148,8 +2148,8 @@ permissions checks explicitly.</p>
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">route</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rule</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.BlueprintPlugin.route" title="Permalink to this definition"></a></dt>
 <dd><p>A decorator to mark view methods in your BlueprintPlugin subclass. Works just the same as Flask’s
 own <code class="docutils literal notranslate"><span class="pre">route</span></code> decorator available on blueprints.</p>
-<p>See <a class="reference external" href="http://flask.pocoo.org/docs/0.10/api/#flask.Blueprint.route">the documentation for flask.Blueprint.route</a>
-and <a class="reference external" href="http://flask.pocoo.org/docs/0.10/api/#flask.Flask.route">the documentation for flask.Flask.route</a> for more
+<p>See <a class="reference external" href="https://flask.palletsprojects.com/api/#flask.Blueprint.route">the documentation for flask.Blueprint.route</a>
+and <a class="reference external" href="https://flask.palletsprojects.com/api/#flask.Flask.route">the documentation for flask.Flask.route</a> for more
 information.</p>
 </dd></dl>
 
