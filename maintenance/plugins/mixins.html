@@ -1475,6 +1475,16 @@ overridden by the configuration supplied through <a class="reference internal" h
 wrapper div and the link in the navigation will have the additional classes and styles applied as defined via the
 configuration through <a class="reference internal" href="#octoprint.plugin.TemplatePlugin.get_template_configs" title="octoprint.plugin.TemplatePlugin.get_template_configs"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_template_configs()</span></code></a>.</p>
 </dd>
+<dt>Webcam</dt><dd><p>Plugins can provide a custom webcam view for watching a camera stream, which will be embedded into the “Control”
+panel of OctoPrint’s default UI.</p>
+<p>The included template must be called <code class="docutils literal notranslate"><span class="pre">&lt;plugin</span> <span class="pre">identifier&gt;_webcam.jinja2</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">myplugin_webcam.jinja2</span></code>) unless
+overridden by the configuration supplied through <a class="reference internal" href="#octoprint.plugin.TemplatePlugin.get_template_configs" title="octoprint.plugin.TemplatePlugin.get_template_configs"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_template_configs()</span></code></a>.</p>
+<p>The template will be already wrapped into the necessary structure, plugins just need to supply the pure content. The
+wrapper div will have the additional classes and styles applied as defined via the configuration through <a class="reference internal" href="#octoprint.plugin.TemplatePlugin.get_template_configs" title="octoprint.plugin.TemplatePlugin.get_template_configs"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_template_configs()</span></code></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.9.0.</span></p>
+</div>
+</dd>
 <dt>Wizards</dt><dd><p>Plugins may define wizard dialogs to display to the user if necessary (e.g. in case of missing information that
 needs to be queried from the user to make the plugin work). Note that with the current implementation, all
 wizard dialogs will be will always be sorted by their <code class="docutils literal notranslate"><span class="pre">mandatory</span></code> attribute (which defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>) and then
@@ -1676,14 +1686,31 @@ options included in the “Files” section.</p></td>
 <col style="width: 95%" />
 </colgroup>
 <tbody>
+<tr class="row-odd"><td><p>classes_content</p></td>
+<td><p>Like <code class="docutils literal notranslate"><span class="pre">classes</span></code> but only applied to the content pane itself.</p></td>
+</tr>
+<tr class="row-even"><td><p>styles_content</p></td>
+<td><p>Like <code class="docutils literal notranslate"><span class="pre">styles</span></code> but only applied to the content pane itself.</p></td>
+</tr>
 <tr class="row-odd"><td><p>classes_link</p></td>
 <td><p>Like <code class="docutils literal notranslate"><span class="pre">classes</span></code> but only applied to the link in the navigation.</p></td>
 </tr>
-<tr class="row-even"><td><p>classes_content</p></td>
-<td><p>Like <code class="docutils literal notranslate"><span class="pre">classes</span></code> but only applied to the content pane itself.</p></td>
-</tr>
-<tr class="row-odd"><td><p>styles_link</p></td>
+<tr class="row-even"><td><p>styles_link</p></td>
 <td><p>Like <code class="docutils literal notranslate"><span class="pre">styles</span></code> but only applied to the link in the navigation.</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">webcam</span></code> type</p>
+<blockquote>
+<div><table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>classes_content</p></td>
+<td><p>Like <code class="docutils literal notranslate"><span class="pre">classes</span></code> but only applied to the content pane itself.</p></td>
 </tr>
 <tr class="row-even"><td><p>styles_content</p></td>
 <td><p>Like <code class="docutils literal notranslate"><span class="pre">styles</span></code> but only applied to the content pane itself.</p></td>
