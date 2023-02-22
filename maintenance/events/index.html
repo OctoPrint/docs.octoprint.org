@@ -873,9 +873,13 @@ NOT be accurate)</p></li>
 <p>Payload:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>: the marking’s ID. Built-in types are <code class="docutils literal notranslate"><span class="pre">print</span></code>, <code class="docutils literal notranslate"><span class="pre">done</span></code>, <code class="docutils literal notranslate"><span class="pre">cancel</span></code>, <code class="docutils literal notranslate"><span class="pre">pause</span></code>, and <code class="docutils literal notranslate"><span class="pre">resume</span></code>. Plugins may set arbitrary types</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">label</span></code>: the human-readable short label of the marking</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">time</span></code>: the epoch time of marking</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>: The marking’s ID. Built-in types are <code class="docutils literal notranslate"><span class="pre">print</span></code>, <code class="docutils literal notranslate"><span class="pre">done</span></code>, <code class="docutils literal notranslate"><span class="pre">cancel</span></code>, <code class="docutils literal notranslate"><span class="pre">pause</span></code>, and <code class="docutils literal notranslate"><span class="pre">resume</span></code>.
+Plugins may set arbitrary types, which should be prefixed, e.g. <code class="docutils literal notranslate"><span class="pre">pluginname_eventtype</span></code>. In the UI, the type
+ID is used to stylize the marking label.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">label</span></code>: The human-readable short label of the marking, ideally one short word. Optional but recommended; if
+not specified, the UI will display the <code class="docutils literal notranslate"><span class="pre">type</span></code>. The label may be localized in the UI.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time</span></code>: The epoch time of marking. Defaults to the event fire time if not specified. Plugins may set a time
+in the past if it makes sense for the event.</p></li>
 </ul>
 </div></blockquote>
 <div class="versionadded">
