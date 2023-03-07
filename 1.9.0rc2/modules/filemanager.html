@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>octoprint.filemanager &mdash; OctoPrint 1.9.0rc2 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="octoprint.plugin" href="plugin.html" />
+    <link rel="prev" title="octoprint.cli" href="cli.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OctoPrint
+          </a>
+              <div class="version">
+                1.9.0rc2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Internal Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="access.html">octoprint.access.users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">octoprint.cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#module-octoprint.cli.dev">octoprint.cli.dev</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#module-octoprint.cli.plugins">octoprint.cli.plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#module-octoprint.cli.server">octoprint.cli.server</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">octoprint.filemanager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-octoprint.filemanager.analysis">octoprint.filemanager.analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-octoprint.filemanager.destinations">octoprint.filemanager.destinations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-octoprint.filemanager.storage">octoprint.filemanager.storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-octoprint.filemanager.util">octoprint.filemanager.util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugin.html">octoprint.plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugin.html#module-octoprint.plugin.core">octoprint.plugin.core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugin.html#module-octoprint.plugin.types">octoprint.plugin.types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html">octoprint.printer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#module-octoprint.printer.profile">octoprint.printer.profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schema.html">octoprint.schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#module-octoprint.schema.config">octoprint.schema.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#module-octoprint.schema.webcam">octoprint.schema.webcam</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">octoprint.server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html#module-octoprint.server.util">octoprint.server.util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html#module-octoprint.server.util.flask">octoprint.server.util.flask</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html#module-octoprint.server.util.sockjs">octoprint.server.util.sockjs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html#module-octoprint.server.util.tornado">octoprint.server.util.tornado</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html">octoprint.settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html">octoprint.slicing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html#module-octoprint.slicing.exceptions">octoprint.slicing.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">octoprint.util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html#module-octoprint.util.commandline">octoprint.util.commandline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html#module-octoprint.util.platform">octoprint.util.platform</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
+    <strong>Note:</strong>
+    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.8.7" style="color: white;text-decoration: underline">here</a>.
+  </p>
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Internal Modules</a> &raquo;</li>
+        
+      <li>octoprint.filemanager</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/modules/filemanager.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-octoprint.filemanager">
+<span id="octoprint-filemanager"></span><span id="sec-modules-filemanager"></span><h1>octoprint.filemanager<a class="headerlink" href="#module-octoprint.filemanager" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="octoprint.filemanager.ContentTypeDetector">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.filemanager.</span></span><span class="sig-name descname"><span class="pre">ContentTypeDetector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extensions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.ContentTypeDetector" title="Permalink to this definition"></a></dt>
+<dd><dl class="py property">
+<dt class="sig sig-object py" id="octoprint.filemanager.ContentTypeDetector.detector">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">detector</span></span><a class="headerlink" href="#octoprint.filemanager.ContentTypeDetector.detector" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="octoprint.filemanager.ContentTypeDetector.extensions">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extensions</span></span><a class="headerlink" href="#octoprint.filemanager.ContentTypeDetector.extensions" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="octoprint.filemanager.ContentTypeMapping">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.filemanager.</span></span><span class="sig-name descname"><span class="pre">ContentTypeMapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extensions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.ContentTypeMapping" title="Permalink to this definition"></a></dt>
+<dd><dl class="py property">
+<dt class="sig sig-object py" id="octoprint.filemanager.ContentTypeMapping.content_type">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">content_type</span></span><a class="headerlink" href="#octoprint.filemanager.ContentTypeMapping.content_type" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="octoprint.filemanager.ContentTypeMapping.extensions">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extensions</span></span><a class="headerlink" href="#octoprint.filemanager.ContentTypeMapping.extensions" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="octoprint.filemanager.NoSuchStorage">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.filemanager.</span></span><span class="sig-name descname"><span class="pre">NoSuchStorage</span></span><a class="headerlink" href="#octoprint.filemanager.NoSuchStorage" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-octoprint.filemanager.analysis">
+<span id="octoprint-filemanager-analysis"></span><span id="sec-modules-filemanager-analysis"></span><h1>octoprint.filemanager.analysis<a class="headerlink" href="#module-octoprint.filemanager.analysis" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="octoprint.filemanager.analysis.AbstractAnalysisQueue">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.filemanager.analysis.</span></span><span class="sig-name descname"><span class="pre">AbstractAnalysisQueue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">finished_callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.analysis.AbstractAnalysisQueue" title="Permalink to this definition"></a></dt>
+<dd><p>The <a class="reference internal" href="#octoprint.filemanager.analysis.AbstractAnalysisQueue" title="octoprint.filemanager.analysis.AbstractAnalysisQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractAnalysisQueue</span></code></a> is the parent class of all specific analysis queues such as the
+<a class="reference internal" href="#octoprint.filemanager.analysis.GcodeAnalysisQueue" title="octoprint.filemanager.analysis.GcodeAnalysisQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">GcodeAnalysisQueue</span></code></a>. It offers methods to enqueue new entries to analyze and pausing and resuming analysis
+processing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>finished_callback</strong> (<em>callable</em>) – Callback that will be called upon finishing analysis of an entry in the queue.
+The callback will be called with the analyzed entry as the first argument and the analysis result as
+returned from the queue implementation as the second parameter.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.analysis.AbstractAnalysisQueue._do_analysis">
+<span class="sig-name descname"><span class="pre">_do_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">high_priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.analysis.AbstractAnalysisQueue._do_analysis" title="Permalink to this definition"></a></dt>
+<dd><p>Performs the actual analysis of the current entry which can be accessed via <code class="docutils literal notranslate"><span class="pre">self._current</span></code>. Needs to be
+overridden by sub classes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>high_priority</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the current entry has high priority or not.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The result of the analysis which will be forwarded to the <code class="docutils literal notranslate"><span class="pre">finished_callback</span></code> provided during</dt><dd><p>construction.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.analysis.AbstractAnalysisQueue._do_abort">
+<span class="sig-name descname"><span class="pre">_do_abort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reenqueue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.analysis.AbstractAnalysisQueue._do_abort" title="Permalink to this definition"></a></dt>
+<dd><p>Aborts analysis of the current entry. Needs to be overridden by sub classes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.analysis.AbstractAnalysisQueue.enqueue">
+<span class="sig-name descname"><span class="pre">enqueue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.analysis.AbstractAnalysisQueue.enqueue" title="Permalink to this definition"></a></dt>
+<dd><p>Enqueues an <code class="docutils literal notranslate"><span class="pre">entry</span></code> for analysis by the queue.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">high_priority</span></code> is True (defaults to False), the entry will be prioritized and hence processed before
+other entries in the queue with normal priority.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>entry</strong> (<a class="reference internal" href="#octoprint.filemanager.analysis.QueueEntry" title="octoprint.filemanager.analysis.QueueEntry"><em>QueueEntry</em></a>) – The <a class="reference internal" href="#octoprint.filemanager.analysis.QueueEntry" title="octoprint.filemanager.analysis.QueueEntry"><code class="xref py py-class docutils literal notranslate"><span class="pre">QueueEntry</span></code></a> to analyze.</p></li>
+<li><p><strong>high_priority</strong> (<em>boolean</em>) – Whether to process the provided entry with high priority (True) or not
+(False, default)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.analysis.AbstractAnalysisQueue.pause">
+<span class="sig-name descname"><span class="pre">pause</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.analysis.AbstractAnalysisQueue.pause" title="Permalink to this definition"></a></dt>
+<dd><p>Pauses processing of the queue, e.g. when a print is active.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.analysis.AbstractAnalysisQueue.resume">
+<span class="sig-name descname"><span class="pre">resume</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.analysis.AbstractAnalysisQueue.resume" title="Permalink to this definition"></a></dt>
+<dd><p>Resumes processing of the queue, e.g. when a print has finished.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="octoprint.filemanager.analysis.AnalysisAborted">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.filemanager.analysis.</span></span><span class="sig-name descname"><span class="pre">AnalysisAborted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reenqueue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.analysis.AnalysisAborted" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="octoprint.filemanager.analysis.AnalysisQueue">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.filemanager.analysis.</span></span><span class="sig-name descname"><span class="pre">AnalysisQueue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queue_factories</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.analysis.AnalysisQueue" title="Permalink to this definition"></a></dt>
+<dd><p>OctoPrint’s <a class="reference internal" href="#octoprint.filemanager.analysis.AnalysisQueue" title="octoprint.filemanager.analysis.AnalysisQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnalysisQueue</span></code></a> can manage various <a class="reference internal" href="#octoprint.filemanager.analysis.AbstractAnalysisQueue" title="octoprint.filemanager.analysis.AbstractAnalysisQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractAnalysisQueue</span></code></a> implementations, mapped
+by their machine code type.</p>
+<p>By invoking <code class="xref py py-meth docutils literal notranslate"><span class="pre">register_finish_callback()</span></code> it is possible to register oneself as a callback to be invoked each
+time the analysis of a queue entry finishes. The call parameters will be the finished queue entry as the first
+and the analysis result as the second parameter. It is also possible to remove the registration again by invoking
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">unregister_finish_callback()</span></code>.</p>
+<p><code class="xref py py-meth docutils literal notranslate"><span class="pre">enqueue()</span></code> allows enqueuing <a class="reference internal" href="#octoprint.filemanager.analysis.QueueEntry" title="octoprint.filemanager.analysis.QueueEntry"><code class="xref py py-class docutils literal notranslate"><span class="pre">QueueEntry</span></code></a> instances to analyze. If the <code class="xref py py-attr docutils literal notranslate"><span class="pre">QueueEntry.type</span></code> is unknown
+(no specific child class of <a class="reference internal" href="#octoprint.filemanager.analysis.AbstractAnalysisQueue" title="octoprint.filemanager.analysis.AbstractAnalysisQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractAnalysisQueue</span></code></a> is registered for it), nothing will happen. Otherwise the
+entry will be enqueued with the type specific analysis queue.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="octoprint.filemanager.analysis.GcodeAnalysisQueue">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.filemanager.analysis.</span></span><span class="sig-name descname"><span class="pre">GcodeAnalysisQueue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">finished_callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.analysis.GcodeAnalysisQueue" title="Permalink to this definition"></a></dt>
+<dd><p>A queue to analyze GCODE files. Analysis results are <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> instances structured as follows:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 74%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Key</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">estimatedPrintTime</span></code></p></td>
+<td><p>Estimated time the file take to print, in seconds</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">filament</span></code></p></td>
+<td><p>Substructure describing estimated filament usage. Keys are <code class="docutils literal notranslate"><span class="pre">tool0</span></code> for the first extruder, <code class="docutils literal notranslate"><span class="pre">tool1</span></code> for
+the second and so on. For each tool extruded length and volume (based on diameter) are provided.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">filament.toolX.length</span></code></p></td>
+<td><p>The extruded length in mm</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">filament.toolX.volume</span></code></p></td>
+<td><p>The extruded volume in cm³</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">printingArea</span></code></p></td>
+<td><p>Bounding box of the printed object in the print volume (minimum and maximum coordinates)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">printingArea.minX</span></code></p></td>
+<td><p>Minimum X coordinate of the printed object</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">printingArea.maxX</span></code></p></td>
+<td><p>Maximum X coordinate of the printed object</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">printingArea.minY</span></code></p></td>
+<td><p>Minimum Y coordinate of the printed object</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">printingArea.maxY</span></code></p></td>
+<td><p>Maximum Y coordinate of the printed object</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">printingArea.minZ</span></code></p></td>
+<td><p>Minimum Z coordinate of the printed object</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">printingArea.maxZ</span></code></p></td>
+<td><p>Maximum Z coordinate of the printed object</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dimensions</span></code></p></td>
+<td><p>Dimensions of the printed object in X, Y, Z</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dimensions.width</span></code></p></td>
+<td><p>Width of the printed model along the X axis, in mm</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dimensions.depth</span></code></p></td>
+<td><p>Depth of the printed model along the Y axis, in mm</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dimensions.height</span></code></p></td>
+<td><p>Height of the printed model along the Z axis, in mm</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">travelArea</span></code></p></td>
+<td><p>Bounding box of all machine movements (minimum and maximum coordinates)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">travelArea.minX</span></code></p></td>
+<td><p>Minimum X coordinate of the machine movement</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">travelArea.maxX</span></code></p></td>
+<td><p>Maximum X coordinate of the machine movement</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">travelArea.minY</span></code></p></td>
+<td><p>Minimum Y coordinate of the machine movement</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">travelArea.maxY</span></code></p></td>
+<td><p>Maximum Y coordinate of the machine movement</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">travelArea.minZ</span></code></p></td>
+<td><p>Minimum Z coordinate of the machine movement</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">travelArea.maxZ</span></code></p></td>
+<td><p>Maximum Z coordinate of the machine movement</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">travelDimensions</span></code></p></td>
+<td><p>Dimensions of the travel area in X, Y, Z</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">travelDimensions.width</span></code></p></td>
+<td><p>Width of the travel area along the X axis, in mm</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">travelDimensions.depth</span></code></p></td>
+<td><p>Depth of the travel area along the Y axis, in mm</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">travelDimensions.height</span></code></p></td>
+<td><p>Height of the travel area along the Z axis, in mm</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="octoprint.filemanager.analysis.QueueEntry">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.filemanager.analysis.</span></span><span class="sig-name descname"><span class="pre">QueueEntry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">absolute_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printer_profile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.analysis.QueueEntry" title="Permalink to this definition"></a></dt>
+<dd><p>A <a class="reference internal" href="#octoprint.filemanager.analysis.QueueEntry" title="octoprint.filemanager.analysis.QueueEntry"><code class="xref py py-class docutils literal notranslate"><span class="pre">QueueEntry</span></code></a> for processing through the <a class="reference internal" href="#octoprint.filemanager.analysis.AnalysisQueue" title="octoprint.filemanager.analysis.AnalysisQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnalysisQueue</span></code></a>. Wraps the entry’s properties necessary
+for processing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the file to analyze.</p></li>
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Storage location specific path to the file to analyze.</p></li>
+<li><p><strong>type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Type of file to analyze, necessary to map to the correct <a class="reference internal" href="#octoprint.filemanager.analysis.AbstractAnalysisQueue" title="octoprint.filemanager.analysis.AbstractAnalysisQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractAnalysisQueue</span></code></a> sub class.
+At the moment, only <code class="docutils literal notranslate"><span class="pre">gcode</span></code> is supported here.</p></li>
+<li><p><strong>location</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Location the file is located on.</p></li>
+<li><p><strong>absolute_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Absolute path on disk through which to access the file.</p></li>
+<li><p><strong>printer_profile</strong> (<em>PrinterProfile</em>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterProfile</span></code> which to use for analysis.</p></li>
+<li><p><strong>analysis</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – <a class="reference internal" href="#octoprint.filemanager.analysis.GcodeAnalysisQueue" title="octoprint.filemanager.analysis.GcodeAnalysisQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">GcodeAnalysisQueue</span></code></a> results from prior analysis, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if there is none.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-octoprint.filemanager.destinations">
+<span id="octoprint-filemanager-destinations"></span><span id="sec-modules-filemanager-destinations"></span><h1>octoprint.filemanager.destinations<a class="headerlink" href="#module-octoprint.filemanager.destinations" title="Permalink to this headline"></a></h1>
+</section>
+<section id="module-octoprint.filemanager.storage">
+<span id="octoprint-filemanager-storage"></span><span id="sec-modules-filemanager-storage"></span><h1>octoprint.filemanager.storage<a class="headerlink" href="#module-octoprint.filemanager.storage" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.filemanager.storage.</span></span><span class="sig-name descname"><span class="pre">LocalFileStorage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basefolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">really_universal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage" title="Permalink to this definition"></a></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">LocalFileStorage</span></code> is a storage implementation which holds all files, folders and metadata on disk.</p>
+<p>Metadata is managed inside <code class="docutils literal notranslate"><span class="pre">.metadata.json</span></code> files in the respective folders, indexed by the sanitized filenames
+stored within the folder. Metadata access is managed through an LRU cache to minimize access overhead.</p>
+<p>This storage type implements <a class="reference internal" href="#octoprint.filemanager.storage.LocalFileStorage.path_on_disk" title="octoprint.filemanager.storage.LocalFileStorage.path_on_disk"><code class="xref py py-func docutils literal notranslate"><span class="pre">path_on_disk()</span></code></a>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.add_file">
+<span class="sig-name descname"><span class="pre">add_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printer_profile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.add_file" title="Permalink to this definition"></a></dt>
+<dd><p>Adds the file <code class="docutils literal notranslate"><span class="pre">file_object</span></code> as <code class="docutils literal notranslate"><span class="pre">path</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>string</em>) – the file’s new path, will be sanitized</p></li>
+<li><p><strong>file_object</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em></a>) – a file object that provides a <code class="docutils literal notranslate"><span class="pre">save</span></code> method which will be called with the destination path
+where the object should then store its contents</p></li>
+<li><p><strong>printer_profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em></a>) – the printer profile associated with this file (if any)</p></li>
+<li><p><strong>links</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – any links to add with the file</p></li>
+<li><p><strong>allow_overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – if set to True no error will be raised if the file already exists and the existing file
+and its metadata will just be silently overwritten</p></li>
+<li><p><strong>display</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – display name of the file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the sanitized name of the file to be used for future references to it</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.add_folder">
+<span class="sig-name descname"><span class="pre">add_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_existing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.add_folder" title="Permalink to this definition"></a></dt>
+<dd><p>Adds a folder as <code class="docutils literal notranslate"><span class="pre">path</span></code></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">path</span></code> will be sanitized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>string</em>) – the path of the new folder</p></li>
+<li><p><strong>ignore_existing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – if set to True, no error will be raised if the folder to be added already exists</p></li>
+<li><p><strong>display</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – display name of the folder</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the sanitized name of the new folder to be used for future references to the folder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.add_link">
+<span class="sig-name descname"><span class="pre">add_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.add_link" title="Permalink to this definition"></a></dt>
+<dd><p>Adds a link of relation <code class="docutils literal notranslate"><span class="pre">rel</span></code> to file <code class="docutils literal notranslate"><span class="pre">path</span></code> with the given <code class="docutils literal notranslate"><span class="pre">data</span></code>.</p>
+<p>The following relation types are currently supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">model</span></code>: adds a link to a model from which the file was created/sliced, expected additional data is the <code class="docutils literal notranslate"><span class="pre">name</span></code>
+and optionally the <code class="docutils literal notranslate"><span class="pre">hash</span></code> of the file to link to. If the link can be resolved against another file on the
+current <code class="docutils literal notranslate"><span class="pre">path</span></code>, not only will it be added to the links of <code class="docutils literal notranslate"><span class="pre">name</span></code> but a reverse link of type <code class="docutils literal notranslate"><span class="pre">machinecode</span></code>
+referring to <code class="docutils literal notranslate"><span class="pre">name</span></code> and its hash will also be added to the linked <code class="docutils literal notranslate"><span class="pre">model</span></code> file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">machinecode</span></code>: adds a link to a file containing machine code created from the current file (model), expected
+additional data is the <code class="docutils literal notranslate"><span class="pre">name</span></code> and optionally the <code class="docutils literal notranslate"><span class="pre">hash</span></code> of the file to link to. If the link can be resolved
+against another file on the current <code class="docutils literal notranslate"><span class="pre">path</span></code>, not only will it be added to the links of <code class="docutils literal notranslate"><span class="pre">name</span></code> but a reverse
+link of type <code class="docutils literal notranslate"><span class="pre">model</span></code> referring to <code class="docutils literal notranslate"><span class="pre">name</span></code> and its hash will also be added to the linked <code class="docutils literal notranslate"><span class="pre">model</span></code> file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">web</span></code>: adds a location on the web associated with this file (e.g. a website where to download a model),
+expected additional data is a <code class="docutils literal notranslate"><span class="pre">href</span></code> attribute holding the website’s URL and optionally a <code class="docutils literal notranslate"><span class="pre">retrieved</span></code>
+attribute describing when the content was retrieved</p></li>
+</ul>
+</div></blockquote>
+<p>Note that adding <code class="docutils literal notranslate"><span class="pre">model</span></code> links to files identifying as models or <code class="docutils literal notranslate"><span class="pre">machinecode</span></code> links to files identifying
+as machine code will be refused.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – path of the file for which to add a link</p></li>
+<li><p><strong>rel</strong> – type of relation of the link to add (currently <code class="docutils literal notranslate"><span class="pre">model</span></code>, <code class="docutils literal notranslate"><span class="pre">machinecode</span></code> and <code class="docutils literal notranslate"><span class="pre">web</span></code> are supported)</p></li>
+<li><p><strong>data</strong> – additional data of the link to add</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.analysis_backlog">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">analysis_backlog</span></span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.analysis_backlog" title="Permalink to this definition"></a></dt>
+<dd><p>Get an iterator over all items stored in the storage that need to be analysed by the <code class="xref py py-class docutils literal notranslate"><span class="pre">AnalysisQueue</span></code>.</p>
+<p>The yielded elements are expected as storage specific absolute paths to the respective files. Don’t forget
+to recurse into folders if your storage adapter supports those.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>an iterator yielding all un-analysed files in the storage</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.canonicalize">
+<span class="sig-name descname"><span class="pre">canonicalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.canonicalize" title="Permalink to this definition"></a></dt>
+<dd><p>Canonicalizes the given <code class="docutils literal notranslate"><span class="pre">path</span></code>. The <code class="docutils literal notranslate"><span class="pre">path</span></code> may consist of both folder and file name, the underlying
+implementation must separate those if necessary.</p>
+<p>By default, this calls <code class="xref py py-func docutils literal notranslate"><span class="pre">sanitize()</span></code>, which also takes care
+of stripping any invalid characters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> – the path to canonicalize</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a 2-tuple containing the canonicalized path and file name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.copy_file">
+<span class="sig-name descname"><span class="pre">copy_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.copy_file" title="Permalink to this definition"></a></dt>
+<dd><p>Copies the file <code class="docutils literal notranslate"><span class="pre">source</span></code> to <code class="docutils literal notranslate"><span class="pre">destination</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<em>string</em>) – path to the source file</p></li>
+<li><p><strong>destination</strong> (<em>string</em>) – path to destination</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the path in the storage to the copy of the file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.copy_folder">
+<span class="sig-name descname"><span class="pre">copy_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.copy_folder" title="Permalink to this definition"></a></dt>
+<dd><p>Copies the folder <code class="docutils literal notranslate"><span class="pre">source</span></code> to <code class="docutils literal notranslate"><span class="pre">destination</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<em>string</em>) – path to the source folder</p></li>
+<li><p><strong>destination</strong> (<em>string</em>) – path to destination</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the path in the storage to the copy of the folder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.file_exists">
+<span class="sig-name descname"><span class="pre">file_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.file_exists" title="Permalink to this definition"></a></dt>
+<dd><p>Returns whether the file indicated by <code class="docutils literal notranslate"><span class="pre">path</span></code> exists or not.
+:param string path: the path to check for existence
+:return: <code class="docutils literal notranslate"><span class="pre">True</span></code> if the file exists, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.file_in_path">
+<span class="sig-name descname"><span class="pre">file_in_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.file_in_path" title="Permalink to this definition"></a></dt>
+<dd><p>Returns whether the file indicated by <code class="docutils literal notranslate"><span class="pre">file</span></code> is inside <code class="docutils literal notranslate"><span class="pre">path</span></code> or not.
+:param string path: the path to check
+:param string filepath: path to the file
+:return: <code class="docutils literal notranslate"><span class="pre">True</span></code> if the file is inside the path, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.folder_exists">
+<span class="sig-name descname"><span class="pre">folder_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.folder_exists" title="Permalink to this definition"></a></dt>
+<dd><p>Returns whether the folder indicated by <code class="docutils literal notranslate"><span class="pre">path</span></code> exists or not.
+:param string path: the path to check for existence
+:return: <code class="docutils literal notranslate"><span class="pre">True</span></code> if the folder exists, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.get_additional_metadata">
+<span class="sig-name descname"><span class="pre">get_additional_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.get_additional_metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Fetches additional metadata at <code class="docutils literal notranslate"><span class="pre">key</span></code> from the metadata of <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – the virtual path to the file for which to fetch additional metadata</p></li>
+<li><p><strong>key</strong> – key of metadata to fetch</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.get_metadata">
+<span class="sig-name descname"><span class="pre">get_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.get_metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves the metadata for the file <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> – virtual path to the file for which to retrieve the metadata</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the metadata associated with the file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.has_analysis">
+<span class="sig-name descname"><span class="pre">has_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.has_analysis" title="Permalink to this definition"></a></dt>
+<dd><p>Returns whether the file at path has been analysed yet</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> – virtual path to the file for which to retrieve the metadata</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.join_path">
+<span class="sig-name descname"><span class="pre">join_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.join_path" title="Permalink to this definition"></a></dt>
+<dd><p>Join path elements together
+:param path: path elements to join
+:return: joined representation of the path to be usable as fully qualified path for further operations</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.last_modified">
+<span class="sig-name descname"><span class="pre">last_modified</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.last_modified" title="Permalink to this definition"></a></dt>
+<dd><p>Get the last modification date of the specified <code class="docutils literal notranslate"><span class="pre">path</span></code> or <code class="docutils literal notranslate"><span class="pre">path</span></code>’s subtree.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><em>None</em>) – Path for which to determine the subtree’s last modification date. If left out or
+set to None, defatuls to storage root.</p></li>
+<li><p><strong>recursive</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to determine only the date of the specified <code class="docutils literal notranslate"><span class="pre">path</span></code> (False, default) or
+the whole <code class="docutils literal notranslate"><span class="pre">path</span></code>’s subtree (True).</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns: (float) The last modification date of the indicated subtree</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.list_files">
+<span class="sig-name descname"><span class="pre">list_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_refresh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.list_files" title="Permalink to this definition"></a></dt>
+<dd><p>List all files in storage starting at <code class="docutils literal notranslate"><span class="pre">path</span></code>. If <code class="docutils literal notranslate"><span class="pre">recursive</span></code> is set to True (the default), also dives into
+subfolders.</p>
+<p>An optional filter function can be supplied which will be called with a file name and file data and which has
+to return True if the file is to be included in the result or False if not.</p>
+<p>The data structure of the returned result will be a dictionary mapping from file names to entry data. File nodes
+will contain their metadata here, folder nodes will contain their contained files and folders. Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;some_folder&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;some_folder&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;some_folder&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;folder&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;some_sub_folder&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;some_sub_folder&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;some_folder/some_sub_folder&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;folder&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;typePath&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;folder&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;some_file.gcode&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;some_file.gcode&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;some_folder/some_file.gcode&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;machinecode&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;typePath&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;machinecode&quot;</span><span class="p">,</span> <span class="s2">&quot;gcode&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;sha1 hash&gt;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;links&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="o">...</span> <span class="p">],</span>
+        <span class="o">...</span>
+      <span class="p">},</span>
+      <span class="o">...</span>
+    <span class="p">}</span>
+  <span class="s2">&quot;test.gcode&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;test.gcode&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;test.gcode&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;machinecode&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;typePath&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;machinecode&quot;</span><span class="p">,</span> <span class="s2">&quot;gcode&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;sha1 hash&gt;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;links&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span>
+    <span class="o">...</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;test.stl&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;test.stl&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;test.stl&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;model&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;typePath&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="s2">&quot;stl&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;sha1 hash&gt;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;links&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span>
+    <span class="o">...</span>
+  <span class="p">},</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>string</em>) – base path from which to recursively list all files, optional, if not supplied listing will start
+from root of base folder</p></li>
+<li><p><strong>filter</strong> (<em>function</em>) – a filter that matches the files that are to be returned, may be left out in which case no
+filtering will take place</p></li>
+<li><p><strong>recursive</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – will also step into sub folders for building the complete list if set to True, otherwise will only
+do one step down into sub folders to be able to populate the <code class="docutils literal notranslate"><span class="pre">children</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dictionary mapping entry names to entry data that represents the whole file list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.move_file">
+<span class="sig-name descname"><span class="pre">move_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.move_file" title="Permalink to this definition"></a></dt>
+<dd><p>Moves the file <code class="docutils literal notranslate"><span class="pre">source</span></code> to <code class="docutils literal notranslate"><span class="pre">destination</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<em>string</em>) – path to the source file</p></li>
+<li><p><strong>destination</strong> (<em>string</em>) – path to destination</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the new path in the storage to the file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.move_folder">
+<span class="sig-name descname"><span class="pre">move_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.move_folder" title="Permalink to this definition"></a></dt>
+<dd><p>Moves the folder <code class="docutils literal notranslate"><span class="pre">source</span></code> to <code class="docutils literal notranslate"><span class="pre">destination</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<em>string</em>) – path to the source folder</p></li>
+<li><p><strong>destination</strong> (<em>string</em>) – path to destination</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the new path in the storage to the folder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.path_in_storage">
+<span class="sig-name descname"><span class="pre">path_in_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.path_in_storage" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves the equivalent in the storage adapter for <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
+<p>Opposite of <a class="reference internal" href="#octoprint.filemanager.storage.LocalFileStorage.path_on_disk" title="octoprint.filemanager.storage.LocalFileStorage.path_on_disk"><code class="xref py py-func docutils literal notranslate"><span class="pre">path_on_disk()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>string</em>) – the path for which to retrieve the storage path</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the path in storage to <code class="docutils literal notranslate"><span class="pre">path</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.path_on_disk">
+<span class="sig-name descname"><span class="pre">path_on_disk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.path_on_disk" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves the path on disk for <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
+<p>Note: if the storage is not on disk and there exists no path on disk to refer to it, this method should
+raise an <a class="reference external" href="https://docs.python.org/3/library/io.html#io.UnsupportedOperation" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.UnsupportedOperation</span></code></a></p>
+<p>Opposite of <a class="reference internal" href="#octoprint.filemanager.storage.LocalFileStorage.path_in_storage" title="octoprint.filemanager.storage.LocalFileStorage.path_in_storage"><code class="xref py py-func docutils literal notranslate"><span class="pre">path_in_storage()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>string</em>) – the virtual path for which to retrieve the path on disk</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the path on disk to <code class="docutils literal notranslate"><span class="pre">path</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.remove_additional_metadata">
+<span class="sig-name descname"><span class="pre">remove_additional_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.remove_additional_metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Removes additional metadata under <code class="docutils literal notranslate"><span class="pre">key</span></code> for <code class="docutils literal notranslate"><span class="pre">name</span></code> on <code class="docutils literal notranslate"><span class="pre">path</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – the virtual path to the file for which to remove the metadata under <code class="docutils literal notranslate"><span class="pre">key</span></code></p></li>
+<li><p><strong>key</strong> – the key to remove</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.remove_file">
+<span class="sig-name descname"><span class="pre">remove_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.remove_file" title="Permalink to this definition"></a></dt>
+<dd><p>Removes the file at <code class="docutils literal notranslate"><span class="pre">path</span></code></p>
+<p>Will also take care of deleting the corresponding entries
+in the metadata and deleting all links pointing to the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>string</em>) – path of the file to remove</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.remove_folder">
+<span class="sig-name descname"><span class="pre">remove_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.remove_folder" title="Permalink to this definition"></a></dt>
+<dd><p>Removes the folder at <code class="docutils literal notranslate"><span class="pre">path</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>string</em>) – the path of the folder to remove</p></li>
+<li><p><strong>recursive</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – if set to True, contained folders and files will also be removed, otherwise an error will
+be raised if the folder is not empty (apart from any metadata files) when it’s to be removed</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.remove_link">
+<span class="sig-name descname"><span class="pre">remove_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.remove_link" title="Permalink to this definition"></a></dt>
+<dd><p>Removes the link consisting of <code class="docutils literal notranslate"><span class="pre">rel</span></code> and <code class="docutils literal notranslate"><span class="pre">data</span></code> from file <code class="docutils literal notranslate"><span class="pre">name</span></code> on <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – path of the file from which to remove the link</p></li>
+<li><p><strong>rel</strong> – type of relation of the link to remove (currently <code class="docutils literal notranslate"><span class="pre">model</span></code>, <code class="docutils literal notranslate"><span class="pre">machinecode</span></code> and <code class="docutils literal notranslate"><span class="pre">web</span></code> are supported)</p></li>
+<li><p><strong>data</strong> – additional data of the link to remove, must match existing link</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.sanitize">
+<span class="sig-name descname"><span class="pre">sanitize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.sanitize" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a <code class="docutils literal notranslate"><span class="pre">(path,</span> <span class="pre">name)</span></code> tuple derived from the provided <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">path</span></code> may be:</dt><dd><ul class="simple">
+<li><p>a storage path</p></li>
+<li><p>an absolute file system path</p></li>
+<li><p>a tuple or list containing all individual path elements</p></li>
+<li><p>a string representation of the path</p></li>
+<li><p>with or without a file name</p></li>
+</ul>
+</dd>
+</dl>
+<p>Note that for a <code class="docutils literal notranslate"><span class="pre">path</span></code> without a trailing slash the last part will be considered a file name and
+hence be returned at second position. If you only need to convert a folder path, be sure to
+include a trailing slash for a string <code class="docutils literal notranslate"><span class="pre">path</span></code> or an empty last element for a list <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.sanitize_name">
+<span class="sig-name descname"><span class="pre">sanitize_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.sanitize_name" title="Permalink to this definition"></a></dt>
+<dd><p>Raises a <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></a> for a <code class="docutils literal notranslate"><span class="pre">name</span></code> containing <code class="docutils literal notranslate"><span class="pre">/</span></code> or <code class="docutils literal notranslate"><span class="pre">\</span></code>. Otherwise
+sanitizes the given <code class="docutils literal notranslate"><span class="pre">name</span></code> using <code class="docutils literal notranslate"><span class="pre">octoprint.files.sanitize_filename</span></code>. Also
+strips any leading <code class="docutils literal notranslate"><span class="pre">.</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.sanitize_path">
+<span class="sig-name descname"><span class="pre">sanitize_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.sanitize_path" title="Permalink to this definition"></a></dt>
+<dd><p>Ensures that the on disk representation of <code class="docutils literal notranslate"><span class="pre">path</span></code> is located under the configured basefolder. Resolves all
+relative path elements (e.g. <code class="docutils literal notranslate"><span class="pre">..</span></code>) and sanitizes folder names using <a class="reference internal" href="#octoprint.filemanager.storage.LocalFileStorage.sanitize_name" title="octoprint.filemanager.storage.LocalFileStorage.sanitize_name"><code class="xref py py-func docutils literal notranslate"><span class="pre">sanitize_name()</span></code></a>. Final path is the
+absolute path including leading <code class="docutils literal notranslate"><span class="pre">basefolder</span></code> path.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.set_additional_metadata">
+<span class="sig-name descname"><span class="pre">set_additional_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.set_additional_metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Adds additional metadata to the metadata of <code class="docutils literal notranslate"><span class="pre">path</span></code>. Metadata in <code class="docutils literal notranslate"><span class="pre">data</span></code> will be saved under <code class="docutils literal notranslate"><span class="pre">key</span></code>.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">overwrite</span></code> is set and <code class="docutils literal notranslate"><span class="pre">key</span></code> already exists in <code class="docutils literal notranslate"><span class="pre">name</span></code>’s metadata, the current value will be overwritten.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">merge</span></code> is set and <code class="docutils literal notranslate"><span class="pre">key</span></code> already exists and both <code class="docutils literal notranslate"><span class="pre">data</span></code> and the existing data under <code class="docutils literal notranslate"><span class="pre">key</span></code> are dictionaries,
+the two dictionaries will be merged recursively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – the virtual path to the file for which to add additional metadata</p></li>
+<li><p><strong>key</strong> – key of metadata to add</p></li>
+<li><p><strong>data</strong> – metadata to add</p></li>
+<li><p><strong>overwrite</strong> – if True and <code class="docutils literal notranslate"><span class="pre">key</span></code> already exists, it will be overwritten</p></li>
+<li><p><strong>merge</strong> – if True and <code class="docutils literal notranslate"><span class="pre">key</span></code> already exists and both <code class="docutils literal notranslate"><span class="pre">data</span></code> and the existing data are dictionaries, they
+will be merged</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.LocalFileStorage.split_path">
+<span class="sig-name descname"><span class="pre">split_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.LocalFileStorage.split_path" title="Permalink to this definition"></a></dt>
+<dd><p>Split <code class="docutils literal notranslate"><span class="pre">path</span></code> into base directory and file name.
+:param path: the path to split
+:return: a tuple (base directory, file name)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.filemanager.storage.</span></span><span class="sig-name descname"><span class="pre">StorageInterface</span></span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface" title="Permalink to this definition"></a></dt>
+<dd><p>Interface of storage adapters for OctoPrint.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.add_file">
+<span class="sig-name descname"><span class="pre">add_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printer_profile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.add_file" title="Permalink to this definition"></a></dt>
+<dd><p>Adds the file <code class="docutils literal notranslate"><span class="pre">file_object</span></code> as <code class="docutils literal notranslate"><span class="pre">path</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>string</em>) – the file’s new path, will be sanitized</p></li>
+<li><p><strong>file_object</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em></a>) – a file object that provides a <code class="docutils literal notranslate"><span class="pre">save</span></code> method which will be called with the destination path
+where the object should then store its contents</p></li>
+<li><p><strong>printer_profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em></a>) – the printer profile associated with this file (if any)</p></li>
+<li><p><strong>links</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – any links to add with the file</p></li>
+<li><p><strong>allow_overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – if set to True no error will be raised if the file already exists and the existing file
+and its metadata will just be silently overwritten</p></li>
+<li><p><strong>display</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – display name of the file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the sanitized name of the file to be used for future references to it</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.add_folder">
+<span class="sig-name descname"><span class="pre">add_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_existing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.add_folder" title="Permalink to this definition"></a></dt>
+<dd><p>Adds a folder as <code class="docutils literal notranslate"><span class="pre">path</span></code></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">path</span></code> will be sanitized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>string</em>) – the path of the new folder</p></li>
+<li><p><strong>ignore_existing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – if set to True, no error will be raised if the folder to be added already exists</p></li>
+<li><p><strong>display</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – display name of the folder</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the sanitized name of the new folder to be used for future references to the folder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.add_link">
+<span class="sig-name descname"><span class="pre">add_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.add_link" title="Permalink to this definition"></a></dt>
+<dd><p>Adds a link of relation <code class="docutils literal notranslate"><span class="pre">rel</span></code> to file <code class="docutils literal notranslate"><span class="pre">path</span></code> with the given <code class="docutils literal notranslate"><span class="pre">data</span></code>.</p>
+<p>The following relation types are currently supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">model</span></code>: adds a link to a model from which the file was created/sliced, expected additional data is the <code class="docutils literal notranslate"><span class="pre">name</span></code>
+and optionally the <code class="docutils literal notranslate"><span class="pre">hash</span></code> of the file to link to. If the link can be resolved against another file on the
+current <code class="docutils literal notranslate"><span class="pre">path</span></code>, not only will it be added to the links of <code class="docutils literal notranslate"><span class="pre">name</span></code> but a reverse link of type <code class="docutils literal notranslate"><span class="pre">machinecode</span></code>
+referring to <code class="docutils literal notranslate"><span class="pre">name</span></code> and its hash will also be added to the linked <code class="docutils literal notranslate"><span class="pre">model</span></code> file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">machinecode</span></code>: adds a link to a file containing machine code created from the current file (model), expected
+additional data is the <code class="docutils literal notranslate"><span class="pre">name</span></code> and optionally the <code class="docutils literal notranslate"><span class="pre">hash</span></code> of the file to link to. If the link can be resolved
+against another file on the current <code class="docutils literal notranslate"><span class="pre">path</span></code>, not only will it be added to the links of <code class="docutils literal notranslate"><span class="pre">name</span></code> but a reverse
+link of type <code class="docutils literal notranslate"><span class="pre">model</span></code> referring to <code class="docutils literal notranslate"><span class="pre">name</span></code> and its hash will also be added to the linked <code class="docutils literal notranslate"><span class="pre">model</span></code> file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">web</span></code>: adds a location on the web associated with this file (e.g. a website where to download a model),
+expected additional data is a <code class="docutils literal notranslate"><span class="pre">href</span></code> attribute holding the website’s URL and optionally a <code class="docutils literal notranslate"><span class="pre">retrieved</span></code>
+attribute describing when the content was retrieved</p></li>
+</ul>
+</div></blockquote>
+<p>Note that adding <code class="docutils literal notranslate"><span class="pre">model</span></code> links to files identifying as models or <code class="docutils literal notranslate"><span class="pre">machinecode</span></code> links to files identifying
+as machine code will be refused.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – path of the file for which to add a link</p></li>
+<li><p><strong>rel</strong> – type of relation of the link to add (currently <code class="docutils literal notranslate"><span class="pre">model</span></code>, <code class="docutils literal notranslate"><span class="pre">machinecode</span></code> and <code class="docutils literal notranslate"><span class="pre">web</span></code> are supported)</p></li>
+<li><p><strong>data</strong> – additional data of the link to add</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.analysis_backlog">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">analysis_backlog</span></span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.analysis_backlog" title="Permalink to this definition"></a></dt>
+<dd><p>Get an iterator over all items stored in the storage that need to be analysed by the <code class="xref py py-class docutils literal notranslate"><span class="pre">AnalysisQueue</span></code>.</p>
+<p>The yielded elements are expected as storage specific absolute paths to the respective files. Don’t forget
+to recurse into folders if your storage adapter supports those.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>an iterator yielding all un-analysed files in the storage</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.canonicalize">
+<span class="sig-name descname"><span class="pre">canonicalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.canonicalize" title="Permalink to this definition"></a></dt>
+<dd><p>Canonicalizes the given <code class="docutils literal notranslate"><span class="pre">path</span></code>. The <code class="docutils literal notranslate"><span class="pre">path</span></code> may consist of both folder and file name, the underlying
+implementation must separate those if necessary.</p>
+<p>By default, this calls <code class="xref py py-func docutils literal notranslate"><span class="pre">sanitize()</span></code>, which also takes care
+of stripping any invalid characters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> – the path to canonicalize</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a 2-tuple containing the canonicalized path and file name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.copy_file">
+<span class="sig-name descname"><span class="pre">copy_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.copy_file" title="Permalink to this definition"></a></dt>
+<dd><p>Copies the file <code class="docutils literal notranslate"><span class="pre">source</span></code> to <code class="docutils literal notranslate"><span class="pre">destination</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<em>string</em>) – path to the source file</p></li>
+<li><p><strong>destination</strong> (<em>string</em>) – path to destination</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the path in the storage to the copy of the file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.copy_folder">
+<span class="sig-name descname"><span class="pre">copy_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.copy_folder" title="Permalink to this definition"></a></dt>
+<dd><p>Copies the folder <code class="docutils literal notranslate"><span class="pre">source</span></code> to <code class="docutils literal notranslate"><span class="pre">destination</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<em>string</em>) – path to the source folder</p></li>
+<li><p><strong>destination</strong> (<em>string</em>) – path to destination</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the path in the storage to the copy of the folder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.file_exists">
+<span class="sig-name descname"><span class="pre">file_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.file_exists" title="Permalink to this definition"></a></dt>
+<dd><p>Returns whether the file indicated by <code class="docutils literal notranslate"><span class="pre">path</span></code> exists or not.
+:param string path: the path to check for existence
+:return: <code class="docutils literal notranslate"><span class="pre">True</span></code> if the file exists, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.file_in_path">
+<span class="sig-name descname"><span class="pre">file_in_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.file_in_path" title="Permalink to this definition"></a></dt>
+<dd><p>Returns whether the file indicated by <code class="docutils literal notranslate"><span class="pre">file</span></code> is inside <code class="docutils literal notranslate"><span class="pre">path</span></code> or not.
+:param string path: the path to check
+:param string filepath: path to the file
+:return: <code class="docutils literal notranslate"><span class="pre">True</span></code> if the file is inside the path, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.folder_exists">
+<span class="sig-name descname"><span class="pre">folder_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.folder_exists" title="Permalink to this definition"></a></dt>
+<dd><p>Returns whether the folder indicated by <code class="docutils literal notranslate"><span class="pre">path</span></code> exists or not.
+:param string path: the path to check for existence
+:return: <code class="docutils literal notranslate"><span class="pre">True</span></code> if the folder exists, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.get_additional_metadata">
+<span class="sig-name descname"><span class="pre">get_additional_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.get_additional_metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Fetches additional metadata at <code class="docutils literal notranslate"><span class="pre">key</span></code> from the metadata of <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – the virtual path to the file for which to fetch additional metadata</p></li>
+<li><p><strong>key</strong> – key of metadata to fetch</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.get_metadata">
+<span class="sig-name descname"><span class="pre">get_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.get_metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves the metadata for the file <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> – virtual path to the file for which to retrieve the metadata</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the metadata associated with the file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.has_analysis">
+<span class="sig-name descname"><span class="pre">has_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.has_analysis" title="Permalink to this definition"></a></dt>
+<dd><p>Returns whether the file at path has been analysed yet</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> – virtual path to the file for which to retrieve the metadata</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.join_path">
+<span class="sig-name descname"><span class="pre">join_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.join_path" title="Permalink to this definition"></a></dt>
+<dd><p>Join path elements together
+:param path: path elements to join
+:return: joined representation of the path to be usable as fully qualified path for further operations</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.last_modified">
+<span class="sig-name descname"><span class="pre">last_modified</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.last_modified" title="Permalink to this definition"></a></dt>
+<dd><p>Get the last modification date of the specified <code class="docutils literal notranslate"><span class="pre">path</span></code> or <code class="docutils literal notranslate"><span class="pre">path</span></code>’s subtree.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><em>None</em>) – Path for which to determine the subtree’s last modification date. If left out or
+set to None, defatuls to storage root.</p></li>
+<li><p><strong>recursive</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to determine only the date of the specified <code class="docutils literal notranslate"><span class="pre">path</span></code> (False, default) or
+the whole <code class="docutils literal notranslate"><span class="pre">path</span></code>’s subtree (True).</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns: (float) The last modification date of the indicated subtree</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.list_files">
+<span class="sig-name descname"><span class="pre">list_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_refresh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.list_files" title="Permalink to this definition"></a></dt>
+<dd><p>List all files in storage starting at <code class="docutils literal notranslate"><span class="pre">path</span></code>. If <code class="docutils literal notranslate"><span class="pre">recursive</span></code> is set to True (the default), also dives into
+subfolders.</p>
+<p>An optional filter function can be supplied which will be called with a file name and file data and which has
+to return True if the file is to be included in the result or False if not.</p>
+<p>The data structure of the returned result will be a dictionary mapping from file names to entry data. File nodes
+will contain their metadata here, folder nodes will contain their contained files and folders. Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;some_folder&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;some_folder&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;some_folder&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;folder&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;some_sub_folder&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;some_sub_folder&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;some_folder/some_sub_folder&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;folder&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;typePath&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;folder&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;some_file.gcode&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;some_file.gcode&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;some_folder/some_file.gcode&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;machinecode&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;typePath&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;machinecode&quot;</span><span class="p">,</span> <span class="s2">&quot;gcode&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;sha1 hash&gt;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;links&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="o">...</span> <span class="p">],</span>
+        <span class="o">...</span>
+      <span class="p">},</span>
+      <span class="o">...</span>
+    <span class="p">}</span>
+  <span class="s2">&quot;test.gcode&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;test.gcode&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;test.gcode&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;machinecode&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;typePath&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;machinecode&quot;</span><span class="p">,</span> <span class="s2">&quot;gcode&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;sha1 hash&gt;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;links&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span>
+    <span class="o">...</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;test.stl&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;test.stl&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;test.stl&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;model&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;typePath&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="s2">&quot;stl&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;sha1 hash&gt;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;links&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span>
+    <span class="o">...</span>
+  <span class="p">},</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>string</em>) – base path from which to recursively list all files, optional, if not supplied listing will start
+from root of base folder</p></li>
+<li><p><strong>filter</strong> (<em>function</em>) – a filter that matches the files that are to be returned, may be left out in which case no
+filtering will take place</p></li>
+<li><p><strong>recursive</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – will also step into sub folders for building the complete list if set to True, otherwise will only
+do one step down into sub folders to be able to populate the <code class="docutils literal notranslate"><span class="pre">children</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dictionary mapping entry names to entry data that represents the whole file list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.move_file">
+<span class="sig-name descname"><span class="pre">move_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.move_file" title="Permalink to this definition"></a></dt>
+<dd><p>Moves the file <code class="docutils literal notranslate"><span class="pre">source</span></code> to <code class="docutils literal notranslate"><span class="pre">destination</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<em>string</em>) – path to the source file</p></li>
+<li><p><strong>destination</strong> (<em>string</em>) – path to destination</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the new path in the storage to the file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.move_folder">
+<span class="sig-name descname"><span class="pre">move_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.move_folder" title="Permalink to this definition"></a></dt>
+<dd><p>Moves the folder <code class="docutils literal notranslate"><span class="pre">source</span></code> to <code class="docutils literal notranslate"><span class="pre">destination</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<em>string</em>) – path to the source folder</p></li>
+<li><p><strong>destination</strong> (<em>string</em>) – path to destination</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the new path in the storage to the folder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.path_in_storage">
+<span class="sig-name descname"><span class="pre">path_in_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.path_in_storage" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves the equivalent in the storage adapter for <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
+<p>Opposite of <a class="reference internal" href="#octoprint.filemanager.storage.StorageInterface.path_on_disk" title="octoprint.filemanager.storage.StorageInterface.path_on_disk"><code class="xref py py-func docutils literal notranslate"><span class="pre">path_on_disk()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>string</em>) – the path for which to retrieve the storage path</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the path in storage to <code class="docutils literal notranslate"><span class="pre">path</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.path_on_disk">
+<span class="sig-name descname"><span class="pre">path_on_disk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.path_on_disk" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves the path on disk for <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
+<p>Note: if the storage is not on disk and there exists no path on disk to refer to it, this method should
+raise an <a class="reference external" href="https://docs.python.org/3/library/io.html#io.UnsupportedOperation" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.UnsupportedOperation</span></code></a></p>
+<p>Opposite of <a class="reference internal" href="#octoprint.filemanager.storage.StorageInterface.path_in_storage" title="octoprint.filemanager.storage.StorageInterface.path_in_storage"><code class="xref py py-func docutils literal notranslate"><span class="pre">path_in_storage()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>string</em>) – the virtual path for which to retrieve the path on disk</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the path on disk to <code class="docutils literal notranslate"><span class="pre">path</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.remove_additional_metadata">
+<span class="sig-name descname"><span class="pre">remove_additional_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.remove_additional_metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Removes additional metadata under <code class="docutils literal notranslate"><span class="pre">key</span></code> for <code class="docutils literal notranslate"><span class="pre">name</span></code> on <code class="docutils literal notranslate"><span class="pre">path</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – the virtual path to the file for which to remove the metadata under <code class="docutils literal notranslate"><span class="pre">key</span></code></p></li>
+<li><p><strong>key</strong> – the key to remove</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.remove_file">
+<span class="sig-name descname"><span class="pre">remove_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.remove_file" title="Permalink to this definition"></a></dt>
+<dd><p>Removes the file at <code class="docutils literal notranslate"><span class="pre">path</span></code></p>
+<p>Will also take care of deleting the corresponding entries
+in the metadata and deleting all links pointing to the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>string</em>) – path of the file to remove</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.remove_folder">
+<span class="sig-name descname"><span class="pre">remove_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.remove_folder" title="Permalink to this definition"></a></dt>
+<dd><p>Removes the folder at <code class="docutils literal notranslate"><span class="pre">path</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>string</em>) – the path of the folder to remove</p></li>
+<li><p><strong>recursive</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – if set to True, contained folders and files will also be removed, otherwise an error will
+be raised if the folder is not empty (apart from any metadata files) when it’s to be removed</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.remove_link">
+<span class="sig-name descname"><span class="pre">remove_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.remove_link" title="Permalink to this definition"></a></dt>
+<dd><p>Removes the link consisting of <code class="docutils literal notranslate"><span class="pre">rel</span></code> and <code class="docutils literal notranslate"><span class="pre">data</span></code> from file <code class="docutils literal notranslate"><span class="pre">name</span></code> on <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – path of the file from which to remove the link</p></li>
+<li><p><strong>rel</strong> – type of relation of the link to remove (currently <code class="docutils literal notranslate"><span class="pre">model</span></code>, <code class="docutils literal notranslate"><span class="pre">machinecode</span></code> and <code class="docutils literal notranslate"><span class="pre">web</span></code> are supported)</p></li>
+<li><p><strong>data</strong> – additional data of the link to remove, must match existing link</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.sanitize">
+<span class="sig-name descname"><span class="pre">sanitize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.sanitize" title="Permalink to this definition"></a></dt>
+<dd><p>Sanitizes the given <code class="docutils literal notranslate"><span class="pre">path</span></code>, stripping it of all invalid characters. The <code class="docutils literal notranslate"><span class="pre">path</span></code> may consist of both
+folder and file name, the underlying implementation must separate those if necessary and sanitize individually.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>string</em>) – the path to sanitize</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a 2-tuple containing the sanitized path and file name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.sanitize_name">
+<span class="sig-name descname"><span class="pre">sanitize_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.sanitize_name" title="Permalink to this definition"></a></dt>
+<dd><p>Sanitizes the given file <code class="docutils literal notranslate"><span class="pre">name</span></code>, stripping it of all invalid characters.
+:param string name: the file name to sanitize
+:return: the sanitized name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.sanitize_path">
+<span class="sig-name descname"><span class="pre">sanitize_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.sanitize_path" title="Permalink to this definition"></a></dt>
+<dd><p>Sanitizes the given folder-only <code class="docutils literal notranslate"><span class="pre">path</span></code>, stripping it of all invalid characters.
+:param string path: the path to sanitize
+:return: the sanitized path</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.set_additional_metadata">
+<span class="sig-name descname"><span class="pre">set_additional_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.set_additional_metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Adds additional metadata to the metadata of <code class="docutils literal notranslate"><span class="pre">path</span></code>. Metadata in <code class="docutils literal notranslate"><span class="pre">data</span></code> will be saved under <code class="docutils literal notranslate"><span class="pre">key</span></code>.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">overwrite</span></code> is set and <code class="docutils literal notranslate"><span class="pre">key</span></code> already exists in <code class="docutils literal notranslate"><span class="pre">name</span></code>’s metadata, the current value will be overwritten.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">merge</span></code> is set and <code class="docutils literal notranslate"><span class="pre">key</span></code> already exists and both <code class="docutils literal notranslate"><span class="pre">data</span></code> and the existing data under <code class="docutils literal notranslate"><span class="pre">key</span></code> are dictionaries,
+the two dictionaries will be merged recursively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – the virtual path to the file for which to add additional metadata</p></li>
+<li><p><strong>key</strong> – key of metadata to add</p></li>
+<li><p><strong>data</strong> – metadata to add</p></li>
+<li><p><strong>overwrite</strong> – if True and <code class="docutils literal notranslate"><span class="pre">key</span></code> already exists, it will be overwritten</p></li>
+<li><p><strong>merge</strong> – if True and <code class="docutils literal notranslate"><span class="pre">key</span></code> already exists and both <code class="docutils literal notranslate"><span class="pre">data</span></code> and the existing data are dictionaries, they
+will be merged</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.storage.StorageInterface.split_path">
+<span class="sig-name descname"><span class="pre">split_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.storage.StorageInterface.split_path" title="Permalink to this definition"></a></dt>
+<dd><p>Split <code class="docutils literal notranslate"><span class="pre">path</span></code> into base directory and file name.
+:param path: the path to split
+:return: a tuple (base directory, file name)</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-octoprint.filemanager.util">
+<span id="octoprint-filemanager-util"></span><span id="sec-modules-filemanager-util"></span><h1>octoprint.filemanager.util<a class="headerlink" href="#module-octoprint.filemanager.util" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.AbstractFileWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.filemanager.util.</span></span><span class="sig-name descname"><span class="pre">AbstractFileWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.AbstractFileWrapper" title="Permalink to this definition"></a></dt>
+<dd><p>Wrapper for file representations to save to storages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The file’s name</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.AbstractFileWrapper.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permissions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.AbstractFileWrapper.save" title="Permalink to this definition"></a></dt>
+<dd><p>Saves the file’s content to the given absolute path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The absolute path to where to save the file</p></li>
+<li><p><strong>permissions</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The permissions to set on the file</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.AbstractFileWrapper.stream">
+<span class="sig-name descname"><span class="pre">stream</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.AbstractFileWrapper.stream" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a Python stream object (subclass of io.IOBase) representing the file’s contents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The file’s contents as a stream.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/io.html#io.IOBase" title="(in Python v3.11)">io.IOBase</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.DiskFileWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.filemanager.util.</span></span><span class="sig-name descname"><span class="pre">DiskFileWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">move</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.DiskFileWrapper" title="Permalink to this definition"></a></dt>
+<dd><p>An implementation of <a class="reference internal" href="#octoprint.filemanager.util.AbstractFileWrapper" title="octoprint.filemanager.util.AbstractFileWrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractFileWrapper</span></code></a> that wraps an actual file on disk. The <cite>save</cite> implementations
+will either copy the file to the new path (preserving file attributes) or – if <cite>move</cite> is <cite>True</cite> (the default) –
+move the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The file’s name</p></li>
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The file’s absolute path</p></li>
+<li><p><strong>move</strong> (<em>boolean</em>) – Whether to move the file upon saving (True, default) or copying.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.DiskFileWrapper.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permissions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.DiskFileWrapper.save" title="Permalink to this definition"></a></dt>
+<dd><p>Saves the file’s content to the given absolute path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The absolute path to where to save the file</p></li>
+<li><p><strong>permissions</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The permissions to set on the file</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.DiskFileWrapper.stream">
+<span class="sig-name descname"><span class="pre">stream</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.DiskFileWrapper.stream" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a Python stream object (subclass of io.IOBase) representing the file’s contents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The file’s contents as a stream.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/io.html#io.IOBase" title="(in Python v3.11)">io.IOBase</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.LineProcessorStream">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.filemanager.util.</span></span><span class="sig-name descname"><span class="pre">LineProcessorStream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_stream</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.LineProcessorStream" title="Permalink to this definition"></a></dt>
+<dd><p>While reading from this stream the provided <cite>input_stream</cite> is read line by line, calling the (overridable) method
+<a class="reference internal" href="#octoprint.filemanager.util.LineProcessorStream.process_line" title="octoprint.filemanager.util.LineProcessorStream.process_line"><code class="xref py py-meth docutils literal notranslate"><span class="pre">process_line()</span></code></a> for each read line.</p>
+<p>Sub classes can thus modify the contents of the <cite>input_stream</cite> in line, while it is being read. Keep in mind that
+<code class="docutils literal notranslate"><span class="pre">process_line</span></code> will receive the line as a byte stream - if underlying code needs to operate on unicode you’ll need
+to do the decoding yourself.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input_stream</strong> (<a class="reference external" href="https://docs.python.org/3/library/io.html#io.RawIOBase" title="(in Python v3.11)"><em>io.RawIOBase</em></a>) – The stream to process on the fly.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.LineProcessorStream.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.LineProcessorStream.close" title="Permalink to this definition"></a></dt>
+<dd><p>Flush and close the IO object.</p>
+<p>This method has no effect if the file is already closed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.LineProcessorStream.process_line">
+<span class="sig-name descname"><span class="pre">process_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.LineProcessorStream.process_line" title="Permalink to this definition"></a></dt>
+<dd><p>Called from the <cite>read</cite> Method of this stream with each line read from <cite>self.input_stream</cite>.</p>
+<p>By returning <code class="docutils literal notranslate"><span class="pre">None</span></code> the line will not be returned from the read stream, effectively being stripped from the
+wrapper <cite>input_stream</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>line</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><em>bytes</em></a>) – The line as read from <cite>self.input_stream</cite> in byte representation</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The processed version of the line (might also be multiple lines), or None if the line is to be</dt><dd><p>stripped from the processed stream.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)">bytes</a> or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.LineProcessorStream.readable">
+<span class="sig-name descname"><span class="pre">readable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.LineProcessorStream.readable" title="Permalink to this definition"></a></dt>
+<dd><p>Return whether object was opened for reading.</p>
+<p>If False, read() will raise OSError.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.LineProcessorStream.seekable">
+<span class="sig-name descname"><span class="pre">seekable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.LineProcessorStream.seekable" title="Permalink to this definition"></a></dt>
+<dd><p>Return whether object supports random access.</p>
+<p>If False, seek(), tell() and truncate() will raise OSError.
+This method may need to do a test seek().</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.LineProcessorStream.writable">
+<span class="sig-name descname"><span class="pre">writable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.LineProcessorStream.writable" title="Permalink to this definition"></a></dt>
+<dd><p>Return whether object was opened for writing.</p>
+<p>If False, write() will raise OSError.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.MultiStream">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.filemanager.util.</span></span><span class="sig-name descname"><span class="pre">MultiStream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">streams</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.MultiStream" title="Permalink to this definition"></a></dt>
+<dd><p>A stream implementation which when read reads from multiple streams, one after the other, basically concatenating
+their contents in the order they are provided to the constructor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*streams</strong> – One or more <a class="reference external" href="https://docs.python.org/3/library/io.html#io.IOBase" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.IOBase</span></code></a> streams to concatenate.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.MultiStream.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.MultiStream.close" title="Permalink to this definition"></a></dt>
+<dd><p>Flush and close the IO object.</p>
+<p>This method has no effect if the file is already closed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.MultiStream.readable">
+<span class="sig-name descname"><span class="pre">readable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.MultiStream.readable" title="Permalink to this definition"></a></dt>
+<dd><p>Return whether object was opened for reading.</p>
+<p>If False, read() will raise OSError.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.MultiStream.seekable">
+<span class="sig-name descname"><span class="pre">seekable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.MultiStream.seekable" title="Permalink to this definition"></a></dt>
+<dd><p>Return whether object supports random access.</p>
+<p>If False, seek(), tell() and truncate() will raise OSError.
+This method may need to do a test seek().</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.MultiStream.writable">
+<span class="sig-name descname"><span class="pre">writable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.MultiStream.writable" title="Permalink to this definition"></a></dt>
+<dd><p>Return whether object was opened for writing.</p>
+<p>If False, write() will raise OSError.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.StreamWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.filemanager.util.</span></span><span class="sig-name descname"><span class="pre">StreamWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">streams</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.StreamWrapper" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper allowing processing of one or more consecutive streams.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*streams</strong> – One or more <a class="reference external" href="https://docs.python.org/3/library/io.html#io.IOBase" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.IOBase</span></code></a> streams to process one after another to save to storage.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.StreamWrapper.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permissions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.StreamWrapper.save" title="Permalink to this definition"></a></dt>
+<dd><p>Will dump the contents of all streams provided during construction into the target file, in the order they were
+provided.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.filemanager.util.StreamWrapper.stream">
+<span class="sig-name descname"><span class="pre">stream</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.filemanager.util.StreamWrapper.stream" title="Permalink to this definition"></a></dt>
+<dd><p>If more than one stream was provided to the constructor, will return a <a class="reference internal" href="#octoprint.filemanager.util.MultiStream" title="octoprint.filemanager.util.MultiStream"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiStream</span></code></a> wrapping all
+provided streams in the order they were provided, else the first and only stream is returned directly.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cli.html" class="btn btn-neutral float-left" title="octoprint.cli" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="plugin.html" class="btn btn-neutral float-right" title="octoprint.plugin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2023, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.9.0rc2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.8.7/modules/filemanager.html">1.8.7</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.9.0rc2/modules/filemanager.html">1.9.0rc2</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/modules/filemanager.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/modules/filemanager.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/modules/filemanager.html">devel</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
