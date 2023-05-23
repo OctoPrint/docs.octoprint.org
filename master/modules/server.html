@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>octoprint.server &mdash; OctoPrint master documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <title>octoprint.server &mdash; OctoPrint master documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="octoprint.settings" href="settings.html" />
-    <link rel="prev" title="octoprint.printer" href="printer.html" /> 
+    <link rel="prev" title="octoprint.schema" href="schema.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -52,6 +56,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Internal Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="access.html">octoprint.access.users</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli.html">octoprint.cli</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli.html#module-octoprint.cli.dev">octoprint.cli.dev</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli.html#module-octoprint.cli.plugins">octoprint.cli.plugins</a></li>
@@ -66,6 +71,9 @@
 <li class="toctree-l2"><a class="reference internal" href="plugin.html#module-octoprint.plugin.types">octoprint.plugin.types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="printer.html">octoprint.printer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="printer.html#module-octoprint.printer.profile">octoprint.printer.profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schema.html">octoprint.schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#module-octoprint.schema.config">octoprint.schema.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#module-octoprint.schema.webcam">octoprint.schema.webcam</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">octoprint.server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-octoprint.server.util">octoprint.server.util</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-octoprint.server.util.flask">octoprint.server.util.flask</a></li>
@@ -74,7 +82,6 @@
 <li class="toctree-l2"><a class="reference internal" href="settings.html">octoprint.settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slicing.html">octoprint.slicing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slicing.html#module-octoprint.slicing.exceptions">octoprint.slicing.exceptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="users.html">octoprint.access.users</a></li>
 <li class="toctree-l2"><a class="reference internal" href="util.html">octoprint.util</a></li>
 <li class="toctree-l2"><a class="reference internal" href="util.html#module-octoprint.util.commandline">octoprint.util.commandline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="util.html#module-octoprint.util.platform">octoprint.util.platform</a></li>
@@ -139,50 +146,55 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="module-octoprint.server">
-<span id="octoprint-server"></span><span id="sec-modules-server"></span><h1>octoprint.server<a class="headerlink" href="#module-octoprint.server" title="Permalink to this headline">¶</a></h1>
+  <section id="module-octoprint.server">
+<span id="octoprint-server"></span><span id="sec-modules-server"></span><h1>octoprint.server<a class="headerlink" href="#module-octoprint.server" title="Permalink to this headline"></a></h1>
 <dl class="py exception">
-<dt id="octoprint.server.CannotStartServerException">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.</span></code><code class="sig-name descname"><span class="pre">CannotStartServerException</span></code><a class="headerlink" href="#octoprint.server.CannotStartServerException" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.CannotStartServerException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.</span></span><span class="sig-name descname"><span class="pre">CannotStartServerException</span></span><a class="headerlink" href="#octoprint.server.CannotStartServerException" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-</div>
-<div class="section" id="module-octoprint.server.util">
-<span id="octoprint-server-util"></span><span id="sec-modules-server-util"></span><h1>octoprint.server.util<a class="headerlink" href="#module-octoprint.server.util" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="octoprint.server.OctoPrintAnonymousIdentity">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.</span></span><span class="sig-name descname"><span class="pre">OctoPrintAnonymousIdentity</span></span><a class="headerlink" href="#octoprint.server.OctoPrintAnonymousIdentity" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-octoprint.server.util">
+<span id="octoprint-server-util"></span><span id="sec-modules-server-util"></span><h1>octoprint.server.util<a class="headerlink" href="#module-octoprint.server.util" title="Permalink to this headline"></a></h1>
 <dl class="py exception">
-<dt id="octoprint.server.util.InvalidApiKeyException">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></code><code class="sig-name descname"><span class="pre">InvalidApiKeyException</span></code><a class="headerlink" href="#octoprint.server.util.InvalidApiKeyException" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.InvalidApiKeyException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">InvalidApiKeyException</span></span><a class="headerlink" href="#octoprint.server.util.InvalidApiKeyException" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.corsRequestHandler">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></code><code class="sig-name descname"><span class="pre">corsRequestHandler</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.corsRequestHandler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.corsRequestHandler">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">corsRequestHandler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.corsRequestHandler" title="Permalink to this definition"></a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">before_request</span></code> handler for blueprints which sets CORS headers for OPTIONS requests if enabled</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.corsResponseHandler">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></code><code class="sig-name descname"><span class="pre">corsResponseHandler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.corsResponseHandler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.corsResponseHandler">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">corsResponseHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.corsResponseHandler" title="Permalink to this definition"></a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">after_request</span></code> handler for blueprints for which CORS is supported.</p>
 <p>Sets <code class="docutils literal notranslate"><span class="pre">Access-Control-Allow-Origin</span></code> headers for <code class="docutils literal notranslate"><span class="pre">Origin</span></code> request header on response.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.csrfRequestHandler">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></code><code class="sig-name descname"><span class="pre">csrfRequestHandler</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.csrfRequestHandler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.csrfRequestHandler">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">csrfRequestHandler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.csrfRequestHandler" title="Permalink to this definition"></a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">before_request</span></code> handler for blueprints which checks for CRFS double token on
 relevant requests &amp; methods.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.csrfResponseHandler">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></code><code class="sig-name descname"><span class="pre">csrfResponseHandler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.csrfResponseHandler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.csrfResponseHandler">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">csrfResponseHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.csrfResponseHandler" title="Permalink to this definition"></a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">after_request</span></code> handler for updating the CSRF cookie on each response.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.has_permissions">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></code><code class="sig-name descname"><span class="pre">has_permissions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">permissions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.has_permissions" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.has_permissions">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">has_permissions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">permissions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.has_permissions" title="Permalink to this definition"></a></dt>
 <dd><p>Determines if the current user (either from the session, api key or authorization
 header) has all of the requested permissions.</p>
 <dl class="field-list simple">
@@ -194,21 +206,21 @@ header) has all of the requested permissions.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.loginFromApiKeyRequestHandler">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></code><code class="sig-name descname"><span class="pre">loginFromApiKeyRequestHandler</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.loginFromApiKeyRequestHandler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.loginFromApiKeyRequestHandler">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">loginFromApiKeyRequestHandler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.loginFromApiKeyRequestHandler" title="Permalink to this definition"></a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">before_request</span></code> handler for blueprints which creates a login session for the provided api key (if available)</p>
 <p>App session keys are handled as anonymous keys here and ignored.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.loginFromAuthorizationHeaderRequestHandler">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></code><code class="sig-name descname"><span class="pre">loginFromAuthorizationHeaderRequestHandler</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.loginFromAuthorizationHeaderRequestHandler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.loginFromAuthorizationHeaderRequestHandler">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">loginFromAuthorizationHeaderRequestHandler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.loginFromAuthorizationHeaderRequestHandler" title="Permalink to this definition"></a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">before_request</span></code> handler for creating login sessions based on the Authorization header.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.loginUser">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></code><code class="sig-name descname"><span class="pre">loginUser</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remember</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">login_mechanism</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.loginUser" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.loginUser">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">loginUser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remember</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">login_mechanism</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.loginUser" title="Permalink to this definition"></a></dt>
 <dd><p>Logs the provided <code class="docutils literal notranslate"><span class="pre">user</span></code> into Flask Login and Principal if not None and active</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -222,16 +234,16 @@ header) has all of the requested permissions.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.noCachingExceptGetResponseHandler">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></code><code class="sig-name descname"><span class="pre">noCachingExceptGetResponseHandler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.noCachingExceptGetResponseHandler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.noCachingExceptGetResponseHandler">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">noCachingExceptGetResponseHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.noCachingExceptGetResponseHandler" title="Permalink to this definition"></a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">after_request</span></code> handler for blueprints which shall set no caching headers
 on their responses to any requests that are not sent with method <code class="docutils literal notranslate"><span class="pre">GET</span></code>.</p>
 <p>See <a class="reference internal" href="#octoprint.server.util.noCachingResponseHandler" title="octoprint.server.util.noCachingResponseHandler"><code class="xref py py-func docutils literal notranslate"><span class="pre">noCachingResponseHandler()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.noCachingResponseHandler">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></code><code class="sig-name descname"><span class="pre">noCachingResponseHandler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.noCachingResponseHandler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.noCachingResponseHandler">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">noCachingResponseHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.noCachingResponseHandler" title="Permalink to this definition"></a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">after_request</span></code> handler for blueprints which shall set no caching headers
 on their responses.</p>
 <p>Sets <code class="docutils literal notranslate"><span class="pre">Cache-Control</span></code>, <code class="docutils literal notranslate"><span class="pre">Pragma</span></code> and <code class="docutils literal notranslate"><span class="pre">Expires</span></code> headers accordingly
@@ -239,14 +251,14 @@ to prevent all client side caching from taking place.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.optionsAllowOrigin">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></code><code class="sig-name descname"><span class="pre">optionsAllowOrigin</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.optionsAllowOrigin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.optionsAllowOrigin">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">optionsAllowOrigin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.optionsAllowOrigin" title="Permalink to this definition"></a></dt>
 <dd><p>Shortcut for request handling for CORS OPTIONS requests to set CORS headers.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.require_login">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></code><code class="sig-name descname"><span class="pre">require_login</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">permissions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.require_login" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.require_login">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">require_login</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">permissions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.require_login" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a redirect response to the login view if the permission requirements are
 not met.</p>
 <dl class="field-list simple">
@@ -258,8 +270,8 @@ not met.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.require_login_with">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></code><code class="sig-name descname"><span class="pre">require_login_with</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">permissions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.require_login_with" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.require_login_with">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">require_login_with</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">permissions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.require_login_with" title="Permalink to this definition"></a></dt>
 <dd><p>Requires a login with the given permissions and/or user id.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -273,8 +285,8 @@ not met.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.validate_local_redirect">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></code><code class="sig-name descname"><span class="pre">validate_local_redirect</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_paths</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.validate_local_redirect" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.validate_local_redirect">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">validate_local_redirect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_paths</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.validate_local_redirect" title="Permalink to this definition"></a></dt>
 <dd><p>Validates the given local redirect URL against the given allowed paths.</p>
 <p>An <cite>url</cite> is valid for a local redirect if it has neither scheme nor netloc defined,
 and its path is one of the given allowed paths.</p>
@@ -283,7 +295,7 @@ and its path is one of the given allowed paths.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – URL to validate</p></li>
 <li><p><strong>allowed_paths</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – List of allowed paths, only paths contained
-will be considered valid.</p></li>
+or prefixed (if allowed path ends with “*”) will be considered valid.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -295,17 +307,17 @@ will be considered valid.</p></li>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="module-octoprint.server.util.flask">
-<span id="octoprint-server-util-flask"></span><span id="sec-modules-server-util-flask"></span><h1>octoprint.server.util.flask<a class="headerlink" href="#module-octoprint.server.util.flask" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="module-octoprint.server.util.flask">
+<span id="octoprint-server-util-flask"></span><span id="sec-modules-server-util-flask"></span><h1>octoprint.server.util.flask<a class="headerlink" href="#module-octoprint.server.util.flask" title="Permalink to this headline"></a></h1>
 <dl class="py class">
-<dt id="octoprint.server.util.flask.LessSimpleCache">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">LessSimpleCache</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.LessSimpleCache" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.LessSimpleCache">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">LessSimpleCache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.LessSimpleCache" title="Permalink to this definition"></a></dt>
 <dd><p>Slightly improved version of <code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleCache</span></code>.</p>
 <p>Setting <code class="docutils literal notranslate"><span class="pre">default_timeout</span></code> or <code class="docutils literal notranslate"><span class="pre">timeout</span></code> to <code class="docutils literal notranslate"><span class="pre">-1</span></code> will have no timeout be applied at all.</p>
 <dl class="py method">
-<dt id="octoprint.server.util.flask.LessSimpleCache.add">
-<code class="sig-name descname"><span class="pre">add</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.LessSimpleCache.add" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.LessSimpleCache.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.LessSimpleCache.add" title="Permalink to this definition"></a></dt>
 <dd><p>Works like <a class="reference internal" href="#octoprint.server.util.flask.LessSimpleCache.set" title="octoprint.server.util.flask.LessSimpleCache.set"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set()</span></code></a> but does not overwrite the values of already
 existing keys.</p>
 <dl class="field-list simple">
@@ -329,8 +341,8 @@ existing keys.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.flask.LessSimpleCache.delete">
-<code class="sig-name descname"><span class="pre">delete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.LessSimpleCache.delete" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.LessSimpleCache.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.LessSimpleCache.delete" title="Permalink to this definition"></a></dt>
 <dd><p>Delete <cite>key</cite> from the cache.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -346,8 +358,8 @@ existing keys.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.flask.LessSimpleCache.get">
-<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.LessSimpleCache.get" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.LessSimpleCache.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.LessSimpleCache.get" title="Permalink to this definition"></a></dt>
 <dd><p>Look up key in the cache and return the value for it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -360,8 +372,8 @@ existing keys.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.flask.LessSimpleCache.set">
-<code class="sig-name descname"><span class="pre">set</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.LessSimpleCache.set" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.LessSimpleCache.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.LessSimpleCache.set" title="Permalink to this definition"></a></dt>
 <dd><p>Add a new key/value to the cache (overwrites value, if key already
 exists in the cache).</p>
 <dl class="field-list simple">
@@ -388,35 +400,35 @@ errors. Pickling errors, however, will raise a subclass of
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.flask.OctoPrintFlaskRequest">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">OctoPrintFlaskRequest</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">environ</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskRequest" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="py method">
-<dt id="octoprint.server.util.flask.OctoPrintFlaskRequest.cookies">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">cookies</span></code><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskRequest.cookies" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.OctoPrintFlaskRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">OctoPrintFlaskRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">environ</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskRequest" title="Permalink to this definition"></a></dt>
+<dd><dl class="py property">
+<dt class="sig sig-object py" id="octoprint.server.util.flask.OctoPrintFlaskRequest.cookies">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cookies</span></span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskRequest.cookies" title="Permalink to this definition"></a></dt>
 <dd><p>A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> with the contents of all cookies transmitted with
 the request.</p>
 </dd></dl>
 
-<dl class="py method">
-<dt id="octoprint.server.util.flask.OctoPrintFlaskRequest.server_name">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">server_name</span></code><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskRequest.server_name" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="octoprint.server.util.flask.OctoPrintFlaskRequest.server_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">server_name</span></span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskRequest.server_name" title="Permalink to this definition"></a></dt>
 <dd><p>Short cut to the request’s server name header</p>
 </dd></dl>
 
-<dl class="py method">
-<dt id="octoprint.server.util.flask.OctoPrintFlaskRequest.server_port">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">server_port</span></code><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskRequest.server_port" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="octoprint.server.util.flask.OctoPrintFlaskRequest.server_port">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">server_port</span></span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskRequest.server_port" title="Permalink to this definition"></a></dt>
 <dd><p>Short cut to the request’s server port header</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.flask.OctoPrintFlaskResponse">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">OctoPrintFlaskResponse</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/http.html#http.HTTPStatus" title="(in Python v3.11)"><span class="pre">http.HTTPStatus</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mimetype</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direct_passthrough</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskResponse" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.OctoPrintFlaskResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">OctoPrintFlaskResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/http.html#http.HTTPStatus" title="(in Python v3.11)"><span class="pre">http.HTTPStatus</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.11)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mimetype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direct_passthrough</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskResponse" title="Permalink to this definition"></a></dt>
 <dd><dl class="py method">
-<dt id="octoprint.server.util.flask.OctoPrintFlaskResponse.delete_cookie">
-<code class="sig-name descname"><span class="pre">delete_cookie</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskResponse.delete_cookie" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.OctoPrintFlaskResponse.delete_cookie">
+<span class="sig-name descname"><span class="pre">delete_cookie</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskResponse.delete_cookie" title="Permalink to this definition"></a></dt>
 <dd><p>Delete a cookie.  Fails silently if key doesn’t exist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -437,8 +449,8 @@ attached to requests that are “same-site”.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.flask.OctoPrintFlaskResponse.set_cookie">
-<code class="sig-name descname"><span class="pre">set_cookie</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskResponse.set_cookie" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.OctoPrintFlaskResponse.set_cookie">
+<span class="sig-name descname"><span class="pre">set_cookie</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintFlaskResponse.set_cookie" title="Permalink to this definition"></a></dt>
 <dd><p>Sets a cookie.</p>
 <p>A warning is raised if the size of the cookie header exceeds
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">max_cookie_size</span></code>, but the header will still be set.</p>
@@ -471,33 +483,41 @@ attached to requests that are “same-site”.</p></li>
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.flask.OctoPrintJsonEncoder">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">OctoPrintJsonEncoder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skipkeys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ensure_ascii</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_circular</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_nan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separators</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintJsonEncoder" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.OctoPrintJsonProvider">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">OctoPrintJsonProvider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Flask</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintJsonProvider" title="Permalink to this definition"></a></dt>
 <dd><dl class="py method">
-<dt id="octoprint.server.util.flask.OctoPrintJsonEncoder.default">
-<code class="sig-name descname"><span class="pre">default</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintJsonEncoder.default" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert <code class="docutils literal notranslate"><span class="pre">o</span></code> to a JSON serializable type. See
-<a class="reference external" href="https://docs.python.org/3/library/json.html#json.JSONEncoder.default" title="(in Python v3.11)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">json.JSONEncoder.default()</span></code></a>. Python does not support
-overriding how basic types like <code class="docutils literal notranslate"><span class="pre">str</span></code> or <code class="docutils literal notranslate"><span class="pre">list</span></code> are
-serialized, they are handled before this method.</p>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.OctoPrintJsonProvider.dumps">
+<span class="sig-name descname"><span class="pre">dumps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintJsonProvider.dumps" title="Permalink to this definition"></a></dt>
+<dd><p>Serialize data as JSON to a string.</p>
+<p>Keyword arguments are passed to <a class="reference external" href="https://docs.python.org/3/library/json.html#json.dumps" title="(in Python v3.11)"><code class="xref py py-func docutils literal notranslate"><span class="pre">json.dumps()</span></code></a>. Sets some
+parameter defaults from the <code class="xref py py-attr docutils literal notranslate"><span class="pre">default</span></code>,
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">ensure_ascii</span></code>, and <code class="xref py py-attr docutils literal notranslate"><span class="pre">sort_keys</span></code> attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> – The data to serialize.</p></li>
+<li><p><strong>kwargs</strong> – Passed to <a class="reference external" href="https://docs.python.org/3/library/json.html#json.dumps" title="(in Python v3.11)"><code class="xref py py-func docutils literal notranslate"><span class="pre">json.dumps()</span></code></a>.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.flask.OctoPrintSessionInterface">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">OctoPrintSessionInterface</span></code><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintSessionInterface" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.OctoPrintSessionInterface">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">OctoPrintSessionInterface</span></span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintSessionInterface" title="Permalink to this definition"></a></dt>
 <dd><dl class="py method">
-<dt id="octoprint.server.util.flask.OctoPrintSessionInterface.save_session">
-<code class="sig-name descname"><span class="pre">save_session</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintSessionInterface.save_session" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.OctoPrintSessionInterface.save_session">
+<span class="sig-name descname"><span class="pre">save_session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintSessionInterface.save_session" title="Permalink to this definition"></a></dt>
 <dd><p>This is called at the end of each request, after generating
 a response, before removing the request context. It is skipped
 if <code class="xref py py-meth docutils literal notranslate"><span class="pre">is_null_session()</span></code> returns <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.flask.OctoPrintSessionInterface.should_set_cookie">
-<code class="sig-name descname"><span class="pre">should_set_cookie</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintSessionInterface.should_set_cookie" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.OctoPrintSessionInterface.should_set_cookie">
+<span class="sig-name descname"><span class="pre">should_set_cookie</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.OctoPrintSessionInterface.should_set_cookie" title="Permalink to this definition"></a></dt>
 <dd><p>Used by session backends to determine if a <code class="docutils literal notranslate"><span class="pre">Set-Cookie</span></code> header
 should be set for this session cookie for this response. If the session
 has been modified, the cookie is set. If the session is permanent and
@@ -512,11 +532,11 @@ always set.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.flask.PluginAssetResolver">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">PluginAssetResolver</span></code><a class="headerlink" href="#octoprint.server.util.flask.PluginAssetResolver" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.PluginAssetResolver">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">PluginAssetResolver</span></span><a class="headerlink" href="#octoprint.server.util.flask.PluginAssetResolver" title="Permalink to this definition"></a></dt>
 <dd><dl class="py method">
-<dt id="octoprint.server.util.flask.PluginAssetResolver.resolve_output_to_path">
-<code class="sig-name descname"><span class="pre">resolve_output_to_path</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bundle</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.PluginAssetResolver.resolve_output_to_path" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.PluginAssetResolver.resolve_output_to_path">
+<span class="sig-name descname"><span class="pre">resolve_output_to_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bundle</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.PluginAssetResolver.resolve_output_to_path" title="Permalink to this definition"></a></dt>
 <dd><p>Given <code class="docutils literal notranslate"><span class="pre">target</span></code>, this has to return the absolute
 filesystem path to which the output file of <code class="docutils literal notranslate"><span class="pre">bundle</span></code>
 should be written.</p>
@@ -527,19 +547,19 @@ still unresolved at this point.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.flask.PluginAssetResolver.split_prefix">
-<code class="sig-name descname"><span class="pre">split_prefix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.PluginAssetResolver.split_prefix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.PluginAssetResolver.split_prefix">
+<span class="sig-name descname"><span class="pre">split_prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.PluginAssetResolver.split_prefix" title="Permalink to this definition"></a></dt>
 <dd><p>See if <code class="docutils literal notranslate"><span class="pre">item</span></code> has blueprint prefix, return (directory, rel_path).</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.flask.PrefixAwareJinjaEnvironment">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">PrefixAwareJinjaEnvironment</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.PrefixAwareJinjaEnvironment" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.PrefixAwareJinjaEnvironment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">PrefixAwareJinjaEnvironment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.PrefixAwareJinjaEnvironment" title="Permalink to this definition"></a></dt>
 <dd><dl class="py method">
-<dt id="octoprint.server.util.flask.PrefixAwareJinjaEnvironment.join_path">
-<code class="sig-name descname"><span class="pre">join_path</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.PrefixAwareJinjaEnvironment.join_path" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.PrefixAwareJinjaEnvironment.join_path">
+<span class="sig-name descname"><span class="pre">join_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.PrefixAwareJinjaEnvironment.join_path" title="Permalink to this definition"></a></dt>
 <dd><p>Join a template with the parent.  By default all the lookups are
 relative to the loader root so this method returns the <cite>template</cite>
 parameter unchanged, but if the paths should be relative to the
@@ -552,17 +572,17 @@ joining here.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.flask.SettingsCheckUpdater">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">SettingsCheckUpdater</span></code><a class="headerlink" href="#octoprint.server.util.flask.SettingsCheckUpdater" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.SettingsCheckUpdater">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">SettingsCheckUpdater</span></span><a class="headerlink" href="#octoprint.server.util.flask.SettingsCheckUpdater" title="Permalink to this definition"></a></dt>
 <dd><dl class="py method">
-<dt id="octoprint.server.util.flask.SettingsCheckUpdater.build_done">
-<code class="sig-name descname"><span class="pre">build_done</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bundle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.SettingsCheckUpdater.build_done" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.SettingsCheckUpdater.build_done">
+<span class="sig-name descname"><span class="pre">build_done</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bundle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.SettingsCheckUpdater.build_done" title="Permalink to this definition"></a></dt>
 <dd><p>This will be called once a bundle has been successfully built.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.flask.SettingsCheckUpdater.needs_rebuild">
-<code class="sig-name descname"><span class="pre">needs_rebuild</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bundle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.SettingsCheckUpdater.needs_rebuild" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.SettingsCheckUpdater.needs_rebuild">
+<span class="sig-name descname"><span class="pre">needs_rebuild</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bundle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.SettingsCheckUpdater.needs_rebuild" title="Permalink to this definition"></a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the given bundle needs to be rebuilt,
 <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
 </dd></dl>
@@ -570,8 +590,8 @@ joining here.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.flask.check_lastmodified">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">check_lastmodified</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lastmodified</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.11)"><span class="pre">datetime.datetime</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a><a class="headerlink" href="#octoprint.server.util.flask.check_lastmodified" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.check_lastmodified">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">check_lastmodified</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lastmodified</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.11)"><span class="pre">datetime.datetime</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#octoprint.server.util.flask.check_lastmodified" title="Permalink to this definition"></a></dt>
 <dd><p>Compares the provided lastmodified value with the value of the If-Modified-Since header.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">lastmodified</span></code> is an int or float, it’s assumed to be a Unix timestamp and converted
 to a timezone aware datetime instance in UTC.</p>
@@ -594,16 +614,16 @@ result will always be <code class="docutils literal notranslate"><span class="pr
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.flask.firstrun_only_access">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">firstrun_only_access</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.firstrun_only_access" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.firstrun_only_access">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">firstrun_only_access</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.firstrun_only_access" title="Permalink to this definition"></a></dt>
 <dd><p>If you decorate a view with this, it will ensure that first setup has _not_ been
 done for OctoPrint’s Access Control. Otherwise it
 will cause a HTTP 403 status code to be returned by the decorated resource.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.flask.get_cookie_suffix">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">get_cookie_suffix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.get_cookie_suffix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.get_cookie_suffix">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">get_cookie_suffix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.get_cookie_suffix" title="Permalink to this definition"></a></dt>
 <dd><p>Request specific suffix for set and read cookies</p>
 <p>We need this because cookies are not port-specific and we don’t want to overwrite our
 session and other cookies from one OctoPrint instance on our machine with those of another
@@ -611,8 +631,8 @@ one who happens to listen on the same address albeit a different port or script 
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.flask.get_flask_user_from_request">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">get_flask_user_from_request</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.get_flask_user_from_request" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.get_flask_user_from_request">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">get_flask_user_from_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.get_flask_user_from_request" title="Permalink to this definition"></a></dt>
 <dd><p>Retrieves the current flask user from the request context. Uses API key if available, otherwise the current
 user session if available.</p>
 <dl class="field-list simple">
@@ -626,8 +646,8 @@ user session if available.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.flask.make_api_error">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">make_api_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.make_api_error" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.make_api_error">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">make_api_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.make_api_error" title="Permalink to this definition"></a></dt>
 <dd><p>Helper to generate API error responses in JSON format.</p>
 <p>Turns something like <code class="docutils literal notranslate"><span class="pre">make_api_error(&quot;Not</span> <span class="pre">Found&quot;,</span> <span class="pre">404)</span></code> into a JSON response
 with body <code class="docutils literal notranslate"><span class="pre">{&quot;error&quot;:</span> <span class="pre">&quot;Not</span> <span class="pre">Found&quot;}</span></code>.</p>
@@ -643,8 +663,8 @@ with body <code class="docutils literal notranslate"><span class="pre">{&quot;er
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.flask.make_text_response">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">make_text_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.make_text_response" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.make_text_response">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">make_text_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.make_text_response" title="Permalink to this definition"></a></dt>
 <dd><p>Helper to generate basic text responses.</p>
 <p>Response will have the provided message as body, the provided status code, and
 a content type of “text/plain”.</p>
@@ -660,8 +680,8 @@ a content type of “text/plain”.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.flask.no_firstrun_access">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">no_firstrun_access</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.no_firstrun_access" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.no_firstrun_access">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">no_firstrun_access</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.no_firstrun_access" title="Permalink to this definition"></a></dt>
 <dd><p>If you decorate a view with this, it will ensure that first setup has been
 done for OctoPrint’s Access Control.</p>
 <p>If OctoPrint’s Access Control has not been setup yet (indicated by the userManager
@@ -670,8 +690,8 @@ will cause a HTTP 403 status code to be returned by the decorated resource.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.flask.permission_validator">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">permission_validator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permission</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.permission_validator" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.permission_validator">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">permission_validator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permission</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.permission_validator" title="Permalink to this definition"></a></dt>
 <dd><p>Validates that the given request is made by an authorized user, identified either by API key or existing Flask
 session.</p>
 <p>Must be executed in an existing Flask request context!</p>
@@ -686,8 +706,8 @@ session.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.flask.redirect_to_tornado">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">redirect_to_tornado</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">302</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.redirect_to_tornado" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.redirect_to_tornado">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">redirect_to_tornado</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">302</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.redirect_to_tornado" title="Permalink to this definition"></a></dt>
 <dd><p>Redirects from flask to tornado, flask request context must exist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -704,20 +724,20 @@ session.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.flask.restricted_access">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></code><code class="sig-name descname"><span class="pre">restricted_access</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.restricted_access" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.flask.restricted_access">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">restricted_access</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.restricted_access" title="Permalink to this definition"></a></dt>
 <dd><p>This combines <a class="reference internal" href="#octoprint.server.util.flask.no_firstrun_access" title="octoprint.server.util.flask.no_firstrun_access"><code class="xref py py-func docutils literal notranslate"><span class="pre">no_firstrun_access()</span></code></a> and <code class="docutils literal notranslate"><span class="pre">login_required</span></code>.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="module-octoprint.server.util.sockjs">
-<span id="octoprint-server-util-sockjs"></span><span id="sec-modules-server-util-sockjs"></span><h1>octoprint.server.util.sockjs<a class="headerlink" href="#module-octoprint.server.util.sockjs" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="module-octoprint.server.util.sockjs">
+<span id="octoprint-server-util-sockjs"></span><span id="sec-modules-server-util-sockjs"></span><h1>octoprint.server.util.sockjs<a class="headerlink" href="#module-octoprint.server.util.sockjs" title="Permalink to this headline"></a></h1>
 <dl class="py class">
-<dt id="octoprint.server.util.sockjs.ThreadSafeSession">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.sockjs.</span></code><code class="sig-name descname"><span class="pre">ThreadSafeSession</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expiry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.sockjs.ThreadSafeSession" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.sockjs.ThreadSafeSession">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.sockjs.</span></span><span class="sig-name descname"><span class="pre">ThreadSafeSession</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expiry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.sockjs.ThreadSafeSession" title="Permalink to this definition"></a></dt>
 <dd><dl class="py method">
-<dt id="octoprint.server.util.sockjs.ThreadSafeSession.remove_handler">
-<code class="sig-name descname"><span class="pre">remove_handler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.sockjs.ThreadSafeSession.remove_handler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.sockjs.ThreadSafeSession.remove_handler">
+<span class="sig-name descname"><span class="pre">remove_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.sockjs.ThreadSafeSession.remove_handler" title="Permalink to this definition"></a></dt>
 <dd><p>Detach active handler from the session</p>
 <dl class="simple">
 <dt><cite>handler</cite></dt><dd><p>Handler to remove</p>
@@ -726,8 +746,8 @@ session.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.sockjs.ThreadSafeSession.set_handler">
-<code class="sig-name descname"><span class="pre">set_handler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_heartbeat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.sockjs.ThreadSafeSession.set_handler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.sockjs.ThreadSafeSession.set_handler">
+<span class="sig-name descname"><span class="pre">set_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_heartbeat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.sockjs.ThreadSafeSession.set_handler" title="Permalink to this definition"></a></dt>
 <dd><p>Set active handler for the session</p>
 <dl class="simple">
 <dt><cite>handler</cite></dt><dd><p>Associate active Tornado handler with the session</p>
@@ -739,17 +759,17 @@ session.</p>
 
 </dd></dl>
 
-</div>
-<div class="section" id="module-octoprint.server.util.tornado">
-<span id="octoprint-server-util-tornado"></span><span id="sec-modules-server-util-tornado"></span><h1>octoprint.server.util.tornado<a class="headerlink" href="#module-octoprint.server.util.tornado" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="module-octoprint.server.util.tornado">
+<span id="octoprint-server-util-tornado"></span><span id="sec-modules-server-util-tornado"></span><h1>octoprint.server.util.tornado<a class="headerlink" href="#module-octoprint.server.util.tornado" title="Permalink to this headline"></a></h1>
 <dl class="py class">
-<dt id="octoprint.server.util.tornado.CorsSupportMixin">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">CorsSupportMixin</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.CorsSupportMixin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.CorsSupportMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">CorsSupportMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.CorsSupportMixin" title="Permalink to this definition"></a></dt>
 <dd><p><a class="reference external" href="http://tornado.readthedocs.org/en/branch4.0/web.html#request-handlers">tornado.web.RequestHandler</a> mixin that
 makes sure to set CORS headers similarly to the Flask backed API endpoints.</p>
 <dl class="py method">
-<dt id="octoprint.server.util.tornado.CorsSupportMixin.set_default_headers">
-<code class="sig-name descname"><span class="pre">set_default_headers</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.CorsSupportMixin.set_default_headers" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.CorsSupportMixin.set_default_headers">
+<span class="sig-name descname"><span class="pre">set_default_headers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.CorsSupportMixin.set_default_headers" title="Permalink to this definition"></a></dt>
 <dd><p>Override this to set HTTP headers at the beginning of the request.</p>
 <p>For example, this is the place to set a custom <code class="docutils literal notranslate"><span class="pre">Server</span></code> header.
 Note that setting such headers in the normal flow of request
@@ -760,31 +780,31 @@ during error handling.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.tornado.CustomHTTP1Connection">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">CustomHTTP1Connection</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.CustomHTTP1Connection" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.CustomHTTP1Connection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">CustomHTTP1Connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.CustomHTTP1Connection" title="Permalink to this definition"></a></dt>
 <dd><p>A custom implementation of <code class="docutils literal notranslate"><span class="pre">tornado.http1connection.HTTP1Connection</span></code> which upon checking the <code class="docutils literal notranslate"><span class="pre">Content-Length</span></code> of
 the request against the configured maximum utilizes <code class="docutils literal notranslate"><span class="pre">max_body_sizes</span></code> and <code class="docutils literal notranslate"><span class="pre">default_max_body_size</span></code> as a fallback.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.tornado.CustomHTTP1ConnectionParameters">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">CustomHTTP1ConnectionParameters</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.CustomHTTP1ConnectionParameters" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.CustomHTTP1ConnectionParameters">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">CustomHTTP1ConnectionParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.CustomHTTP1ConnectionParameters" title="Permalink to this definition"></a></dt>
 <dd><p>An implementation of <code class="docutils literal notranslate"><span class="pre">tornado.http1connection.HTTP1ConnectionParameters</span></code> that adds two new parameters
 <code class="docutils literal notranslate"><span class="pre">max_body_sizes</span></code> and <code class="docutils literal notranslate"><span class="pre">default_max_body_size</span></code>.</p>
 <p>For a description of these please see the documentation of <code class="docutils literal notranslate"><span class="pre">CustomHTTPServer</span></code> above.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.tornado.CustomHTTP1ServerConnection">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">CustomHTTP1ServerConnection</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.iostream.IOStream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">tornado.http1connection.HTTP1ConnectionParameters</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><span class="pre">object</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.CustomHTTP1ServerConnection" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.CustomHTTP1ServerConnection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">CustomHTTP1ServerConnection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.iostream.IOStream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><span class="pre">tornado.http1connection.HTTP1ConnectionParameters</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><span class="pre">object</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.CustomHTTP1ServerConnection" title="Permalink to this definition"></a></dt>
 <dd><p>A custom implementation of <code class="docutils literal notranslate"><span class="pre">tornado.http1connection.HTTP1ServerConnection</span></code> which utilizes a <code class="docutils literal notranslate"><span class="pre">CustomHTTP1Connection</span></code>
 instead of a <code class="docutils literal notranslate"><span class="pre">tornado.http1connection.HTTP1Connection</span></code> in <code class="docutils literal notranslate"><span class="pre">_server_request_loop</span></code>. The implementation logic is
 otherwise the same as <code class="docutils literal notranslate"><span class="pre">tornado.http1connection.HTTP1ServerConnection</span></code>.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.tornado.CustomHTTPServer">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">CustomHTTPServer</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.CustomHTTPServer" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.CustomHTTPServer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">CustomHTTPServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.CustomHTTPServer" title="Permalink to this definition"></a></dt>
 <dd><p>Custom implementation of <code class="docutils literal notranslate"><span class="pre">tornado.httpserver.HTTPServer</span></code> that allows defining max body sizes depending on path and
 method.</p>
 <p>The implementation is mostly taken from <code class="docutils literal notranslate"><span class="pre">tornado.httpserver.HTTPServer</span></code>, the only difference is the creation
@@ -796,8 +816,8 @@ connection by a client.</p>
 with method and path regex having to match in order for maximum body size to take affect.</p>
 <p><code class="docutils literal notranslate"><span class="pre">default_max_body_size</span></code> is the default maximum body size to apply if no specific one from <code class="docutils literal notranslate"><span class="pre">max_body_sizes</span></code> matches.</p>
 <dl class="py method">
-<dt id="octoprint.server.util.tornado.CustomHTTPServer.handle_stream">
-<code class="sig-name descname"><span class="pre">handle_stream</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.CustomHTTPServer.handle_stream" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.CustomHTTPServer.handle_stream">
+<span class="sig-name descname"><span class="pre">handle_stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.CustomHTTPServer.handle_stream" title="Permalink to this definition"></a></dt>
 <dd><p>Override to handle a new <cite>.IOStream</cite> from an incoming connection.</p>
 <p>This method may be a coroutine; if so any exceptions it raises
 asynchronously will be logged. Accepting of incoming connections
@@ -814,8 +834,8 @@ certificate or use NPN/ALPN.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.tornado.DeprecatedEndpointHandler">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">DeprecatedEndpointHandler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.DeprecatedEndpointHandler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.DeprecatedEndpointHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">DeprecatedEndpointHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.DeprecatedEndpointHandler" title="Permalink to this definition"></a></dt>
 <dd><p><a class="reference external" href="http://tornado.readthedocs.org/en/branch4.0/web.html#request-handlers">tornado.web.RequestHandler</a> that redirects
 to another <code class="docutils literal notranslate"><span class="pre">url</span></code> and logs a deprecation warning.</p>
 <dl class="field-list simple">
@@ -826,18 +846,18 @@ to another <code class="docutils literal notranslate"><span class="pre">url</spa
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.tornado.DynamicZipBundleHandler">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">DynamicZipBundleHandler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.DynamicZipBundleHandler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.DynamicZipBundleHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">DynamicZipBundleHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.DynamicZipBundleHandler" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.tornado.GlobalHeaderTransform">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">GlobalHeaderTransform</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.GlobalHeaderTransform" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.GlobalHeaderTransform">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">GlobalHeaderTransform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.GlobalHeaderTransform" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.tornado.LargeResponseHandler">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">LargeResponseHandler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.LargeResponseHandler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.LargeResponseHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">LargeResponseHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.LargeResponseHandler" title="Permalink to this definition"></a></dt>
 <dd><p>Customized <a class="reference external" href="http://tornado.readthedocs.org/en/branch4.0/web.html#tornado.web.StaticFileHandler">tornado.web.StaticFileHandler</a>
 that allows delivery of the requested resource as attachment and access and request path validation through
 optional callbacks. Note that access validation takes place before path validation.</p>
@@ -875,8 +895,8 @@ directory with the same name, but with ‘.gz’ appended and gzip-encoded</p></
 </dd>
 </dl>
 <dl class="py method">
-<dt id="octoprint.server.util.tornado.LargeResponseHandler.compute_etag">
-<code class="sig-name descname"><span class="pre">compute_etag</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.LargeResponseHandler.compute_etag" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.LargeResponseHandler.compute_etag">
+<span class="sig-name descname"><span class="pre">compute_etag</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.LargeResponseHandler.compute_etag" title="Permalink to this definition"></a></dt>
 <dd><p>Computes the etag header to be used for this request.</p>
 <p>By default uses a hash of the content written so far.</p>
 <p>May be overridden to provide custom etag implementations,
@@ -884,8 +904,8 @@ or may return None to disable tornado’s default etag support.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.tornado.LargeResponseHandler.get_content_type">
-<code class="sig-name descname"><span class="pre">get_content_type</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.LargeResponseHandler.get_content_type" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.LargeResponseHandler.get_content_type">
+<span class="sig-name descname"><span class="pre">get_content_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.LargeResponseHandler.get_content_type" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the <code class="docutils literal notranslate"><span class="pre">Content-Type</span></code> header to be used for this request.</p>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 3.1.</span></p>
@@ -893,8 +913,8 @@ or may return None to disable tornado’s default etag support.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.tornado.LargeResponseHandler.get_content_version">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_content_version</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abspath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.LargeResponseHandler.get_content_version" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.LargeResponseHandler.get_content_version">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_content_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abspath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.LargeResponseHandler.get_content_version" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a version string for the resource at the given path.</p>
 <p>This class method may be overridden by subclasses.  The
 default implementation is a SHA-512 hash of the file’s contents.</p>
@@ -903,21 +923,21 @@ default implementation is a SHA-512 hash of the file’s contents.</p>
 </div>
 </dd></dl>
 
-<dl class="py method">
-<dt id="octoprint.server.util.tornado.LargeResponseHandler.original_absolute_path">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">original_absolute_path</span></code><a class="headerlink" href="#octoprint.server.util.tornado.LargeResponseHandler.original_absolute_path" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.LargeResponseHandler.original_absolute_path">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">original_absolute_path</span></span><a class="headerlink" href="#octoprint.server.util.tornado.LargeResponseHandler.original_absolute_path" title="Permalink to this definition"></a></dt>
 <dd><p>The path of the uncompressed file corresponding to the compressed file</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.tornado.LargeResponseHandler.set_extra_headers">
-<code class="sig-name descname"><span class="pre">set_extra_headers</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.LargeResponseHandler.set_extra_headers" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.LargeResponseHandler.set_extra_headers">
+<span class="sig-name descname"><span class="pre">set_extra_headers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.LargeResponseHandler.set_extra_headers" title="Permalink to this definition"></a></dt>
 <dd><p>For subclass to add extra headers to the response</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.tornado.LargeResponseHandler.streamed_get">
-<code class="sig-name descname"><span class="pre">streamed_get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.LargeResponseHandler.streamed_get" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.LargeResponseHandler.streamed_get">
+<span class="sig-name descname"><span class="pre">streamed_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.LargeResponseHandler.streamed_get" title="Permalink to this definition"></a></dt>
 <dd><p>Version of StaticFileHandler.get that doesn’t support ranges or ETag but streams the content. Helpful for files
 that might still change while being transmitted (e.g. log files)</p>
 </dd></dl>
@@ -925,11 +945,11 @@ that might still change while being transmitted (e.g. log files)</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.tornado.RequestlessExceptionLoggingMixin">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">RequestlessExceptionLoggingMixin</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.RequestlessExceptionLoggingMixin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.RequestlessExceptionLoggingMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">RequestlessExceptionLoggingMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.RequestlessExceptionLoggingMixin" title="Permalink to this definition"></a></dt>
 <dd><dl class="py method">
-<dt id="octoprint.server.util.tornado.RequestlessExceptionLoggingMixin.log_exception">
-<code class="sig-name descname"><span class="pre">log_exception</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">typ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tb</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.RequestlessExceptionLoggingMixin.log_exception" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.RequestlessExceptionLoggingMixin.log_exception">
+<span class="sig-name descname"><span class="pre">log_exception</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">typ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tb</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.RequestlessExceptionLoggingMixin.log_exception" title="Permalink to this definition"></a></dt>
 <dd><p>Override to customize logging of uncaught exceptions.</p>
 <p>By default logs instances of <cite>HTTPError</cite> as warnings without
 stack traces (on the <code class="docutils literal notranslate"><span class="pre">tornado.general</span></code> logger), and all
@@ -943,8 +963,8 @@ other exceptions as errors with stack traces (on the
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.tornado.StaticDataHandler">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">StaticDataHandler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.StaticDataHandler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.StaticDataHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">StaticDataHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.StaticDataHandler" title="Permalink to this definition"></a></dt>
 <dd><p><a class="reference external" href="http://tornado.readthedocs.org/en/branch4.0/web.html#request-handlers">tornado.web.RequestHandler</a> that returns
 static <code class="docutils literal notranslate"><span class="pre">data</span></code> of a configured <code class="docutils literal notranslate"><span class="pre">content_type</span></code>.</p>
 <dl class="field-list simple">
@@ -958,18 +978,18 @@ static <code class="docutils literal notranslate"><span class="pre">data</span><
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.tornado.StaticZipBundleHandler">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">StaticZipBundleHandler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.StaticZipBundleHandler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.StaticZipBundleHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">StaticZipBundleHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.StaticZipBundleHandler" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.tornado.SystemInfoBundleHandler">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">SystemInfoBundleHandler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.SystemInfoBundleHandler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.SystemInfoBundleHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">SystemInfoBundleHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.SystemInfoBundleHandler" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.tornado.UploadStorageFallbackHandler">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">UploadStorageFallbackHandler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">UploadStorageFallbackHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler" title="Permalink to this definition"></a></dt>
 <dd><p>A <code class="docutils literal notranslate"><span class="pre">RequestHandler</span></code> similar to <code class="docutils literal notranslate"><span class="pre">tornado.web.FallbackHandler</span></code> which fetches any files contained in the request bodies
 of content type <code class="docutils literal notranslate"><span class="pre">multipart</span></code>, stores them in temporary files and supplies the <code class="docutils literal notranslate"><span class="pre">fallback</span></code> with the file’s <code class="docutils literal notranslate"><span class="pre">name</span></code>,
 <code class="docutils literal notranslate"><span class="pre">content_type</span></code>, <code class="docutils literal notranslate"><span class="pre">path</span></code> and <code class="docutils literal notranslate"><span class="pre">size</span></code> instead via a rewritten body.</p>
@@ -1026,14 +1046,14 @@ Content-Type: text/plain; charset=utf-8
 <p>The underlying application can then access the contained files via their respective paths and just move them
 where necessary.</p>
 <dl class="py attribute">
-<dt id="octoprint.server.util.tornado.UploadStorageFallbackHandler.BODY_METHODS">
-<code class="sig-name descname"><span class="pre">BODY_METHODS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">('POST',</span> <span class="pre">'PATCH',</span> <span class="pre">'PUT')</span></em><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.BODY_METHODS" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.BODY_METHODS">
+<span class="sig-name descname"><span class="pre">BODY_METHODS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('POST',</span> <span class="pre">'PATCH',</span> <span class="pre">'PUT')</span></em><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.BODY_METHODS" title="Permalink to this definition"></a></dt>
 <dd><p>The request methods that may contain a request body.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.tornado.UploadStorageFallbackHandler.data_received">
-<code class="sig-name descname"><span class="pre">data_received</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.data_received" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.data_received">
+<span class="sig-name descname"><span class="pre">data_received</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.data_received" title="Permalink to this definition"></a></dt>
 <dd><p>Called by Tornado on receiving a chunk of the request body. If request is a multipart request, takes care of
 processing the multipart data structure via <code class="xref py py-func docutils literal notranslate"><span class="pre">_process_multipart_data()</span></code>. If not, just adds the chunk to
 internal in-memory buffer.</p>
@@ -1045,64 +1065,64 @@ internal in-memory buffer.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.tornado.UploadStorageFallbackHandler.delete">
-<code class="sig-name descname"><span class="pre">delete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.delete" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.delete" title="Permalink to this definition"></a></dt>
 <dd><p>Takes care of defining the new request body if necessary and forwarding
 the current request and changed body to the <code class="docutils literal notranslate"><span class="pre">fallback</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.tornado.UploadStorageFallbackHandler.get">
-<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.get" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.get" title="Permalink to this definition"></a></dt>
 <dd><p>Takes care of defining the new request body if necessary and forwarding
 the current request and changed body to the <code class="docutils literal notranslate"><span class="pre">fallback</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.tornado.UploadStorageFallbackHandler.head">
-<code class="sig-name descname"><span class="pre">head</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.head" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.head">
+<span class="sig-name descname"><span class="pre">head</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.head" title="Permalink to this definition"></a></dt>
 <dd><p>Takes care of defining the new request body if necessary and forwarding
 the current request and changed body to the <code class="docutils literal notranslate"><span class="pre">fallback</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.tornado.UploadStorageFallbackHandler.is_multipart">
-<code class="sig-name descname"><span class="pre">is_multipart</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.is_multipart" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.is_multipart">
+<span class="sig-name descname"><span class="pre">is_multipart</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.is_multipart" title="Permalink to this definition"></a></dt>
 <dd><p>Checks whether this request is a <code class="docutils literal notranslate"><span class="pre">multipart</span></code> request</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.tornado.UploadStorageFallbackHandler.options">
-<code class="sig-name descname"><span class="pre">options</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.options" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.options">
+<span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.options" title="Permalink to this definition"></a></dt>
 <dd><p>Takes care of defining the new request body if necessary and forwarding
 the current request and changed body to the <code class="docutils literal notranslate"><span class="pre">fallback</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.tornado.UploadStorageFallbackHandler.patch">
-<code class="sig-name descname"><span class="pre">patch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.patch" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.patch">
+<span class="sig-name descname"><span class="pre">patch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.patch" title="Permalink to this definition"></a></dt>
 <dd><p>Takes care of defining the new request body if necessary and forwarding
 the current request and changed body to the <code class="docutils literal notranslate"><span class="pre">fallback</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.tornado.UploadStorageFallbackHandler.post">
-<code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.post" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.post" title="Permalink to this definition"></a></dt>
 <dd><p>Takes care of defining the new request body if necessary and forwarding
 the current request and changed body to the <code class="docutils literal notranslate"><span class="pre">fallback</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.tornado.UploadStorageFallbackHandler.prepare">
-<code class="sig-name descname"><span class="pre">prepare</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.prepare" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.prepare">
+<span class="sig-name descname"><span class="pre">prepare</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.prepare" title="Permalink to this definition"></a></dt>
 <dd><p>Prepares the processing of the request. If it’s a request that may contain a request body (as defined in
 <a class="reference internal" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.BODY_METHODS" title="octoprint.server.util.tornado.UploadStorageFallbackHandler.BODY_METHODS"><code class="xref py py-attr docutils literal notranslate"><span class="pre">UploadStorageFallbackHandler.BODY_METHODS</span></code></a>) prepares the multipart parsing if content type fits. If it’s a
 body-less request, just calls the <code class="docutils literal notranslate"><span class="pre">fallback</span></code> with an empty body and finishes the request.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="octoprint.server.util.tornado.UploadStorageFallbackHandler.put">
-<code class="sig-name descname"><span class="pre">put</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.put" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.put" title="Permalink to this definition"></a></dt>
 <dd><p>Takes care of defining the new request body if necessary and forwarding
 the current request and changed body to the <code class="docutils literal notranslate"><span class="pre">fallback</span></code>.</p>
 </dd></dl>
@@ -1110,8 +1130,8 @@ the current request and changed body to the <code class="docutils literal notran
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.tornado.UrlProxyHandler">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">UrlProxyHandler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UrlProxyHandler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.UrlProxyHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">UrlProxyHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UrlProxyHandler" title="Permalink to this definition"></a></dt>
 <dd><p><a class="reference external" href="http://tornado.readthedocs.org/en/branch4.0/web.html#request-handlers">tornado.web.RequestHandler</a> that proxies
 requests to a preconfigured url and returns the response. Allows delivery of the requested content as attachment
 and access validation through an optional callback.</p>
@@ -1144,8 +1164,8 @@ Defaults to <code class="docutils literal notranslate"><span class="pre">None</s
 </dd></dl>
 
 <dl class="py class">
-<dt id="octoprint.server.util.tornado.WsgiInputContainer">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">WsgiInputContainer</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wsgi_application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forced_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removed_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.WsgiInputContainer" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.WsgiInputContainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">WsgiInputContainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wsgi_application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forced_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removed_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.WsgiInputContainer" title="Permalink to this definition"></a></dt>
 <dd><p>A WSGI container for use with Tornado that allows supplying the request body to be used for <code class="docutils literal notranslate"><span class="pre">wsgi.input</span></code> in the
 generated WSGI environment upon call.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">RequestHandler</span></code> can thus provide the WSGI application with a stream for the request body, or a modified body.</p>
@@ -1159,8 +1179,8 @@ generated WSGI environment upon call.</p>
 <p>The implementation logic is basically the same as <code class="docutils literal notranslate"><span class="pre">tornado.wsgi.WSGIContainer</span></code> but the <code class="docutils literal notranslate"><span class="pre">__call__</span></code> and <code class="docutils literal notranslate"><span class="pre">environ</span></code>
 methods have been adjusted to allow for an optionally supplied <code class="docutils literal notranslate"><span class="pre">body</span></code> argument which is then used for <code class="docutils literal notranslate"><span class="pre">wsgi.input</span></code>.</p>
 <dl class="py method">
-<dt id="octoprint.server.util.tornado.WsgiInputContainer.environ">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">environ</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.WsgiInputContainer.environ" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.WsgiInputContainer.environ">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">environ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.WsgiInputContainer.environ" title="Permalink to this definition"></a></dt>
 <dd><p>Converts a <code class="docutils literal notranslate"><span class="pre">tornado.httputil.HTTPServerRequest</span></code> to a WSGI environment.</p>
 <p>An optional <code class="docutils literal notranslate"><span class="pre">body</span></code> to be used for populating <code class="docutils literal notranslate"><span class="pre">wsgi.input</span></code> can be supplied (either a string or a stream). If not
 supplied, <code class="docutils literal notranslate"><span class="pre">request.body</span></code> will be wrapped into a <code class="docutils literal notranslate"><span class="pre">io.BytesIO</span></code> stream and used instead.</p>
@@ -1177,8 +1197,8 @@ supplied, <code class="docutils literal notranslate"><span class="pre">request.b
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.tornado.access_validation_factory">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">access_validation_factory</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validator</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.access_validation_factory" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.access_validation_factory">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">access_validation_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validator</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.access_validation_factory" title="Permalink to this definition"></a></dt>
 <dd><p>Creates an access validation wrapper using the supplied validator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1191,29 +1211,29 @@ supplied, <code class="docutils literal notranslate"><span class="pre">request.b
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.tornado.enable_per_message_deflate_extension">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">enable_per_message_deflate_extension</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.enable_per_message_deflate_extension" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.enable_per_message_deflate_extension">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">enable_per_message_deflate_extension</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.enable_per_message_deflate_extension" title="Permalink to this definition"></a></dt>
 <dd><p>This configures tornado.websocket.WebSocketHandler.get_compression_options to support the permessage-deflate extension
 to the websocket protocol, minimizing data bandwidth if clients support the extension as well</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.tornado.fix_json_encode">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">fix_json_encode</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.fix_json_encode" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.fix_json_encode">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">fix_json_encode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.fix_json_encode" title="Permalink to this definition"></a></dt>
 <dd><p>This makes tornado.escape.json_encode use octoprint.util.JsonEncoding.encode as fallback in order to allow
 serialization of globally registered types like frozendict and others.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.tornado.fix_websocket_check_origin">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">fix_websocket_check_origin</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.fix_websocket_check_origin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.fix_websocket_check_origin">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">fix_websocket_check_origin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.fix_websocket_check_origin" title="Permalink to this definition"></a></dt>
 <dd><p>This fixes tornado.websocket.WebSocketHandler.check_origin to do the same origin check against the Host
 header case-insensitively, as defined in RFC6454, Section 4, item 5.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="octoprint.server.util.tornado.path_validation_factory">
-<code class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></code><code class="sig-name descname"><span class="pre">path_validation_factory</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">404</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.path_validation_factory" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.path_validation_factory">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">path_validation_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">404</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.path_validation_factory" title="Permalink to this definition"></a></dt>
 <dd><p>Creates a request path validation wrapper returning the defined status code if the supplied path_filter returns False.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1226,13 +1246,13 @@ be responded with the provided error code.</p>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="printer.html" class="btn btn-neutral float-left" title="octoprint.printer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="schema.html" class="btn btn-neutral float-left" title="octoprint.schema" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="settings.html" class="btn btn-neutral float-right" title="octoprint.settings" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -1262,8 +1282,8 @@ be responded with the provided error code.</p>
   <div class="rst-other-versions">
     <dl>
       <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.9.0/modules/server.html">1.9.0</a></dd>
       <dd><a href="https://docs.octoprint.org/en/1.8.7/modules/server.html">1.8.7</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.9.0rc6/modules/server.html">1.9.0rc6</a></dd>
     </dl>
     <dl>
       <dt>Branches</dt>

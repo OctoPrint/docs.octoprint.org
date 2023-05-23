@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Custom Controls &mdash; OctoPrint master documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <title>Custom Controls &mdash; OctoPrint master documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -131,8 +135,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="custom-controls">
-<span id="sec-features-custom-controls"></span><h1><a class="toc-backref" href="#id4">Custom Controls</a><a class="headerlink" href="#custom-controls" title="Permalink to this headline">¶</a></h1>
+  <section id="custom-controls">
+<span id="sec-features-custom-controls"></span><h1><a class="toc-backref" href="#id4">Custom Controls</a><a class="headerlink" href="#custom-controls" title="Permalink to this headline"></a></h1>
 <div class="contents topic" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
@@ -187,7 +191,7 @@ a GCODE script including user input.</p>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Example for multiple commands</span>
 <span class="w">    </span><span class="nt">children</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Move X (static)</span>
-<span class="w">      </span><span class="nt">confirm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">You are about to move the X axis right by 10mm with 3000mm/s.</span>
+<span class="w">      </span><span class="nt">confirm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">You are about to move the X axis right by 10mm with 3000mm/min.</span>
 <span class="w">      </span><span class="nt">commands</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">G91</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">G1 X10 F3000</span>
@@ -225,10 +229,12 @@ a GCODE script including user input.</p>
 </div>
 <p>Adding this to <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>, restarting the OctoPrint server and switching to the “Control” tab within its
 interface yields the visual representation in <a class="reference internal" href="#fig-configuration-customcontrols-example"><span class="std std-numref">Fig. 1</span></a>.</p>
-<div class="figure align-center" id="id2">
+<figure class="align-center" id="id2">
 <span id="fig-configuration-customcontrols-example"></span><img alt="The rendered output created through the example configuration" src="../_images/features-custom_controls-example.png" />
-<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">The rendered output created through the example configuration</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">The rendered output created through the example configuration</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>As you can see you have two basic types of control definitions here: controls that actually do something (providing a
 button that sends one or more commands to the printer when clicked, displaying output received from the printer) and
 controls that just serve as <em>container</em> for other controls, the latter being identified by having a <code class="docutils literal notranslate"><span class="pre">children</span></code>
@@ -240,11 +246,11 @@ which allows you configuring your Custom Controls through OctoPrint’s
 settings interface without the need to manually edit the configuration
 file.</p>
 </div>
-<div class="section" id="types">
-<span id="sec-features-custom-controls-types"></span><h2><a class="toc-backref" href="#id5">Types</a><a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<section id="types">
+<span id="sec-features-custom-controls-types"></span><h2><a class="toc-backref" href="#id5">Types</a><a class="headerlink" href="#types" title="Permalink to this headline"></a></h2>
 <p>Let’s take a closer look at the possible attributes that are available for both basic types.</p>
-<div class="section" id="containers">
-<span id="sec-features-custom-controls-types-containers"></span><h3><a class="toc-backref" href="#id6">Containers</a><a class="headerlink" href="#containers" title="Permalink to this headline">¶</a></h3>
+<section id="containers">
+<span id="sec-features-custom-controls-types-containers"></span><h3><a class="toc-backref" href="#id6">Containers</a><a class="headerlink" href="#containers" title="Permalink to this headline"></a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -266,9 +272,9 @@ from left to right (<code class="docutils literal notranslate"><span class="pre"
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="controls">
-<span id="sec-features-custom-controls-types-controls"></span><h3><a class="toc-backref" href="#id7">Controls</a><a class="headerlink" href="#controls" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="controls">
+<span id="sec-features-custom-controls-types-controls"></span><h3><a class="toc-backref" href="#id7">Controls</a><a class="headerlink" href="#controls" title="Permalink to this headline"></a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -395,18 +401,20 @@ dialog like in <a class="reference internal" href="#fig-configuration-customcont
 the frontend by the <a class="reference internal" href="../plugins/viewmodels.html#sec-plugins-viewmodels-callbacks"><span class="std std-ref">getAdditionalControls</span></a>
 view model callback.</p>
 </div>
-<div class="figure align-center" id="id3">
+<figure class="align-center" id="id3">
 <span id="fig-configuration-customcontrols-confirm"></span><img alt="An example confirmation dialog" src="../_images/features-custom_controls-confirm.png" />
-<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">An example confirmation dialog</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-</div>
-<div class="section" id="examples">
-<span id="sec-features-custom-controls-examples"></span><h2><a class="toc-backref" href="#id8">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="parameterized-gcode-script">
-<span id="sec-features-custom-controls-examples-gcode-script"></span><h3><a class="toc-backref" href="#id9">Parameterized GCODE Script</a><a class="headerlink" href="#parameterized-gcode-script" title="Permalink to this headline">¶</a></h3>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">An example confirmation dialog</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="examples">
+<span id="sec-features-custom-controls-examples"></span><h2><a class="toc-backref" href="#id8">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline"></a></h2>
+<section id="parameterized-gcode-script">
+<span id="sec-features-custom-controls-examples-gcode-script"></span><h3><a class="toc-backref" href="#id9">Parameterized GCODE Script</a><a class="headerlink" href="#parameterized-gcode-script" title="Permalink to this headline"></a></h3>
 <div class="literal-block-wrapper docutils container" id="code-features-custom-controls-example-gcode-script-config-yaml">
-<div class="code-block-caption"><span class="caption-number">Listing 1 </span><span class="caption-text">Control definition in ~/.octoprint/config.yaml</span><a class="headerlink" href="#code-features-custom-controls-example-gcode-script-config-yaml" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 1 </span><span class="caption-text">Control definition in ~/.octoprint/config.yaml</span><a class="headerlink" href="#code-features-custom-controls-example-gcode-script-config-yaml" title="Permalink to this code"></a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dance</span>
 <span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom/dance.gco</span>
 <span class="nt">input</span><span class="p">:</span>
@@ -421,7 +429,7 @@ view model callback.</p>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="code-features-custom-controls-example-gcode-script-dance-gco">
-<div class="code-block-caption"><span class="caption-number">Listing 2 </span><span class="caption-text">~/.octoprint/scripts/gcode/custom/dance.gco</span><a class="headerlink" href="#code-features-custom-controls-example-gcode-script-dance-gco" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 2 </span><span class="caption-text">~/.octoprint/scripts/gcode/custom/dance.gco</span><a class="headerlink" href="#code-features-custom-controls-example-gcode-script-dance-gco" title="Permalink to this code"></a></div>
 <div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">set</span> <span class="nv">center_x</span> <span class="o">=</span> <span class="nv">printer_profile.volume.width</span> <span class="o">/</span> <span class="m">2</span> <span class="cp">%}</span>
 <span class="cp">{%</span> <span class="k">set</span> <span class="nv">center_y</span> <span class="o">=</span> <span class="nv">printer_profile.volume.depth</span> <span class="o">/</span> <span class="m">2</span> <span class="cp">%}</span>
 <span class="cp">{%</span> <span class="k">set</span> <span class="nv">speed_x</span> <span class="o">=</span> <span class="nv">printer_profile.axes.x.speed</span> <span class="cp">%}</span>
@@ -461,9 +469,9 @@ the value selected by the user for the “Go arounds” slider.</p>
 Mac <code class="docutils literal notranslate"><span class="pre">~/Library/Application</span> <span class="pre">Support/OctoPrint/config.yaml</span></code></p>
 </dd>
 </dl>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
@@ -499,8 +507,8 @@ Mac <code class="docutils literal notranslate"><span class="pre">~/Library/Appli
   <div class="rst-other-versions">
     <dl>
       <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.9.0/features/custom_controls.html">1.9.0</a></dd>
       <dd><a href="https://docs.octoprint.org/en/1.8.7/features/custom_controls.html">1.8.7</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.9.0rc6/features/custom_controls.html">1.9.0rc6</a></dd>
     </dl>
     <dl>
       <dt>Branches</dt>
