@@ -357,7 +357,10 @@ out of the way to a safe rest position (here <code class="docutils literal notra
 to the persisted pause position on resume, making sure to also reset the extruder and feedrate.</p>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-number">Listing 6 </span><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">afterPrintPaused</span></code> script</span><a class="headerlink" href="#id4" title="Permalink to this code"></a></div>
-<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">pause_position.x</span> <span class="k">is</span> <span class="k">not</span> <span class="nf">none</span> <span class="cp">%}</span>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="x">; (optional) disable stepper inactivity timeout - uncomment if you printer disables steppers during pause and supports this command</span>
+<span class="x">;M18 S0</span>
+
+<span class="cp">{%</span> <span class="k">if</span> <span class="nv">pause_position.x</span> <span class="k">is</span> <span class="k">not</span> <span class="nf">none</span> <span class="cp">%}</span>
 <span class="x">; relative XYZE</span>
 <span class="x">G91</span>
 <span class="x">M83</span>
