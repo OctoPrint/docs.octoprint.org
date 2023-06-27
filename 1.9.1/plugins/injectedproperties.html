@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Injected Properties &mdash; OctoPrint 1.9.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Viewmodels" href="viewmodels.html" />
+    <link rel="prev" title="Helpers" href="helpers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OctoPrint
+          </a>
+              <div class="version">
+                1.9.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developing Plugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="concepts.html">General Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controlproperties.html">Control Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mixins.html">Mixins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hooks.html">Hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="helpers.html">Helpers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Injected Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="viewmodels.html">Viewmodels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted.html">Plugin Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributing.html">Distributing your plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python3_migration.html">Migrating to Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Developing Plugins</a> &raquo;</li>
+        
+      <li>Injected Properties</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/plugins/injectedproperties.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="injected-properties">
+<span id="sec-plugins-injectedproperties"></span><h1>Injected Properties<a class="headerlink" href="#injected-properties" title="Permalink to this headline"></a></h1>
+<p>OctoPrint’s plugin subsystem will inject a bunch of properties into each <a class="reference internal" href="mixins.html#sec-plugins-mixins"><span class="std std-ref">mixin implementation</span></a>.
+An overview of these properties follows.</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">self._identifier</span></code></dt><dd><p>The plugin’s identifier.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._plugin_name</span></code></dt><dd><p>The plugin’s name, as taken from either the <code class="docutils literal notranslate"><span class="pre">__plugin_name__</span></code> control property or the package info.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._plugin_version</span></code></dt><dd><p>The plugin’s version, as taken from either the <code class="docutils literal notranslate"><span class="pre">__plugin_version__</span></code> control property or the package info.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._plugin_info</span></code></dt><dd><p>The <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.PluginInfo" title="octoprint.plugin.core.PluginInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.PluginInfo</span></code></a> object associated with the plugin.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._basefolder</span></code></dt><dd><p>The plugin’s base folder where it’s installed. Can be used to refer to files relative to the plugin’s installation
+location, e.g. included scripts, templates or assets.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._datafolder</span></code></dt><dd><p>The plugin’s additional data folder path. Can be used to store additional files needed for the plugin’s operation (cache,
+data files etc). Plugins should not access this property directly but instead utilize <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin.get_plugin_data_folder" title="octoprint.plugin.types.OctoPrintPlugin.get_plugin_data_folder"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_plugin_data_folder()</span></code></a>
+which will make sure the path actually does exist and if not create it before returning it.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._logger</span></code></dt><dd><p>A <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Logger</span></code></a> instance logging to the log target
+<code class="docutils literal notranslate"><span class="pre">octoprint.plugin.&lt;plugin</span> <span class="pre">identifier&gt;</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._settings</span></code></dt><dd><p>The plugin’s personalized settings manager, injected only into plugins that include the <a class="reference internal" href="mixins.html#octoprint.plugin.SettingsPlugin" title="octoprint.plugin.SettingsPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SettingsPlugin</span></code></a> mixin.
+An instance of <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.PluginSettings" title="octoprint.plugin.PluginSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.PluginSettings</span></code></a>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._plugin_manager</span></code></dt><dd><p>OctoPrint’s plugin manager object, an instance of <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.PluginManager" title="octoprint.plugin.core.PluginManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.PluginManager</span></code></a>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._printer_profile_manager</span></code></dt><dd><p>OctoPrint’s printer profile manager, an instance of <a class="reference internal" href="../modules/printer.html#octoprint.printer.profile.PrinterProfileManager" title="octoprint.printer.profile.PrinterProfileManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.printer.profile.PrinterProfileManager</span></code></a>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._event_bus</span></code></dt><dd><p>OctoPrint’s event bus, an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.events.EventManager</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._analysis_queue</span></code></dt><dd><p>OctoPrint’s analysis queue for analyzing GCODEs or other files, an instance of <a class="reference internal" href="../modules/filemanager.html#octoprint.filemanager.analysis.AnalysisQueue" title="octoprint.filemanager.analysis.AnalysisQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.filemanager.analysis.AnalysisQueue</span></code></a>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._slicing_manager</span></code></dt><dd><p>OctoPrint’s slicing manager, an instance of <a class="reference internal" href="../modules/slicing.html#octoprint.slicing.SlicingManager" title="octoprint.slicing.SlicingManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.slicing.SlicingManager</span></code></a>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._file_manager</span></code></dt><dd><p>OctoPrint’s file manager, an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.filemanager.FileManager</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._printer</span></code></dt><dd><p>OctoPrint’s printer management object, an instance of <a class="reference internal" href="../modules/printer.html#octoprint.printer.PrinterInterface" title="octoprint.printer.PrinterInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.printer.PrinterInterface</span></code></a>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._user_manager</span></code></dt><dd><p>OctoPrint’s user manager, an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.access.users.UserManager</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">self._connectivity_checker</span></code></dt><dd><p>OctoPrint’s connectivity checker, an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.util.ConnectivityChecker</span></code>.</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.Plugin" title="octoprint.plugin.core.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code></a> and <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">OctoPrintPlugin</span></code></a></dt><dd><p>Class documentation also containing the properties shared among all mixin implementations.</p>
+</dd>
+<dt><a class="reference internal" href="mixins.html#sec-plugins-mixins-available"><span class="std std-ref">Available Mixins</span></a></dt><dd><p>Some mixin types trigger the injection of additional properties.</p>
+</dd>
+</dl>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="helpers.html" class="btn btn-neutral float-left" title="Helpers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="viewmodels.html" class="btn btn-neutral float-right" title="Viewmodels" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2023, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.9.1
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.9.1/plugins/injectedproperties.html">1.9.1</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.8.7/plugins/injectedproperties.html">1.8.7</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/plugins/injectedproperties.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/plugins/injectedproperties.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/plugins/injectedproperties.html">devel</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
