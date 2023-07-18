@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Backup Plugin &mdash; OctoPrint 1.9.2 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Discovery Plugin" href="discovery.html" />
+    <link rel="prev" title="Application Keys Plugin" href="appkeys.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OctoPrint
+          </a>
+              <div class="version">
+                1.9.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Bundled Plugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="action_command_notification.html">Action Command Notification support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="action_command_prompt.html">Action Command Prompt support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="announcements.html">Announcement Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracking.html">Anonymous Usage Tracking Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appkeys.html">Application Keys Plugin</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Backup Plugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-the-plugin">Configuring the plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#command-line-usage">Command line usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#events">Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hooks">Hooks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint-plugin-backup-additional-excludes">octoprint.plugin.backup.additional_excludes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint-plugin-backup-before-backup">octoprint.plugin.backup.before_backup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint-plugin-backup-after-backup">octoprint.plugin.backup.after_backup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint-plugin-backup-before-restore">octoprint.plugin.backup.before_restore</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint-plugin-backup-after-restore">octoprint.plugin.backup.after_restore</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#helpers">Helpers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#create-backup">create_backup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-backup">delete_backup</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#source-code">Source code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="discovery.html">Discovery Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="errortracking.html">Error Tracking Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_check.html">File Check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firmware_check.html">Firmware Check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gcodeviewer.html">GCode Viewer Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pluginmanager.html">Plugin Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="softwareupdate.html">Software Update Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtual_printer.html">Virtual Printer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Bundled Plugins</a> &raquo;</li>
+        
+      <li>Backup Plugin</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/bundledplugins/backup.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="backup-plugin">
+<span id="sec-bundledplugins-backup"></span><h1>Backup Plugin<a class="headerlink" href="#backup-plugin" title="Permalink to this headline"></a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.3.10.</span></p>
+</div>
+<p>The OctoPrint Backup Plugin comes bundled with OctoPrint (starting with 1.3.10).</p>
+<p>It allows the creation and restoration <a class="footnote-reference brackets" href="#id4" id="id1">4</a> of backups of OctoPrint’s settings, data and installed plugins <a class="footnote-reference brackets" href="#id5" id="id2">5</a>
+(but doesn’t restore the same plugins versions <a class="footnote-reference brackets" href="#id6" id="id3">6</a>).</p>
+<p>This allows easy migration
+to newly setup instances as well as making regular backups to prevent data loss.</p>
+<figure class="align-center" id="id7">
+<span id="fig-bundledplugins-backup-settings"></span><img alt="OctoPrint Backup Plugin" src="../_images/bundledplugins-backup-settings.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">The plugin’s settings panel with existing backups, the backup creation and restore sections.</span><a class="headerlink" href="#id7" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>As long as plugins adhere to the standard of storing their data and settings in OctoPrint’s plugin data folders, their
+data will be part of the backup. Note that the backups made by the Backup Plugin will <em>not</em> be part of any backups -
+you’ll need to persist the resulting zip files yourself!</p>
+<section id="configuring-the-plugin">
+<span id="sec-bundledplugins-backup-configuration"></span><h2>Configuring the plugin<a class="headerlink" href="#configuring-the-plugin" title="Permalink to this headline"></a></h2>
+<p>The plugin supports the following configuration keys:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">restore_unsupported</span></code>: If the system you are installing OctoPrint on doesn’t support restoring backups or you
+want to disable that feature for other reasons, set this to <cite>true</cite>. Alternatively you can also set the
+environment variable <cite>OCTOPRINT_BACKUP_RESTORE_UNSUPPORTED</cite> to <cite>true</cite>. OctoPrint will then disable the restore
+functionality. Under normal circumstances you should not have to touch this setting (OctoPrint will do its
+best to autodetect whether it’s able to perform restores), thus it is not exposed in the Settings dialog.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="command-line-usage">
+<span id="sec-bundledplugins-backup-cli"></span><h2>Command line usage<a class="headerlink" href="#command-line-usage" title="Permalink to this headline"></a></h2>
+<p>The Backup Plugin implements a command line interface that allows creation and restoration of backups.
+It adds two new commands, <code class="docutils literal notranslate"><span class="pre">backup:backup</span></code> and <code class="docutils literal notranslate"><span class="pre">backup:restore</span></code>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ octoprint plugins backup:backup --help
+  Initializing settings &amp; plugin subsystem...
+  Usage: octoprint plugins backup:backup [OPTIONS]
+
+  Creates a new backup.
+
+  Options:
+    --exclude TEXT  Identifiers of data folders to exclude, e.g. &#39;uploads&#39; to
+                    exclude uploads or &#39;timelapse&#39; to exclude timelapses.
+    --help          Show this message and exit.
+
+$ octoprint plugins backup:restore --help
+  Initializing settings &amp; plugin subsystem...
+  Usage: octoprint plugins backup:restore [OPTIONS] PATH
+
+    Restores an existing backup from the backup zip provided as argument.
+
+    OctoPrint does not need to run for this to proceed.
+
+  Options:
+    --help  Show this message and exit.
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">backup:backup</span></code> command can be useful in combination with a cronjob to create backups in regular intervals.</p>
+</div>
+</section>
+<section id="events">
+<span id="sec-bundledplugins-backup-events"></span><h2>Events<a class="headerlink" href="#events" title="Permalink to this headline"></a></h2>
+<p><em>Events will not be triggered by CLI operations.</em></p>
+<dl>
+<dt>plugin_backup_backup_created</dt><dd><p>A new backup was created. On the push socket only available with a valid login session with <code class="docutils literal notranslate"><span class="pre">Backup</span> <span class="pre">Access</span></code>
+permission.</p>
+<p>Payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the name of the backup</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: the path to the backup</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">excludes</span></code>: the list of parts excluded from the backup</p></li>
+</ul>
+</div></blockquote>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.5.0.</span></p>
+</div>
+</dd>
+</dl>
+</section>
+<section id="hooks">
+<span id="sec-bundledplugins-backup-hooks"></span><h2>Hooks<a class="headerlink" href="#hooks" title="Permalink to this headline"></a></h2>
+<section id="octoprint-plugin-backup-additional-excludes">
+<span id="sec-bundledplugins-backup-hooks-excludes"></span><h3>octoprint.plugin.backup.additional_excludes<a class="headerlink" href="#octoprint-plugin-backup-additional-excludes" title="Permalink to this headline"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="additional_excludes_hook">
+<span class="sig-name descname"><span class="pre">additional_excludes_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">excludes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#additional_excludes_hook" title="Permalink to this definition"></a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 1.5.0.</span></p>
+</div>
+<p>Use this to provide additional paths on your plugin’s data folder to exclude from the backup. Your handler also
+get a list of currently excluded sub paths in the base folder, so you can react to them. E.g. exclude things
+in your data folder that relate to uploaded GCODE files if <cite>uploads</cite> is excluded, or exclude things that relate
+to timelapses if <cite>timelapse</cite> is excluded.</p>
+<p>Expects a list of additional paths relative to your plugin’s data folder. If you return a single <cite>.</cite>, your whole
+plugin’s data folder will be excluded from the backup.</p>
+<p><strong>Example 1</strong></p>
+<p>The following example plugin will create two files <code class="docutils literal notranslate"><span class="pre">foo.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">bar.txt</span></code> in its data folder, but flag
+<code class="docutils literal notranslate"><span class="pre">foo.txt</span></code> as not to be backed up.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">io</span>
+
+<span class="k">class</span> <span class="nc">BackupExcludeTestPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">OctoPrintPlugin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_plugin_data_folder</span><span class="p">(),</span> <span class="s2">&quot;foo.txt&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_plugin_data_folder</span><span class="p">(),</span> <span class="s2">&quot;bar.txt&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">additional_excludes_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">excludes</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;foo.txt&quot;</span><span class="p">]</span>
+
+<span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">BackupExcludeTestPlugin</span><span class="p">()</span>
+<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;octoprint.plugin.backup.additional_excludes&quot;</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">additional_excludes_hook</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2</strong></p>
+<p>In this example the plugin will create a file <code class="docutils literal notranslate"><span class="pre">foo.txt</span></code> in its data folder and flag its whole data folder as excluded from the
+backup if uploaded GCODE files are also excluded:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">io</span>
+
+<span class="k">class</span> <span class="nc">BackupExcludeTestPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">OctoPrintPlugin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_plugin_data_folder</span><span class="p">(),</span> <span class="s2">&quot;foo.txt&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">additional_excludes_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">excludes</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;uploads&quot;</span> <span class="ow">in</span> <span class="n">excludes</span><span class="p">:</span>
+           <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;.&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+<span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">BackupExcludeTestPlugin</span><span class="p">()</span>
+<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;octoprint.plugin.backup.additional_excludes&quot;</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">additional_excludes_hook</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>list</strong> (<em>excludes</em>) – A list of paths already flagged as excluded in the backup</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of paths to exclude, relative to your plugin’s data folder</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="octoprint-plugin-backup-before-backup">
+<span id="sec-bundledplugins-backup-hooks-before-backup"></span><h3>octoprint.plugin.backup.before_backup<a class="headerlink" href="#octoprint-plugin-backup-before-backup" title="Permalink to this headline"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="before_backup_hook">
+<span class="sig-name descname"><span class="pre">before_backup_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#before_backup_hook" title="Permalink to this definition"></a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 1.9.0.</span></p>
+</div>
+<p>Use this to perform actions right before a backup is created.</p>
+</dd></dl>
+
+</section>
+<section id="octoprint-plugin-backup-after-backup">
+<span id="sec-bundledplugins-backup-hooks-after-backup"></span><h3>octoprint.plugin.backup.after_backup<a class="headerlink" href="#octoprint-plugin-backup-after-backup" title="Permalink to this headline"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="after_backup_hook">
+<span class="sig-name descname"><span class="pre">after_backup_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#after_backup_hook" title="Permalink to this definition"></a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 1.9.0.</span></p>
+</div>
+<p>Use this to perform actions right after a backup was created or backup creation failed. The <code class="docutils literal notranslate"><span class="pre">error</span></code> parameter will be set to <code class="docutils literal notranslate"><span class="pre">True</span></code> if
+the backup creation failed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bool</strong> (<em>error</em>) – Whether the backup creation failed or not</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="octoprint-plugin-backup-before-restore">
+<span id="sec-bundledplugins-backup-hooks-before-restore"></span><h3>octoprint.plugin.backup.before_restore<a class="headerlink" href="#octoprint-plugin-backup-before-restore" title="Permalink to this headline"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="before_restore_hook">
+<span class="sig-name descname"><span class="pre">before_restore_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#before_restore_hook" title="Permalink to this definition"></a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 1.9.0.</span></p>
+</div>
+<p>Use this to perform actions right before a backup is restored.</p>
+</dd></dl>
+
+</section>
+<section id="octoprint-plugin-backup-after-restore">
+<span id="sec-bundledplugins-backup-hooks-after-restore"></span><h3>octoprint.plugin.backup.after_restore<a class="headerlink" href="#octoprint-plugin-backup-after-restore" title="Permalink to this headline"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="after_restore_hook">
+<span class="sig-name descname"><span class="pre">after_restore_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#after_restore_hook" title="Permalink to this definition"></a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 1.9.0.</span></p>
+</div>
+<p>Use this to perform actions right after a backup was restored or backup restoration failed. The <code class="docutils literal notranslate"><span class="pre">error</span></code> parameter will be set to <code class="docutils literal notranslate"><span class="pre">True</span></code> if
+the backup restoration failed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bool</strong> (<em>error</em>) – Whether the backup restoration failed or not</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="helpers">
+<span id="sec-bundledplugins-backup-helpers"></span><h2>Helpers<a class="headerlink" href="#helpers" title="Permalink to this headline"></a></h2>
+<p>The Backup plugin exports two helpers that can be used by other plugins or internal methods
+from within OctoPrint, without going via the API.</p>
+<section id="create-backup">
+<span id="sec-bundledplugins-backup-helpers-create-backup"></span><h3>create_backup<a class="headerlink" href="#create-backup" title="Permalink to this headline"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="octoprint.plugins.backup.BackupPlugin.create_backup_helper">
+<span class="sig-prename descclassname"><span class="pre">octoprint.plugins.backup.BackupPlugin.</span></span><span class="sig-name descname"><span class="pre">create_backup_helper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugins.backup.BackupPlugin.create_backup_helper" title="Permalink to this definition"></a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 1.6.0.</span></p>
+</div>
+<p>Create a backup from a plugin or other internal call</p>
+<p>This helper is exported as <code class="docutils literal notranslate"><span class="pre">create_backup</span></code> and can be used from the plugin
+manager’s <code class="docutils literal notranslate"><span class="pre">get_helpers</span></code> method.</p>
+<p><strong>Example</strong></p>
+<p>The following code snippet can be used from within a plugin, and will create a backup
+excluding two folders (<code class="docutils literal notranslate"><span class="pre">timelapse</span></code> and <code class="docutils literal notranslate"><span class="pre">uploads</span></code>)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">helpers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_manager</span><span class="o">.</span><span class="n">get_helpers</span><span class="p">(</span><span class="s2">&quot;backup&quot;</span><span class="p">,</span> <span class="s2">&quot;create_backup&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">helpers</span> <span class="ow">and</span> <span class="s2">&quot;create_backup&quot;</span> <span class="ow">in</span> <span class="n">helpers</span><span class="p">:</span>
+    <span class="n">helpers</span><span class="p">[</span><span class="s2">&quot;create_backup&quot;</span><span class="p">](</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;timelapse&quot;</span><span class="p">,</span> <span class="s2">&quot;uploads&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>By using the <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">helpers</span> <span class="pre">[...]</span></code> clause, plugins can fall back to other methods
+when they are running under versions where these helpers did not exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exclude</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Names of data folders to exclude, defaults to None</p></li>
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of backup to be created, if None (default) the backup
+name will be auto-generated. This should use a <code class="docutils literal notranslate"><span class="pre">.zip</span></code> extension.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="delete-backup">
+<span id="sec-bundledplugins-backup-helpers-delete-backup"></span><h3>delete_backup<a class="headerlink" href="#delete-backup" title="Permalink to this headline"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="octoprint.plugins.backup.BackupPlugin.delete_backup_helper">
+<span class="sig-prename descclassname"><span class="pre">octoprint.plugins.backup.BackupPlugin.</span></span><span class="sig-name descname"><span class="pre">delete_backup_helper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugins.backup.BackupPlugin.delete_backup_helper" title="Permalink to this definition"></a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 1.6.0.</span></p>
+</div>
+<p>Delete the specified backup from a plugin or other internal call</p>
+<p>This helper is exported as <code class="docutils literal notranslate"><span class="pre">delete_backup</span></code> and can be used through the plugin
+manager’s <code class="docutils literal notranslate"><span class="pre">get_helpers</span></code> method.</p>
+<p><strong>Example</strong>
+The following code snippet can be used from within a plugin, and will attempt to
+delete the backup named <code class="docutils literal notranslate"><span class="pre">ExampleBackup.zip</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">helpers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_manager</span><span class="o">.</span><span class="n">get_helpers</span><span class="p">(</span><span class="s2">&quot;backup&quot;</span><span class="p">,</span> <span class="s2">&quot;delete_backup&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">helpers</span> <span class="ow">and</span> <span class="s2">&quot;delete_backup&quot;</span> <span class="ow">in</span> <span class="n">helpers</span><span class="p">:</span>
+    <span class="n">helpers</span><span class="p">[</span><span class="s2">&quot;delete_backup&quot;</span><span class="p">](</span><span class="s2">&quot;ExampleBackup.zip&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>By using the <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">helpers</span> <span class="pre">[...]</span></code> clause, plugins can fall back to other methods
+when they are running under versions where these helpers did not exist.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This method will fail silently if the backup does not exist, and so
+it is recommended that you make sure the name comes from a verified source,
+for example the name from the events or other helpers.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The name of the backup to delete</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="source-code">
+<span id="sec-bundledplugins-backup-sourcecode"></span><h2>Source code<a class="headerlink" href="#source-code" title="Permalink to this headline"></a></h2>
+<p>The source of the Backup plugin is bundled with OctoPrint and can be found in
+its source repository under <code class="docutils literal notranslate"><span class="pre">src/octoprint/plugins/backup</span></code>.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">4</a></span></dt>
+<dd><p>Note that restore is currently unavailable on OctoPrint servers running on Windows. Additionally they may be
+disabled through a config flag or an environment variable as documented <a class="reference internal" href="#sec-bundledplugins-backup-configuration"><span class="std std-ref">here</span></a>.</p>
+</dd>
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id2">5</a></span></dt>
+<dd><p>Note that only those plugins that are available on <a class="reference external" href="https://plugins.octoprint.org">OctoPrint’s official plugin repository</a>
+can be automatically restored. If you have plugins installed that are not available on there you’ll get their
+names and - if available - homepage URL displayed after restore in order to be able to manually reinstall them.</p>
+</dd>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">6</a></span></dt>
+<dd><p>Note that the restore process will install the latest possible versions of the plugins instead of the version that was installed at backup
+creation time.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="appkeys.html" class="btn btn-neutral float-left" title="Application Keys Plugin" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="discovery.html" class="btn btn-neutral float-right" title="Discovery Plugin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2023, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.9.2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.9.2/bundledplugins/backup.html">1.9.2</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.8.7/bundledplugins/backup.html">1.8.7</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/bundledplugins/backup.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/bundledplugins/backup.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/bundledplugins/backup.html">devel</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
