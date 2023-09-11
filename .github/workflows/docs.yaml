@@ -60,7 +60,7 @@ jobs:
 
       - name: ⬇ Checkout docs.octoprint.org
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: docs.octoprint.org
 
@@ -94,7 +94,7 @@ jobs:
 
       - name: ⬇ Checkout OctoPrint
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: "OctoPrint/OctoPrint"
           ref: ${{ matrix.version }}
@@ -143,7 +143,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⬇ Checkout docs.octoprint.org
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: gh-pages
           path: docs
