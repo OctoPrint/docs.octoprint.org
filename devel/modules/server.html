@@ -856,6 +856,27 @@ to another <code class="docutils literal notranslate"><span class="pre">url</spa
 <dd></dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.GeneratingDataHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">GeneratingDataHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.GeneratingDataHandler" title="Permalink to this definition"></a></dt>
+<dd><p>A <cite>RequestHandler</cite> that generates data from a generator function and returns it to the client.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>generator</strong> (<em>function</em>) – A generator function that returns the data to be written to the client. The function
+will be called without any parameters.</p></li>
+<li><p><strong>content_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The content type with which to respond. Defaults to <cite>text/plain</cite></p></li>
+<li><p><strong>as_attachment</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Whether to serve files with <cite>Content-Disposition: attachment</cite> header (<cite>True</cite>)
+or not. Defaults to <cite>False</cite>. If a string is given it will be used as the filename of the attachment.</p></li>
+<li><p><strong>access_validation</strong> (<em>function</em>) – Callback to call in the <cite>get</cite> method to validate access to the resource. Will
+be called with <cite>self.request</cite> as parameter which contains the full tornado request object. Should raise
+a <cite>tornado.web.HTTPError</cite> if access is not allowed in which case the request will not be further processed.
+Defaults to <cite>None</cite> and hence no access validation being performed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="octoprint.server.util.tornado.GlobalHeaderTransform">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">GlobalHeaderTransform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.GlobalHeaderTransform" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -1163,6 +1184,24 @@ or not. Defaults to <code class="docutils literal notranslate"><span class="pre"
 be called with <code class="docutils literal notranslate"><span class="pre">self.request</span></code> as parameter which contains the full tornado request object. Should raise
 a <code class="docutils literal notranslate"><span class="pre">tornado.web.HTTPError</span></code> if access is not allowed in which case the request will not be further processed.
 Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code> and hence no access validation being performed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.WebcamSnapshotHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">WebcamSnapshotHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.web.Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tornado.httputil.HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.WebcamSnapshotHandler" title="Permalink to this definition"></a></dt>
+<dd><p><cite>GeneratingDataHandler</cite> that returns a snapshot from the configured webcam.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>as_attachment</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Whether to serve files with <cite>Content-Disposition: attachment</cite> header (<cite>True</cite>)
+or not. Defaults to <cite>False</cite>. If a string is given it will be used as the filename of the attachment.</p></li>
+<li><p><strong>access_validation</strong> (<em>function</em>) – Callback to call in the <cite>get</cite> method to validate access to the resource. Will
+be called with <cite>self.request</cite> as parameter which contains the full tornado request object. Should raise
+a <cite>tornado.web.HTTPError</cite> if access is not allowed in which case the request will not be further processed.
+Defaults to <cite>None</cite> and hence no access validation being performed.</p></li>
 </ul>
 </dd>
 </dl>
