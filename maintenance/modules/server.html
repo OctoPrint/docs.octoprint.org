@@ -1209,7 +1209,7 @@ Defaults to <cite>None</cite> and hence no access validation being performed.</p
 
 <dl class="py class">
 <dt class="sig sig-object py" id="octoprint.server.util.tornado.WsgiInputContainer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">WsgiInputContainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wsgi_application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forced_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removed_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.WsgiInputContainer" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">WsgiInputContainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wsgi_application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">executor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forced_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removed_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.WsgiInputContainer" title="Permalink to this definition"></a></dt>
 <dd><p>A WSGI container for use with Tornado that allows supplying the request body to be used for <code class="docutils literal notranslate"><span class="pre">wsgi.input</span></code> in the
 generated WSGI environment upon call.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">RequestHandler</span></code> can thus provide the WSGI application with a stream for the request body, or a modified body.</p>
@@ -1222,6 +1222,8 @@ generated WSGI environment upon call.</p>
 </div>
 <p>The implementation logic is basically the same as <code class="docutils literal notranslate"><span class="pre">tornado.wsgi.WSGIContainer</span></code> but the <code class="docutils literal notranslate"><span class="pre">__call__</span></code> and <code class="docutils literal notranslate"><span class="pre">environ</span></code>
 methods have been adjusted to allow for an optionally supplied <code class="docutils literal notranslate"><span class="pre">body</span></code> argument which is then used for <code class="docutils literal notranslate"><span class="pre">wsgi.input</span></code>.</p>
+<p>Additionally, some headers can be added or removed from the response by supplying <code class="docutils literal notranslate"><span class="pre">forced_headers</span></code> and
+<code class="docutils literal notranslate"><span class="pre">removed_headers</span></code> arguments. <code class="docutils literal notranslate"><span class="pre">forced_headers</span></code> will be added to the response, <code class="docutils literal notranslate"><span class="pre">removed_headers</span></code> will be removed.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="octoprint.server.util.tornado.WsgiInputContainer.environ">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">environ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.WsgiInputContainer.environ" title="Permalink to this definition"></a></dt>
@@ -1233,6 +1235,21 @@ supplied, <code class="docutils literal notranslate"><span class="pre">request.b
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> – the <code class="docutils literal notranslate"><span class="pre">tornado.httpserver.HTTPServerRequest</span></code> to derive the WSGI environment from</p></li>
 <li><p><strong>body</strong> – an optional body  to use as <code class="docutils literal notranslate"><span class="pre">wsgi.input</span></code> instead of <code class="docutils literal notranslate"><span class="pre">request.body</span></code>, can be a string or a stream</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.WsgiInputContainer.handle_request">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">handle_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">future</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.WsgiInputContainer.handle_request" title="Permalink to this definition"></a></dt>
+<dd><p>Wraps the call against the WSGI app, deriving the WSGI environment from the supplied Tornado <code class="docutils literal notranslate"><span class="pre">HTTPServerRequest</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – the <code class="docutils literal notranslate"><span class="pre">tornado.httpserver.HTTPServerRequest</span></code> to derive the WSGI environment from</p></li>
+<li><p><strong>body</strong> – an optional body  to use as <code class="docutils literal notranslate"><span class="pre">wsgi.input</span></code> instead of <code class="docutils literal notranslate"><span class="pre">request.body</span></code>, can be a string or a stream</p></li>
+<li><p><strong>future</strong> – a future to complete after the request has been handled</p></li>
 </ul>
 </dd>
 </dl>
