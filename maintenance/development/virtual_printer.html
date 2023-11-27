@@ -332,14 +332,14 @@ that may be hard to reproduce with a real printer.</p>
 <span class="w">      </span><span class="nt">EXTENDED_M20</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">      </span><span class="nt">LFN_WRITE</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 
-<span class="w">   </span><span class="c1"># Whether to include area report in the M115 output (M115_GEOMETRY_REPORT in Marlin)</span>
-<span class="w">  </span><span class="w w-Error"> </span><span class="nt">m115ReportArea</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="c1"># Whether to include area report in the M115 output (M115_GEOMETRY_REPORT in Marlin)</span>
+<span class="w">    </span><span class="nt">m115ReportArea</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain"># Simulated ambient temperature in °C</span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">ambientTemperature</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">21.3</span>
+<span class="w">    </span><span class="c1"># Simulated ambient temperature in °C</span>
+<span class="w">    </span><span class="nt">ambientTemperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">21.3</span>
 
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain"># Response to M105 when there is a target</span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain"># Placeholders</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="c1"># Response to M105 when there is a target</span>
+<span class="w">    </span><span class="c1"># Placeholders:</span>
 <span class="w">    </span><span class="c1"># - heater: The heater id (eg. T0, T1, B)</span>
 <span class="w">    </span><span class="c1"># - actual: The actual temperature of the heater</span>
 <span class="w">    </span><span class="c1"># - target: The target temperature of heater</span>
@@ -362,6 +362,13 @@ that may be hard to reproduce with a real printer.</p>
 
 <span class="w">    </span><span class="c1"># Resend ratio to simulate noise on the line</span>
 <span class="w">    </span><span class="nt">resend_ratio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+
+<span class="w">    </span><span class="c1"># communication errors to simulate at specific line numbers</span>
+<span class="w">    </span><span class="nt">simulated_errors</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100:resend</span><span class="w">  </span><span class="c1"># requests a simple resend at line 100</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">105:resend_with_timeout</span><span class="w">  </span><span class="c1"># requests a resend at line 105 and simulates not responding to it</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">110:missing_lineno</span><span class="w">  </span><span class="c1"># simulates a missing line number at line 110</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">115:checksum_mismatch</span><span class="w">  </span><span class="c1"># simulates a checksum mismatch at line 115</span>
 </pre></div>
 </div>
 </section>
