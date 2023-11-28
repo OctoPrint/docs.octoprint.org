@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hooks &mdash; OctoPrint maintenance documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -15,7 +17,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/mermaid.min.js"></script>
         <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
@@ -187,7 +191,7 @@
            <div itemprop="articleBody">
              
   <section id="hooks">
-<span id="sec-plugins-hooks"></span><h1>Hooks<a class="headerlink" href="#hooks" title="Permalink to this headline"></a></h1>
+<span id="sec-plugins-hooks"></span><h1>Hooks<a class="headerlink" href="#hooks" title="Permalink to this heading"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#general-concepts" id="id25">General Concepts</a></p></li>
@@ -246,7 +250,7 @@
 </ul>
 </div>
 <section id="general-concepts">
-<span id="sec-plugins-hooks-general"></span><h2><a class="toc-backref" href="#id25">General Concepts</a><a class="headerlink" href="#general-concepts" title="Permalink to this headline"></a></h2>
+<span id="sec-plugins-hooks-general"></span><h2><a class="toc-backref" href="#id25">General Concepts</a><a class="headerlink" href="#general-concepts" title="Permalink to this heading"></a></h2>
 <p>Hooks are the smaller siblings of <a class="reference internal" href="mixins.html#sec-plugins-mixins"><span class="std std-ref">mixins</span></a>, allowing to extend functionality or data processing where a custom mixin type
 would be too much overhead. Where mixins are based on classes, hooks are based on methods. Like with the mixin
 implementations, plugins inform OctoPrint about hook handlers using a control property, <code class="docutils literal notranslate"><span class="pre">__plugin_hooks__</span></code>.</p>
@@ -331,7 +335,7 @@ property instead, manually instantiate your implementation instance and then add
 </div>
 </section>
 <section id="execution-order">
-<span id="sec-plugins-hooks-ordering"></span><h2><a class="toc-backref" href="#id26">Execution Order</a><a class="headerlink" href="#execution-order" title="Permalink to this headline"></a></h2>
+<span id="sec-plugins-hooks-ordering"></span><h2><a class="toc-backref" href="#id26">Execution Order</a><a class="headerlink" href="#execution-order" title="Permalink to this heading"></a></h2>
 <p>Hooks may also define an order number to allow influencing the execution order of the registered hook handlers. Instead
 of registering only a callback as hook handler, it is also possible to register a 2-tuple consisting of a callback and
 an integer value used for ordering handlers. They way this works is that OctoPrint will first sort all registered
@@ -427,7 +431,7 @@ and start up OctoPrint, you’ll see output like this:</p>
 </div>
 </section>
 <section id="available-plugin-hooks">
-<span id="sec-plugins-hooks-available"></span><h2><a class="toc-backref" href="#id27">Available plugin hooks</a><a class="headerlink" href="#available-plugin-hooks" title="Permalink to this headline"></a></h2>
+<span id="sec-plugins-hooks-available"></span><h2><a class="toc-backref" href="#id27">Available plugin hooks</a><a class="headerlink" href="#available-plugin-hooks" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>All of the hooks below take at least two parameters, <code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>. Make sure those are
@@ -487,7 +491,7 @@ your plugin to stay compatible to OctoPrint without any necessary adjustments fr
 </ul>
 </div>
 <section id="octoprint-access-permissions">
-<span id="sec-plugins-hook-permissions"></span><h3><a class="toc-backref" href="#id75">octoprint.access.permissions</a><a class="headerlink" href="#octoprint-access-permissions" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-permissions"></span><h3><a class="toc-backref" href="#id75">octoprint.access.permissions</a><a class="headerlink" href="#octoprint-access-permissions" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="additional_permissions_hook">
 <span class="sig-name descname"><span class="pre">additional_permissions_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#additional_permissions_hook" title="Permalink to this definition"></a></dt>
@@ -550,7 +554,7 @@ group:</p>
 
 </section>
 <section id="octoprint-access-users-factory">
-<span id="sec-plugins-hook-users-factory"></span><h3><a class="toc-backref" href="#id76">octoprint.access.users.factory</a><a class="headerlink" href="#octoprint-access-users-factory" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-users-factory"></span><h3><a class="toc-backref" href="#id76">octoprint.access.users.factory</a><a class="headerlink" href="#octoprint-access-users-factory" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="user_manager_factory_hook">
 <span class="sig-name descname"><span class="pre">user_manager_factory_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_manager_factory_hook" title="Permalink to this definition"></a></dt>
@@ -595,7 +599,7 @@ file <code class="docutils literal notranslate"><span class="pre">~/.octoprint/u
 
 </section>
 <section id="octoprint-accesscontrol-keyvalidator">
-<span id="sec-plugins-hook-accesscontrol-keyvalidator"></span><h3><a class="toc-backref" href="#id77">octoprint.accesscontrol.keyvalidator</a><a class="headerlink" href="#octoprint-accesscontrol-keyvalidator" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-accesscontrol-keyvalidator"></span><h3><a class="toc-backref" href="#id77">octoprint.accesscontrol.keyvalidator</a><a class="headerlink" href="#octoprint-accesscontrol-keyvalidator" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="acl_keyvalidator_hook">
 <span class="sig-name descname"><span class="pre">acl_keyvalidator_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">apikey</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#acl_keyvalidator_hook" title="Permalink to this definition"></a></dt>
@@ -644,7 +648,7 @@ and merely provided for educational purposes):</p>
 
 </section>
 <section id="octoprint-cli-commands">
-<span id="sec-plugins-hook-cli-commands"></span><h3><a class="toc-backref" href="#id78">octoprint.cli.commands</a><a class="headerlink" href="#octoprint-cli-commands" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-cli-commands"></span><h3><a class="toc-backref" href="#id78">octoprint.cli.commands</a><a class="headerlink" href="#octoprint-cli-commands" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="cli_commands_hook">
 <span class="sig-name descname"><span class="pre">cli_commands_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cli_group</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pass_octoprint_ctx</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cli_commands_hook" title="Permalink to this definition"></a></dt>
@@ -800,7 +804,7 @@ OctoPrint’s CLI.</p>
 
 </section>
 <section id="octoprint-comm-protocol-firmware-info">
-<span id="sec-plugins-hook-comm-protocol-firmware-info"></span><h3><a class="toc-backref" href="#id79">octoprint.comm.protocol.firmware.info</a><a class="headerlink" href="#octoprint-comm-protocol-firmware-info" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-comm-protocol-firmware-info"></span><h3><a class="toc-backref" href="#id79">octoprint.comm.protocol.firmware.info</a><a class="headerlink" href="#octoprint-comm-protocol-firmware-info" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="firmware_info_hook">
 <span class="sig-name descname"><span class="pre">firmware_info_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comm_instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">firmware_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">firmware_data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#firmware_info_hook" title="Permalink to this definition"></a></dt>
@@ -837,7 +841,7 @@ you will effectively block the receive loop, causing the communication with the 
 
 </section>
 <section id="octoprint-comm-protocol-firmware-capabilities">
-<span id="sec-plugins-hook-comm-protocol-firmware-capabilities"></span><h3><a class="toc-backref" href="#id80">octoprint.comm.protocol.firmware.capabilities</a><a class="headerlink" href="#octoprint-comm-protocol-firmware-capabilities" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-comm-protocol-firmware-capabilities"></span><h3><a class="toc-backref" href="#id80">octoprint.comm.protocol.firmware.capabilities</a><a class="headerlink" href="#octoprint-comm-protocol-firmware-capabilities" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="firmware_capability_hook">
 <span class="sig-name descname"><span class="pre">firmware_capability_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comm_instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capability</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enabled</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">already_defined</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#firmware_capability_hook" title="Permalink to this definition"></a></dt>
@@ -869,7 +873,7 @@ you will effectively block the receive loop, causing the communication with the 
 
 </section>
 <section id="octoprint-comm-protocol-firmware-capability-report">
-<span id="sec-plugins-hook-comm-protocol-action"></span><h3><a class="toc-backref" href="#id81">octoprint.comm.protocol.firmware.capability_report</a><a class="headerlink" href="#octoprint-comm-protocol-firmware-capability-report" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-comm-protocol-action"></span><h3><a class="toc-backref" href="#id81">octoprint.comm.protocol.firmware.capability_report</a><a class="headerlink" href="#octoprint-comm-protocol-firmware-capability-report" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="firmware_capability_report_hook">
 <span class="sig-name descname"><span class="pre">firmware_capability_report_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comm_instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">firmware_capabilities</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#firmware_capability_report_hook" title="Permalink to this definition"></a></dt>
@@ -897,7 +901,7 @@ you will effectively block the receive loop, causing the communication with the 
 
 </section>
 <section id="octoprint-comm-protocol-action">
-<span id="id2"></span><h3><a class="toc-backref" href="#id82">octoprint.comm.protocol.action</a><a class="headerlink" href="#octoprint-comm-protocol-action" title="Permalink to this headline"></a></h3>
+<span id="id2"></span><h3><a class="toc-backref" href="#id82">octoprint.comm.protocol.action</a><a class="headerlink" href="#octoprint-comm-protocol-action" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="protocol_action_hook">
 <span class="sig-name descname"><span class="pre">protocol_action_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comm_instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#protocol_action_hook" title="Permalink to this definition"></a></dt>
@@ -962,7 +966,7 @@ be <code class="docutils literal notranslate"><span class="pre">key</span> <span
 
 </section>
 <section id="octoprint-comm-protocol-atcommand-phase">
-<span id="sec-plugins-hook-comm-protocol-atcommand-phase"></span><h3><a class="toc-backref" href="#id83">octoprint.comm.protocol.atcommand.&lt;phase&gt;</a><a class="headerlink" href="#octoprint-comm-protocol-atcommand-phase" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-comm-protocol-atcommand-phase"></span><h3><a class="toc-backref" href="#id83">octoprint.comm.protocol.atcommand.&lt;phase&gt;</a><a class="headerlink" href="#octoprint-comm-protocol-atcommand-phase" title="Permalink to this heading"></a></h3>
 <p>This describes actually two hooks:</p>
 <blockquote>
 <div><ul class="simple">
@@ -1032,7 +1036,7 @@ match the <code class="docutils literal notranslate"><span class="pre">&lt;phase
 
 </section>
 <section id="octoprint-comm-protocol-gcode-phase">
-<span id="sec-plugins-hook-comm-protocol-gcode-phase"></span><h3><a class="toc-backref" href="#id84">octoprint.comm.protocol.gcode.&lt;phase&gt;</a><a class="headerlink" href="#octoprint-comm-protocol-gcode-phase" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-comm-protocol-gcode-phase"></span><h3><a class="toc-backref" href="#id84">octoprint.comm.protocol.gcode.&lt;phase&gt;</a><a class="headerlink" href="#octoprint-comm-protocol-gcode-phase" title="Permalink to this heading"></a></h3>
 <p>This actually describes four hooks:</p>
 <blockquote>
 <div><ul class="simple">
@@ -1224,7 +1228,7 @@ or no command could be parsed.</p></li>
 
 </section>
 <section id="octoprint-comm-protocol-gcode-received">
-<span id="sec-plugins-hook-comm-protocol-gcode-received"></span><h3><a class="toc-backref" href="#id85">octoprint.comm.protocol.gcode.received</a><a class="headerlink" href="#octoprint-comm-protocol-gcode-received" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-comm-protocol-gcode-received"></span><h3><a class="toc-backref" href="#id85">octoprint.comm.protocol.gcode.received</a><a class="headerlink" href="#octoprint-comm-protocol-gcode-received" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="gcode_received_hook">
 <span class="sig-name descname"><span class="pre">gcode_received_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comm_instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gcode_received_hook" title="Permalink to this definition"></a></dt>
@@ -1288,7 +1292,7 @@ you will effectively block the receive loop, causing the communication with the 
 
 </section>
 <section id="octoprint-comm-protocol-gcode-error">
-<span id="sec-plugins-hook-comm-protocol-gcode-error"></span><h3><a class="toc-backref" href="#id86">octoprint.comm.protocol.gcode.error</a><a class="headerlink" href="#octoprint-comm-protocol-gcode-error" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-comm-protocol-gcode-error"></span><h3><a class="toc-backref" href="#id86">octoprint.comm.protocol.gcode.error</a><a class="headerlink" href="#octoprint-comm-protocol-gcode-error" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="gcode_error_hook">
 <span class="sig-name descname"><span class="pre">gcode_error_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comm_instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_message</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gcode_error_hook" title="Permalink to this definition"></a></dt>
@@ -1348,7 +1352,7 @@ plugin.</p>
 
 </section>
 <section id="octoprint-comm-protocol-scripts">
-<span id="sec-plugins-hook-comm-protocol-scripts"></span><h3><a class="toc-backref" href="#id87">octoprint.comm.protocol.scripts</a><a class="headerlink" href="#octoprint-comm-protocol-scripts" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-comm-protocol-scripts"></span><h3><a class="toc-backref" href="#id87">octoprint.comm.protocol.scripts</a><a class="headerlink" href="#octoprint-comm-protocol-scripts" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="protocol_scripts_hook">
 <span class="sig-name descname"><span class="pre">protocol_scripts_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comm_instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">script_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">script_name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#protocol_scripts_hook" title="Permalink to this definition"></a></dt>
@@ -1428,7 +1432,7 @@ will be split by the caller if necessary).</p>
 
 </section>
 <section id="octoprint-comm-protocol-temperatures-received">
-<span id="sec-plugins-hook-comm-protocol-temperatures-received"></span><h3><a class="toc-backref" href="#id88">octoprint.comm.protocol.temperatures.received</a><a class="headerlink" href="#octoprint-comm-protocol-temperatures-received" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-comm-protocol-temperatures-received"></span><h3><a class="toc-backref" href="#id88">octoprint.comm.protocol.temperatures.received</a><a class="headerlink" href="#octoprint-comm-protocol-temperatures-received" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="protocol_temperatures_received_hook">
 <span class="sig-name descname"><span class="pre">protocol_temperatures_received_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comm_instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parsed_temperatures</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#protocol_temperatures_received_hook" title="Permalink to this definition"></a></dt>
@@ -1473,7 +1477,7 @@ you will effectively block the receive loop, causing the communication with the 
 
 </section>
 <section id="octoprint-comm-transport-serial-additional-port-names">
-<span id="sec-plugins-hook-comm-transport-serial-additonal-port-names"></span><h3><a class="toc-backref" href="#id89">octoprint.comm.transport.serial.additional_port_names</a><a class="headerlink" href="#octoprint-comm-transport-serial-additional-port-names" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-comm-transport-serial-additonal-port-names"></span><h3><a class="toc-backref" href="#id89">octoprint.comm.transport.serial.additional_port_names</a><a class="headerlink" href="#octoprint-comm-transport-serial-additional-port-names" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="additional_port_names_hook">
 <span class="sig-name descname"><span class="pre">additional_port_names_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">candidates</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#additional_port_names_hook" title="Permalink to this definition"></a></dt>
@@ -1500,7 +1504,7 @@ to implement custom serial-like ports through plugins.</p>
 
 </section>
 <section id="octoprint-comm-transport-serial-factory">
-<span id="sec-plugins-hook-comm-transport-serial-factory"></span><h3><a class="toc-backref" href="#id90">octoprint.comm.transport.serial.factory</a><a class="headerlink" href="#octoprint-comm-transport-serial-factory" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-comm-transport-serial-factory"></span><h3><a class="toc-backref" href="#id90">octoprint.comm.transport.serial.factory</a><a class="headerlink" href="#octoprint-comm-transport-serial-factory" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="serial_factory_hook">
 <span class="sig-name descname"><span class="pre">serial_factory_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comm_instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baudrate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_timeout</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#serial_factory_hook" title="Permalink to this definition"></a></dt>
@@ -1583,7 +1587,7 @@ optionally <code class="docutils literal notranslate"><span class="pre">baudrate
 
 </section>
 <section id="octoprint-events-register-custom-events">
-<span id="sec-plugins-hook-events-register-custom-events"></span><h3><a class="toc-backref" href="#id91">octoprint.events.register_custom_events</a><a class="headerlink" href="#octoprint-events-register-custom-events" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-events-register-custom-events"></span><h3><a class="toc-backref" href="#id91">octoprint.events.register_custom_events</a><a class="headerlink" href="#octoprint-events-register-custom-events" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="register_custom_events_hook">
 <span class="sig-name descname"><span class="pre">register_custom_events_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#register_custom_events_hook" title="Permalink to this definition"></a></dt>
@@ -1614,7 +1618,7 @@ and <code class="docutils literal notranslate"><span class="pre">octoprint.event
 
 </section>
 <section id="octoprint-filemanager-analysis-factory">
-<span id="sec-plugins-hook-filemanager-analysis-factory"></span><h3><a class="toc-backref" href="#id92">octoprint.filemanager.analysis.factory</a><a class="headerlink" href="#octoprint-filemanager-analysis-factory" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-filemanager-analysis-factory"></span><h3><a class="toc-backref" href="#id92">octoprint.filemanager.analysis.factory</a><a class="headerlink" href="#octoprint-filemanager-analysis-factory" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="analysis_queue_factory_hook">
 <span class="sig-name descname"><span class="pre">analysis_queue_factory_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#analysis_queue_factory_hook" title="Permalink to this definition"></a></dt>
@@ -1653,7 +1657,7 @@ This can be replaced by plugins using this hook, allowing other approaches to fi
 
 </section>
 <section id="octoprint-filemanager-extension-tree">
-<span id="sec-plugins-hook-filemanager-extensiontree"></span><h3><a class="toc-backref" href="#id93">octoprint.filemanager.extension_tree</a><a class="headerlink" href="#octoprint-filemanager-extension-tree" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-filemanager-extensiontree"></span><h3><a class="toc-backref" href="#id93">octoprint.filemanager.extension_tree</a><a class="headerlink" href="#octoprint-filemanager-extension-tree" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="file_extension_hook">
 <span class="sig-name descname"><span class="pre">file_extension_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#file_extension_hook" title="Permalink to this definition"></a></dt>
@@ -1692,7 +1696,7 @@ in the rest of the system (e.g. handling/preprocessing new machine code file typ
 
 </section>
 <section id="octoprint-filemanager-preprocessor">
-<span id="sec-plugins-hook-filemanager-preprocessor"></span><h3><a class="toc-backref" href="#id94">octoprint.filemanager.preprocessor</a><a class="headerlink" href="#octoprint-filemanager-preprocessor" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-filemanager-preprocessor"></span><h3><a class="toc-backref" href="#id94">octoprint.filemanager.preprocessor</a><a class="headerlink" href="#octoprint-filemanager-preprocessor" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="file_preprocessor_hook">
 <span class="sig-name descname"><span class="pre">file_preprocessor_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printer_profile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#file_preprocessor_hook" title="Permalink to this definition"></a></dt>
@@ -1767,56 +1771,56 @@ representing the file object to store.</p></li>
 
 </section>
 <section id="octoprint-plugin-backup-additional-excludes">
-<span id="sec-plugins-hook-plugin-backup-excludes"></span><h3><a class="toc-backref" href="#id95">octoprint.plugin.backup.additional_excludes</a><a class="headerlink" href="#octoprint-plugin-backup-additional-excludes" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-plugin-backup-excludes"></span><h3><a class="toc-backref" href="#id95">octoprint.plugin.backup.additional_excludes</a><a class="headerlink" href="#octoprint-plugin-backup-additional-excludes" title="Permalink to this heading"></a></h3>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 1.5.0.</span></p>
 </div>
 <p>See <a class="reference internal" href="../bundledplugins/backup.html#sec-bundledplugins-backup-hooks-excludes"><span class="std std-ref">here</span></a>.</p>
 </section>
 <section id="octoprint-plugin-backup-before-backup">
-<span id="sec-plugins-hook-plugin-backup-before-backup"></span><h3><a class="toc-backref" href="#id96">octoprint.plugin.backup.before_backup</a><a class="headerlink" href="#octoprint-plugin-backup-before-backup" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-plugin-backup-before-backup"></span><h3><a class="toc-backref" href="#id96">octoprint.plugin.backup.before_backup</a><a class="headerlink" href="#octoprint-plugin-backup-before-backup" title="Permalink to this heading"></a></h3>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 1.9.0.</span></p>
 </div>
 <p>See <a class="reference internal" href="../bundledplugins/backup.html#sec-bundledplugins-backup-hooks-before-backup"><span class="std std-ref">here</span></a>.</p>
 </section>
 <section id="octoprint-plugin-backup-after-backup">
-<span id="sec-plugins-hook-plugin-backup-after-backup"></span><h3><a class="toc-backref" href="#id97">octoprint.plugin.backup.after_backup</a><a class="headerlink" href="#octoprint-plugin-backup-after-backup" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-plugin-backup-after-backup"></span><h3><a class="toc-backref" href="#id97">octoprint.plugin.backup.after_backup</a><a class="headerlink" href="#octoprint-plugin-backup-after-backup" title="Permalink to this heading"></a></h3>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 1.9.0.</span></p>
 </div>
 <p>See <a class="reference internal" href="../bundledplugins/backup.html#sec-bundledplugins-backup-hooks-after-backup"><span class="std std-ref">here</span></a>.</p>
 </section>
 <section id="octoprint-plugin-backup-before-restore">
-<span id="sec-plugins-hook-plugin-backup-before-restore"></span><h3><a class="toc-backref" href="#id98">octoprint.plugin.backup.before_restore</a><a class="headerlink" href="#octoprint-plugin-backup-before-restore" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-plugin-backup-before-restore"></span><h3><a class="toc-backref" href="#id98">octoprint.plugin.backup.before_restore</a><a class="headerlink" href="#octoprint-plugin-backup-before-restore" title="Permalink to this heading"></a></h3>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 1.9.0.</span></p>
 </div>
 <p>See <a class="reference internal" href="../bundledplugins/backup.html#sec-bundledplugins-backup-hooks-before-restore"><span class="std std-ref">here</span></a>.</p>
 </section>
 <section id="octoprint-plugin-backup-after-restore">
-<span id="sec-plugins-hook-plugin-backup-after-restore"></span><h3><a class="toc-backref" href="#id99">octoprint.plugin.backup.after_restore</a><a class="headerlink" href="#octoprint-plugin-backup-after-restore" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-plugin-backup-after-restore"></span><h3><a class="toc-backref" href="#id99">octoprint.plugin.backup.after_restore</a><a class="headerlink" href="#octoprint-plugin-backup-after-restore" title="Permalink to this heading"></a></h3>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 1.9.0.</span></p>
 </div>
 <p>See <a class="reference internal" href="../bundledplugins/backup.html#sec-bundledplugins-backup-hooks-after-restore"><span class="std std-ref">here</span></a>.</p>
 </section>
 <section id="octoprint-plugin-pluginmanager-reconnect-hooks">
-<span id="sec-plugins-hook-plugin-pluginmanager-reconnect"></span><h3><a class="toc-backref" href="#id100">octoprint.plugin.pluginmanager.reconnect_hooks</a><a class="headerlink" href="#octoprint-plugin-pluginmanager-reconnect-hooks" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-plugin-pluginmanager-reconnect"></span><h3><a class="toc-backref" href="#id100">octoprint.plugin.pluginmanager.reconnect_hooks</a><a class="headerlink" href="#octoprint-plugin-pluginmanager-reconnect-hooks" title="Permalink to this heading"></a></h3>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 1.4.0.</span></p>
 </div>
 <p>See <a class="reference internal" href="../bundledplugins/pluginmanager.html#sec-bundledplugins-pluginmanager-hooks-reconnect-hooks"><span class="std std-ref">here</span></a>.</p>
 </section>
 <section id="octoprint-plugin-softwareupdate-check-config">
-<span id="sec-plugins-hook-plugin-softwareupdate-check-config"></span><h3><a class="toc-backref" href="#id101">octoprint.plugin.softwareupdate.check_config</a><a class="headerlink" href="#octoprint-plugin-softwareupdate-check-config" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-plugin-softwareupdate-check-config"></span><h3><a class="toc-backref" href="#id101">octoprint.plugin.softwareupdate.check_config</a><a class="headerlink" href="#octoprint-plugin-softwareupdate-check-config" title="Permalink to this heading"></a></h3>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 1.2.0.</span></p>
 </div>
 <p>See <a class="reference internal" href="../bundledplugins/softwareupdate.html#sec-bundledplugins-softwareupdate-hooks-check-config"><span class="std std-ref">here</span></a>.</p>
 </section>
 <section id="octoprint-printer-additional-state-data">
-<span id="sec-plugins-hooks-plugin-printer-additional-state-data"></span><h3><a class="toc-backref" href="#id102">octoprint.printer.additional_state_data</a><a class="headerlink" href="#octoprint-printer-additional-state-data" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hooks-plugin-printer-additional-state-data"></span><h3><a class="toc-backref" href="#id102">octoprint.printer.additional_state_data</a><a class="headerlink" href="#octoprint-printer-additional-state-data" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="additional_state_data_hook">
 <span class="sig-name descname"><span class="pre">additional_state_data_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#additional_state_data_hook" title="Permalink to this definition"></a></dt>
@@ -1850,7 +1854,7 @@ you could stall the whole state monitor and thus updates being pushed to the fro
 
 </section>
 <section id="octoprint-printer-factory">
-<span id="sec-plugins-hook-printer-factory"></span><h3><a class="toc-backref" href="#id103">octoprint.printer.factory</a><a class="headerlink" href="#octoprint-printer-factory" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-printer-factory"></span><h3><a class="toc-backref" href="#id103">octoprint.printer.factory</a><a class="headerlink" href="#octoprint-printer-factory" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="printer_factory_hook">
 <span class="sig-name descname"><span class="pre">printer_factory_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">components</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#printer_factory_hook" title="Permalink to this definition"></a></dt>
@@ -1891,7 +1895,7 @@ class will be instantiated.</p>
 
 </section>
 <section id="octoprint-printer-handle-connect">
-<span id="sec-plugins-hook-printer-handle-connect"></span><h3><a class="toc-backref" href="#id104">octoprint.printer.handle_connect</a><a class="headerlink" href="#octoprint-printer-handle-connect" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-printer-handle-connect"></span><h3><a class="toc-backref" href="#id104">octoprint.printer.handle_connect</a><a class="headerlink" href="#octoprint-printer-handle-connect" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">handle_connect(*args,</span> <span class="pre">**kwargs):</span></span></dt>
@@ -1919,7 +1923,7 @@ this also includes <code class="docutils literal notranslate"><span class="pre">
 
 </section>
 <section id="octoprint-printer-estimation-factory">
-<span id="sec-plugins-hook-printer-estimation-factory"></span><h3><a class="toc-backref" href="#id105">octoprint.printer.estimation.factory</a><a class="headerlink" href="#octoprint-printer-estimation-factory" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-printer-estimation-factory"></span><h3><a class="toc-backref" href="#id105">octoprint.printer.estimation.factory</a><a class="headerlink" href="#octoprint-printer-estimation-factory" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="print_time_estimator_factory">
 <span class="sig-name descname"><span class="pre">print_time_estimator_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#print_time_estimator_factory" title="Permalink to this definition"></a></dt>
@@ -1967,7 +1971,7 @@ two hours of print time left:</p>
 
 </section>
 <section id="octoprint-printer-sdcardupload">
-<span id="sec-plugins-hook-octoprint-printer-sdcardupload"></span><h3><a class="toc-backref" href="#id106">octoprint.printer.sdcardupload</a><a class="headerlink" href="#octoprint-printer-sdcardupload" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-octoprint-printer-sdcardupload"></span><h3><a class="toc-backref" href="#id106">octoprint.printer.sdcardupload</a><a class="headerlink" href="#octoprint-printer-sdcardupload" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="sd_card_upload_hook">
 <span class="sig-name descname"><span class="pre">sd_card_upload_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">printer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">success_callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">failure_callback</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sd_card_upload_hook" title="Permalink to this definition"></a></dt>
@@ -2054,7 +2058,7 @@ own thread, which is important in order to not block the main application!</p>
 
 </section>
 <section id="octoprint-server-api-after-request">
-<span id="sec-plugins-hook-server-http-after-request"></span><h3><a class="toc-backref" href="#id107">octoprint.server.api.after_request</a><a class="headerlink" href="#octoprint-server-api-after-request" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-server-http-after-request"></span><h3><a class="toc-backref" href="#id107">octoprint.server.api.after_request</a><a class="headerlink" href="#octoprint-server-api-after-request" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="after_request_handlers_hook">
 <span class="sig-name descname"><span class="pre">after_request_handlers_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#after_request_handlers_hook" title="Permalink to this definition"></a></dt>
@@ -2071,7 +2075,7 @@ own thread, which is important in order to not block the main application!</p>
 
 </section>
 <section id="octoprint-server-api-before-request">
-<span id="sec-plugins-hook-server-http-before-request"></span><h3><a class="toc-backref" href="#id108">octoprint.server.api.before_request</a><a class="headerlink" href="#octoprint-server-api-before-request" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-server-http-before-request"></span><h3><a class="toc-backref" href="#id108">octoprint.server.api.before_request</a><a class="headerlink" href="#octoprint-server-api-before-request" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="before_request_handlers_hook">
 <span class="sig-name descname"><span class="pre">before_request_handlers_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#before_request_handlers_hook" title="Permalink to this definition"></a></dt>
@@ -2088,7 +2092,7 @@ own thread, which is important in order to not block the main application!</p>
 
 </section>
 <section id="octoprint-server-http-access-validator">
-<span id="sec-plugins-hook-server-http-access-validator"></span><h3><a class="toc-backref" href="#id109">octoprint.server.http.access_validator</a><a class="headerlink" href="#octoprint-server-http-access-validator" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-server-http-access-validator"></span><h3><a class="toc-backref" href="#id109">octoprint.server.http.access_validator</a><a class="headerlink" href="#octoprint-server-http-access-validator" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="access_validator_hook">
 <span class="sig-name descname"><span class="pre">access_validator_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#access_validator_hook" title="Permalink to this definition"></a></dt>
@@ -2105,7 +2109,7 @@ own thread, which is important in order to not block the main application!</p>
 
 </section>
 <section id="octoprint-server-http-bodysize">
-<span id="sec-plugins-hook-server-http-bodysize"></span><h3><a class="toc-backref" href="#id110">octoprint.server.http.bodysize</a><a class="headerlink" href="#octoprint-server-http-bodysize" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-server-http-bodysize"></span><h3><a class="toc-backref" href="#id110">octoprint.server.http.bodysize</a><a class="headerlink" href="#octoprint-server-http-bodysize" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="server_bodysize_hook">
 <span class="sig-name descname"><span class="pre">server_bodysize_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_max_body_sizes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#server_bodysize_hook" title="Permalink to this definition"></a></dt>
@@ -2196,7 +2200,7 @@ size (as multipart request with the file upload residing in request parameter <c
 
 </section>
 <section id="octoprint-server-http-routes">
-<span id="sec-plugins-hook-server-http-routes"></span><h3><a class="toc-backref" href="#id111">octoprint.server.http.routes</a><a class="headerlink" href="#octoprint-server-http-routes" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-server-http-routes"></span><h3><a class="toc-backref" href="#id111">octoprint.server.http.routes</a><a class="headerlink" href="#octoprint-server-http-routes" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="server_route_hook">
 <span class="sig-name descname"><span class="pre">server_route_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_routes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#server_route_hook" title="Permalink to this definition"></a></dt>
@@ -2299,7 +2303,7 @@ requests to a preconfigured URL and returns the response.</p>
 
 </section>
 <section id="octoprint-server-sockjs-authed">
-<span id="sec-plugins-hook-server-sockjs-authed"></span><h3><a class="toc-backref" href="#id112">octoprint.server.sockjs.authed</a><a class="headerlink" href="#octoprint-server-sockjs-authed" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-server-sockjs-authed"></span><h3><a class="toc-backref" href="#id112">octoprint.server.sockjs.authed</a><a class="headerlink" href="#octoprint-server-sockjs-authed" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">socket_authed_hook(socket,</span> <span class="pre">user,</span> <span class="pre">*args,</span> <span class="pre">**kwargs):</span></span></dt>
@@ -2319,7 +2323,7 @@ requests to a preconfigured URL and returns the response.</p>
 
 </section>
 <section id="octoprint-server-sockjs-register">
-<span id="sec-plugins-hook-server-sockjs-register"></span><h3><a class="toc-backref" href="#id113">octoprint.server.sockjs.register</a><a class="headerlink" href="#octoprint-server-sockjs-register" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-server-sockjs-register"></span><h3><a class="toc-backref" href="#id113">octoprint.server.sockjs.register</a><a class="headerlink" href="#octoprint-server-sockjs-register" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">socket_registration_hook(socket,</span> <span class="pre">user,</span> <span class="pre">*args,</span> <span class="pre">**kwargs):</span></span></dt>
@@ -2347,7 +2351,7 @@ signals to not register the client.</p>
 
 </section>
 <section id="octoprint-server-sockjs-emit">
-<span id="sec-plugins-hook-server-sockjs-emit"></span><h3><a class="toc-backref" href="#id114">octoprint.server.sockjs.emit</a><a class="headerlink" href="#octoprint-server-sockjs-emit" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-server-sockjs-emit"></span><h3><a class="toc-backref" href="#id114">octoprint.server.sockjs.emit</a><a class="headerlink" href="#octoprint-server-sockjs-emit" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">socket_emit_hook(socket,</span> <span class="pre">user,</span> <span class="pre">message,</span> <span class="pre">payload,</span> <span class="pre">*args,</span> <span class="pre">**kwargs):</span></span></dt>
@@ -2376,7 +2380,7 @@ signals to not register the client.</p>
 
 </section>
 <section id="octoprint-system-additional-commands">
-<span id="sec-plugins-hook-system-additional-commands"></span><h3><a class="toc-backref" href="#id115">octoprint.system.additional_commands</a><a class="headerlink" href="#octoprint-system-additional-commands" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-system-additional-commands"></span><h3><a class="toc-backref" href="#id115">octoprint.system.additional_commands</a><a class="headerlink" href="#octoprint-system-additional-commands" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="additional_commands_hook">
 <span class="sig-name descname"><span class="pre">additional_commands_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#additional_commands_hook" title="Permalink to this definition"></a></dt>
@@ -2470,7 +2474,7 @@ structure:</p>
 
 </section>
 <section id="octoprint-systeminfo-additional-bundle-files">
-<span id="sec-plugins-hook-systeminfo-additional-bundle-files"></span><h3><a class="toc-backref" href="#id116">octoprint.systeminfo.additional_bundle_files</a><a class="headerlink" href="#octoprint-systeminfo-additional-bundle-files" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-systeminfo-additional-bundle-files"></span><h3><a class="toc-backref" href="#id116">octoprint.systeminfo.additional_bundle_files</a><a class="headerlink" href="#octoprint-systeminfo-additional-bundle-files" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="additional_bundle_files_hook">
 <span class="sig-name descname"><span class="pre">additional_bundle_files_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#additional_bundle_files_hook" title="Permalink to this definition"></a></dt>
@@ -2504,7 +2508,7 @@ that will be called to generate the file’s content inside the bundle.</p>
 
 </section>
 <section id="octoprint-timelapse-extensions">
-<span id="sec-plugins-hook-timelapse-extensions"></span><h3><a class="toc-backref" href="#id117">octoprint.timelapse.extensions</a><a class="headerlink" href="#octoprint-timelapse-extensions" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-timelapse-extensions"></span><h3><a class="toc-backref" href="#id117">octoprint.timelapse.extensions</a><a class="headerlink" href="#octoprint-timelapse-extensions" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="timelapse_extension_hook">
 <span class="sig-name descname"><span class="pre">timelapse_extension_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#timelapse_extension_hook" title="Permalink to this definition"></a></dt>
@@ -2535,7 +2539,7 @@ additional file extensions.</p>
 
 </section>
 <section id="octoprint-ui-web-templatetypes">
-<span id="sec-plugins-hook-ui-web-templatetypes"></span><h3><a class="toc-backref" href="#id118">octoprint.ui.web.templatetypes</a><a class="headerlink" href="#octoprint-ui-web-templatetypes" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-ui-web-templatetypes"></span><h3><a class="toc-backref" href="#id118">octoprint.ui.web.templatetypes</a><a class="headerlink" href="#octoprint-ui-web-templatetypes" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="templatetype_hook">
 <span class="sig-name descname"><span class="pre">templatetype_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template_sorting</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_rules</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#templatetype_hook" title="Permalink to this definition"></a></dt>
@@ -2719,7 +2723,7 @@ template rule).</p>
 
 </section>
 <section id="octoprint-theming-dialog">
-<span id="sec-plugins-hook-theming-dialog"></span><h3><a class="toc-backref" href="#id119">octoprint.theming.&lt;dialog&gt;</a><a class="headerlink" href="#octoprint-theming-dialog" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-theming-dialog"></span><h3><a class="toc-backref" href="#id119">octoprint.theming.&lt;dialog&gt;</a><a class="headerlink" href="#octoprint-theming-dialog" title="Permalink to this heading"></a></h3>
 <p>This actually describes two hooks:</p>
 <blockquote>
 <div><ul class="simple">
@@ -2759,7 +2763,7 @@ CSS file URLs to inject into the dialog HTML.</p>
 
 </section>
 <section id="octoprint-timelapse-capture-pre">
-<span id="sec-plugins-hook-timelapse-capture-pre"></span><h3><a class="toc-backref" href="#id120">octoprint.timelapse.capture.pre</a><a class="headerlink" href="#octoprint-timelapse-capture-pre" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-timelapse-capture-pre"></span><h3><a class="toc-backref" href="#id120">octoprint.timelapse.capture.pre</a><a class="headerlink" href="#octoprint-timelapse-capture-pre" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="capture_pre_hook">
 <span class="sig-name descname"><span class="pre">capture_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#capture_pre_hook" title="Permalink to this definition"></a></dt>
@@ -2783,7 +2787,7 @@ CSS file URLs to inject into the dialog HTML.</p>
 
 </section>
 <section id="octoprint-timelapse-capture-post">
-<span id="sec-plugins-hook-timelapse-capture-post"></span><h3><a class="toc-backref" href="#id121">octoprint.timelapse.capture.post</a><a class="headerlink" href="#octoprint-timelapse-capture-post" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-hook-timelapse-capture-post"></span><h3><a class="toc-backref" href="#id121">octoprint.timelapse.capture.post</a><a class="headerlink" href="#octoprint-timelapse-capture-post" title="Permalink to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="capture_post_hook">
 <span class="sig-name descname"><span class="pre">capture_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">success</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#capture_post_hook" title="Permalink to this definition"></a></dt>

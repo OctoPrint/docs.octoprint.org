@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>octoprint.printer &mdash; OctoPrint maintenance documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -15,7 +17,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/mermaid.min.js"></script>
         <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
@@ -69,8 +73,87 @@
 <li class="toctree-l2"><a class="reference internal" href="plugin.html">octoprint.plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plugin.html#module-octoprint.plugin.core">octoprint.plugin.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plugin.html#module-octoprint.plugin.types">octoprint.plugin.types</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">octoprint.printer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-octoprint.printer.profile">octoprint.printer.profile</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">octoprint.printer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.printer.get_connection_options"><code class="docutils literal notranslate"><span class="pre">get_connection_options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.printer.PrinterInterface"><code class="docutils literal notranslate"><span class="pre">PrinterInterface</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.can_modify_file"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.can_modify_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.cancel_print"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.cancel_print()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.change_tool"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.change_tool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.commands"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.commands()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.connect"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.connect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.disconnect"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.disconnect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.extrude"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.extrude()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.fake_ack"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.fake_ack()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.feed_rate"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.feed_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.flow_rate"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.flow_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.get_connection_options"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.get_connection_options()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.get_current_connection"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.get_current_connection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.get_current_data"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.get_current_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.get_current_job"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.get_current_job()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.get_current_temperatures"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.get_current_temperatures()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.get_state_id"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.get_state_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.get_state_string"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.get_state_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.get_temperature_history"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.get_temperature_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.get_transport"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.get_transport()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.home"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.home()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.is_cancelling"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.is_cancelling()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.is_closed_or_error"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.is_closed_or_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.is_current_file"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.is_current_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.is_error"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.is_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.is_operational"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.is_operational()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.is_paused"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.is_paused()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.is_pausing"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.is_pausing()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.is_printing"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.is_printing()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.is_ready"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.is_ready()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.job_on_hold"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.job_on_hold()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.jog"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.jog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.log_lines"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.log_lines()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.pause_print"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.pause_print()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.register_callback"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.register_callback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.resume_print"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.resume_print()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.script"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.script()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.select_file"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.select_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.send_initial_callback"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.send_initial_callback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.set_job_on_hold"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.set_job_on_hold()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.set_temperature"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.set_temperature()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.set_temperature_offset"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.set_temperature_offset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.start_print"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.start_print()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.toggle_pause_print"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.toggle_pause_print()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.unregister_callback"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.unregister_callback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.unselect_file"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.unselect_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.valid_axes"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.valid_axes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.valid_heater_regex"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.valid_heater_regex</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterInterface.valid_tool_regex"><code class="docutils literal notranslate"><span class="pre">PrinterInterface.valid_tool_regex</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.printer.PrinterCallback"><code class="docutils literal notranslate"><span class="pre">PrinterCallback</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterCallback.on_printer_add_log"><code class="docutils literal notranslate"><span class="pre">PrinterCallback.on_printer_add_log()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterCallback.on_printer_add_message"><code class="docutils literal notranslate"><span class="pre">PrinterCallback.on_printer_add_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterCallback.on_printer_add_temperature"><code class="docutils literal notranslate"><span class="pre">PrinterCallback.on_printer_add_temperature()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterCallback.on_printer_received_registered_message"><code class="docutils literal notranslate"><span class="pre">PrinterCallback.on_printer_received_registered_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterCallback.on_printer_send_current_data"><code class="docutils literal notranslate"><span class="pre">PrinterCallback.on_printer_send_current_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.PrinterCallback.on_printer_send_initial_data"><code class="docutils literal notranslate"><span class="pre">PrinterCallback.on_printer_send_initial_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-octoprint.printer.profile">octoprint.printer.profile</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.printer.profile.PrinterProfileManager"><code class="docutils literal notranslate"><span class="pre">PrinterProfileManager</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.printer.profile.BedFormFactor"><code class="docutils literal notranslate"><span class="pre">BedFormFactor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.profile.BedFormFactor.CIRCULAR"><code class="docutils literal notranslate"><span class="pre">BedFormFactor.CIRCULAR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.profile.BedFormFactor.RECTANGULAR"><code class="docutils literal notranslate"><span class="pre">BedFormFactor.RECTANGULAR</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.printer.profile.BedOrigin"><code class="docutils literal notranslate"><span class="pre">BedOrigin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.profile.BedOrigin.CENTER"><code class="docutils literal notranslate"><span class="pre">BedOrigin.CENTER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.printer.profile.BedOrigin.LOWERLEFT"><code class="docutils literal notranslate"><span class="pre">BedOrigin.LOWERLEFT</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.printer.profile.SaveError"><code class="docutils literal notranslate"><span class="pre">SaveError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.printer.profile.CouldNotOverwriteError"><code class="docutils literal notranslate"><span class="pre">CouldNotOverwriteError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.printer.profile.InvalidProfileError"><code class="docutils literal notranslate"><span class="pre">InvalidProfileError</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="schema.html">octoprint.schema</a></li>
 <li class="toctree-l2"><a class="reference internal" href="schema.html#module-octoprint.schema.config">octoprint.schema.config</a></li>
 <li class="toctree-l2"><a class="reference internal" href="schema.html#module-octoprint.schema.webcam">octoprint.schema.webcam</a></li>
@@ -152,7 +235,7 @@
            <div itemprop="articleBody">
              
   <section id="module-octoprint.printer">
-<span id="octoprint-printer"></span><span id="sec-modules-printer"></span><h1>octoprint.printer<a class="headerlink" href="#module-octoprint.printer" title="Permalink to this headline"></a></h1>
+<span id="octoprint-printer"></span><span id="sec-modules-printer"></span><h1>octoprint.printer<a class="headerlink" href="#module-octoprint.printer" title="Permalink to this heading"></a></h1>
 <p>This module defines the interface for communicating with a connected printer.</p>
 <p>The communication is in fact divided in two components, the <a class="reference internal" href="#octoprint.printer.PrinterInterface" title="octoprint.printer.PrinterInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterInterface</span></code></a> and a deeper lying
 communication layer. However, plugins should only ever need to use the <a class="reference internal" href="#octoprint.printer.PrinterInterface" title="octoprint.printer.PrinterInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrinterInterface</span></code></a> as the
@@ -208,7 +291,7 @@ versions!</p>
 <dd><p>Cancels the current print job.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>tags</strong> (<em>set of str</em>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p>
+<dd class="field-odd"><p><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.12)"><em>set</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p>
 </dd>
 </dl>
 </dd></dl>
@@ -221,7 +304,7 @@ versions!</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The tool to switch to, matching the regex “tool[0-9]+” (e.g. “tool0”, “tool1”, …)</p></li>
-<li><p><strong>tags</strong> (<em>set of str</em>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
+<li><p><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.12)"><em>set</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
 </ul>
 </dd>
 </dl>
@@ -236,7 +319,7 @@ versions!</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>commands</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – The commands to send. Might be a single command provided just as a string or a list
 of multiple commands to send in order.</p></li>
-<li><p><strong>tags</strong> (<em>set of str</em>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
+<li><p><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.12)"><em>set</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
 <li><p><strong>force</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Whether to force sending of the command right away or allow queuing while printing</p></li>
 </ul>
 </dd>
@@ -276,8 +359,8 @@ will be retrieved from the <code class="xref py py-class docutils literal notran
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>amount</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – The amount of material to extrude in mm</p></li>
 <li><p><strong>speed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>None</em>) – Speed at which to extrude (F parameter). If set to <code class="docutils literal notranslate"><span class="pre">None</span></code> (or left out)</p></li>
-<li><p><strong>used.</strong> (<em>the maximum speed of E axis from the printer profile will be</em>) – </p></li>
-<li><p><strong>tags</strong> (<em>set of str</em>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
+<li><p><strong>used.</strong> (<em>the maximum speed</em><em> of </em><em>E axis from the printer profile will be</em>) – </p></li>
+<li><p><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.12)"><em>set</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
 </ul>
 </dd>
 </dl>
@@ -300,7 +383,7 @@ things going again.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – The factor for the feed rate to send to the firmware. Percentage expressed as either an
 int between 0 and 100 or a float between 0 and 1.</p></li>
-<li><p><strong>tags</strong> (<em>set of str</em>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
+<li><p><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.12)"><em>set</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
 </ul>
 </dd>
 </dl>
@@ -315,7 +398,7 @@ int between 0 and 100 or a float between 0 and 1.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – The factor for the flow rate to send to the firmware. Percentage expressed as either an
 int between 0 and 100 or a float between 0 and 1.</p></li>
-<li><p><strong>tags</strong> (<em>set of str</em>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
+<li><p><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.12)"><em>set</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
 </ul>
 </dd>
 </dl>
@@ -462,7 +545,7 @@ different, so take care to do instance checks before attempting to access any pr
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>axes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – The axis or axes to home, each of which must converted to lower case must match one of
 “x”, “y”, “z” and “e”</p></li>
-<li><p><strong>tags</strong> (<em>set of str</em>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
+<li><p><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.12)"><em>set</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
 </ul>
 </dd>
 </dl>
@@ -616,7 +699,7 @@ coordinates</p></li>
 <li><p><strong>speed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><em>None</em>) – Speed at which to jog (F parameter). If set to <code class="docutils literal notranslate"><span class="pre">False</span></code> no speed will be set
 specifically. If set to <code class="docutils literal notranslate"><span class="pre">None</span></code> (or left out) the minimum of all involved axes speeds from the printer
 profile will be used.</p></li>
-<li><p><strong>tags</strong> (<em>set of str</em>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
+<li><p><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.12)"><em>set</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
 </ul>
 </dd>
 </dl>
@@ -635,7 +718,7 @@ profile will be used.</p></li>
 <dd><p>Pauses the current print job if it is currently running, does nothing otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>tags</strong> (<em>set of str</em>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p>
+<dd class="field-odd"><p><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.12)"><em>set</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p>
 </dd>
 </dl>
 </dd></dl>
@@ -657,7 +740,7 @@ profile will be used.</p></li>
 <dd><p>Resumes the current print job if it is currently paused, does nothing otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>tags</strong> (<em>set of str</em>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p>
+<dd class="field-odd"><p><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.12)"><em>set</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p>
 </dd>
 </dl>
 </dd></dl>
@@ -674,7 +757,7 @@ profile will be used.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The name of the GCODE script to render.</p></li>
 <li><p><strong>context</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – An optional context of additional template variables to provide to the renderer.</p></li>
-<li><p><strong>tags</strong> (<em>set of str</em>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
+<li><p><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.12)"><em>set</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -696,7 +779,7 @@ the uploads folder or a filename on the printer’s SD card.</p></li>
 <li><p><strong>sd</strong> (<em>boolean</em>) – Indicates whether the file is on the printer’s SD card or not.</p></li>
 <li><p><strong>printAfterSelect</strong> (<em>boolean</em>) – Indicates whether a print should be started
 after the file is selected.</p></li>
-<li><p><strong>tags</strong> (<em>set of str</em>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
+<li><p><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.12)"><em>set</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -766,7 +849,7 @@ regular expression “tool[0-9]+” (e.g. “tool0”, “tool1”, …) for the
 addressing components that are disabled or unconfigured in the printer profile will result in a
 “Suppressed command” error popup message.</p></li>
 <li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – The temperature in celsius to set the target temperature to.</p></li>
-<li><p><strong>tags</strong> (<em>set of str</em>) – An optional set of tags to attach to the command(s) throughout their lifecycle.</p></li>
+<li><p><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.12)"><em>set</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – An optional set of tags to attach to the command(s) throughout their lifecycle.</p></li>
 </ul>
 </dd>
 </dl>
@@ -782,7 +865,7 @@ addressing components that are disabled or unconfigured in the printer profile w
 <li><p><strong>offsets</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – A dictionary specifying the offsets to apply. Keys must match the format for the <code class="docutils literal notranslate"><span class="pre">heater</span></code>
 parameter to <a class="reference internal" href="#octoprint.printer.PrinterInterface.set_temperature" title="octoprint.printer.PrinterInterface.set_temperature"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_temperature()</span></code></a>, so “bed” for the offset for the bed target temperature and
 “tool[0-9]+” for the offsets to the hotend target temperatures.</p></li>
-<li><p><strong>tags</strong> (<em>set of str</em>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
+<li><p><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.12)"><em>set</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p></li>
 </ul>
 </dd>
 </dl>
@@ -794,7 +877,7 @@ parameter to <a class="reference internal" href="#octoprint.printer.PrinterInter
 <dd><p>Starts printing the currently selected file. If no file is currently selected, does nothing.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>tags</strong> (<em>set of str</em>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p>
+<dd class="field-odd"><p><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.12)"><em>set</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p>
 </dd>
 </dl>
 </dd></dl>
@@ -805,7 +888,7 @@ parameter to <a class="reference internal" href="#octoprint.printer.PrinterInter
 <dd><p>Pauses the current print job if it is currently running or resumes it if it is currently paused.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>tags</strong> (<em>set of str</em>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p>
+<dd class="field-odd"><p><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.12)"><em>set</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – An optional set of tags to attach to the command(s) throughout their lifecycle</p>
 </dd>
 </dl>
 </dd></dl>
@@ -985,7 +1068,7 @@ log and temperature history etc) from the printer.</p>
 
 </section>
 <section id="module-octoprint.printer.profile">
-<span id="octoprint-printer-profile"></span><span id="sec-modules-printer-profile"></span><h1>octoprint.printer.profile<a class="headerlink" href="#module-octoprint.printer.profile" title="Permalink to this headline"></a></h1>
+<span id="octoprint-printer-profile"></span><span id="sec-modules-printer-profile"></span><h1>octoprint.printer.profile<a class="headerlink" href="#module-octoprint.printer.profile" title="Permalink to this heading"></a></h1>
 <p>This module contains printer profile related code.</p>
 <p>A printer profile is a <code class="docutils literal notranslate"><span class="pre">dict</span></code> of the following structure:</p>
 <table class="colwidths-given docutils align-default">

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OctoPrintClient.timelapse &mdash; OctoPrint maintenance documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -15,7 +17,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/mermaid.min.js"></script>
         <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
@@ -71,7 +75,19 @@
 <li class="toctree-l2"><a class="reference internal" href="slicing.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.slicing</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="socket.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.socket</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="system.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.system</span></code></a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.timelapse.get"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.timelapse.list"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.list()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.timelapse.listRendered"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.listRendered()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.timelapse.listUnrendered"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.listUnrendered()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.timelapse.download"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.download()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.timelapse.delete"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.delete()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.timelapse.deleteUnrendered"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.deleteUnrendered()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.timelapse.renderUnrendered"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.renderUnrendered()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.timelapse.getConfig"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.getConfig()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.timelapse.saveConfig"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.saveConfig()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="users.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.users</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="util.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.util</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="wizard.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.wizard</span></code></a></li>
@@ -141,7 +157,7 @@
            <div itemprop="articleBody">
              
   <section id="octoprintclient-timelapse">
-<span id="sec-jsclientlib-timelapse"></span><h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse</span></code><a class="headerlink" href="#octoprintclient-timelapse" title="Permalink to this headline"></a></h1>
+<span id="sec-jsclientlib-timelapse"></span><h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse</span></code><a class="headerlink" href="#octoprintclient-timelapse" title="Permalink to this heading"></a></h1>
 <dl class="js function">
 <dt class="sig sig-object js" id="OctoPrintClient.timelapse.get">
 <span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">timelapse</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">get</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unrendered</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.timelapse.get" title="Permalink to this definition"></a></dt>
