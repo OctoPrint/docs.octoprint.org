@@ -187,7 +187,7 @@ used for the <code class="docutils literal notranslate"><span class="pre">serial
 <span class="w">  </span><span class="nt">console</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logging.StreamHandler</span>
 <span class="w">    </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG</span>
-<span class="w">    </span><span class="nt">formatter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">simple</span>
+<span class="w">    </span><span class="nt">formatter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">colored</span>
 <span class="w">    </span><span class="nt">stream</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ext://sys.stdout</span>
 
 <span class="w">  </span><span class="c1"># octoprint.log</span>
@@ -208,6 +208,12 @@ used for the <code class="docutils literal notranslate"><span class="pre">serial
 <span class="w">    </span><span class="nt">filename</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/octoprints/logs/serial.log</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If OctoPrint is instructed to not color its logging output (e.g. via the <code class="docutils literal notranslate"><span class="pre">--no-color</span></code> command
+line option or the <code class="docutils literal notranslate"><span class="pre">NO_COLOR</span></code> environment variable), the <code class="docutils literal notranslate"><span class="pre">colored</span></code> formatter will be replaced
+with the <code class="docutils literal notranslate"><span class="pre">simple</span></code> formatter.</p>
+</div>
 <p>You can find more information on the used logging handlers in the Python documentation on
 <a class="reference external" href="https://docs.python.org/3/library/logging.handlers.html#module-logging.handlers" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">logging.handlers</span></code></a>.</p>
 </section>
@@ -218,6 +224,17 @@ expressed in YAML as follows:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">formatters</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">simple</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;%(asctime)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(name)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(levelname)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(message)s&quot;</span>
+<span class="w">  </span><span class="nt">colored</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;%(log_color)s%(asctime)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(name)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(levelname)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(message)s%(reset)s&quot;</span>
+</pre></div>
+</div>
+<p>As example, if you want to change the format to include the full file and line number in which the logging statement was issued, you
+could redefine the formatters as follows:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">formatters</span><span class="p">:</span>
+<span class="nt">simple</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;%(asctime)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(name)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(pathname)s%(filename)s#%(lineno)d</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(levelname)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(message)s&quot;</span>
+<span class="nt">colored</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;%(log_color)s%(asctime)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(name)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(pathname)s%(filename)s#%(lineno)d</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(levelname)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(message)s%(reset)s&quot;</span>
 </pre></div>
 </div>
 <p>The possible keys for the logging format can be found in the
