@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Setting up the virtual printer for debugging &mdash; OctoPrint devel documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -15,7 +17,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/mermaid.min.js"></script>
         <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
@@ -134,16 +138,16 @@
            <div itemprop="articleBody">
              
   <section id="setting-up-the-virtual-printer-for-debugging">
-<span id="sec-development-virtual-printer"></span><h1>Setting up the virtual printer for debugging<a class="headerlink" href="#setting-up-the-virtual-printer-for-debugging" title="Permalink to this headline"></a></h1>
+<span id="sec-development-virtual-printer"></span><h1>Setting up the virtual printer for debugging<a class="headerlink" href="#setting-up-the-virtual-printer-for-debugging" title="Permalink to this heading"></a></h1>
 <p>OctoPrint includes, by default, a <a class="reference internal" href="../bundledplugins/virtual_printer.html#sec-bundledplugins-virtual-printer"><span class="std std-ref">virtual printer plugin</span></a>. This plugin allows you to debug OctoPrint’s serial
 communication without connecting to an actual printer. Furthermore, it is possible to create certain edge conditions
 that may be hard to reproduce with a real printer.</p>
 <section id="enabling-the-virtual-printer">
-<span id="sec-development-virtual-printer-enable"></span><h2>Enabling the virtual printer<a class="headerlink" href="#enabling-the-virtual-printer" title="Permalink to this headline"></a></h2>
+<span id="sec-development-virtual-printer-enable"></span><h2>Enabling the virtual printer<a class="headerlink" href="#enabling-the-virtual-printer" title="Permalink to this heading"></a></h2>
 <p>The virtual printer can be enabled through its Settings pane.</p>
 </section>
 <section id="virtual-printer-configuration-options">
-<span id="sec-development-virtual-printer-config"></span><h2>Virtual printer configuration options<a class="headerlink" href="#virtual-printer-configuration-options" title="Permalink to this headline"></a></h2>
+<span id="sec-development-virtual-printer-config"></span><h2>Virtual printer configuration options<a class="headerlink" href="#virtual-printer-configuration-options" title="Permalink to this heading"></a></h2>
 <p>There many configuration options via <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> for the virtual printer that allow you to fine-tune its behavior:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
 
@@ -332,14 +336,14 @@ that may be hard to reproduce with a real printer.</p>
 <span class="w">      </span><span class="nt">EXTENDED_M20</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">      </span><span class="nt">LFN_WRITE</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 
-<span class="w">   </span><span class="c1"># Whether to include area report in the M115 output (M115_GEOMETRY_REPORT in Marlin)</span>
-<span class="w">  </span><span class="w w-Error"> </span><span class="nt">m115ReportArea</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="c1"># Whether to include area report in the M115 output (M115_GEOMETRY_REPORT in Marlin)</span>
+<span class="w">    </span><span class="nt">m115ReportArea</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain"># Simulated ambient temperature in °C</span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">ambientTemperature</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">21.3</span>
+<span class="w">    </span><span class="c1"># Simulated ambient temperature in °C</span>
+<span class="w">    </span><span class="nt">ambientTemperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">21.3</span>
 
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain"># Response to M105 when there is a target</span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain"># Placeholders</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="c1"># Response to M105 when there is a target</span>
+<span class="w">    </span><span class="c1"># Placeholders:</span>
 <span class="w">    </span><span class="c1"># - heater: The heater id (eg. T0, T1, B)</span>
 <span class="w">    </span><span class="c1"># - actual: The actual temperature of the heater</span>
 <span class="w">    </span><span class="c1"># - target: The target temperature of heater</span>
@@ -362,16 +366,23 @@ that may be hard to reproduce with a real printer.</p>
 
 <span class="w">    </span><span class="c1"># Resend ratio to simulate noise on the line</span>
 <span class="w">    </span><span class="nt">resend_ratio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+
+<span class="w">    </span><span class="c1"># communication errors to simulate at specific line numbers</span>
+<span class="w">    </span><span class="nt">simulated_errors</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100:resend</span><span class="w">  </span><span class="c1"># requests a simple resend at line 100</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">105:resend_with_timeout</span><span class="w">  </span><span class="c1"># requests a resend at line 105 and simulates not responding to it</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">110:missing_lineno</span><span class="w">  </span><span class="c1"># simulates a missing line number at line 110</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">115:checksum_mismatch</span><span class="w">  </span><span class="c1"># simulates a checksum mismatch at line 115</span>
 </pre></div>
 </div>
 </section>
 <section id="log-file">
-<span id="sec-development-virtual-printer-log"></span><h2>Log file<a class="headerlink" href="#log-file" title="Permalink to this headline"></a></h2>
+<span id="sec-development-virtual-printer-log"></span><h2>Log file<a class="headerlink" href="#log-file" title="Permalink to this heading"></a></h2>
 <p>Once activated, the virtual printer will log all serial communication in the <code class="docutils literal notranslate"><span class="pre">plugin_virtual_printer_serial.log</span></code> file
 that can be found in the OctoPrint logs folder.</p>
 </section>
 <section id="debug-commands">
-<span id="sec-development-virtual-printer-debug"></span><h2>Debug commands<a class="headerlink" href="#debug-commands" title="Permalink to this headline"></a></h2>
+<span id="sec-development-virtual-printer-debug"></span><h2>Debug commands<a class="headerlink" href="#debug-commands" title="Permalink to this heading"></a></h2>
 <p>You can simulate certain conditions and communications through the terminal tab in OctoPrint’s interface.</p>
 <p>All commands start with <code class="docutils literal notranslate"><span class="pre">!!DEBUG:</span></code> and are followed by the command you want to execute. For instance, sending
 <code class="docutils literal notranslate"><span class="pre">!!DEBUG:action_disconnect</span></code> will disconnect the printer. Sending <code class="docutils literal notranslate"><span class="pre">!!DEBUG</span></code> without command will show a help
@@ -456,7 +467,7 @@ reset
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2023, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -479,8 +490,8 @@ reset
   <div class="rst-other-versions">
     <dl>
       <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.10.0rc1/development/virtual_printer.html">1.10.0rc1</a></dd>
       <dd><a href="https://docs.octoprint.org/en/1.9.3/development/virtual_printer.html">1.9.3</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.8.7/development/virtual_printer.html">1.8.7</a></dd>
     </dl>
     <dl>
       <dt>Branches</dt>

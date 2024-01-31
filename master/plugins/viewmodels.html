@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Viewmodels &mdash; OctoPrint master documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -15,7 +17,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/mermaid.min.js"></script>
         <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
@@ -138,7 +142,7 @@
            <div itemprop="articleBody">
              
   <section id="viewmodels">
-<span id="sec-plugins-viewmodels"></span><h1>Viewmodels<a class="headerlink" href="#viewmodels" title="Permalink to this headline"></a></h1>
+<span id="sec-plugins-viewmodels"></span><h1>Viewmodels<a class="headerlink" href="#viewmodels" title="Permalink to this heading"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#registering-custom-viewmodels" id="id2">Registering custom viewmodels</a></p></li>
@@ -155,7 +159,7 @@
 <p>When implementing frontend components, you’ll sooner or later want to define your own <a class="reference external" href="http://knockoutjs.com/">KnockoutJS view models</a>
 in order to provide custom functionality.</p>
 <section id="registering-custom-viewmodels">
-<span id="sec-plugins-viewmodels-registering"></span><h2><a class="toc-backref" href="#id2">Registering custom viewmodels</a><a class="headerlink" href="#registering-custom-viewmodels" title="Permalink to this headline"></a></h2>
+<span id="sec-plugins-viewmodels-registering"></span><h2><a class="toc-backref" href="#id2">Registering custom viewmodels</a><a class="headerlink" href="#registering-custom-viewmodels" title="Permalink to this heading"></a></h2>
 <p>Register your view model with OctoPrint’s web app by pushing a config object unto the global array <code class="docutils literal notranslate"><span class="pre">OCTOPRINT_VIEWMODELS</span></code>.</p>
 <p>Possible properties in this config object are:</p>
 <dl class="simple">
@@ -235,7 +239,7 @@ of how that would look in practice is provided here as well:</p>
 </div>
 </section>
 <section id="dependencies">
-<span id="sec-plugins-viewmodels-dependencies"></span><h2><a class="toc-backref" href="#id3">Dependencies</a><a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h2>
+<span id="sec-plugins-viewmodels-dependencies"></span><h2><a class="toc-backref" href="#id3">Dependencies</a><a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h2>
 <p>OctoPrint will try to inject all view model dependencies requested by your view model. In order to do this it will
 perform multiple passes iterating over all registered view models and collecting the necessary dependencies prior to
 construction. Circular dependencies (A depends on B, B on C, C on A) naturally cannot be resolved and will cause an
@@ -294,7 +298,7 @@ for dependency injection as “myCustomViewModel”) or an alternative name prov
 config object, plus any configured <code class="docutils literal notranslate"><span class="pre">additionalNames</span></code>.</p>
 </section>
 <section id="callbacks">
-<span id="sec-plugins-viewmodels-callbacks"></span><h2><a class="toc-backref" href="#id4">Callbacks</a><a class="headerlink" href="#callbacks" title="Permalink to this headline"></a></h2>
+<span id="sec-plugins-viewmodels-callbacks"></span><h2><a class="toc-backref" href="#id4">Callbacks</a><a class="headerlink" href="#callbacks" title="Permalink to this heading"></a></h2>
 <p>OctoPrint’s web application will call several callbacks on all registered view models, provided they implement them.
 Those are listed below:</p>
 <dl>
@@ -419,9 +423,9 @@ on your view model, taking a list of all bound view models:</p>
 </div>
 </section>
 <section id="lifecycle-diagrams">
-<span id="sec-plugins-viewmodels-livecycle"></span><h2><a class="toc-backref" href="#id5">Lifecycle diagrams</a><a class="headerlink" href="#lifecycle-diagrams" title="Permalink to this headline"></a></h2>
+<span id="sec-plugins-viewmodels-livecycle"></span><h2><a class="toc-backref" href="#id5">Lifecycle diagrams</a><a class="headerlink" href="#lifecycle-diagrams" title="Permalink to this heading"></a></h2>
 <section id="web-interface-startup">
-<span id="sec-plugins-viewmodels-startup"></span><h3><a class="toc-backref" href="#id6">Web interface startup</a><a class="headerlink" href="#web-interface-startup" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-viewmodels-startup"></span><h3><a class="toc-backref" href="#id6">Web interface startup</a><a class="headerlink" href="#web-interface-startup" title="Permalink to this heading"></a></h3>
 <object data="../_images/mermaid-4fd41888a15fa9877db93b5414f72704048b4f41.svg" type="image/svg+xml">
             <p class="warning">sequenceDiagram
    participant Main
@@ -505,7 +509,7 @@ on your view model, taking a list of all bound view models:</p>
    deactivate Main</p></object>
 </section>
 <section id="web-interface-reconnect">
-<span id="sec-plugins-viewmodels-reconnect"></span><h3><a class="toc-backref" href="#id7">Web interface reconnect</a><a class="headerlink" href="#web-interface-reconnect" title="Permalink to this headline"></a></h3>
+<span id="sec-plugins-viewmodels-reconnect"></span><h3><a class="toc-backref" href="#id7">Web interface reconnect</a><a class="headerlink" href="#web-interface-reconnect" title="Permalink to this heading"></a></h3>
 <object data="../_images/mermaid-b6a68afb5de22645f94737e480e580e570c977a7.svg" type="image/svg+xml">
             <p class="warning">sequenceDiagram
    participant onServerConnect
@@ -562,7 +566,7 @@ plugins. Their source code is therefore a good point of reference on how to achi
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2023, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -585,8 +589,8 @@ plugins. Their source code is therefore a good point of reference on how to achi
   <div class="rst-other-versions">
     <dl>
       <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.10.0rc1/plugins/viewmodels.html">1.10.0rc1</a></dd>
       <dd><a href="https://docs.octoprint.org/en/1.9.3/plugins/viewmodels.html">1.9.3</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.8.7/plugins/viewmodels.html">1.8.7</a></dd>
     </dl>
     <dl>
       <dt>Branches</dt>

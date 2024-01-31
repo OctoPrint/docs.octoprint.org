@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OctoPrintClient.files &mdash; OctoPrint devel documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -15,7 +17,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/mermaid.min.js"></script>
         <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
@@ -61,7 +65,22 @@
 <li class="toctree-l2"><a class="reference internal" href="browser.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.browser</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="connection.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.connection</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="control.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.control</span></code></a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.files</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.files</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.files.get"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.files.list"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.list()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.files.listForLocation"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.listForLocation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.files.select"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.select()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.files.slice"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.slice()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.files.delete"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.delete()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.files.copy"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.copy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.files.move"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.move()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.files.createFolder"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.createFolder()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.files.upload"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.upload()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.files.download"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.download()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.files.pathForEntry"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.pathForEntry()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.files.entryForPath"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.entryForPath()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="job.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.job</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="languages.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.languages</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="logs.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.logs</span></code></a></li>
@@ -141,7 +160,7 @@
            <div itemprop="articleBody">
              
   <section id="octoprintclient-files">
-<span id="sec-jsclientlib-files"></span><h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.files</span></code><a class="headerlink" href="#octoprintclient-files" title="Permalink to this headline"></a></h1>
+<span id="sec-jsclientlib-files"></span><h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.files</span></code><a class="headerlink" href="#octoprintclient-files" title="Permalink to this heading"></a></h1>
 <dl class="js function">
 <dt class="sig sig-object js" id="OctoPrintClient.files.get">
 <span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">files</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">get</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.files.get" title="Permalink to this definition"></a></dt>
@@ -508,7 +527,7 @@ not be resolved</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2023, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -531,8 +550,8 @@ not be resolved</p>
   <div class="rst-other-versions">
     <dl>
       <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.10.0rc1/jsclientlib/files.html">1.10.0rc1</a></dd>
       <dd><a href="https://docs.octoprint.org/en/1.9.3/jsclientlib/files.html">1.9.3</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.8.7/jsclientlib/files.html">1.8.7</a></dd>
     </dl>
     <dl>
       <dt>Branches</dt>

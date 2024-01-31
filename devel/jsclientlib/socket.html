@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OctoPrintClient.socket &mdash; OctoPrint devel documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -15,7 +17,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/mermaid.min.js"></script>
         <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
@@ -70,6 +74,18 @@
 <li class="toctree-l2"><a class="reference internal" href="settings.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.settings</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="slicing.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.slicing</span></code></a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.socket</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.options"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.options</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.connect"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.connect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.reconnect"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.reconnect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.disconnect"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.disconnect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.onMessage"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.onMessage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.removeMessage"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.removeMessage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.sendMessage"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.sendMessage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.sendAuth"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.sendAuth()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.onRateTooLow"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.onRateTooLow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.onRateTooHigh"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.onRateTooHigh()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.increaseRate"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.increaseRate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.decreaseRate"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.decreaseRate()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#sample-to-setup-an-authed-socket">Sample to setup an authed socket</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#communication-throttling">Communication Throttling</a></li>
 </ul>
@@ -145,7 +161,7 @@
            <div itemprop="articleBody">
              
   <section id="octoprintclient-socket">
-<span id="sec-jsclientlib-socket"></span><h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.socket</span></code><a class="headerlink" href="#octoprintclient-socket" title="Permalink to this headline"></a></h1>
+<span id="sec-jsclientlib-socket"></span><h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.socket</span></code><a class="headerlink" href="#octoprintclient-socket" title="Permalink to this heading"></a></h1>
 <dl class="js attribute">
 <dt class="sig sig-object js" id="OctoPrintClient.socket.options">
 <span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">options</span></span></span><a class="headerlink" href="#OctoPrintClient.socket.options" title="Permalink to this definition"></a></dt>
@@ -322,7 +338,7 @@ the current rate requires and a slower rate might be necessary.</p>
 </dd></dl>
 
 <section id="sample-to-setup-an-authed-socket">
-<span id="sec-jsclient-socket-authsample"></span><h2>Sample to setup an authed socket<a class="headerlink" href="#sample-to-setup-an-authed-socket" title="Permalink to this headline"></a></h2>
+<span id="sec-jsclient-socket-authsample"></span><h2>Sample to setup an authed socket<a class="headerlink" href="#sample-to-setup-an-authed-socket" title="Permalink to this heading"></a></h2>
 <p>If you have a username and a password:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span>
 <span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">login</span><span class="p">(</span><span class="s2">&quot;myusername&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mypassword&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
@@ -345,7 +361,7 @@ the current rate requires and a slower rate might be necessary.</p>
 </div>
 </section>
 <section id="communication-throttling">
-<span id="sec-jsclient-socket-throttling"></span><h2>Communication Throttling<a class="headerlink" href="#communication-throttling" title="Permalink to this headline"></a></h2>
+<span id="sec-jsclient-socket-throttling"></span><h2>Communication Throttling<a class="headerlink" href="#communication-throttling" title="Permalink to this heading"></a></h2>
 <p>The socket client supports communication throttling. It will measure how long each incoming message takes
 to be processed by all registered handlers. If the processing times in a sliding window are longer than
 the current rate limit configured on the socket (default: 500ms between messages), the socket client will
@@ -365,7 +381,7 @@ the socket client will instruct the server to send faster.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2023, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -388,8 +404,8 @@ the socket client will instruct the server to send faster.</p>
   <div class="rst-other-versions">
     <dl>
       <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.10.0rc1/jsclientlib/socket.html">1.10.0rc1</a></dd>
       <dd><a href="https://docs.octoprint.org/en/1.9.3/jsclientlib/socket.html">1.9.3</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.8.7/jsclientlib/socket.html">1.8.7</a></dd>
     </dl>
     <dl>
       <dt>Branches</dt>

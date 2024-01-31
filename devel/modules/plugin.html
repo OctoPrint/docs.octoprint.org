@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>octoprint.plugin &mdash; OctoPrint devel documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -15,7 +17,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/mermaid.min.js"></script>
         <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
@@ -66,9 +70,142 @@
 <li class="toctree-l2"><a class="reference internal" href="filemanager.html#module-octoprint.filemanager.destinations">octoprint.filemanager.destinations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filemanager.html#module-octoprint.filemanager.storage">octoprint.filemanager.storage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filemanager.html#module-octoprint.filemanager.util">octoprint.filemanager.util</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">octoprint.plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-octoprint.plugin.core">octoprint.plugin.core</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-octoprint.plugin.types">octoprint.plugin.types</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">octoprint.plugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.plugin.plugin_manager"><code class="docutils literal notranslate"><span class="pre">plugin_manager()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.plugin.plugin_settings"><code class="docutils literal notranslate"><span class="pre">plugin_settings()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.plugin.call_plugin"><code class="docutils literal notranslate"><span class="pre">call_plugin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.plugin.PluginSettings"><code class="docutils literal notranslate"><span class="pre">PluginSettings</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.get"><code class="docutils literal notranslate"><span class="pre">PluginSettings.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.get_int"><code class="docutils literal notranslate"><span class="pre">PluginSettings.get_int()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.get_float"><code class="docutils literal notranslate"><span class="pre">PluginSettings.get_float()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.get_boolean"><code class="docutils literal notranslate"><span class="pre">PluginSettings.get_boolean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.set"><code class="docutils literal notranslate"><span class="pre">PluginSettings.set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.set_int"><code class="docutils literal notranslate"><span class="pre">PluginSettings.set_int()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.set_float"><code class="docutils literal notranslate"><span class="pre">PluginSettings.set_float()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.set_boolean"><code class="docutils literal notranslate"><span class="pre">PluginSettings.set_boolean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.save"><code class="docutils literal notranslate"><span class="pre">PluginSettings.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.add_overlay"><code class="docutils literal notranslate"><span class="pre">PluginSettings.add_overlay()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.remove_overlay"><code class="docutils literal notranslate"><span class="pre">PluginSettings.remove_overlay()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.get_plugin_data_folder"><code class="docutils literal notranslate"><span class="pre">PluginSettings.get_plugin_data_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.get_plugin_logfile_path"><code class="docutils literal notranslate"><span class="pre">PluginSettings.get_plugin_logfile_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.global_get"><code class="docutils literal notranslate"><span class="pre">PluginSettings.global_get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.global_get_basefolder"><code class="docutils literal notranslate"><span class="pre">PluginSettings.global_get_basefolder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.global_get_boolean"><code class="docutils literal notranslate"><span class="pre">PluginSettings.global_get_boolean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.global_get_float"><code class="docutils literal notranslate"><span class="pre">PluginSettings.global_get_float()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.global_get_int"><code class="docutils literal notranslate"><span class="pre">PluginSettings.global_get_int()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.global_set"><code class="docutils literal notranslate"><span class="pre">PluginSettings.global_set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.global_set_boolean"><code class="docutils literal notranslate"><span class="pre">PluginSettings.global_set_boolean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.global_set_float"><code class="docutils literal notranslate"><span class="pre">PluginSettings.global_set_float()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.PluginSettings.global_set_int"><code class="docutils literal notranslate"><span class="pre">PluginSettings.global_set_int()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-octoprint.plugin.core">octoprint.plugin.core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.plugin.core.PluginManager"><code class="docutils literal notranslate"><span class="pre">PluginManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.disable_plugin"><code class="docutils literal notranslate"><span class="pre">PluginManager.disable_plugin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.enable_plugin"><code class="docutils literal notranslate"><span class="pre">PluginManager.enable_plugin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.get_filtered_implementations"><code class="docutils literal notranslate"><span class="pre">PluginManager.get_filtered_implementations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.get_helpers"><code class="docutils literal notranslate"><span class="pre">PluginManager.get_helpers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.get_hooks"><code class="docutils literal notranslate"><span class="pre">PluginManager.get_hooks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.get_implementations"><code class="docutils literal notranslate"><span class="pre">PluginManager.get_implementations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.get_plugin"><code class="docutils literal notranslate"><span class="pre">PluginManager.get_plugin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.get_plugin_info"><code class="docutils literal notranslate"><span class="pre">PluginManager.get_plugin_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.has_any_of_hooks"><code class="docutils literal notranslate"><span class="pre">PluginManager.has_any_of_hooks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.has_any_of_mixins"><code class="docutils literal notranslate"><span class="pre">PluginManager.has_any_of_mixins()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.has_obsolete_hooks"><code class="docutils literal notranslate"><span class="pre">PluginManager.has_obsolete_hooks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.has_restart_needing_hooks"><code class="docutils literal notranslate"><span class="pre">PluginManager.has_restart_needing_hooks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.has_restart_needing_implementation"><code class="docutils literal notranslate"><span class="pre">PluginManager.has_restart_needing_implementation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.hook_matches_hooks"><code class="docutils literal notranslate"><span class="pre">PluginManager.hook_matches_hooks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.is_obsolete_hook"><code class="docutils literal notranslate"><span class="pre">PluginManager.is_obsolete_hook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.is_plugin_marked"><code class="docutils literal notranslate"><span class="pre">PluginManager.is_plugin_marked()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.is_restart_needing_hook"><code class="docutils literal notranslate"><span class="pre">PluginManager.is_restart_needing_hook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.is_restart_needing_plugin"><code class="docutils literal notranslate"><span class="pre">PluginManager.is_restart_needing_plugin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.mark_plugin"><code class="docutils literal notranslate"><span class="pre">PluginManager.mark_plugin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.plugin_hooks"><code class="docutils literal notranslate"><span class="pre">PluginManager.plugin_hooks</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.plugins"><code class="docutils literal notranslate"><span class="pre">PluginManager.plugins</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.register_message_receiver"><code class="docutils literal notranslate"><span class="pre">PluginManager.register_message_receiver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.reload_plugins"><code class="docutils literal notranslate"><span class="pre">PluginManager.reload_plugins()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.send_plugin_message"><code class="docutils literal notranslate"><span class="pre">PluginManager.send_plugin_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginManager.unregister_message_receiver"><code class="docutils literal notranslate"><span class="pre">PluginManager.unregister_message_receiver()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo"><code class="docutils literal notranslate"><span class="pre">PluginInfo</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.author"><code class="docutils literal notranslate"><span class="pre">PluginInfo.author</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.blacklisted"><code class="docutils literal notranslate"><span class="pre">PluginInfo.blacklisted</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.bundled"><code class="docutils literal notranslate"><span class="pre">PluginInfo.bundled</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.check"><code class="docutils literal notranslate"><span class="pre">PluginInfo.check</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.description"><code class="docutils literal notranslate"><span class="pre">PluginInfo.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.disable"><code class="docutils literal notranslate"><span class="pre">PluginInfo.disable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.disabling_discouraged"><code class="docutils literal notranslate"><span class="pre">PluginInfo.disabling_discouraged</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.enable"><code class="docutils literal notranslate"><span class="pre">PluginInfo.enable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.enabled"><code class="docutils literal notranslate"><span class="pre">PluginInfo.enabled</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.forced_disabled"><code class="docutils literal notranslate"><span class="pre">PluginInfo.forced_disabled</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.get_hook"><code class="docutils literal notranslate"><span class="pre">PluginInfo.get_hook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.get_implementation"><code class="docutils literal notranslate"><span class="pre">PluginInfo.get_implementation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.helpers"><code class="docutils literal notranslate"><span class="pre">PluginInfo.helpers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.hidden"><code class="docutils literal notranslate"><span class="pre">PluginInfo.hidden</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.hooks"><code class="docutils literal notranslate"><span class="pre">PluginInfo.hooks</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.implementation"><code class="docutils literal notranslate"><span class="pre">PluginInfo.implementation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.incompatible"><code class="docutils literal notranslate"><span class="pre">PluginInfo.incompatible</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.invalid_syntax"><code class="docutils literal notranslate"><span class="pre">PluginInfo.invalid_syntax</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.license"><code class="docutils literal notranslate"><span class="pre">PluginInfo.license</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.load"><code class="docutils literal notranslate"><span class="pre">PluginInfo.load</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.loaded"><code class="docutils literal notranslate"><span class="pre">PluginInfo.loaded</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.long_str"><code class="docutils literal notranslate"><span class="pre">PluginInfo.long_str()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.looks_like_plugin"><code class="docutils literal notranslate"><span class="pre">PluginInfo.looks_like_plugin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.managable"><code class="docutils literal notranslate"><span class="pre">PluginInfo.managable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.name"><code class="docutils literal notranslate"><span class="pre">PluginInfo.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.needs_restart"><code class="docutils literal notranslate"><span class="pre">PluginInfo.needs_restart</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.origin"><code class="docutils literal notranslate"><span class="pre">PluginInfo.origin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.parsed_metadata"><code class="docutils literal notranslate"><span class="pre">PluginInfo.parsed_metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.privacypolicy"><code class="docutils literal notranslate"><span class="pre">PluginInfo.privacypolicy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.pythoncompat"><code class="docutils literal notranslate"><span class="pre">PluginInfo.pythoncompat</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.unload"><code class="docutils literal notranslate"><span class="pre">PluginInfo.unload</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.url"><code class="docutils literal notranslate"><span class="pre">PluginInfo.url</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.validate"><code class="docutils literal notranslate"><span class="pre">PluginInfo.validate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.PluginInfo.version"><code class="docutils literal notranslate"><span class="pre">PluginInfo.version</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.plugin.core.Plugin"><code class="docutils literal notranslate"><span class="pre">Plugin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.Plugin._identifier"><code class="docutils literal notranslate"><span class="pre">Plugin._identifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.Plugin._plugin_name"><code class="docutils literal notranslate"><span class="pre">Plugin._plugin_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.Plugin._plugin_version"><code class="docutils literal notranslate"><span class="pre">Plugin._plugin_version</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.Plugin._basefolder"><code class="docutils literal notranslate"><span class="pre">Plugin._basefolder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.Plugin._logger"><code class="docutils literal notranslate"><span class="pre">Plugin._logger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.Plugin.initialize"><code class="docutils literal notranslate"><span class="pre">Plugin.initialize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.Plugin.on_plugin_disabled"><code class="docutils literal notranslate"><span class="pre">Plugin.on_plugin_disabled()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.Plugin.on_plugin_enabled"><code class="docutils literal notranslate"><span class="pre">Plugin.on_plugin_enabled()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.plugin.core.RestartNeedingPlugin"><code class="docutils literal notranslate"><span class="pre">RestartNeedingPlugin</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.plugin.core.SortablePlugin"><code class="docutils literal notranslate"><span class="pre">SortablePlugin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.core.SortablePlugin.get_sorting_key"><code class="docutils literal notranslate"><span class="pre">SortablePlugin.get_sorting_key()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-octoprint.plugin.types">octoprint.plugin.types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.plugin.types.OctoPrintPlugin"><code class="docutils literal notranslate"><span class="pre">OctoPrintPlugin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.types.OctoPrintPlugin._plugin_manager"><code class="docutils literal notranslate"><span class="pre">OctoPrintPlugin._plugin_manager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.types.OctoPrintPlugin._printer_profile_manager"><code class="docutils literal notranslate"><span class="pre">OctoPrintPlugin._printer_profile_manager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.types.OctoPrintPlugin._event_bus"><code class="docutils literal notranslate"><span class="pre">OctoPrintPlugin._event_bus</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.types.OctoPrintPlugin._analysis_queue"><code class="docutils literal notranslate"><span class="pre">OctoPrintPlugin._analysis_queue</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.types.OctoPrintPlugin._slicing_manager"><code class="docutils literal notranslate"><span class="pre">OctoPrintPlugin._slicing_manager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.types.OctoPrintPlugin._file_manager"><code class="docutils literal notranslate"><span class="pre">OctoPrintPlugin._file_manager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.types.OctoPrintPlugin._printer"><code class="docutils literal notranslate"><span class="pre">OctoPrintPlugin._printer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.types.OctoPrintPlugin._app_session_manager"><code class="docutils literal notranslate"><span class="pre">OctoPrintPlugin._app_session_manager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.types.OctoPrintPlugin._plugin_lifecycle_manager"><code class="docutils literal notranslate"><span class="pre">OctoPrintPlugin._plugin_lifecycle_manager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.types.OctoPrintPlugin._user_manager"><code class="docutils literal notranslate"><span class="pre">OctoPrintPlugin._user_manager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.types.OctoPrintPlugin._connectivity_checker"><code class="docutils literal notranslate"><span class="pre">OctoPrintPlugin._connectivity_checker</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.types.OctoPrintPlugin._data_folder"><code class="docutils literal notranslate"><span class="pre">OctoPrintPlugin._data_folder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.types.OctoPrintPlugin.get_plugin_data_folder"><code class="docutils literal notranslate"><span class="pre">OctoPrintPlugin.get_plugin_data_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.plugin.types.OctoPrintPlugin.on_plugin_pending_uninstall"><code class="docutils literal notranslate"><span class="pre">OctoPrintPlugin.on_plugin_pending_uninstall()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.plugin.types.ReloadNeedingPlugin"><code class="docutils literal notranslate"><span class="pre">ReloadNeedingPlugin</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="printer.html">octoprint.printer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="printer.html#module-octoprint.printer.profile">octoprint.printer.profile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="schema.html">octoprint.schema</a></li>
@@ -152,7 +289,7 @@
            <div itemprop="articleBody">
              
   <section id="module-octoprint.plugin">
-<span id="octoprint-plugin"></span><span id="sec-modules-plugin"></span><h1>octoprint.plugin<a class="headerlink" href="#module-octoprint.plugin" title="Permalink to this headline"></a></h1>
+<span id="octoprint-plugin"></span><span id="sec-modules-plugin"></span><h1>octoprint.plugin<a class="headerlink" href="#module-octoprint.plugin" title="Permalink to this heading"></a></h1>
 <p>This module represents OctoPrint’s plugin subsystem. This includes management and helper methods as well as the
 registered plugin types.</p>
 <dl class="py function">
@@ -524,7 +661,7 @@ to modify global settings outside of your plugin.</p>
 
 </section>
 <section id="module-octoprint.plugin.core">
-<span id="octoprint-plugin-core"></span><span id="sec-modules-plugin-core"></span><h1>octoprint.plugin.core<a class="headerlink" href="#module-octoprint.plugin.core" title="Permalink to this headline"></a></h1>
+<span id="octoprint-plugin-core"></span><span id="sec-modules-plugin-core"></span><h1>octoprint.plugin.core<a class="headerlink" href="#module-octoprint.plugin.core" title="Permalink to this heading"></a></h1>
 <p>In this module resides the core data structures and logic of the plugin system.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="octoprint.plugin.core.PluginManager">
@@ -1421,7 +1558,7 @@ doesn’t care about calling order.</p>
 
 </section>
 <section id="module-octoprint.plugin.types">
-<span id="octoprint-plugin-types"></span><span id="sec-modules-plugin-types"></span><h1>octoprint.plugin.types<a class="headerlink" href="#module-octoprint.plugin.types" title="Permalink to this headline"></a></h1>
+<span id="octoprint-plugin-types"></span><span id="sec-modules-plugin-types"></span><h1>octoprint.plugin.types<a class="headerlink" href="#module-octoprint.plugin.types" title="Permalink to this heading"></a></h1>
 <p>This module bundles all of OctoPrint’s supported plugin implementation types as well as their common parent
 class, <a class="reference internal" href="#octoprint.plugin.types.OctoPrintPlugin" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">OctoPrintPlugin</span></code></a>.</p>
 <p>Please note that the plugin implementation types are documented in the section
@@ -1429,7 +1566,7 @@ class, <a class="reference internal" href="#octoprint.plugin.types.OctoPrintPlug
 <dl class="py class">
 <dt class="sig sig-object py" id="octoprint.plugin.types.OctoPrintPlugin">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.plugin.types.</span></span><span class="sig-name descname"><span class="pre">OctoPrintPlugin</span></span><a class="headerlink" href="#octoprint.plugin.types.OctoPrintPlugin" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#octoprint.plugin.core.Plugin" title="octoprint.plugin.core.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.Plugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#octoprint.plugin.core.Plugin" title="octoprint.plugin.core.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code></a></p>
 <p>The parent class of all OctoPrint plugin mixins.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="octoprint.plugin.types.OctoPrintPlugin._plugin_manager">
@@ -1537,7 +1674,7 @@ before returning it.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="octoprint.plugin.types.ReloadNeedingPlugin">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.plugin.types.</span></span><span class="sig-name descname"><span class="pre">ReloadNeedingPlugin</span></span><a class="headerlink" href="#octoprint.plugin.types.ReloadNeedingPlugin" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#octoprint.plugin.core.Plugin" title="octoprint.plugin.core.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.plugin.core.Plugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#octoprint.plugin.core.Plugin" title="octoprint.plugin.core.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code></a></p>
 <p>Mixin for plugin types that need a reload of the UI after enabling/disabling them.</p>
 </dd></dl>
 
@@ -1554,7 +1691,7 @@ before returning it.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2023, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -1577,8 +1714,8 @@ before returning it.</p>
   <div class="rst-other-versions">
     <dl>
       <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.10.0rc1/modules/plugin.html">1.10.0rc1</a></dd>
       <dd><a href="https://docs.octoprint.org/en/1.9.3/modules/plugin.html">1.9.3</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.8.7/modules/plugin.html">1.8.7</a></dd>
     </dl>
     <dl>
       <dt>Branches</dt>

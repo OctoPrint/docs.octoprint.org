@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Application Keys Plugin &mdash; OctoPrint 1.9.3 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -15,7 +17,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/mermaid.min.js"></script>
         <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
@@ -76,7 +80,19 @@
 <li class="toctree-l4"><a class="reference internal" href="#pending-list-entry">Pending list entry</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#javascript-client-library">JavaScript Client Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#javascript-client-library">JavaScript Client Library</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.getKeys"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.getKeys()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.getAllKeys"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.getAllKeys()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.generateKey"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.generateKey()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.revokeKey"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.revokeKey()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.decide"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.decide()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.probe"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.probe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.request"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.request()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.requestForUser"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.requestForUser()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.checkDecision"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.checkDecision()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.authenticate"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.authenticate()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#source-code">Source code</a></li>
 </ul>
 </li>
@@ -158,7 +174,7 @@
            <div itemprop="articleBody">
              
   <section id="application-keys-plugin">
-<span id="sec-bundledplugins-appkeys"></span><h1>Application Keys Plugin<a class="headerlink" href="#application-keys-plugin" title="Permalink to this headline"></a></h1>
+<span id="sec-bundledplugins-appkeys"></span><h1>Application Keys Plugin<a class="headerlink" href="#application-keys-plugin" title="Permalink to this heading"></a></h1>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 1.3.10.</span></p>
 </div>
@@ -185,7 +201,7 @@ on a per-user base as well as globally by administrators.</p>
 </figcaption>
 </figure>
 <section id="workflow">
-<span id="sec-bundledplugins-appkeys-workflow"></span><h2>Workflow<a class="headerlink" href="#workflow" title="Permalink to this headline"></a></h2>
+<span id="sec-bundledplugins-appkeys-workflow"></span><h2>Workflow<a class="headerlink" href="#workflow" title="Permalink to this heading"></a></h2>
 <p>The workflow to receive an API key for a third party client/an app via the Application Keys Plugin should consist
 of the following steps:</p>
 <blockquote>
@@ -267,7 +283,7 @@ an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616
    end</p></object>
 </section>
 <section id="workflow-with-redirect-to-auth-dialog">
-<span id="sec-bundledplugins-appkeys-workflow-authdialog"></span><h2>Workflow with redirect to auth dialog<a class="headerlink" href="#workflow-with-redirect-to-auth-dialog" title="Permalink to this headline"></a></h2>
+<span id="sec-bundledplugins-appkeys-workflow-authdialog"></span><h2>Workflow with redirect to auth dialog<a class="headerlink" href="#workflow-with-redirect-to-auth-dialog" title="Permalink to this heading"></a></h2>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 1.8.0.</span></p>
 </div>
@@ -357,9 +373,9 @@ an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616
    end</p></object>
 </section>
 <section id="api">
-<span id="sec-bundledplugins-appkeys-api"></span><h2>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h2>
+<span id="sec-bundledplugins-appkeys-api"></span><h2>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h2>
 <section id="probe-for-workflow-support">
-<span id="sec-bundledplugins-appkeys-api-probe"></span><h3>Probe for workflow support<a class="headerlink" href="#probe-for-workflow-support" title="Permalink to this headline"></a></h3>
+<span id="sec-bundledplugins-appkeys-api-probe"></span><h3>Probe for workflow support<a class="headerlink" href="#probe-for-workflow-support" title="Permalink to this heading"></a></h3>
 <dl class="http get">
 <dt class="sig sig-object http" id="get--plugin-appkeys-probe">
 <span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/plugin/appkeys/probe</span></span><a class="headerlink" href="#get--plugin-appkeys-probe" title="Permalink to this definition"></a></dt>
@@ -377,7 +393,7 @@ an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616
 
 </section>
 <section id="start-authorization-process">
-<span id="sec-bundledplugins-appkeys-api-startauthprocess"></span><h3>Start authorization process<a class="headerlink" href="#start-authorization-process" title="Permalink to this headline"></a></h3>
+<span id="sec-bundledplugins-appkeys-api-startauthprocess"></span><h3>Start authorization process<a class="headerlink" href="#start-authorization-process" title="Permalink to this heading"></a></h3>
 <dl class="http post">
 <dt class="sig sig-object http" id="post--plugin-appkeys-request">
 <span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/plugin/appkeys/request</span></span><a class="headerlink" href="#post--plugin-appkeys-request" title="Permalink to this definition"></a></dt>
@@ -410,7 +426,7 @@ and HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc261
 
 </section>
 <section id="poll-for-decision-on-existing-request">
-<span id="sec-bundledplugins-appkeys-api-polldecision"></span><h3>Poll for decision on existing request<a class="headerlink" href="#poll-for-decision-on-existing-request" title="Permalink to this headline"></a></h3>
+<span id="sec-bundledplugins-appkeys-api-polldecision"></span><h3>Poll for decision on existing request<a class="headerlink" href="#poll-for-decision-on-existing-request" title="Permalink to this heading"></a></h3>
 <dl class="http get">
 <dt class="sig sig-object http" id="get--plugin-appkeys-request--str-app_token-">
 <span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/plugin/appkeys/request/&lt;str:app_token&gt;</span></span><a class="headerlink" href="#get--plugin-appkeys-request--str-app_token-" title="Permalink to this definition"></a></dt>
@@ -436,7 +452,7 @@ for more than 5s.</p>
 
 </section>
 <section id="decide-on-existing-request">
-<span id="sec-bundledplugins-appkeys-api-decide"></span><h3>Decide on existing request<a class="headerlink" href="#decide-on-existing-request" title="Permalink to this headline"></a></h3>
+<span id="sec-bundledplugins-appkeys-api-decide"></span><h3>Decide on existing request<a class="headerlink" href="#decide-on-existing-request" title="Permalink to this heading"></a></h3>
 <dl class="http post">
 <dt class="sig sig-object http" id="post--plugin-appkeys-decision--str-user_token-">
 <span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/plugin/appkeys/decision/&lt;str:user_token&gt;</span></span><a class="headerlink" href="#post--plugin-appkeys-decision--str-user_token-" title="Permalink to this definition"></a></dt>
@@ -459,7 +475,7 @@ for more than 5s.</p>
 
 </section>
 <section id="fetch-list-of-existing-application-keys">
-<span id="sec-bundledplugins-appkeys-api-fetchlist"></span><h3>Fetch list of existing application keys<a class="headerlink" href="#fetch-list-of-existing-application-keys" title="Permalink to this headline"></a></h3>
+<span id="sec-bundledplugins-appkeys-api-fetchlist"></span><h3>Fetch list of existing application keys<a class="headerlink" href="#fetch-list-of-existing-application-keys" title="Permalink to this heading"></a></h3>
 <dl class="http get">
 <dt class="sig sig-object http" id="get--api-plugin-appkeys">
 <span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/plugin/appkeys</span></span><a class="headerlink" href="#get--api-plugin-appkeys" title="Permalink to this definition"></a></dt>
@@ -479,7 +495,7 @@ body upon success.</p>
 
 </section>
 <section id="issue-an-application-key-command">
-<span id="sec-bundledplugins-appkeys-api-issuecommand"></span><h3>Issue an application key command<a class="headerlink" href="#issue-an-application-key-command" title="Permalink to this headline"></a></h3>
+<span id="sec-bundledplugins-appkeys-api-issuecommand"></span><h3>Issue an application key command<a class="headerlink" href="#issue-an-application-key-command" title="Permalink to this heading"></a></h3>
 <dl class="http post">
 <dt class="sig sig-object http" id="post--api-plugin-appkeys">
 <span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/api/plugin/appkeys</span></span><a class="headerlink" href="#post--api-plugin-appkeys" title="Permalink to this definition"></a></dt>
@@ -546,9 +562,9 @@ in which case they make revoke any application key in the system. Expects the ke
 </section>
 </section>
 <section id="data-model">
-<span id="sec-bundledplugins-appkey-datamodel"></span><h2>Data model<a class="headerlink" href="#data-model" title="Permalink to this headline"></a></h2>
+<span id="sec-bundledplugins-appkey-datamodel"></span><h2>Data model<a class="headerlink" href="#data-model" title="Permalink to this heading"></a></h2>
 <section id="authorization-request">
-<span id="sec-bundledplugins-appkey-datamodel-authrequest"></span><h3>Authorization request<a class="headerlink" href="#authorization-request" title="Permalink to this headline"></a></h3>
+<span id="sec-bundledplugins-appkey-datamodel-authrequest"></span><h3>Authorization request<a class="headerlink" href="#authorization-request" title="Permalink to this heading"></a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -578,7 +594,7 @@ in which case they make revoke any application key in the system. Expects the ke
 </table>
 </section>
 <section id="authorization-response">
-<span id="sec-bundledplugins-appkey-datamodel-authresponse"></span><h3>Authorization response<a class="headerlink" href="#authorization-response" title="Permalink to this headline"></a></h3>
+<span id="sec-bundledplugins-appkey-datamodel-authresponse"></span><h3>Authorization response<a class="headerlink" href="#authorization-response" title="Permalink to this heading"></a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -609,7 +625,7 @@ and authorize the request.</p></td>
 </table>
 </section>
 <section id="key-response">
-<span id="sec-bundledplugins-appkey-datamodel-keyresponse"></span><h3>Key response<a class="headerlink" href="#key-response" title="Permalink to this headline"></a></h3>
+<span id="sec-bundledplugins-appkey-datamodel-keyresponse"></span><h3>Key response<a class="headerlink" href="#key-response" title="Permalink to this heading"></a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -634,7 +650,7 @@ and authorize the request.</p></td>
 </table>
 </section>
 <section id="decision-request">
-<span id="sec-bundledplugins-appkey-datamodel-decisionrequest"></span><h3>Decision request<a class="headerlink" href="#decision-request" title="Permalink to this headline"></a></h3>
+<span id="sec-bundledplugins-appkey-datamodel-decisionrequest"></span><h3>Decision request<a class="headerlink" href="#decision-request" title="Permalink to this heading"></a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -659,7 +675,7 @@ and authorize the request.</p></td>
 </table>
 </section>
 <section id="list-response">
-<span id="sec-bundledplugins-appkey-datamodel-listreponse"></span><h3>List response<a class="headerlink" href="#list-response" title="Permalink to this headline"></a></h3>
+<span id="sec-bundledplugins-appkey-datamodel-listreponse"></span><h3>List response<a class="headerlink" href="#list-response" title="Permalink to this heading"></a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -689,7 +705,7 @@ and authorize the request.</p></td>
 </table>
 </section>
 <section id="key-list-entry">
-<span id="sec-bundledplugins-appkey-datamodel-keylistentry"></span><h3>Key list entry<a class="headerlink" href="#key-list-entry" title="Permalink to this headline"></a></h3>
+<span id="sec-bundledplugins-appkey-datamodel-keylistentry"></span><h3>Key list entry<a class="headerlink" href="#key-list-entry" title="Permalink to this heading"></a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -724,7 +740,7 @@ and authorize the request.</p></td>
 </table>
 </section>
 <section id="pending-list-entry">
-<span id="sec-bundledplugins-appkey-datamodel-pendinglistentry"></span><h3>Pending list entry<a class="headerlink" href="#pending-list-entry" title="Permalink to this headline"></a></h3>
+<span id="sec-bundledplugins-appkey-datamodel-pendinglistentry"></span><h3>Pending list entry<a class="headerlink" href="#pending-list-entry" title="Permalink to this heading"></a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -760,7 +776,7 @@ and authorize the request.</p></td>
 </section>
 </section>
 <section id="javascript-client-library">
-<span id="sec-bundledplugins-appkeys-jsclientlib"></span><h2>JavaScript Client Library<a class="headerlink" href="#javascript-client-library" title="Permalink to this headline"></a></h2>
+<span id="sec-bundledplugins-appkeys-jsclientlib"></span><h2>JavaScript Client Library<a class="headerlink" href="#javascript-client-library" title="Permalink to this heading"></a></h2>
 <dl class="js function">
 <dt class="sig sig-object js" id="OctoPrintClient.plugins.appkeys.getKeys">
 <span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">getKeys</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getKeys" title="Permalink to this definition"></a></dt>
@@ -953,7 +969,7 @@ for the workflow, the promise is rejected.</p>
 
 </section>
 <section id="source-code">
-<span id="sec-bundledplugins-appkeys-sourcecode"></span><h2>Source code<a class="headerlink" href="#source-code" title="Permalink to this headline"></a></h2>
+<span id="sec-bundledplugins-appkeys-sourcecode"></span><h2>Source code<a class="headerlink" href="#source-code" title="Permalink to this heading"></a></h2>
 <p>The source of the Application Keys plugin is bundled with OctoPrint and can be found in
 its source repository under <code class="docutils literal notranslate"><span class="pre">src/octoprint/plugins/appkeys</span></code>.</p>
 </section>
@@ -970,7 +986,7 @@ its source repository under <code class="docutils literal notranslate"><span cla
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2023, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -993,8 +1009,8 @@ its source repository under <code class="docutils literal notranslate"><span cla
   <div class="rst-other-versions">
     <dl>
       <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.10.0rc1/bundledplugins/appkeys.html">1.10.0rc1</a></dd>
       <dd><a href="https://docs.octoprint.org/en/1.9.3/bundledplugins/appkeys.html">1.9.3</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.8.7/bundledplugins/appkeys.html">1.8.7</a></dd>
     </dl>
     <dl>
       <dt>Branches</dt>

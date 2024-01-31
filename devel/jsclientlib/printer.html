@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OctoPrintClient.printer &mdash; OctoPrint devel documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -15,7 +17,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/mermaid.min.js"></script>
         <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
@@ -65,7 +69,29 @@
 <li class="toctree-l2"><a class="reference internal" href="job.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.job</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="languages.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.languages</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="logs.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.logs</span></code></a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.printer</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.printer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.getFullState"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.getFullState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.getToolState"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.getToolState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.setToolTargetTemperatures"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.setToolTargetTemperatures()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.setToolTemperatureOffsets"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.setToolTemperatureOffsets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.selectTool"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.selectTool()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.extrude"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.extrude()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.setFlowrate"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.setFlowrate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.getBedState"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.getBedState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.setBedTargetTemperature"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.setBedTargetTemperature()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.setBedTemperatureOffset"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.setBedTemperatureOffset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.getChamberState"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.getChamberState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.setChamberTargetTemperature"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.setChamberTargetTemperature()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.setChamberTemperatureOffset"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.setChamberTemperatureOffset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.jog"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.jog()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.home"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.home()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.setFeedrate"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.setFeedrate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.getSdState"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.getSdState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.initSd"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.initSd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.refreshSd"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.refreshSd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.printer.releaseSd"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.releaseSd()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="printerprofiles.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.printerprofiles</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="settings.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.settings</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="slicing.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.slicing</span></code></a></li>
@@ -141,7 +167,7 @@
            <div itemprop="articleBody">
              
   <section id="octoprintclient-printer">
-<span id="sec-jsclientlib-printer"></span><h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.printer</span></code><a class="headerlink" href="#octoprintclient-printer" title="Permalink to this headline"></a></h1>
+<span id="sec-jsclientlib-printer"></span><h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.printer</span></code><a class="headerlink" href="#octoprintclient-printer" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>All commands here that interact with the printer (anything that sends a command) will
@@ -647,7 +673,7 @@ amount given as value.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2023, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -670,8 +696,8 @@ amount given as value.</p>
   <div class="rst-other-versions">
     <dl>
       <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.10.0rc1/jsclientlib/printer.html">1.10.0rc1</a></dd>
       <dd><a href="https://docs.octoprint.org/en/1.9.3/jsclientlib/printer.html">1.9.3</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.8.7/jsclientlib/printer.html">1.8.7</a></dd>
     </dl>
     <dl>
       <dt>Branches</dt>

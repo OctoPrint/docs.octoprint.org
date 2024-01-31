@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Access Control &mdash; OctoPrint 1.9.3 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -15,7 +17,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/mermaid.min.js"></script>
         <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
@@ -139,7 +143,7 @@
            <div itemprop="articleBody">
              
   <section id="access-control">
-<span id="sec-features-access-control"></span><h1>Access Control<a class="headerlink" href="#access-control" title="Permalink to this headline"></a></h1>
+<span id="sec-features-access-control"></span><h1>Access Control<a class="headerlink" href="#access-control" title="Permalink to this heading"></a></h1>
 <div class="versionchanged">
 <p><span class="versionmodified changed">Changed in version 1.5.0.</span></p>
 </div>
@@ -194,7 +198,7 @@ publicly reachable by everyone with an internet connection, even with access
 control enabled.</p>
 </div>
 <section id="autologin">
-<span id="sec-features-access-control-autologin"></span><h2>Autologin<a class="headerlink" href="#autologin" title="Permalink to this headline"></a></h2>
+<span id="sec-features-access-control-autologin"></span><h2>Autologin<a class="headerlink" href="#autologin" title="Permalink to this heading"></a></h2>
 <p>While access control cannot be disabled as of OctoPrint 1.5+, the Autologin feature can
 be used to bypass authentication for hosts on the network(s) that you trust.</p>
 <p>Starting with OctoPrint 1.5.0, OctoPrint makes enabled access control mandatory. This
@@ -220,7 +224,7 @@ instance, installs malware on it and makes your printer print an endless stream 
 benchies, that’s on you.</p>
 </div>
 <section id="gather-configuration-information">
-<span id="sec-features-access-control-autologin-gather-config-info"></span><h3>Gather configuration information<a class="headerlink" href="#gather-configuration-information" title="Permalink to this headline"></a></h3>
+<span id="sec-features-access-control-autologin-gather-config-info"></span><h3>Gather configuration information<a class="headerlink" href="#gather-configuration-information" title="Permalink to this heading"></a></h3>
 <p>You can configure Autologin via a plugin (the easy way), or manually (the hard way), but
 in either case you will need to specify which user should be automatically logged in, and
 which hosts are permitted access this way.</p>
@@ -243,16 +247,16 @@ and then combine both with a / in between.</p>
 <code class="docutils literal notranslate"><span class="pre">255.255.255.0</span></code>. Your address range is <code class="docutils literal notranslate"><span class="pre">192.168.23.42/255.255.255.0</span></code>.</p>
 </section>
 <section id="the-easy-way-using-the-octoprint-autologinconfig-plugin">
-<span id="sec-features-access-control-autologin-plugin"></span><h3>The easy way: Using the OctoPrint-AutoLoginConfig plugin<a class="headerlink" href="#the-easy-way-using-the-octoprint-autologinconfig-plugin" title="Permalink to this headline"></a></h3>
+<span id="sec-features-access-control-autologin-plugin"></span><h3>The easy way: Using the OctoPrint-AutoLoginConfig plugin<a class="headerlink" href="#the-easy-way-using-the-octoprint-autologinconfig-plugin" title="Permalink to this heading"></a></h3>
 <p>The easiest way to configure AutoLogin is to install the
 <a class="reference external" href="https://plugins.octoprint.org/plugins/autologin_config/">OctoPrint-AutoLoginConfig plugin</a>
 via the plugin manager.</p>
 <p>Open its settings and follow the instructions on the screen.</p>
 </section>
 <section id="the-hard-way-manual-editing-of-config-yaml">
-<span id="sec-features-access-control-autologin-manual"></span><h3>The hard way: Manual editing of config.yaml<a class="headerlink" href="#the-hard-way-manual-editing-of-config-yaml" title="Permalink to this headline"></a></h3>
+<span id="sec-features-access-control-autologin-manual"></span><h3>The hard way: Manual editing of config.yaml<a class="headerlink" href="#the-hard-way-manual-editing-of-config-yaml" title="Permalink to this heading"></a></h3>
 <section id="preparation">
-<h4>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline"></a></h4>
+<h4>Preparation<a class="headerlink" href="#preparation" title="Permalink to this heading"></a></h4>
 <p>First of all, read <a class="reference internal" href="../configuration/yaml.html#sec-configuration-yaml"><span class="std std-ref">the YAML primer</span></a>. You
 will have to edit OctoPrint’s main configuration file, and thus should make sure
 you understand at least roughly how things work and that you should keep your
@@ -263,7 +267,7 @@ learning about the DOs and DONTs first.</p>
 on where to find that central configuration file of OctoPrint.</p>
 </section>
 <section id="configuration">
-<h4>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline"></a></h4>
+<h4>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h4>
 <p>Ready? Let’s do some editing then. I’ll outline what to do and where first, and then
 further down there’s also a dedicated list of steps for OctoPi specifically.</p>
 <ol class="arabic">
@@ -305,7 +309,7 @@ indentation:</p>
 OctoPrint from an address in the address range (e.g. a device on your local network).</p>
 </section>
 <section id="octopi-specific-steps">
-<h4>OctoPi specific steps<a class="headerlink" href="#octopi-specific-steps" title="Permalink to this headline"></a></h4>
+<h4>OctoPi specific steps<a class="headerlink" href="#octopi-specific-steps" title="Permalink to this heading"></a></h4>
 <p>If you are running OctoPi you will have to SSH into your Raspberry Pi. Then issue
 the following commands:</p>
 <ol class="arabic simple">
@@ -321,7 +325,7 @@ the following commands:</p>
 </section>
 </section>
 <section id="if-you-are-using-a-vpn-and-your-setup-absolutely-requires-disabling-internal-octoprint-access-controls">
-<h3>If you are using a VPN and your setup ABSOLUTELY REQUIRES disabling internal OctoPrint access controls<a class="headerlink" href="#if-you-are-using-a-vpn-and-your-setup-absolutely-requires-disabling-internal-octoprint-access-controls" title="Permalink to this headline"></a></h3>
+<h3>If you are using a VPN and your setup ABSOLUTELY REQUIRES disabling internal OctoPrint access controls<a class="headerlink" href="#if-you-are-using-a-vpn-and-your-setup-absolutely-requires-disabling-internal-octoprint-access-controls" title="Permalink to this heading"></a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>You probably shouldn’t do this, EVER. There are usually other options. Don’t even
@@ -340,16 +344,16 @@ your actions.</p>
 </section>
 </section>
 <section id="available-extension-hooks">
-<span id="sec-features-access-control-hooks"></span><h2>Available Extension Hooks<a class="headerlink" href="#available-extension-hooks" title="Permalink to this headline"></a></h2>
+<span id="sec-features-access-control-hooks"></span><h2>Available Extension Hooks<a class="headerlink" href="#available-extension-hooks" title="Permalink to this heading"></a></h2>
 <p>There are two hooks for plugins to utilize in order to
 add new configurable permissions into the system and/or adjust the styling of the
 login dialog.</p>
 <section id="octoprint-access-permissions">
-<span id="sec-features-access-control-hooks-permissions"></span><h3>octoprint.access.permissions<a class="headerlink" href="#octoprint-access-permissions" title="Permalink to this headline"></a></h3>
+<span id="sec-features-access-control-hooks-permissions"></span><h3>octoprint.access.permissions<a class="headerlink" href="#octoprint-access-permissions" title="Permalink to this heading"></a></h3>
 <p>See <a class="reference internal" href="../plugins/hooks.html#sec-plugins-hook-permissions"><span class="std std-ref">here</span></a>.</p>
 </section>
 <section id="octoprint-theming-login">
-<span id="sec-features-access-control-hooks-loginui"></span><h3>octoprint.theming.login<a class="headerlink" href="#octoprint-theming-login" title="Permalink to this headline"></a></h3>
+<span id="sec-features-access-control-hooks-loginui"></span><h3>octoprint.theming.login<a class="headerlink" href="#octoprint-theming-login" title="Permalink to this heading"></a></h3>
 <p>See <a class="reference internal" href="../plugins/hooks.html#sec-plugins-hook-theming-dialog"><span class="std std-ref">here</span></a>.</p>
 </section>
 </section>
@@ -366,7 +370,7 @@ login dialog.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2023, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -389,8 +393,8 @@ login dialog.</p>
   <div class="rst-other-versions">
     <dl>
       <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.10.0rc1/features/accesscontrol.html">1.10.0rc1</a></dd>
       <dd><a href="https://docs.octoprint.org/en/1.9.3/features/accesscontrol.html">1.9.3</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.8.7/features/accesscontrol.html">1.8.7</a></dd>
     </dl>
     <dl>
       <dt>Branches</dt>

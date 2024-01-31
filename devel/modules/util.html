@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>octoprint.util &mdash; OctoPrint devel documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -15,7 +17,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/mermaid.min.js"></script>
         <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
@@ -82,9 +86,85 @@
 <li class="toctree-l2"><a class="reference internal" href="settings.html">octoprint.settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slicing.html">octoprint.slicing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slicing.html#module-octoprint.slicing.exceptions">octoprint.slicing.exceptions</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">octoprint.util</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-octoprint.util.commandline">octoprint.util.commandline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-octoprint.util.platform">octoprint.util.platform</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">octoprint.util</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.CaseInsensitiveSet"><code class="docutils literal notranslate"><span class="pre">CaseInsensitiveSet</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.DefaultOrderedDict"><code class="docutils literal notranslate"><span class="pre">DefaultOrderedDict</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.util.DefaultOrderedDict.copy"><code class="docutils literal notranslate"><span class="pre">DefaultOrderedDict.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.PrependableQueue"><code class="docutils literal notranslate"><span class="pre">PrependableQueue</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.RepeatedTimer"><code class="docutils literal notranslate"><span class="pre">RepeatedTimer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.util.RepeatedTimer.run"><code class="docutils literal notranslate"><span class="pre">RepeatedTimer.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.ResettableTimer"><code class="docutils literal notranslate"><span class="pre">ResettableTimer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.util.ResettableTimer.run"><code class="docutils literal notranslate"><span class="pre">ResettableTimer.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.TypeAlreadyInQueue"><code class="docutils literal notranslate"><span class="pre">TypeAlreadyInQueue</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.TypedQueue"><code class="docutils literal notranslate"><span class="pre">TypedQueue</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.util.TypedQueue.get"><code class="docutils literal notranslate"><span class="pre">TypedQueue.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.util.TypedQueue.put"><code class="docutils literal notranslate"><span class="pre">TypedQueue.put()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.chunks"><code class="docutils literal notranslate"><span class="pre">chunks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.count"><code class="docutils literal notranslate"><span class="pre">count()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.deprecated"><code class="docutils literal notranslate"><span class="pre">deprecated()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.deserialize"><code class="docutils literal notranslate"><span class="pre">deserialize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.dict_clean"><code class="docutils literal notranslate"><span class="pre">dict_clean()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.dict_contains_keys"><code class="docutils literal notranslate"><span class="pre">dict_contains_keys()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.dict_filter"><code class="docutils literal notranslate"><span class="pre">dict_filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.dict_flatten"><code class="docutils literal notranslate"><span class="pre">dict_flatten()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.dict_merge"><code class="docutils literal notranslate"><span class="pre">dict_merge()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.dict_minimal_mergediff"><code class="docutils literal notranslate"><span class="pre">dict_minimal_mergediff()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.dict_sanitize"><code class="docutils literal notranslate"><span class="pre">dict_sanitize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.fallback_dict"><code class="docutils literal notranslate"><span class="pre">fallback_dict</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.util.fallback_dict.items"><code class="docutils literal notranslate"><span class="pre">fallback_dict.items()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.util.fallback_dict.keys"><code class="docutils literal notranslate"><span class="pre">fallback_dict.keys()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.util.fallback_dict.values"><code class="docutils literal notranslate"><span class="pre">fallback_dict.values()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.filter_non_ascii"><code class="docutils literal notranslate"><span class="pre">filter_non_ascii()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.get_bom"><code class="docutils literal notranslate"><span class="pre">get_bom()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.get_class"><code class="docutils literal notranslate"><span class="pre">get_class()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.get_exception_string"><code class="docutils literal notranslate"><span class="pre">get_exception_string()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.get_formatted_datetime"><code class="docutils literal notranslate"><span class="pre">get_formatted_datetime()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.get_formatted_size"><code class="docutils literal notranslate"><span class="pre">get_formatted_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.get_formatted_timedelta"><code class="docutils literal notranslate"><span class="pre">get_formatted_timedelta()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.get_fully_qualified_classname"><code class="docutils literal notranslate"><span class="pre">get_fully_qualified_classname()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.is_allowed_file"><code class="docutils literal notranslate"><span class="pre">is_allowed_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.pending_deprecation"><code class="docutils literal notranslate"><span class="pre">pending_deprecation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.pp"><code class="docutils literal notranslate"><span class="pre">pp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.serialize"><code class="docutils literal notranslate"><span class="pre">serialize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.to_bytes"><code class="docutils literal notranslate"><span class="pre">to_bytes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.to_native_str"><code class="docutils literal notranslate"><span class="pre">to_native_str()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.to_str"><code class="docutils literal notranslate"><span class="pre">to_str()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.to_unicode"><code class="docutils literal notranslate"><span class="pre">to_unicode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.variable_deprecated"><code class="docutils literal notranslate"><span class="pre">variable_deprecated()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.variable_pending_deprecation"><code class="docutils literal notranslate"><span class="pre">variable_pending_deprecation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-octoprint.util.commandline">octoprint.util.commandline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.commandline.CommandlineCaller"><code class="docutils literal notranslate"><span class="pre">CommandlineCaller</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.util.commandline.CommandlineCaller.call"><code class="docutils literal notranslate"><span class="pre">CommandlineCaller.call()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.util.commandline.CommandlineCaller.checked_call"><code class="docutils literal notranslate"><span class="pre">CommandlineCaller.checked_call()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.util.commandline.CommandlineCaller.on_log_call"><code class="docutils literal notranslate"><span class="pre">CommandlineCaller.on_log_call</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.util.commandline.CommandlineCaller.on_log_stderr"><code class="docutils literal notranslate"><span class="pre">CommandlineCaller.on_log_stderr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.util.commandline.CommandlineCaller.on_log_stdout"><code class="docutils literal notranslate"><span class="pre">CommandlineCaller.on_log_stdout</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.commandline.CommandlineError"><code class="docutils literal notranslate"><span class="pre">CommandlineError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.commandline.DelimiterCapture"><code class="docutils literal notranslate"><span class="pre">DelimiterCapture</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.commandline.clean_ansi"><code class="docutils literal notranslate"><span class="pre">clean_ansi()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-octoprint.util.platform">octoprint.util.platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.platform.CLOSE_FDS"><code class="docutils literal notranslate"><span class="pre">CLOSE_FDS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.platform.get_os"><code class="docutils literal notranslate"><span class="pre">get_os()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.platform.is_os_compatible"><code class="docutils literal notranslate"><span class="pre">is_os_compatible()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.util.platform.set_close_exec"><code class="docutils literal notranslate"><span class="pre">set_close_exec()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
@@ -152,7 +232,7 @@
            <div itemprop="articleBody">
              
   <section id="module-octoprint.util">
-<span id="octoprint-util"></span><span id="sec-modules-util"></span><h1>octoprint.util<a class="headerlink" href="#module-octoprint.util" title="Permalink to this headline"></a></h1>
+<span id="octoprint-util"></span><span id="sec-modules-util"></span><h1>octoprint.util<a class="headerlink" href="#module-octoprint.util" title="Permalink to this heading"></a></h1>
 <p>This module bundles commonly used utility methods or helper classes that are used in multiple places within
 OctoPrint’s source code.</p>
 <dl class="py class">
@@ -1015,7 +1095,7 @@ happening dynamically from a fixed position to not shadow the real caller (e.g. 
 
 </section>
 <section id="module-octoprint.util.commandline">
-<span id="octoprint-util-commandline"></span><span id="sec-modules-util-commandline"></span><h1>octoprint.util.commandline<a class="headerlink" href="#module-octoprint.util.commandline" title="Permalink to this headline"></a></h1>
+<span id="octoprint-util-commandline"></span><span id="sec-modules-util-commandline"></span><h1>octoprint.util.commandline<a class="headerlink" href="#module-octoprint.util.commandline" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="octoprint.util.commandline.CommandlineCaller">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.util.commandline.</span></span><span class="sig-name descname"><span class="pre">CommandlineCaller</span></span><a class="headerlink" href="#octoprint.util.commandline.CommandlineCaller" title="Permalink to this definition"></a></dt>
@@ -1058,7 +1138,7 @@ and stderr via configurable callback functions.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="octoprint.util.commandline.CommandlineCaller.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delimiter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.12)"><span class="pre">bytes</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">b'\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logged</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#octoprint.util.commandline.CommandlineCaller.call" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delimiter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.12)"><span class="pre">bytes</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">b'\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logged</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#octoprint.util.commandline.CommandlineCaller.call" title="Permalink to this definition"></a></dt>
 <dd><p>Calls a command</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1159,7 +1239,7 @@ in a future version of OctoPrint.</p>
 
 </section>
 <section id="module-octoprint.util.platform">
-<span id="octoprint-util-platform"></span><span id="sec-modules-util-platform"></span><h1>octoprint.util.platform<a class="headerlink" href="#module-octoprint.util.platform" title="Permalink to this headline"></a></h1>
+<span id="octoprint-util-platform"></span><span id="sec-modules-util-platform"></span><h1>octoprint.util.platform<a class="headerlink" href="#module-octoprint.util.platform" title="Permalink to this heading"></a></h1>
 <p>This module bundles platform specific flags and implementations.</p>
 <dl class="py data">
 <dt class="sig sig-object py" id="octoprint.util.platform.CLOSE_FDS">
@@ -1212,7 +1292,7 @@ on child processes on platforms.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2023, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -1235,8 +1315,8 @@ on child processes on platforms.</p>
   <div class="rst-other-versions">
     <dl>
       <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.10.0rc1/modules/util.html">1.10.0rc1</a></dd>
       <dd><a href="https://docs.octoprint.org/en/1.9.3/modules/util.html">1.9.3</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.8.7/modules/util.html">1.8.7</a></dd>
     </dl>
     <dl>
       <dt>Branches</dt>

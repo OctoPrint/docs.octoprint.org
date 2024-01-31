@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Events &mdash; OctoPrint 1.9.3 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -15,7 +17,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/mermaid.min.js"></script>
         <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
@@ -133,7 +137,7 @@
            <div itemprop="articleBody">
              
   <section id="events">
-<span id="sec-events"></span><h1><a class="toc-backref" href="#id1">Events</a><a class="headerlink" href="#events" title="Permalink to this headline"></a></h1>
+<span id="sec-events"></span><h1><a class="toc-backref" href="#id1">Events</a><a class="headerlink" href="#events" title="Permalink to this heading"></a></h1>
 <div class="contents topic" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
@@ -163,7 +167,7 @@
 </ul>
 </div>
 <section id="configuration">
-<span id="sec-events-configuration"></span><h2><a class="toc-backref" href="#id2">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this headline"></a></h2>
+<span id="sec-events-configuration"></span><h2><a class="toc-backref" href="#id2">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h2>
 <p>Event hooks are configured via OctoPrint’s configuration file <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>. There they are contained in a
 <code class="docutils literal notranslate"><span class="pre">subscriptions</span></code> list located directly under the <code class="docutils literal notranslate"><span class="pre">events</span></code> node. The <code class="docutils literal notranslate"><span class="pre">command</span></code> node accepts either a single string
 or a list of strings so that multiple commands can be executed in one go. Each hook carries an additional node type that
@@ -172,7 +176,7 @@ executed on the system OctoPrint is running on).</p>
 <p>All event hooks can be disabled completely by setting <code class="docutils literal notranslate"><span class="pre">event</span> <span class="pre">&gt;</span> <span class="pre">enabled</span></code> to <code class="docutils literal notranslate"><span class="pre">false</span></code>. You can also disable individual
 hooks by setting the (optional) node <code class="docutils literal notranslate"><span class="pre">enabled</span></code> to false, see the example below.</p>
 <section id="example">
-<h3><a class="toc-backref" href="#id3">Example</a><a class="headerlink" href="#example" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id3">Example</a><a class="headerlink" href="#example" title="Permalink to this heading"></a></h3>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">events</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
 <span class="w">  </span><span class="nt">subscriptions</span><span class="p">:</span>
@@ -204,7 +208,7 @@ hooks by setting the (optional) node <code class="docutils literal notranslate">
 </section>
 </section>
 <section id="placeholders">
-<span id="sec-events-placeholders"></span><h2><a class="toc-backref" href="#id4">Placeholders</a><a class="headerlink" href="#placeholders" title="Permalink to this headline"></a></h2>
+<span id="sec-events-placeholders"></span><h2><a class="toc-backref" href="#id4">Placeholders</a><a class="headerlink" href="#placeholders" title="Permalink to this heading"></a></h2>
 <p>You can use the following generic placeholders in your event hooks:</p>
 <blockquote>
 <div><ul class="simple">
@@ -231,13 +235,13 @@ something like this:</p>
 and its origin via the placeholder <code class="docutils literal notranslate"><span class="pre">{origin}</span></code>.</p>
 </section>
 <section id="available-events">
-<span id="sec-events-available-events"></span><h2><a class="toc-backref" href="#id5">Available Events</a><a class="headerlink" href="#available-events" title="Permalink to this headline"></a></h2>
+<span id="sec-events-available-events"></span><h2><a class="toc-backref" href="#id5">Available Events</a><a class="headerlink" href="#available-events" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Plugins may add additional events via the <a class="reference internal" href="../plugins/hooks.html#sec-plugins-hook-events-register-custom-events"><span class="std std-ref">octoprint.events.register_custom_events hook</span></a>.</p>
 </div>
 <section id="server">
-<span id="sec-events-available-events-server"></span><h3><a class="toc-backref" href="#id6">Server</a><a class="headerlink" href="#server" title="Permalink to this headline"></a></h3>
+<span id="sec-events-available-events-server"></span><h3><a class="toc-backref" href="#id6">Server</a><a class="headerlink" href="#server" title="Permalink to this heading"></a></h3>
 <dl>
 <dt>Startup</dt><dd><p>The server has started.</p>
 </dd>
@@ -326,7 +330,7 @@ with a valid login session.</p></li>
 </dl>
 </section>
 <section id="printer-communication">
-<span id="sec-events-available-events-printer-commmunication"></span><h3><a class="toc-backref" href="#id7">Printer communication</a><a class="headerlink" href="#printer-communication" title="Permalink to this headline"></a></h3>
+<span id="sec-events-available-events-printer-commmunication"></span><h3><a class="toc-backref" href="#id7">Printer communication</a><a class="headerlink" href="#printer-communication" title="Permalink to this heading"></a></h3>
 <dl>
 <dt>Connecting</dt><dd><blockquote>
 <div><p>The server is attempting to connect to the printer.</p>
@@ -384,7 +388,7 @@ either by OctoPrint or a plugin.</p>
 </dl>
 </section>
 <section id="file-handling">
-<span id="sec-events-available-events-file-handling"></span><h3><a class="toc-backref" href="#id8">File handling</a><a class="headerlink" href="#file-handling" title="Permalink to this headline"></a></h3>
+<span id="sec-events-available-events-file-handling"></span><h3><a class="toc-backref" href="#id8">File handling</a><a class="headerlink" href="#file-handling" title="Permalink to this heading"></a></h3>
 <dl>
 <dt>Upload</dt><dd><blockquote>
 <div><p>A file has been uploaded through the <a class="reference internal" href="../api/files.html#sec-api-fileops-uploadfile"><span class="std std-ref">REST API</span></a>.</p>
@@ -647,7 +651,7 @@ be removed with 1.4.0.</p>
 </dl>
 </section>
 <section id="printing">
-<span id="sec-events-available-events-printing"></span><h3><a class="toc-backref" href="#id9">Printing</a><a class="headerlink" href="#printing" title="Permalink to this headline"></a></h3>
+<span id="sec-events-available-events-printing"></span><h3><a class="toc-backref" href="#id9">Printing</a><a class="headerlink" href="#printing" title="Permalink to this heading"></a></h3>
 <dl>
 <dt>PrintStarted</dt><dd><p>A print has started.</p>
 <p>Payload:</p>
@@ -884,7 +888,7 @@ in the past if it makes sense for the event.</p></li>
 </dl>
 </section>
 <section id="gcode-processing">
-<span id="sec-events-available-events-gcode-processing"></span><h3><a class="toc-backref" href="#id10">GCODE processing</a><a class="headerlink" href="#gcode-processing" title="Permalink to this headline"></a></h3>
+<span id="sec-events-available-events-gcode-processing"></span><h3><a class="toc-backref" href="#id10">GCODE processing</a><a class="headerlink" href="#gcode-processing" title="Permalink to this heading"></a></h3>
 <dl>
 <dt>PowerOn</dt><dd><p>An <code class="docutils literal notranslate"><span class="pre">M80</span></code> was sent to the printer through OctoPrint (not triggered when printing from SD!)</p>
 </dd>
@@ -979,7 +983,7 @@ to get suppressed (and <code class="docutils literal notranslate"><span class="p
 </dl>
 </section>
 <section id="timelapses">
-<span id="sec-events-available-events-timelapses"></span><h3><a class="toc-backref" href="#id11">Timelapses</a><a class="headerlink" href="#timelapses" title="Permalink to this headline"></a></h3>
+<span id="sec-events-available-events-timelapses"></span><h3><a class="toc-backref" href="#id11">Timelapses</a><a class="headerlink" href="#timelapses" title="Permalink to this heading"></a></h3>
 <dl>
 <dt>CaptureStart</dt><dd><p>A timelapse frame has started to be captured.</p>
 <p>Payload:</p>
@@ -1046,7 +1050,7 @@ to a timelapse, or <code class="docutils literal notranslate"><span class="pre">
 </dl>
 </section>
 <section id="slicing">
-<span id="sec-events-available-events-slicing"></span><h3><a class="toc-backref" href="#id12">Slicing</a><a class="headerlink" href="#slicing" title="Permalink to this headline"></a></h3>
+<span id="sec-events-available-events-slicing"></span><h3><a class="toc-backref" href="#id12">Slicing</a><a class="headerlink" href="#slicing" title="Permalink to this heading"></a></h3>
 <dl>
 <dt>SlicingStarted</dt><dd><p>The slicing of a file has started.</p>
 <p>Payload:</p>
@@ -1145,7 +1149,7 @@ targeting the same GCODE file has been started by the user.</p>
 </dl>
 </section>
 <section id="settings">
-<span id="sec-events-available-events-settings"></span><h3><a class="toc-backref" href="#id13">Settings</a><a class="headerlink" href="#settings" title="Permalink to this headline"></a></h3>
+<span id="sec-events-available-events-settings"></span><h3><a class="toc-backref" href="#id13">Settings</a><a class="headerlink" href="#settings" title="Permalink to this heading"></a></h3>
 <dl>
 <dt>SettingsUpdated</dt><dd><p>The settings were updated via the REST API.</p>
 <p>This event may also be triggered if calling code of <a class="reference internal" href="../modules/settings.html#octoprint.settings.Settings.save" title="octoprint.settings.Settings.save"><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.settings.Settings.save</span></code></a> or
@@ -1157,7 +1161,7 @@ targeting the same GCODE file has been started by the user.</p>
 </dl>
 </section>
 <section id="printer-profile">
-<span id="sec-events-available-events-printer-profile"></span><h3><a class="toc-backref" href="#id14">Printer Profile</a><a class="headerlink" href="#printer-profile" title="Permalink to this headline"></a></h3>
+<span id="sec-events-available-events-printer-profile"></span><h3><a class="toc-backref" href="#id14">Printer Profile</a><a class="headerlink" href="#printer-profile" title="Permalink to this heading"></a></h3>
 <dl>
 <dt>PrinterProfileModified</dt><dd><p>A printer profile was modified.</p>
 <p>Payload:</p>
@@ -1186,7 +1190,7 @@ targeting the same GCODE file has been started by the user.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2023, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -1209,8 +1213,8 @@ targeting the same GCODE file has been started by the user.</p>
   <div class="rst-other-versions">
     <dl>
       <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.10.0rc1/events/index.html">1.10.0rc1</a></dd>
       <dd><a href="https://docs.octoprint.org/en/1.9.3/events/index.html">1.9.3</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.8.7/events/index.html">1.8.7</a></dd>
     </dl>
     <dl>
       <dt>Branches</dt>

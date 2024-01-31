@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Client Library &mdash; OctoPrint 1.10.0rc1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="OctoPrintClient" href="base.html" />
+    <link rel="prev" title="octoprint.util" href="../modules/util.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OctoPrint
+          </a>
+              <div class="version">
+                1.10.0rc1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">JavaScript Client Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="base.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="browser.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.browser</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.connection</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.control</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.files</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="job.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.job</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="languages.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.languages</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logs.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.logs</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.printer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printerprofiles.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.printerprofiles</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.settings</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.slicing</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.socket</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.system</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.users</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.util</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="wizard.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.wizard</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
+    <strong>Note:</strong>
+    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.9.3" style="color: white;text-decoration: underline">here</a>.
+  </p>
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>JavaScript Client Library</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/jsclientlib/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="javascript-client-library">
+<span id="sec-jsclientlib"></span><h1>JavaScript Client Library<a class="headerlink" href="#javascript-client-library" title="Permalink to this heading"></a></h1>
+<p>The JS Client Library provides an interface to all of OctoPrint’s API, including the SockJS based socket to send
+push messages from the server to connected clients. It is available as packed web
+asset file at <code class="docutils literal notranslate"><span class="pre">/static/webassets/packed_client.js</span></code> or as individual
+component files at <code class="docutils literal notranslate"><span class="pre">/static/js/app/client/&lt;component&gt;.js</span></code> relative to your
+OctoPrint instance’s base URL (e.g. <code class="docutils literal notranslate"><span class="pre">http://octopi.local/static/webassets/packed_client.js</span></code>).</p>
+<p>If you are using it from a web page hosted on OctoPrint as a Jinja2 template, you should use one of the following
+methods to embed it instead of manually entering the URL, in order to have OctoPrint take care of setting the
+correct URL prefix:</p>
+<div class="highlight-html+jinja notranslate"><div class="highlight"><pre><span></span><span class="cm">&lt;!--</span>
+<span class="cm">  full client library or all individual files, depending</span>
+<span class="cm">  on the server mode - should be the preferred variant</span>
+<span class="cm">--&gt;</span>
+<span class="cp">{%</span> <span class="k">assets</span> <span class="s2">&quot;js_client&quot;</span> <span class="cp">%}</span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">ASSET_URL</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><span class="cp">{%</span> <span class="k">endassets</span> <span class="cp">%}</span>
+
+<span class="cm">&lt;!--</span>
+<span class="cm">  full client library</span>
+<span class="cm">--&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">url_for</span><span class="o">(</span><span class="s2">&quot;static&quot;</span><span class="o">,</span> <span class="nv">filename</span><span class="o">=</span><span class="s2">&quot;webassets/packed_client.js&quot;</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!--</span>
+<span class="cm">  individual components (do not forget base!)</span>
+<span class="cm">--&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">url_for</span><span class="o">(</span><span class="s2">&quot;static&quot;</span><span class="o">,</span> <span class="nv">filename</span><span class="o">=</span><span class="s2">&quot;js/app/client/&lt;component&gt;.js&quot;</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Regardless of which way you use to include the library, you’ll also need to make sure you included jQuery and lodash,
+because the library depends on those to be available (as <code class="docutils literal notranslate"><span class="pre">$</span></code> and <code class="docutils literal notranslate"><span class="pre">_</span></code>). You can embed those like this:</p>
+<div class="highlight-html+jinja notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">url_for</span><span class="o">(</span><span class="s2">&quot;static&quot;</span><span class="o">,</span> <span class="nv">filename</span><span class="o">=</span><span class="s2">&quot;js/lib/jquery/jquery.min.js&quot;</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">url_for</span><span class="o">(</span><span class="s2">&quot;static&quot;</span><span class="o">,</span> <span class="nv">filename</span><span class="o">=</span><span class="s2">&quot;js/lib/lodash.min.js&quot;</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Moreover, if you need to use the socket module, you’ll need to include sockJS. You can embed it like this:</p>
+<div class="highlight-html+jinja notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">url_for</span><span class="o">(</span><span class="s2">&quot;static&quot;</span><span class="o">,</span> <span class="nv">filename</span><span class="o">=</span><span class="s2">&quot;js/lib/sockjs.min.js&quot;</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Note that all components depend on the <code class="docutils literal notranslate"><span class="pre">base</span></code> component to be present, so if you are only including a select
+number of components, make sure to at the very least include that one to be able to utilize the client.</p>
+<p>When you import the client library as described above, a global variable <code class="docutils literal notranslate"><span class="pre">OctoPrint</span></code> will become available, which is
+a prepared instance of the <code class="docutils literal notranslate"><span class="pre">OctoPrintClient</span></code> class the library assembles from registered components. You can directly
+use that singular <code class="docutils literal notranslate"><span class="pre">OctoPrint</span></code> instance if you only need to talk to one OctoPrint server:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">baseurl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;http://example.com/octoprint/&quot;</span>
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">apikey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;apikey&quot;</span><span class="p">;</span>
+
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">list</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// do something with the response</span>
+<span class="w">    </span><span class="p">});</span>
+</pre></div>
+</div>
+<p>If you want to access multiple servers, you should however instead instantiate your own clients. You can provide the
+connection options (<code class="docutils literal notranslate"><span class="pre">baseurl</span></code> and <code class="docutils literal notranslate"><span class="pre">apikey</span></code>) directly in the constructor or set them later:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">client1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">OctoPrintClient</span><span class="p">({</span><span class="nx">baseurl</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/octoprint1/&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">apikey</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;apikey1&quot;</span><span class="p">});</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">client2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">OctoPrintClient</span><span class="p">();</span>
+<span class="nx">client2</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">baseurl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;http://example.com/octoprint2/&quot;</span><span class="p">;</span>
+<span class="nx">client2</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">apikey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;apikey2&quot;</span><span class="p">;</span>
+
+<span class="nx">client1</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">list</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// do something with the response for server 1</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="nx">client2</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">list</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// do something with the response for server 2</span>
+<span class="w">    </span><span class="p">});</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../bundledplugins/appkeys.html#sec-bundledplugins-appkeys"><span class="std std-ref">Application Key Plugin</span></a></dt><dd><p>A bundled plugin that implements an authorization workflow for third party clients. It adds various additional
+methods to the JS Client Library.</p>
+</dd>
+</dl>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="base.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="base.html#OctoPrintClient"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.options"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.options</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.plugins"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.getBaseUrl"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.getBaseUrl()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.getCookie"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.getCookie()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.getRequestHeaders"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.getRequestHeaders()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.ajax"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.ajax()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.ajaxWithData"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.ajaxWithData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.get"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.getWithQuery"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.getWithQuery()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.post"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.post()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.postJson"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.postJson()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.put"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.put()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.putJson"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.putJson()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.patch"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.patch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.patchJson"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.patchJson()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.delete"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.delete()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.download"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.download()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.upload"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.upload()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.issueCommand"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.issueCommand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.getSimpleApiUrl"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.getSimpleApiUrl()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.simpleApiGet"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.simpleApiGet()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.simpleApiCommand"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.simpleApiCommand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.getBlueprintUrl"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.getBlueprintUrl()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.createRejectedDeferred"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.createRejectedDeferred()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.createCustomException"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.createCustomException()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.registerPluginComponent"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.registerPluginComponent()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="base.html#OctoPrintClient.InvalidArgumentError"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.InvalidArgumentError</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="browser.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.browser</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="browser.html#OctoPrintClient.browser.login"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.browser.login()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="browser.html#OctoPrintClient.browser.passiveLogin"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.browser.passiveLogin()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="browser.html#OctoPrintClient.browser.logout"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.browser.logout()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="connection.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.connection</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="connection.html#OctoPrintClient.connection.getSettings"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.connection.getSettings()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection.html#OctoPrintClient.connection.connect"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.connection.connect()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection.html#OctoPrintClient.connection.disconnect"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.connection.disconnect()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection.html#OctoPrintClient.connection.fakeAck"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.connection.fakeAck()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="control.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.control</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="control.html#OctoPrintClient.control.getCustomControls"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.control.getCustomControls()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html#OctoPrintClient.control.sendGcode"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.control.sendGcode()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html#OctoPrintClient.control.sendGcodeWithParameters"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.control.sendGcodeWithParameters()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html#OctoPrintClient.control.sendGcodeScript"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.control.sendGcodeScript()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html#OctoPrintClient.control.sendGcodeScriptWithParameters"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.control.sendGcodeScriptWithParameters()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="files.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.files</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="files.html#OctoPrintClient.files.get"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.get()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html#OctoPrintClient.files.list"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.list()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html#OctoPrintClient.files.listForLocation"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.listForLocation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html#OctoPrintClient.files.select"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.select()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html#OctoPrintClient.files.slice"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.slice()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html#OctoPrintClient.files.delete"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.delete()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html#OctoPrintClient.files.copy"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.copy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html#OctoPrintClient.files.move"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.move()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html#OctoPrintClient.files.createFolder"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.createFolder()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html#OctoPrintClient.files.upload"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.upload()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html#OctoPrintClient.files.download"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.download()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html#OctoPrintClient.files.pathForEntry"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.pathForEntry()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html#OctoPrintClient.files.entryForPath"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.files.entryForPath()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="job.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.job</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="job.html#OctoPrintClient.job.get"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.job.get()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="job.html#OctoPrintClient.job.start"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.job.start()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="job.html#OctoPrintClient.job.cancel"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.job.cancel()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="job.html#OctoPrintClient.job.restart"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.job.restart()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="job.html#OctoPrintClient.job.pause"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.job.pause()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="job.html#OctoPrintClient.job.resume"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.job.resume()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="job.html#OctoPrintClient.job.togglePause"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.job.togglePause()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="languages.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.languages</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="languages.html#OctoPrintClient.languages.list"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.languages.list()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="languages.html#OctoPrintClient.languages.upload"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.languages.upload()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="languages.html#OctoPrintClient.languages.delete"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.languages.delete()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="logs.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.logs</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="printer.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.printer</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.getFullState"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.getFullState()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.getToolState"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.getToolState()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.setToolTargetTemperatures"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.setToolTargetTemperatures()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.setToolTemperatureOffsets"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.setToolTemperatureOffsets()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.selectTool"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.selectTool()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.extrude"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.extrude()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.setFlowrate"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.setFlowrate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.getBedState"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.getBedState()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.setBedTargetTemperature"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.setBedTargetTemperature()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.setBedTemperatureOffset"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.setBedTemperatureOffset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.getChamberState"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.getChamberState()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.setChamberTargetTemperature"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.setChamberTargetTemperature()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.setChamberTemperatureOffset"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.setChamberTemperatureOffset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.jog"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.jog()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.home"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.home()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.setFeedrate"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.setFeedrate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.getSdState"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.getSdState()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.initSd"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.initSd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.refreshSd"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.refreshSd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html#OctoPrintClient.printer.releaseSd"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printer.releaseSd()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="printerprofiles.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.printerprofiles</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="printerprofiles.html#OctoPrintClient.printerprofiles.list"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printerprofiles.list()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printerprofiles.html#OctoPrintClient.printerprofiles.get"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printerprofiles.get()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printerprofiles.html#OctoPrintClient.printerprofiles.add"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printerprofiles.add()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printerprofiles.html#OctoPrintClient.printerprofiles.update"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printerprofiles.update()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printerprofiles.html#OctoPrintClient.printerprofiles.delete"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.printerprofiles.delete()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.settings</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="settings.html#OctoPrintClient.settings.get"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.settings.get()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html#OctoPrintClient.settings.save"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.settings.save()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html#OctoPrintClient.settings.getPluginSettings"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.settings.getPluginSettings()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html#OctoPrintClient.settings.savePluginSettings"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.settings.savePluginSettings()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html#OctoPrintClient.settings.generateApiKey"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.settings.generateApiKey()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="slicing.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.slicing</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html#OctoPrintClient.slicing.listAllSlicersAndProfiles"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.slicing.listAllSlicersAndProfiles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html#OctoPrintClient.slicing.listProfilesForSlicer"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.slicing.listProfilesForSlicer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html#OctoPrintClient.slicing.getProfileForSlicer"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.slicing.getProfileForSlicer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html#OctoPrintClient.slicing.addProfileForSlicer"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.slicing.addProfileForSlicer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html#OctoPrintClient.slicing.updateProfileForSlicer"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.slicing.updateProfileForSlicer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html#OctoPrintClient.slicing.deleteProfileForSlicer"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.slicing.deleteProfileForSlicer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="socket.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.socket</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="socket.html#OctoPrintClient.socket.options"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.options</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket.html#OctoPrintClient.socket.connect"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.connect()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket.html#OctoPrintClient.socket.reconnect"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.reconnect()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket.html#OctoPrintClient.socket.disconnect"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.disconnect()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket.html#OctoPrintClient.socket.onMessage"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.onMessage()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket.html#OctoPrintClient.socket.removeMessage"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.removeMessage()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket.html#OctoPrintClient.socket.sendMessage"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.sendMessage()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket.html#OctoPrintClient.socket.sendAuth"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.sendAuth()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket.html#OctoPrintClient.socket.onRateTooLow"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.onRateTooLow()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket.html#OctoPrintClient.socket.onRateTooHigh"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.onRateTooHigh()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket.html#OctoPrintClient.socket.increaseRate"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.increaseRate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket.html#OctoPrintClient.socket.decreaseRate"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.decreaseRate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket.html#sample-to-setup-an-authed-socket">Sample to setup an authed socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket.html#communication-throttling">Communication Throttling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="system.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.system</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="system.html#OctoPrintClient.system.getCommands"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.system.getCommands()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html#OctoPrintClient.system.getCommandsForSource"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.system.getCommandsForSource()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html#OctoPrintClient.system.executeCommand"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.system.executeCommand()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="timelapse.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html#OctoPrintClient.timelapse.get"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.get()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html#OctoPrintClient.timelapse.list"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.list()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html#OctoPrintClient.timelapse.listRendered"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.listRendered()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html#OctoPrintClient.timelapse.listUnrendered"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.listUnrendered()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html#OctoPrintClient.timelapse.download"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.download()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html#OctoPrintClient.timelapse.delete"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.delete()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html#OctoPrintClient.timelapse.deleteUnrendered"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.deleteUnrendered()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html#OctoPrintClient.timelapse.renderUnrendered"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.renderUnrendered()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html#OctoPrintClient.timelapse.getConfig"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.getConfig()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html#OctoPrintClient.timelapse.saveConfig"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse.saveConfig()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="users.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.users</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="users.html#OctoPrintClient.users.list"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.users.list()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#OctoPrintClient.users.get"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.users.get()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#OctoPrintClient.users.add"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.users.add()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#OctoPrintClient.users.update"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.users.update()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#OctoPrintClient.users.delete"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.users.delete()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#OctoPrintClient.users.changePassword"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.users.changePassword()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#OctoPrintClient.users.generateApiKey"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.users.generateApiKey()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#OctoPrintClient.users.resetApiKey"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.users.resetApiKey()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#OctoPrintClient.users.getSettings"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.users.getSettings()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#OctoPrintClient.users.saveSettings"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.users.saveSettings()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="util.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.util</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="util.html#OctoPrintClient.util.test"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.util.test()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html#OctoPrintClient.util.testPath"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.util.testPath()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html#OctoPrintClient.util.testExecutable"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.util.testExecutable()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html#OctoPrintClient.util.testUrl"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.util.testUrl()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html#OctoPrintClient.util.testServer"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.util.testServer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html#OctoPrintClient.util.testResolution"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.util.testResolution()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wizard.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.wizard</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wizard.html#OctoPrintClient.wizard.get"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.wizard.get()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="wizard.html#OctoPrintClient.wizard.finish"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.wizard.finish()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../modules/util.html" class="btn btn-neutral float-left" title="octoprint.util" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="base.html" class="btn btn-neutral float-right" title="OctoPrintClient" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.10.0rc1
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.10.0rc1/jsclientlib/index.html">1.10.0rc1</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.9.3/jsclientlib/index.html">1.9.3</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/jsclientlib/index.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/jsclientlib/index.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/jsclientlib/index.html">devel</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
