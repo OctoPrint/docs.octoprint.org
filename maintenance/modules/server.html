@@ -96,6 +96,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.noCachingExceptGetResponseHandler"><code class="docutils literal notranslate"><span class="pre">noCachingExceptGetResponseHandler()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.noCachingResponseHandler"><code class="docutils literal notranslate"><span class="pre">noCachingResponseHandler()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.optionsAllowOrigin"><code class="docutils literal notranslate"><span class="pre">optionsAllowOrigin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.require_fresh_login_with"><code class="docutils literal notranslate"><span class="pre">require_fresh_login_with()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.require_login"><code class="docutils literal notranslate"><span class="pre">require_login()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.require_login_with"><code class="docutils literal notranslate"><span class="pre">require_login_with()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.validate_local_redirect"><code class="docutils literal notranslate"><span class="pre">validate_local_redirect()</span></code></a></li>
@@ -154,6 +155,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.no_firstrun_access"><code class="docutils literal notranslate"><span class="pre">no_firstrun_access()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.permission_validator"><code class="docutils literal notranslate"><span class="pre">permission_validator()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.redirect_to_tornado"><code class="docutils literal notranslate"><span class="pre">redirect_to_tornado()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.require_credentials_checked_recently"><code class="docutils literal notranslate"><span class="pre">require_credentials_checked_recently()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.restricted_access"><code class="docutils literal notranslate"><span class="pre">restricted_access()</span></code></a></li>
 </ul>
 </li>
@@ -433,6 +435,21 @@ to prevent all client side caching from taking place.</p>
 <dt class="sig sig-object py" id="octoprint.server.util.optionsAllowOrigin">
 <span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">optionsAllowOrigin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.optionsAllowOrigin" title="Permalink to this definition"></a></dt>
 <dd><p>Shortcut for request handling for CORS OPTIONS requests to set CORS headers.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="octoprint.server.util.require_fresh_login_with">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">require_fresh_login_with</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">permissions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.require_fresh_login_with" title="Permalink to this definition"></a></dt>
+<dd><p>Requires a login with fresh credentials.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>permissions</strong> – list of all permissions required to pass the check</p></li>
+<li><p><strong>user_id</strong> – required user to pass the check</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns: a flask redirect response to return if a login is required, or None</p>
 </dd></dl>
 
 <dl class="py function">
@@ -916,6 +933,14 @@ session.</p>
 <dd class="field-even"><p></p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="octoprint.server.util.flask.require_credentials_checked_recently">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">require_credentials_checked_recently</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.require_credentials_checked_recently" title="Permalink to this definition"></a></dt>
+<dd><p>If you decorate a view with this, it will ensure that only users who entered their password
+recently in this login session are allowed to proceed. Otherwise it will cause a HTTP 403 status code
+to be returned by the decorated resource.</p>
 </dd></dl>
 
 <dl class="py function">
