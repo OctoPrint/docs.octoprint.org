@@ -81,10 +81,12 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#javascript-client-library">JavaScript Client Library</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.getKey"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.getKey()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.getKeys"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.getKeys()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.getAllKeys"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.getAllKeys()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.generateKey"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.generateKey()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.revokeKey"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.revokeKey()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.revokeKeyForApp"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.revokeKeyForApp()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.decide"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.decide()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.probe"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.probe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.request"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.request()</span></code></a></li>
@@ -187,22 +189,22 @@
 <p>It implements a workflow for third party apps or clients to obtain an application specific API key from OctoPrint to interact with it
 on a user’s behalf, via confirmation of the user through OctoPrint’s web interface. Existing keys can be managed
 on a per-user base as well as globally by administrators.</p>
-<figure class="align-center" id="id10">
+<figure class="align-center" id="id12">
 <span id="fig-bundledplugins-appkeys-confirmation"></span><img alt="Confirmation" src="../_images/bundledplugins-appkeys-confirmation_prompt.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 11 </span><span class="caption-text">The plugin’s confirmation generated for a new application key request.</span><a class="headerlink" href="#id10" title="Permalink to this image"></a></p>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">The plugin’s confirmation generated for a new application key request.</span><a class="headerlink" href="#id12" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
-<figure class="align-center" id="id11">
+<figure class="align-center" id="id13">
 <span id="fig-bundledplugins-appkeys-user-settings"></span><img alt="Key management via user settings" src="../_images/bundledplugins-appkeys-user_settings.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Users can manage the application specific API keys registered to their account via their user settings.</span><a class="headerlink" href="#id11" title="Permalink to this image"></a></p>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Users can manage the application specific API keys registered to their account via their user settings.</span><a class="headerlink" href="#id13" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
-<figure class="align-center" id="id12">
+<figure class="align-center" id="id14">
 <span id="fig-bundledplugins-appkeys-settings"></span><img alt="Global key management via settings" src="../_images/bundledplugins-appkeys-settings.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Administrators can manage all application specific API keys registered to any user.</span><a class="headerlink" href="#id12" title="Permalink to this image"></a></p>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Administrators can manage all application specific API keys registered to any user.</span><a class="headerlink" href="#id14" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 <section id="workflow">
@@ -464,6 +466,7 @@ for more than 5s.</p>
 <dd><p>Endpoint to decide on the authorization request.</p>
 <p>Expects a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-decisionrequest"><span class="std std-ref">Decision request</span></a> as request body.</p>
 <p>Returns an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> on success.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">PLUGIN_APPKEYS_GRANT</span></code> permissions and a recent credentials check.</p>
 <dl class="field-list simple">
 <dt class="field-odd">JSON Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -485,14 +488,17 @@ for more than 5s.</p>
 <dt class="sig sig-object http" id="get--api-plugin-appkeys">
 <span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/plugin/appkeys</span></span><a class="headerlink" href="#get--api-plugin-appkeys" title="Permalink to this definition"></a></dt>
 <dd><p>Fetches a list of existing application keys and pending requests registered in the system for the current user.</p>
-<p>If the additional optional parameter <code class="docutils literal notranslate"><span class="pre">all</span></code> is provided and the user has administrator rights, fetches a list
+<p>If the additional optional parameter <code class="docutils literal notranslate"><span class="pre">all</span></code> is provided and the user has the <code class="docutils literal notranslate"><span class="pre">PLUGIN_APPKEYS_ADMIN</span></code> permission, fetches a list
 of <em>all*</em> application keys and pending requests registered in the system for any user.</p>
+<p>If the additional optional parameter <code class="docutils literal notranslate"><span class="pre">app</span></code> is provided, only the key for the specified application identifier and the
+current user will be returned. A user with the <code class="docutils literal notranslate"><span class="pre">PLUGIN_APPKEYS_ADMIN``permission</span> <span class="pre">may</span> <span class="pre">also</span> <span class="pre">specify</span> <span class="pre">the</span> <span class="pre">``user</span></code> parameter
+to fetch the key for the specified application identifier and a different user.</p>
 <p>Returns a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-listreponse"><span class="std std-ref">List response</span></a> in the
 body upon success.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Query Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>all</strong> – Fetch all application keys and pending requests from all users. Requires administrator rights.</p></li>
+<li><p><strong>all</strong> – Fetch all application keys and pending requests from all users. Requires the <code class="docutils literal notranslate"><span class="pre">PLUGIN_APPKEYS_ADMIN</span></code> permission.</p></li>
 </ul>
 </dd>
 </dl>
@@ -508,15 +514,23 @@ body upon success.</p>
 commands are:</p>
 <dl class="simple">
 <dt>revoke</dt><dd><p>Revokes an existing application key. Must belong to the user issuing the command, unless the user has admin rights
-in which case they make revoke any application key in the system. Expects the key in question as parameter <code class="docutils literal notranslate"><span class="pre">key</span></code>.</p>
+in which case they make revoke any application key in the system. Expects the key in question identified by the
+associated application identifier provided in the <code class="docutils literal notranslate"><span class="pre">app</span></code> parameter. Keys for other users but the current one can
+be revoked by admins with the additional <code class="docutils literal notranslate"><span class="pre">user</span></code> parameter to specify the user id.</p>
 </dd>
-<dt>generate</dt><dd><p>Generates a new application key for the user, using the application identifier provided as parameter <code class="docutils literal notranslate"><span class="pre">app</span></code>.</p>
+<dt>generate</dt><dd><p>Generates a new application key for the user, using the application identifier provided as parameter <code class="docutils literal notranslate"><span class="pre">app</span></code>. Keys
+for other users but the current one can be generated by admins with the additional <code class="docutils literal notranslate"><span class="pre">user</span></code> parameter to specify
+the user id.</p>
 </dd>
 </dl>
 <p>Upon success, a status code of <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> and an empty body is returned.</p>
-<p>Requires user rights.</p>
+<p>Requires user rights and a fresh credentials check.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 1.10.0: </span>Revoking a key by supplying the key itself has been deprecated as of OctoPrint 1.10.0. Use <code class="docutils literal notranslate"><span class="pre">app</span></code> and optionally
+<code class="docutils literal notranslate"><span class="pre">user</span></code> instead.</p>
+</div>
 <p><strong>Example revoke request</strong></p>
-<p>Revokes the (fictional) key <code class="docutils literal notranslate"><span class="pre">aabbccddeeff112233445566</span></code>.</p>
+<p>Revokes the key associated with app id <code class="docutils literal notranslate"><span class="pre">test</span></code> for the current user.</p>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/plugin/appkeys</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
@@ -524,7 +538,24 @@ in which case they make revoke any application key in the system. Expects the ke
 
 <span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;revoke&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;aabbccddeeff112233445566&quot;</span>
+<span class="w">  </span><span class="nt">&quot;app&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example revoke request by an admin for a different user</strong></p>
+<p>Revokes the key associated with the app id <code class="docutils literal notranslate"><span class="pre">test</span></code> for user <code class="docutils literal notranslate"><span class="pre">user</span></code>.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/plugin/appkeys</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;revoke&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;app&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -540,24 +571,35 @@ in which case they make revoke any application key in the system. Expects the ke
 
 <span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;generate&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My awesome application 1.0&quot;</span>
+<span class="w">  </span><span class="nt">&quot;app&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My awesome application 1.0&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;app_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My awesome application 1.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;me&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;api_key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef1234567890&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">JSON Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>command</strong> (<em>string</em>) – The command to issue, either <code class="docutils literal notranslate"><span class="pre">revoke</span></code> or <code class="docutils literal notranslate"><span class="pre">generate</span></code></p></li>
-<li><p><strong>key</strong> (<em>string</em>) – <code class="docutils literal notranslate"><span class="pre">revoke</span></code> command: The key to revoke</p></li>
-<li><p><strong>app</strong> (<em>string</em>) – <code class="docutils literal notranslate"><span class="pre">generate</span></code> command: Application identifier for which to generate a key</p></li>
+<li><p><strong>app</strong> (<em>string</em>) – <code class="docutils literal notranslate"><span class="pre">revoke</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">generate</span></code> commands: The application identifier of the key to revoke or generate.</p></li>
+<li><p><strong>user</strong> (<em>string</em>) – <code class="docutils literal notranslate"><span class="pre">revoke</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">generate</span></code> commands: The user name for which to revoke or generated a key associated with the provided
+app id. If not provided, the current user’s name will be used.</p></li>
+<li><p><strong>key</strong> (<em>string</em>) – <code class="docutils literal notranslate"><span class="pre">revoke</span></code> command: The key to revoke. Revoking by providing the key itself has been deprecated
+as of OctoPrint 1.10.0. Use <code class="docutils literal notranslate"><span class="pre">app</span></code> and optionally <code class="docutils literal notranslate"><span class="pre">user</span></code> instead.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Status Codes</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a></span> – No error</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – Key generation successful</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a></span> – No error during key revocation</p></li>
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a></span> – Invalid or missing parameter</p></li>
 </ul>
 </dd>
@@ -783,6 +825,26 @@ and authorize the request.</p></td>
 <section id="javascript-client-library">
 <span id="sec-bundledplugins-appkeys-jsclientlib"></span><h2>JavaScript Client Library<a class="headerlink" href="#javascript-client-library" title="Permalink to this heading"></a></h2>
 <dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.plugins.appkeys.getKey">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">getKey</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getKey" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves the key information the given <code class="docutils literal notranslate"><span class="pre">app</span></code> and optional other <code class="docutils literal notranslate"><span class="pre">user</span></code>. The key must belong to the current user, or the current user must
+have the <code class="docutils literal notranslate"><span class="pre">PLUGIN_APPKEYS_ADMIN</span></code> permission.</p>
+<p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-fetchlist"><span class="std std-ref">Fetch list of existing application keys</span></a> for more details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>app</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – Application identifier</p></li>
+<li><p><strong>user</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – Optional user identifier</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
 <dt class="sig sig-object js" id="OctoPrintClient.plugins.appkeys.getKeys">
 <span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">getKeys</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getKeys" title="Permalink to this definition"></a></dt>
 <dd><p>Retrieves registered keys and pending requests for the current user.</p>
@@ -803,7 +865,7 @@ and authorize the request.</p></td>
 <dt class="sig sig-object js" id="OctoPrintClient.plugins.appkeys.getAllKeys">
 <span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">getAllKeys</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getAllKeys" title="Permalink to this definition"></a></dt>
 <dd><p>Retrieves registered keys and pending requests for all users.</p>
-<p>Needs administrator rights.</p>
+<p>Needs the <code class="docutils literal notranslate"><span class="pre">PLUGIN_APPKEYS_ADMIN</span></code> permission.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-fetchlist"><span class="std std-ref">Fetch list of existing application keys</span></a> for more details.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Arguments</dt>
@@ -838,13 +900,36 @@ and authorize the request.</p></td>
 <dl class="js function">
 <dt class="sig sig-object js" id="OctoPrintClient.plugins.appkeys.revokeKey">
 <span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">revokeKey</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.revokeKey" title="Permalink to this definition"></a></dt>
-<dd><p>Revokes the given <code class="docutils literal notranslate"><span class="pre">key</span></code>. The key must belong to the current user, or the current user must have administrator
-rights.</p>
+<dd><p>Revokes the given <code class="docutils literal notranslate"><span class="pre">key</span></code>. The key must belong to the current user, or the current user must
+have the <code class="docutils literal notranslate"><span class="pre">PLUGIN_APPKEYS_ADMIN</span></code> permission.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-issuecommand"><span class="std std-ref">Issue an application key command</span></a> for details.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 1.10.0: </span><code class="docutils literal notranslate"><span class="pre">revokeKey</span></code> has been deprecated. Use <code class="docutils literal notranslate"><span class="pre">revokeKeyForApp</span></code> instead.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Arguments</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>key</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – Key to revoke</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.plugins.appkeys.revokeKeyForApp">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">revokeKeyForApp</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.revokeKeyForApp" title="Permalink to this definition"></a></dt>
+<dd><p>Revokes the key for the given <code class="docutils literal notranslate"><span class="pre">app</span></code> and optional other <code class="docutils literal notranslate"><span class="pre">user</span></code>. The key must belong to the current user, or the current user must
+have the <code class="docutils literal notranslate"><span class="pre">PLUGIN_APPKEYS_ADMIN</span></code> permission.</p>
+<p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-issuecommand"><span class="std std-ref">Issue an application key command</span></a> for details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>app</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – Application identifier</p></li>
+<li><p><strong>user</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – Optional user identifier</p></li>
 <li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
 </ul>
 </dd>
