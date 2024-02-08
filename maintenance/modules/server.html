@@ -153,6 +153,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.make_api_error"><code class="docutils literal notranslate"><span class="pre">make_api_error()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.make_text_response"><code class="docutils literal notranslate"><span class="pre">make_text_response()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.no_firstrun_access"><code class="docutils literal notranslate"><span class="pre">no_firstrun_access()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.permission_and_fresh_credentials_validator"><code class="docutils literal notranslate"><span class="pre">permission_and_fresh_credentials_validator()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.permission_validator"><code class="docutils literal notranslate"><span class="pre">permission_validator()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.redirect_to_tornado"><code class="docutils literal notranslate"><span class="pre">redirect_to_tornado()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.require_credentials_checked_recently"><code class="docutils literal notranslate"><span class="pre">require_credentials_checked_recently()</span></code></a></li>
@@ -899,6 +900,22 @@ done for OctoPrint’s Access Control.</p>
 <p>If OctoPrint’s Access Control has not been setup yet (indicated by the userManager
 not reporting that its user database has been customized from default), the decorator
 will cause a HTTP 403 status code to be returned by the decorated resource.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="octoprint.server.util.flask.permission_and_fresh_credentials_validator">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">permission_and_fresh_credentials_validator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permission</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.permission_and_fresh_credentials_validator" title="Permalink to this definition"></a></dt>
+<dd><p>Validates that the given request is made by an authorized user, identified either by API key or existing Flask
+session, and that the credentials have been checked recently if it’s a Flask session.</p>
+<p>Must be executed in an existing Flask request context!</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – The Flask request object</p></li>
+<li><p><strong>request</strong> – The required permission</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
