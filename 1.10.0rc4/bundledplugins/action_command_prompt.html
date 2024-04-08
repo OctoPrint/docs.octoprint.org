@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Action Command Prompt support &mdash; OctoPrint 1.10.0rc4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Announcement Plugin" href="announcements.html" />
+    <link rel="prev" title="Action Command Notification support" href="action_command_notification.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OctoPrint
+          </a>
+              <div class="version">
+                1.10.0rc4
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Bundled Plugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="action_command_notification.html">Action Command Notification support</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Action Command Prompt support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-the-plugin">Configuring the plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#supported-action-commands">Supported action commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-communication-with-the-firmware">Example communication with the firmware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#source-code">Source code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="announcements.html">Announcement Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracking.html">Anonymous Usage Tracking Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appkeys.html">Application Keys Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backup.html">Backup Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discovery.html">Discovery Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="errortracking.html">Error Tracking Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_check.html">File Check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firmware_check.html">Firmware Check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gcodeviewer.html">GCode Viewer Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pluginmanager.html">Plugin Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="softwareupdate.html">Software Update Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtual_printer.html">Virtual Printer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
+    <strong>Note:</strong>
+    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.9.3" style="color: white;text-decoration: underline">here</a>.
+  </p>
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Bundled Plugins</a> &raquo;</li>
+        
+      <li>Action Command Prompt support</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/bundledplugins/action_command_prompt.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="action-command-prompt-support">
+<span id="sec-bundledplugins-action-command-prompt"></span><h1>Action Command Prompt support<a class="headerlink" href="#action-command-prompt-support" title="Permalink to this heading"></a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.3.9.</span></p>
+</div>
+<p>The OctoPrint Action Command Prompt Support Plugin comes bundled with OctoPrint.</p>
+<p>It allows firmware to trigger dialog prompts for logged in users using <a class="reference internal" href="../features/action_commands.html#sec-features-action-commands"><span class="std std-ref">action commands</span></a>, e.g. to wait
+for user acknowledgement or allow the user to choose between options, and also to close the dialog again
+in case its no longer needed, e.g. due to the user proceeding on the printer’s own controller.</p>
+<p>The choice of the user can be communicated back to the firmware via a configurable GCODE command with a
+placeholder for the selected option’s index.</p>
+<figure class="align-center" id="id1">
+<span id="fig-bundledplugins-action-command-prompt-example"></span><img alt="Simple prompt example" src="../_images/bundledplugins-action_command_prompt-example.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">A simple dialog example triggered by the firmware</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<section id="configuring-the-plugin">
+<span id="sec-bundledplugins-action-command-prompt-configuration"></span><h2>Configuring the plugin<a class="headerlink" href="#configuring-the-plugin" title="Permalink to this heading"></a></h2>
+<p>The plugin supports the following configuration keys:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">enable</span></code>: Whether to always enable (<code class="docutils literal notranslate"><span class="pre">always</span></code>), disable (<code class="docutils literal notranslate"><span class="pre">never</span></code>) or <code class="docutils literal notranslate"><span class="pre">detect</span></code> support.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enable_emergency_sending</span></code>: Will make the selection command be sent as an emergency command to jump the internal
+send queue and even be sent to the printer if it’s not signaling to be able to received. Only done if this is true
+and the printer signals support for emergency command processing. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enable_signaling</span></code>: If enabled, will send the configured command with the <code class="docutils literal notranslate"><span class="pre">P1</span></code> parameter to the printer to
+signal prompt support of the host. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">command</span></code>: The command to send to the firmware on choice, defaults to <code class="docutils literal notranslate"><span class="pre">M876</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<p>You can modify them either through the plugin’s configuration dialog under Settings, or by directly editing <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>.</p>
+</section>
+<section id="supported-action-commands">
+<span id="sec-bundledplugins-action-command-prompt-action-commands"></span><h2>Supported action commands<a class="headerlink" href="#supported-action-commands" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>prompt_begin &lt;message&gt;</dt><dd><p>Starts the definition of a prompt dialog. <code class="docutils literal notranslate"><span class="pre">&lt;message&gt;</span></code> is the message to display to the user. Will be ignored
+if a dialog is already defined.</p>
+</dd>
+<dt>prompt_choice &lt;text&gt;</dt><dd><p>Defines a choice with the associated <code class="docutils literal notranslate"><span class="pre">&lt;text&gt;</span></code>. Will be ignored if no dialog has been defined yet.</p>
+</dd>
+<dt>prompt_button &lt;text&gt;</dt><dd><p>Same as <code class="docutils literal notranslate"><span class="pre">prompt_choice</span></code>.</p>
+</dd>
+<dt>prompt_show</dt><dd><p>Tells OctoPrint that the dialog is now fully defined and to prompt the user. Will be ignored if no dialog is
+defined yet.</p>
+</dd>
+<dt>prompt_end</dt><dd><p>Tells OctoPrint that the dialog should now be closed (e.g. the user made the choice on the printer directly instead
+of through OctoPrint). Will be ignored if no dialog is defined yet.</p>
+</dd>
+</dl>
+</section>
+<section id="example-communication-with-the-firmware">
+<span id="sec-bundledplugins-action-command-prompt-example"></span><h2>Example communication with the firmware<a class="headerlink" href="#example-communication-with-the-firmware" title="Permalink to this heading"></a></h2>
+<p>To display the <a class="reference internal" href="#fig-bundledplugins-action-command-prompt-example"><span class="std std-ref">above dialog</span></a> the firmware sent these action commands:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>//action:prompt_begin Filament unloaded, swap then proceed
+//action:prompt_choice Filament swapped
+//action:prompt_show
+</pre></div>
+</div>
+<p>If the user clicks the button, OctoPrint will send back <code class="docutils literal notranslate"><span class="pre">M876</span> <span class="pre">S0</span></code> (0-based index).</p>
+<p>A more complicated example with three options would be the following:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>//action:prompt_begin Filament runout detected. Please choose how to proceed:
+//action:prompt_choice Swap filament
+//action:prompt_choice Home X/Y and pause print
+//action:prompt_choice Abort print
+//action:prompt_show
+</pre></div>
+</div>
+<p>This would produce the following output:</p>
+<figure class="align-center" id="id2">
+<span id="fig-bundledplugins-action-command-prompt-example2"></span><img alt="Another prompt example" src="../_images/bundledplugins-action_command_prompt-example2.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Another dialog example triggered by the firmware</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>If the user selects “Abort print”, OctoPrint will send <code class="docutils literal notranslate"><span class="pre">2</span></code> as selected choice.</p>
+</section>
+<section id="source-code">
+<span id="sec-bundledplugins-action-command-prompt-sourcecode"></span><h2>Source code<a class="headerlink" href="#source-code" title="Permalink to this heading"></a></h2>
+<p>The source of the Action Command Prompt Support plugin is bundled with OctoPrint and can be found in
+its source repository under <code class="docutils literal notranslate"><span class="pre">src/octoprint/plugins/action_command_prompt</span></code>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="action_command_notification.html" class="btn btn-neutral float-left" title="Action Command Notification support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="announcements.html" class="btn btn-neutral float-right" title="Announcement Plugin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.10.0rc4
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.10.0rc4/bundledplugins/action_command_prompt.html">1.10.0rc4</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.9.3/bundledplugins/action_command_prompt.html">1.9.3</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/bundledplugins/action_command_prompt.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/bundledplugins/action_command_prompt.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/bundledplugins/action_command_prompt.html">devel</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
