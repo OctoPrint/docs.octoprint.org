@@ -184,12 +184,15 @@ hooks by setting the (optional) node <code class="docutils literal notranslate">
 <span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python ~/growl.py -t mygrowlserver -d &quot;Lost connection to printer&quot; -a OctoPrint -i http://raspi/Octoprint_logo.png</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">system</span>
 <span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Disconnected</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PrintStarted</span>
 <span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python ~/growl.py -t mygrowlserver -d &quot;Starting {file}&quot; -a OctoPrint -i http://raspi/Octoprint_logo.png</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">system</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Print Started</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PrintDone</span>
 <span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python ~/growl.py -t mygrowlserver -d &quot;Completed {file}&quot; -a OctoPrint -i http://raspi/Octoprint_logo.png</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">system</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Print Done</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">event</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PrintStarted</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PrintFailed</span>
@@ -197,12 +200,14 @@ hooks by setting the (optional) node <code class="docutils literal notranslate">
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PrintCancelled</span>
 <span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python ~/growl.py -t mygrowlserver -d &quot;Event {__eventname} ({name})&quot; -a OctoPrint -i http://raspi/Octoprint_logo.png</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">system</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Multiple Events</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Connected</span>
 <span class="w">    </span><span class="nt">command</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">M115</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">M117 printer connected!</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">G28</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcode</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Connected</span>
 </pre></div>
 </div>
 </section>
@@ -367,6 +372,18 @@ either by OctoPrint or a plugin.</p>
 <blockquote>
 <div><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">error</span></code>: the error string</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reason</span></code>: the reason for the error, one of <code class="docutils literal notranslate"><span class="pre">firmware</span></code>, <code class="docutils literal notranslate"><span class="pre">resend</span></code>, <code class="docutils literal notranslate"><span class="pre">resend_loop</span></code>, <code class="docutils literal notranslate"><span class="pre">timeout</span></code>,
+<code class="docutils literal notranslate"><span class="pre">connection</span></code>, <code class="docutils literal notranslate"><span class="pre">start_print</span></code>, <code class="docutils literal notranslate"><span class="pre">autodetect</span></code> or unset.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">consequence</span></code>: What was done as a consequence of that error. <code class="docutils literal notranslate"><span class="pre">emergency</span></code> if an <code class="docutils literal notranslate"><span class="pre">M112</span></code> emergency stop was sent
+and the connection to the printer closed, <code class="docutils literal notranslate"><span class="pre">disconnect</span></code> if the connection was just closed, <code class="docutils literal notranslate"><span class="pre">cancel</span></code> if the ongoing
+print job was cancelled. Might also be missing if nothing happened as a consequence.</p></li>
+</ul>
+</div></blockquote>
+<p>In case of errors with reason <code class="docutils literal notranslate"><span class="pre">firmware</span></code>, the following additional fields might be present in the payload:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">faq</span></code>: a link to the FAQ entry for the error</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">logs</span></code>: the last lines from the communication log</p></li>
 </ul>
 </div></blockquote>
 </dd>
@@ -425,6 +442,7 @@ either by OctoPrint or a plugin.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the file’s name</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>: the file’s type, a list of the path within the type hierarchy, e.g. <code class="docutils literal notranslate"><span class="pre">[&quot;machinecode&quot;,</span> <span class="pre">&quot;gcode&quot;]</span></code> or
 <code class="docutils literal notranslate"><span class="pre">[&quot;model&quot;,</span> <span class="pre">&quot;stl&quot;]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">operation</span></code>: the operation that triggered the event, either <code class="docutils literal notranslate"><span class="pre">add</span></code>, <code class="docutils literal notranslate"><span class="pre">copy</span></code> or <code class="docutils literal notranslate"><span class="pre">move</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -447,6 +465,7 @@ path and then <code class="docutils literal notranslate"><span class="pre">FileA
 <li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: the file’s name</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>: the file’s type, a list of the path within the type hierarchy, e.g. <code class="docutils literal notranslate"><span class="pre">[&quot;machinecode&quot;,</span> <span class="pre">&quot;gcode&quot;]</span></code> or
 <code class="docutils literal notranslate"><span class="pre">[&quot;model&quot;,</span> <span class="pre">&quot;stl&quot;]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">operation</span></code>: the operation that triggered the event, either <code class="docutils literal notranslate"><span class="pre">remove</span></code> or <code class="docutils literal notranslate"><span class="pre">move</span></code></p></li>
 </ul>
 </dd>
 </dl>
@@ -765,6 +784,8 @@ be accurate)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">position.f</span></code>: last feedrate for move commands <strong>sent through OctoPrint</strong> (note that if you modified the
 feedrate outside of OctoPrint, e.g. through the printer controller, or if you are printing from SD, this will
 NOT be accurate)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fileposition</span></code>: position in the file in bytes at the time of cancellation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">progress</span></code>: print progress as a percentage at the time of cancellation</p></li>
 </ul>
 </div></blockquote>
 <div class="deprecated">
@@ -800,6 +821,8 @@ be accurate)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">position.f</span></code>: last feedrate for move commands <strong>sent through OctoPrint</strong> (note that if you modified the
 feedrate outside of OctoPrint, e.g. through the printer controller, or if you are printing from SD, this will
 NOT be accurate)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fileposition</span></code>: position in the file in bytes at the time of pausing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">progress</span></code>: print progress as a percentage at the time of pausing</p></li>
 </ul>
 </div></blockquote>
 <div class="deprecated">

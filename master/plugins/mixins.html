@@ -710,11 +710,25 @@ limited to minimally 1% steps.</p>
 <dd><p>Bases: <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin" title="octoprint.plugin.types.OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">OctoPrintPlugin</span></code></a></p>
 <p>Including the <code class="docutils literal notranslate"><span class="pre">SettingsPlugin</span></code> mixin allows plugins to store and retrieve their own settings within OctoPrint’s
 configuration.</p>
-<p>Plugins including the mixing will get injected an additional property <code class="docutils literal notranslate"><span class="pre">self._settings</span></code> which is an instance of
+<p>Plugins including the mixin will get injected an additional property <code class="docutils literal notranslate"><span class="pre">self._settings</span></code> which is an instance of
 <code class="xref py py-class docutils literal notranslate"><span class="pre">PluginSettingsManager</span></code> already properly initialized for use by the plugin. In order for the manager to
 know about the available settings structure and default values upon initialization, implementing plugins will need
 to provide a dictionary with the plugin’s default settings through overriding the method <a class="reference internal" href="#octoprint.plugin.SettingsPlugin.get_settings_defaults" title="octoprint.plugin.SettingsPlugin.get_settings_defaults"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_settings_defaults()</span></code></a>.
 The defined structure will then be available to access through the settings manager available as <code class="docutils literal notranslate"><span class="pre">self._settings</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use the settings only to store configuration data or information that is relevant to the UI. Anything in the settings
+is part of the hash that is used to determine whether a client’s copy of the UI is still up to date or not. If you
+store unrelated and possibly often changing information in the settings, you will force the client to reload the
+UI without visible changes, which will lead to a bad user experience.</p>
+<p>You may store additional data in your plugin’s data folder instead, which is not part of the hash and whose path
+can be retrieved through <code class="xref py py-func docutils literal notranslate"><span class="pre">get_plugin_data_folder()</span></code>, e.g.:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_folder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_plugin_data_folder</span><span class="p">()</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_folder</span><span class="p">,</span> <span class="s2">&quot;some_file.txt&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+  <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;some data&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 <p>If your plugin needs to react to the change of specific configuration values on the fly, e.g. to adjust the log level
 of a logger when the user changes a corresponding flag via the settings dialog, you can override the
 <a class="reference internal" href="#octoprint.plugin.SettingsPlugin.on_settings_save" title="octoprint.plugin.SettingsPlugin.on_settings_save"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_settings_save()</span></code></a> method and wrap the call to the implementation from the parent class with retrieval of the

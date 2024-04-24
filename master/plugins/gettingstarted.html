@@ -205,13 +205,15 @@ web interface.</p>
 </div>
 <p>Saving this as <code class="docutils literal notranslate"><span class="pre">helloworld.py</span></code> in <code class="docutils literal notranslate"><span class="pre">~/.octoprint/plugins</span></code> yields you something resembling these log entries upon server startup:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(venv) $ octoprint serve
-2015-01-27 11:14:35,124 - octoprint.server - INFO - Starting OctoPrint 1.2.0-dev-448-gd96e56e (devel branch)
+2023-11-20 11:14:35,122 - octoprint.startup - INFO - ******************************************************************************
+2023-11-20 11:14:35,124 - octoprint.startup - INFO - Starting OctoPrint 1.9.3
+2023-11-20 11:14:35,124 - octoprint.startup - INFO - ******************************************************************************
 [...]
-2015-01-27 11:14:35,124 - octoprint.plugin.core - INFO - Loading plugins from /home/pi/.octoprint/plugins, /home/pi/OctoPrint/src/octoprint/plugins and installed plugin packages...
+2023-11-20 11:14:35,124 - octoprint.plugin.core - INFO - Loading plugins from /home/gina/.octoprint/plugins, /home/gina/devel/OctoPrint/src/octoprint/plugins and installed plugin packages...
 [...]
-2015-01-27 11:14:36,135 - octoprint.plugin.core - INFO - 3 plugin(s) registered with the system:
+2023-11-20 11:14:36,135 - octoprint.plugin.core - INFO - 19 plugin(s) registered with the system:
 [...]
-| Hello World (1.0.0) = /home/pi/.octoprint/plugins/helloworld.py
+| Hello World (1.0.0) = /home/gina/.octoprint/plugins/helloworld.py
 [...]
 </pre></div>
 </div>
@@ -240,7 +242,7 @@ the end-of-life Python 2.</p>
 </span></pre></div>
 </div>
 <p>and restart OctoPrint. You now get this output in the log:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>2015-01-27 11:17:10,792 - octoprint.plugins.helloworld - INFO - Hello World!
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>2023-11-20 11:17:10,792 - octoprint.plugins.helloworld - INFO - Hello World!
 </pre></div>
 </div>
 <p>Neat, isn’t it? We added a custom class that subclasses one of OctoPrint’s <a class="reference internal" href="mixins.html#sec-plugins-mixins"><span class="std std-ref">plugin mixins</span></a>
@@ -271,7 +273,7 @@ or alternatively manually utilizing Python’s standard package manager <code cl
 <p>So let’s begin. We’ll use the <a class="reference external" href="https://github.com/audreyr/cookiecutter">cookiecutter</a> template for OctoPrint plugins
 here. This should already be installed if you used the <code class="docutils literal notranslate"><span class="pre">plugins</span></code> extra while installing OctoPrint.  However,
 you may install it with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(venv) $ pip install &quot;cookiecutter&gt;=1.4,&lt;1.7&quot;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(venv) $ pip install &quot;cookiecutter&gt;=2.1.1,&lt;3&quot;
 </pre></div>
 </div>
 <p>Then we can use the <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">dev</span> <span class="pre">plugin:new</span></code> command <a class="footnote-reference brackets" href="#f1" id="id1">1</a> to generate a new OctoPrint plugin skeleton for us:</p>
@@ -357,15 +359,74 @@ will make it easier to understand what folder does what later on. Delete the fol
 </div>
 <p>Out of curiosity, take a look into the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file. The cookiecutter template should have prefilled all the
 configuration parameters for you:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plugin_identifier</span> <span class="o">=</span> <span class="s2">&quot;helloworld&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># coding=utf-8</span>
+
+<span class="c1">########################################################################################################################</span>
+<span class="c1">### Do not forget to adjust the following variables to your own plugin.</span>
+
+<span class="c1"># The plugin&#39;s identifier, has to be unique</span>
+<span class="n">plugin_identifier</span> <span class="o">=</span> <span class="s2">&quot;helloworld&quot;</span>
+
+<span class="c1"># The plugin&#39;s python package, should be &quot;octoprint_&lt;plugin identifier&gt;&quot;, has to be unique</span>
 <span class="n">plugin_package</span> <span class="o">=</span> <span class="s2">&quot;octoprint_helloworld&quot;</span>
+
+<span class="c1"># The plugin&#39;s human readable name. Can be overwritten within OctoPrint&#39;s internal data via __plugin_name__ in the</span>
+<span class="c1"># plugin module</span>
 <span class="n">plugin_name</span> <span class="o">=</span> <span class="s2">&quot;OctoPrint-Helloworld&quot;</span>
+
+<span class="c1"># The plugin&#39;s version. Can be overwritten within OctoPrint&#39;s internal data via __plugin_version__ in the plugin module</span>
 <span class="n">plugin_version</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
+
+<span class="c1"># The plugin&#39;s description. Can be overwritten within OctoPrint&#39;s internal data via __plugin_description__ in the plugin</span>
+<span class="c1"># module</span>
 <span class="n">plugin_description</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;A quick &quot;Hello World&quot; example plugin for OctoPrint&quot;&quot;&quot;</span>
-<span class="n">plugin_author</span> <span class="o">=</span> <span class="s2">&quot;Your Name&quot;</span>
+
+<span class="c1"># The plugin&#39;s author. Can be overwritten within OctoPrint&#39;s internal data via __plugin_author__ in the plugin module</span>
+<span class="n">plugin_author</span> <span class="o">=</span> <span class="s2">&quot;Your name&quot;</span>
+
+<span class="c1"># The plugin&#39;s author&#39;s mail address.</span>
 <span class="n">plugin_author_email</span> <span class="o">=</span> <span class="s2">&quot;you@somewhere.net&quot;</span>
+
+<span class="c1"># The plugin&#39;s homepage URL. Can be overwritten within OctoPrint&#39;s internal data via __plugin_url__ in the plugin module</span>
 <span class="n">plugin_url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/yourGithubName/OctoPrint-Helloworld&quot;</span>
+
+<span class="c1"># The plugin&#39;s license. Can be overwritten within OctoPrint&#39;s internal data via __plugin_license__ in the plugin module</span>
 <span class="n">plugin_license</span> <span class="o">=</span> <span class="s2">&quot;AGPLv3&quot;</span>
+
+<span class="c1"># Any additional requirements besides OctoPrint should be listed here</span>
+<span class="n">plugin_requires</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1">### --------------------------------------------------------------------------------------------------------------------</span>
+<span class="c1">### More advanced options that you usually shouldn&#39;t have to touch follow after this point</span>
+<span class="c1">### --------------------------------------------------------------------------------------------------------------------</span>
+
+<span class="c1"># Additional package data to install for this plugin. The subfolders &quot;templates&quot;, &quot;static&quot; and &quot;translations&quot; will</span>
+<span class="c1"># already be installed automatically if they exist. Note that if you add something here you&#39;ll also need to update</span>
+<span class="c1"># MANIFEST.in to match to ensure that python setup.py sdist produces a source distribution that contains all your</span>
+<span class="c1"># files. This is sadly due to how python&#39;s setup.py works, see also http://stackoverflow.com/a/14159430/2028598</span>
+<span class="n">plugin_additional_data</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Any additional python packages you need to install with your plugin that are not contained in &lt;plugin_package&gt;.*</span>
+<span class="n">plugin_additional_packages</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Any python packages within &lt;plugin_package&gt;.* you do NOT want to install with your plugin</span>
+<span class="n">plugin_ignored_packages</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Additional parameters for the call to setuptools.setup. If your plugin wants to register additional entry points,</span>
+<span class="c1"># define dependency links or other things like that, this is the place to go. Will be merged recursively with the</span>
+<span class="c1"># default setup parameters as provided by octoprint_setuptools.create_plugin_setup_parameters using</span>
+<span class="c1"># octoprint.util.dict_merge.</span>
+<span class="c1">#</span>
+<span class="c1"># Example:</span>
+<span class="c1">#     plugin_requires = [&quot;someDependency==dev&quot;]</span>
+<span class="c1">#     additional_setup_parameters = {&quot;dependency_links&quot;: [&quot;https://github.com/someUser/someRepo/archive/master.zip#egg=someDependency-dev&quot;]}</span>
+<span class="c1"># &quot;python_requires&quot;: &quot;&gt;=3,&lt;4&quot; blocks installation on Python 2 systems, to prevent confused users and provide a helpful error.</span>
+<span class="c1"># Remove it if you would like to support Python 2 as well as 3 (not recommended).</span>
+<span class="n">additional_setup_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;python_requires&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;=3,&lt;4&quot;</span><span class="p">}</span>
+
+<span class="c1">########################################################################################################################</span>
+
+<span class="c1"># ... remaining setup.py content ...</span>
 </pre></div>
 </div>
 <p>Now all that’s left to do is to move our <code class="docutils literal notranslate"><span class="pre">helloworld.py</span></code> into the <code class="docutils literal notranslate"><span class="pre">octoprint_helloworld</span></code> folder and renaming it to
@@ -376,23 +437,34 @@ discoverable by OctoPrint, however we don’t have to reinstall it after any cha
 <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">dev</span> <span class="pre">plugin:install</span></code> command do everything for us here, it will ensure to use the python binary belonging
 to your OctoPrint installation:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(venv) $ octoprint dev plugin:install
-running develop
-running egg_info
-creating OctoPrint_HelloWorld.egg-info
+&gt;&gt; /home/gina/.pyenv/versions/3.11.2/envs/octoprint-py311/bin/python -m pip install -e .
+Obtaining file:///home/gina/devel/OctoPrint-Helloworld
+
+  Preparing metadata (setup.py): started
+
+  Preparing metadata (setup.py): finished with status &#39;done&#39;
+
 [...]
-Finished processing dependencies for OctoPrint-HelloWorld==1.0.0
+
+Installing collected packages: OctoPrint-Helloworld
+
+  Running setup.py develop for OctoPrint-Helloworld
+
+Successfully installed OctoPrint-Helloworld-0.1.0
 </pre></div>
 </div>
 <p>Restart OctoPrint. Your plugin should still be properly discovered and the log line should be printed:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>2015-01-27 13:43:34,134 - octoprint.server - INFO - Starting OctoPrint 1.2.0-dev-448-gd96e56e (devel branch)
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>2023-11-20 13:43:34,132 - octoprint.startup - INFO - ******************************************************************************
+2023-11-20 13:43:34,134 - octoprint.startup - INFO - Starting OctoPrint 1.9.3
+2023-11-20 13:43:34,134 - octoprint.startup - INFO - ******************************************************************************
 [...]
-2015-01-27 13:43:34,134 - octoprint.plugin.core - INFO - Loading plugins from /home/pi/.octoprint/plugins, /home/pi/OctoPrint/src/octoprint/plugins and installed plugin packages...
+2023-11-20 13:43:34,134 - octoprint.plugin.core - INFO - Loading plugins from /home/gina/.octoprint/plugins, /home/gina/devel/OctoPrint/src/octoprint/plugins and installed plugin packages...
 [...]
-2015-01-27 13:43:34,818 - octoprint.plugin.core - INFO - 3 plugin(s) registered with the system:
+2023-11-20 13:43:34,818 - octoprint.plugin.core - INFO - 19 plugin(s) registered with the system:
 [...]
-| Hello World (1.0.0) = /home/pi/devel/OctoPrint-HelloWorld/octoprint_helloworld
+| Hello World (1.0.0) = /home/gina/devel/OctoPrint-HelloWorld/octoprint_helloworld
 [...]
-2015-01-27 13:43:38,997 - octoprint.plugins.helloworld - INFO - Hello World!
+2023-11-20 13:43:38,997 - octoprint.plugins.helloworld - INFO - Hello World!
 </pre></div>
 </div>
 <p>Looks like it still works!</p>
@@ -408,9 +480,20 @@ of information now defined twice:</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-number">Listing 40 </span><span class="caption-text">setup.py</span><a class="headerlink" href="#id4" title="Permalink to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plugin_name</span> <span class="o">=</span> <span class="s2">&quot;OctoPrint-HelloWorld&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ...</span>
+
+<span class="c1"># The plugin&#39;s human readable name. Can be overwritten within OctoPrint&#39;s internal data via __plugin_name__ in the</span>
+<span class="c1"># plugin module</span>
+<span class="n">plugin_name</span> <span class="o">=</span> <span class="s2">&quot;OctoPrint-Helloworld&quot;</span>
+
+<span class="c1"># The plugin&#39;s version. Can be overwritten within OctoPrint&#39;s internal data via __plugin_version__ in the plugin module</span>
 <span class="n">plugin_version</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
-<span class="n">plugin_description</span> <span class="o">=</span> <span class="s2">&quot;A quick </span><span class="se">\&quot;</span><span class="s2">Hello World</span><span class="se">\&quot;</span><span class="s2"> example plugin for OctoPrint&quot;</span>
+
+<span class="c1"># The plugin&#39;s description. Can be overwritten within OctoPrint&#39;s internal data via __plugin_description__ in the plugin</span>
+<span class="c1"># module</span>
+<span class="n">plugin_description</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;A quick &quot;Hello World&quot; example plugin for OctoPrint&quot;&quot;&quot;</span>
+
+<span class="c1"># ...</span>
 </pre></div>
 </div>
 </div>
@@ -428,9 +511,9 @@ and <code class="docutils literal notranslate"><span class="pre">__plugin_descri
 </pre></div>
 </div>
 <p>and restart OctoPrint:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2015</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">27</span> <span class="mi">13</span><span class="p">:</span><span class="mi">46</span><span class="p">:</span><span class="mi">33</span><span class="p">,</span><span class="mi">786</span> <span class="o">-</span> <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">core</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">-</span> <span class="mi">3</span> <span class="n">plugin</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">registered</span> <span class="k">with</span> <span class="n">the</span> <span class="n">system</span><span class="p">:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2023</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">20</span> <span class="mi">13</span><span class="p">:</span><span class="mi">46</span><span class="p">:</span><span class="mi">33</span><span class="p">,</span><span class="mi">786</span> <span class="o">-</span> <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">core</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">-</span> <span class="mi">19</span> <span class="n">plugin</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">registered</span> <span class="k">with</span> <span class="n">the</span> <span class="n">system</span><span class="p">:</span>
 <span class="p">[</span><span class="o">...</span><span class="p">]</span>
-<span class="o">|</span> <span class="n">OctoPrint</span><span class="o">-</span><span class="n">HelloWorld</span> <span class="p">(</span><span class="mf">1.0.0</span><span class="p">)</span> <span class="o">=</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">devel</span><span class="o">/</span><span class="n">OctoPrint</span><span class="o">-</span><span class="n">HelloWorld</span><span class="o">/</span><span class="n">octoprint_helloworld</span>
+<span class="o">|</span> <span class="n">OctoPrint</span><span class="o">-</span><span class="n">HelloWorld</span> <span class="p">(</span><span class="mf">1.0.0</span><span class="p">)</span> <span class="o">=</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">gina</span><span class="o">/</span><span class="n">devel</span><span class="o">/</span><span class="n">OctoPrint</span><span class="o">-</span><span class="n">HelloWorld</span><span class="o">/</span><span class="n">octoprint_helloworld</span>
 <span class="p">[</span><span class="o">...</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -448,9 +531,9 @@ and <code class="docutils literal notranslate"><span class="pre">__plugin_descri
 </pre></div>
 </div>
 <p>Restart OctoPrint again:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2015</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">27</span> <span class="mi">13</span><span class="p">:</span><span class="mi">48</span><span class="p">:</span><span class="mi">54</span><span class="p">,</span><span class="mi">122</span> <span class="o">-</span> <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">core</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">-</span> <span class="mi">3</span> <span class="n">plugin</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">registered</span> <span class="k">with</span> <span class="n">the</span> <span class="n">system</span><span class="p">:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2023</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">20</span> <span class="mi">13</span><span class="p">:</span><span class="mi">48</span><span class="p">:</span><span class="mi">54</span><span class="p">,</span><span class="mi">122</span> <span class="o">-</span> <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">core</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">-</span> <span class="mi">19</span> <span class="n">plugin</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">registered</span> <span class="k">with</span> <span class="n">the</span> <span class="n">system</span><span class="p">:</span>
 <span class="p">[</span><span class="o">...</span><span class="p">]</span>
-<span class="o">|</span> <span class="n">Hello</span> <span class="n">World</span> <span class="p">(</span><span class="mf">1.0.0</span><span class="p">)</span> <span class="o">=</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">OctoPrint</span><span class="o">-</span><span class="n">HelloWorld</span><span class="o">/</span><span class="n">octoprint_helloworld</span>
+<span class="o">|</span> <span class="n">Hello</span> <span class="n">World</span> <span class="p">(</span><span class="mf">1.0.0</span><span class="p">)</span> <span class="o">=</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">gina</span><span class="o">/</span><span class="n">devel</span><span class="o">/</span><span class="n">OctoPrint</span><span class="o">-</span><span class="n">HelloWorld</span><span class="o">/</span><span class="n">octoprint_helloworld</span>
 <span class="p">[</span><span class="o">...</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -459,7 +542,7 @@ take a look at <a class="reference internal" href="controlproperties.html#sec-pl
 overrides.</p>
 <p>Following the README of the <a class="reference external" href="https://github.com/OctoPrint/OctoPrint-PluginSkeleton">Plugin Skeleton</a> you could now
 already publish your plugin on Github and it would be directly installable by others using pip:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(venv) $ pip install https://github.com/yourGithubName/OctoPrint-HelloWorld/archive/master.zip
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(venv) $ pip install https://github.com/yourGithubName/OctoPrint-HelloWorld/archive/main.zip
 </pre></div>
 </div>
 <p>But let’s add some more features instead.</p>
@@ -614,7 +697,7 @@ We’ll bind our own settings dialog to the existing <code class="docutils liter
 property.</p>
 <p>Now adjust your <code class="docutils literal notranslate"><span class="pre">templates/helloworld_navbar.jinja2</span></code> file to use a <code class="docutils literal notranslate"><span class="pre">data-bind</span></code> attribute to set the value from the
 settings view model into the <code class="docutils literal notranslate"><span class="pre">href</span></code> attribute of the link tag:</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;attr: {href: settings.settings.plugins.helloworld.url}&quot;</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;javascript:void()&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;attr: {href: settings.settings.plugins.helloworld.url}&quot;</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
 </pre></div>
 </div>
 <p>You might have noticed the quite ugly way to access our plugin’s <code class="docutils literal notranslate"><span class="pre">url</span></code> property here: <code class="docutils literal notranslate"><span class="pre">settings.settings.plugins.helloworld.url</span></code>.
@@ -742,7 +825,7 @@ like so:</p>
 </div>
 <p>Note how we did not add another entry to the return value of <a class="reference internal" href="mixins.html#octoprint.plugin.TemplatePlugin.get_template_configs" title="octoprint.plugin.TemplatePlugin.get_template_configs"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_template_configs()</span></code></a>.
 Remember how we only added those since we wanted OctoPrint to use existing bindings on our navigation bar and settings
-menu entries? We don’t want this this time, and we named our tab template such that OctoPrint will pick it up automatically
+menu entries? We don’t want this time, and we named our tab template such that OctoPrint will pick it up automatically
 so we don’t have to do anything here.</p>
 <p>Then we’ll create our custom <a class="reference external" href="http://knockoutjs.com/documentation/introduction.html">Knockout</a> view model in <code class="docutils literal notranslate"><span class="pre">helloworld.js</span></code>
 like so:</p>

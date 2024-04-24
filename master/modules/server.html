@@ -92,10 +92,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.has_permissions"><code class="docutils literal notranslate"><span class="pre">has_permissions()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.loginFromApiKeyRequestHandler"><code class="docutils literal notranslate"><span class="pre">loginFromApiKeyRequestHandler()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.loginFromAuthorizationHeaderRequestHandler"><code class="docutils literal notranslate"><span class="pre">loginFromAuthorizationHeaderRequestHandler()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.loginUser"><code class="docutils literal notranslate"><span class="pre">loginUser()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.noCachingExceptGetResponseHandler"><code class="docutils literal notranslate"><span class="pre">noCachingExceptGetResponseHandler()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.noCachingResponseHandler"><code class="docutils literal notranslate"><span class="pre">noCachingResponseHandler()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.optionsAllowOrigin"><code class="docutils literal notranslate"><span class="pre">optionsAllowOrigin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.require_fresh_login_with"><code class="docutils literal notranslate"><span class="pre">require_fresh_login_with()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.require_login"><code class="docutils literal notranslate"><span class="pre">require_login()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.require_login_with"><code class="docutils literal notranslate"><span class="pre">require_login_with()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.validate_local_redirect"><code class="docutils literal notranslate"><span class="pre">validate_local_redirect()</span></code></a></li>
@@ -152,8 +152,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.make_api_error"><code class="docutils literal notranslate"><span class="pre">make_api_error()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.make_text_response"><code class="docutils literal notranslate"><span class="pre">make_text_response()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.no_firstrun_access"><code class="docutils literal notranslate"><span class="pre">no_firstrun_access()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.permission_and_fresh_credentials_validator"><code class="docutils literal notranslate"><span class="pre">permission_and_fresh_credentials_validator()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.permission_validator"><code class="docutils literal notranslate"><span class="pre">permission_validator()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.redirect_to_tornado"><code class="docutils literal notranslate"><span class="pre">redirect_to_tornado()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.require_credentials_checked_recently"><code class="docutils literal notranslate"><span class="pre">require_credentials_checked_recently()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.flask.restricted_access"><code class="docutils literal notranslate"><span class="pre">restricted_access()</span></code></a></li>
 </ul>
 </li>
@@ -184,6 +186,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.tornado.DynamicZipBundleHandler"><code class="docutils literal notranslate"><span class="pre">DynamicZipBundleHandler</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#octoprint.server.util.tornado.DynamicZipBundleHandler.initialize"><code class="docutils literal notranslate"><span class="pre">DynamicZipBundleHandler.initialize()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.tornado.GeneratingDataHandler"><code class="docutils literal notranslate"><span class="pre">GeneratingDataHandler</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.server.util.tornado.GeneratingDataHandler.initialize"><code class="docutils literal notranslate"><span class="pre">GeneratingDataHandler.initialize()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.tornado.GlobalHeaderTransform"><code class="docutils literal notranslate"><span class="pre">GlobalHeaderTransform</span></code></a></li>
@@ -221,6 +227,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.head"><code class="docutils literal notranslate"><span class="pre">UploadStorageFallbackHandler.head()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.initialize"><code class="docutils literal notranslate"><span class="pre">UploadStorageFallbackHandler.initialize()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.is_multipart"><code class="docutils literal notranslate"><span class="pre">UploadStorageFallbackHandler.is_multipart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.on_finish"><code class="docutils literal notranslate"><span class="pre">UploadStorageFallbackHandler.on_finish()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.options"><code class="docutils literal notranslate"><span class="pre">UploadStorageFallbackHandler.options()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.patch"><code class="docutils literal notranslate"><span class="pre">UploadStorageFallbackHandler.patch()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.post"><code class="docutils literal notranslate"><span class="pre">UploadStorageFallbackHandler.post()</span></code></a></li>
@@ -232,8 +239,13 @@
 <li class="toctree-l4"><a class="reference internal" href="#octoprint.server.util.tornado.UrlProxyHandler.initialize"><code class="docutils literal notranslate"><span class="pre">UrlProxyHandler.initialize()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.tornado.WebcamSnapshotHandler"><code class="docutils literal notranslate"><span class="pre">WebcamSnapshotHandler</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.server.util.tornado.WebcamSnapshotHandler.initialize"><code class="docutils literal notranslate"><span class="pre">WebcamSnapshotHandler.initialize()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.tornado.WsgiInputContainer"><code class="docutils literal notranslate"><span class="pre">WsgiInputContainer</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#octoprint.server.util.tornado.WsgiInputContainer.environ"><code class="docutils literal notranslate"><span class="pre">WsgiInputContainer.environ()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#octoprint.server.util.tornado.WsgiInputContainer.handle_request"><code class="docutils literal notranslate"><span class="pre">WsgiInputContainer.handle_request()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.tornado.access_validation_factory"><code class="docutils literal notranslate"><span class="pre">access_validation_factory()</span></code></a></li>
@@ -374,27 +386,14 @@ header) has all of the requested permissions.</p>
 <span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">loginFromApiKeyRequestHandler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.loginFromApiKeyRequestHandler" title="Permalink to this definition"></a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">before_request</span></code> handler for blueprints which creates a login session for the provided api key (if available)</p>
 <p>App session keys are handled as anonymous keys here and ignored.</p>
+<p>TODO 1.11.0: Do we still need this with load_user_from_request in place?</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="octoprint.server.util.loginFromAuthorizationHeaderRequestHandler">
 <span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">loginFromAuthorizationHeaderRequestHandler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.loginFromAuthorizationHeaderRequestHandler" title="Permalink to this definition"></a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">before_request</span></code> handler for creating login sessions based on the Authorization header.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="octoprint.server.util.loginUser">
-<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">loginUser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remember</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">login_mechanism</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.loginUser" title="Permalink to this definition"></a></dt>
-<dd><p>Logs the provided <code class="docutils literal notranslate"><span class="pre">user</span></code> into Flask Login and Principal if not None and active</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>user</strong> – the User to login. May be None in which case the login will fail</p></li>
-<li><p><strong>remember</strong> – Whether to set the <code class="docutils literal notranslate"><span class="pre">remember</span></code> flag on the Flask Login operation</p></li>
-</ul>
-</dd>
-</dl>
-<p>Returns: (bool) True if the login succeeded, False otherwise</p>
+<p>TODO 1.11.0: Do we still need this with load_user_from_request in place?</p>
 </dd></dl>
 
 <dl class="py function">
@@ -418,6 +417,21 @@ to prevent all client side caching from taking place.</p>
 <dt class="sig sig-object py" id="octoprint.server.util.optionsAllowOrigin">
 <span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">optionsAllowOrigin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.optionsAllowOrigin" title="Permalink to this definition"></a></dt>
 <dd><p>Shortcut for request handling for CORS OPTIONS requests to set CORS headers.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="octoprint.server.util.require_fresh_login_with">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">require_fresh_login_with</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">permissions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.require_fresh_login_with" title="Permalink to this definition"></a></dt>
+<dd><p>Requires a login with fresh credentials.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>permissions</strong> – list of all permissions required to pass the check</p></li>
+<li><p><strong>user_id</strong> – required user to pass the check</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns: a flask redirect response to return if a login is required, or None</p>
 </dd></dl>
 
 <dl class="py function">
@@ -870,6 +884,22 @@ will cause a HTTP 403 status code to be returned by the decorated resource.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="octoprint.server.util.flask.permission_and_fresh_credentials_validator">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">permission_and_fresh_credentials_validator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permission</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.permission_and_fresh_credentials_validator" title="Permalink to this definition"></a></dt>
+<dd><p>Validates that the given request is made by an authorized user, identified either by API key or existing Flask
+session, and that the credentials have been checked recently if it’s a Flask session.</p>
+<p>Must be executed in an existing Flask request context!</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – The Flask request object</p></li>
+<li><p><strong>request</strong> – The required permission</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="octoprint.server.util.flask.permission_validator">
 <span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">permission_validator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permission</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.permission_validator" title="Permalink to this definition"></a></dt>
 <dd><p>Validates that the given request is made by an authorized user, identified either by API key or existing Flask
@@ -901,6 +931,14 @@ session.</p>
 <dd class="field-even"><p></p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="octoprint.server.util.flask.require_credentials_checked_recently">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.flask.</span></span><span class="sig-name descname"><span class="pre">require_credentials_checked_recently</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.flask.require_credentials_checked_recently" title="Permalink to this definition"></a></dt>
+<dd><p>If you decorate a view with this, it will ensure that only users who entered their password
+recently in this login session are allowed to proceed. Otherwise it will cause a HTTP 403 status code
+to be returned by the decorated resource.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -1041,6 +1079,32 @@ to another <code class="docutils literal notranslate"><span class="pre">url</spa
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="octoprint.server.util.tornado.DynamicZipBundleHandler.initialize">
 <span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_validation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_processor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_attachment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attachment_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">access_validation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.DynamicZipBundleHandler.initialize" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.GeneratingDataHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">GeneratingDataHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.GeneratingDataHandler" title="Permalink to this definition"></a></dt>
+<dd><p>A <cite>RequestHandler</cite> that generates data from a generator function and returns it to the client.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>generator</strong> (<em>function</em>) – A generator function that returns the data to be written to the client. The function
+will be called without any parameters.</p></li>
+<li><p><strong>content_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The content type with which to respond. Defaults to <cite>text/plain</cite></p></li>
+<li><p><strong>as_attachment</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Whether to serve files with <cite>Content-Disposition: attachment</cite> header (<cite>True</cite>)
+or not. Defaults to <cite>False</cite>. If a string is given it will be used as the filename of the attachment.</p></li>
+<li><p><strong>access_validation</strong> (<em>function</em>) – Callback to call in the <cite>get</cite> method to validate access to the resource. Will
+be called with <cite>self.request</cite> as parameter which contains the full tornado request object. Should raise
+a <cite>tornado.web.HTTPError</cite> if access is not allowed in which case the request will not be further processed.
+Defaults to <cite>None</cite> and hence no access validation being performed.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.GeneratingDataHandler.initialize">
+<span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'text/plain'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_attachment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">access_validation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.GeneratingDataHandler.initialize" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1281,21 +1345,21 @@ internal in-memory buffer.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.delete">
-<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.delete" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.delete" title="Permalink to this definition"></a></dt>
 <dd><p>Takes care of defining the new request body if necessary and forwarding
 the current request and changed body to the <code class="docutils literal notranslate"><span class="pre">fallback</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.get" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.get" title="Permalink to this definition"></a></dt>
 <dd><p>Takes care of defining the new request body if necessary and forwarding
 the current request and changed body to the <code class="docutils literal notranslate"><span class="pre">fallback</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.head">
-<span class="sig-name descname"><span class="pre">head</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.head" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">head</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.head" title="Permalink to this definition"></a></dt>
 <dd><p>Takes care of defining the new request body if necessary and forwarding
 the current request and changed body to the <code class="docutils literal notranslate"><span class="pre">fallback</span></code>.</p>
 </dd></dl>
@@ -1312,22 +1376,32 @@ the current request and changed body to the <code class="docutils literal notran
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.on_finish">
+<span class="sig-name descname"><span class="pre">on_finish</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.on_finish" title="Permalink to this definition"></a></dt>
+<dd><p>Called after the end of a request.</p>
+<p>Override this method to perform cleanup, logging, etc.
+This method is a counterpart to <cite>prepare</cite>.  <code class="docutils literal notranslate"><span class="pre">on_finish</span></code> may
+not produce any output, as it is called after the response
+has been sent to the client.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.options">
-<span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.options" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.options" title="Permalink to this definition"></a></dt>
 <dd><p>Takes care of defining the new request body if necessary and forwarding
 the current request and changed body to the <code class="docutils literal notranslate"><span class="pre">fallback</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.patch">
-<span class="sig-name descname"><span class="pre">patch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.patch" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">patch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.patch" title="Permalink to this definition"></a></dt>
 <dd><p>Takes care of defining the new request body if necessary and forwarding
 the current request and changed body to the <code class="docutils literal notranslate"><span class="pre">fallback</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.post">
-<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.post" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.post" title="Permalink to this definition"></a></dt>
 <dd><p>Takes care of defining the new request body if necessary and forwarding
 the current request and changed body to the <code class="docutils literal notranslate"><span class="pre">fallback</span></code>.</p>
 </dd></dl>
@@ -1342,7 +1416,7 @@ body-less request, just calls the <code class="docutils literal notranslate"><sp
 
 <dl class="py method">
 <dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.put">
-<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.put" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.put" title="Permalink to this definition"></a></dt>
 <dd><p>Takes care of defining the new request body if necessary and forwarding
 the current request and changed body to the <code class="docutils literal notranslate"><span class="pre">fallback</span></code>.</p>
 </dd></dl>
@@ -1389,8 +1463,31 @@ Defaults to <code class="docutils literal notranslate"><span class="pre">None</s
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.WebcamSnapshotHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">WebcamSnapshotHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HTTPServerRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.WebcamSnapshotHandler" title="Permalink to this definition"></a></dt>
+<dd><p><cite>GeneratingDataHandler</cite> that returns a snapshot from the configured webcam.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>as_attachment</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Whether to serve files with <cite>Content-Disposition: attachment</cite> header (<cite>True</cite>)
+or not. Defaults to <cite>False</cite>. If a string is given it will be used as the filename of the attachment.</p></li>
+<li><p><strong>access_validation</strong> (<em>function</em>) – Callback to call in the <cite>get</cite> method to validate access to the resource. Will
+be called with <cite>self.request</cite> as parameter which contains the full tornado request object. Should raise
+a <cite>tornado.web.HTTPError</cite> if access is not allowed in which case the request will not be further processed.
+Defaults to <cite>None</cite> and hence no access validation being performed.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.WebcamSnapshotHandler.initialize">
+<span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">as_attachment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">access_validation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.WebcamSnapshotHandler.initialize" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="octoprint.server.util.tornado.WsgiInputContainer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">WsgiInputContainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wsgi_application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forced_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removed_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.WsgiInputContainer" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">WsgiInputContainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wsgi_application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">executor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forced_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removed_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.WsgiInputContainer" title="Permalink to this definition"></a></dt>
 <dd><p>A WSGI container for use with Tornado that allows supplying the request body to be used for <code class="docutils literal notranslate"><span class="pre">wsgi.input</span></code> in the
 generated WSGI environment upon call.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">RequestHandler</span></code> can thus provide the WSGI application with a stream for the request body, or a modified body.</p>
@@ -1403,6 +1500,8 @@ generated WSGI environment upon call.</p>
 </div>
 <p>The implementation logic is basically the same as <code class="docutils literal notranslate"><span class="pre">tornado.wsgi.WSGIContainer</span></code> but the <code class="docutils literal notranslate"><span class="pre">__call__</span></code> and <code class="docutils literal notranslate"><span class="pre">environ</span></code>
 methods have been adjusted to allow for an optionally supplied <code class="docutils literal notranslate"><span class="pre">body</span></code> argument which is then used for <code class="docutils literal notranslate"><span class="pre">wsgi.input</span></code>.</p>
+<p>Additionally, some headers can be added or removed from the response by supplying <code class="docutils literal notranslate"><span class="pre">forced_headers</span></code> and
+<code class="docutils literal notranslate"><span class="pre">removed_headers</span></code> arguments. <code class="docutils literal notranslate"><span class="pre">forced_headers</span></code> will be added to the response, <code class="docutils literal notranslate"><span class="pre">removed_headers</span></code> will be removed.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="octoprint.server.util.tornado.WsgiInputContainer.environ">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">environ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.WsgiInputContainer.environ" title="Permalink to this definition"></a></dt>
@@ -1414,6 +1513,21 @@ supplied, <code class="docutils literal notranslate"><span class="pre">request.b
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> – the <code class="docutils literal notranslate"><span class="pre">tornado.httpserver.HTTPServerRequest</span></code> to derive the WSGI environment from</p></li>
 <li><p><strong>body</strong> – an optional body  to use as <code class="docutils literal notranslate"><span class="pre">wsgi.input</span></code> instead of <code class="docutils literal notranslate"><span class="pre">request.body</span></code>, can be a string or a stream</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.WsgiInputContainer.handle_request">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">handle_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">future</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.WsgiInputContainer.handle_request" title="Permalink to this definition"></a></dt>
+<dd><p>Wraps the call against the WSGI app, deriving the WSGI environment from the supplied Tornado <code class="docutils literal notranslate"><span class="pre">HTTPServerRequest</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – the <code class="docutils literal notranslate"><span class="pre">tornado.httpserver.HTTPServerRequest</span></code> to derive the WSGI environment from</p></li>
+<li><p><strong>body</strong> – an optional body  to use as <code class="docutils literal notranslate"><span class="pre">wsgi.input</span></code> instead of <code class="docutils literal notranslate"><span class="pre">request.body</span></code>, can be a string or a stream</p></li>
+<li><p><strong>future</strong> – a future to complete after the request has been handled</p></li>
 </ul>
 </dd>
 </dl>
