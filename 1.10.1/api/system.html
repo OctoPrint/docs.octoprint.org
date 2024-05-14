@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>System &mdash; OctoPrint 1.10.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Timelapse" href="timelapse.html" />
+    <link rel="prev" title="Slicing" href="slicing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OctoPrint
+          </a>
+              <div class="version">
+                1.10.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">REST API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="general.html">General information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version.html">Version information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">Server information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection.html">Connection handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">File operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="job.html">Job operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="languages.html">Languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logs.html">Log file management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html">Printer operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printerprofiles.html">Printer profile operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html">Slicing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">System</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#list-all-registered-system-commands">List all registered system commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#list-all-registered-system-commands-for-a-source">List all registered system commands for a source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#execute-a-registered-system-command">Execute a registered system command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-model">Data model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#list-all-response">List all response</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#client-command-definitions">Client command definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#command-definition">Command definition</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html">Timelapse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="access.html">Access control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">Util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wizard.html">Wizard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="push.html">Push updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datamodel.html">Common data model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">REST API</a> &raquo;</li>
+        
+      <li>System</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/system.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="system">
+<span id="sec-api-system"></span><h1>System<a class="headerlink" href="#system" title="Permalink to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All system operations require the <code class="docutils literal notranslate"><span class="pre">SYSTEM</span></code> permission.</p>
+</div>
+<section id="list-all-registered-system-commands">
+<span id="sec-api-system-command-list"></span><h2>List all registered system commands<a class="headerlink" href="#list-all-registered-system-commands" title="Permalink to this heading"></a></h2>
+<dl class="http get">
+<dt class="sig sig-object http" id="get--api-system-commands">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/system/commands</span></span><a class="headerlink" href="#get--api-system-commands" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves all configured system commands.</p>
+<p>A <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a <a class="reference internal" href="#sec-api-system-commands-listall"><span class="std std-ref">List all response</span></a>
+will be returned.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">SYSTEM</span></code> permission.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/system/commands/core</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">Ok</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;core&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shutdown&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Shutdown&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;confirm&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;strong&gt;You are about to shutdown the system.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;This action may disrupt any ongoing print jobs (depending on your printer&#39;s controller and general setup that might also apply to prints run directly from your printer&#39;s internal storage).&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;core&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/api/system/commands/core/shutdown&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;reboot&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Reboot&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;confirm&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;strong&gt;You are about to reboot the system.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;This action may disrupt any ongoing print jobs (depending on your printer&#39;s controller and general setup that might also apply to prints run directly from your printer&#39;s internal storage).&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;core&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/api/system/commands/core/reboot&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;restart&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Restart OctoPrint&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;confirm&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;strong&gt;You are about to restart the OctoPrint server.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;This action may disrupt any ongoing print jobs (depending on your printer&#39;s controller and general setup that might also apply to prints run directly from your printer&#39;s internal storage).&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;core&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/api/system/commands/core/restart&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;custom&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Status Codes</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – No error</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="list-all-registered-system-commands-for-a-source">
+<span id="sec-api-system-command-listsource"></span><h2>List all registered system commands for a source<a class="headerlink" href="#list-all-registered-system-commands-for-a-source" title="Permalink to this heading"></a></h2>
+<dl class="http get">
+<dt class="sig sig-object http" id="get--api-system-commands-(string-source)">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/system/commands/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">string:</span> </em><em class="sig-param"><span class="pre">source</span></em><span class="sig-paren">)</span><a class="headerlink" href="#get--api-system-commands-(string-source)" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves the configured system commands for the specified source.</p>
+<p>The response will contain a list of <a class="reference internal" href="#sec-api-system-commands-definiton"><span class="std std-ref">command definitions</span></a>.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/system/commands/core</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">Ok</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shutdown&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Shutdown&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;confirm&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;strong&gt;You are about to shutdown the system.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;This action may disrupt any ongoing print jobs (depending on your printer&#39;s controller and general setup that might also apply to prints run directly from your printer&#39;s internal storage).&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;core&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/api/system/commands/core/shutdown&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;reboot&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Reboot&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;confirm&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;strong&gt;You are about to reboot the system.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;This action may disrupt any ongoing print jobs (depending on your printer&#39;s controller and general setup that might also apply to prints run directly from your printer&#39;s internal storage).&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;core&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/api/system/commands/core/reboot&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;restart&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Restart OctoPrint&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;confirm&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;strong&gt;You are about to restart the OctoPrint server.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;This action may disrupt any ongoing print jobs (depending on your printer&#39;s controller and general setup that might also apply to prints run directly from your printer&#39;s internal storage).&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;core&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/api/system/commands/core/restart&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> – The source for which to list commands, currently either <code class="docutils literal notranslate"><span class="pre">core</span></code> or <code class="docutils literal notranslate"><span class="pre">custom</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – No error</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a></span> – If a <code class="docutils literal notranslate"><span class="pre">source</span></code> other than <code class="docutils literal notranslate"><span class="pre">core</span></code> or <code class="docutils literal notranslate"><span class="pre">custom</span></code> is specified.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="execute-a-registered-system-command">
+<span id="sec-api-system-command-execute"></span><h2>Execute a registered system command<a class="headerlink" href="#execute-a-registered-system-command" title="Permalink to this heading"></a></h2>
+<dl class="http post">
+<dt class="sig sig-object http" id="post--api-system-commands-(string-source)-(string-action)">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/api/system/commands/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">string:</span> </em><em class="sig-param"><span class="pre">source</span></em><span class="sig-paren">)</span><span class="sig-name descname"><span class="pre">/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">string:</span> </em><em class="sig-param"><span class="pre">action</span></em><span class="sig-paren">)</span><a class="headerlink" href="#post--api-system-commands-(string-source)-(string-action)" title="Permalink to this definition"></a></dt>
+<dd><p>Execute the system command <code class="docutils literal notranslate"><span class="pre">action</span></code> defined in <code class="docutils literal notranslate"><span class="pre">source</span></code>.</p>
+<p><strong>Example</strong></p>
+<p>Restart OctoPrint via the core system command <code class="docutils literal notranslate"><span class="pre">restart</span></code> (which is available if the server
+restart command is configured).</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/system/commands/core/restart</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> – The source for which to list commands, currently either <code class="docutils literal notranslate"><span class="pre">core</span></code> or <code class="docutils literal notranslate"><span class="pre">custom</span></code></p></li>
+<li><p><strong>action</strong> – The identifier of the command, <code class="docutils literal notranslate"><span class="pre">action</span></code> from its definition</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a></span> – No error</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a></span> – If a <code class="docutils literal notranslate"><span class="pre">divider</span></code> is supposed to be executed or if the request is malformed otherwise</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a></span> – If the command could not be found for <code class="docutils literal notranslate"><span class="pre">source</span></code> and <code class="docutils literal notranslate"><span class="pre">action</span></code></p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1">500 Internal Server Error</a></span> – If the command didn’t define a <code class="docutils literal notranslate"><span class="pre">command</span></code> to execute, the command returned a non-zero
+return code and <code class="docutils literal notranslate"><span class="pre">ignore</span></code> was not <code class="docutils literal notranslate"><span class="pre">true</span></code> or some other internal server error occurred</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="data-model">
+<span id="sec-api-system-datamodel"></span><h2>Data model<a class="headerlink" href="#data-model" title="Permalink to this heading"></a></h2>
+<section id="list-all-response">
+<span id="sec-api-system-commands-listall"></span><h3>List all response<a class="headerlink" href="#list-all-response" title="Permalink to this heading"></a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">core</span></code></p></td>
+<td><p>0..n</p></td>
+<td><p>List of <a class="reference internal" href="#sec-api-client-system-commands-definiton"><span class="std std-ref">client command definitions</span></a></p></td>
+<td><p>List of all core commands defined.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">custom</span></code></p></td>
+<td><p>0..n</p></td>
+<td><p>List of <a class="reference internal" href="#sec-api-client-system-commands-definiton"><span class="std std-ref">client command definitions</span></a></p></td>
+<td><p>List of all custom commands defined in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="client-command-definitions">
+<span id="sec-api-client-system-commands-definiton"></span><h3>Client command definitions<a class="headerlink" href="#client-command-definitions" title="Permalink to this heading"></a></h3>
+<p>A restricted form of the full <a class="reference internal" href="#sec-api-system-commands-definiton"><span class="std std-ref">command definition</span></a>.
+For exposing via the API.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>1</p></td>
+<td><p>string</p></td>
+<td><p>The name of the command to display in the System menu.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">action</span></code></p></td>
+<td><p>1</p></td>
+<td><p>string</p></td>
+<td><p>An identifier to refer to the command programmatically. The special <code class="docutils literal notranslate"><span class="pre">action</span></code> string
+<code class="docutils literal notranslate"><span class="pre">divider</span></code> signifies a divider in the menu.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">confirm</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p>string</p></td>
+<td><p>If present and set, this text will be displayed to the user in a confirmation dialog
+they have to acknowledge in order to really execute the command.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source</span></code></p></td>
+<td><p>1</p></td>
+<td><p>string</p></td>
+<td><p>Source of the command definition, currently either <code class="docutils literal notranslate"><span class="pre">core</span></code> (for system actions defined by
+OctoPrint itself) or <code class="docutils literal notranslate"><span class="pre">custom</span></code> (for custom system commands defined by the user through <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">resource</span></code></p></td>
+<td><p>1</p></td>
+<td><p>string</p></td>
+<td><p>The URL of the command to use for executing it.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="command-definition">
+<span id="sec-api-system-commands-definiton"></span><h3>Command definition<a class="headerlink" href="#command-definition" title="Permalink to this heading"></a></h3>
+<p>The full command definition is not available via the API.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>1</p></td>
+<td><p>string</p></td>
+<td><p>The name of the command to display in the System menu.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">command</span></code></p></td>
+<td><p>1</p></td>
+<td><p>string</p></td>
+<td><p>The full command line to execute for the command.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">action</span></code></p></td>
+<td><p>1</p></td>
+<td><p>string</p></td>
+<td><p>An identifier to refer to the command programmatically. The special <code class="docutils literal notranslate"><span class="pre">action</span></code> string
+<code class="docutils literal notranslate"><span class="pre">divider</span></code> signifies a divider in the menu.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">confirm</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p>string</p></td>
+<td><p>If present and set, this text will be displayed to the user in a confirmation dialog
+they have to acknowledge in order to really execute the command.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">async</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p>bool</p></td>
+<td><p>Whether to execute the command asynchronously or wait for its result before responding
+to the HTTP execution request.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ignore</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p>bool</p></td>
+<td><p>Whether to ignore the return code of the command’s execution.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">source</span></code></p></td>
+<td><p>1</p></td>
+<td><p>string</p></td>
+<td><p>Source of the command definition, currently either <code class="docutils literal notranslate"><span class="pre">core</span></code> (for system actions defined by
+OctoPrint itself) or <code class="docutils literal notranslate"><span class="pre">custom</span></code> (for custom system commands defined by the user through <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">resource</span></code></p></td>
+<td><p>1</p></td>
+<td><p>string</p></td>
+<td><p>The URL of the command to use for executing it.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="slicing.html" class="btn btn-neutral float-left" title="Slicing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="timelapse.html" class="btn btn-neutral float-right" title="Timelapse" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.10.1
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.10.1/api/system.html">1.10.1</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/api/system.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/api/system.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/api/system.html">devel</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
