@@ -251,6 +251,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.tornado.access_validation_factory"><code class="docutils literal notranslate"><span class="pre">access_validation_factory()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.tornado.enable_per_message_deflate_extension"><code class="docutils literal notranslate"><span class="pre">enable_per_message_deflate_extension()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.tornado.fix_json_encode"><code class="docutils literal notranslate"><span class="pre">fix_json_encode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.tornado.fix_tornado_xheader_handling"><code class="docutils literal notranslate"><span class="pre">fix_tornado_xheader_handling()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.tornado.fix_websocket_check_origin"><code class="docutils literal notranslate"><span class="pre">fix_websocket_check_origin()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.tornado.path_validation_factory"><code class="docutils literal notranslate"><span class="pre">path_validation_factory()</span></code></a></li>
 </ul>
@@ -1566,6 +1567,14 @@ to the websocket protocol, minimizing data bandwidth if clients support the exte
 <span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">fix_json_encode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.fix_json_encode" title="Permalink to this definition"></a></dt>
 <dd><p>This makes tornado.escape.json_encode use octoprint.util.JsonEncoding.encode as fallback in order to allow
 serialization of globally registered types like frozendict and others.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="octoprint.server.util.tornado.fix_tornado_xheader_handling">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.tornado.</span></span><span class="sig-name descname"><span class="pre">fix_tornado_xheader_handling</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.fix_tornado_xheader_handling" title="Permalink to this definition"></a></dt>
+<dd><p>This fixes tornado.httpserver._HTTPRequestContext._apply_xheaders to only use “X-Forwarded-For” header
+for rewriting the <code class="docutils literal notranslate"><span class="pre">remote_ip</span></code> field, utilizing the set of trusted downstreams, instead of blindly
+trusting <code class="docutils literal notranslate"><span class="pre">X-Real-Ip</span></code>, and to also fetch the scheme from “X-Forwarded-Proto” if available.</p>
 </dd></dl>
 
 <dl class="py function">
