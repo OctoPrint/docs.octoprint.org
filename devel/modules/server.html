@@ -84,14 +84,15 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-octoprint.server.util">octoprint.server.util</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.InvalidApiKeyException"><code class="docutils literal notranslate"><span class="pre">InvalidApiKeyException</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.corsRequestHandler"><code class="docutils literal notranslate"><span class="pre">corsRequestHandler()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.corsResponseHandler"><code class="docutils literal notranslate"><span class="pre">corsResponseHandler()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.csrfRequestHandler"><code class="docutils literal notranslate"><span class="pre">csrfRequestHandler()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.csrfResponseHandler"><code class="docutils literal notranslate"><span class="pre">csrfResponseHandler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.get_api_key"><code class="docutils literal notranslate"><span class="pre">get_api_key()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.get_user_for_apikey"><code class="docutils literal notranslate"><span class="pre">get_user_for_apikey()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.get_user_for_authorization_header"><code class="docutils literal notranslate"><span class="pre">get_user_for_authorization_header()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.get_user_for_remote_user_header"><code class="docutils literal notranslate"><span class="pre">get_user_for_remote_user_header()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.has_permissions"><code class="docutils literal notranslate"><span class="pre">has_permissions()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.loginFromApiKeyRequestHandler"><code class="docutils literal notranslate"><span class="pre">loginFromApiKeyRequestHandler()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.loginFromAuthorizationHeaderRequestHandler"><code class="docutils literal notranslate"><span class="pre">loginFromAuthorizationHeaderRequestHandler()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.noCachingExceptGetResponseHandler"><code class="docutils literal notranslate"><span class="pre">noCachingExceptGetResponseHandler()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.noCachingResponseHandler"><code class="docutils literal notranslate"><span class="pre">noCachingResponseHandler()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#octoprint.server.util.optionsAllowOrigin"><code class="docutils literal notranslate"><span class="pre">optionsAllowOrigin()</span></code></a></li>
@@ -343,11 +344,6 @@
 </section>
 <section id="module-octoprint.server.util">
 <span id="octoprint-server-util"></span><span id="sec-modules-server-util"></span><h1>octoprint.server.util<a class="headerlink" href="#module-octoprint.server.util" title="Permalink to this heading"></a></h1>
-<dl class="py exception">
-<dt class="sig sig-object py" id="octoprint.server.util.InvalidApiKeyException">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">InvalidApiKeyException</span></span><a class="headerlink" href="#octoprint.server.util.InvalidApiKeyException" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="octoprint.server.util.corsRequestHandler">
 <span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">corsRequestHandler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.corsRequestHandler" title="Permalink to this definition"></a></dt>
@@ -375,6 +371,76 @@ relevant requests &amp; methods.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="octoprint.server.util.get_api_key">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">get_api_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Request</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tornado.httputil.HTTPServerRequest</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#octoprint.server.util.get_api_key" title="Permalink to this definition"></a></dt>
+<dd><p>Extracts the API key from the given request.</p>
+<p>The request may be a Flask or Tornado request object. Attempts will
+be made to read the API key from the “apikey” request parameter,
+the “X-Api-Key” header, or the “Authorization” header in “Bearer” mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> – the request object, either a Flask or a Tornado request</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the API key, or None if not found</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="octoprint.server.util.get_user_for_apikey">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">get_user_for_apikey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">apikey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remote_address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="access.html#octoprint.access.users.User" title="octoprint.access.users.User"><span class="pre">User</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#octoprint.server.util.get_user_for_apikey" title="Permalink to this definition"></a></dt>
+<dd><p>Tries to find a user based on the given API key.</p>
+<p>Will only perform any action if the API key is not None and not empty.</p>
+<p>If the API key is the cli key and the client’s address is a loopback address,
+the CLI user will be returned.</p>
+<p>If the API key is a user key, the user will be returned.</p>
+<p>If the API key is neither, the key will be passed to all registered key validators
+and the first non-None result will be returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>apikey</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the API key to check</p></li>
+<li><p><strong>remote_address</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the remote address of the client, optional</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the user found, or None if none was found</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="access.html#octoprint.access.users.User" title="octoprint.access.users.User">octoprint.access.users.User</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="octoprint.server.util.get_user_for_authorization_header">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">get_user_for_authorization_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Authorization'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="access.html#octoprint.access.users.User" title="octoprint.access.users.User"><span class="pre">User</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#octoprint.server.util.get_user_for_authorization_header" title="Permalink to this definition"></a></dt>
+<dd><p>Tries to find a user based on the Authorization request header.</p>
+<p>Will only perform any action if the trustBasicAuthentication setting is enabled.</p>
+<p>If configured accordingly, will also check if the password used for the Basic Authentication
+matches the one stored for the user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – the request object</p></li>
+<li><p><strong>header</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the header to check for the authorization header, defaults to “Authorization”</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="octoprint.server.util.get_user_for_remote_user_header">
+<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">get_user_for_remote_user_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="access.html#octoprint.access.users.User" title="octoprint.access.users.User"><span class="pre">User</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#octoprint.server.util.get_user_for_remote_user_header" title="Permalink to this definition"></a></dt>
+<dd><p>Tries to find a user based on the configured remote user request header.</p>
+<p>Will only perform any action if the trustRemoteUser setting is enabled.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="octoprint.server.util.has_permissions">
 <span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">has_permissions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">permissions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.has_permissions" title="Permalink to this definition"></a></dt>
 <dd><p>Determines if the current user (either from the session, api key or authorization
@@ -385,21 +451,6 @@ header) has all of the requested permissions.</p>
 </dd>
 </dl>
 <p>Returns: True if the user has all permissions, False otherwise</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="octoprint.server.util.loginFromApiKeyRequestHandler">
-<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">loginFromApiKeyRequestHandler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.loginFromApiKeyRequestHandler" title="Permalink to this definition"></a></dt>
-<dd><p><code class="docutils literal notranslate"><span class="pre">before_request</span></code> handler for blueprints which creates a login session for the provided api key (if available)</p>
-<p>App session keys are handled as anonymous keys here and ignored.</p>
-<p>TODO 1.11.0: Do we still need this with load_user_from_request in place?</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="octoprint.server.util.loginFromAuthorizationHeaderRequestHandler">
-<span class="sig-prename descclassname"><span class="pre">octoprint.server.util.</span></span><span class="sig-name descname"><span class="pre">loginFromAuthorizationHeaderRequestHandler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.loginFromAuthorizationHeaderRequestHandler" title="Permalink to this definition"></a></dt>
-<dd><p><code class="docutils literal notranslate"><span class="pre">before_request</span></code> handler for creating login sessions based on the Authorization header.</p>
-<p>TODO 1.11.0: Do we still need this with load_user_from_request in place?</p>
 </dd></dl>
 
 <dl class="py function">
