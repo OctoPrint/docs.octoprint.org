@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OctoPrintClient.slicing &mdash; OctoPrint 1.10.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="OctoPrintClient.socket" href="socket.html" />
+    <link rel="prev" title="OctoPrintClient.settings" href="settings.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OctoPrint
+          </a>
+              <div class="version">
+                1.10.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">JavaScript Client Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="base.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="browser.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.browser</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.connection</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.control</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.files</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="job.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.job</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="languages.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.languages</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logs.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.logs</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.printer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printerprofiles.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.printerprofiles</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.settings</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.slicing</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.slicing.listAllSlicersAndProfiles"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.slicing.listAllSlicersAndProfiles()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.slicing.listProfilesForSlicer"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.slicing.listProfilesForSlicer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.slicing.getProfileForSlicer"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.slicing.getProfileForSlicer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.slicing.addProfileForSlicer"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.slicing.addProfileForSlicer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.slicing.updateProfileForSlicer"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.slicing.updateProfileForSlicer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.slicing.deleteProfileForSlicer"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.slicing.deleteProfileForSlicer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="socket.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.socket</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.system</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.users</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.util</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="wizard.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.wizard</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">JavaScript Client Library</a> &raquo;</li>
+        
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.slicing</span></code></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/jsclientlib/slicing.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="octoprintclient-slicing">
+<span id="sec-jsclientlib-slicing"></span><h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.slicing</span></code><a class="headerlink" href="#octoprintclient-slicing" title="Permalink to this heading"></a></h1>
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.slicing.listAllSlicersAndProfiles">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">slicing</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">listAllSlicersAndProfiles</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.slicing.listAllSlicersAndProfiles" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves a list of all slicers and their available slicing profiles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.slicing.listProfilesForSlicer">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">slicing</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">listProfilesForSlicer</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.slicing.listProfilesForSlicer" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves of all slicing profiles for the specified <code class="docutils literal notranslate"><span class="pre">slicer</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slicer</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The identifier of the slicer for which to retrieve the profiles</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.slicing.getProfileForSlicer">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">slicing</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">getProfileForSlicer</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profileId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.slicing.getProfileForSlicer" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves the slicing profile with <code class="docutils literal notranslate"><span class="pre">profileId</span></code> for the specified <code class="docutils literal notranslate"><span class="pre">slicer</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slicer</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The slicer for which to retrieve the profile</p></li>
+<li><p><strong>profileId</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The identifier of the profile to retrieve</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.slicing.addProfileForSlicer">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">slicing</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">addProfileForSlicer</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profileId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.slicing.addProfileForSlicer" title="Permalink to this definition"></a></dt>
+<dd><p>Adds the profile with identifier <code class="docutils literal notranslate"><span class="pre">profileId</span></code> to the specified <code class="docutils literal notranslate"><span class="pre">slicer</span></code>, using the provided <code class="docutils literal notranslate"><span class="pre">profile</span></code> data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slicer</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The slicer for which to add the profile</p></li>
+<li><p><strong>profileId</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The identifier for the profile to add</p></li>
+<li><p><strong>profile</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – The data of the profile to add</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.slicing.updateProfileForSlicer">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">slicing</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">updateProfileForSlicer</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profileId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.slicing.updateProfileForSlicer" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the profile <code class="docutils literal notranslate"><span class="pre">profileId</span></code> for <code class="docutils literal notranslate"><span class="pre">slicer</span></code> with the provided <code class="docutils literal notranslate"><span class="pre">profile</span></code> data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slicer</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The slicer for which to update the profile</p></li>
+<li><p><strong>profileId</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The identifier for the profile to update</p></li>
+<li><p><strong>profile</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – The updated data of the profile</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.slicing.deleteProfileForSlicer">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">slicing</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">deleteProfileForSlicer</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slicer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profileId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.slicing.deleteProfileForSlicer" title="Permalink to this definition"></a></dt>
+<dd><p>Deletes the profile <code class="docutils literal notranslate"><span class="pre">profileId</span></code> for <code class="docutils literal notranslate"><span class="pre">slicer</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise</dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../api/slicing.html#sec-api-slicing"><span class="std std-ref">Slicing API</span></a></dt><dd><p>The documentation of the underlying slicing API.</p>
+</dd>
+</dl>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="settings.html" class="btn btn-neutral float-left" title="OctoPrintClient.settings" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="socket.html" class="btn btn-neutral float-right" title="OctoPrintClient.socket" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.10.2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.10.2/jsclientlib/slicing.html">1.10.2</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/jsclientlib/slicing.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/jsclientlib/slicing.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/jsclientlib/slicing.html">devel</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

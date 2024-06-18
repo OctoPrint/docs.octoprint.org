@@ -140,7 +140,7 @@
 
   <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
     <strong>Note:</strong>
-    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.10.1" style="color: white;text-decoration: underline">here</a>.
+    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.10.2" style="color: white;text-decoration: underline">here</a>.
   </p>
 
 
@@ -531,8 +531,8 @@ the current tool and extruding/retracting from the currently selected tool. Avai
 <dl class="simple">
 <dt>target</dt><dd><p>Sets the given target temperature on the printer’s tools. Additional parameters:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">targets</span></code>: Target temperature(s) to set, properties must match the format <code class="docutils literal notranslate"><span class="pre">tool{n}</span></code> with <code class="docutils literal notranslate"><span class="pre">n</span></code> being the
-tool’s index starting with 0. A value of <cite>0</cite> will turn the heater off.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">targets</span></code>: Target temperature(s) to set, properties must match the format <code class="docutils literal notranslate"><span class="pre">tool</span></code> or <code class="docutils literal notranslate"><span class="pre">tool{n}</span></code> with <code class="docutils literal notranslate"><span class="pre">n</span></code> being the
+tool’s index starting with 0. <code class="docutils literal notranslate"><span class="pre">tool</span></code> signifies the currently active extruder. A target value of <cite>0</cite> will turn the heater off.</p></li>
 </ul>
 </dd>
 <dt>offset</dt><dd><p>Sets the given temperature offset on the printer’s tools. Additional parameters:</p>
@@ -575,6 +575,24 @@ profile will be used. Otherwise interpreted as an integer signifying the speed i
 <span class="w">  </span><span class="nt">&quot;targets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;tool0&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">220</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;tool1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">205</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+</div>
+<p><strong>Example Target Temperature Request (Current Tool Only)</strong></p>
+<p>Set the target temperature for the printer’s currently active hotend to 220°C.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/printer/tool</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;target&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;targets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">220</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -1607,7 +1625,7 @@ present or if the requesting user lacks the <code class="docutils literal notran
   <div class="rst-other-versions">
     <dl>
       <dt>Tags</dt>
-      <dd><a href="https://docs.octoprint.org/en/1.10.1/api/printer.html">1.10.1</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.10.2/api/printer.html">1.10.2</a></dd>
     </dl>
     <dl>
       <dt>Branches</dt>

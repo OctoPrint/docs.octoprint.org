@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Helpers &mdash; OctoPrint 1.10.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Injected Properties" href="injectedproperties.html" />
+    <link rel="prev" title="Hooks" href="hooks.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OctoPrint
+          </a>
+              <div class="version">
+                1.10.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developing Plugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="concepts.html">General Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controlproperties.html">Control Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mixins.html">Mixins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hooks.html">Hooks</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="injectedproperties.html">Injected Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="viewmodels.html">Viewmodels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted.html">Plugin Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributing.html">Distributing your plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python3_migration.html">Migrating to Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Developing Plugins</a> &raquo;</li>
+        
+      <li>Helpers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/plugins/helpers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="helpers">
+<span id="sec-plugins-helpers"></span><h1>Helpers<a class="headerlink" href="#helpers" title="Permalink to this heading"></a></h1>
+<p>Helpers are methods that plugins can expose to other plugins in order to make common functionality available on the
+system. They are registered with the OctoPrint plugin system through the use of the control property <code class="docutils literal notranslate"><span class="pre">__plugin_helpers__</span></code>.</p>
+<p>An example for providing some helper functions to the system can be found in the
+<a class="reference external" href="https://docs.octoprint.org/en/master/bundledplugins/discovery.html">Discovery Plugin</a>,
+which provides its SSDP browsing and Zeroconf browsing and publishing functions as helper methods.</p>
+<div class="literal-block-wrapper docutils container" id="sec-plugin-concepts-helpers-example-export">
+<div class="code-block-caption"><span class="caption-number">Listing 36 </span><span class="caption-text">Excerpt from the Discovery Plugin showing the declaration of its exported helpers.</span><a class="headerlink" href="#sec-plugin-concepts-helpers-example-export" title="Permalink to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">__plugin_load__</span><span class="p">():</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">pybonjour</span><span class="p">:</span>
+        <span class="c1"># no pybonjour available, we can&#39;t use that</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;octoprint.plugins.&quot;</span> <span class="o">+</span> <span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;pybonjour is not installed, Zeroconf Discovery won&#39;t be available&quot;</span><span class="p">)</span>
+
+    <span class="n">plugin</span> <span class="o">=</span> <span class="n">DiscoveryPlugin</span><span class="p">()</span>
+
+    <span class="k">global</span> <span class="n">__plugin_implementation__</span>
+    <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">plugin</span>
+
+<span class="hll">    <span class="k">global</span> <span class="n">__plugin_helpers__</span>
+</span><span class="hll">    <span class="n">__plugin_helpers__</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+</span><span class="hll">        <span class="n">ssdp_browse</span><span class="o">=</span><span class="n">plugin</span><span class="o">.</span><span class="n">ssdp_browse</span>
+</span><span class="hll">    <span class="p">)</span>
+</span><span class="hll">    <span class="k">if</span> <span class="n">pybonjour</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">__plugin_helpers__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
+</span><span class="hll">            <span class="n">zeroconf_browse</span><span class="o">=</span><span class="n">plugin</span><span class="o">.</span><span class="n">zeroconf_browse</span><span class="p">,</span>
+</span><span class="hll">            <span class="n">zeroconf_register</span><span class="o">=</span><span class="n">plugin</span><span class="o">.</span><span class="n">zeroconf_register</span><span class="p">,</span>
+</span><span class="hll">            <span class="n">zeroconf_unregister</span><span class="o">=</span><span class="n">plugin</span><span class="o">.</span><span class="n">zeroconf_unregister</span>
+</span><span class="hll">        <span class="p">))</span>
+</span></pre></div>
+</div>
+</div>
+<p>An example of how to use helpers can be found in the <a class="reference external" href="https://github.com/OctoPrint/OctoPrint-Growl">Growl Plugin</a>.
+Using <code class="xref py py-meth docutils literal notranslate"><span class="pre">get_helpers()</span></code> plugins can retrieve exported helper methods and call
+them as (hopefully) documented.</p>
+<div class="literal-block-wrapper docutils container" id="sec-plugin-concepts-helpers-example-usage">
+<div class="code-block-caption"><span class="caption-number">Listing 37 </span><span class="caption-text">Excerpt from the Growl Plugin showing utilization of the helpers published by the Discovery Plugin.</span><a class="headerlink" href="#sec-plugin-concepts-helpers-example-usage" title="Permalink to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;hostname&quot;</span><span class="p">])</span>
+    <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">getInt</span><span class="p">([</span><span class="s2">&quot;port&quot;</span><span class="p">])</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;password&quot;</span><span class="p">])</span>
+
+<span class="hll">    <span class="n">helpers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_manager</span><span class="o">.</span><span class="n">get_helpers</span><span class="p">(</span><span class="s2">&quot;discovery&quot;</span><span class="p">,</span> <span class="s2">&quot;zeroconf_browse&quot;</span><span class="p">)</span>
+</span><span class="hll">    <span class="k">if</span> <span class="n">helpers</span> <span class="ow">and</span> <span class="s2">&quot;zeroconf_browse&quot;</span> <span class="ow">in</span> <span class="n">helpers</span><span class="p">:</span>
+</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">zeroconf_browse</span> <span class="o">=</span> <span class="n">helpers</span><span class="p">[</span><span class="s2">&quot;zeroconf_browse&quot;</span><span class="p">]</span>
+</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">growl</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_register_growl</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">)</span>
+
+<span class="c1"># ...</span>
+
+<span class="k">def</span> <span class="nf">on_api_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">zeroconf_browse</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">flask</span><span class="o">.</span><span class="n">jsonify</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
+            <span class="n">browsing_enabled</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">))</span>
+
+<span class="hll">    <span class="n">browse_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zeroconf_browse</span><span class="p">(</span><span class="s2">&quot;_gntp._tcp&quot;</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span>    <span class="n">growl_instances</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="n">host</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="s2">&quot;host&quot;</span><span class="p">],</span> <span class="n">port</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="s2">&quot;port&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">browse_results</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">flask</span><span class="o">.</span><span class="n">jsonify</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">browsing_enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">growl_instances</span><span class="o">=</span><span class="n">growl_instances</span>
+    <span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="hooks.html" class="btn btn-neutral float-left" title="Hooks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="injectedproperties.html" class="btn btn-neutral float-right" title="Injected Properties" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.10.2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.10.2/plugins/helpers.html">1.10.2</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/plugins/helpers.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/plugins/helpers.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/plugins/helpers.html">devel</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

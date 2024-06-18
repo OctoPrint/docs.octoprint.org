@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OctoPrint’s branching model &mdash; OctoPrint 1.10.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Setting up a Development environment" href="environment.html" />
+    <link rel="prev" title="OctoPrint’s versioning strategy" href="versioning.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OctoPrint
+          </a>
+              <div class="version">
+                1.10.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">OctoPrint’s versioning strategy</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">OctoPrint’s branching model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html">Setting up a Development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtual_printer.html">Setting up the virtual printer for debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="request-profiling.html">Profiling requests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Development</a> &raquo;</li>
+        
+      <li>OctoPrint’s branching model</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/development/branches.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="octoprint-s-branching-model">
+<span id="sec-development-branches"></span><h1>OctoPrint’s branching model<a class="headerlink" href="#octoprint-s-branching-model" title="Permalink to this heading"></a></h1>
+<p>There are three main branches in OctoPrint:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">master</span></code></dt><dd><p>The master branch always contains the current stable release plus any changes
+since made to <em>documentation</em>, <em>CI related tests</em> or <em>Github meta files</em>. OctoPrint’s actual
+code will only be modified on new releases. Will have a version number following
+the scheme <code class="docutils literal notranslate"><span class="pre">&lt;x&gt;.&lt;y&gt;.&lt;z&gt;</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">1.5.1</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">maintenance</span></code></dt><dd><p>Improvements and fixes of the current release that make up
+the next release go here. More or less continuously updated. You can consider
+this a preview of the next release version. It should be very stable at all
+times. Anything you spot in here helps tremendously with getting a rock solid
+next stable release, so if you want to help out development, running the
+<code class="docutils literal notranslate"><span class="pre">maintenance</span></code> branch and reporting back anything you find is a very good way
+to do that. Will usually have a version number following the scheme
+<code class="docutils literal notranslate"><span class="pre">&lt;x&gt;.&lt;y+1&gt;.&lt;0&gt;.dev&lt;commits</span> <span class="pre">since</span> <span class="pre">increase</span> <span class="pre">of</span> <span class="pre">y&gt;</span></code> for an OctoPrint version of <code class="docutils literal notranslate"><span class="pre">&lt;x&gt;.&lt;y&gt;.&lt;z&gt;</span></code>
+(e.g. <code class="docutils literal notranslate"><span class="pre">1.5.0.dev114</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">devel</span></code></dt><dd><p>Ongoing development of what will go into the next big
+release (MAJOR version number increases) will happen on this branch. Usually
+kept stable, sometimes stuff can break though. Backwards incompatible changes will
+be encountered here. Can be considered the “bleeding edge”. Will usually have a version
+number following the scheme <code class="docutils literal notranslate"><span class="pre">&lt;x+1&gt;.&lt;0&gt;.0.dev&lt;commits</span> <span class="pre">since</span> <span class="pre">increase</span> <span class="pre">of</span> <span class="pre">y&gt;</span></code> for a current
+OctoPrint version of <code class="docutils literal notranslate"><span class="pre">&lt;x&gt;.&lt;y&gt;.&lt;z&gt;</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">2.0.0.dev123</span></code>).</p>
+</dd>
+</dl>
+<p>There are couple more RC and staging branches that see regular use:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">staging/bugfix</span></code></dt><dd><p>Any preparation for potential bugfix releases takes place here.
+Version number follows the scheme <code class="docutils literal notranslate"><span class="pre">&lt;x&gt;.&lt;y&gt;.&lt;z+1&gt;</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">1.5.1</span></code>) for a current release
+of <code class="docutils literal notranslate"><span class="pre">&lt;x&gt;.&lt;y&gt;.&lt;z&gt;</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">rc/maintenance</span></code></dt><dd><p>This branch is reserved for future releases that have graduated from
+the <code class="docutils literal notranslate"><span class="pre">maintenance</span></code> branch and are now being pushed on the “Maintenance”
+pre release channel for further testing. Version number follows the scheme
+<code class="docutils literal notranslate"><span class="pre">&lt;x&gt;.&lt;y&gt;.&lt;z&gt;rc&lt;n&gt;</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">1.5.0rc1</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">staging/maintenance</span></code></dt><dd><p>Any preparation for potential follow-up RCs takes place here.
+Version number follows the scheme <code class="docutils literal notranslate"><span class="pre">&lt;x&gt;.&lt;y&gt;.&lt;z&gt;rc&lt;n+1&gt;.dev&lt;commits</span> <span class="pre">since</span> <span class="pre">increase</span> <span class="pre">of</span> <span class="pre">n&gt;</span></code> (e.g.
+<code class="docutils literal notranslate"><span class="pre">1.5.0rc2.dev3</span></code>) for a current Maintenance RC of <code class="docutils literal notranslate"><span class="pre">&lt;x&gt;.&lt;y&gt;.&lt;z&gt;</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">rc/devel</span></code></dt><dd><p>This branch is reserved for future releases that have graduated from
+the <code class="docutils literal notranslate"><span class="pre">devel</span></code> branch and are now being pushed on the “Devel” pre release channel
+for further testing. Version number follows the scheme <code class="docutils literal notranslate"><span class="pre">&lt;x+1&gt;.0.0rc&lt;n&gt;</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">2.0.0rc1</span></code>)
+for a current stable OctoPrint version of <code class="docutils literal notranslate"><span class="pre">&lt;x&gt;.&lt;y&gt;.&lt;z&gt;</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">staging/devel</span></code></dt><dd><p>Any preparation for potential follow-up Devel RCs takes place
+here. Version number follows the scheme <code class="docutils literal notranslate"><span class="pre">&lt;x&gt;.0.0rc&lt;n+1&gt;.dev&lt;commits</span> <span class="pre">since</span> <span class="pre">increase</span> <span class="pre">of</span> <span class="pre">n&gt;</span></code> (e.g.
+<code class="docutils literal notranslate"><span class="pre">2.0.0rc2.dev12</span></code>) for a current Devel RC of <code class="docutils literal notranslate"><span class="pre">&lt;x&gt;.0.0rc&lt;n&gt;</span></code>.</p>
+</dd>
+</dl>
+<p>Additionally, from time to time you might see other branches pop up in the repository.
+Those usually have one of the following prefixes:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">bug/...</span></code></dt><dd><p>Fixes under development that are to be merged into the <code class="docutils literal notranslate"><span class="pre">staging/bugfix</span></code>
+and later the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">fix/...</span></code></dt><dd><p>Fixes under development that are to be merged into the <code class="docutils literal notranslate"><span class="pre">maintenance</span></code>
+and <code class="docutils literal notranslate"><span class="pre">devel</span></code> branches.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">improve/...</span></code></dt><dd><p>Improvements under development that are to be merged into the
+<code class="docutils literal notranslate"><span class="pre">maintenance</span></code> and <code class="docutils literal notranslate"><span class="pre">devel</span></code> branches.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">dev/...</span></code> or <code class="docutils literal notranslate"><span class="pre">feature/...</span></code></dt><dd><p>New functionality under development that is to be merged
+into the <code class="docutils literal notranslate"><span class="pre">devel</span></code> branch.</p>
+</dd>
+</dl>
+<p>There are also a few older development branches that are slowly being migrated or deleted.</p>
+<p>All these branches and branch patterns are set up to automatically get a correct <a class="reference internal" href="versioning.html#sec-development-versions"><span class="std std-ref">version number</span></a>
+generated through a custom versioning tool and thus should also be adhered to during development.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="versioning.html" class="btn btn-neutral float-left" title="OctoPrint’s versioning strategy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="environment.html" class="btn btn-neutral float-right" title="Setting up a Development environment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.10.2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.10.2/development/branches.html">1.10.2</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/development/branches.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/development/branches.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/development/branches.html">devel</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
