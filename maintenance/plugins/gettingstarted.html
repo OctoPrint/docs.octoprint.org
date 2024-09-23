@@ -222,6 +222,11 @@ web interface.</p>
 [...]
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For Linux, the plugin folder be <code class="docutils literal notranslate"><span class="pre">~/.octoprint/plugins</span></code>. For Windows it will be <code class="docutils literal notranslate"><span class="pre">%APPDATA%/OctoPrint/plugins</span></code> and for
+Mac <code class="docutils literal notranslate"><span class="pre">~/Library/Application</span> <span class="pre">Support/OctoPrint/plugins</span></code>.</p>
+</div>
 <p>OctoPrint found that plugin in the folder and took a look into it. The name and the version it displays in that log
 entry it got from the <code class="docutils literal notranslate"><span class="pre">__plugin_name__</span></code> and <code class="docutils literal notranslate"><span class="pre">__plugin_version__</span></code> lines. It also read the description from
 <code class="docutils literal notranslate"><span class="pre">__plugin_description__</span></code> and stored it in an internal data structure, but we’ll just ignore this for now. Additionally
@@ -661,7 +666,7 @@ to add our URL as a template variable.</p>
 </div>
 <p>OctoPrint injects the template variables that your plugin defines prefixed with <code class="docutils literal notranslate"><span class="pre">plugin_&lt;plugin</span> <span class="pre">identifier&gt;_</span></code> into
 the template renderer, so your <code class="docutils literal notranslate"><span class="pre">url</span></code> got turned into <code class="docutils literal notranslate"><span class="pre">plugin_helloworld_url</span></code> which you can now use as a simple
-<a class="reference external" href="https://jinja.palletsprojects.com/templates.html#variables">Jinja2 Variable</a> in your plugin’s template.</p>
+<a class="reference external" href="https://jinja.palletsprojects.com/templates#variables">Jinja2 Variable</a> in your plugin’s template.</p>
 <p>Restart OctoPrint and shift-reload the page in your browser (to make sure you really get a fresh copy). The link should
 still work and point to the URL we defined as default.</p>
 <p>Let’s change the URL! Open up your OctoPrint instance’s <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> file and add the following to it (if a <code class="docutils literal notranslate"><span class="pre">plugins</span></code>
@@ -679,8 +684,7 @@ a proper shift-reload) point to the German Wikipedia node about “Hello World�
 </pre></div>
 </div>
 <p>Nice! But not very user friendly. We don’t have any way yet to edit the URL from within OctoPrint and have to restart
-the server and reload the page every time we want a value change to take effect. Let’s try adding a little settings dialog
-for our plugin in which we can edit the URL and take any changes take immediate effect.</p>
+the server and reload the page every time we want a value change to take effect. Let’s try adding a small settings dialog to our plugin, allowing us to edit the URL so that changes take effect immediately.</p>
 <p>First of all, we’ll create the settings dialog. You might already have guessed that we’ll need another template for that.
 So in your plugin’s <code class="docutils literal notranslate"><span class="pre">templates</span></code> folder create a new file <code class="docutils literal notranslate"><span class="pre">helloworld_settings.jinja2</span></code> and put the following content
 into it:</p>
@@ -864,19 +868,19 @@ like so:</p>
 
 <span class="w">    </span><span class="c1">// This is how our plugin registers itself with the application, by adding some configuration</span>
 <span class="w">    </span><span class="c1">// information to the global variable OCTOPRINT_VIEWMODELS</span>
-<span class="w">    </span><span class="nx">OCTOPRINT_VIEWMODELS</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span>
-<span class="w">        </span><span class="c1">// This is the constructor to call for instantiating the plugin</span>
-<span class="w">        </span><span class="nx">HelloWorldViewModel</span><span class="p">,</span>
-
-<span class="w">        </span><span class="c1">// This is a list of dependencies to inject into the plugin, the order which you request</span>
-<span class="w">        </span><span class="c1">// here is the order in which the dependencies will be injected into your view model upon</span>
-<span class="w">        </span><span class="c1">// instantiation via the parameters argument</span>
-<span class="w">        </span><span class="p">[</span><span class="s2">&quot;settingsViewModel&quot;</span><span class="p">],</span>
-
-<span class="w">        </span><span class="c1">// Finally, this is the list of selectors for all elements we want this view model to be bound to.</span>
-<span class="w">        </span><span class="p">[</span><span class="s2">&quot;#tab_plugin_helloworld&quot;</span><span class="p">]</span>
-<span class="w">    </span><span class="p">]);</span>
-<span class="p">});</span>
+<span class="hll"><span class="w">    </span><span class="nx">OCTOPRINT_VIEWMODELS</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span>
+</span><span class="hll"><span class="w">        </span><span class="c1">// This is the constructor to call for instantiating the plugin</span>
+</span><span class="hll"><span class="w">        </span><span class="nx">HelloWorldViewModel</span><span class="p">,</span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">        </span><span class="c1">// This is a list of dependencies to inject into the plugin, the order which you request</span>
+</span><span class="hll"><span class="w">        </span><span class="c1">// here is the order in which the dependencies will be injected into your view model upon</span>
+</span><span class="hll"><span class="w">        </span><span class="c1">// instantiation via the parameters argument</span>
+</span><span class="hll"><span class="w">        </span><span class="p">[</span><span class="s2">&quot;settingsViewModel&quot;</span><span class="p">],</span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">        </span><span class="c1">// Finally, this is the list of selectors for all elements we want this view model to be bound to.</span>
+</span><span class="hll"><span class="w">        </span><span class="p">[</span><span class="s2">&quot;#tab_plugin_helloworld&quot;</span><span class="p">]</span>
+</span><span class="hll"><span class="w">    </span><span class="p">]);</span>
+</span><span class="p">});</span>
 </pre></div>
 </div>
 <p>Take a close look at lines 31 to 42. This is how our plugin tells OctoPrint about our new view model, how to
@@ -1148,7 +1152,7 @@ might show what’s possible with a few lines of code already. Finally, just tak
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference external" href="https://jinja.palletsprojects.com/templates.html">Jinja Template Designer Documentation</a></dt><dd><p>Jinja’s Template Designer Documentation describes the syntax and semantics of the template language used
+<dt><a class="reference external" href="https://jinja.palletsprojects.com/templates">Jinja Template Designer Documentation</a></dt><dd><p>Jinja’s Template Designer Documentation describes the syntax and semantics of the template language used
 by OctoPrint’s frontend.</p>
 </dd>
 </dl>
