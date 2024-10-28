@@ -349,10 +349,11 @@ will be provided as only parameter.</p>
 will be provided as only parameter. Note that this may also be triggered for not logged in guests if the guest
 group is modified. In this case <code class="docutils literal notranslate"><span class="pre">user</span></code> will be undefined.</p>
 </dd>
-<dt>onBeforePrintStart(callback)</dt><dd><p>Called before a print is started either by clicking the “Print” button in the state panel or the select &amp; print icon
-in the file list. The callback to actually proceed with starting the print is provided as the only parameter. By returning
+<dt>onBeforePrintStart(callback, data)</dt><dd><p>Called before a print is started either by clicking the “Print” button in the state panel or the select &amp; print icon
+in the file list. The callback to proceed with starting the print is provided as first parameter. By returning
 <code class="docutils literal notranslate"><span class="pre">false</span></code> from this, plugins may prevent a print from actually starting, optionally starting it at a later date by
-calling <code class="docutils literal notranslate"><span class="pre">callback</span></code> themselves. This can be used for example to implement an additional confirmation dialog.</p>
+calling <code class="docutils literal notranslate"><span class="pre">callback</span></code> themselves. This can be used for example to implement an additional confirmation dialog. The
+second parameter is a file data object that includes details such as name, path, and origin.</p>
 </dd>
 <dt>onTabChange(next, current)</dt><dd><p>Called before the main tab view switches to a new tab, so <cite>before</cite> the new tab becomes visible. Called with the
 next (changed to) and current (still visible) tab’s hash (e.g. <code class="docutils literal notranslate"><span class="pre">#control</span></code>). Note that <code class="docutils literal notranslate"><span class="pre">current</span></code> might be undefined
