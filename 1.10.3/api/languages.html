@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Languages &mdash; OctoPrint 1.10.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Log file management" href="logs.html" />
+    <link rel="prev" title="Job operations" href="job.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OctoPrint
+          </a>
+              <div class="version">
+                1.10.3
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">REST API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="general.html">General information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version.html">Version information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">Server information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection.html">Connection handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">File operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="job.html">Job operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Languages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#retrieve-installed-language-packs">Retrieve installed language packs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#upload-a-language-pack">Upload a language pack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#delete-a-language-pack">Delete a language pack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-model">Data model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#list-response">List response</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#component-list">Component list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#language-pack-metadata">Language pack metadata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logs.html">Log file management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html">Printer operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printerprofiles.html">Printer profile operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html">Slicing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html">Timelapse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="access.html">Access control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">Util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wizard.html">Wizard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="push.html">Push updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datamodel.html">Common data model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">REST API</a> &raquo;</li>
+        
+      <li>Languages</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/languages.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="languages">
+<span id="sec-api-languages"></span><h1><a class="toc-backref" href="#id1">Languages</a><a class="headerlink" href="#languages" title="Permalink to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All language pack management operations require the <code class="docutils literal notranslate"><span class="pre">SETTINGS</span></code> permission.</p>
+</div>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#languages" id="id1">Languages</a></p>
+<ul>
+<li><p><a class="reference internal" href="#retrieve-installed-language-packs" id="id2">Retrieve installed language packs</a></p></li>
+<li><p><a class="reference internal" href="#upload-a-language-pack" id="id3">Upload a language pack</a></p></li>
+<li><p><a class="reference internal" href="#delete-a-language-pack" id="id4">Delete a language pack</a></p></li>
+<li><p><a class="reference internal" href="#data-model" id="id5">Data model</a></p>
+<ul>
+<li><p><a class="reference internal" href="#list-response" id="id6">List response</a></p></li>
+<li><p><a class="reference internal" href="#component-list" id="id7">Component list</a></p></li>
+<li><p><a class="reference internal" href="#language-pack-metadata" id="id8">Language pack metadata</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="retrieve-installed-language-packs">
+<span id="sec-api-languages-list"></span><h2><a class="toc-backref" href="#id2">Retrieve installed language packs</a><a class="headerlink" href="#retrieve-installed-language-packs" title="Permalink to this heading"></a></h2>
+<dl class="http get">
+<dt class="sig sig-object http" id="get--api-languages">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/languages</span></span><a class="headerlink" href="#get--api-languages" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves a list of installed language packs.</p>
+<p>The response body will contain a <a class="reference internal" href="#sec-api-languages-datamodel-listresponse"><span class="std std-ref">list response</span></a>.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/languages</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;language_packs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;_core&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;identifier&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;_core&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Core&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;languages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;some_plugin&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;identifier&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;some_plugin&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Some Plugin&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;languages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;locale&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;de&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;locale_display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Deutsch&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;locale_english&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;German&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;last_update&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1474574597</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Gina Häußge&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;locale&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;it&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;locale_display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Italiano&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;locale_english&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Italian&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;last_update&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1470859680</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The italian Transifex Team&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Status Codes</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – No error</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="upload-a-language-pack">
+<span id="sec-api-languages-upload"></span><h2><a class="toc-backref" href="#id3">Upload a language pack</a><a class="headerlink" href="#upload-a-language-pack" title="Permalink to this heading"></a></h2>
+<dl class="http post">
+<dt class="sig sig-object http" id="post--api-languages">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/api/languages</span></span><a class="headerlink" href="#post--api-languages" title="Permalink to this definition"></a></dt>
+<dd><p>Uploads a new language pack to OctoPrint.</p>
+<p>Other than most of the other requests on OctoPrint’s API which are expected as JSON, this request is expected as
+<code class="docutils literal notranslate"><span class="pre">Content-Type:</span> <span class="pre">multipart/form-data</span></code> due to the included file upload.</p>
+<p>To upload a file, the request body must contain the <code class="docutils literal notranslate"><span class="pre">file</span></code> form field with the
+contents and file name of the file to upload.</p>
+<p>Only files with one of the extensions <code class="docutils literal notranslate"><span class="pre">zip</span></code>, <code class="docutils literal notranslate"><span class="pre">tar.gz</span></code>, <code class="docutils literal notranslate"><span class="pre">tgz</span></code> or <code class="docutils literal notranslate"><span class="pre">tar</span></code> will be
+processed, for other file extensions a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> will be returned.</p>
+<p>Will return a list of installed language packs upon completion, as described in
+<a class="reference internal" href="#sec-api-languages-list"><span class="std std-ref">Retrieve installed language packs</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Form Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> – The language pack file to upload</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – The file was uploaded successfully</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="delete-a-language-pack">
+<span id="sec-api-languages-delete"></span><h2><a class="toc-backref" href="#id4">Delete a language pack</a><a class="headerlink" href="#delete-a-language-pack" title="Permalink to this heading"></a></h2>
+<dl class="http delete">
+<dt class="sig sig-object http" id="delete--api-languages-(string-locale)-(string-pack)">
+<span class="sig-name descname"><span class="pre">DELETE</span> </span><span class="sig-name descname"><span class="pre">/api/languages/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">string:</span> </em><em class="sig-param"><span class="pre">locale</span></em><span class="sig-paren">)</span><span class="sig-name descname"><span class="pre">/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">string:</span> </em><em class="sig-param"><span class="pre">pack</span></em><span class="sig-paren">)</span><a class="headerlink" href="#delete--api-languages-(string-locale)-(string-pack)" title="Permalink to this definition"></a></dt>
+<dd><p>Deletes the language pack <code class="docutils literal notranslate"><span class="pre">pack</span></code> for locale <code class="docutils literal notranslate"><span class="pre">locale</span></code>. Can be either
+the <code class="docutils literal notranslate"><span class="pre">_core</span></code> pack (containing translations for core OctoPrint) or
+the language pack for a plugin specified by the plugin identifier.</p>
+<p>Returns a list of installed language packs, as described in
+<a class="reference internal" href="#sec-api-languages-list"><span class="std std-ref">Retrieve installed language packs</span></a>.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/api/languages/it/some_plugin</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;language_packs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;_core&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;identifier&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;_core&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Core&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;languages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;some_plugin&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;identifier&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;some_plugin&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Some Plugin&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;languages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;locale&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;de&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;locale_display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Deutsch&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;locale_english&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;German&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;last_update&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1474574597</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Gina Häußge&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>locale</strong> – The locale for which to delete the language pack</p></li>
+<li><p><strong>pack</strong> – The language pack to delete</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – The language pack was deleted</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="data-model">
+<span id="sec-api-languages-datamodel"></span><h2><a class="toc-backref" href="#id5">Data model</a><a class="headerlink" href="#data-model" title="Permalink to this heading"></a></h2>
+<section id="list-response">
+<span id="sec-api-languages-datamodel-listresponse"></span><h3><a class="toc-backref" href="#id6">List response</a><a class="headerlink" href="#list-response" title="Permalink to this heading"></a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">language_packs</span></code></p></td>
+<td><p>0..*</p></td>
+<td><p>Map of <a class="reference internal" href="#sec-api-languages-datamodel-componentlist"><span class="std std-ref">component lists</span></a></p></td>
+<td><p>Map of component lists, indexed by the component’s identifier</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="component-list">
+<span id="sec-api-languages-datamodel-componentlist"></span><h3><a class="toc-backref" href="#id7">Component list</a><a class="headerlink" href="#component-list" title="Permalink to this heading"></a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">identifier</span></code></p></td>
+<td><p>1</p></td>
+<td><p>string</p></td>
+<td><p>The plugin’s identifier, <code class="docutils literal notranslate"><span class="pre">_core</span></code> for core OctoPrint, the plugin’s identifier for plugins</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">display</span></code></p></td>
+<td><p>1</p></td>
+<td><p>string</p></td>
+<td><p>Displayable name of the component, <code class="docutils literal notranslate"><span class="pre">Core</span></code> for core OctoPrint, the plugin’s name for plugins</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">languages</span></code></p></td>
+<td><p>0..*</p></td>
+<td><p>List of <a class="reference internal" href="#sec-api-languages-datamodel-packmeta"><span class="std std-ref">language pack meta data</span></a></p></td>
+<td><p>Language packs for the component</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="language-pack-metadata">
+<span id="sec-api-languages-datamodel-packmeta"></span><h3><a class="toc-backref" href="#id8">Language pack metadata</a><a class="headerlink" href="#language-pack-metadata" title="Permalink to this heading"></a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 17%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">locale</span></code></p></td>
+<td><p>1</p></td>
+<td><p>string</p></td>
+<td><p>Locale of the language pack</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">locale_display</span></code></p></td>
+<td><p>1</p></td>
+<td><p>string</p></td>
+<td><p>Displayable name of the locale</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">locale_english</span></code></p></td>
+<td><p>1</p></td>
+<td><p>string</p></td>
+<td><p>English representation of the locale</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">last_update</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p>int</p></td>
+<td><p>Timestamp of the last update of the language pack</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">author</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p>string</p></td>
+<td><p>Author of the language pack</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="job.html" class="btn btn-neutral float-left" title="Job operations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="logs.html" class="btn btn-neutral float-right" title="Log file management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.10.3
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.10.3/api/languages.html">1.10.3</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/api/languages.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/api/languages.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/api/languages.html">devel</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
