@@ -256,11 +256,11 @@ the end-of-life Python 2.</p>
 </pre></div>
 </div>
 <p>Neat, isn’t it? We added a custom class that subclasses one of OctoPrint’s <a class="reference internal" href="mixins.html#sec-plugins-mixins"><span class="std std-ref">plugin mixins</span></a>
-with <a class="reference internal" href="mixins.html#octoprint.plugin.StartupPlugin" title="octoprint.plugin.StartupPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">StartupPlugin</span></code></a> and another control property, <code class="docutils literal notranslate"><span class="pre">__plugin_implementation__</span></code>, that instantiates
-our plugin class and tells OctoPrint about it. Taking a look at the documentation of <a class="reference internal" href="mixins.html#octoprint.plugin.StartupPlugin" title="octoprint.plugin.StartupPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">StartupPlugin</span></code></a> we see that
-this mixin offers two methods that get called by OctoPrint during startup of the server, <a class="reference internal" href="mixins.html#octoprint.plugin.StartupPlugin.on_startup" title="octoprint.plugin.StartupPlugin.on_startup"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_startup()</span></code></a> and
-<a class="reference internal" href="mixins.html#octoprint.plugin.StartupPlugin.on_after_startup" title="octoprint.plugin.StartupPlugin.on_after_startup"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_after_startup()</span></code></a>. We decided to add our logging output by overriding <a class="reference internal" href="mixins.html#octoprint.plugin.StartupPlugin.on_after_startup" title="octoprint.plugin.StartupPlugin.on_after_startup"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_after_startup()</span></code></a>, but we could also have
-used <a class="reference internal" href="mixins.html#octoprint.plugin.StartupPlugin.on_startup" title="octoprint.plugin.StartupPlugin.on_startup"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_startup()</span></code></a> instead, in which case our logging statement would be executed before the server was done starting
+with <code class="xref py py-class docutils literal notranslate"><span class="pre">StartupPlugin</span></code> and another control property, <code class="docutils literal notranslate"><span class="pre">__plugin_implementation__</span></code>, that instantiates
+our plugin class and tells OctoPrint about it. Taking a look at the documentation of <code class="xref py py-class docutils literal notranslate"><span class="pre">StartupPlugin</span></code> we see that
+this mixin offers two methods that get called by OctoPrint during startup of the server, <code class="xref py py-func docutils literal notranslate"><span class="pre">on_startup()</span></code> and
+<code class="xref py py-func docutils literal notranslate"><span class="pre">on_after_startup()</span></code>. We decided to add our logging output by overriding <code class="xref py py-func docutils literal notranslate"><span class="pre">on_after_startup()</span></code>, but we could also have
+used <code class="xref py py-func docutils literal notranslate"><span class="pre">on_startup()</span></code> instead, in which case our logging statement would be executed before the server was done starting
 up and ready to serve requests.</p>
 <p>You’ll also note that we are using <code class="docutils literal notranslate"><span class="pre">self._logger</span></code> for logging. Where did that one come from? OctoPrint’s plugin system
 injects <a class="reference internal" href="mixins.html#sec-plugins-mixins-injectedproperties"><span class="std std-ref">a some useful objects</span></a> into our plugin implementation classes,
@@ -481,7 +481,7 @@ Successfully installed OctoPrint-Helloworld-0.1.0
 <p>Something is still a bit ugly though. Take a look into <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> and <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>. It seems like we have a bunch
 of information now defined twice:</p>
 <div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-number">Listing 39 </span><span class="caption-text">__init__.py</span><a class="headerlink" href="#id3" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 37 </span><span class="caption-text">__init__.py</span><a class="headerlink" href="#id3" title="Permalink to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
 <span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
 <span class="n">__plugin_description__</span> <span class="o">=</span> <span class="s2">&quot;A quick </span><span class="se">\&quot;</span><span class="s2">Hello World</span><span class="se">\&quot;</span><span class="s2"> example plugin for OctoPrint&quot;</span>
@@ -489,7 +489,7 @@ of information now defined twice:</p>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-number">Listing 40 </span><span class="caption-text">setup.py</span><a class="headerlink" href="#id4" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 38 </span><span class="caption-text">setup.py</span><a class="headerlink" href="#id4" title="Permalink to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ...</span>
 
 <span class="c1"># The plugin&#39;s human readable name. Can be overwritten within OctoPrint&#39;s internal data via __plugin_name__ in the</span>
@@ -606,12 +606,12 @@ add the <code class="xref py py-class docutils literal notranslate"><span class=
 <p>Remember that Wikipedia link we added to our little link in the navigation bar? It links to the English Wikipedia. But
 what if we want to allow our users to adjust that according to their wishes, e.g. to link to the German language node
 about “Hello World” programs instead?</p>
-<p>To allow your users to customized the behaviour of your plugin you’ll need to implement the <a class="reference internal" href="mixins.html#octoprint.plugin.SettingsPlugin" title="octoprint.plugin.SettingsPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SettingsPlugin</span></code></a>
-mixin and override it’s <a class="reference internal" href="mixins.html#octoprint.plugin.SettingsPlugin.get_settings_defaults" title="octoprint.plugin.SettingsPlugin.get_settings_defaults"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_settings_defaults()</span></code></a> method. We’ll save the URL to
+<p>To allow your users to customized the behaviour of your plugin you’ll need to implement the <code class="xref py py-class docutils literal notranslate"><span class="pre">SettingsPlugin</span></code>
+mixin and override it’s <code class="xref py py-func docutils literal notranslate"><span class="pre">get_settings_defaults()</span></code> method. We’ll save the URL to
 inject into the link under the key <code class="docutils literal notranslate"><span class="pre">url</span></code> in our plugin’s settings and set it to the old value by default. We’ll therefore
 return just a single key in our default settings dictionary. To be able to quickly see if we’ve done that right we’ll
 extend our little startup message to also log the current setting to the console. We can access that via <code class="docutils literal notranslate"><span class="pre">self._settings</span></code>,
-which is a little settings manager OctoPrint conveniently injects into our Plugin when we include the <a class="reference internal" href="mixins.html#octoprint.plugin.SettingsPlugin" title="octoprint.plugin.SettingsPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SettingsPlugin</span></code></a>
+which is a little settings manager OctoPrint conveniently injects into our Plugin when we include the <code class="xref py py-class docutils literal notranslate"><span class="pre">SettingsPlugin</span></code>
 mixin.</p>
 <p>Let’s take a look at how all that would look in our plugin’s <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
@@ -637,8 +637,8 @@ mixin.</p>
 <p>So far so good. But how do we now get that value into our template? We have two options, the
 static one using so called template variables and a dynamic one which retrieves that data from the backend and binds it
 into the template using <a class="reference external" href="http://knockoutjs.com/documentation/introduction.html">Knockout data bindings</a>. First let’s
-take a look at the static version using template variables. We already have the <a class="reference internal" href="mixins.html#octoprint.plugin.TemplatePlugin" title="octoprint.plugin.TemplatePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplatePlugin</span></code></a>
-mixin included in our plugin, we just need to override its method <a class="reference internal" href="mixins.html#octoprint.plugin.TemplatePlugin.get_template_vars" title="octoprint.plugin.TemplatePlugin.get_template_vars"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_template_vars()</span></code></a>
+take a look at the static version using template variables. We already have the <code class="xref py py-class docutils literal notranslate"><span class="pre">TemplatePlugin</span></code>
+mixin included in our plugin, we just need to override its method <code class="xref py py-func docutils literal notranslate"><span class="pre">get_template_vars()</span></code>
 to add our URL as a template variable.</p>
 <p>Adjust your plugin’s <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
@@ -721,7 +721,7 @@ by default assumes that you’ll want to bind your own view models to your templ
 templates from the templates that are in place at the injected location already. In order to tell OctoPrint to please
 don’t do this here (since we <em>do</em> want to use both <code class="docutils literal notranslate"><span class="pre">NavigationViewModel</span></code> and <code class="docutils literal notranslate"><span class="pre">SettingsViewModel</span></code>), we’ll need to
 override the default template configuration using the <code class="xref py py-class docutils literal notranslate"><span class="pre">get_template_configs</span></code> method. We’ll tell OctoPrint to use no custom bindings
-for both our <code class="docutils literal notranslate"><span class="pre">navbar</span></code> and our <code class="docutils literal notranslate"><span class="pre">settings</span></code> plugin. We’ll also remove the override of <a class="reference internal" href="mixins.html#octoprint.plugin.TemplatePlugin.get_template_vars" title="octoprint.plugin.TemplatePlugin.get_template_vars"><code class="xref py py-func docutils literal notranslate"><span class="pre">octoprint.plugin.TemplatePlugin.get_template_vars()</span></code></a>
+for both our <code class="docutils literal notranslate"><span class="pre">navbar</span></code> and our <code class="docutils literal notranslate"><span class="pre">settings</span></code> plugin. We’ll also remove the override of <code class="xref py py-func docutils literal notranslate"><span class="pre">octoprint.plugin.TemplatePlugin.get_template_vars()</span></code>
 again since we don’t use that anymore:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
@@ -802,7 +802,7 @@ look like this:</p>
 </pre></div>
 </div>
 <p>We need to tell OctoPrint about this new static asset so that it will properly inject it into the page. For this we
-just need to subclass <a class="reference internal" href="mixins.html#octoprint.plugin.AssetPlugin" title="octoprint.plugin.AssetPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">AssetPlugin</span></code></a> and override its method <a class="reference internal" href="mixins.html#octoprint.plugin.AssetPlugin.get_assets" title="octoprint.plugin.AssetPlugin.get_assets"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_assets()</span></code></a>
+just need to subclass <code class="xref py py-class docutils literal notranslate"><span class="pre">AssetPlugin</span></code> and override its method <code class="xref py py-func docutils literal notranslate"><span class="pre">get_assets()</span></code>
 like so:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
@@ -832,7 +832,7 @@ like so:</p>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Note how we did not add another entry to the return value of <a class="reference internal" href="mixins.html#octoprint.plugin.TemplatePlugin.get_template_configs" title="octoprint.plugin.TemplatePlugin.get_template_configs"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_template_configs()</span></code></a>.
+<p>Note how we did not add another entry to the return value of <code class="xref py py-func docutils literal notranslate"><span class="pre">get_template_configs()</span></code>.
 Remember how we only added those since we wanted OctoPrint to use existing bindings on our navigation bar and settings
 menu entries? We don’t want this time, and we named our tab template such that OctoPrint will pick it up automatically
 so we don’t have to do anything here.</p>
@@ -953,7 +953,7 @@ add a CSS file to our plugin’s provided static assets.</p>
 <span class="hll"><span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;attr: {src: currentUrl}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
 </span></pre></div>
 </div>
-<p>Then adjust our plugin’s <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> so that the <a class="reference internal" href="mixins.html#octoprint.plugin.AssetPlugin.get_assets" title="octoprint.plugin.AssetPlugin.get_assets"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_assets()</span></code></a> method returns
+<p>Then adjust our plugin’s <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> so that the <code class="xref py py-func docutils literal notranslate"><span class="pre">get_assets()</span></code> method returns
 a reference to our CSS file:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
 
