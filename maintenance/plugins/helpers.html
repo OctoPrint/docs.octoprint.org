@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Helpers &mdash; OctoPrint maintenance documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=9ecc9bae" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=1e67d180" />
 
   
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/mermaid.min.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=edc6e93c"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/mermaid.min.js?v=c0ebaf0d"></script>
+        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
         <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -137,14 +137,14 @@
            <div itemprop="articleBody">
              
   <section id="helpers">
-<span id="sec-plugins-helpers"></span><h1>Helpers<a class="headerlink" href="#helpers" title="Permalink to this heading"></a></h1>
+<span id="sec-plugins-helpers"></span><h1>Helpers<a class="headerlink" href="#helpers" title="Link to this heading"></a></h1>
 <p>Helpers are methods that plugins can expose to other plugins in order to make common functionality available on the
 system. They are registered with the OctoPrint plugin system through the use of the control property <code class="docutils literal notranslate"><span class="pre">__plugin_helpers__</span></code>.</p>
 <p>An example for providing some helper functions to the system can be found in the
 <a class="reference external" href="https://docs.octoprint.org/en/master/bundledplugins/discovery.html">Discovery Plugin</a>,
 which provides its SSDP browsing and Zeroconf browsing and publishing functions as helper methods.</p>
 <div class="literal-block-wrapper docutils container" id="sec-plugin-concepts-helpers-example-export">
-<div class="code-block-caption"><span class="caption-number">Listing 36 </span><span class="caption-text">Excerpt from the Discovery Plugin showing the declaration of its exported helpers.</span><a class="headerlink" href="#sec-plugin-concepts-helpers-example-export" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 36 </span><span class="caption-text">Excerpt from the Discovery Plugin showing the declaration of its exported helpers.</span><a class="headerlink" href="#sec-plugin-concepts-helpers-example-export" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">__plugin_load__</span><span class="p">():</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">pybonjour</span><span class="p">:</span>
         <span class="c1"># no pybonjour available, we can&#39;t use that</span>
@@ -172,7 +172,7 @@ which provides its SSDP browsing and Zeroconf browsing and publishing functions 
 Using <code class="xref py py-meth docutils literal notranslate"><span class="pre">get_helpers()</span></code> plugins can retrieve exported helper methods and call
 them as (hopefully) documented.</p>
 <div class="literal-block-wrapper docutils container" id="sec-plugin-concepts-helpers-example-usage">
-<div class="code-block-caption"><span class="caption-number">Listing 37 </span><span class="caption-text">Excerpt from the Growl Plugin showing utilization of the helpers published by the Discovery Plugin.</span><a class="headerlink" href="#sec-plugin-concepts-helpers-example-usage" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 37 </span><span class="caption-text">Excerpt from the Growl Plugin showing utilization of the helpers published by the Discovery Plugin.</span><a class="headerlink" href="#sec-plugin-concepts-helpers-example-usage" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="n">host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;hostname&quot;</span><span class="p">])</span>
     <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">getInt</span><span class="p">([</span><span class="s2">&quot;port&quot;</span><span class="p">])</span>
