@@ -98,13 +98,27 @@ def html_page_context(app, pagename, templatename, context, doctree):
     context["latest_version"] = versioninfo[app.config.versionselector_latest_version]
 
 
+def config_hook(app, config):
+    if not config.plausible_script or not config.plausible_domain:
+        return
+
+    app.add_js_file(config.plausible_script, {
+        "defer": "defer", "data-domain": config.plausible_domain
+    })
+    print("Plausible analytics script added to this build")
+
+
 def setup(app):
     app.add_config_value("versionselector_metadata", {}, "html")
     app.add_config_value("versionselector_metadata_path", "", "html")
     app.add_config_value("versionselector_current_version", "", "html")
     app.add_config_value("versionselector_latest_version", "master", "html")
 
+    app.add_config_value("plausible_domain", "", "html")
+    app.add_config_value("plausible_script", "", "html")
+
     app.connect("html-page-context", html_page_context)
+    app.connect("config-inited", config_hook)
 
     return {
         "version": "0.1",
@@ -185,6 +199,10 @@ if __name__ == "__main__":
             "version={current}",
             "-D",
             "release={current}",
+            "-D",
+            "plausible_script=https://plausible.octoprint.org/js/plausible.js",
+            "-D",
+            "plausible_domain=docs.octoprint.org",
             "-D",
             "templates_path={templates}",
             "-D",
