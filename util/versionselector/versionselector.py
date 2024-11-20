@@ -102,10 +102,8 @@ def config_hook(app, config):
     if not config.plausible_script or not config.plausible_domain:
         return
 
-    app.add_js_file(config.plausible_script, {
-        "defer": "defer", "data-domain": config.plausible_domain
-    })
-    print("Plausible analytics script added to this build")
+    print(f"Adding Plausible analytics script added to this build: {config.plausible_domain}")
+    app.add_js_file(config.plausible_script, loading_method="defer", **{"data-domain": config.plausible_domain})
 
 
 def setup(app):
