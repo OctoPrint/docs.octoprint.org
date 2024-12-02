@@ -17,7 +17,7 @@
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="../_static/documentation_options.js?v=edc6e93c"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../_static/mermaid.min.js?v=c0ebaf0d"></script>
         <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
@@ -25,7 +25,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Discovery Plugin" href="discovery.html" />
+    <link rel="next" title="Custom Control Manager" href="customcontrolmanager.html" />
     <link rel="prev" title="Application Keys Plugin" href="appkeys.html" /> 
 </head>
 
@@ -79,6 +79,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#source-code">Source code</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="customcontrolmanager.html">Custom Control Manager</a></li>
 <li class="toctree-l2"><a class="reference internal" href="discovery.html">Discovery Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="errortracking.html">Error Tracking Plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_check.html">File Check</a></li>
@@ -87,6 +88,7 @@
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pluginmanager.html">Plugin Manager</a></li>
 <li class="toctree-l2"><a class="reference internal" href="softwareupdate.html">Software Update Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uploadmanager.html">Upload Manager</a></li>
 <li class="toctree-l2"><a class="reference internal" href="virtual_printer.html">Virtual Printer</a></li>
 </ul>
 </li>
@@ -163,7 +165,7 @@
   <section id="backup-plugin">
 <span id="sec-bundledplugins-backup"></span><h1>Backup Plugin<a class="headerlink" href="#backup-plugin" title="Link to this heading"></a></h1>
 <div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.3.10.</span></p>
+<p><span class="versionmodified added">New in version 1.3.10.</span></p>
 </div>
 <p>The OctoPrint Backup Plugin comes bundled with OctoPrint (starting with 1.3.10).</p>
 <p>It allows the creation and restoration <a class="footnote-reference brackets" href="#id4" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> of backups of OctoPrint’s settings, data and installed plugins <a class="footnote-reference brackets" href="#id5" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>
@@ -239,7 +241,7 @@ permission.</p>
 </ul>
 </div></blockquote>
 <div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.5.0.</span></p>
+<p><span class="versionmodified added">New in version 1.5.0.</span></p>
 </div>
 </dd>
 </dl>
@@ -252,7 +254,7 @@ permission.</p>
 <dt class="sig sig-object py" id="additional_excludes_hook">
 <span class="sig-name descname"><span class="pre">additional_excludes_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">excludes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#additional_excludes_hook" title="Link to this definition"></a></dt>
 <dd><div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.5.0.</span></p>
+<p><span class="versionmodified added">New in version 1.5.0.</span></p>
 </div>
 <p>Use this to provide additional paths on your plugin’s data folder to exclude from the backup. Your handler also
 get a list of currently excluded sub paths in the base folder, so you can react to them. E.g. exclude things
@@ -328,7 +330,7 @@ backup if uploaded GCODE files are also excluded:</p>
 <dt class="sig sig-object py" id="before_backup_hook">
 <span class="sig-name descname"><span class="pre">before_backup_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#before_backup_hook" title="Link to this definition"></a></dt>
 <dd><div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.9.0.</span></p>
+<p><span class="versionmodified added">New in version 1.9.0.</span></p>
 </div>
 <p>Use this to perform actions right before a backup is created.</p>
 </dd></dl>
@@ -340,7 +342,7 @@ backup if uploaded GCODE files are also excluded:</p>
 <dt class="sig sig-object py" id="after_backup_hook">
 <span class="sig-name descname"><span class="pre">after_backup_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#after_backup_hook" title="Link to this definition"></a></dt>
 <dd><div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.9.0.</span></p>
+<p><span class="versionmodified added">New in version 1.9.0.</span></p>
 </div>
 <p>Use this to perform actions right after a backup was created or backup creation failed. The <code class="docutils literal notranslate"><span class="pre">error</span></code> parameter will be set to <code class="docutils literal notranslate"><span class="pre">True</span></code> if
 the backup creation failed.</p>
@@ -358,7 +360,7 @@ the backup creation failed.</p>
 <dt class="sig sig-object py" id="before_restore_hook">
 <span class="sig-name descname"><span class="pre">before_restore_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#before_restore_hook" title="Link to this definition"></a></dt>
 <dd><div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.9.0.</span></p>
+<p><span class="versionmodified added">New in version 1.9.0.</span></p>
 </div>
 <p>Use this to perform actions right before a backup is restored.</p>
 </dd></dl>
@@ -370,7 +372,7 @@ the backup creation failed.</p>
 <dt class="sig sig-object py" id="after_restore_hook">
 <span class="sig-name descname"><span class="pre">after_restore_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#after_restore_hook" title="Link to this definition"></a></dt>
 <dd><div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.9.0.</span></p>
+<p><span class="versionmodified added">New in version 1.9.0.</span></p>
 </div>
 <p>Use this to perform actions right after a backup was restored or backup restoration failed. The <code class="docutils literal notranslate"><span class="pre">error</span></code> parameter will be set to <code class="docutils literal notranslate"><span class="pre">True</span></code> if
 the backup restoration failed.</p>
@@ -393,7 +395,7 @@ from within OctoPrint, without going via the API.</p>
 <dt class="sig sig-object py" id="octoprint.plugins.backup.BackupPlugin.create_backup_helper">
 <span class="sig-prename descclassname"><span class="pre">octoprint.plugins.backup.BackupPlugin.</span></span><span class="sig-name descname"><span class="pre">create_backup_helper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugins.backup.BackupPlugin.create_backup_helper" title="Link to this definition"></a></dt>
 <dd><div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.6.0.</span></p>
+<p><span class="versionmodified added">New in version 1.6.0.</span></p>
 </div>
 <p>Create a backup from a plugin or other internal call</p>
 <p>This helper is exported as <code class="docutils literal notranslate"><span class="pre">create_backup</span></code> and can be used from the plugin
@@ -427,7 +429,7 @@ name will be auto-generated. This should use a <code class="docutils literal not
 <dt class="sig sig-object py" id="octoprint.plugins.backup.BackupPlugin.delete_backup_helper">
 <span class="sig-prename descclassname"><span class="pre">octoprint.plugins.backup.BackupPlugin.</span></span><span class="sig-name descname"><span class="pre">delete_backup_helper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugins.backup.BackupPlugin.delete_backup_helper" title="Link to this definition"></a></dt>
 <dd><div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.6.0.</span></p>
+<p><span class="versionmodified added">New in version 1.6.0.</span></p>
 </div>
 <p>Delete the specified backup from a plugin or other internal call</p>
 <p>This helper is exported as <code class="docutils literal notranslate"><span class="pre">delete_backup</span></code> and can be used through the plugin
@@ -488,7 +490,7 @@ creation time.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="appkeys.html" class="btn btn-neutral float-left" title="Application Keys Plugin" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="discovery.html" class="btn btn-neutral float-right" title="Discovery Plugin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="customcontrolmanager.html" class="btn btn-neutral float-right" title="Custom Control Manager" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
