@@ -125,7 +125,7 @@ jobs:
 
       - name: ⬆ Persist build result
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.version }}
           path: ${{ github.workspace }}/OctoPrint/docs/_build/html/${{ matrix.version }}
@@ -142,7 +142,7 @@ jobs:
           path: docs
 
       - name: ⬇ Fetch all artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: artifacts
 
