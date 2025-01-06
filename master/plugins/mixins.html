@@ -5,7 +5,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mixins &mdash; OctoPrint master documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=9ecc9bae" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=3dbc9e18" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=1e67d180" />
 
@@ -248,14 +248,14 @@ and <code class="docutils literal notranslate"><span class="pre">plugin_d</span>
 <code class="docutils literal notranslate"><span class="pre">plugin_b</span></code> and <code class="docutils literal notranslate"><span class="pre">plugin_c</span></code> both return <code class="docutils literal notranslate"><span class="pre">1</span></code> for the sorting context <code class="docutils literal notranslate"><span class="pre">StartupPlugin.on_startup</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code> otherwise:</p>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-number">Listing 8 </span><span class="caption-text">plugin_a.py</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
-<span class="k">class</span> <span class="nc">PluginA</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PluginA</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">on_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;PluginA starting up&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;PluginA started up&quot;</span><span class="p">)</span>
 
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">PluginA</span><span class="p">()</span>
@@ -264,19 +264,19 @@ and <code class="docutils literal notranslate"><span class="pre">plugin_d</span>
 </div>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-number">Listing 9 </span><span class="caption-text">plugin_b.py</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
-<span class="k">class</span> <span class="nc">PluginB</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PluginB</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">get_sorting_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_sorting_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">context</span> <span class="o">==</span> <span class="s2">&quot;StartupPlugin.on_startup&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">on_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;PluginB starting up&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;PluginB started up&quot;</span><span class="p">)</span>
 
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">PluginB</span><span class="p">()</span>
@@ -285,19 +285,19 @@ and <code class="docutils literal notranslate"><span class="pre">plugin_d</span>
 </div>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-number">Listing 10 </span><span class="caption-text">plugin_c.py</span><a class="headerlink" href="#id6" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
-<span class="k">class</span> <span class="nc">PluginC</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PluginC</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">get_sorting_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_sorting_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">context</span> <span class="o">==</span> <span class="s2">&quot;StartupPlugin.on_startup&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">on_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;PluginC starting up&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;PluginC started up&quot;</span><span class="p">)</span>
 
 
@@ -308,14 +308,14 @@ and <code class="docutils literal notranslate"><span class="pre">plugin_d</span>
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption"><span class="caption-number">Listing 11 </span><span class="caption-text">plugin_d.py</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># in this example this is bundled with OctoPrint</span>
-<span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
-<span class="k">class</span> <span class="nc">PluginD</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PluginD</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">on_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;PluginD starting up&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;PluginD started up&quot;</span><span class="p">)</span>
 
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">PluginD</span><span class="p">()</span>
@@ -420,7 +420,7 @@ imported at the appropriate places to be available:</p>
 <p>The expected format to be returned is a dictionary mapping one or more of these keys to a list of files of that
 type, the files being represented as relative paths from the asset folder as defined via <a class="reference internal" href="#octoprint.plugin.AssetPlugin.get_asset_folder" title="octoprint.plugin.AssetPlugin.get_asset_folder"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_asset_folder()</span></code></a>.
 Example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
         <span class="n">js</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;js/my_file.js&#39;</span><span class="p">,</span> <span class="s1">&#39;js/my_other_file.js&#39;</span><span class="p">],</span>
         <span class="n">clientjs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;clientjs/my_file.js&#39;</span><span class="p">],</span>
@@ -455,12 +455,12 @@ be it a more sophisticated API than what is possible via the <a class="reference
 <p>The mixin automatically creates a blueprint for you that will be registered under <code class="docutils literal notranslate"><span class="pre">/plugin/&lt;plugin</span> <span class="pre">identifier&gt;/</span></code>.
 All you need to do is decorate all of your view functions with the <a class="reference internal" href="#octoprint.plugin.BlueprintPlugin.route" title="octoprint.plugin.BlueprintPlugin.route"><code class="xref py py-func docutils literal notranslate"><span class="pre">route()</span></code></a> decorator,
 which behaves exactly the same like Flask’s regular <code class="docutils literal notranslate"><span class="pre">route</span></code> decorators. Example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
-<span class="kn">import</span> <span class="nn">flask</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">flask</span>
 
-<span class="k">class</span> <span class="nc">MyBlueprintPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyBlueprintPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="p">):</span>
     <span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/echo&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
-    <span class="k">def</span> <span class="nf">myEcho</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">myEcho</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;text&quot;</span> <span class="ow">in</span> <span class="n">flask</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
             <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Expected a text to echo back.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">flask</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
@@ -483,24 +483,24 @@ OctoPrint’s <a class="reference internal" href="../api/general.html#sec-api-ge
 can and should however already opt into CSRF protection for your endpoints by implementing <code class="docutils literal notranslate"><span class="pre">is_blueprint_csrf_protected</span></code>
 and returning <code class="docutils literal notranslate"><span class="pre">True</span></code> from it. You can exempt certain endpoints from CSRF protection by decorating them with
 <code class="docutils literal notranslate"><span class="pre">&#64;octoprint.plugin.BlueprintPlugin.csrf_exempt</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="p">):</span>
     <span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/hello_world&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
-    <span class="k">def</span> <span class="nf">hello_world</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hello_world</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># This is a GET request and thus not subject to CSRF protection</span>
         <span class="k">return</span> <span class="s2">&quot;Hello world!&quot;</span>
 
     <span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/hello_you&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
-    <span class="k">def</span> <span class="nf">hello_you</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hello_you</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># This is a POST request and thus subject to CSRF protection. It is not exempt.</span>
         <span class="k">return</span> <span class="s2">&quot;Hello you!&quot;</span>
 
     <span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/hello_me&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
     <span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">csrf_exempt</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">hello_me</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hello_me</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># This is a POST request and thus subject to CSRF protection, but this one is exempt.</span>
         <span class="k">return</span> <span class="s2">&quot;Hello me!&quot;</span>
 
-    <span class="k">def</span> <span class="nf">is_blueprint_csrf_protected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_blueprint_csrf_protected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="kc">True</span>
 </pre></div>
 </div>
@@ -734,10 +734,10 @@ of a logger when the user changes a corresponding flag via the settings dialog, 
 <a class="reference internal" href="#octoprint.plugin.SettingsPlugin.on_settings_save" title="octoprint.plugin.SettingsPlugin.on_settings_save"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_settings_save()</span></code></a> method and wrap the call to the implementation from the parent class with retrieval of the
 old and the new value and react accordingly.</p>
 <p>Example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
-<span class="k">class</span> <span class="nc">MySettingsPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">SettingsPlugin</span><span class="p">,</span> <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MySettingsPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">SettingsPlugin</span><span class="p">,</span> <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
             <span class="n">some_setting</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span>
             <span class="n">some_value</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span>
@@ -746,7 +746,7 @@ old and the new value and react accordingly.</p>
             <span class="p">)</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">on_settings_save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_settings_save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="n">old_flag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get_boolean</span><span class="p">([</span><span class="s2">&quot;sub&quot;</span><span class="p">,</span> <span class="s2">&quot;some_flag&quot;</span><span class="p">])</span>
 
         <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">SettingsPlugin</span><span class="o">.</span><span class="n">on_settings_save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
@@ -755,7 +755,7 @@ old and the new value and react accordingly.</p>
         <span class="k">if</span> <span class="n">old_flag</span> <span class="o">!=</span> <span class="n">new_flag</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;sub.some_flag changed from </span><span class="si">{old_flag}</span><span class="s2"> to </span><span class="si">{new_flag}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">()))</span>
 
-    <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">some_setting</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;some_setting&quot;</span><span class="p">])</span>
         <span class="n">some_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get_int</span><span class="p">([</span><span class="s2">&quot;some_value&quot;</span><span class="p">])</span>
         <span class="n">some_flag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get_boolean</span><span class="p">([</span><span class="s2">&quot;sub&quot;</span><span class="p">,</span> <span class="s2">&quot;some_flag&quot;</span><span class="p">])</span>
@@ -796,14 +796,14 @@ them.</p>
 (hierarchically) to a transform function which will get the value to transform as only input and should return
 the transformed value.</p>
 <p>Example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">some_key</span><span class="o">=</span><span class="s2">&quot;Some_Value&quot;</span><span class="p">,</span> <span class="n">some_other_key</span><span class="o">=</span><span class="s2">&quot;Some_Value&quot;</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">get_settings_preprocessors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_settings_preprocessors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">some_key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">upper</span><span class="p">()),</span>        <span class="c1"># getter preprocessors</span>
            <span class="nb">dict</span><span class="p">(</span><span class="n">some_other_key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>   <span class="c1"># setter preprocessors</span>
 
-<span class="k">def</span> <span class="nf">some_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">some_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="c1"># getting the value for &quot;some_key&quot; should turn it to upper case</span>
     <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;some_key&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;SOME_VALUE&quot;</span>
 
@@ -843,7 +843,7 @@ the path elements) for which to restrict access via the REST API accordingly.</p
 </ul>
 </div></blockquote>
 <p>Example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">some</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">admin_only</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="n">foo</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">),</span>
                           <span class="n">user_only</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">)),</span>
                 <span class="n">another</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">admin_only</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;path&quot;</span><span class="p">),</span>
@@ -851,8 +851,8 @@ the path elements) for which to restrict access via the REST API accordingly.</p
                 <span class="n">path</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">never</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="k">return</span><span class="o">=</span><span class="s2">&quot;return&quot;</span><span class="p">))),</span>
                 <span class="n">the</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">webcam</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;webcam&quot;</span><span class="p">)))</span>
 
-<span class="k">def</span> <span class="nf">get_settings_restricted_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">octoprint.access.permissions</span> <span class="kn">import</span> <span class="n">Permissions</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_settings_restricted_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.access.permissions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Permissions</span>
     <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;admin&#39;</span><span class="p">:[[</span><span class="s2">&quot;some&quot;</span><span class="p">,</span> <span class="s2">&quot;admin_only&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;another&quot;</span><span class="p">,</span> <span class="s2">&quot;admin_only&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">],],</span>
             <span class="s1">&#39;user&#39;</span><span class="p">:[[</span><span class="s2">&quot;some&quot;</span><span class="p">,</span> <span class="s2">&quot;user_only&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">],],</span>
             <span class="s1">&#39;never&#39;</span><span class="p">:[[</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="s2">&quot;to&quot;</span><span class="p">,</span> <span class="s2">&quot;never&quot;</span><span class="p">,</span> <span class="s2">&quot;return&quot;</span><span class="p">],],</span>
@@ -1062,19 +1062,19 @@ OctoPrint will do some preliminary request validation for your defined commands,
 the correct format (content type must be JSON) and contains all obligatory parameters for your command.</p>
 <p>Let’s take a look at a small example for such a simple API and how you would go about calling it.</p>
 <p>Take this example of a plugin registered under plugin identifier <code class="docutils literal notranslate"><span class="pre">mysimpleapiplugin</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
-<span class="kn">import</span> <span class="nn">flask</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">flask</span>
 
-<span class="k">class</span> <span class="nc">MySimpleApiPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">SimpleApiPlugin</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">get_api_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MySimpleApiPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">SimpleApiPlugin</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_api_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
             <span class="n">command1</span><span class="o">=</span><span class="p">[],</span>
             <span class="n">command2</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;some_parameter&quot;</span><span class="p">]</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">on_api_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="kn">import</span> <span class="nn">flask</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_api_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">flask</span>
         <span class="k">if</span> <span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;command1&quot;</span><span class="p">:</span>
             <span class="n">parameter</span> <span class="o">=</span> <span class="s2">&quot;unset&quot;</span>
             <span class="k">if</span> <span class="s2">&quot;parameter&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
@@ -1083,7 +1083,7 @@ the correct format (content type must be JSON) and contains all obligatory param
         <span class="k">elif</span> <span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;command2&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;command2 called, some_parameter is </span><span class="si">{some_parameter}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">on_api_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_api_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">flask</span><span class="o">.</span><span class="n">jsonify</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">)</span>
 
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">MySimpleApiPlugin</span><span class="p">()</span>
@@ -1845,24 +1845,24 @@ at it being a mobile device:</p>
 <div class="literal-block-wrapper docutils container" id="id10">
 <div class="code-block-caption"><span class="caption-number">Listing 12 </span><span class="caption-text"><a class="reference external" href="https://github.com/OctoPrint/Plugin-Examples/blob/master/dummy_mobile_ui/__init__.py">dummy_mobile_ui/__init__.py</a></span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># coding=utf-8</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">absolute_import</span>
 
-<span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
-<span class="k">class</span> <span class="nc">DummyMobileUiPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">UiPlugin</span><span class="p">,</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DummyMobileUiPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">UiPlugin</span><span class="p">,</span>
                           <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">will_handle_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">will_handle_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
         <span class="c1"># returns True if the User Agent sent by the client matches one of</span>
         <span class="c1"># the User Agent strings known for any of the platforms android, ipad</span>
         <span class="c1"># or iphone</span>
         <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">user_agent</span> <span class="ow">and</span> \
                <span class="n">request</span><span class="o">.</span><span class="n">user_agent</span><span class="o">.</span><span class="n">platform</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;android&quot;</span><span class="p">,</span> <span class="s2">&quot;ipad&quot;</span><span class="p">,</span> <span class="s2">&quot;iphone&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">on_ui_render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">render_kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_ui_render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">render_kwargs</span><span class="p">):</span>
         <span class="c1"># if will_handle_ui returned True, we will now render our custom index</span>
         <span class="c1"># template, using the render_kwargs as provided by OctoPrint</span>
-        <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">make_response</span><span class="p">,</span> <span class="n">render_template</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_response</span><span class="p">,</span> <span class="n">render_template</span>
         <span class="k">return</span> <span class="n">make_response</span><span class="p">(</span><span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;dummy_mobile_ui_index.jinja2&quot;</span><span class="p">,</span>
                                              <span class="o">**</span><span class="n">render_kwargs</span><span class="p">))</span>
 
@@ -2392,14 +2392,14 @@ setting <code class="docutils literal notranslate"><span class="pre">some_key</s
 able to work at all, it would probably test for that setting’s value in
 the <a class="reference internal" href="#octoprint.plugin.WizardPlugin.is_wizard_required" title="octoprint.plugin.WizardPlugin.is_wizard_required"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_wizard_required()</span></code></a> method and
 return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the value is unset:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">SettingsPlugin</span><span class="p">,</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">SettingsPlugin</span><span class="p">,</span>
                <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
                <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">WizardPlugin</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">get_default_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_default_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">some_key</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">is_wizard_required</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_wizard_required</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;some_key&quot;</span><span class="p">])</span> <span class="ow">is</span> <span class="kc">None</span>
 </pre></div>
 </div>
@@ -2412,20 +2412,20 @@ and the plugin did not override it.</p>
 <p>If the plugin in a later version needs another setting from the user in order
 to function, it will also need to change the reported version in order to
 have OctoPrint reshow the dialog. E.g.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">SettingsPlugin</span><span class="p">,</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">SettingsPlugin</span><span class="p">,</span>
                <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
                <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">WizardPlugin</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">get_default_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_default_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">some_key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">some_other_key</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">is_wizard_required</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_wizard_required</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">some_key_unset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;some_key&quot;</span><span class="p">])</span> <span class="ow">is</span> <span class="kc">None</span>
         <span class="n">some_other_key_unset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;some_other_key&quot;</span><span class="p">])</span> <span class="ow">is</span> <span class="kc">None</span>
 
         <span class="k">return</span> <span class="n">some_key_unset</span> <span class="ow">or</span> <span class="n">some_other_key_unset</span>
 
-    <span class="k">def</span> <span class="nf">get_wizard_version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_wizard_version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="mi">1</span>
 </pre></div>
 </div>
@@ -2572,7 +2572,7 @@ False otherwise</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2025, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -5,7 +5,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Backup Plugin &mdash; OctoPrint 1.10.3 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=9ecc9bae" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=3dbc9e18" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=1e67d180" />
 
@@ -258,19 +258,19 @@ plugin’s data folder will be excluded from the backup.</p>
 <p><strong>Example 1</strong></p>
 <p>The following example plugin will create two files <code class="docutils literal notranslate"><span class="pre">foo.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">bar.txt</span></code> in its data folder, but flag
 <code class="docutils literal notranslate"><span class="pre">foo.txt</span></code> as not to be backed up.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
 
-<span class="k">class</span> <span class="nc">BackupExcludeTestPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">OctoPrintPlugin</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BackupExcludeTestPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">OctoPrintPlugin</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_plugin_data_folder</span><span class="p">(),</span> <span class="s2">&quot;foo.txt&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_plugin_data_folder</span><span class="p">(),</span> <span class="s2">&quot;bar.txt&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">additional_excludes_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">excludes</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">additional_excludes_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">excludes</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;foo.txt&quot;</span><span class="p">]</span>
 
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">BackupExcludeTestPlugin</span><span class="p">()</span>
@@ -282,17 +282,17 @@ plugin’s data folder will be excluded from the backup.</p>
 <p><strong>Example 2</strong></p>
 <p>In this example the plugin will create a file <code class="docutils literal notranslate"><span class="pre">foo.txt</span></code> in its data folder and flag its whole data folder as excluded from the
 backup if uploaded GCODE files are also excluded:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
 
-<span class="k">class</span> <span class="nc">BackupExcludeTestPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">OctoPrintPlugin</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BackupExcludeTestPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">OctoPrintPlugin</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_plugin_data_folder</span><span class="p">(),</span> <span class="s2">&quot;foo.txt&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">additional_excludes_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">excludes</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">additional_excludes_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">excludes</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">if</span> <span class="s2">&quot;uploads&quot;</span> <span class="ow">in</span> <span class="n">excludes</span><span class="p">:</span>
            <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;.&quot;</span><span class="p">]</span>
         <span class="k">return</span> <span class="p">[]</span>
@@ -489,7 +489,7 @@ creation time.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2025, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

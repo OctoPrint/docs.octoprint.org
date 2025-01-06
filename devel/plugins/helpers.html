@@ -5,7 +5,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Helpers &mdash; OctoPrint devel documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=9ecc9bae" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=3dbc9e18" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=1e67d180" />
 
@@ -145,7 +145,7 @@ system. They are registered with the OctoPrint plugin system through the use of 
 which provides its SSDP browsing and Zeroconf browsing and publishing functions as helper methods.</p>
 <div class="literal-block-wrapper docutils container" id="sec-plugin-concepts-helpers-example-export">
 <div class="code-block-caption"><span class="caption-number">Listing 36 </span><span class="caption-text">Excerpt from the Discovery Plugin showing the declaration of its exported helpers.</span><a class="headerlink" href="#sec-plugin-concepts-helpers-example-export" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">__plugin_load__</span><span class="p">():</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">__plugin_load__</span><span class="p">():</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">pybonjour</span><span class="p">:</span>
         <span class="c1"># no pybonjour available, we can&#39;t use that</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;octoprint.plugins.&quot;</span> <span class="o">+</span> <span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;pybonjour is not installed, Zeroconf Discovery won&#39;t be available&quot;</span><span class="p">)</span>
@@ -173,7 +173,7 @@ Using <code class="xref py py-meth docutils literal notranslate"><span class="pr
 them as (hopefully) documented.</p>
 <div class="literal-block-wrapper docutils container" id="sec-plugin-concepts-helpers-example-usage">
 <div class="code-block-caption"><span class="caption-number">Listing 37 </span><span class="caption-text">Excerpt from the Growl Plugin showing utilization of the helpers published by the Discovery Plugin.</span><a class="headerlink" href="#sec-plugin-concepts-helpers-example-usage" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="n">host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;hostname&quot;</span><span class="p">])</span>
     <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">getInt</span><span class="p">([</span><span class="s2">&quot;port&quot;</span><span class="p">])</span>
     <span class="n">password</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;password&quot;</span><span class="p">])</span>
@@ -186,7 +186,7 @@ them as (hopefully) documented.</p>
 
 <span class="c1"># ...</span>
 
-<span class="k">def</span> <span class="nf">on_api_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_api_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">zeroconf_browse</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">flask</span><span class="o">.</span><span class="n">jsonify</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
             <span class="n">browsing_enabled</span><span class="o">=</span><span class="kc">False</span>
@@ -215,7 +215,7 @@ them as (hopefully) documented.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2025, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

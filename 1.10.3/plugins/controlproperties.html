@@ -5,7 +5,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Control Properties &mdash; OctoPrint 1.10.3 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=9ecc9bae" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=3dbc9e18" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=1e67d180" />
 
@@ -135,13 +135,13 @@
 <span id="sec-plugins-controlproperties"></span><h1>Control Properties<a class="headerlink" href="#control-properties" title="Link to this heading"></a></h1>
 <p>As already mentioned earlier, plugins are Python packages which provide certain pieces of metadata to tell OctoPrint’s
 plugin subsystem about themselves. These are simple package attributes defined in the top most package file, e.g.:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
 <span class="c1"># ...</span>
 
 <span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;My Plugin&quot;</span>
 <span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
-<span class="k">def</span> <span class="nf">__plugin_load__</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">__plugin_load__</span><span class="p">():</span>
     <span class="c1"># whatever you need to do to load your plugin, if anything at all</span>
     <span class="k">pass</span>
 </pre></div>
@@ -199,9 +199,9 @@ information doesn’t match its current environment.</p>
 </dl>
 <dl id="sec-plugins-controlproperties-plugin-hooks">
 <dt><code class="docutils literal notranslate"><span class="pre">__plugin_hooks__</span></code></dt><dd><p>Handlers for one or more of the various <a class="reference internal" href="hooks.html#sec-plugins-hooks"><span class="std std-ref">plugin hooks</span></a>. E.g.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">handle_gcode_sent</span><span class="p">(</span><span class="n">comm_instance</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">cmd_type</span><span class="p">,</span> <span class="n">gcode</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">handle_gcode_sent</span><span class="p">(</span><span class="n">comm_instance</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">cmd_type</span><span class="p">,</span> <span class="n">gcode</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">gcode</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;M106&quot;</span><span class="p">,</span> <span class="s2">&quot;M107&quot;</span><span class="p">):</span>
-        <span class="kn">import</span> <span class="nn">logging</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;We just sent a fan command to the printer!&quot;</span><span class="p">)</span>
 
 <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
@@ -215,10 +215,10 @@ information doesn’t match its current environment.</p>
 <dt><code class="docutils literal notranslate"><span class="pre">__plugin_check__</span></code></dt><dd><p>Method called upon discovery of the plugin by the plugin subsystem, should return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the
 plugin can be instantiated later on, <code class="docutils literal notranslate"><span class="pre">False</span></code> if there are reasons why not, e.g. if dependencies
 are missing. An example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">__plugin_check__</span><span class="p">():</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">__plugin_check__</span><span class="p">():</span>
     <span class="c1"># Make sure we only run our plugin if some_dependency is available</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="kn">import</span> <span class="nn">some_dependency</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">some_dependency</span>
     <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
 
@@ -230,7 +230,7 @@ are missing. An example:</p>
 <dl id="sec-plugins-controlproperties-plugin-load">
 <dt><code class="docutils literal notranslate"><span class="pre">__plugin_load__</span></code></dt><dd><p>Method called upon loading of the plugin by the plugin subsystem, can be used to instantiate
 plugin implementations, connecting them to hooks etc. An example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">__plugin_load__</span><span class="p">():</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">__plugin_load__</span><span class="p">():</span>
     <span class="k">global</span> <span class="n">__plugin_implementation__</span>
     <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">MyPlugin</span><span class="p">()</span>
 
@@ -280,7 +280,7 @@ changes in things like e.g. standard naming, UI ordering or API endpoints. Examp
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2025, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

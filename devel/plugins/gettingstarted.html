@@ -5,7 +5,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Plugin Tutorial &mdash; OctoPrint devel documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=9ecc9bae" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=3dbc9e18" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=1e67d180" />
 
@@ -238,10 +238,10 @@ the end-of-life Python 2.</p>
 <span id="sec-plugins-gettingstarted-sayinghello"></span><h2><a class="toc-backref" href="#id5" role="doc-backlink">Saying hello: How to make the plugin actually do something</a><a class="headerlink" href="#saying-hello-how-to-make-the-plugin-actually-do-something" title="Link to this heading"></a></h2>
 <p>Apart from being discovered by OctoPrint, our plugin does nothing yet. We want to change that. Let’s make it print
 “Hello World!” to the log upon server startup. Modify our <code class="docutils literal notranslate"><span class="pre">helloworld.py</span></code> like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 </span><span class="hll">
-</span><span class="hll"><span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
-</span><span class="hll">    <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class="hll"><span class="k">class</span><span class="w"> </span><span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
+</span><span class="hll">    <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
 </span>
 <span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
@@ -510,10 +510,10 @@ of information now defined twice:</p>
 <p>The nice thing about our plugin now being a proper Python package is that OctoPrint can and will access the metadata defined
 within <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>! So, we don’t really need to define all this data twice. Remove <code class="docutils literal notranslate"><span class="pre">__plugin_name__</span></code>, <code class="docutils literal notranslate"><span class="pre">__plugin_version__</span></code>
 and <code class="docutils literal notranslate"><span class="pre">__plugin_description__</span></code> from <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>, but leave <code class="docutils literal notranslate"><span class="pre">__plugin_implementation__</span></code> and <code class="docutils literal notranslate"><span class="pre">__plugin_pythoncompat__</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
-<span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
 
 <span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
@@ -529,10 +529,10 @@ and <code class="docutils literal notranslate"><span class="pre">__plugin_descri
 </div>
 <p>Our “Hello World” Plugin still gets detected fine, but it’s now listed under the same name it’s installed under,
 “OctoPrint-HelloWorld”. That’s a bit redundant and squashed, so we’ll override that bit via <code class="docutils literal notranslate"><span class="pre">__plugin_name__</span></code> again:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
-<span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
 
 <span class="hll"><span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
@@ -565,11 +565,11 @@ OctoPrint’s web interface itself.</p>
 <p>We can do this using the <code class="xref py py-class docutils literal notranslate"><span class="pre">TemplatePlugin</span></code> mixin. For now, let’s start with a little “Hello World!” in OctoPrint’s
 navigation bar right at the top that links to the Wikipedia node about “Hello World” programs. For this we’ll first
 add the <code class="xref py py-class docutils literal notranslate"><span class="pre">TemplatePlugin</span></code> to our <code class="docutils literal notranslate"><span class="pre">HelloWorldPlugin</span></code> class:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
-<span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
 <span class="hll">                       <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">):</span>
-</span>    <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span>    <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
 
 <span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
@@ -614,15 +614,15 @@ extend our little startup message to also log the current setting to the console
 which is a little settings manager OctoPrint conveniently injects into our Plugin when we include the <a class="reference internal" href="mixins.html#octoprint.plugin.SettingsPlugin" title="octoprint.plugin.SettingsPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SettingsPlugin</span></code></a>
 mixin.</p>
 <p>Let’s take a look at how all that would look in our plugin’s <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
-<span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
 <span class="hll">                       <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">SettingsPlugin</span><span class="p">):</span>
-</span>    <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span>    <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World! (more: </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;url&quot;</span><span class="p">]))</span>
 </span>
-<span class="hll">    <span class="k">def</span> <span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">    <span class="k">def</span><span class="w"> </span><span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span class="hll">        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://en.wikipedia.org/wiki/Hello_world&quot;</span><span class="p">)</span>
 </span>
 <span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
@@ -641,18 +641,18 @@ take a look at the static version using template variables. We already have the 
 mixin included in our plugin, we just need to override its method <a class="reference internal" href="mixins.html#octoprint.plugin.TemplatePlugin.get_template_vars" title="octoprint.plugin.TemplatePlugin.get_template_vars"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_template_vars()</span></code></a>
 to add our URL as a template variable.</p>
 <p>Adjust your plugin’s <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
-<span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">SettingsPlugin</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World! (more: </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;url&quot;</span><span class="p">]))</span>
 
-    <span class="k">def</span> <span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://en.wikipedia.org/wiki/Hello_world&quot;</span><span class="p">)</span>
 
-<span class="hll">    <span class="k">def</span> <span class="nf">get_template_vars</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">    <span class="k">def</span><span class="w"> </span><span class="nf">get_template_vars</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span class="hll">        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;url&quot;</span><span class="p">]))</span>
 </span>
 <span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
@@ -723,18 +723,18 @@ don’t do this here (since we <em>do</em> want to use both <code class="docutil
 override the default template configuration using the <code class="xref py py-class docutils literal notranslate"><span class="pre">get_template_configs</span></code> method. We’ll tell OctoPrint to use no custom bindings
 for both our <code class="docutils literal notranslate"><span class="pre">navbar</span></code> and our <code class="docutils literal notranslate"><span class="pre">settings</span></code> plugin. We’ll also remove the override of <a class="reference internal" href="mixins.html#octoprint.plugin.TemplatePlugin.get_template_vars" title="octoprint.plugin.TemplatePlugin.get_template_vars"><code class="xref py py-func docutils literal notranslate"><span class="pre">octoprint.plugin.TemplatePlugin.get_template_vars()</span></code></a>
 again since we don’t use that anymore:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
-<span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">SettingsPlugin</span><span class="p">):</span>
-<span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World! (more: </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;url&quot;</span><span class="p">]))</span>
 
-<span class="k">def</span> <span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://en.wikipedia.org/wiki/Hello_world&quot;</span><span class="p">)</span>
 
-<span class="hll"><span class="k">def</span> <span class="nf">get_template_configs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll"><span class="k">def</span><span class="w"> </span><span class="nf">get_template_configs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span class="hll">    <span class="k">return</span> <span class="p">[</span>
 </span><span class="hll">        <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;navbar&quot;</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
 </span><span class="hll">        <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;settings&quot;</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -804,25 +804,25 @@ look like this:</p>
 <p>We need to tell OctoPrint about this new static asset so that it will properly inject it into the page. For this we
 just need to subclass <a class="reference internal" href="mixins.html#octoprint.plugin.AssetPlugin" title="octoprint.plugin.AssetPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">AssetPlugin</span></code></a> and override its method <a class="reference internal" href="mixins.html#octoprint.plugin.AssetPlugin.get_assets" title="octoprint.plugin.AssetPlugin.get_assets"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_assets()</span></code></a>
 like so:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
-<span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">SettingsPlugin</span><span class="p">,</span>
 <span class="hll">                       <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">AssetPlugin</span><span class="p">):</span>
-</span> <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span> <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
      <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World! (more: </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;url&quot;</span><span class="p">]))</span>
 
- <span class="k">def</span> <span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+ <span class="k">def</span><span class="w"> </span><span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
      <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://en.wikipedia.org/wiki/Hello_world&quot;</span><span class="p">)</span>
 
- <span class="k">def</span> <span class="nf">get_template_configs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+ <span class="k">def</span><span class="w"> </span><span class="nf">get_template_configs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
      <span class="k">return</span> <span class="p">[</span>
          <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;navbar&quot;</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
          <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;settings&quot;</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
      <span class="p">]</span>
 
-<span class="hll"> <span class="k">def</span> <span class="nf">get_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll"> <span class="k">def</span><span class="w"> </span><span class="nf">get_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span class="hll">     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
 </span><span class="hll">         <span class="n">js</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;js/helloworld.js&quot;</span><span class="p">]</span>
 </span><span class="hll">     <span class="p">)</span>
@@ -955,26 +955,26 @@ add a CSS file to our plugin’s provided static assets.</p>
 </div>
 <p>Then adjust our plugin’s <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> so that the <a class="reference internal" href="mixins.html#octoprint.plugin.AssetPlugin.get_assets" title="octoprint.plugin.AssetPlugin.get_assets"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_assets()</span></code></a> method returns
 a reference to our CSS file:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
-<span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">SettingsPlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">AssetPlugin</span><span class="p">):</span>
 
- <span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+ <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
      <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World! (more: </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;url&quot;</span><span class="p">]))</span>
 
- <span class="k">def</span> <span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+ <span class="k">def</span><span class="w"> </span><span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
      <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://en.wikipedia.org/wiki/Hello_world&quot;</span><span class="p">)</span>
 
- <span class="k">def</span> <span class="nf">get_template_configs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+ <span class="k">def</span><span class="w"> </span><span class="nf">get_template_configs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
      <span class="k">return</span> <span class="p">[</span>
          <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;navbar&quot;</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
          <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;settings&quot;</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
      <span class="p">]</span>
 
- <span class="k">def</span> <span class="nf">get_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+ <span class="k">def</span><span class="w"> </span><span class="nf">get_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
      <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
          <span class="n">js</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;js/helloworld.js&quot;</span><span class="p">],</span>
 <span class="hll">         <span class="n">css</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;css/helloworld.css&quot;</span><span class="p">]</span>
@@ -1029,26 +1029,26 @@ in the process. The folder structure of our plugin should now look like this:</p
 </pre></div>
 </div>
 <p>Then adjust our returned assets to include our LESS file as well:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">octoprint.plugin</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
-<span class="k">class</span> <span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
                       <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
                       <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">SettingsPlugin</span><span class="p">,</span>
                       <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">AssetPlugin</span><span class="p">):</span>
 
-<span class="k">def</span> <span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World! (more: </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;url&quot;</span><span class="p">]))</span>
 
-<span class="k">def</span> <span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://en.wikipedia.org/wiki/Hello_world&quot;</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">get_template_configs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_template_configs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">[</span>
         <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;navbar&quot;</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
         <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;settings&quot;</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="p">]</span>
 
-<span class="k">def</span> <span class="nf">get_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
         <span class="n">js</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;js/helloworld.js&quot;</span><span class="p">],</span>
         <span class="n">css</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;css/helloworld.css&quot;</span><span class="p">],</span>
@@ -1189,7 +1189,7 @@ in the background and keep your CSS files up to date with your various project�
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2013-2024, Gina Häußge.</p>
+    <p>&#169; Copyright 2013-2025, Gina Häußge.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
