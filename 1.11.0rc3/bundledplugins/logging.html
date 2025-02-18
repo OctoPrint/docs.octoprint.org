@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logging &mdash; OctoPrint 1.11.0rc3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=3dbc9e18" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=1e67d180" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=00f1ca5f"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/mermaid.min.js?v=c0ebaf0d"></script>
+        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Plugin Manager" href="pluginmanager.html" />
+    <link rel="prev" title="GCode Viewer Plugin" href="gcodeviewer.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OctoPrint
+          </a>
+              <div class="version">
+                1.11.0rc3
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Bundled Plugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="action_command_notification.html">Action Command Notification support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="action_command_prompt.html">Action Command Prompt support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="announcements.html">Announcement Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracking.html">Anonymous Usage Tracking Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appkeys.html">Application Keys Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backup.html">Backup Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customcontrolmanager.html">Custom Control Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discovery.html">Discovery Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="errortracking.html">Error Tracking Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_check.html">File Check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firmware_check.html">Firmware Check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gcodeviewer.html">GCode Viewer Plugin</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Logging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api">API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#retrieve-a-list-of-available-log-files">Retrieve a list of available log files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-a-specific-logfile">Delete a specific logfile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-model">Data model</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#js-client-library">JS Client Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#octoprintclient-plugins-logging"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.logging</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.logging.listLogs"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.logging.listLogs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.logging.deleteLog"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.logging.deleteLog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.logging.downloadLog"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.logging.downloadLog()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#source-code">Source Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pluginmanager.html">Plugin Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="softwareupdate.html">Software Update Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uploadmanager.html">Upload Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtual_printer.html">Virtual Printer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
+    <strong>Note:</strong>
+    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.10.3" style="color: white;text-decoration: underline">here</a>.
+  </p>
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Bundled Plugins</a> &raquo;</li>
+        
+      <li>Logging</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/bundledplugins/logging.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="logging">
+<span id="sec-bundledplugins-logging"></span><h1>Logging<a class="headerlink" href="#logging" title="Link to this heading"></a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.3.7.</span></p>
+</div>
+<p>The OctoPrint Logging plugin implements the log management functionality that was formerly part of the core application and adds features to
+configure logging levels for sub modules through the included settings dialog.</p>
+<figure class="align-center" id="id3">
+<span id="fig-bundledplugins-logging-settings"></span><img alt="Logging plugin" src="../_images/bundledplugins-logging-settings.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 18 </span><span class="caption-text">The settings dialog of the Logging plugin</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<section id="api">
+<span id="sec-bundledplugins-logging-api"></span><h2>API<a class="headerlink" href="#api" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All log file management operations require admin rights.</p>
+</div>
+<section id="retrieve-a-list-of-available-log-files">
+<span id="sec-bundledplugins-logging-api-list-logs"></span><h3>Retrieve a list of available log files<a class="headerlink" href="#retrieve-a-list-of-available-log-files" title="Link to this heading"></a></h3>
+<dl class="http get">
+<dt class="sig sig-object http" id="get--plugin-logging-logs">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/plugin/logging/logs</span></span><a class="headerlink" href="#get--plugin-logging-logs" title="Link to this definition"></a></dt>
+<dd><p>Retrieve information regarding all log files currently available and regarding the disk space still available
+in the system on the location the log files are being stored.</p>
+<p>Returns a <a class="reference internal" href="#sec-bundledplugins-logging-api-datamodel-retrieveresponse"><span class="std std-ref">Logfile Retrieve response</span></a>.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/plugin/logging/logs</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;files&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;date&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1393158814</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;octoprint.log&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;size&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">43712</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;refs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/plugin/logging/logs/octoprint.log&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;download&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/downloads/logs/octoprint.log&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;date&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1392628936</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;octoprint.log.2014-02-17&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;size&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">13205</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;refs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/plugin/logging/logs/octoprint.log.2014-02-17&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;download&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/downloads/logs/octoprint.log.2014-02-17&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;date&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1393158814</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serial.log&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;size&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1798419</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;refs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/plugin/logging/logs/serial.log&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;download&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/downloads/logs/serial.log&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;free&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12237201408</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Status Codes<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – No error</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4">403 Forbidden</a></span> – If the given API token did not have admin rights associated with it</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="delete-a-specific-logfile">
+<span id="sec-bundledplugins-logging-api-delete-logs"></span><h3>Delete a specific logfile<a class="headerlink" href="#delete-a-specific-logfile" title="Link to this heading"></a></h3>
+<dl class="http delete">
+<dt class="sig sig-object http" id="delete--plugin-logging-logs-(path-filename)">
+<span class="sig-name descname"><span class="pre">DELETE</span> </span><span class="sig-name descname"><span class="pre">/plugin/logging/logs/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">path:</span> </em><em class="sig-param"><span class="pre">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#delete--plugin-logging-logs-(path-filename)" title="Link to this definition"></a></dt>
+<dd><p>Delete the selected log file with name <cite>filename</cite>.</p>
+<p>Returns a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> after successful deletion.</p>
+<p><strong>Example Request</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/plugin/logging/logs/octoprint.log.2014-02-17</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – The filename of the log file to delete</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a></span> – No error</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4">403 Forbidden</a></span> – If the given API token did not have admin rights associated with it</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a></span> – If the file was not found</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="data-model">
+<span id="sec-bundledplugins-logging-api-datamodel"></span><h3>Data model<a class="headerlink" href="#data-model" title="Link to this heading"></a></h3>
+<section id="logfile-retrieve-response">
+<span id="sec-bundledplugins-logging-api-datamodel-retrieveresponse"></span><h4>Logfile Retrieve Response<a class="headerlink" href="#logfile-retrieve-response" title="Link to this heading"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 8.3%" />
+<col style="width: 16.7%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">files</span></code></p></td>
+<td><p>0..*</p></td>
+<td><p>Array of <a class="reference internal" href="#sec-bundledplugins-logging-api-datamodel-fileinfo"><span class="std std-ref">File information items</span></a></p></td>
+<td><p>The list of requested files. Might be an empty list if no files are available</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">free</span></code></p></td>
+<td><p>1</p></td>
+<td><p>String</p></td>
+<td><p>The amount of disk space in bytes available in the local disk space (refers to OctoPrint’s <code class="docutils literal notranslate"><span class="pre">logs</span></code> folder).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="file-information">
+<span id="sec-bundledplugins-logging-api-datamodel-fileinfo"></span><h4>File information<a class="headerlink" href="#file-information" title="Link to this heading"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 8.3%" />
+<col style="width: 16.7%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>1</p></td>
+<td><p>String</p></td>
+<td><p>The name of the file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">size</span></code></p></td>
+<td><p>1</p></td>
+<td><p>Number</p></td>
+<td><p>The size of the file in bytes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">date</span></code></p></td>
+<td><p>1</p></td>
+<td><p>Unix timestamp</p></td>
+<td><p>The timestamp when this file was last modified.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">refs</span></code></p></td>
+<td><p>1</p></td>
+<td><p><a class="reference internal" href="#sec-bundledplugins-logging-api-datamodel-ref"><span class="std std-ref">References</span></a></p></td>
+<td><p>References relevant to this file</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="references">
+<span id="sec-bundledplugins-logging-api-datamodel-ref"></span><h4>References<a class="headerlink" href="#references" title="Link to this heading"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 8.3%" />
+<col style="width: 16.7%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">resource</span></code></p></td>
+<td><p>1</p></td>
+<td><p>URL</p></td>
+<td><p>The resource that represents the file (e.g. for deleting)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">download</span></code></p></td>
+<td><p>1</p></td>
+<td><p>URL</p></td>
+<td><p>The download URL for the file</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="js-client-library">
+<span id="sec-bundledplugins-logging-jsclientlib"></span><h2>JS Client Library<a class="headerlink" href="#js-client-library" title="Link to this heading"></a></h2>
+</section>
+<section id="octoprintclient-plugins-logging">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.logging</span></code><a class="headerlink" href="#octoprintclient-plugins-logging" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All methods here require that the used API token or the existing browser session
+has admin rights.</p>
+</div>
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.plugins.logging.listLogs">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">logging</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">listLogs</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.logging.listLogs" title="Link to this definition"></a></dt>
+<dd><p>Retrieves a list of log files.</p>
+<p>See <a class="reference internal" href="#sec-bundledplugins-logging-api-list-logs"><span class="std std-ref">Retrieve a list of available log files</span></a> for details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.plugins.logging.deleteLog">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">logging</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">deleteLog</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.logging.deleteLog" title="Link to this definition"></a></dt>
+<dd><p>Deletes the specified log <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
+<p>See <a class="reference internal" href="#sec-bundledplugins-logging-api-delete-logs"><span class="std std-ref">Delete a specific log file</span></a> for details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The path to the log file to delete</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.plugins.logging.downloadLog">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">logging</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">downloadLog</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.logging.downloadLog" title="Link to this definition"></a></dt>
+<dd><p>Downloads the specified log <code class="docutils literal notranslate"><span class="pre">file</span></code>.</p>
+<p>See <code class="xref js js-func docutils literal notranslate"><span class="pre">OctoPrint.download()</span></code> for more details on the underlying library download mechanism.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The path to the log file to download</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns Promise<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="source-code">
+<span id="sec-bundledplugins-logging-sourcecode"></span><h2>Source Code<a class="headerlink" href="#source-code" title="Link to this heading"></a></h2>
+<p>The source of the Logging plugin is bundled with OctoPrint and can be found in its source repository under <code class="docutils literal notranslate"><span class="pre">src/octoprint/plugins/logging</span></code>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="gcodeviewer.html" class="btn btn-neutral float-left" title="GCode Viewer Plugin" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pluginmanager.html" class="btn btn-neutral float-right" title="Plugin Manager" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2025, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.11.0rc3
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.11.0rc3/bundledplugins/logging.html">1.11.0rc3</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.10.3/bundledplugins/logging.html">1.10.3</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/bundledplugins/logging.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/bundledplugins/logging.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/bundledplugins/logging.html">devel</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
