@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTTP Routing Table &mdash; OctoPrint 1.11.0rc4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=3dbc9e18" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/theme_overrides.css?v=1e67d180" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=cb785a92"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/mermaid.min.js?v=c0ebaf0d"></script>
+        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+ 
+
+    <script>
+      DOCUMENTATION_OPTIONS.COLLAPSE_INDEX = true;
+    </script>
+
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            OctoPrint
+          </a>
+              <div class="version">
+                1.11.0rc4
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
+    <strong>Note:</strong>
+    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.10.3" style="color: white;text-decoration: underline">here</a>.
+  </p>
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>HTTP Routing Table</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+
+   <h1>HTTP Routing Table</h1>
+
+   <div class="modindex-jumpbox">
+   <a href="#cap-/api"><strong>/api</strong></a> | 
+   <a href="#cap-/plugin"><strong>/plugin</strong></a> | 
+   <a href="#cap-/setup"><strong>/setup</strong></a>
+   </div>
+
+   <table class="indextable modindextable">
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/api"><td></td><td>
+       <strong>/api</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/access.html#get--api-access-groups"><code class="xref">GET /api/access/groups</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/access.html#get--api-access-groups-(string-key)"><code class="xref">GET /api/access/groups/(string:key)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/access.html#get--api-access-permissions"><code class="xref">GET /api/access/permissions</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/access.html#get--api-access-users"><code class="xref">GET /api/access/users</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/access.html#get--api-access-users-(string-username)"><code class="xref">GET /api/access/users/(string:username)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/access.html#get--api-access-users-(string-username)-settings"><code class="xref">GET /api/access/users/(string:username)/settings</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/connection.html#get--api-connection"><code class="xref">GET /api/connection</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/general.html#get--api-currentuser"><code class="xref">GET /api/currentuser</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/files.html#get--api-files"><code class="xref">GET /api/files</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/files.html#get--api-files-(string-location)"><code class="xref">GET /api/files/(string:location)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/files.html#get--api-files-(string-location)-(path-filename)"><code class="xref">GET /api/files/(string:location)/(path:filename)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/job.html#get--api-job"><code class="xref">GET /api/job</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/languages.html#get--api-languages"><code class="xref">GET /api/languages</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="bundledplugins/appkeys.html#get--api-plugin-appkeys"><code class="xref">GET /api/plugin/appkeys</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/printer.html#get--api-printer"><code class="xref">GET /api/printer</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/printer.html#get--api-printer-bed"><code class="xref">GET /api/printer/bed</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/printer.html#get--api-printer-chamber"><code class="xref">GET /api/printer/chamber</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/printer.html#get--api-printer-command-custom"><code class="xref">GET /api/printer/command/custom</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/printer.html#get--api-printer-error"><code class="xref">GET /api/printer/error</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/printer.html#get--api-printer-sd"><code class="xref">GET /api/printer/sd</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/printer.html#get--api-printer-tool"><code class="xref">GET /api/printer/tool</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/printerprofiles.html#get--api-printerprofiles"><code class="xref">GET /api/printerprofiles</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/printerprofiles.html#get--api-printerprofiles-(string-identifier)"><code class="xref">GET /api/printerprofiles/(string:identifier)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/server.html#get--api-server"><code class="xref">GET /api/server</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/settings.html#get--api-settings"><code class="xref">GET /api/settings</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/settings.html#get--api-settings-templates"><code class="xref">GET /api/settings/templates</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/slicing.html#get--api-slicing"><code class="xref">GET /api/slicing</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/slicing.html#get--api-slicing-(string-slicer)-profiles"><code class="xref">GET /api/slicing/(string:slicer)/profiles</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/slicing.html#get--api-slicing-(string-slicer)-profiles-(string-key)"><code class="xref">GET /api/slicing/(string:slicer)/profiles/(string:key)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/system.html#get--api-system-commands"><code class="xref">GET /api/system/commands</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/system.html#get--api-system-commands-(string-source)"><code class="xref">GET /api/system/commands/(string:source)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/timelapse.html#get--api-timelapse"><code class="xref">GET /api/timelapse</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/version.html#get--api-version"><code class="xref">GET /api/version</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/access.html#post--api-access-groups"><code class="xref">POST /api/access/groups</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/access.html#post--api-access-users"><code class="xref">POST /api/access/users</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/access.html#post--api-access-users-(string-username)-apikey"><code class="xref">POST /api/access/users/(string:username)/apikey</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/connection.html#post--api-connection"><code class="xref">POST /api/connection</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/files.html#post--api-files-(string-location)"><code class="xref">POST /api/files/(string:location)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/files.html#post--api-files-(string-location)-(path-path)"><code class="xref">POST /api/files/(string:location)/(path:path)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/job.html#post--api-job"><code class="xref">POST /api/job</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/languages.html#post--api-languages"><code class="xref">POST /api/languages</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/general.html#post--api-login"><code class="xref">POST /api/login</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/general.html#post--api-logout"><code class="xref">POST /api/logout</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="bundledplugins/appkeys.html#post--api-plugin-appkeys"><code class="xref">POST /api/plugin/appkeys</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/printer.html#post--api-printer-bed"><code class="xref">POST /api/printer/bed</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/printer.html#post--api-printer-chamber"><code class="xref">POST /api/printer/chamber</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/printer.html#post--api-printer-command"><code class="xref">POST /api/printer/command</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/printer.html#post--api-printer-printhead"><code class="xref">POST /api/printer/printhead</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/printer.html#post--api-printer-sd"><code class="xref">POST /api/printer/sd</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/printer.html#post--api-printer-tool"><code class="xref">POST /api/printer/tool</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/printerprofiles.html#post--api-printerprofiles"><code class="xref">POST /api/printerprofiles</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/settings.html#post--api-settings"><code class="xref">POST /api/settings</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/settings.html#post--api-settings-apikey"><code class="xref">POST /api/settings/apikey</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/system.html#post--api-system-commands-(string-source)-(string-action)"><code class="xref">POST /api/system/commands/(string:source)/(string:action)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/timelapse.html#post--api-timelapse"><code class="xref">POST /api/timelapse</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/timelapse.html#post--api-timelapse-unrendered-(string-name)"><code class="xref">POST /api/timelapse/unrendered/(string:name)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/util.html#post--api-util-test"><code class="xref">POST /api/util/test</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/access.html#put--api-access-groups-(string-key)"><code class="xref">PUT /api/access/groups/(string:key)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/access.html#put--api-access-users-(string-username)"><code class="xref">PUT /api/access/users/(string:username)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/access.html#put--api-access-users-(string-username)-password"><code class="xref">PUT /api/access/users/(string:username)/password</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/slicing.html#put--api-slicing-(string-slicer)-profiles-(string-key)"><code class="xref">PUT /api/slicing/(string:slicer)/profiles/(string:key)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/access.html#delete--api-access-groups-(string-key)"><code class="xref">DELETE /api/access/groups/(string:key)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/access.html#delete--api-access-users-(string-username)"><code class="xref">DELETE /api/access/users/(string:username)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/access.html#delete--api-access-users-(string-username)-apikey"><code class="xref">DELETE /api/access/users/(string:username)/apikey</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/files.html#delete--api-files-(string-location)-(path-path)"><code class="xref">DELETE /api/files/(string:location)/(path:path)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/languages.html#delete--api-languages-(string-locale)-(string-pack)"><code class="xref">DELETE /api/languages/(string:locale)/(string:pack)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/printerprofiles.html#delete--api-printerprofiles-(string-profile)"><code class="xref">DELETE /api/printerprofiles/(string:profile)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/slicing.html#delete--api-slicing-(string-slicer)-profiles-(string-key)"><code class="xref">DELETE /api/slicing/(string:slicer)/profiles/(string:key)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/timelapse.html#delete--api-timelapse-(string-name)"><code class="xref">DELETE /api/timelapse/(string:name)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/timelapse.html#delete--api-timelapse-unrendered-(string-name)"><code class="xref">DELETE /api/timelapse/unrendered/(string:name)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/access.html#patch--api-access-users-(string-username)-settings"><code class="xref">PATCH /api/access/users/(string:username)/settings</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/printerprofiles.html#patch--api-printerprofiles-(string-profile)"><code class="xref">PATCH /api/printerprofiles/(string:profile)</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/slicing.html#patch--api-slicing-(string-slicer)-profiles-(string-key)"><code class="xref">PATCH /api/slicing/(string:slicer)/profiles/(string:key)</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/plugin"><td></td><td>
+       <strong>/plugin</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="bundledplugins/appkeys.html#get--plugin-appkeys-probe"><code class="xref">GET /plugin/appkeys/probe</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="bundledplugins/appkeys.html#get--plugin-appkeys-request--str-app_token-"><code class="xref">GET /plugin/appkeys/request/&lt;str:app_token&gt;</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="bundledplugins/logging.html#get--plugin-logging-logs"><code class="xref">GET /plugin/logging/logs</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="bundledplugins/appkeys.html#post--plugin-appkeys-decision--str-user_token-"><code class="xref">POST /plugin/appkeys/decision/&lt;str:user_token&gt;</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="bundledplugins/appkeys.html#post--plugin-appkeys-request"><code class="xref">POST /plugin/appkeys/request</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="bundledplugins/logging.html#delete--plugin-logging-logs-(path-filename)"><code class="xref">DELETE /plugin/logging/logs/(path:filename)</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-/setup"><td></td><td>
+       <strong>/setup</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/wizard.html#get--setup-wizard"><code class="xref">GET /setup/wizard</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="api/wizard.html#post--setup-wizard"><code class="xref">POST /setup/wizard</code></a></td><td>
+       <em></em></td></tr>
+   </table>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2025, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.11.0rc4
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.11.0rc4/http-routingtable.html">1.11.0rc4</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.10.3/http-routingtable.html">1.10.3</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/http-routingtable.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/http-routingtable.html">maintenance</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/devel/http-routingtable.html">devel</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
