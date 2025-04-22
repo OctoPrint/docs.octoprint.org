@@ -344,10 +344,11 @@ will be provided as only parameter.</p>
 will be provided as only parameter. Note that this may also be triggered for not logged in guests if the guest
 group is modified. In this case <code class="docutils literal notranslate"><span class="pre">user</span></code> will be undefined.</p>
 </dd>
-<dt>onBeforePrintStart(callback)</dt><dd><p>Called before a print is started either by clicking the “Print” button in the state panel or the select &amp; print icon
-in the file list. The callback to actually proceed with starting the print is provided as the only parameter. By returning
+<dt>onBeforePrintStart(callback, data)</dt><dd><p>Called before a print is started either by clicking the “Print” button in the state panel or the select &amp; print icon
+in the file list. The callback to proceed with starting the print is provided as first parameter. By returning
 <code class="docutils literal notranslate"><span class="pre">false</span></code> from this, plugins may prevent a print from actually starting, optionally starting it at a later date by
-calling <code class="docutils literal notranslate"><span class="pre">callback</span></code> themselves. This can be used for example to implement an additional confirmation dialog.</p>
+calling <code class="docutils literal notranslate"><span class="pre">callback</span></code> themselves. This can be used for example to implement an additional confirmation dialog. The
+second parameter is a file data object that includes details such as name, path, and origin.</p>
 </dd>
 <dt>onTabChange(next, current)</dt><dd><p>Called before the main tab view switches to a new tab, so <cite>before</cite> the new tab becomes visible. Called with the
 next (changed to) and current (still visible) tab’s hash (e.g. <code class="docutils literal notranslate"><span class="pre">#control</span></code>). Note that <code class="docutils literal notranslate"><span class="pre">current</span></code> might be undefined
@@ -430,10 +431,118 @@ on your view model, taking a list of all bound view models:</p>
 <span id="sec-plugins-viewmodels-livecycle"></span><h2><a class="toc-backref" href="#id5" role="doc-backlink">Lifecycle diagrams</a><a class="headerlink" href="#lifecycle-diagrams" title="Link to this heading"></a></h2>
 <section id="web-interface-startup">
 <span id="sec-plugins-viewmodels-startup"></span><h3><a class="toc-backref" href="#id6" role="doc-backlink">Web interface startup</a><a class="headerlink" href="#web-interface-startup" title="Link to this heading"></a></h3>
-</section>
+sequenceDiagram
+   participant Main
+   participant DataUpdater
+   participant LoginStateViewModel
+   participant SettingsViewModel
+   participant UiStateViewModel
+
+   Note over DataUpdater: connectCallback = undefined
+   Note over UiStateViewModel: loaded = false
+
+   activate Main
+
+   Main-&gt;&gt;+DataUpdater: connect
+   Note right of DataUpdater: initialized = false
+   DataUpdater--&gt;&gt;Main: ok
+   deactivate Main
+   DataUpdater-&gt;&gt;DataUpdater: asynchronous connect to server...
+   activate DataUpdater
+   Note right of DataUpdater: store any callbacks instead of triggering (e.g. onServerConnect, fromHistoryData, fromCurrentData, ...)
+   DataUpdater-X+Main: done
+   deactivate DataUpdater
+   deactivate DataUpdater
+
+   Main-&gt;&gt;+DataUpdater: connectCallback = onServerConnect
+   Note right of DataUpdater: connectCallback = onServerConnect
+   DataUpdater--&gt;&gt;-Main: ok
+   Main-&gt;&gt;+Main: onServerConnect
+   Main-&gt;&gt;+LoginStateViewModel: passiveLogin
+   LoginStateViewModel--&gt;&gt;Main: ok
+   Main--&gt;&gt;Main: ok
+   deactivate Main
+   deactivate Main
+
+   LoginStateViewModel-&gt;&gt;+LoginStateViewModel: asynchronous passive login
+   Note over Main,UiStateViewModel: Session available!
+   LoginStateViewModel-X+Main: done
+   deactivate LoginStateViewModel
+   deactivate LoginStateViewModel
+
+   Main-&gt;&gt;+DataUpdater: initialized
+   Note right of DataUpdater: initialized = true
+   DataUpdater-&gt;DataUpdater: trigger stored callbacks
+   DataUpdater--&gt;&gt;-Main: ok
+
+   Main-&gt;&gt;+Main: fetchSettings
+   Note right of Main: trigger onStartup
+
+   Main-&gt;&gt;+SettingsViewModel: requestData
+   SettingsViewModel--&gt;&gt;Main: ok
+   deactivate Main
+   deactivate Main
+
+   SettingsViewModel-&gt;&gt;+SettingsViewModel: asynchronous settings fetch
+   Note over Main,UiStateViewModel: Settings available!
+   SettingsViewModel-X+Main: done
+   deactivate SettingsViewModel
+   deactivate SettingsViewModel
+
+   Main-&gt;&gt;+Main: bindViewModels
+
+   loop for each view model
+       Main-&gt;Main: trigger onBeforeBinding
+       Main-&gt;Main: trigger onBoundTo
+       Main-&gt;Main: trigger onAfterBinding
+   end
+
+   Main-&gt;Main: trigger onAllBound
+   opt User is logged in
+      Main-&gt;&gt;+LoginStateViewModel: onAllBound
+      LoginStateViewModel-&gt;LoginStateViewModel: trigger onUserLoggedIn
+      LoginStateViewModel--&gt;&gt;-Main: ok
+   end
+
+   Main-&gt;&gt;+UiStateViewModel: loaded
+   Note right of UiStateViewModel: loaded = true
+   UiStateViewModel--&gt;&gt;-Main: ok
+
+   Main-&gt;Main: trigger onStartupComplete
+   deactivate Main
+   deactivate Main</section>
 <section id="web-interface-reconnect">
 <span id="sec-plugins-viewmodels-reconnect"></span><h3><a class="toc-backref" href="#id7" role="doc-backlink">Web interface reconnect</a><a class="headerlink" href="#web-interface-reconnect" title="Link to this heading"></a></h3>
-<div class="admonition seealso">
+sequenceDiagram
+   participant onServerConnect
+   participant DataUpdater
+   participant LoginStateViewModel
+
+   activate DataUpdater
+   DataUpdater-&gt;&gt;DataUpdater: call connectCallback
+   DataUpdater-&gt;&gt;+onServerConnect: call
+   onServerConnect--&gt;&gt;DataUpdater: ok
+   deactivate DataUpdater
+
+   onServerConnect-&gt;&gt;+LoginStateViewModel: passiveLogin
+   LoginStateViewModel--&gt;&gt;onServerConnect: ok
+   deactivate onServerConnect
+   LoginStateViewModel-&gt;&gt;+LoginStateViewModel: asynchronous passive login
+   Note over onServerConnect,LoginStateViewModel: Session available!
+   opt User is logged in
+      LoginStateViewModel-&gt;LoginStateViewModel: trigger onUserLoggedIn
+   end
+
+   activate onServerConnect
+   LoginStateViewModel-XonServerConnect: done
+   deactivate LoginStateViewModel
+   deactivate LoginStateViewModel
+
+   onServerConnect-&gt;&gt;+DataUpdater: initialized
+   DataUpdater-&gt;DataUpdater: trigger stored callbacks
+   DataUpdater--&gt;&gt;onServerConnect: ok
+   deactivate DataUpdater
+   deactivate onServerConnect<div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
 <dt><a class="reference external" href="https://github.com/OctoPrint/OctoPrint/tree/master/src/octoprint/static/js/app/viewmodels">OctoPrint’s core viewmodels</a></dt><dd><p>OctoPrint’s own view models use the same mechanisms for interacting with each other and the web application as

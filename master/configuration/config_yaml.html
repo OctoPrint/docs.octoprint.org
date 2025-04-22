@@ -1021,9 +1021,18 @@ corresponding files in <code class="docutils literal notranslate"><span class="p
 <span class="w">    </span><span class="c1"># the connecting client&#39;s IP address. A reverse proxy on the same machine as OctoPrint (e.g. as</span>
 <span class="w">    </span><span class="c1"># found on OctoPi) will be handled correctly by the default setting of 127.0.0.1 and ::1, further</span>
 <span class="w">    </span><span class="c1"># proxies in front of that you&#39;ll have to add yourself.</span>
-<span class="w">    </span><span class="nt">trustedDownstream</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">127.0.0.1</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;::1&quot;</span>
+
+<span class="w">    </span><span class="c1"># List of trusted proxy servers for which to ignore the IP address when trying to determine</span>
+<span class="w">    </span><span class="c1"># the connecting client&#39;s IP address. A reverse proxy on the same machine as OctoPrint (e.g. as</span>
+<span class="w">    </span><span class="c1"># found on OctoPi) will be handled correctly by default through `trustLocalhostProxies`, further</span>
+<span class="w">    </span><span class="c1"># proxies in front of that you&#39;ll have to add yourself here.</span>
+<span class="w">    </span><span class="nt">trustedProxies</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+
+<span class="w">    </span><span class="c1"># Whether to trust the local machine to act as a reverse proxy. Defaults to true, will ensure</span>
+<span class="w">    </span><span class="c1"># that `127.0.0.0/8` and `::1` will always be considered to be included in `trustedProxies`. If</span>
+<span class="w">    </span><span class="c1"># you want to explicitly disable trusting the local machine, set this to false and don&#39;t include</span>
+<span class="w">    </span><span class="c1"># the local machine in trustedProxies (as in, don&#39;t include &quot;127.0.0.1&quot;, &quot;127.0.0.0/8&quot; or &quot;::1&quot;).</span>
+<span class="w">    </span><span class="nt">trustLocalhostProxies</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
 <span class="w">  </span><span class="c1"># Whether to allow OctoPrint to be embedded in a frame or not. Note that depending on your setup you might</span>
 <span class="w">  </span><span class="c1"># have to set SameSite to None, Secure to true and serve OctoPrint through a reverse proxy that enables https</span>
@@ -1274,6 +1283,9 @@ lines from the display terminal log.</p>
 <span class="w">  </span><span class="c1"># Whether to include a &quot;created with OctoPrint&quot; watermark in the generated timelapse movies</span>
 <span class="w">  </span><span class="nt">watermark</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
+<span class="w">  </span><span class="c1"># Delay to wait for after print end before rendering timelapse, in seconds. If another print gets started during this time, the rendering will be postponed.</span>
+<span class="w">  </span><span class="nt">renderAfterPrintDelay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+
 <span class="w">  </span><span class="c1"># Whether to flip the webcam horizontally</span>
 <span class="w">  </span><span class="nt">flipH</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 
@@ -1297,6 +1309,10 @@ lines from the display terminal log.</p>
 <span class="w">    </span><span class="c1"># record just like at the beginning, so the recording will continue another</span>
 <span class="w">    </span><span class="c1"># fps * postRoll * interval seconds. Zchange timelapses will take one final picture and add it fps * postRoll</span>
 <span class="w">    </span><span class="nt">postRoll</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+
+<span class="w">    </span><span class="c1"># Determines whether rendering the timelapse should be done automatically after the print is finished.</span>
+<span class="w">    </span><span class="c1"># This can be done always, only after successful prints, only after failed prints, or never.</span>
+<span class="w">    </span><span class="nt">renderAfterPrint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span>
 
 <span class="w">    </span><span class="c1"># Additional options depending on the timelapse type. All timelapses take a postRoll and an fps setting.</span>
 <span class="w">    </span><span class="nt">options</span><span class="p">:</span>
