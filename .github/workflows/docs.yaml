@@ -47,6 +47,9 @@ jobs:
           echo "Matrix: ${{ matrix.version }}, ${{ matrix.source }}, ${{ matrix.python }}, ${{ matrix.mermaid }}"
           echo "Formatted ref: ${{ format('refs/{0}/{1}', matrix.source, matrix.version) }}"
 
+      - name: 🛡️ Disable AppArmor
+        uses: cisagov/action-disable-apparmor@437d94f26a2e4bf8c03acfb500a6afc688b497db # v1.0.0
+
       - name: ⬇ Checkout docs.octoprint.org
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
         uses: actions/checkout@v4
