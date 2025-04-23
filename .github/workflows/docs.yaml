@@ -74,14 +74,18 @@ jobs:
           pip install sphinx==${{ matrix.sphinx }} sphinxcontrib-mermaid==${{ matrix.mermaid }} Jinja2==${{ matrix.jinja }}
 
       - name: 🏗 Set up NodeJS
-        if: matrix.mermaid_fix == 'true' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version))
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
         uses: actions/setup-node@v3
         with:
           node-version: "20"
 
-      - name: 🏗 Install mermaid-cli
-        if: matrix.mermaid_fix == 'true' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version))
+      - name: 🏗 Prepare stuff for mermaid
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
         run: |
+          npx puppeteer browsers install chrome-headless-shell
+          echo '{"args": ["--no-sandbox"]}' > puppeteer-config.json
+          cat puppeteer-config.json
+
           npm install @mermaid-js/mermaid-cli
 
       - name: ⬇ Checkout OctoPrint
@@ -107,7 +111,7 @@ jobs:
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
         run: |
           cd ${{ github.workspace }}/docs.octoprint.org/util/versionselector
-          python versionselector.py ${{ github.workspace }}/OctoPrint/docs/ ${{ matrix.version }} ${{ env.OCTOPRINT_VERSION }} ${{ github.workspace }}/versions.json -D mermaid_cmd=${{ github.workspace }}/node_modules/.bin/mmdc -D mermaid_output_format=svg -D mermaid_version=
+          python versionselector.py ${{ github.workspace }}/OctoPrint/docs/ ${{ matrix.version }} ${{ env.OCTOPRINT_VERSION }} ${{ github.workspace }}/versions.json -D mermaid_cmd=${{ github.workspace }}/node_modules/.bin/mmdc -D mermaid_params="-p${{ github.workspace }}/puppeteer-config.json" -D mermaid_output_format=svg -D mermaid_version=
           echo ".rst-content object[type^='image/']{width: 100%;}" >> ${{ github.workspace }}/OctoPrint/docs/_build/html/${{ matrix.version }}/_static/theme_overrides.css
 
       #- name: 🔎 Run link check
