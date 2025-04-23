@@ -229,7 +229,61 @@ signals that no decision has been made yet.</p></li>
 an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a>.</p></li>
 </ol>
 </div></blockquote>
-</section>
+sequenceDiagram
+   participant User
+   participant App
+   participant Webinterface
+   participant Server
+
+   note over User, Server: Step 1, 2 &amp; 3
+
+   User-&gt;&gt;App: enters URL of instance to connect to and optional user_id
+
+   App-&gt;&gt;Server: GET /plugin/appkeys/probe
+
+   alt Workflow unsupported
+
+   Server-&gt;&gt;App: 404
+   App-&gt;&gt;User: alternative workflow, copy-paste key manually
+
+   else Workflow supported
+
+   App-&gt;&gt;Server: POST /plugin/appkeys/request, (app_name, user_id)
+
+   note over User, Server: Step 4
+
+   Server--&gt;&gt;Webinterface: plugin message for &quot;appkeys&quot; w/ (app_name, user_token, user_id)
+   Webinterface--&gt;&gt;User: Display confirmation dialog
+   Server-&gt;&gt;App: 201, Location: /plugin/appkeys/request/&lt;app_token&gt;
+
+   note over User, Server: Step 5
+
+   loop Poll for decision
+   App-&gt;&gt;Server: GET /plugin/appkeys/request/&lt;app_token&gt;
+   Server-&gt;&gt;App: 202
+   end
+
+   note over User, Server: Step 6 &amp; 7
+
+   alt User accepts
+
+   User--&gt;&gt;Webinterface: Allow access
+   Webinterface-&gt;&gt;Server: POST /plugin/appkeys/decision/&lt;user_token&gt;, (True)
+   Server-&gt;&gt;Webinterface: 204
+   App-&gt;&gt;Server: GET /plugin/appkeys/request/&lt;app_token&gt;
+   Server-&gt;&gt;App: 200, api_key
+
+   else User denies
+
+   User--&gt;&gt;Webinterface: Deny access
+   Webinterface-&gt;&gt;Server: POST /plugin/appkeys/decision/&lt;user_token&gt;, (False)
+   Server-&gt;&gt;Webinterface: 204
+   App-&gt;&gt;Server: GET /plugin/appkeys/request/&lt;app_token&gt;
+   Server-&gt;&gt;App: 404
+
+   end
+
+   end</section>
 <section id="workflow-with-redirect-to-auth-dialog">
 <span id="sec-bundledplugins-appkeys-workflow-authdialog"></span><h2>Workflow with redirect to auth dialog<a class="headerlink" href="#workflow-with-redirect-to-auth-dialog" title="Link to this heading"></a></h2>
 <div class="versionadded">
@@ -261,7 +315,63 @@ signals that no decision has been made yet.</p></li>
 an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a>.</p></li>
 </ol>
 </div></blockquote>
-</section>
+sequenceDiagram
+   participant User
+   participant App
+   participant Auth Dialog
+   participant Server
+
+   note over User, Server: Step 1, 2 &amp; 3
+
+   User-&gt;&gt;App: enters URL of instance to connect to and optional user_id
+
+   App-&gt;&gt;Server: GET /plugin/appkeys/probe
+
+   alt Workflow unsupported
+
+   Server-&gt;&gt;App: 404
+   App-&gt;&gt;User: alternative workflow, copy-paste key manually
+
+   else Workflow supported
+
+   App-&gt;&gt;Server: POST /plugin/appkeys/request, (app_name, user_id)
+
+   note over User, Server: Step 4
+
+   Server-&gt;&gt;App: 201, Location: /plugin/appkeys/request/&lt;app_token&gt;, auth_dialog: &lt;auth_dialog&gt;
+
+   note over User, Server: Step 5
+
+   App--&gt;&gt;Auth Dialog: open new browser window with auth_dialog URL
+
+   loop Poll for decision
+   App-&gt;&gt;Server: GET /plugin/appkeys/request/&lt;app_token&gt;
+   Server-&gt;&gt;App: 202
+   end
+
+   note over User, Server: Step 6 &amp; 7
+
+   User-&gt;&gt;Auth Dialog: Logs in
+
+   alt User accepts
+
+   User--&gt;&gt;Auth Dialog: Allow access
+   Auth Dialog-&gt;&gt;Server: POST /plugin/appkeys/decision/&lt;user_token&gt;, (True)
+   Server-&gt;&gt;Auth Dialog: 204
+   App-&gt;&gt;Server: GET /plugin/appkeys/request/&lt;app_token&gt;
+   Server-&gt;&gt;App: 200, api_key
+
+   else User denies
+
+   User--&gt;&gt;Auth Dialog: Deny access
+   Auth Dialog-&gt;&gt;Server: POST /plugin/appkeys/decision/&lt;user_token&gt;, (False)
+   Server-&gt;&gt;Auth Dialog: 204
+   App-&gt;&gt;Server: GET /plugin/appkeys/request/&lt;app_token&gt;
+   Server-&gt;&gt;App: 404
+
+   end
+
+   end</section>
 <section id="api">
 <span id="sec-bundledplugins-appkeys-api"></span><h2>API<a class="headerlink" href="#api" title="Link to this heading"></a></h2>
 <section id="probe-for-workflow-support">
