@@ -180,7 +180,8 @@ jobs:
                 aliases="[\"latest\"]"
               fi
               echo "Adding $version at /en/$version..."
-              jq --arg version ${version} --argjson aliases ${aliases} '. + [{"version": "/en/$version", "title": "$version", "aliases": $aliases}]' versions.json > versions.json
+              versions=$(jq --arg version "${version}" --argjson aliases "${aliases}" '. + [{"version": "/en/\( $version )", "title": $version, "aliases": $aliases}]' versions.json)
+              echo -n $versions > versions.json
             else
               echo "$version is not a directory, ignoring"
             fi
