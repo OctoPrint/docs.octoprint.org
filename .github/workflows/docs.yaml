@@ -169,7 +169,7 @@ jobs:
             cp -r artifacts/$version docs/
           fi
 
-      - name: Generate versions.json
+      - name: 🚧 Generate versions.json
         run: |
           echo "[]" > docs/versions.json
           for version in docs/*; do
@@ -178,9 +178,15 @@ jobs:
               if [ "$version" == "master" ]; then
                 aliases="[\"latest\"]"
               fi
+              echo "Adding $version at /en/$version..."
               jq --arg version ${version} --argjson aliases ${aliases} '. + [{"version": "/en/$version", "title": "$version", "aliases": $aliases}]' docs/versions.json > docs/versions.json
+            else
+              echo "docs/$version is not a directory, ignoring"
             fi
           done
+
+          echo "Versions:"
+          cat docs/versions.json
   
       - name: 🚀 Commit & deploy
         uses: EndBug/add-and-commit@v9
