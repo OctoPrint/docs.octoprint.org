@@ -1,183 +1,1445 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Software Update Plugin &mdash; OctoPrint maintenance documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=3dbc9e18" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=1e67d180" />
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="pluginmanager.html">
+      
+      
+        <link rel="next" href="uploadmanager.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Software Update Plugin - OctoPrint maintenance documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=3be82f60" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#first-steps" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="OctoPrint maintenance documentation" class="md-header__button md-logo" aria-label="OctoPrint maintenance documentation" data-md-component="logo">
+      
   
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=edc6e93c"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../_static/mermaid.min.js?v=c0ebaf0d"></script>
-        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
-        <script>mermaid.initialize({startOnLoad:true});</script>
-    <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Upload Manager" href="uploadmanager.html" />
-    <link rel="prev" title="Plugin Manager" href="pluginmanager.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index.html" class="icon icon-home">
-            OctoPrint
-          </a>
-              <div class="version">
-                maintenance
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Bundled Plugins</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="action_command_notification.html">Action Command Notification support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="action_command_prompt.html">Action Command Prompt support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="announcements.html">Announcement Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tracking.html">Anonymous Usage Tracking Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="appkeys.html">Application Keys Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="backup.html">Backup Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="customcontrolmanager.html">Custom Control Manager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="discovery.html">Discovery Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="errortracking.html">Error Tracking Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_check.html">File Check</a></li>
-<li class="toctree-l2"><a class="reference internal" href="firmware_check.html">Firmware Check</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gcodeviewer.html">GCode Viewer Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pluginmanager.html">Plugin Manager</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Software Update Plugin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#first-steps">First Steps</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#command-line-usage">Command line usage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#configuring-the-plugin">Configuring the Plugin</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#version-checks">Version checks</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#update-methods">Update methods</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#common-configuration-patterns">Common configuration patterns</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#global-credentials">Global credentials</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#events">Events</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#hooks">Hooks</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#octoprint-plugin-softwareupdate-check-config">octoprint.plugin.softwareupdate.check_config</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#helpers">Helpers</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#sec-bundledplugins-softwareupdate-helpers-version-checks">version_checks</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#updaters">updaters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#exceptions">exceptions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#util">util</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#source-code">Source Code</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="uploadmanager.html">Upload Manager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="virtual_printer.html">Virtual Printer</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
-</ul>
-
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OctoPrint maintenance documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Software Update Plugin
+            
+          </span>
         </div>
       </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">OctoPrint</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-
-  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
-    <strong>Note:</strong>
-    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.11.1" style="color: white;text-decoration: underline">here</a>.
-  </p>
-
-
-  <ul class="wy-breadcrumbs">
+    </div>
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="index.html">Bundled Plugins</a> &raquo;</li>
-        
-      <li>Software Update Plugin</li>
+      
+        <form class="md-header__option" data-md-component="palette">
+  
     
     
-      <li class="wy-breadcrumbs-aside">
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
         
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             
-            <a href="../_sources/bundledplugins/softwareupdate.rst.txt" rel="nofollow"> View page source</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
           
         
-      </li>
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="OctoPrint maintenance documentation" class="md-nav__button md-logo" aria-label="OctoPrint maintenance documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    OctoPrint maintenance documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Features
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Bundled Plugins
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Bundled Plugins
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="action_command_notification.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Action Command Notification support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="action_command_prompt.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Action Command Prompt support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="announcements.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Announcement Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tracking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Anonymous Usage Tracking Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="appkeys.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Application Keys Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="backup.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Backup Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="customcontrolmanager.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Custom Control Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="discovery.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Discovery Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="errortracking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Error Tracking Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="file_check.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    File Check
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="firmware_check.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Firmware Check
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gcodeviewer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GCode Viewer Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logging.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pluginmanager.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Plugin Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Software Update Plugin
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Software Update Plugin
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#first-steps" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      First Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-usage" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Command line usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-the-plugin" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Configuring the Plugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuring the Plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#version-checks" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Version checks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-methods" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Update methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-configuration-patterns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Common configuration patterns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-credentials" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Global credentials
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Events
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hooks" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Hooks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#octoprint-plugin-softwareupdate-check-config" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      octoprint.<wbr>plugin.<wbr>softwareupdate.<wbr>check_<wbr>config
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="octoprint.plugin.softwareupdate.check_config">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#update_config_hook" class="md-nav__link">
+    
+      <span aria-label="Python function" class="objinfo-icon objinfo-icon__procedure" title="Python function">F</span>
+    
+    <span class="md-ellipsis">
+      <span title="update_config_hook (Python function) — Returns additional check configurations for the Software Update plugin.">update_<wbr>config_<wbr>hook</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="update_config_hook">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#update_config_hook-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update_config_hook-return-type" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Return type
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helpers" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Helpers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Helpers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sec-bundledplugins-softwareupdate-helpers-version-checks" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="sec-bundledplugins-softwareupdate-helpers-version_checks (reference label)">version_<wbr>checks</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updaters" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      updaters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exceptions" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      exceptions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#util" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      util
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#source-code" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Source Code
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uploadmanager.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Upload Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="virtual_printer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Virtual Printer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    REST API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Events
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developing Plugins
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Internal Modules
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jsclientlib/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Java<wbr>Script Client Library
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
     
   </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
 
+<nav class="md-nav md-nav--secondary">
   
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="software-update-plugin">
-<span id="sec-bundledplugins-softwareupdate"></span><h1>Software Update Plugin<a class="headerlink" href="#software-update-plugin" title="Link to this heading"></a></h1>
-<div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.2.0.</span></p>
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#first-steps" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      First Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-usage" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Command line usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-the-plugin" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Configuring the Plugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuring the Plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#version-checks" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Version checks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-methods" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Update methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-configuration-patterns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Common configuration patterns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-credentials" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Global credentials
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Events
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hooks" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Hooks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#octoprint-plugin-softwareupdate-check-config" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      octoprint.<wbr>plugin.<wbr>softwareupdate.<wbr>check_<wbr>config
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="octoprint.plugin.softwareupdate.check_config">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#update_config_hook" class="md-nav__link">
+    
+      <span aria-label="Python function" class="objinfo-icon objinfo-icon__procedure" title="Python function">F</span>
+    
+    <span class="md-ellipsis">
+      <span title="update_config_hook (Python function) — Returns additional check configurations for the Software Update plugin.">update_<wbr>config_<wbr>hook</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="update_config_hook">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#update_config_hook-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update_config_hook-return-type" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Return type
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helpers" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Helpers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Helpers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sec-bundledplugins-softwareupdate-helpers-version-checks" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="sec-bundledplugins-softwareupdate-helpers-version_checks (reference label)">version_<wbr>checks</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updaters" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      updaters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exceptions" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      exceptions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#util" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      util
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#source-code" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Source Code
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="software-update-plugin"><span id="sec-bundledplugins-softwareupdate"></span>Software Update Plugin<a class="headerlink" href="#software-update-plugin" title="Link to this heading">¶</a></h1>
+<div class="admonition versionadded">
+<p class="admonition-title"><span class="versionmodified added">Added in version 1.2.0.</span></p>
 </div>
 <p>The Software Update Plugin allows receiving notifications about new releases
 of OctoPrint or installed plugins which registered with it and – if properly
 configured – also applying the found updates.</p>
 <p>It comes bundled with OctoPrint.</p>
-<section id="first-steps">
-<span id="sec-bundledplugins-softwareupdate-firststeps"></span><h2>First Steps<a class="headerlink" href="#first-steps" title="Link to this heading"></a></h2>
+<h2 id="first-steps"><span id="sec-bundledplugins-softwareupdate-firststeps"></span>First Steps<a class="headerlink" href="#first-steps" title="Link to this heading">¶</a></h2>
 <p>Out of the box the Software Update Plugin will be able to notify you of any
 updates that might be available for your OctoPrint installation or any plugins
 that registered themselves with it. In order for automatic restarts after updates
@@ -190,12 +1452,11 @@ wrench icon in the upper right corner.</p>
 <figure class="align-center" id="id2">
 <span id="fig-bundledplugins-softwareupdate-plugin-configuration"></span><img alt="Software Update plugin configuration dialog" src="../_images/bundledplugins-softwareupdate-configuration.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 22 </span><span class="caption-text">The Software Update plugin configuration dialog</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
-</figcaption>
+<p><span class="caption-number">Fig. 22 </span><span class="caption-text"><span class="caption-text">
+The Software Update plugin configuration dialog</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></figcaption>
 </figure>
 <p>There you can adjust the following settings:</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p><strong>OctoPrint version tracking</strong>: Whether you want to track OctoPrint <em>releases</em> or every <em>commit</em>. Usually you want to
 select “Release” here which is also the default, unless you are a developer.</p></li>
 <li><p><strong>Tracked branch</strong> (if tracking is set to “Github Commit”): The branch that will be tracked if you set version tracking to “Github Commit”.</p></li>
@@ -214,17 +1475,14 @@ you load the page. Defaults to 24h, you usually shouldn’t need to change that 
 apply updates.</p></li>
 <li><p><strong>Minimum free disk space</strong>: The minimum amount of free disk space needed in order to allow software updates to be run.</p></li>
 </ul>
-</div></blockquote>
 <p>More settings are available by <a class="reference internal" href="#sec-bundledplugins-softwareupdate-configuration"><span class="std std-ref">editing the corresponding section in config.yaml</span></a>.</p>
 <p>Restart commands for OctoPrint and the whole server can be configured under Settings &gt; Server.</p>
-</section>
-<section id="command-line-usage">
-<span id="sec-bundledplugins-softwareupdate-cli"></span><h2>Command line usage<a class="headerlink" href="#command-line-usage" title="Link to this heading"></a></h2>
+<h2 id="command-line-usage"><span id="sec-bundledplugins-softwareupdate-cli"></span>Command line usage<a class="headerlink" href="#command-line-usage" title="Link to this heading">¶</a></h2>
 <p>The functionality of the Software Update Plugin is also available on OctoPrint’s command line interface under the
 <code class="docutils literal notranslate"><span class="pre">plugins</span></code> sub command. It’s possible to check for updates via <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">plugins</span> <span class="pre">softwareupdate:check</span></code>
 and to apply available updates via <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">plugins</span> <span class="pre">softwareupdate:update</span></code>. Please see the corresponding
 <code class="docutils literal notranslate"><span class="pre">--help</span></code> pages for details:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ octoprint plugins softwareupdate:check --help
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>$ octoprint plugins softwareupdate:check --help
 Usage: octoprint plugins softwareupdate:check [OPTIONS] [TARGETS]...
 
   Check for updates.
@@ -246,9 +1504,9 @@ Usage: octoprint plugins softwareupdate:check [OPTIONS] [TARGETS]...
 Options:
   --force  Ignore the cache for the update check
   --help   Show this message and exit.
-</pre></div>
+</code></pre></div>
 </div>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ octoprint plugins softwareupdate:update --help
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>$ octoprint plugins softwareupdate:update --help
 Usage: octoprint plugins softwareupdate:update [OPTIONS] [TARGETS]...
 
   Apply updates.
@@ -270,12 +1528,10 @@ Usage: octoprint plugins softwareupdate:update [OPTIONS] [TARGETS]...
 Options:
   --force  Update even if already up to date
   --help   Show this message and exit.
-</pre></div>
+</code></pre></div>
 </div>
-</section>
-<section id="configuring-the-plugin">
-<span id="sec-bundledplugins-softwareupdate-configuration"></span><h2>Configuring the Plugin<a class="headerlink" href="#configuring-the-plugin" title="Link to this heading"></a></h2>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+<h2 id="configuring-the-plugin"><span id="sec-bundledplugins-softwareupdate-configuration"></span>Configuring the Plugin<a class="headerlink" href="#configuring-the-plugin" title="Link to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">softwareupdate</span><span class="p">:</span>
 <span class="w">    </span><span class="c1"># configured version check and update methods</span>
 <span class="w">    </span><span class="nt">checks</span><span class="p">:</span>
@@ -330,14 +1586,12 @@ Options:
 <span class="w">      </span><span class="c1"># Unset by default</span>
 <span class="w">      </span><span class="nt">bitbucket_user</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">bitbucket_password</span><span class="p">:</span>
-</pre></div>
+</code></pre></div>
 </div>
-<section id="version-checks">
-<span id="sec-bundledplugins-softwareupdate-configuration-versionchecks"></span><h3>Version checks<a class="headerlink" href="#version-checks" title="Link to this heading"></a></h3>
+<h3 id="version-checks"><span id="sec-bundledplugins-softwareupdate-configuration-versionchecks"></span>Version checks<a class="headerlink" href="#version-checks" title="Link to this heading">¶</a></h3>
 <p>Version check types are configured through the <code class="docutils literal notranslate"><span class="pre">type</span></code> parameter. The following
 types are currently recognized:</p>
-<blockquote>
-<div><ul>
+<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">github_release</span></code>: Checks against releases published on Github. Additional
 config parameters:</p>
 <ul>
@@ -354,8 +1608,8 @@ field in Github release data - release will only be included if the
 values match. Defaults to being unset, in which case the <code class="docutils literal notranslate"><span class="pre">branch</span></code>
 will be matched.</p></li>
 </ul>
-<div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.2.16.</span></p>
+<div class="admonition versionadded">
+<p class="admonition-title"><span class="versionmodified added">Added in version 1.2.16.</span></p>
 </div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">stable_branch</span></code>: Stable channel definition, optional. Structure:</p>
@@ -367,8 +1621,8 @@ field in Github release data - release will only be included if the
 values match. Defaults to being unset, in which case the <code class="docutils literal notranslate"><span class="pre">branch</span></code>
 will be matched.</p></li>
 </ul>
-<div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.2.16.</span></p>
+<div class="admonition versionadded">
+<p class="admonition-title"><span class="versionmodified added">Added in version 1.2.16.</span></p>
 </div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">prerelease_channel</span></code>: Release channel to limit updates to. If set only
@@ -412,8 +1666,8 @@ configure this as pip URL in <code class="docutils literal notranslate"><span cl
 <code class="docutils literal notranslate"><span class="pre">api_user</span></code> to be set. <strong>Important</strong>: Never use your actual Bitbucket login password. Generate
 a new app password. App passwords are user specific on Bitbucket.</p></li>
 </ul>
-<div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.3.5.</span></p>
+<div class="admonition versionadded">
+<p class="admonition-title"><span class="versionmodified added">Added in version 1.3.5.</span></p>
 </div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">git_commit</span></code>: Checks a local git repository for new commits on its
@@ -428,8 +1682,8 @@ config parameters:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">package</span></code>: (mandatory) Name of the package which to check.</p></li>
 </ul>
-<div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.4.0.</span></p>
+<div class="admonition versionadded">
+<p class="admonition-title"><span class="versionmodified added">Added in version 1.4.0.</span></p>
 </div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">httpheader</span></code>: Checks an HTTP header on a defined URL for changes. This can be used for easy checks
@@ -443,8 +1697,8 @@ methods such as <code class="docutils literal notranslate"><span class="pre">sin
 <li><p><code class="docutils literal notranslate"><span class="pre">header_prefix</span></code>: Prefix to use for the obtained value in the version display. If not provided <code class="docutils literal notranslate"><span class="pre">header_name</span></code>
 will be used. If set to an empty string, no prefix will be added.</p></li>
 </ul>
-<div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.4.1.</span></p>
+<div class="admonition versionadded">
+<p class="admonition-title"><span class="versionmodified added">Added in version 1.4.1.</span></p>
 </div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">jsondata</span></code>: Checks the provided JSON endpoint for changes. The JSON endpoint must return an object with the
@@ -453,8 +1707,8 @@ config parameters:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">jsondata</span></code>: (mandatory) URL from which to fetch the JSON data</p></li>
 </ul>
-<div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.4.1.</span></p>
+<div class="admonition versionadded">
+<p class="admonition-title"><span class="versionmodified added">Added in version 1.4.1.</span></p>
 </div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">command_line</span></code>: Uses a provided script to determine whether an update
@@ -481,8 +1735,8 @@ software update mechanisms during development. Additional config parameters:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">current_version</span></code>: Version to report for both local and remote version.</p></li>
 </ul>
-<div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.3.7.</span></p>
+<div class="admonition versionadded">
+<p class="admonition-title"><span class="versionmodified added">Added in version 1.3.7.</span></p>
 </div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">never_current</span></code>: Always reports that an update is necessary. Useful for debugging
@@ -491,20 +1745,16 @@ software update mechanisms during development. Additional config parameters:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">local_version</span></code>: Current local version. Defaults to <code class="docutils literal notranslate"><span class="pre">1.0.0</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">remote_version</span></code>: Remote version to offer update to. Defaults to <code class="docutils literal notranslate"><span class="pre">1.0.1</span></code>.</p></li>
 </ul>
-<div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.3.7.</span></p>
+<div class="admonition versionadded">
+<p class="admonition-title"><span class="versionmodified added">Added in version 1.3.7.</span></p>
 </div>
 </li>
 </ul>
-</div></blockquote>
-</section>
-<section id="update-methods">
-<span id="sec-bundledplugins-softwareupdate-configuration-updatemethods"></span><h3>Update methods<a class="headerlink" href="#update-methods" title="Link to this heading"></a></h3>
+<h3 id="update-methods"><span id="sec-bundledplugins-softwareupdate-configuration-updatemethods"></span>Update methods<a class="headerlink" href="#update-methods" title="Link to this heading">¶</a></h3>
 <p>Update methods are specified via the <code class="docutils literal notranslate"><span class="pre">method</span></code> parameter. Some update methods are assigned implicitly
 through the presence of their mandatory configuration parameters. The following methods are currently
 supported:</p>
-<blockquote>
-<div><ul>
+<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">pip</span></code>: Update by <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install``ing</span> <span class="pre">the</span> <span class="pre">supplied</span> <span class="pre">URL.</span> <span class="pre">May</span> <span class="pre">contain</span> <span class="pre">a</span>
 <span class="pre">placeholder</span> <span class="pre">``{target}</span></code> which will be the most recent version specifier as retrieved from the update check.
 Additional config parameters:</p>
@@ -516,8 +1766,8 @@ Additional config parameters:</p>
 for development and version checks that don’t guarantee a Python package version change (e.g. commit based
 version checks like <code class="docutils literal notranslate"><span class="pre">git_commit</span></code>, <code class="docutils literal notranslate"><span class="pre">github_commit</span></code>, <code class="docutils literal notranslate"><span class="pre">bitbucket_commit</span></code>).</p></li>
 </ul>
-<div class="versionchanged">
-<p><span class="versionmodified changed">Changed in version 1.8.0: </span>Added <code class="docutils literal notranslate"><span class="pre">force_reinstall</span></code> parameter.</p>
+<div class="admonition versionchanged">
+<p class="admonition-title"><span class="versionmodified changed">Changed in version 1.8.0: </span>Added <code class="docutils literal notranslate"><span class="pre">force_reinstall</span></code> parameter.</p>
 </div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">single_file_plugin</span></code>: Update a single file plugin by re-downloading it from a configured URL.
@@ -552,13 +1802,12 @@ which performs the update, see below for details. Presence implies <code class="
 <li><p><code class="docutils literal notranslate"><span class="pre">sleep_a_bit</span></code>: Does nothing but block for a configurable <code class="docutils literal notranslate"><span class="pre">duration</span></code> and log
 a countdown in the meantime. Useful for debugging software update mechanisms
 during development.</p>
-<div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.3.7.</span></p>
+<div class="admonition versionadded">
+<p class="admonition-title"><span class="versionmodified added">Added in version 1.3.7.</span></p>
 </div>
 </li>
 </ul>
-</div></blockquote>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>To allow default configurations for multiple update methods, if more than one of
 the above update method specific settings is set the one to use can be selected
@@ -567,7 +1816,7 @@ by setting the property <code class="docutils literal notranslate"><span class="
 <p>The following example defines both <code class="docutils literal notranslate"><span class="pre">pip</span></code> and <code class="docutils literal notranslate"><span class="pre">update_script</span></code>. By setting to
 <code class="docutils literal notranslate"><span class="pre">method</span></code> to <code class="docutils literal notranslate"><span class="pre">pip</span></code>, the Software Update plugin is instructed to use that as
 update method.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">softwareupdate</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">checks</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">octoprint</span><span class="p">:</span>
@@ -578,16 +1827,14 @@ update method.</p>
 <span class="w">        </span><span class="nt">pip</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;https://github.com/OctoPrint/OctoPrint/archive/{target_version}.zip&#39;</span>
 <span class="w">        </span><span class="nt">update_script</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{python}</span><span class="nv"> </span><span class="s">&quot;/path/to/octoprint-update.py&quot;</span><span class="nv"> </span><span class="s">--python=&quot;{python}&quot;</span><span class="nv"> </span><span class="s">&quot;{folder}&quot;</span><span class="nv"> </span><span class="s">&quot;{target}&quot;&#39;</span>
 <span class="w">        </span><span class="nt">checkout_folder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/octoprint/checkout/folder</span>
-</pre></div>
+</code></pre></div>
 </div>
 </div>
-</section>
-<section id="common-configuration-patterns">
-<span id="sec-bundledplugins-softwareupdate-configuration-patterns"></span><h3>Common configuration patterns<a class="headerlink" href="#common-configuration-patterns" title="Link to this heading"></a></h3>
+<h3 id="common-configuration-patterns"><span id="sec-bundledplugins-softwareupdate-configuration-patterns"></span>Common configuration patterns<a class="headerlink" href="#common-configuration-patterns" title="Link to this heading">¶</a></h3>
 <p>Example for a setup that allows “bleeding edge” updates of OctoPrint under
 OctoPi (the <code class="docutils literal notranslate"><span class="pre">update_script</span></code> gets configured correctly automatically by the
 plugin itself):</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">softwareupdate</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">checks</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">octoprint</span><span class="p">:</span>
@@ -597,12 +1844,12 @@ plugin itself):</p>
 <span class="w">        </span><span class="nt">branch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">devel</span>
 <span class="w">        </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">update_script</span>
 <span class="w">        </span><span class="nt">update_folder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/home/pi/OctoPrint</span>
-</pre></div>
+</code></pre></div>
 </div>
 <p>Plugin installed via pip and hosted on Github under
 <code class="docutils literal notranslate"><span class="pre">https://github.com/someUser/OctoPrint-SomePlugin</span></code>, only releases should be
 tracked:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">softwareupdate</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">checks</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">some_plugin</span><span class="p">:</span>
@@ -610,12 +1857,12 @@ tracked:</p>
 <span class="w">        </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">someUser</span>
 <span class="w">        </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OctoPrint-SomePlugin</span>
 <span class="w">        </span><span class="nt">pip</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;https://github.com/someUser/OctoPrint-SomePlugin/archive/{target}.zip&#39;</span>
-</pre></div>
+</code></pre></div>
 </div>
 <p>The same, but declaring three release channels “Stable”, “Maintenance RCs” (tagged on <code class="docutils literal notranslate"><span class="pre">rc/maintenance</span></code> or <code class="docutils literal notranslate"><span class="pre">master</span></code>,
 id <code class="docutils literal notranslate"><span class="pre">rc/maintenance</span></code>) and “Devel RCs” (tagged on <code class="docutils literal notranslate"><span class="pre">rc/maintenance</span></code>, <code class="docutils literal notranslate"><span class="pre">rc/devel</span></code> or <code class="docutils literal notranslate"><span class="pre">master</span></code>, id <code class="docutils literal notranslate"><span class="pre">rc/devel</span></code>),
 but with “Stable” active:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">softwareupdate</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">checks</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">some_plugin</span><span class="p">:</span>
@@ -640,10 +1887,10 @@ but with “Stable” active:</p>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rc/maintenance</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
 <span class="w">        </span><span class="nt">pip</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;https://github.com/someUser/OctoPrint-SomePlugin/archive/{target}.zip&#39;</span>
-</pre></div>
+</code></pre></div>
 </div>
 <p>And now with “Maintenance RCs” active (note the <code class="docutils literal notranslate"><span class="pre">prerelease</span></code> and <code class="docutils literal notranslate"><span class="pre">prerelease_channel</span></code> settings):</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">softwareupdate</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">checks</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">some_plugin</span><span class="p">:</span>
@@ -670,11 +1917,11 @@ but with “Stable” active:</p>
 <span class="w">        </span><span class="nt">prerelease</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
 <span class="w">        </span><span class="nt">prerelease_channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rc/maintenance</span>
 <span class="w">        </span><span class="nt">pip</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;https://github.com/someUser/OctoPrint-SomePlugin/archive/{target}.zip&#39;</span>
-</pre></div>
+</code></pre></div>
 </div>
 <p>The same plugin again, but tracking all commits pushed to branch <code class="docutils literal notranslate"><span class="pre">devel</span></code> (thus allowing
 “bleeding edge” updates):</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">softwareupdate</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">checks</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">some_plugin</span><span class="p">:</span>
@@ -683,10 +1930,10 @@ but with “Stable” active:</p>
 <span class="w">        </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OctoPrint-SomePlugin</span>
 <span class="w">        </span><span class="nt">branch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">devel</span>
 <span class="w">        </span><span class="nt">pip</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;https://github.com/someUser/OctoPrint-SomePlugin/archive/{target}.zip&#39;</span>
-</pre></div>
+</code></pre></div>
 </div>
 <p>Single file plugin hosted in a gist <code class="docutils literal notranslate"><span class="pre">https://gist.github.com/someUser/somegist</span></code> and updated whenever there are changes:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">softwareupdate</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">checks</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">some_plugin</span><span class="p">:</span>
@@ -694,10 +1941,10 @@ but with “Stable” active:</p>
 <span class="w">        </span><span class="nt">header_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ETag</span>
 <span class="w">        </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;https://gist.github.com/someUser/somegist/raw/some_plugin.py&#39;</span>
 <span class="w">        </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">single_file_plugin</span>
-</pre></div>
+</code></pre></div>
 </div>
 <p>The same but updated when a <code class="docutils literal notranslate"><span class="pre">version.json</span></code> hosted alongside gets updated with a new version can be found at</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">softwareupdate</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">checks</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">some_plugin</span><span class="p">:</span>
@@ -705,17 +1952,15 @@ but with “Stable” active:</p>
 <span class="w">        </span><span class="nt">jsondata</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;https://gist.github.com/someUser/somegist/raw/version.json&#39;</span>
 <span class="w">        </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;https://gist.github.com/someUser/somegist/raw/some_plugin.py&#39;</span>
 <span class="w">        </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">single_file_plugin</span>
-</pre></div>
+</code></pre></div>
 </div>
 <p>Note that for gist hosted single file plugins, you need to use the “Raw” install link but should remove the
 commit identifier. E.g. <code class="docutils literal notranslate"><span class="pre">https://gist.githubusercontent.com/&lt;user&gt;/&lt;gistid&gt;/raw/my_plugin.py</span></code> instead of
 <code class="docutils literal notranslate"><span class="pre">https://gist.githubusercontent.com/&lt;user&gt;/&lt;gistid&gt;/raw/&lt;commit&gt;/my_plugin.py</span></code>. Note that these URLs will
 be cached by Github for a bit, so an update will not be immediately picked up.</p>
-</section>
-<section id="global-credentials">
-<span id="sec-bundledplugins-softwareupdate-configuration-credentials"></span><h3>Global credentials<a class="headerlink" href="#global-credentials" title="Link to this heading"></a></h3>
-<div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.5.0.</span></p>
+<h3 id="global-credentials"><span id="sec-bundledplugins-softwareupdate-configuration-credentials"></span>Global credentials<a class="headerlink" href="#global-credentials" title="Link to this heading">¶</a></h3>
+<div class="admonition versionadded">
+<p class="admonition-title"><span class="versionmodified added">Added in version 1.5.0.</span></p>
 </div>
 <p>Starting with OctoPrint 1.5.0, the Software Update Plugin supports supplying a GitHub
 API token to use for the <code class="docutils literal notranslate"><span class="pre">github_release</span></code> and <code class="docutils literal notranslate"><span class="pre">github_commit</span></code> version check types,
@@ -729,40 +1974,30 @@ type may also be configured via <code class="docutils literal notranslate"><span
 <p>None of these configuration options are currently exposed on the UI and can only be used
 via <a class="reference internal" href="../configuration/config_yaml.html#sec-configuration-config-yaml"><span class="std std-ref">config.yaml</span></a> or the
 <a class="reference internal" href="../configuration/cli.html#sec-configuration-cli"><span class="std std-ref">config command line interface</span></a>.</p>
-</section>
-</section>
-<section id="events">
-<span id="sec-bundledplugins-softwareupdate-events"></span><h2>Events<a class="headerlink" href="#events" title="Link to this heading"></a></h2>
+<h2 id="events"><span id="sec-bundledplugins-softwareupdate-events"></span>Events<a class="headerlink" href="#events" title="Link to this heading">¶</a></h2>
 <dl>
 <dt>plugin_softwareupdate_update_succeeded</dt><dd><p>An update succeeded.</p>
 <p>Payload:</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">target</span></code>: update target</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">from_version</span></code>: version from which was updated</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">to_version</span></code>: version to which was updated</p></li>
 </ul>
-</div></blockquote>
 </dd>
 <dt>plugin_softwareupdate_update_failed</dt><dd><p>An update failed.</p>
 <p>Payload:</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">target</span></code>: update target</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">from_version</span></code>: version from which was updated</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">to_version</span></code>: version to which was updated</p></li>
 </ul>
-</div></blockquote>
 </dd>
 </dl>
-</section>
-<section id="hooks">
-<span id="sec-bundledplugins-softwareupdate-hooks"></span><h2>Hooks<a class="headerlink" href="#hooks" title="Link to this heading"></a></h2>
-<section id="octoprint-plugin-softwareupdate-check-config">
-<span id="sec-bundledplugins-softwareupdate-hooks-check-config"></span><h3>octoprint.plugin.softwareupdate.check_config<a class="headerlink" href="#octoprint-plugin-softwareupdate-check-config" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py" id="update_config_hook">
-<span class="sig-name descname"><span class="pre">update_config_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#update_config_hook" title="Link to this definition"></a></dt>
+<h2 id="hooks"><span id="sec-bundledplugins-softwareupdate-hooks"></span>Hooks<a class="headerlink" href="#hooks" title="Link to this heading">¶</a></h2>
+<h3 id="octoprint-plugin-softwareupdate-check-config"><span id="sec-bundledplugins-softwareupdate-hooks-check-config"></span>octoprint.plugin.softwareupdate.check_config<a class="headerlink" href="#octoprint-plugin-softwareupdate-check-config" title="Link to this heading">¶</a></h3>
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight py" id="update_config_hook">
+<span class="sig-name descname"><span class="pre">update_config_hook</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">*</span></span><a class="n reference internal" href="#update_config_hook" title="update_config_hook.args (Python parameter)"><span class="n"><span class="pre">args</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><a class="n reference internal" href="#update_config_hook" title="update_config_hook.kwargs (Python parameter)"><span class="n"><span class="pre">kwargs</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#update_config_hook" title="Link to this definition">¶</a></dt>
 <dd><p>Returns additional check configurations for the Software Update plugin.</p>
 <p>Handlers should return a Python dict containing one entry per check. Usually
 this will probably only be the check configuration for the plugin providing
@@ -780,7 +2015,7 @@ is expected to be a callable matching signature and return value of the
 <p><strong>Example</strong></p>
 <p>The example single-file-plugin updates itself from Github releases published
 at the (fictional) repository <code class="docutils literal notranslate"><span class="pre">https://github.com/someUser/OctoPrint-UpdatePluginDemo</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_update_information</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_update_information</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
         <span class="n">updateplugindemo</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
             <span class="n">displayName</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_plugin_name</span><span class="p">,</span>
@@ -798,96 +2033,142 @@ at the (fictional) repository <code class="docutils literal notranslate"><span c
 <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
 <span class="s2">&quot;octoprint.plugin.softwareupdate.check_config&quot;</span><span class="p">:</span> <span class="n">get_update_information</span>
 <span class="p">}</span>
-</pre></div>
+</code></pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd" id="update_config_hook-returns">Returns<span class="colon">:</span><a class="headerlink" href="#update_config_hook-returns" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><p>A dictionary of check configurations as described above</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even" id="update_config_hook-return-type">Return type<span class="colon">:</span><a class="headerlink" href="#update_config_hook-return-type" title="Permalink to this headline">¶</a></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
 
-</section>
-</section>
-<section id="helpers">
-<span id="sec-bundledplugins-softwareupdate-helpers"></span><h2>Helpers<a class="headerlink" href="#helpers" title="Link to this heading"></a></h2>
-<section id="sec-bundledplugins-softwareupdate-helpers-version-checks">
-<span id="id1"></span><h3>version_checks<a class="headerlink" href="#sec-bundledplugins-softwareupdate-helpers-version-checks" title="Link to this heading"></a></h3>
+<h2 id="helpers"><span id="sec-bundledplugins-softwareupdate-helpers"></span>Helpers<a class="headerlink" href="#helpers" title="Link to this heading">¶</a></h2>
+<h3 id="sec-bundledplugins-softwareupdate-helpers-version-checks"><span id="id1"></span>version_checks<a class="headerlink" href="#sec-bundledplugins-softwareupdate-helpers-version-checks" title="Link to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">version_checks</span></code> module of the Software Update plugin, allows reusing the
 bundled version check variants from plugins (e.g. wrapped in a <code class="docutils literal notranslate"><span class="pre">python_checker</span></code>).</p>
-</section>
-<section id="updaters">
-<span id="sec-bundledplugins-softwareupdate-helpers-updaters"></span><h3>updaters<a class="headerlink" href="#updaters" title="Link to this heading"></a></h3>
+<h3 id="updaters"><span id="sec-bundledplugins-softwareupdate-helpers-updaters"></span>updaters<a class="headerlink" href="#updaters" title="Link to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">updaters</span></code> module of the Software Update plugin, allows reusing the bundled
 updater variants from plugins (e.g. wrapped in a <code class="docutils literal notranslate"><span class="pre">python_updater</span></code>).</p>
-</section>
-<section id="exceptions">
-<span id="sec-bundledplugins-softwareupdate-helpers-exceptions"></span><h3>exceptions<a class="headerlink" href="#exceptions" title="Link to this heading"></a></h3>
+<h3 id="exceptions"><span id="sec-bundledplugins-softwareupdate-helpers-exceptions"></span>exceptions<a class="headerlink" href="#exceptions" title="Link to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">exceptions</span></code> module of the Software Update plugin.</p>
-</section>
-<section id="util">
-<span id="sec-bundledplugins-softwareupdate-helpers-util"></span><h3>util<a class="headerlink" href="#util" title="Link to this heading"></a></h3>
+<h3 id="util"><span id="sec-bundledplugins-softwareupdate-helpers-util"></span>util<a class="headerlink" href="#util" title="Link to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">util</span></code> module of the Software Update plugin.</p>
-</section>
-</section>
-<section id="source-code">
-<span id="sec-bundledplugins-softwareupdate-source"></span><h2>Source Code<a class="headerlink" href="#source-code" title="Link to this heading"></a></h2>
+<h2 id="source-code"><span id="sec-bundledplugins-softwareupdate-source"></span>Source Code<a class="headerlink" href="#source-code" title="Link to this heading">¶</a></h2>
 <p>The source of the Software Update plugin is bundled with OctoPrint and can be
 found in its source repository under <code class="docutils literal notranslate"><span class="pre">src/octoprint/plugins/softwareupdate</span></code>.</p>
-</section>
-</section>
 
 
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="pluginmanager.html" class="btn btn-neutral float-left" title="Plugin Manager" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="uploadmanager.html" class="btn btn-neutral float-right" title="Upload Manager" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
 
-  <hr/>
 
-  <div role="contentinfo">
-    <p>&#169; Copyright 2013-2025, Gina Häußge.</p>
-  </div>
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
 
-</footer>
-        </div>
-      </div>
-    </section>
-  </div>
+
   
-<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    <span class="fa fa-book"> Other Versions</span>
-    v: maintenance
-    <span class="fa fa-caret-down"></span>
-  </span>
-  <div class="rst-other-versions">
-    <dl>
-      <dt>Tags</dt>
-      <dd><a href="https://docs.octoprint.org/en/1.11.1/bundledplugins/softwareupdate.html">1.11.1</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.10.3/bundledplugins/softwareupdate.html">1.10.3</a></dd>
-    </dl>
-    <dl>
-      <dt>Branches</dt>
-      <dd><a href="https://docs.octoprint.org/en/master/bundledplugins/softwareupdate.html">master</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/maintenance/bundledplugins/softwareupdate.html">maintenance</a></dd>
-    </dl>
-  </div>
-</div><script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+  
 
-</body>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="pluginmanager.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Plugin Manager">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Plugin Manager
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="uploadmanager.html" class="md-footer__link md-footer__link--next" aria-label="Next: Upload Manager">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Upload Manager
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2013-2025, OctoPrint.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.2.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.sections", "navigation.top", "navigation.footer", "search.share", "search.suggest", "toc.follow", "toc.sticky", "content.tabs.link", "content.code.copy", "content.tooltips", "announce.dismiss"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
+    
+  </body>
 </html>

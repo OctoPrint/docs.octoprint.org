@@ -1,191 +1,2767 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Application Keys Plugin &mdash; OctoPrint maintenance documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=3dbc9e18" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=1e67d180" />
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="tracking.html">
+      
+      
+        <link rel="next" href="backup.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Application Keys Plugin - OctoPrint maintenance documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=3be82f60" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#workflow" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="OctoPrint maintenance documentation" class="md-header__button md-logo" aria-label="OctoPrint maintenance documentation" data-md-component="logo">
+      
   
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=edc6e93c"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../_static/mermaid.min.js?v=c0ebaf0d"></script>
-        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
-        <script>mermaid.initialize({startOnLoad:true});</script>
-    <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Backup Plugin" href="backup.html" />
-    <link rel="prev" title="Anonymous Usage Tracking Plugin" href="tracking.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index.html" class="icon icon-home">
-            OctoPrint
-          </a>
-              <div class="version">
-                maintenance
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Bundled Plugins</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="action_command_notification.html">Action Command Notification support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="action_command_prompt.html">Action Command Prompt support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="announcements.html">Announcement Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tracking.html">Anonymous Usage Tracking Plugin</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Application Keys Plugin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#workflow">Workflow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#workflow-with-redirect-to-auth-dialog">Workflow with redirect to auth dialog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#api">API</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#probe-for-workflow-support">Probe for workflow support</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#start-authorization-process">Start authorization process</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#poll-for-decision-on-existing-request">Poll for decision on existing request</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#decide-on-existing-request">Decide on existing request</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#fetch-list-of-existing-application-keys">Fetch list of existing application keys</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#issue-an-application-key-command">Issue an application key command</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#data-model">Data model</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#authorization-request">Authorization request</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#authorization-response">Authorization response</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#key-response">Key response</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#decision-request">Decision request</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#list-response">List response</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#key-list-entry">Key list entry</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pending-list-entry">Pending list entry</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#javascript-client-library">JavaScript Client Library</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.getKey"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.getKey()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.getKeys"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.getKeys()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.getAllKeys"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.getAllKeys()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.generateKey"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.generateKey()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.revokeKey"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.revokeKey()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.revokeKeyForApp"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.revokeKeyForApp()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.decide"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.decide()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.probe"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.probe()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.request"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.request()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.requestForUser"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.requestForUser()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.checkDecision"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.checkDecision()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#OctoPrintClient.plugins.appkeys.authenticate"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.plugins.appkeys.authenticate()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#source-code">Source code</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="backup.html">Backup Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="customcontrolmanager.html">Custom Control Manager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="discovery.html">Discovery Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="errortracking.html">Error Tracking Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_check.html">File Check</a></li>
-<li class="toctree-l2"><a class="reference internal" href="firmware_check.html">Firmware Check</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gcodeviewer.html">GCode Viewer Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pluginmanager.html">Plugin Manager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="softwareupdate.html">Software Update Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="uploadmanager.html">Upload Manager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="virtual_printer.html">Virtual Printer</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
-</ul>
-
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OctoPrint maintenance documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Application Keys Plugin
+            
+          </span>
         </div>
       </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">OctoPrint</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-
-  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
-    <strong>Note:</strong>
-    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.11.1" style="color: white;text-decoration: underline">here</a>.
-  </p>
-
-
-  <ul class="wy-breadcrumbs">
+    </div>
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="index.html">Bundled Plugins</a> &raquo;</li>
-        
-      <li>Application Keys Plugin</li>
+      
+        <form class="md-header__option" data-md-component="palette">
+  
     
     
-      <li class="wy-breadcrumbs-aside">
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
         
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             
-            <a href="../_sources/bundledplugins/appkeys.rst.txt" rel="nofollow"> View page source</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
           
         
-      </li>
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="OctoPrint maintenance documentation" class="md-nav__button md-logo" aria-label="OctoPrint maintenance documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    OctoPrint maintenance documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Features
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Bundled Plugins
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Bundled Plugins
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="action_command_notification.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Action Command Notification support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="action_command_prompt.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Action Command Prompt support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="announcements.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Announcement Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tracking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Anonymous Usage Tracking Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Application Keys Plugin
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Application Keys Plugin
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Workflow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-with-redirect-to-auth-dialog" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Workflow with redirect to auth dialog
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#probe-for-workflow-support" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Probe for workflow support
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Probe for workflow support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--plugin-appkeys-probe" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/plugin/appkeys/probe (HTTP get)">GET /plugin/appkeys/probe</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GET /plugin/appkeys/probe">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--plugin-appkeys-probe-status-codes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Status Codes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-authorization-process" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Start authorization process
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Start authorization process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post--plugin-appkeys-request" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/plugin/appkeys/request (HTTP post)">POST /plugin/appkeys/request</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="POST /plugin/appkeys/request">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post--plugin-appkeys-request-json-parameters" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      JSON Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post--plugin-appkeys-request-status-codes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Status Codes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poll-for-decision-on-existing-request" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Poll for decision on existing request
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Poll for decision on existing request">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--plugin-appkeys-request--str-app_token-" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/plugin/appkeys/request/&lt;str:app_token&gt; (HTTP get)">GET /plugin/appkeys/request/&lt;str:<wbr>app_<wbr>token&gt;</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GET /plugin/appkeys/request/&lt;str:app_token&gt;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--plugin-appkeys-request--str-app_token--status-codes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Status Codes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decide-on-existing-request" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Decide on existing request
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decide on existing request">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post--plugin-appkeys-decision--str-user_token-" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/plugin/appkeys/decision/&lt;str:user_token&gt; (HTTP post)">POST /plugin/appkeys/decision/&lt;str:<wbr>user_<wbr>token&gt;</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="POST /plugin/appkeys/decision/&lt;str:user_token&gt;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post--plugin-appkeys-decision--str-user_token--json-parameters" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      JSON Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post--plugin-appkeys-decision--str-user_token--status-codes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Status Codes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fetch-list-of-existing-application-keys" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Fetch list of existing application keys
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fetch list of existing application keys">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--api-plugin-appkeys" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/api/plugin/appkeys (HTTP get)">GET /api/plugin/appkeys</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GET /api/plugin/appkeys">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--api-plugin-appkeys-query-parameters" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Query Parameters
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-an-application-key-command" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Issue an application key command
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Issue an application key command">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post--api-plugin-appkeys" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/api/plugin/appkeys (HTTP post)">POST /api/plugin/appkeys</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="POST /api/plugin/appkeys">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post--api-plugin-appkeys-json-parameters" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      JSON Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post--api-plugin-appkeys-status-codes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Status Codes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-model" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Data model
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authorization-request" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Authorization request
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authorization-response" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Authorization response
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-response" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Key response
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decision-request" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Decision request
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-response" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      List response
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-list-entry" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Key list entry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pending-list-entry" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Pending list entry
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascript-client-library" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Java<wbr>Script Client Library
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JavaScript Client Library">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.getKey" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.getKey (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>get<wbr>Key</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.getKey">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.getKey-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.getKey-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.getKeys" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.getKeys (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>get<wbr>Keys</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.getKeys">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.getKeys-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.getKeys-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.getAllKeys" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.getAllKeys (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>get<wbr>All<wbr>Keys</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.getAllKeys">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.getAllKeys-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.getAllKeys-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.generateKey" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.generateKey (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>generate<wbr>Key</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.generateKey">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.generateKey-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.generateKey-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.revokeKey" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.revokeKey (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>revoke<wbr>Key</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.revokeKey">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.revokeKey-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.revokeKey-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.revokeKeyForApp" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.revokeKeyForApp (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>revoke<wbr>Key<wbr>For<wbr>App</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.revokeKeyForApp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.revokeKeyForApp-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.revokeKeyForApp-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.decide" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.decide (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>decide</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.decide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.decide-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.decide-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.probe" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.probe (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>probe</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.probe">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.probe-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.probe-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.request" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.request (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>request</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.request">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.request-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.request-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.requestForUser" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.requestForUser (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>request<wbr>For<wbr>User</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.requestForUser">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.requestForUser-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.requestForUser-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.checkDecision" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.checkDecision (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>check<wbr>Decision</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.checkDecision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.checkDecision-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.checkDecision-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.authenticate" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.authenticate (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>authenticate</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.authenticate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.authenticate-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.authenticate-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#source-code" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Source code
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="backup.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Backup Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="customcontrolmanager.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Custom Control Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="discovery.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Discovery Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="errortracking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Error Tracking Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="file_check.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    File Check
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="firmware_check.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Firmware Check
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gcodeviewer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GCode Viewer Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logging.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pluginmanager.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Plugin Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="softwareupdate.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Software Update Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="uploadmanager.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Upload Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="virtual_printer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Virtual Printer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    REST API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Events
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developing Plugins
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Internal Modules
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jsclientlib/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Java<wbr>Script Client Library
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
     
   </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
 
+<nav class="md-nav md-nav--secondary">
   
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="application-keys-plugin">
-<span id="sec-bundledplugins-appkeys"></span><h1>Application Keys Plugin<a class="headerlink" href="#application-keys-plugin" title="Link to this heading"></a></h1>
-<div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.3.10.</span></p>
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Workflow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-with-redirect-to-auth-dialog" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Workflow with redirect to auth dialog
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#probe-for-workflow-support" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Probe for workflow support
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Probe for workflow support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--plugin-appkeys-probe" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/plugin/appkeys/probe (HTTP get)">GET /plugin/appkeys/probe</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GET /plugin/appkeys/probe">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--plugin-appkeys-probe-status-codes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Status Codes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-authorization-process" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Start authorization process
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Start authorization process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post--plugin-appkeys-request" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/plugin/appkeys/request (HTTP post)">POST /plugin/appkeys/request</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="POST /plugin/appkeys/request">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post--plugin-appkeys-request-json-parameters" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      JSON Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post--plugin-appkeys-request-status-codes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Status Codes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poll-for-decision-on-existing-request" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Poll for decision on existing request
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Poll for decision on existing request">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--plugin-appkeys-request--str-app_token-" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/plugin/appkeys/request/&lt;str:app_token&gt; (HTTP get)">GET /plugin/appkeys/request/&lt;str:<wbr>app_<wbr>token&gt;</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GET /plugin/appkeys/request/&lt;str:app_token&gt;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--plugin-appkeys-request--str-app_token--status-codes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Status Codes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decide-on-existing-request" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Decide on existing request
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decide on existing request">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post--plugin-appkeys-decision--str-user_token-" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/plugin/appkeys/decision/&lt;str:user_token&gt; (HTTP post)">POST /plugin/appkeys/decision/&lt;str:<wbr>user_<wbr>token&gt;</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="POST /plugin/appkeys/decision/&lt;str:user_token&gt;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post--plugin-appkeys-decision--str-user_token--json-parameters" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      JSON Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post--plugin-appkeys-decision--str-user_token--status-codes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Status Codes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fetch-list-of-existing-application-keys" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Fetch list of existing application keys
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fetch list of existing application keys">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--api-plugin-appkeys" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/api/plugin/appkeys (HTTP get)">GET /api/plugin/appkeys</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GET /api/plugin/appkeys">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--api-plugin-appkeys-query-parameters" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Query Parameters
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-an-application-key-command" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Issue an application key command
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Issue an application key command">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post--api-plugin-appkeys" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/api/plugin/appkeys (HTTP post)">POST /api/plugin/appkeys</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="POST /api/plugin/appkeys">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post--api-plugin-appkeys-json-parameters" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      JSON Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post--api-plugin-appkeys-status-codes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Status Codes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-model" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Data model
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authorization-request" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Authorization request
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authorization-response" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Authorization response
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-response" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Key response
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decision-request" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Decision request
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-response" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      List response
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-list-entry" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Key list entry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pending-list-entry" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Pending list entry
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascript-client-library" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Java<wbr>Script Client Library
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JavaScript Client Library">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.getKey" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.getKey (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>get<wbr>Key</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.getKey">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.getKey-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.getKey-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.getKeys" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.getKeys (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>get<wbr>Keys</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.getKeys">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.getKeys-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.getKeys-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.getAllKeys" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.getAllKeys (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>get<wbr>All<wbr>Keys</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.getAllKeys">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.getAllKeys-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.getAllKeys-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.generateKey" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.generateKey (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>generate<wbr>Key</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.generateKey">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.generateKey-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.generateKey-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.revokeKey" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.revokeKey (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>revoke<wbr>Key</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.revokeKey">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.revokeKey-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.revokeKey-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.revokeKeyForApp" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.revokeKeyForApp (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>revoke<wbr>Key<wbr>For<wbr>App</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.revokeKeyForApp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.revokeKeyForApp-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.revokeKeyForApp-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.decide" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.decide (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>decide</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.decide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.decide-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.decide-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.probe" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.probe (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>probe</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.probe">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.probe-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.probe-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.request" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.request (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>request</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.request">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.request-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.request-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.requestForUser" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.requestForUser (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>request<wbr>For<wbr>User</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.requestForUser">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.requestForUser-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.requestForUser-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.checkDecision" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.checkDecision (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>check<wbr>Decision</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.checkDecision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.checkDecision-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.checkDecision-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.authenticate" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins.appkeys.authenticate (JavaScript function)">Octo<wbr>Print<wbr>Client.<wbr>plugins.<wbr>appkeys.<wbr>authenticate</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.plugins.appkeys.authenticate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.authenticate-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins.appkeys.authenticate-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#source-code" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Source code
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="application-keys-plugin"><span id="sec-bundledplugins-appkeys"></span>Application Keys Plugin<a class="headerlink" href="#application-keys-plugin" title="Link to this heading">¶</a></h1>
+<div class="admonition versionadded">
+<p class="admonition-title"><span class="versionmodified added">Added in version 1.3.10.</span></p>
 </div>
 <p>The OctoPrint Application Keys Plugin comes bundled with OctoPrint.</p>
 <p>It implements a workflow for third party apps or clients to obtain an application specific API key from OctoPrint to interact with it
@@ -194,27 +2770,25 @@ on a per-user base as well as globally by administrators.</p>
 <figure class="align-center" id="id12">
 <span id="fig-bundledplugins-appkeys-confirmation"></span><img alt="Confirmation" src="../_images/bundledplugins-appkeys-confirmation_prompt.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 11 </span><span class="caption-text">The plugin’s confirmation generated for a new application key request.</span><a class="headerlink" href="#id12" title="Link to this image"></a></p>
-</figcaption>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text"><span class="caption-text">
+The plugin’s confirmation generated for a new application key request.</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></figcaption>
 </figure>
 <figure class="align-center" id="id13">
 <span id="fig-bundledplugins-appkeys-user-settings"></span><img alt="Key management via user settings" src="../_images/bundledplugins-appkeys-user_settings.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Users can manage the application specific API keys registered to their account via their user settings.</span><a class="headerlink" href="#id13" title="Link to this image"></a></p>
-</figcaption>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text"><span class="caption-text">
+Users can manage the application specific API keys registered to their account via their user settings.</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></figcaption>
 </figure>
 <figure class="align-center" id="id14">
 <span id="fig-bundledplugins-appkeys-settings"></span><img alt="Global key management via settings" src="../_images/bundledplugins-appkeys-settings.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Administrators can manage all application specific API keys registered to any user.</span><a class="headerlink" href="#id14" title="Link to this image"></a></p>
-</figcaption>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text"><span class="caption-text">
+Administrators can manage all application specific API keys registered to any user.</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></figcaption>
 </figure>
-<section id="workflow">
-<span id="sec-bundledplugins-appkeys-workflow"></span><h2>Workflow<a class="headerlink" href="#workflow" title="Link to this heading"></a></h2>
+<h2 id="workflow"><span id="sec-bundledplugins-appkeys-workflow"></span>Workflow<a class="headerlink" href="#workflow" title="Link to this heading">¶</a></h2>
 <p>The workflow to receive an API key for a third party client/an app via the Application Keys Plugin should consist
 of the following steps:</p>
-<blockquote>
-<div><ol class="arabic simple">
+<ol class="arabic simple">
 <li><p>The User opens the App and gets prompted to enter or select an instance URL. Optionally (recommended!) the User also
 enters their username which is also their user ID into the App.</p></li>
 <li><p>The App <a class="reference internal" href="#sec-bundledplugins-appkeys-api-probe"><span class="std std-ref">probes for workflow support</span></a> on the Server. If this request
@@ -233,9 +2807,9 @@ signals that no decision has been made yet.</p></li>
 <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-keyresponse"><span class="std std-ref">API key response</span></a>. If they deny it, the App will receive
 an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a>.</p></li>
 </ol>
-</div></blockquote>
-<object data="../_images/mermaid-29cc0989a08e3995529dfe636546bddf4d51634b.svg" type="image/svg+xml">
-            <p class="warning">sequenceDiagram
+<div class="mermaid-diagram docutils">
+<pre class="mermaid">
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>sequenceDiagram
    participant User
    participant App
    participant Webinterface
@@ -289,19 +2863,19 @@ an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616
 
    end
 
-   end</p></object>
-</section>
-<section id="workflow-with-redirect-to-auth-dialog">
-<span id="sec-bundledplugins-appkeys-workflow-authdialog"></span><h2>Workflow with redirect to auth dialog<a class="headerlink" href="#workflow-with-redirect-to-auth-dialog" title="Link to this heading"></a></h2>
-<div class="versionadded">
-<p><span class="versionmodified added">Added in version 1.8.0.</span></p>
+   end
+</code></pre></div>
+</div>
+</pre></div>
+<h2 id="workflow-with-redirect-to-auth-dialog"><span id="sec-bundledplugins-appkeys-workflow-authdialog"></span>Workflow with redirect to auth dialog<a class="headerlink" href="#workflow-with-redirect-to-auth-dialog" title="Link to this heading">¶</a></h2>
+<div class="admonition versionadded">
+<p class="admonition-title"><span class="versionmodified added">Added in version 1.8.0.</span></p>
 </div>
 <p>Instead of asking the user to open the full blown OctoPrint interface to confirm the request,
 since OctoPrint 1.8.0 there also exists the alternative of redirecting the user to a
 basic auth dialog that allows logging in and confirming the request in a light-weight
 dialog. To implementat that, follow these steps:</p>
-<blockquote>
-<div><ol class="arabic simple">
+<ol class="arabic simple">
 <li><p>The User opens the App and gets prompted to enter or select an instance URL. Optionally (recommended!) the User also
 enters their username which is also their user ID into the App.</p></li>
 <li><p>The App <a class="reference internal" href="#sec-bundledplugins-appkeys-api-probe"><span class="std std-ref">probes for workflow support</span></a> on the Server. If this request
@@ -321,9 +2895,9 @@ signals that no decision has been made yet.</p></li>
 <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-keyresponse"><span class="std std-ref">API key response</span></a>. If they deny it, the App will receive
 an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a>.</p></li>
 </ol>
-</div></blockquote>
-<object data="../_images/mermaid-1e2a4354753c75597109db1548404e3800e6202d.svg" type="image/svg+xml">
-            <p class="warning">sequenceDiagram
+<div class="mermaid-diagram docutils">
+<pre class="mermaid">
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>sequenceDiagram
    participant User
    participant App
    participant Auth Dialog
@@ -379,20 +2953,20 @@ an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616
 
    end
 
-   end</p></object>
-</section>
-<section id="api">
-<span id="sec-bundledplugins-appkeys-api"></span><h2>API<a class="headerlink" href="#api" title="Link to this heading"></a></h2>
-<section id="probe-for-workflow-support">
-<span id="sec-bundledplugins-appkeys-api-probe"></span><h3>Probe for workflow support<a class="headerlink" href="#probe-for-workflow-support" title="Link to this heading"></a></h3>
-<dl class="http get">
-<dt class="sig sig-object http" id="get--plugin-appkeys-probe">
-<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/plugin/appkeys/probe</span></span><a class="headerlink" href="#get--plugin-appkeys-probe" title="Link to this definition"></a></dt>
+   end
+</code></pre></div>
+</div>
+</pre></div>
+<h2 id="api"><span id="sec-bundledplugins-appkeys-api"></span>API<a class="headerlink" href="#api" title="Link to this heading">¶</a></h2>
+<h3 id="probe-for-workflow-support"><span id="sec-bundledplugins-appkeys-api-probe"></span>Probe for workflow support<a class="headerlink" href="#probe-for-workflow-support" title="Link to this heading">¶</a></h3>
+<dl class="http get objdesc">
+<dt class="sig sig-object highlight http" id="get--plugin-appkeys-probe">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/plugin/appkeys/probe</span></span><a class="headerlink" href="#get--plugin-appkeys-probe" title="Link to this definition">¶</a></dt>
 <dd><p>Probes for support of the workflow.</p>
 <p>Normally returns an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a>, indicating workflow availability. If a different status code is returned
 (usually an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a>), the plugin is disabled or not installed. Fall back to manual api key exchange.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Status Codes<span class="colon">:</span></dt>
+<dt class="field-odd" id="get--plugin-appkeys-probe-status-codes">Status Codes<span class="colon">:</span><a class="headerlink" href="#get--plugin-appkeys-probe-status-codes" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a></span> – the workflow is supported</p></li>
 </ul>
@@ -400,12 +2974,10 @@ an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616
 </dl>
 </dd></dl>
 
-</section>
-<section id="start-authorization-process">
-<span id="sec-bundledplugins-appkeys-api-startauthprocess"></span><h3>Start authorization process<a class="headerlink" href="#start-authorization-process" title="Link to this heading"></a></h3>
-<dl class="http post">
-<dt class="sig sig-object http" id="post--plugin-appkeys-request">
-<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/plugin/appkeys/request</span></span><a class="headerlink" href="#post--plugin-appkeys-request" title="Link to this definition"></a></dt>
+<h3 id="start-authorization-process"><span id="sec-bundledplugins-appkeys-api-startauthprocess"></span>Start authorization process<a class="headerlink" href="#start-authorization-process" title="Link to this heading">¶</a></h3>
+<dl class="http post objdesc">
+<dt class="sig sig-object highlight http" id="post--plugin-appkeys-request">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/plugin/appkeys/request</span></span><a class="headerlink" href="#post--plugin-appkeys-request" title="Link to this definition">¶</a></dt>
 <dd><p>Starts the authorization process.</p>
 <p>Expects a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-authrequest"><span class="std std-ref">Authorization request</span></a> as request body.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">app</span></code> parameter should be a human readable identifier to use
@@ -419,13 +2991,13 @@ is logged in on.</p>
 <p>Returns a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-authresponse"><span class="std std-ref">Authorization response</span></a>
 and HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> with the <code class="docutils literal notranslate"><span class="pre">Location</span></code> header set to the endpoint to poll for a decision.</p>
 <dl class="field-list simple">
-<dt class="field-odd">JSON Parameters<span class="colon">:</span></dt>
+<dt class="field-odd" id="post--plugin-appkeys-request-json-parameters">JSON Parameters<span class="colon">:</span><a class="headerlink" href="#post--plugin-appkeys-request-json-parameters" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>app</strong> – application identifier to use for the request, case insensitive</p></li>
 <li><p><strong>user</strong> – optional user id to restrict the decision to the specified user</p></li>
 </ul>
 </dd>
-<dt class="field-even">Status Codes<span class="colon">:</span></dt>
+<dt class="field-even" id="post--plugin-appkeys-request-status-codes">Status Codes<span class="colon">:</span><a class="headerlink" href="#post--plugin-appkeys-request-status-codes" title="Permalink to this headline">¶</a></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a></span> – authorization process started, polling URL to query can be found in <code class="docutils literal notranslate"><span class="pre">Location</span></code> header</p></li>
 </ul>
@@ -433,23 +3005,21 @@ and HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc261
 </dl>
 </dd></dl>
 
-</section>
-<section id="poll-for-decision-on-existing-request">
-<span id="sec-bundledplugins-appkeys-api-polldecision"></span><h3>Poll for decision on existing request<a class="headerlink" href="#poll-for-decision-on-existing-request" title="Link to this heading"></a></h3>
-<dl class="http get">
-<dt class="sig sig-object http" id="get--plugin-appkeys-request--str-app_token-">
-<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/plugin/appkeys/request/&lt;str:app_token&gt;</span></span><a class="headerlink" href="#get--plugin-appkeys-request--str-app_token-" title="Link to this definition"></a></dt>
+<h3 id="poll-for-decision-on-existing-request"><span id="sec-bundledplugins-appkeys-api-polldecision"></span>Poll for decision on existing request<a class="headerlink" href="#poll-for-decision-on-existing-request" title="Link to this heading">¶</a></h3>
+<dl class="http get objdesc">
+<dt class="sig sig-object highlight http" id="get--plugin-appkeys-request--str-app_token-">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/plugin/appkeys/request/&lt;str:app_token&gt;</span></span><a class="headerlink" href="#get--plugin-appkeys-request--str-app_token-" title="Link to this definition">¶</a></dt>
 <dd><p>Endpoint generated per authorization request to poll for the result.</p>
 <p>Returns an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.3">202 Accepted</a> while no decision has been made yet, an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> and
 a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-keyresponse"><span class="std std-ref">Key response</span></a> if access has been granted and an
 HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> if the request has been denied or timed out.</p>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>The request will be considered stale and deleted internally if the polling endpoint for it isn’t called
 for more than 5s.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Status Codes<span class="colon">:</span></dt>
+<dt class="field-odd" id="get--plugin-appkeys-request--str-app_token--status-codes">Status Codes<span class="colon">:</span><a class="headerlink" href="#get--plugin-appkeys-request--str-app_token--status-codes" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – access granted, API key in response body</p></li>
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.3">202 Accepted</a></span> – no decision has been made yet, continue polling</p></li>
@@ -459,23 +3029,21 @@ for more than 5s.</p>
 </dl>
 </dd></dl>
 
-</section>
-<section id="decide-on-existing-request">
-<span id="sec-bundledplugins-appkeys-api-decide"></span><h3>Decide on existing request<a class="headerlink" href="#decide-on-existing-request" title="Link to this heading"></a></h3>
-<dl class="http post">
-<dt class="sig sig-object http" id="post--plugin-appkeys-decision--str-user_token-">
-<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/plugin/appkeys/decision/&lt;str:user_token&gt;</span></span><a class="headerlink" href="#post--plugin-appkeys-decision--str-user_token-" title="Link to this definition"></a></dt>
+<h3 id="decide-on-existing-request"><span id="sec-bundledplugins-appkeys-api-decide"></span>Decide on existing request<a class="headerlink" href="#decide-on-existing-request" title="Link to this heading">¶</a></h3>
+<dl class="http post objdesc">
+<dt class="sig sig-object highlight http" id="post--plugin-appkeys-decision--str-user_token-">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/plugin/appkeys/decision/&lt;str:user_token&gt;</span></span><a class="headerlink" href="#post--plugin-appkeys-decision--str-user_token-" title="Link to this definition">¶</a></dt>
 <dd><p>Endpoint to decide on the authorization request.</p>
 <p>Expects a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-decisionrequest"><span class="std std-ref">Decision request</span></a> as request body.</p>
 <p>Returns an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> on success.</p>
 <p>Requires the <code class="docutils literal notranslate"><span class="pre">PLUGIN_APPKEYS_GRANT</span></code> permissions and a recent credentials check.</p>
 <dl class="field-list simple">
-<dt class="field-odd">JSON Parameters<span class="colon">:</span></dt>
+<dt class="field-odd" id="post--plugin-appkeys-decision--str-user_token--json-parameters">JSON Parameters<span class="colon">:</span><a class="headerlink" href="#post--plugin-appkeys-decision--str-user_token--json-parameters" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>decision</strong> – boolean value to indicate whether to confirm (<code class="docutils literal notranslate"><span class="pre">True</span></code>) or deny (<code class="docutils literal notranslate"><span class="pre">False</span></code>) access</p></li>
 </ul>
 </dd>
-<dt class="field-even">Status Codes<span class="colon">:</span></dt>
+<dt class="field-even" id="post--plugin-appkeys-decision--str-user_token--status-codes">Status Codes<span class="colon">:</span><a class="headerlink" href="#post--plugin-appkeys-decision--str-user_token--status-codes" title="Permalink to this headline">¶</a></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a></span> – success</p></li>
 </ul>
@@ -483,12 +3051,10 @@ for more than 5s.</p>
 </dl>
 </dd></dl>
 
-</section>
-<section id="fetch-list-of-existing-application-keys">
-<span id="sec-bundledplugins-appkeys-api-fetchlist"></span><h3>Fetch list of existing application keys<a class="headerlink" href="#fetch-list-of-existing-application-keys" title="Link to this heading"></a></h3>
-<dl class="http get">
-<dt class="sig sig-object http" id="get--api-plugin-appkeys">
-<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/plugin/appkeys</span></span><a class="headerlink" href="#get--api-plugin-appkeys" title="Link to this definition"></a></dt>
+<h3 id="fetch-list-of-existing-application-keys"><span id="sec-bundledplugins-appkeys-api-fetchlist"></span>Fetch list of existing application keys<a class="headerlink" href="#fetch-list-of-existing-application-keys" title="Link to this heading">¶</a></h3>
+<dl class="http get objdesc">
+<dt class="sig sig-object highlight http" id="get--api-plugin-appkeys">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/plugin/appkeys</span></span><a class="headerlink" href="#get--api-plugin-appkeys" title="Link to this definition">¶</a></dt>
 <dd><p>Fetches a list of existing application keys and pending requests registered in the system for the current user.</p>
 <p>If the additional optional parameter <code class="docutils literal notranslate"><span class="pre">all</span></code> is provided and the user has the <code class="docutils literal notranslate"><span class="pre">PLUGIN_APPKEYS_ADMIN</span></code> permission, fetches a list
 of <em>all*</em> application keys and pending requests registered in the system for any user.</p>
@@ -498,7 +3064,7 @@ to fetch the key for the specified application identifier and a different user.<
 <p>Returns a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-listreponse"><span class="std std-ref">List response</span></a> in the
 body upon success.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Query Parameters<span class="colon">:</span></dt>
+<dt class="field-odd" id="get--api-plugin-appkeys-query-parameters">Query Parameters<span class="colon">:</span><a class="headerlink" href="#get--api-plugin-appkeys-query-parameters" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>all</strong> – Fetch all application keys and pending requests from all users. Requires the <code class="docutils literal notranslate"><span class="pre">PLUGIN_APPKEYS_ADMIN</span></code> permission.</p></li>
 </ul>
@@ -506,19 +3072,21 @@ body upon success.</p>
 </dl>
 </dd></dl>
 
-</section>
-<section id="issue-an-application-key-command">
-<span id="sec-bundledplugins-appkeys-api-issuecommand"></span><h3>Issue an application key command<a class="headerlink" href="#issue-an-application-key-command" title="Link to this heading"></a></h3>
-<dl class="http post">
-<dt class="sig sig-object http" id="post--api-plugin-appkeys">
-<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/api/plugin/appkeys</span></span><a class="headerlink" href="#post--api-plugin-appkeys" title="Link to this definition"></a></dt>
+<h3 id="issue-an-application-key-command"><span id="sec-bundledplugins-appkeys-api-issuecommand"></span>Issue an application key command<a class="headerlink" href="#issue-an-application-key-command" title="Link to this heading">¶</a></h3>
+<dl class="http post objdesc">
+<dt class="sig sig-object highlight http" id="post--api-plugin-appkeys">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/api/plugin/appkeys</span></span><a class="headerlink" href="#post--api-plugin-appkeys" title="Link to this definition">¶</a></dt>
 <dd><p>Application key commands allow revoking existing application keys and manually generating new ones. The available
 commands are:</p>
-<dl class="simple">
+<dl>
 <dt>revoke</dt><dd><p>Revokes an existing application key. Must belong to the user issuing the command, unless the user has admin rights
 in which case they make revoke any application key in the system. Expects the key in question identified by the
 associated application identifier provided in the <code class="docutils literal notranslate"><span class="pre">app</span></code> parameter. Keys for other users but the current one can
 be revoked by admins with the additional <code class="docutils literal notranslate"><span class="pre">user</span></code> parameter to specify the user id.</p>
+<div class="admonition deprecated">
+<p class="admonition-title"><span class="versionmodified deprecated">Deprecated since version 1.10.0: </span>Revoking a key by supplying the key itself has been deprecated as of OctoPrint 1.10.0. Use <code class="docutils literal notranslate"><span class="pre">app</span></code> and optionally
+<code class="docutils literal notranslate"><span class="pre">user</span></code> instead.</p>
+</div>
 </dd>
 <dt>generate</dt><dd><p>Generates a new application key for the user, using the application identifier provided as parameter <code class="docutils literal notranslate"><span class="pre">app</span></code>. Keys
 for other users but the current one can be generated by admins with the additional <code class="docutils literal notranslate"><span class="pre">user</span></code> parameter to specify
@@ -527,13 +3095,9 @@ the user id.</p>
 </dl>
 <p>Upon success, a status code of <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> and an empty body is returned.</p>
 <p>Requires user rights and a fresh credentials check.</p>
-<div class="deprecated">
-<p><span class="versionmodified deprecated">Deprecated since version 1.10.0: </span>Revoking a key by supplying the key itself has been deprecated as of OctoPrint 1.10.0. Use <code class="docutils literal notranslate"><span class="pre">app</span></code> and optionally
-<code class="docutils literal notranslate"><span class="pre">user</span></code> instead.</p>
-</div>
 <p><strong>Example revoke request</strong></p>
 <p>Revokes the key associated with app id <code class="docutils literal notranslate"><span class="pre">test</span></code> for the current user.</p>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/plugin/appkeys</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/api/plugin/appkeys</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 <span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
@@ -542,14 +3106,14 @@ the user id.</p>
 <span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;revoke&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;app&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test&quot;</span>
 <span class="p">}</span>
-</pre></div>
+</code></pre></div>
 </div>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
-</pre></div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</code></pre></div>
 </div>
 <p><strong>Example revoke request by an admin for a different user</strong></p>
 <p>Revokes the key associated with the app id <code class="docutils literal notranslate"><span class="pre">test</span></code> for user <code class="docutils literal notranslate"><span class="pre">user</span></code>.</p>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/plugin/appkeys</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/api/plugin/appkeys</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 <span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
@@ -559,14 +3123,14 @@ the user id.</p>
 <span class="w">  </span><span class="nt">&quot;app&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span>
 <span class="p">}</span>
-</pre></div>
+</code></pre></div>
 </div>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
-</pre></div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</code></pre></div>
 </div>
 <p><strong>Example generate request</strong></p>
 <p>Generates a new key for application identifier “My awesome application 1.0”.</p>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/plugin/appkeys</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/api/plugin/appkeys</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 <span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
@@ -575,9 +3139,9 @@ the user id.</p>
 <span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;generate&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;app&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My awesome application 1.0&quot;</span>
 <span class="p">}</span>
-</pre></div>
+</code></pre></div>
 </div>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 
 <span class="p">{</span>
@@ -585,10 +3149,10 @@ the user id.</p>
 <span class="w">  </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;me&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;api_key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef1234567890&quot;</span>
 <span class="p">}</span>
-</pre></div>
+</code></pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">JSON Parameters<span class="colon">:</span></dt>
+<dt class="field-odd" id="post--api-plugin-appkeys-json-parameters">JSON Parameters<span class="colon">:</span><a class="headerlink" href="#post--api-plugin-appkeys-json-parameters" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>command</strong> (<em>string</em>) – The command to issue, either <code class="docutils literal notranslate"><span class="pre">revoke</span></code> or <code class="docutils literal notranslate"><span class="pre">generate</span></code></p></li>
 <li><p><strong>app</strong> (<em>string</em>) – <code class="docutils literal notranslate"><span class="pre">revoke</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">generate</span></code> commands: The application identifier of the key to revoke or generate.</p></li>
@@ -598,7 +3162,7 @@ app id. If not provided, the current user’s name will be used.</p></li>
 as of OctoPrint 1.10.0. Use <code class="docutils literal notranslate"><span class="pre">app</span></code> and optionally <code class="docutils literal notranslate"><span class="pre">user</span></code> instead.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Status Codes<span class="colon">:</span></dt>
+<dt class="field-even" id="post--api-plugin-appkeys-status-codes">Status Codes<span class="colon">:</span><a class="headerlink" href="#post--api-plugin-appkeys-status-codes" title="Permalink to this headline">¶</a></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – Key generation successful</p></li>
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a></span> – No error during key revocation</p></li>
@@ -608,13 +3172,9 @@ as of OctoPrint 1.10.0. Use <code class="docutils literal notranslate"><span cla
 </dl>
 </dd></dl>
 
-</section>
-</section>
-<section id="data-model">
-<span id="sec-bundledplugins-appkey-datamodel"></span><h2>Data model<a class="headerlink" href="#data-model" title="Link to this heading"></a></h2>
-<section id="authorization-request">
-<span id="sec-bundledplugins-appkey-datamodel-authrequest"></span><h3>Authorization request<a class="headerlink" href="#authorization-request" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h2 id="data-model"><span id="sec-bundledplugins-appkey-datamodel"></span>Data model<a class="headerlink" href="#data-model" title="Link to this heading">¶</a></h2>
+<h3 id="authorization-request"><span id="sec-bundledplugins-appkey-datamodel-authrequest"></span>Authorization request<a class="headerlink" href="#authorization-request" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -641,10 +3201,8 @@ as of OctoPrint 1.10.0. Use <code class="docutils literal notranslate"><span cla
 </tr>
 </tbody>
 </table>
-</section>
-<section id="authorization-response">
-<span id="sec-bundledplugins-appkey-datamodel-authresponse"></span><h3>Authorization response<a class="headerlink" href="#authorization-response" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h3 id="authorization-response"><span id="sec-bundledplugins-appkey-datamodel-authresponse"></span>Authorization response<a class="headerlink" href="#authorization-response" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -672,10 +3230,8 @@ and authorize the request.</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="key-response">
-<span id="sec-bundledplugins-appkey-datamodel-keyresponse"></span><h3>Key response<a class="headerlink" href="#key-response" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h3 id="key-response"><span id="sec-bundledplugins-appkey-datamodel-keyresponse"></span>Key response<a class="headerlink" href="#key-response" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -697,10 +3253,8 @@ and authorize the request.</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="decision-request">
-<span id="sec-bundledplugins-appkey-datamodel-decisionrequest"></span><h3>Decision request<a class="headerlink" href="#decision-request" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h3 id="decision-request"><span id="sec-bundledplugins-appkey-datamodel-decisionrequest"></span>Decision request<a class="headerlink" href="#decision-request" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -722,10 +3276,8 @@ and authorize the request.</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="list-response">
-<span id="sec-bundledplugins-appkey-datamodel-listreponse"></span><h3>List response<a class="headerlink" href="#list-response" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h3 id="list-response"><span id="sec-bundledplugins-appkey-datamodel-listreponse"></span>List response<a class="headerlink" href="#list-response" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -752,10 +3304,8 @@ and authorize the request.</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="key-list-entry">
-<span id="sec-bundledplugins-appkey-datamodel-keylistentry"></span><h3>Key list entry<a class="headerlink" href="#key-list-entry" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h3 id="key-list-entry"><span id="sec-bundledplugins-appkey-datamodel-keylistentry"></span>Key list entry<a class="headerlink" href="#key-list-entry" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -787,10 +3337,8 @@ and authorize the request.</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="pending-list-entry">
-<span id="sec-bundledplugins-appkey-datamodel-pendinglistentry"></span><h3>Pending list entry<a class="headerlink" href="#pending-list-entry" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h3 id="pending-list-entry"><span id="sec-bundledplugins-appkey-datamodel-pendinglistentry"></span>Pending list entry<a class="headerlink" href="#pending-list-entry" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -822,299 +3370,364 @@ and authorize the request.</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<section id="javascript-client-library">
-<span id="sec-bundledplugins-appkeys-jsclientlib"></span><h2>JavaScript Client Library<a class="headerlink" href="#javascript-client-library" title="Link to this heading"></a></h2>
-<dl class="js function">
-<dt class="sig sig-object js" id="OctoPrintClient.plugins.appkeys.getKey">
-<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">getKey</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getKey" title="Link to this definition"></a></dt>
+<h2 id="javascript-client-library"><span id="sec-bundledplugins-appkeys-jsclientlib"></span>JavaScript Client Library<a class="headerlink" href="#javascript-client-library" title="Link to this heading">¶</a></h2>
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.plugins.appkeys.getKey">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">getKey</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getKey" title="Link to this definition">¶</a></dt>
 <dd><p>Retrieves the key information the given <code class="docutils literal notranslate"><span class="pre">app</span></code> and optional other <code class="docutils literal notranslate"><span class="pre">user</span></code>. The key must belong to the current user, or the current user must
 have the <code class="docutils literal notranslate"><span class="pre">PLUGIN_APPKEYS_ADMIN</span></code> permission.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-fetchlist"><span class="std std-ref">Fetch list of existing application keys</span></a> for more details.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dt class="field-odd" id="OctoPrintClient.plugins.appkeys.getKey-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getKey-arguments" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>app</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – Application identifier</p></li>
 <li><p><strong>user</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – Optional user identifier</p></li>
 <li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns Promise<span class="colon">:</span></dt>
+<dt class="field-even" id="OctoPrintClient.plugins.appkeys.getKey-returns">Returns<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getKey-returns" title="Permalink to this headline">¶</a></dt>
 <dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="js function">
-<dt class="sig sig-object js" id="OctoPrintClient.plugins.appkeys.getKeys">
-<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">getKeys</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getKeys" title="Link to this definition"></a></dt>
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.plugins.appkeys.getKeys">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">getKeys</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getKeys" title="Link to this definition">¶</a></dt>
 <dd><p>Retrieves registered keys and pending requests for the current user.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-fetchlist"><span class="std std-ref">Fetch list of existing application keys</span></a> for more details.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dt class="field-odd" id="OctoPrintClient.plugins.appkeys.getKeys-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getKeys-arguments" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns Promise<span class="colon">:</span></dt>
-<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+<dt class="field-even" id="OctoPrintClient.plugins.appkeys.getKeys-returns">Returns<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getKeys-returns" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="js function">
-<dt class="sig sig-object js" id="OctoPrintClient.plugins.appkeys.getAllKeys">
-<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">getAllKeys</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getAllKeys" title="Link to this definition"></a></dt>
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.plugins.appkeys.getAllKeys">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">getAllKeys</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getAllKeys" title="Link to this definition">¶</a></dt>
 <dd><p>Retrieves registered keys and pending requests for all users.</p>
 <p>Needs the <code class="docutils literal notranslate"><span class="pre">PLUGIN_APPKEYS_ADMIN</span></code> permission.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-fetchlist"><span class="std std-ref">Fetch list of existing application keys</span></a> for more details.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dt class="field-odd" id="OctoPrintClient.plugins.appkeys.getAllKeys-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getAllKeys-arguments" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns Promise<span class="colon">:</span></dt>
-<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+<dt class="field-even" id="OctoPrintClient.plugins.appkeys.getAllKeys-returns">Returns<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.getAllKeys-returns" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="js function">
-<dt class="sig sig-object js" id="OctoPrintClient.plugins.appkeys.generateKey">
-<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">generateKey</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.generateKey" title="Link to this definition"></a></dt>
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.plugins.appkeys.generateKey">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">generateKey</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.generateKey" title="Link to this definition">¶</a></dt>
 <dd><p>Generates a key for the given <code class="docutils literal notranslate"><span class="pre">app</span></code> and the current user.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-issuecommand"><span class="std std-ref">Issue an application key command</span></a> for details.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dt class="field-odd" id="OctoPrintClient.plugins.appkeys.generateKey-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.generateKey-arguments" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>app</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – Application identifier</p></li>
 <li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns Promise<span class="colon">:</span></dt>
-<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+<dt class="field-even" id="OctoPrintClient.plugins.appkeys.generateKey-returns">Returns<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.generateKey-returns" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="js function">
-<dt class="sig sig-object js" id="OctoPrintClient.plugins.appkeys.revokeKey">
-<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">revokeKey</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.revokeKey" title="Link to this definition"></a></dt>
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.plugins.appkeys.revokeKey">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">revokeKey</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.revokeKey" title="Link to this definition">¶</a></dt>
 <dd><p>Revokes the given <code class="docutils literal notranslate"><span class="pre">key</span></code>. The key must belong to the current user, or the current user must
 have the <code class="docutils literal notranslate"><span class="pre">PLUGIN_APPKEYS_ADMIN</span></code> permission.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-issuecommand"><span class="std std-ref">Issue an application key command</span></a> for details.</p>
-<div class="deprecated">
-<p><span class="versionmodified deprecated">Deprecated since version 1.10.0: </span><code class="docutils literal notranslate"><span class="pre">revokeKey</span></code> has been deprecated. Use <code class="docutils literal notranslate"><span class="pre">revokeKeyForApp</span></code> instead.</p>
+<div class="admonition deprecated">
+<p class="admonition-title"><span class="versionmodified deprecated">Deprecated since version 1.10.0: </span><code class="docutils literal notranslate"><span class="pre">revokeKey</span></code> has been deprecated. Use <code class="docutils literal notranslate"><span class="pre">revokeKeyForApp</span></code> instead.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dt class="field-odd" id="OctoPrintClient.plugins.appkeys.revokeKey-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.revokeKey-arguments" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>key</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – Key to revoke</p></li>
 <li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns Promise<span class="colon">:</span></dt>
-<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+<dt class="field-even" id="OctoPrintClient.plugins.appkeys.revokeKey-returns">Returns<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.revokeKey-returns" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="js function">
-<dt class="sig sig-object js" id="OctoPrintClient.plugins.appkeys.revokeKeyForApp">
-<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">revokeKeyForApp</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.revokeKeyForApp" title="Link to this definition"></a></dt>
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.plugins.appkeys.revokeKeyForApp">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">revokeKeyForApp</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.revokeKeyForApp" title="Link to this definition">¶</a></dt>
 <dd><p>Revokes the key for the given <code class="docutils literal notranslate"><span class="pre">app</span></code> and optional other <code class="docutils literal notranslate"><span class="pre">user</span></code>. The key must belong to the current user, or the current user must
 have the <code class="docutils literal notranslate"><span class="pre">PLUGIN_APPKEYS_ADMIN</span></code> permission.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-issuecommand"><span class="std std-ref">Issue an application key command</span></a> for details.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dt class="field-odd" id="OctoPrintClient.plugins.appkeys.revokeKeyForApp-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.revokeKeyForApp-arguments" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>app</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – Application identifier</p></li>
 <li><p><strong>user</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – Optional user identifier</p></li>
 <li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns Promise<span class="colon">:</span></dt>
-<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+<dt class="field-even" id="OctoPrintClient.plugins.appkeys.revokeKeyForApp-returns">Returns<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.revokeKeyForApp-returns" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="js function">
-<dt class="sig sig-object js" id="OctoPrintClient.plugins.appkeys.decide">
-<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">decide</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decision</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.decide" title="Link to this definition"></a></dt>
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.plugins.appkeys.decide">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">decide</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">token</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">decision</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.decide" title="Link to this definition">¶</a></dt>
 <dd><p>Decides on an existing authorization request.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-decide"><span class="std std-ref">Decide on existing request</span></a> for more details.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dt class="field-odd" id="OctoPrintClient.plugins.appkeys.decide-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.decide-arguments" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>token</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – User token for which to make the decision, as pushed to the client via the socket.</p></li>
 <li><p><strong>decision</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">boolean()</span></code></span>) – Whether to grant access (<code class="docutils literal notranslate"><span class="pre">true</span></code>) or not (<code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></li>
 <li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns Promise<span class="colon">:</span></dt>
-<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+<dt class="field-even" id="OctoPrintClient.plugins.appkeys.decide-returns">Returns<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.decide-returns" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="js function">
-<dt class="sig sig-object js" id="OctoPrintClient.plugins.appkeys.probe">
-<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">probe</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.probe" title="Link to this definition"></a></dt>
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.plugins.appkeys.probe">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">probe</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.probe" title="Link to this definition">¶</a></dt>
 <dd><p>Probes for workflow support.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-probe"><span class="std std-ref">Probe for workflow support</span></a> for more details.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dt class="field-odd" id="OctoPrintClient.plugins.appkeys.probe-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.probe-arguments" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns Promise<span class="colon">:</span></dt>
-<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+<dt class="field-even" id="OctoPrintClient.plugins.appkeys.probe-returns">Returns<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.probe-returns" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="js function">
-<dt class="sig sig-object js" id="OctoPrintClient.plugins.appkeys.request">
-<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">request</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.request" title="Link to this definition"></a></dt>
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.plugins.appkeys.request">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">request</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.request" title="Link to this definition">¶</a></dt>
 <dd><p>Starts a new authorization request for the provided <code class="docutils literal notranslate"><span class="pre">app</span></code> identifier.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-startauthprocess"><span class="std std-ref">Start authorization process</span></a> for more details.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dt class="field-odd" id="OctoPrintClient.plugins.appkeys.request-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.request-arguments" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns Promise<span class="colon">:</span></dt>
-<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+<dt class="field-even" id="OctoPrintClient.plugins.appkeys.request-returns">Returns<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.request-returns" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="js function">
-<dt class="sig sig-object js" id="OctoPrintClient.plugins.appkeys.requestForUser">
-<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">requestForUser</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.requestForUser" title="Link to this definition"></a></dt>
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.plugins.appkeys.requestForUser">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">requestForUser</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.requestForUser" title="Link to this definition">¶</a></dt>
 <dd><p>Starts a new authorization request for the provided <code class="docutils literal notranslate"><span class="pre">app</span></code> and <code class="docutils literal notranslate"><span class="pre">user</span></code> identifiers.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-startauthprocess"><span class="std std-ref">Start authorization process</span></a> for more details.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dt class="field-odd" id="OctoPrintClient.plugins.appkeys.requestForUser-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.requestForUser-arguments" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns Promise<span class="colon">:</span></dt>
-<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+<dt class="field-even" id="OctoPrintClient.plugins.appkeys.requestForUser-returns">Returns<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.requestForUser-returns" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="js function">
-<dt class="sig sig-object js" id="OctoPrintClient.plugins.appkeys.checkDecision">
-<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">checkDecision</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.checkDecision" title="Link to this definition"></a></dt>
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.plugins.appkeys.checkDecision">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">checkDecision</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">token</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.checkDecision" title="Link to this definition">¶</a></dt>
 <dd><p>Polls for a decision on an existing authorization request identified by <code class="docutils literal notranslate"><span class="pre">token</span></code>.</p>
 <p>See <a class="reference internal" href="#sec-bundledplugins-appkeys-api-polldecision"><span class="std std-ref">Poll for decision on existing request</span></a> for more details.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dt class="field-odd" id="OctoPrintClient.plugins.appkeys.checkDecision-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.checkDecision-arguments" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns Promise<span class="colon">:</span></dt>
-<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+<dt class="field-even" id="OctoPrintClient.plugins.appkeys.checkDecision-returns">Returns<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.checkDecision-returns" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="js function">
-<dt class="sig sig-object js" id="OctoPrintClient.plugins.appkeys.authenticate">
-<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">authenticate</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.authenticate" title="Link to this definition"></a></dt>
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.plugins.appkeys.authenticate">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">plugins</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">appkeys</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">authenticate</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.authenticate" title="Link to this definition">¶</a></dt>
 <dd><p>Convenience function that probes for support, issues a request and then automatically starts polling for a decision
 on the returned polling endpoint every 1s, until either a positive or negative decision is returned. On success the
 returned promise is resolved with the generated API key as argument. If anything goes wrong or there is no support
 for the workflow, the promise is rejected.</p>
 <p><strong>Example usage</strong></p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="nx">appkeys</span><span class="p">.</span><span class="nx">authenticate</span><span class="p">(</span><span class="s2">&quot;My App&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;some_user&quot;</span><span class="p">)</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="nx">appkeys</span><span class="p">.</span><span class="nx">authenticate</span><span class="p">(</span><span class="s2">&quot;My App&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;some_user&quot;</span><span class="p">)</span>
 <span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">api_key</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Got our API key:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">api_key</span><span class="p">);</span>
 <span class="w">    </span><span class="p">})</span>
 <span class="w">    </span><span class="p">.</span><span class="nx">fail</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;No API key for us&quot;</span><span class="p">);</span>
 <span class="w">    </span><span class="p">})</span>
-</pre></div>
+</code></pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dt class="field-odd" id="OctoPrintClient.plugins.appkeys.authenticate-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.authenticate-arguments" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>app</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – Application identifier</p></li>
 <li><p><strong>user</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – Optional user identifier</p></li>
 <li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns Promise<span class="colon">:</span></dt>
-<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+<dt class="field-even" id="OctoPrintClient.plugins.appkeys.authenticate-returns">Returns<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.plugins.appkeys.authenticate-returns" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</p>
 </dd>
 </dl>
 </dd></dl>
 
-</section>
-<section id="source-code">
-<span id="sec-bundledplugins-appkeys-sourcecode"></span><h2>Source code<a class="headerlink" href="#source-code" title="Link to this heading"></a></h2>
+<h2 id="source-code"><span id="sec-bundledplugins-appkeys-sourcecode"></span>Source code<a class="headerlink" href="#source-code" title="Link to this heading">¶</a></h2>
 <p>The source of the Application Keys plugin is bundled with OctoPrint and can be found in
 its source repository under <code class="docutils literal notranslate"><span class="pre">src/octoprint/plugins/appkeys</span></code>.</p>
-</section>
-</section>
 
 
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="tracking.html" class="btn btn-neutral float-left" title="Anonymous Usage Tracking Plugin" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="backup.html" class="btn btn-neutral float-right" title="Backup Plugin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
 
-  <hr/>
 
-  <div role="contentinfo">
-    <p>&#169; Copyright 2013-2025, Gina Häußge.</p>
-  </div>
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
 
-</footer>
-        </div>
-      </div>
-    </section>
-  </div>
+
   
-<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    <span class="fa fa-book"> Other Versions</span>
-    v: maintenance
-    <span class="fa fa-caret-down"></span>
-  </span>
-  <div class="rst-other-versions">
-    <dl>
-      <dt>Tags</dt>
-      <dd><a href="https://docs.octoprint.org/en/1.11.1/bundledplugins/appkeys.html">1.11.1</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.10.3/bundledplugins/appkeys.html">1.10.3</a></dd>
-    </dl>
-    <dl>
-      <dt>Branches</dt>
-      <dd><a href="https://docs.octoprint.org/en/master/bundledplugins/appkeys.html">master</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/maintenance/bundledplugins/appkeys.html">maintenance</a></dd>
-    </dl>
-  </div>
-</div><script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+  
 
-</body>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="tracking.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Anonymous Usage Tracking Plugin">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Anonymous Usage Tracking Plugin
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="backup.html" class="md-footer__link md-footer__link--next" aria-label="Next: Backup Plugin">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Backup Plugin
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2013-2025, OctoPrint.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.2.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.sections", "navigation.top", "navigation.footer", "search.share", "search.suggest", "toc.follow", "toc.sticky", "content.tabs.link", "content.code.copy", "content.tooltips", "announce.dismiss"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
+    
+  </body>
 </html>

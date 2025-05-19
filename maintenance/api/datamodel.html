@@ -1,235 +1,1564 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Common data model &mdash; OctoPrint maintenance documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=3dbc9e18" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=1e67d180" />
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="push.html">
+      
+      
+        <link rel="next" href="../events/index.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Common data model - OctoPrint maintenance documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=3be82f60" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#printer-related" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="OctoPrint maintenance documentation" class="md-header__button md-logo" aria-label="OctoPrint maintenance documentation" data-md-component="logo">
+      
   
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=edc6e93c"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../_static/mermaid.min.js?v=c0ebaf0d"></script>
-        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
-        <script>mermaid.initialize({startOnLoad:true});</script>
-    <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Events" href="../events/index.html" />
-    <link rel="prev" title="Push updates" href="push.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index.html" class="icon icon-home">
-            OctoPrint
-          </a>
-              <div class="version">
-                maintenance
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">REST API</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="general.html">General information</a></li>
-<li class="toctree-l2"><a class="reference internal" href="version.html">Version information</a></li>
-<li class="toctree-l2"><a class="reference internal" href="server.html">Server information</a></li>
-<li class="toctree-l2"><a class="reference internal" href="connection.html">Connection handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="files.html">File operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="job.html">Job operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="languages.html">Languages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="logs.html">Log file management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="printer.html">Printer operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="printerprofiles.html">Printer profile operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="slicing.html">Slicing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system.html">System</a></li>
-<li class="toctree-l2"><a class="reference internal" href="timelapse.html">Timelapse</a></li>
-<li class="toctree-l2"><a class="reference internal" href="access.html">Access control</a></li>
-<li class="toctree-l2"><a class="reference internal" href="util.html">Util</a></li>
-<li class="toctree-l2"><a class="reference internal" href="wizard.html">Wizard</a></li>
-<li class="toctree-l2"><a class="reference internal" href="push.html">Push updates</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Common data model</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#printer-related">Printer related</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#printer-state">Printer State</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#temperature-data">Temperature Data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#historic-temperature-data-point">Historic Temperature Data Point</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#temperature-offset">Temperature offset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#resend-stats">Resend stats</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#job-related">Job related</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#job-information">Job information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#progress-information">Progress information</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#file-related">File related</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#file-information">File information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#abridged-file-or-folder-information">Abridged file or folder information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#gcode-analysis-information">GCODE analysis information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#references">References</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#print-history">Print History</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#print-statistics">Print Statistics</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#access-control">Access control</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#user-record">User record</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#permission-record">Permission record</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#group-record">Group record</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#needs">Needs</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
-</ul>
-
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OctoPrint maintenance documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Common data model
+            
+          </span>
         </div>
       </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">OctoPrint</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-
-  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
-    <strong>Note:</strong>
-    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.11.1" style="color: white;text-decoration: underline">here</a>.
-  </p>
-
-
-  <ul class="wy-breadcrumbs">
+    </div>
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="index.html">REST API</a> &raquo;</li>
-        
-      <li>Common data model</li>
+      
+        <form class="md-header__option" data-md-component="palette">
+  
     
     
-      <li class="wy-breadcrumbs-aside">
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
         
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             
-            <a href="../_sources/api/datamodel.rst.txt" rel="nofollow"> View page source</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
           
         
-      </li>
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="OctoPrint maintenance documentation" class="md-nav__button md-logo" aria-label="OctoPrint maintenance documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    OctoPrint maintenance documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Features
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bundledplugins/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bundled Plugins
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    REST API
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            REST API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="general.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    General information
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="version.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Version information
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="server.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Server information
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="connection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connection handling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="files.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    File operations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="job.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Job operations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="languages.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Languages
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Log file management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="printer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Printer operations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="printerprofiles.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Printer profile operations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="settings.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Settings
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="slicing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Slicing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    System
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="timelapse.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Timelapse
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="access.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Access Control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="util.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Util
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wizard.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Wizard
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="push.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Push updates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Common data model
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Common data model
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#printer-related" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Printer related
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Printer related">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#printer-state" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Printer State
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temperature-data" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Temperature Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#historic-temperature-data-point" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Historic Temperature Data Point
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temperature-offset" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Temperature offset
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resend-stats" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Resend stats
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#job-related" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Job related
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Job related">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#job-information" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Job information
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#progress-information" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Progress information
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-related" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      File related
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File related">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-information" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      File information
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#folders" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Folders
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abridged-file-or-folder-information" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Abridged file or folder information
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gcode-analysis-information" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      GCODE analysis information
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#print-history" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Print History
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#print-statistics" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Print Statistics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#access-control" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Access control
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Access control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-record" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      User record
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permission-record" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Permission record
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group-record" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Group record
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#needs" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Needs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Events
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developing Plugins
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Internal Modules
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jsclientlib/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Java<wbr>Script Client Library
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
     
   </ul>
-
-  
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="common-data-model">
-<span id="sec-api-datamodel"></span><h1><a class="toc-backref" href="#id1" role="doc-backlink">Common data model</a><a class="headerlink" href="#common-data-model" title="Link to this heading"></a></h1>
-<nav class="contents" id="contents">
-<p class="topic-title">Contents</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#common-data-model" id="id1">Common data model</a></p>
-<ul>
-<li><p><a class="reference internal" href="#printer-related" id="id2">Printer related</a></p>
-<ul>
-<li><p><a class="reference internal" href="#printer-state" id="id3">Printer State</a></p></li>
-<li><p><a class="reference internal" href="#temperature-data" id="id4">Temperature Data</a></p></li>
-<li><p><a class="reference internal" href="#historic-temperature-data-point" id="id5">Historic Temperature Data Point</a></p></li>
-<li><p><a class="reference internal" href="#temperature-offset" id="id6">Temperature offset</a></p></li>
-<li><p><a class="reference internal" href="#resend-stats" id="id7">Resend stats</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#job-related" id="id8">Job related</a></p>
-<ul>
-<li><p><a class="reference internal" href="#job-information" id="id9">Job information</a></p></li>
-<li><p><a class="reference internal" href="#progress-information" id="id10">Progress information</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#file-related" id="id11">File related</a></p>
-<ul>
-<li><p><a class="reference internal" href="#file-information" id="id12">File information</a></p>
-<ul>
-<li><p><a class="reference internal" href="#folders" id="id13">Folders</a></p></li>
-<li><p><a class="reference internal" href="#files" id="id14">Files</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#abridged-file-or-folder-information" id="id15">Abridged file or folder information</a></p></li>
-<li><p><a class="reference internal" href="#gcode-analysis-information" id="id16">GCODE analysis information</a></p></li>
-<li><p><a class="reference internal" href="#references" id="id17">References</a></p></li>
-<li><p><a class="reference internal" href="#print-history" id="id18">Print History</a></p></li>
-<li><p><a class="reference internal" href="#print-statistics" id="id19">Print Statistics</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#access-control" id="id20">Access control</a></p>
-<ul>
-<li><p><a class="reference internal" href="#user-record" id="id21">User record</a></p></li>
-<li><p><a class="reference internal" href="#permission-record" id="id22">Permission record</a></p></li>
-<li><p><a class="reference internal" href="#group-record" id="id23">Group record</a></p></li>
-<li><p><a class="reference internal" href="#needs" id="id24">Needs</a></p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
 </nav>
-<section id="printer-related">
-<span id="sec-api-datamodel-printer"></span><h2><a class="toc-backref" href="#id2" role="doc-backlink">Printer related</a><a class="headerlink" href="#printer-related" title="Link to this heading"></a></h2>
-<section id="printer-state">
-<span id="sec-api-datamodel-printer-state"></span><h3><a class="toc-backref" href="#id3" role="doc-backlink">Printer State</a><a class="headerlink" href="#printer-state" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#printer-related" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Printer related
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Printer related">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#printer-state" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Printer State
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temperature-data" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Temperature Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#historic-temperature-data-point" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Historic Temperature Data Point
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temperature-offset" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Temperature offset
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resend-stats" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Resend stats
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#job-related" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Job related
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Job related">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#job-information" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Job information
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#progress-information" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Progress information
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-related" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      File related
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File related">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-information" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      File information
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#folders" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Folders
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abridged-file-or-folder-information" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Abridged file or folder information
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gcode-analysis-information" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      GCODE analysis information
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#print-history" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Print History
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#print-statistics" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Print Statistics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#access-control" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Access control
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Access control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-record" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      User record
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permission-record" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Permission record
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group-record" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Group record
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#needs" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Needs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="common-data-model"><span id="sec-api-datamodel"></span>Common data model<a class="headerlink" href="#common-data-model" title="Link to this heading">¶</a></h1>
+<h2 id="printer-related"><span id="sec-api-datamodel-printer"></span>Printer related<a class="headerlink" href="#printer-related" title="Link to this heading">¶</a></h2>
+<h3 id="printer-state"><span id="sec-api-datamodel-printer-state"></span>Printer State<a class="headerlink" href="#printer-state" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -302,10 +1631,8 @@ to <a class="reference internal" href="printer.html#sec-api-printer-datamodel-sd
 </tr>
 </tbody>
 </table>
-</section>
-<section id="temperature-data">
-<span id="sec-api-datamodel-printer-tempdata"></span><h3><a class="toc-backref" href="#id4" role="doc-backlink">Temperature Data</a><a class="headerlink" href="#temperature-data" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h3 id="temperature-data"><span id="sec-api-datamodel-printer-tempdata"></span>Temperature Data<a class="headerlink" href="#temperature-data" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -337,10 +1664,8 @@ to <a class="reference internal" href="printer.html#sec-api-printer-datamodel-sd
 </tr>
 </tbody>
 </table>
-</section>
-<section id="historic-temperature-data-point">
-<span id="sec-api-datamodel-printer-temphistory"></span><h3><a class="toc-backref" href="#id5" role="doc-backlink">Historic Temperature Data Point</a><a class="headerlink" href="#historic-temperature-data-point" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h3 id="historic-temperature-data-point"><span id="sec-api-datamodel-printer-temphistory"></span>Historic Temperature Data Point<a class="headerlink" href="#historic-temperature-data-point" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -373,10 +1698,8 @@ bed state.</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="temperature-offset">
-<span id="sec-api-datamodel-printer-tempoffset"></span><h3><a class="toc-backref" href="#id6" role="doc-backlink">Temperature offset</a><a class="headerlink" href="#temperature-offset" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h3 id="temperature-offset"><span id="sec-api-datamodel-printer-tempoffset"></span>Temperature offset<a class="headerlink" href="#temperature-offset" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -403,10 +1726,8 @@ bed state.</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="resend-stats">
-<span id="sec-api-datamodel-printer-resends"></span><h3><a class="toc-backref" href="#id7" role="doc-backlink">Resend stats</a><a class="headerlink" href="#resend-stats" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h3 id="resend-stats"><span id="sec-api-datamodel-printer-resends"></span>Resend stats<a class="headerlink" href="#resend-stats" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -438,13 +1759,9 @@ bed state.</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<section id="job-related">
-<span id="sec-api-datamodel-jobs"></span><h2><a class="toc-backref" href="#id8" role="doc-backlink">Job related</a><a class="headerlink" href="#job-related" title="Link to this heading"></a></h2>
-<section id="job-information">
-<span id="sec-api-datamodel-jobs-job"></span><h3><a class="toc-backref" href="#id9" role="doc-backlink">Job information</a><a class="headerlink" href="#job-information" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h2 id="job-related"><span id="sec-api-datamodel-jobs"></span>Job related<a class="headerlink" href="#job-related" title="Link to this heading">¶</a></h2>
+<h3 id="job-information"><span id="sec-api-datamodel-jobs-job"></span>Job information<a class="headerlink" href="#job-information" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -491,10 +1808,8 @@ bed state.</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="progress-information">
-<span id="sec-api-datamodel-jobs-progress"></span><h3><a class="toc-backref" href="#id10" role="doc-backlink">Progress information</a><a class="headerlink" href="#progress-information" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h3 id="progress-information"><span id="sec-api-datamodel-jobs-progress"></span>Progress information<a class="headerlink" href="#progress-information" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -547,13 +1862,9 @@ bed state.</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<section id="file-related">
-<span id="sec-api-datamodel-files"></span><h2><a class="toc-backref" href="#id11" role="doc-backlink">File related</a><a class="headerlink" href="#file-related" title="Link to this heading"></a></h2>
-<section id="file-information">
-<span id="sec-api-datamodel-files-file"></span><h3><a class="toc-backref" href="#id12" role="doc-backlink">File information</a><a class="headerlink" href="#file-information" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h2 id="file-related"><span id="sec-api-datamodel-files"></span>File related<a class="headerlink" href="#file-related" title="Link to this heading">¶</a></h2>
+<h3 id="file-information"><span id="sec-api-datamodel-files-file"></span>File information<a class="headerlink" href="#file-information" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -608,9 +1919,8 @@ for <code class="docutils literal notranslate"><span class="pre">.gcode</span></
 <p>Additional properties depend on <code class="docutils literal notranslate"><span class="pre">type</span></code>.
 For a <code class="docutils literal notranslate"><span class="pre">type</span></code> value of <code class="docutils literal notranslate"><span class="pre">folder</span></code>, see <a class="reference internal" href="#sec-api-datamodel-files-folders"><span class="std std-ref">Folders</span></a>.
 For any other value see <a class="reference internal" href="#sec-api-datamodel-files-files"><span class="std std-ref">Files</span></a>.</p>
-<section id="folders">
-<span id="sec-api-datamodel-files-folders"></span><h4><a class="toc-backref" href="#id13" role="doc-backlink">Folders</a><a class="headerlink" href="#folders" title="Link to this heading"></a></h4>
-<table class="docutils align-default">
+<h4 id="folders"><span id="sec-api-datamodel-files-folders"></span>Folders<a class="headerlink" href="#folders" title="Link to this heading">¶</a></h4>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -638,10 +1948,8 @@ sub folders!</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="files">
-<span id="sec-api-datamodel-files-files"></span><h4><a class="toc-backref" href="#id14" role="doc-backlink">Files</a><a class="headerlink" href="#files" title="Link to this heading"></a></h4>
-<table class="docutils align-default">
+<h4 id="files"><span id="sec-api-datamodel-files-files"></span>Files<a class="headerlink" href="#files" title="Link to this heading">¶</a></h4>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -700,11 +2008,8 @@ printer’s SD card (if available)</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<section id="abridged-file-or-folder-information">
-<span id="sec-api-datamodel-files-fileabridged"></span><h3><a class="toc-backref" href="#id15" role="doc-backlink">Abridged file or folder information</a><a class="headerlink" href="#abridged-file-or-folder-information" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h3 id="abridged-file-or-folder-information"><span id="sec-api-datamodel-files-fileabridged"></span>Abridged file or folder information<a class="headerlink" href="#abridged-file-or-folder-information" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -750,10 +2055,8 @@ printer’s SD card (if available)</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="gcode-analysis-information">
-<span id="sec-api-datamodel-files-gcodeanalysis"></span><h3><a class="toc-backref" href="#id16" role="doc-backlink">GCODE analysis information</a><a class="headerlink" href="#gcode-analysis-information" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h3 id="gcode-analysis-information"><span id="sec-api-datamodel-files-gcodeanalysis"></span>GCODE analysis information<a class="headerlink" href="#gcode-analysis-information" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -900,10 +2203,8 @@ printer’s SD card (if available)</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="references">
-<span id="sec-api-datamodel-files-ref"></span><h3><a class="toc-backref" href="#id17" role="doc-backlink">References</a><a class="headerlink" href="#references" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h3 id="references"><span id="sec-api-datamodel-files-ref"></span>References<a class="headerlink" href="#references" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -936,10 +2237,8 @@ folders.</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="print-history">
-<span id="sec-api-datamodel-files-prints"></span><h3><a class="toc-backref" href="#id18" role="doc-backlink">Print History</a><a class="headerlink" href="#print-history" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h3 id="print-history"><span id="sec-api-datamodel-files-prints"></span>Print History<a class="headerlink" href="#print-history" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -981,10 +2280,8 @@ folders.</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="print-statistics">
-<span id="sec-api-datamodel-files-stats"></span><h3><a class="toc-backref" href="#id19" role="doc-backlink">Print Statistics</a><a class="headerlink" href="#print-statistics" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h3 id="print-statistics"><span id="sec-api-datamodel-files-stats"></span>Print Statistics<a class="headerlink" href="#print-statistics" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -1011,13 +2308,9 @@ folders.</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<section id="access-control">
-<span id="sec-api-datamodel-access"></span><h2><a class="toc-backref" href="#id20" role="doc-backlink">Access control</a><a class="headerlink" href="#access-control" title="Link to this heading"></a></h2>
-<section id="user-record">
-<span id="sec-api-datamodel-access-users"></span><h3><a class="toc-backref" href="#id21" role="doc-backlink">User record</a><a class="headerlink" href="#user-record" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h2 id="access-control"><span id="sec-api-datamodel-access"></span>Access control<a class="headerlink" href="#access-control" title="Link to this heading">¶</a></h2>
+<h3 id="user-record"><span id="sec-api-datamodel-access-users"></span>User record<a class="headerlink" href="#user-record" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -1079,10 +2372,8 @@ folders.</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="permission-record">
-<span id="sec-api-datamodel-access-permissions"></span><h3><a class="toc-backref" href="#id22" role="doc-backlink">Permission record</a><a class="headerlink" href="#permission-record" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h3 id="permission-record"><span id="sec-api-datamodel-access-permissions"></span>Permission record<a class="headerlink" href="#permission-record" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -1129,10 +2420,8 @@ folders.</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="group-record">
-<span id="sec-api-datamodel-access-groups"></span><h3><a class="toc-backref" href="#id23" role="doc-backlink">Group record</a><a class="headerlink" href="#group-record" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h3 id="group-record"><span id="sec-api-datamodel-access-groups"></span>Group record<a class="headerlink" href="#group-record" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -1200,10 +2489,8 @@ subgroups).</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="needs">
-<span id="sec-api-datamodel-access-needs"></span><h3><a class="toc-backref" href="#id24" role="doc-backlink">Needs</a><a class="headerlink" href="#needs" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
+<h3 id="needs"><span id="sec-api-datamodel-access-needs"></span>Needs<a class="headerlink" href="#needs" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 8.3%" />
@@ -1230,58 +2517,116 @@ subgroups).</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-</section>
 
 
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="push.html" class="btn btn-neutral float-left" title="Push updates" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../events/index.html" class="btn btn-neutral float-right" title="Events" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
 
-  <hr/>
 
-  <div role="contentinfo">
-    <p>&#169; Copyright 2013-2025, Gina Häußge.</p>
-  </div>
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
 
-</footer>
-        </div>
-      </div>
-    </section>
-  </div>
+
   
-<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    <span class="fa fa-book"> Other Versions</span>
-    v: maintenance
-    <span class="fa fa-caret-down"></span>
-  </span>
-  <div class="rst-other-versions">
-    <dl>
-      <dt>Tags</dt>
-      <dd><a href="https://docs.octoprint.org/en/1.11.1/api/datamodel.html">1.11.1</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.10.3/api/datamodel.html">1.10.3</a></dd>
-    </dl>
-    <dl>
-      <dt>Branches</dt>
-      <dd><a href="https://docs.octoprint.org/en/master/api/datamodel.html">master</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/maintenance/api/datamodel.html">maintenance</a></dd>
-    </dl>
-  </div>
-</div><script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+  
 
-</body>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="push.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Push updates">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Push updates
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../events/index.html" class="md-footer__link md-footer__link--next" aria-label="Next: Events">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Events
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2013-2025, OctoPrint.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.2.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.sections", "navigation.top", "navigation.footer", "search.share", "search.suggest", "toc.follow", "toc.sticky", "content.tabs.link", "content.code.copy", "content.tooltips", "announce.dismiss"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
+    
+  </body>
 </html>

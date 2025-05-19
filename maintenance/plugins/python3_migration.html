@@ -1,258 +1,1090 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Migrating to Python 3 &mdash; OctoPrint maintenance documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=3dbc9e18" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=1e67d180" />
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="distributing.html">
+      
+      
+        <link rel="next" href="../modules/index.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Migrating to Python 3 - OctoPrint maintenance documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=3be82f60" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#how-to-get-a-python-3-virtual-environment-with-octoprint" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="OctoPrint maintenance documentation" class="md-header__button md-logo" aria-label="OctoPrint maintenance documentation" data-md-component="logo">
+      
   
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=edc6e93c"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../_static/mermaid.min.js?v=c0ebaf0d"></script>
-        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
-        <script>mermaid.initialize({startOnLoad:true});</script>
-    <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Internal Modules" href="../modules/index.html" />
-    <link rel="prev" title="Distributing your plugin" href="distributing.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index.html" class="icon icon-home">
-            OctoPrint
-          </a>
-              <div class="version">
-                maintenance
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developing Plugins</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="concepts.html">General Concepts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="controlproperties.html">Control Properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mixins.html">Mixins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hooks.html">Hooks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="helpers.html">Helpers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="injectedproperties.html">Injected Properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="viewmodels.html">Viewmodels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gettingstarted.html">Plugin Tutorial</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributing.html">Distributing your plugin</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Migrating to Python 3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#how-to-get-a-python-3-virtual-environment-with-octoprint">How to get a Python 3 virtual environment with OctoPrint</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#telling-octoprint-your-plugin-is-python-3-ready">Telling OctoPrint your plugin is Python 3 ready</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#common-pitfalls-during-migration">Common pitfalls during migration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#bytes-vs-unicode">Bytes vs unicode</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#absolute-imports">Absolute imports</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#version-specific-imports">Version specific imports</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#integer-division">Integer division</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#iterators-instead-of-list-from-map-filter-zip">Iterators instead of list from map, filter, zip</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#checklist">Checklist</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#further-reading">Further reading</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
-</ul>
-
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OctoPrint maintenance documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Migrating to Python 3
+            
+          </span>
         </div>
       </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">OctoPrint</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-
-  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
-    <strong>Note:</strong>
-    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.11.1" style="color: white;text-decoration: underline">here</a>.
-  </p>
-
-
-  <ul class="wy-breadcrumbs">
+    </div>
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="index.html">Developing Plugins</a> &raquo;</li>
-        
-      <li>Migrating to Python 3</li>
+      
+        <form class="md-header__option" data-md-component="palette">
+  
     
     
-      <li class="wy-breadcrumbs-aside">
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
         
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             
-            <a href="../_sources/plugins/python3_migration.rst.txt" rel="nofollow"> View page source</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
           
         
-      </li>
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="OctoPrint maintenance documentation" class="md-nav__button md-logo" aria-label="OctoPrint maintenance documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    OctoPrint maintenance documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Features
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bundledplugins/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bundled Plugins
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    REST API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Events
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Developing Plugins
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Developing Plugins
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="concepts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    General Concepts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="controlproperties.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control Properties
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mixins.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Mixins
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="hooks.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hooks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="helpers.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helpers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="injectedproperties.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Injected Properties
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="viewmodels.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Viewmodels
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gettingstarted.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Plugin Tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="distributing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Distributing your plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Migrating to Python 3
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Migrating to Python 3
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-get-a-python-3-virtual-environment-with-octoprint" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      How to get a Python 3 virtual environment with Octo<wbr>Print
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#telling-octoprint-your-plugin-is-python-3-ready" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Telling Octo<wbr>Print your plugin is Python 3 ready
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-pitfalls-during-migration" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Common pitfalls during migration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common pitfalls during migration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bytes-vs-unicode" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Bytes vs unicode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#absolute-imports" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Absolute imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-specific-imports" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Version specific imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integer-division" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Integer division
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iterators-instead-of-list-from-map-filter-zip" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Iterators instead of list from map, filter, zip
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Checklist
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Further reading
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Internal Modules
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jsclientlib/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Java<wbr>Script Client Library
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
     
   </ul>
-
-  
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="migrating-to-python-3">
-<span id="sec-plugins-python3"></span><h1>Migrating to Python 3<a class="headerlink" href="#migrating-to-python-3" title="Link to this heading"></a></h1>
-<p>Python 2 is now EOL as of January 1st 2020. With the release of 1.4.0 OctoPrint will be compatible to both Python 2 and
-Python 3.</p>
-<p>However, the same doesn’t automatically hold true for all of the third party plugins for OctoPrint out there - it will
-fall to their authors to ensure compatibility to both Python versions.</p>
-<p>This guide is supposed to help plugin authors in making sure their plugins run under Python 2 as well as Python 3,
-which for now is the goal for OctoPrint’s ecosystem, as we’ll have to live with existing legacy Python 2 installations
-for a while to come (the plan is to stay Python 2 compatible until roughly a year after the release of 1.4.0).</p>
-<nav class="contents local" id="contents">
-<ul class="simple">
-<li><p><a class="reference internal" href="#how-to-get-a-python-3-virtual-environment-with-octoprint" id="id1">How to get a Python 3 virtual environment with OctoPrint</a></p></li>
-<li><p><a class="reference internal" href="#telling-octoprint-your-plugin-is-python-3-ready" id="id2">Telling OctoPrint your plugin is Python 3 ready</a></p></li>
-<li><p><a class="reference internal" href="#common-pitfalls-during-migration" id="id3">Common pitfalls during migration</a></p>
-<ul>
-<li><p><a class="reference internal" href="#bytes-vs-unicode" id="id4">Bytes vs unicode</a></p></li>
-<li><p><a class="reference internal" href="#absolute-imports" id="id5">Absolute imports</a></p></li>
-<li><p><a class="reference internal" href="#version-specific-imports" id="id6">Version specific imports</a></p></li>
-<li><p><a class="reference internal" href="#integer-division" id="id7">Integer division</a></p></li>
-<li><p><a class="reference internal" href="#iterators-instead-of-list-from-map-filter-zip" id="id8">Iterators instead of list from map, filter, zip</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#checklist" id="id9">Checklist</a></p></li>
-<li><p><a class="reference internal" href="#further-reading" id="id10">Further reading</a></p></li>
-</ul>
 </nav>
-<section id="how-to-get-a-python-3-virtual-environment-with-octoprint">
-<span id="sec-plugins-python3-venv"></span><h2><a class="toc-backref" href="#id1" role="doc-backlink">How to get a Python 3 virtual environment with OctoPrint</a><a class="headerlink" href="#how-to-get-a-python-3-virtual-environment-with-octoprint" title="Link to this heading"></a></h2>
-<p>In order to test your plugins for Python 3 compatibility and also to allow for ongoing maintenance against both Python
-versions, you should create a Python 3 virtual environment next to your Python 2 one. You can then quickly switch between
-Python 2 and Python 3 simply by <code class="docutils literal notranslate"><span class="pre">activate</span></code>-ing whichever one you need.</p>
-<p>You can create a Python 3 virtualenv next to your (existing) Python 2 virtualenv and then just activate which one you
-currently want to use.</p>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-get-a-python-3-virtual-environment-with-octoprint" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      How to get a Python 3 virtual environment with Octo<wbr>Print
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#telling-octoprint-your-plugin-is-python-3-ready" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Telling Octo<wbr>Print your plugin is Python 3 ready
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-pitfalls-during-migration" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Common pitfalls during migration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common pitfalls during migration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bytes-vs-unicode" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Bytes vs unicode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#absolute-imports" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Absolute imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-specific-imports" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Version specific imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integer-division" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Integer division
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iterators-instead-of-list-from-map-filter-zip" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Iterators instead of list from map, filter, zip
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Checklist
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Further reading
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="migrating-to-python-3"><span id="sec-plugins-python3"></span>Migrating to Python 3<a class="headerlink" href="#migrating-to-python-3" title="Link to this heading">¶</a></h1>
+<p>Python 2 is now EOL as of January 1st 2020. With the release of 1.4.0 OctoPrint became compatible to both Python 2 and
+Python 3. OctoPrint 1.8.0 dropped Python 2 support.</p>
+<p>However, the same doesn’t automatically hold true for all of the third party plugins for OctoPrint out there - it falls
+to their authors to ensure compatibility to Python 3.</p>
+<p>This guide is supposed to help plugin authors in making sure their plugins run under 3. Attempting to stay compatible to Python 2 is no longer recommended.</p>
+<h2 id="how-to-get-a-python-3-virtual-environment-with-octoprint"><span id="sec-plugins-python3-venv"></span>How to get a Python 3 virtual environment with OctoPrint<a class="headerlink" href="#how-to-get-a-python-3-virtual-environment-with-octoprint" title="Link to this heading">¶</a></h2>
+<p>In order to test your plugins for Python 3 compatibility, you should create a Python 3 virtual environment.</p>
 <p>After installing Python 3 on your development system it’s as easy as supplying <code class="docutils literal notranslate"><span class="pre">--python=/path/to/python3executable</span></code>
 to <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code>, e.g.:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>virtualenv --python=/usr/bin/python3 venv3
-</pre></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>virtualenv --python=/usr/bin/python3 venv3
+</code></pre></div>
 </div>
-<p>That will have the virtualenv be created based on Python 3, regardless of whether it’s currently running under Python
-2 or 3. The same works for Python 2 btw:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>virtualenv --python=/usr/bin/python2 venv2
-</pre></div>
-</div>
+<p>That will have the virtualenv be created based on Python 3.</p>
 <p>After creating the virtual environment, make sure to activate &amp; install OctoPrint into it:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>source venv3/bin/activate
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>source venv3/bin/activate
 pip install &quot;OctoPrint&gt;=1.4.0rc1&quot;
-</pre></div>
+</code></pre></div>
 </div>
 <p>Then create an editable install of your plugin, start the server and start testing:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pip install -e path/to/your/plugin
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>pip install -e path/to/your/plugin
 octoprint serve --debug
-</pre></div>
+</code></pre></div>
 </div>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>On Windows that will probably look something like this instead:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>virtualenv --python=C:/Python37/python.exe venv37
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>virtualenv --python=C:/Python37/python.exe venv37
 venv3/Script/activate.bat
 pip install &quot;OctoPrint&gt;=1.4.0rc1&quot;
 pip install -e path/to/your/plugin
 octoprint serve --debug
-</pre></div>
+</code></pre></div>
 </div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you want to migrate your existing OctoPrint install <em>on OctoPi 0.17.0</em> to Python 3, I suggest to first make a
-<a class="reference internal" href="../bundledplugins/backup.html#sec-bundledplugins-backup"><span class="std std-ref">backup</span></a>, then move the existing venv <code class="docutils literal notranslate"><span class="pre">/home/pi/oprint</span></code> out of the way and
-create a new one based on Python 3 (which should already be present on current OctoPi images):</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>mv ~/oprint ~/oprint.py2
-virtualenv --python=/usr/bin/python3 oprint
-source ~/oprint/bin/activate
-pip install &quot;OctoPrint&gt;=1.4.0&quot;
-sudo service octoprint restart
-</pre></div>
-</div>
-</div>
-</section>
-<section id="telling-octoprint-your-plugin-is-python-3-ready">
-<span id="sec-plugins-python3-markup"></span><h2><a class="toc-backref" href="#id2" role="doc-backlink">Telling OctoPrint your plugin is Python 3 ready</a><a class="headerlink" href="#telling-octoprint-your-plugin-is-python-3-ready" title="Link to this heading"></a></h2>
+<h2 id="telling-octoprint-your-plugin-is-python-3-ready"><span id="sec-plugins-python3-markup"></span>Telling OctoPrint your plugin is Python 3 ready<a class="headerlink" href="#telling-octoprint-your-plugin-is-python-3-ready" title="Link to this heading">¶</a></h2>
 <p>In order for OctoPrint to even load your plugin when it’s running under Python 3, it first needs to know your plugin is
 compatible to a Python 3 environment. By default OctoPrint will assume your plugin isn’t and refuse to load it when
 running under Python 3 itself.</p>
 <p>To tell OctoPrint about this, all you need is to set the <code class="docutils literal notranslate"><span class="pre">__plugin_pythoncompat__</span></code> property in your plugins’s <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>
 accordingly, e.g.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
-</pre></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
+</code></pre></div>
 </div>
-<p>This would tell OctoPrint that your plugin is compatible to all Python versions between 2.7 and 3.x. This should be
+<p>This would tell OctoPrint that your plugin is compatible to all Python versions matching 3.7 and higher. This should be
 your target compatibility range for now.</p>
-<p>If at a later date you want to go all-in on Python 3 and mark your plugin as no longer supporting Python 2, tell
-OctoPrint about this as well:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3,&lt;4&quot;</span>
-</pre></div>
-</div>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>You can also tell OctoPrint to ignore the Python compatibility flags for a specific plugin via <cite>config.yaml</cite>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">_forcedCompatible</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;myplugin&quot;</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;anotherplugin&quot;</span>
-</pre></div>
+</code></pre></div>
 </div>
 <p>Note that this should only be used temporarily during testing and migration, or to mark an important plugin
 not under your own control that actually works fine under Python 3 out of the box as compatible while waiting
@@ -264,20 +1096,16 @@ flag and changes, is done you also need to mark up your plugin in the Official P
 therein) so that OctoPrint’s built-in Plugin Manager will see that your plugin is compatible as well and allow users
 to install it through it. In order to do that, you need to add a new flag compatibility.python to the front matter in
 your plugin registration file and file a pull request for that. Adjust the markdown file so that it contains this:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">compatibility</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">python</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&gt;=2.7,&lt;3&quot;</span>
-</pre></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">compatibility</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">python</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&gt;=3.7,&lt;3&quot;</span>
+</code></pre></div>
 </div>
-<p>The value here follows the same mechanism as the <code class="docutils literal notranslate"><span class="pre">__plugin_pythoncompat__</span></code> property, so <code class="docutils literal notranslate"><span class="pre">&gt;=2.7,&lt;3</span></code> for 2 and 3
-support and <code class="docutils literal notranslate"><span class="pre">&gt;=3,&lt;4</span></code> for 3+ support.</p>
-<div class="admonition warning">
+<div class="warning admonition">
 <p class="admonition-title">Warning</p>
 <p>Do <strong>not</strong> just mark your plugin as compatible without diligent testing that it actually does work as expected and
 without flooding <code class="docutils literal notranslate"><span class="pre">octoprint.log</span></code> with warnings and errors!</p>
 </div>
-</section>
-<section id="common-pitfalls-during-migration">
-<span id="sec-plugins-python3-pitfalls"></span><h2><a class="toc-backref" href="#id3" role="doc-backlink">Common pitfalls during migration</a><a class="headerlink" href="#common-pitfalls-during-migration" title="Link to this heading"></a></h2>
+<h2 id="common-pitfalls-during-migration"><span id="sec-plugins-python3-pitfalls"></span>Common pitfalls during migration<a class="headerlink" href="#common-pitfalls-during-migration" title="Link to this heading">¶</a></h2>
 <p>Some of the changes in Python 3 compared to Python 2 are sadly backwards incompatible and usually cause a number of
 common issues in code written for Python 2 when run under Python 3. By now they are pretty well documented and there
 exist a number of helpful and comprehensive migration guides, three of which I want to mention here.</p>
@@ -298,147 +1126,102 @@ as “upcoming”, so with regards to compatible idioms to use, best stick to th
 OctoPrint’s code, the most common problems for these scenarios seem to be byte vs unicode issues, trouble with absolute
 imports, changes in integer division behaviour and the switch of map, filter and zip to return iterators instead of
 lists and causing issues in the following code due to that.</p>
-<section id="bytes-vs-unicode">
-<span id="sec-plugins-python3-pitfalls-strings"></span><h3><a class="toc-backref" href="#id4" role="doc-backlink">Bytes vs unicode</a><a class="headerlink" href="#bytes-vs-unicode" title="Link to this heading"></a></h3>
+<h3 id="bytes-vs-unicode"><span id="sec-plugins-python3-pitfalls-strings"></span>Bytes vs unicode<a class="headerlink" href="#bytes-vs-unicode" title="Link to this heading">¶</a></h3>
 <p>One of if not the most problematic change between Python 2 and 3 surely must be the change in string handling. Under
 Python 2 your basic string was a byte string, but it could also magically turn into a unicode string depending on what
 you wrote into it. That did cause some confusion, especially in APIs, and caused quite a mess, which is why the decision
 was made to go for distinct text and binary types instead, and making the string literal always be a (unicode) text.</p>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>Please note that these changes in string handling also affect several Python APIs that operate on files and streams
 and thus might also affect parts of OctoPrint’s plugin interface that inherit from these APIs. Currently only one such
-case has been reported, as OctoPrint’s <a class="reference internal" href="../modules/filemanager.html#octoprint.filemanager.util.LineProcessorStream" title="octoprint.filemanager.util.LineProcessorStream"><code class="xref py py-class docutils literal notranslate"><span class="pre">LineProcessorStream</span></code></a> will return bytes
+case has been reported, as OctoPrint’s <a class="reference internal" href="../modules/filemanager.html#octoprint.filemanager.util.LineProcessorStream" title="octoprint.filemanager.util.LineProcessorStream (Python class) — While reading from this stream the provided input_stream is read line by line, calling the (overridable) method process_line() for each read line."><code class="xref py py-class docutils literal notranslate"><span class="pre">LineProcessorStream</span></code></a> will return bytes
 instead of str on its <code class="docutils literal notranslate"><span class="pre">process_line</span></code> function under Python 3 - so here’s a heads-up if your plugin happens to utilize that.</p>
 </div>
-<p>Obviously, that will lead to issues in code using “just strings” when run under Python 2 vs 3. The first step to solve
-these problems would be to make your scripts behave the same under Python 2 and 3 by putting this right at the top of
-all your plugin’s python files:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">unicode_literals</span>
-</pre></div>
-</div>
-<p>That will make your files behave as if they were running under Python 3, even when run under Python 2, and your string
-literals will now be the text data type, which - annoyingly - is a different one under Python 2 vs 3, <code class="docutils literal notranslate"><span class="pre">unicode</span></code> vs <code class="docutils literal notranslate"><span class="pre">str</span></code> to
-be exact. Heads-up here - under Python 2 there’s also a <code class="docutils literal notranslate"><span class="pre">str</span></code> type, but that one is for binary data. Yes, I know, this
-ain’t fun.</p>
-<p>In any case, once you’ve done this, make sure that everything in your code that should be text is text (<code class="docutils literal notranslate"><span class="pre">unicode</span></code> under
-Python 2, <code class="docutils literal notranslate"><span class="pre">str</span></code> under Python 3), and everything that should be binary is binary (<code class="docutils literal notranslate"><span class="pre">str</span></code> under Python 2, <code class="docutils literal notranslate"><span class="pre">bytes</span></code> under Python 3).
-A good rule of thumb is that you usually want to use text as much as possible within your application and only convert
+<p>To migrate, make sure that everything in your code that should be text is text (<code class="docutils literal notranslate"><span class="pre">str</span></code>), and everything that should
+be binary is binary (<code class="docutils literal notranslate"><span class="pre">bytes</span></code>).</p>
+<p>A good rule of thumb is that you usually want to use text as much as possible within your application and only convert
 to/from bytes at the outskirts, e.g. when writing to a file, a socket or something else machine like. Note that you do
-NOT need to convert to bytes when implementing API endpoints that return JSON, as that should use text with unicode
+NOT need to convert to bytes when implementing API endpoints that return JSON, as that should use text
 anyhow.</p>
-<p>OctoPrint includes two utility methods you should use to ensure your strings enter/exit your code in the right format,
-under both Python versions: <a class="reference internal" href="../modules/util.html#octoprint.util.to_bytes" title="octoprint.util.to_bytes"><code class="xref py py-func docutils literal notranslate"><span class="pre">octoprint.util.to_bytes()</span></code></a> and <a class="reference internal" href="../modules/util.html#octoprint.util.to_unicode" title="octoprint.util.to_unicode"><code class="xref py py-func docutils literal notranslate"><span class="pre">octoprint.util.to_unicode()</span></code></a>. Use them to ensure the correct data
+<p>OctoPrint includes two utility methods you may use to ensure your strings enter/exit your code in the right format:
+<a class="reference internal" href="../modules/util.html#octoprint.util.to_bytes" title="octoprint.util.to_bytes (Python function) — Make sure s_or_u is a byte string."><code class="xref py py-func docutils literal notranslate"><span class="pre">octoprint.util.to_bytes()</span></code></a> and <a class="reference internal" href="../modules/util.html#octoprint.util.to_unicode" title="octoprint.util.to_unicode (Python function) — Make sure s_or_u is a string (str)."><code class="xref py py-func docutils literal notranslate"><span class="pre">octoprint.util.to_unicode()</span></code></a>. Use them to ensure the correct data
 types and to avoid weird conversion and encoding issues during runtime.</p>
 <p>You can read more about this specific issue in the corresponding section of the
 <a class="reference external" href="https://docs.python.org/3/howto/pyporting.html#text-versus-binary-data">Python porting guide</a> and also in the
 <a class="reference external" href="https://python-future.org/compatible_idioms.html#strings-and-bytes">cheat sheet</a>.</p>
-</section>
-<section id="absolute-imports">
-<span id="sec-plugins-python3-pitfalls-absolute-imports"></span><h3><a class="toc-backref" href="#id5" role="doc-backlink">Absolute imports</a><a class="headerlink" href="#absolute-imports" title="Link to this heading"></a></h3>
-<p>Python 3 now defaults to absolute imports, meaning that trying to import a sub package with a</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">my_sub_package</span>
-</pre></div>
+<h3 id="absolute-imports"><span id="sec-plugins-python3-pitfalls-absolute-imports"></span>Absolute imports<a class="headerlink" href="#absolute-imports" title="Link to this heading">¶</a></h3>
+<p>Python 3 defaults to absolute imports, meaning that trying to import a sub package with a</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">my_sub_package</span>
+</code></pre></div>
 </div>
-<p>will now fail with an error. You’ll need to explicitly make the import a relative one:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">my_sub_package</span>
-</pre></div>
-</div>
-<p>To make your code behave the same in that regard in both Python 2 and Python 3, you should add the corresponding
-future import:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">absolute_imports</span>
-</pre></div>
+<p>will fail with an error. You’ll need to explicitly make the import a relative one:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">my_sub_package</span>
+</code></pre></div>
 </div>
 <p>You can read more about this specific issue in the
 <a class="reference external" href="https://python-future.org/compatible_idioms.html#imports-relative-to-a-package">cheat sheet</a> and also in
 <a class="reference external" href="http://python3porting.com/problems.html#relative-import-problems">the book</a>.</p>
-</section>
-<section id="version-specific-imports">
-<span id="sec-plugins-python3-pitfalls-version-specific-imports"></span><h3><a class="toc-backref" href="#id6" role="doc-backlink">Version specific imports</a><a class="headerlink" href="#version-specific-imports" title="Link to this heading"></a></h3>
-<p>Sometimes it is necessary to use an import statement that is explicitly related to a specific Python version, e.g. due to
-a package change between Python 2 and 3. You can do this by first trying the Python 3 import and if that doesn’t work
-out trying the Python 2 import instead:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+<h3 id="version-specific-imports"><span id="sec-plugins-python3-pitfalls-version-specific-imports"></span>Version specific imports<a class="headerlink" href="#version-specific-imports" title="Link to this heading">¶</a></h3>
+<p>Sometimes it is necessary to use an import statement that is explicitly related to a specific Python version.
+You can do this by first trying the newer import and if that doesn’t work
+out trying the older import instead:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
    <span class="kn">import</span><span class="w"> </span><span class="nn">queue</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
    <span class="kn">import</span><span class="w"> </span><span class="nn">Queue</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">queue</span>
-</pre></div>
+</code></pre></div>
 </div>
-<p>This should be the preferred method of handling situations like this. If you actually do need to do explicit version
-specific imports that cannot be handled this way, you can check for the Python version like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span>
-   <span class="c1"># Python 2 specific imports</span>
-<span class="k">else</span><span class="p">:</span>
-   <span class="c1"># Python 3 specific imports</span>
-</pre></div>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>This was more important while this guide was still focused on supporting plugin authors in making the plugins support
+both Python 3 <em>and</em> 2, however with certain bits of the Python standard library this can still be needed even when
+focusing on Python 3.7+, and thus is still mentioned in this guide.</p>
 </div>
-</section>
-<section id="integer-division">
-<span id="sec-plugins-python3-pitfalls-intdiv"></span><h3><a class="toc-backref" href="#id7" role="doc-backlink">Integer division</a><a class="headerlink" href="#integer-division" title="Link to this heading"></a></h3>
-<p>When you divide two integers in Python 2 you’ll get back an integer, rounded down. In Python 3 however you’ll now get
+<h3 id="integer-division"><span id="sec-plugins-python3-pitfalls-intdiv"></span>Integer division<a class="headerlink" href="#integer-division" title="Link to this heading">¶</a></h3>
+<p>When you divide two integers in Python 2 you’ll get back an integer, rounded down. In Python 3 however you’ll get
 a float. That means you might have to revisit some places where you do integer divisions and might rely on the result
 to be an integer as well (e.g. when using a calculation result as an index in an array or something like that).</p>
-<p>Yet again there’s a future-import to apply to your files in order to at least have them behave the same in that regard
-under both Python 2 and Python 3:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">division</span>
-</pre></div>
-</div>
 <p>You can read more about this specific issue in the <a class="reference external" href="https://docs.python.org/3/howto/pyporting.html#division">Python porting guide</a>
 and in the <a class="reference external" href="https://python-future.org/compatible_idioms.html#division">cheat sheet</a>.</p>
-</section>
-<section id="iterators-instead-of-list-from-map-filter-zip">
-<span id="sec-plugins-python3-pitfalls-iterators"></span><h3><a class="toc-backref" href="#id8" role="doc-backlink">Iterators instead of list from map, filter, zip</a><a class="headerlink" href="#iterators-instead-of-list-from-map-filter-zip" title="Link to this heading"></a></h3>
+<h3 id="iterators-instead-of-list-from-map-filter-zip"><span id="sec-plugins-python3-pitfalls-iterators"></span>Iterators instead of list from map, filter, zip<a class="headerlink" href="#iterators-instead-of-list-from-map-filter-zip" title="Link to this heading">¶</a></h3>
 <p>The built-in functions <code class="docutils literal notranslate"><span class="pre">map</span></code>, <code class="docutils literal notranslate"><span class="pre">filter</span></code> and <code class="docutils literal notranslate"><span class="pre">zip</span></code> return a <code class="docutils literal notranslate"><span class="pre">list</span></code> with their result in Python 2. In Python 3 they have been
 switched to returning iterators. That can cause trouble with code handling the result (e.g. if you try to return it as
 part of a JSON response on an API endpoint).</p>
 <p>The easiest way to solve this is to make sure to wrap any <code class="docutils literal notranslate"><span class="pre">map</span></code>/<code class="docutils literal notranslate"><span class="pre">filter</span></code>/<code class="docutils literal notranslate"><span class="pre">zip</span></code> calls into a <code class="docutils literal notranslate"><span class="pre">list</span></code> constructor if the result is
 to be used outside of the calling code (even though that comes with a small performance penalty under Python 2):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result1</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">my_collection</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">result1</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">my_collection</span><span class="p">)</span>
 <span class="n">result2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">my_collection</span><span class="p">))</span>
 
 <span class="k">assert</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">result1</span><span class="p">,</span> <span class="nb">list</span><span class="p">))</span> <span class="c1"># Python 2 passes, Python 3 fails</span>
 <span class="k">assert</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">result2</span><span class="p">,</span> <span class="nb">list</span><span class="p">))</span> <span class="c1"># Python 2 and 3 pass</span>
-</pre></div>
+</code></pre></div>
 </div>
 <p>There also exist further options, take a look at the <a class="reference external" href="https://python-future.org/compatible_idioms.html#map">cheat sheet</a>.</p>
-</section>
-</section>
-<section id="checklist">
-<span id="sec-plugins-python3-checklist"></span><h2><a class="toc-backref" href="#id9" role="doc-backlink">Checklist</a><a class="headerlink" href="#checklist" title="Link to this heading"></a></h2>
+<h2 id="checklist"><span id="sec-plugins-python3-checklist"></span>Checklist<a class="headerlink" href="#checklist" title="Link to this heading">¶</a></h2>
 <p>As a summary, follow this checklist to migrate your plugin to be compatible to both Python 2 and 3:</p>
-<blockquote>
-<div><ul>
+<ul>
 <li><p>Create a Python 3 virtualenv and install OctoPrint and your plugin into it for testing.</p></li>
-<li><p>Tell OctoPrint your plugin is Python 2 and 3 compatible by adding a new property <code class="docutils literal notranslate"><span class="pre">__plugin_pycompat__</span></code> to its
+<li><p>Tell OctoPrint your plugin is Python 3 compatible by adding a new property <code class="docutils literal notranslate"><span class="pre">__plugin_pycompat__</span></code> to its
 <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
-</pre></div>
-</div>
-</li>
-<li><p>Add a compatibility header to all <cite>py</cite> files to ensure similar basic behaviour under Python 2 and Python 3:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
-</pre></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.7,&lt;4&quot;</span>
+</code></pre></div>
 </div>
 </li>
 <li><p>Thoroughly test your plugin under Python 3. Pay special attention to any kind of string handling issues, integer
 division, relative imports from your plugin package and how the results of <code class="docutils literal notranslate"><span class="pre">map</span></code>, <code class="docutils literal notranslate"><span class="pre">filter</span></code> and <code class="docutils literal notranslate"><span class="pre">zip</span></code> are
 used in your code, as those have proven to be the biggest issues during past migrations.</p></li>
-<li><p>Once everything works under both Python versions and you’ve prepared a new release of your plugin (don’t forget to
+<li><p>Once everything works Python 3 and you’ve prepared a new release of your plugin (don’t forget to
 increment the version!), update your registration file in the Official Plugin Repository to include the correct
 Python compatibility information as well:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">compatibility</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">python</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&gt;=2.7,&lt;4&quot;</span>
-</pre></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">compatibility</span><span class="p">:</span>
+<span class="nt">python</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&gt;=3.7,&lt;4&quot;</span>
+</code></pre></div>
 </div>
 </li>
 </ul>
-</div></blockquote>
-</section>
-<section id="further-reading">
-<span id="sec-plugins-python3-furtherreading"></span><h2><a class="toc-backref" href="#id10" role="doc-backlink">Further reading</a><a class="headerlink" href="#further-reading" title="Link to this heading"></a></h2>
-<div class="admonition seealso">
+<h2 id="further-reading"><span id="sec-plugins-python3-furtherreading"></span>Further reading<a class="headerlink" href="#further-reading" title="Link to this heading">¶</a></h2>
+<div class="seealso admonition">
 <p class="admonition-title">See also</p>
 <dl class="simple">
 <dt><a class="reference external" href="https://docs.python.org/3/howto/pyporting.html">Porting Python 2 Code to Python 3</a></dt><dd><p>The official Python 3 porting guide which sums up all the important changes and also gives hints on how best to
@@ -457,57 +1240,116 @@ compatibility.</p>
 </dd>
 </dl>
 </div>
-</section>
-</section>
 
 
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="distributing.html" class="btn btn-neutral float-left" title="Distributing your plugin" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../modules/index.html" class="btn btn-neutral float-right" title="Internal Modules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
 
-  <hr/>
 
-  <div role="contentinfo">
-    <p>&#169; Copyright 2013-2025, Gina Häußge.</p>
-  </div>
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
 
-</footer>
-        </div>
-      </div>
-    </section>
-  </div>
+
   
-<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    <span class="fa fa-book"> Other Versions</span>
-    v: maintenance
-    <span class="fa fa-caret-down"></span>
-  </span>
-  <div class="rst-other-versions">
-    <dl>
-      <dt>Tags</dt>
-      <dd><a href="https://docs.octoprint.org/en/1.11.1/plugins/python3_migration.html">1.11.1</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/1.10.3/plugins/python3_migration.html">1.10.3</a></dd>
-    </dl>
-    <dl>
-      <dt>Branches</dt>
-      <dd><a href="https://docs.octoprint.org/en/master/plugins/python3_migration.html">master</a></dd>
-      <dd><a href="https://docs.octoprint.org/en/maintenance/plugins/python3_migration.html">maintenance</a></dd>
-    </dl>
-  </div>
-</div><script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+  
 
-</body>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="distributing.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Distributing your plugin">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Distributing your plugin
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../modules/index.html" class="md-footer__link md-footer__link--next" aria-label="Next: Internal Modules">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Internal Modules
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2013-2025, OctoPrint.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.2.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.sections", "navigation.top", "navigation.footer", "search.share", "search.suggest", "toc.follow", "toc.sticky", "content.tabs.link", "content.code.copy", "content.tooltips", "announce.dismiss"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
+    
+  </body>
 </html>
