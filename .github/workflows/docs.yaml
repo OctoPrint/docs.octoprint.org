@@ -169,6 +169,19 @@ jobs:
             cp -r artifacts/$version docs/
           fi
 
+      - name: Generate versions.json
+        run: |
+          echo "[]" > docs/versions.json
+          for version in docs/*; do
+            if [ -d "docs/$version" ]; then
+              aliases="[]"
+              if [ "$version" == "master" ]; then
+                aliases="[\"latest\"]"
+              fi
+              jq --arg version ${version} --argjson aliases ${aliases} '. + [{"version": "/en/$version", "title": "$version", "aliases": $aliases}]' docs/versions.json > docs/versions.json
+            fi
+          done
+  
       - name: 🚀 Commit & deploy
         uses: EndBug/add-and-commit@v9
         with:
