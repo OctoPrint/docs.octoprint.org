@@ -171,22 +171,23 @@ jobs:
 
       - name: 🚧 Generate versions.json
         run: |
-          echo "[]" > docs/versions.json
-          for version in docs/*; do
-            if [ -d "docs/$version" ]; then
+          cd docs
+          echo "[]" > versions.json
+          for version in *; do
+            if [ -d "$version" ]; then
               aliases="[]"
               if [ "$version" == "master" ]; then
                 aliases="[\"latest\"]"
               fi
               echo "Adding $version at /en/$version..."
-              jq --arg version ${version} --argjson aliases ${aliases} '. + [{"version": "/en/$version", "title": "$version", "aliases": $aliases}]' docs/versions.json > docs/versions.json
+              jq --arg version ${version} --argjson aliases ${aliases} '. + [{"version": "/en/$version", "title": "$version", "aliases": $aliases}]' versions.json > versions.json
             else
-              echo "docs/$version is not a directory, ignoring"
+              echo "$version is not a directory, ignoring"
             fi
           done
 
           echo "Versions:"
-          cat docs/versions.json
+          cat versions.json
   
       - name: 🚀 Commit & deploy
         uses: EndBug/add-and-commit@v9
