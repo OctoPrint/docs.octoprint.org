@@ -42,7 +42,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.96fe8683ff2bd71e9.min.css?v=13adf062" />
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.918c11dc96aaedbb3.min.css?v=3a27c74e" />
         <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=e85523a8" />
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -8898,6 +8898,17 @@ size (as multipart request with the file upload residing in request parameter <c
 <p>Allows extending the list of routes registered on the web server.</p>
 <p>This is interesting for plugins which want to provide their own download URLs which will then be delivered statically
 following the same path structure as regular downloads.</p>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>Your custom routes will have no authentication requirements, no CSRF protection, no security at all by default.</p>
+<p>If you implement a custom route <strong>it is your responsibility to ensure that it is properly secured</strong>!
+You will have to do that yourself! OctoPrint will not do this for you!</p>
+<p>Any custom route without any further check of CSRF protection and authentication will be accessible
+to <strong>everyone</strong> who has network access to your OctoPrint instance. Be <em>very</em> careful about what kind of functionality
+you allow in your custom routes and secure them to avoid critical security issues in your plugin.</p>
+<p>You should only need to use custom routes in very isolated cases. For most situations, a <a class="reference internal" href="mixins.html#octoprint.plugin.BlueprintPlugin" title="octoprint.plugin.BlueprintPlugin (Python class) — Bases: OctoPrintPlugin, RestartNeedingPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlueprintPlugin</span></code></a> or
+even <a class="reference internal" href="mixins.html#octoprint.plugin.SimpleApiPlugin" title="octoprint.plugin.SimpleApiPlugin (Python class) — Bases: OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleApiPlugin</span></code></a> is the better choice!</p>
+</div>
 <p><code class="docutils literal notranslate"><span class="pre">server_routes</span></code> will be a (read-only) list of the currently defined server routes, in case you want to check from
 your plugin against that.</p>
 <p>The hook must return a list of 3-tuples (the list’s length can be 0). Each 3-tuple should have the path of the route
