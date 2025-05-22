@@ -1496,6 +1496,18 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#octoprint.plugin.SettingsPlugin.get_settings_reauth_requirements" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.plugin.SettingsPlugin.get_settings_reauth_requirements (Python method) — Retrieves a config tree of settings that require a fresh credential check and potential reauthentication before they can be saved via the REST API.">get_<wbr>settings_<wbr>reauth_<wbr>requirements</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#octoprint.plugin.SettingsPlugin.get_settings_restricted_paths" class="md-nav__link">
     
       <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
@@ -4888,6 +4900,18 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#octoprint.plugin.SettingsPlugin.get_settings_reauth_requirements" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.plugin.SettingsPlugin.get_settings_reauth_requirements (Python method) — Retrieves a config tree of settings that require a fresh credential check and potential reauthentication before they can be saved via the REST API.">get_<wbr>settings_<wbr>reauth_<wbr>requirements</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#octoprint.plugin.SettingsPlugin.get_settings_restricted_paths" class="md-nav__link">
     
       <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
@@ -7741,12 +7765,15 @@ old and the new value and react accordingly.</p>
 </div>
 <p>Of course, you are always free to completely override both <a class="reference internal" href="#octoprint.plugin.SettingsPlugin.on_settings_load" title="octoprint.plugin.SettingsPlugin.on_settings_load (Python method) — Loads the settings for the plugin, called by the Settings API view in order to retrieve all settings from all plugins. Override this if you want to inject additional settings properties that are not stored within OctoPrint's configuration."><code class="xref py py-func docutils literal notranslate"><span class="pre">on_settings_load()</span></code></a> and <a class="reference internal" href="#octoprint.plugin.SettingsPlugin.on_settings_save" title="octoprint.plugin.SettingsPlugin.on_settings_save (Python method) — Saves the settings for the plugin, called by the Settings API view in order to persist all settings from all plugins. Override this if you need to directly react to settings changes or want to extract additional settings properties that are not stored within OctoPrint's configuration."><code class="xref py py-func docutils literal notranslate"><span class="pre">on_settings_save()</span></code></a> if the
 default implementations do not fit your requirements.</p>
-<div class="warning admonition">
-<p class="admonition-title">Warning</p>
-<p>Make sure to protect sensitive information stored by your plugin that only logged in administrators (or users)
+<div class="important tip admonition">
+<p class="admonition-title">Important</p>
+<p>Make sure to protect sensitive information stored by your plugin that only users with specific permissions
 should have access to via <a class="reference internal" href="#octoprint.plugin.SettingsPlugin.get_settings_restricted_paths" title="octoprint.plugin.SettingsPlugin.get_settings_restricted_paths (Python method) — Retrieves the list of paths in the plugin's settings which be restricted on the REST API."><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_settings_restricted_paths()</span></code></a>. OctoPrint will
 return its settings on the REST API even to anonymous clients, but will filter out fields it knows are restricted,
 therefore you <strong>must</strong> make sure that you specify sensitive information accordingly to limit access as required!</p>
+<p>You should also protect any fields like server commands or endpoint URLs pinged by your plugin by enforcing a fresh
+credential check and potential reauthentication. Since version 1.12.0 you can do this via
+<a class="reference internal" href="#octoprint.plugin.SettingsPlugin.get_settings_reauth_requirements" title="octoprint.plugin.SettingsPlugin.get_settings_reauth_requirements (Python method) — Retrieves a config tree of settings that require a fresh credential check and potential reauthentication before they can be saved via the REST API."><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_settings_reauth_requirements()</span></code></a>.</p>
 </div>
 <dl class="py attribute objdesc">
 <dt class="sig sig-object highlight py" id="octoprint.plugin.SettingsPlugin.config_version_key">
@@ -7802,6 +7829,40 @@ getters, the second the preprocessors for setters</p>
 </dd></dl>
 
 <dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.plugin.SettingsPlugin.get_settings_reauth_requirements">
+<span class="sig-name descname"><span class="pre">get_settings_reauth_requirements</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.get_settings_reauth_requirements" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves a config tree of settings that require a fresh credential check and potential
+reauthentication before they can be saved via the REST API.</p>
+<p>Override this in a plugin if you have any sensitive settings, e.g. system commands, that should
+require a fresh credential check from the user to write.</p>
+<p>Return a <code class="docutils literal notranslate"><span class="pre">dict</span></code> with the tree of affected keys. Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;foo&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;some&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;other&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">&quot;settings&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_settings_reauth_requirements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;foo&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span> <span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+</code></pre></div>
+</div>
+<p>In this example, trying to write <code class="docutils literal notranslate"><span class="pre">foo.a</span></code> or any of <code class="docutils literal notranslate"><span class="pre">bar.some</span></code>, <code class="docutils literal notranslate"><span class="pre">bar.other</span></code> or <code class="docutils literal notranslate"><span class="pre">bar.settings</span></code>
+will make OctoPrint check whether the credentials are still fresh, and if not abort the settings
+save request, returning an <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4">403 Forbidden</a>.</p>
+<div class="admonition versionadded">
+<p class="admonition-title"><span class="versionmodified added">Added in version 1.12.0.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py method objdesc">
 <dt class="sig sig-object highlight py" id="octoprint.plugin.SettingsPlugin.get_settings_restricted_paths">
 <span class="sig-name descname"><span class="pre">get_settings_restricted_paths</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.plugin.SettingsPlugin.get_settings_restricted_paths" title="Link to this definition">¶</a></dt>
 <dd><p>Retrieves the list of paths in the plugin’s settings which be restricted on the REST API.</p>
@@ -7816,58 +7877,360 @@ the path elements) for which to restrict access via the REST API accordingly:</p
 <li><p><code class="docutils literal notranslate"><span class="pre">never</span></code>: Paths will never be returned on the API</p></li>
 </ul>
 <p>Example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">some</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">admin_only</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="n">foo</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">),</span>
-                          <span class="n">user_only</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">)),</span>
-                <span class="n">another</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">admin_only</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;path&quot;</span><span class="p">),</span>
-                             <span class="n">field</span><span class="o">=</span><span class="s2">&quot;field&quot;</span><span class="p">),</span>
-                <span class="n">path</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">never</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="k">return</span><span class="o">=</span><span class="s2">&quot;return&quot;</span><span class="p">))),</span>
-                <span class="n">the</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">webcam</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;webcam&quot;</span><span class="p">)))</span>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;some&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;admin_only&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;path&quot;</span><span class="p">,</span>  <span class="c1"># [&quot;some&quot;, &quot;admin_only&quot;, &quot;path&quot;]</span>
+                <span class="s2">&quot;foo&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;user_only&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;path&quot;</span><span class="p">,</span>  <span class="c1"># [&quot;some&quot;, &quot;user_only&quot;, &quot;path&quot;]</span>
+                <span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;another&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;admin_only&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;path&quot;</span>  <span class="c1"># [&quot;another&quot;, &quot;admin_only&quot;, &quot;path&quot;]</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;field&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;to&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;never&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;return&quot;</span><span class="p">:</span> <span class="s2">&quot;return&quot;</span>  <span class="c1"># [&quot;path&quot;, &quot;to&quot;, &quot;never&quot;, &quot;return&quot;]</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;the&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;webcam&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;data&quot;</span>  <span class="c1"># [&quot;the&quot;, &quot;webcam&quot;, &quot;data&quot;]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_settings_restricted_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.access.permissions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Permissions</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;admin&#39;</span><span class="p">:[[</span><span class="s2">&quot;some&quot;</span><span class="p">,</span> <span class="s2">&quot;admin_only&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;another&quot;</span><span class="p">,</span> <span class="s2">&quot;admin_only&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">],],</span>
-            <span class="s1">&#39;user&#39;</span><span class="p">:[[</span><span class="s2">&quot;some&quot;</span><span class="p">,</span> <span class="s2">&quot;user_only&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">],],</span>
-            <span class="s1">&#39;never&#39;</span><span class="p">:[[</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="s2">&quot;to&quot;</span><span class="p">,</span> <span class="s2">&quot;never&quot;</span><span class="p">,</span> <span class="s2">&quot;return&quot;</span><span class="p">],],</span>
-            <span class="n">Permissions</span><span class="o">.</span><span class="n">WEBCAM</span><span class="p">:[[</span><span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;webcam&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">],]}</span>
-
-<span class="c1"># this will make the plugin return settings on the REST API like this for an anonymous user</span>
-<span class="c1">#</span>
-<span class="c1">#     dict(some=dict(admin_only=dict(path=None, foo=&quot;foo&quot;),</span>
-<span class="c1">#                    user_only=dict(path=None, bar=&quot;bar&quot;)),</span>
-<span class="c1">#          another=dict(admin_only=dict(path=None),</span>
-<span class="c1">#                       field=&quot;field&quot;),</span>
-<span class="c1">#          path=dict(to=dict(never=dict(return=None))),</span>
-<span class="c1">#          the=dict(webcam=dict(data=None)))</span>
-<span class="c1">#</span>
-<span class="c1"># like this for a logged in user without the webcam permission</span>
-<span class="c1">#</span>
-<span class="c1">#     dict(some=dict(admin_only=dict(path=None, foo=&quot;foo&quot;),</span>
-<span class="c1">#                    user_only=dict(path=&quot;path&quot;, bar=&quot;bar&quot;)),</span>
-<span class="c1">#          another=dict(admin_only=dict(path=None),</span>
-<span class="c1">#                       field=&quot;field&quot;),</span>
-<span class="c1">#          path=dict(to=dict(never=dict(return=None))),</span>
-<span class="c1">#          the=dict(webcam=dict(data=None)))</span>
-<span class="c1">#</span>
-<span class="c1"># like this for a logged in user with the webcam permission</span>
-<span class="c1">#</span>
-<span class="c1">#     dict(some=dict(admin_only=dict(path=None, foo=&quot;foo&quot;),</span>
-<span class="c1">#                    user_only=dict(path=&quot;path&quot;, bar=&quot;bar&quot;)),</span>
-<span class="c1">#          another=dict(admin_only=dict(path=None),</span>
-<span class="c1">#                       field=&quot;field&quot;),</span>
-<span class="c1">#          path=dict(to=dict(never=dict(return=None))),</span>
-<span class="c1">#          the=dict(webcam=dict(data=&quot;webcam&quot;)))</span>
-<span class="c1">#</span>
-<span class="c1"># and like this for an admin user</span>
-<span class="c1">#</span>
-<span class="c1">#     dict(some=dict(admin_only=dict(path=&quot;path&quot;, foo=&quot;foo&quot;),</span>
-<span class="c1">#                    user_only=dict(path=&quot;path&quot;, bar=&quot;bar&quot;)),</span>
-<span class="c1">#          another=dict(admin_only=dict(path=&quot;path&quot;),</span>
-<span class="c1">#                       field=&quot;field&quot;),</span>
-<span class="c1">#          path=dict(to=dict(never=dict(return=None))),</span>
-<span class="c1">#          the=dict(webcam=dict(data=&quot;webcam&quot;)))</span>
-</code></pre></div>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;admin&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">[</span><span class="s2">&quot;some&quot;</span><span class="p">,</span> <span class="s2">&quot;admin_only&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;another&quot;</span><span class="p">,</span> <span class="s2">&quot;admin_only&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">],</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">[</span><span class="s2">&quot;some&quot;</span><span class="p">,</span> <span class="s2">&quot;user_only&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">]</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;never&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="s2">&quot;to&quot;</span><span class="p">,</span> <span class="s2">&quot;never&quot;</span><span class="p">,</span> <span class="s2">&quot;return&quot;</span><span class="p">]</span>
+        <span class="p">],</span>
+        <span class="n">Permissions</span><span class="o">.</span><span class="n">WEBCAM</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">[</span><span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;webcam&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">]</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+</code></pre></div></td></tr></table></div>
 </div>
+<p>This will make the plugin return settings on the REST API as follows:</p>
+<ul>
+<li><p>for an anonymous user:</p>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+    <span class="s2">&quot;some&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="s2">&quot;admin_only&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">             <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># [&quot;some&quot;, &quot;admin_only&quot;, &quot;path&quot;]</span>
+</span>             <span class="s2">&quot;foo&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span>
+         <span class="p">},</span>
+         <span class="s2">&quot;user_only&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">             <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># [&quot;some&quot;, &quot;user_only&quot;, &quot;path&quot;]</span>
+</span>             <span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span>
+         <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;another&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;admin_only&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">            <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="kc">None</span>  <span class="c1"># [&quot;another&quot;, &quot;admin_only&quot;, &quot;path&quot;]</span>
+</span>        <span class="p">},</span>
+        <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;field&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;to&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;never&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">                <span class="s2">&quot;return&quot;</span><span class="p">:</span> <span class="kc">None</span>  <span class="c1"># [&quot;path&quot;, &quot;to&quot;, &quot;never&quot;, &quot;return&quot;]</span>
+</span>            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;the&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;webcam&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">            <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="kc">None</span>  <span class="c1"># [&quot;the&quot;, &quot;webcam&quot;, &quot;data&quot;]</span>
+</span>        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+</div>
+</li>
+<li><p>for a logged in user <em>without</em> the webcam permission:</p>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+    <span class="s2">&quot;some&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="s2">&quot;admin_only&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">             <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># [&quot;some&quot;, &quot;admin_only&quot;, &quot;path&quot;]</span>
+</span>             <span class="s2">&quot;foo&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span>
+         <span class="p">},</span>
+         <span class="s2">&quot;user_only&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">             <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;path&quot;</span><span class="p">,</span>  <span class="c1"># [&quot;some&quot;, &quot;user_only&quot;, &quot;path&quot;]</span>
+</span>             <span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span>
+         <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;another&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;admin_only&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">            <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="kc">None</span>  <span class="c1"># [&quot;another&quot;, &quot;admin_only&quot;, &quot;path&quot;]</span>
+</span>        <span class="p">},</span>
+        <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;field&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;to&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;never&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">                <span class="s2">&quot;return&quot;</span><span class="p">:</span> <span class="kc">None</span>  <span class="c1"># [&quot;path&quot;, &quot;to&quot;, &quot;never&quot;, &quot;return&quot;]</span>
+</span>            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;the&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;webcam&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">            <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="kc">None</span>  <span class="c1"># [&quot;the&quot;, &quot;webcam&quot;, &quot;data&quot;]</span>
+</span>        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+</div>
+</li>
+<li><p>for a logged in user <em>with</em> the webcam permission:</p>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+    <span class="s2">&quot;some&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="s2">&quot;admin_only&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">             <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># [&quot;some&quot;, &quot;admin_only&quot;, &quot;path&quot;]</span>
+</span>             <span class="s2">&quot;foo&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span>
+         <span class="p">},</span>
+         <span class="s2">&quot;user_only&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">             <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;path&quot;</span><span class="p">,</span>  <span class="c1"># [&quot;some&quot;, &quot;user_only&quot;, &quot;path&quot;]</span>
+</span>             <span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span>
+         <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;another&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;admin_only&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">            <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="kc">None</span>  <span class="c1"># [&quot;another&quot;, &quot;admin_only&quot;, &quot;path&quot;]</span>
+</span>        <span class="p">},</span>
+        <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;field&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;to&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;never&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">                <span class="s2">&quot;return&quot;</span><span class="p">:</span> <span class="kc">None</span>  <span class="c1"># [&quot;path&quot;, &quot;to&quot;, &quot;never&quot;, &quot;return&quot;]</span>
+</span>            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;the&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;webcam&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">            <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;data&quot;</span>  <span class="c1"># [&quot;the&quot;, &quot;webcam&quot;, &quot;data&quot;]</span>
+</span>        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+</div>
+</li>
+<li><p>and like this for an admin user</p>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+    <span class="s2">&quot;some&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="s2">&quot;admin_only&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">             <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;path&quot;</span><span class="p">,</span>  <span class="c1"># [&quot;some&quot;, &quot;admin_only&quot;, &quot;path&quot;]</span>
+</span>             <span class="s2">&quot;foo&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span>
+         <span class="p">},</span>
+         <span class="s2">&quot;user_only&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">             <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;path&quot;</span><span class="p">,</span>  <span class="c1"># [&quot;some&quot;, &quot;user_only&quot;, &quot;path&quot;]</span>
+</span>             <span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span>
+         <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;another&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;admin_only&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">            <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;path&quot;</span>  <span class="c1"># [&quot;another&quot;, &quot;admin_only&quot;, &quot;path&quot;]</span>
+</span>        <span class="p">},</span>
+        <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;field&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;to&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;never&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">                <span class="s2">&quot;return&quot;</span><span class="p">:</span> <span class="kc">None</span>  <span class="c1"># [&quot;path&quot;, &quot;to&quot;, &quot;never&quot;, &quot;return&quot;]</span>
+</span>            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;the&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;webcam&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">            <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;data&quot;</span>  <span class="c1"># [&quot;the&quot;, &quot;webcam&quot;, &quot;data&quot;]</span>
+</span>        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+</div>
+</li>
+</ul>
 <div class="admonition versionadded">
 <p class="admonition-title"><span class="versionmodified added">Added in version 1.2.17.</span></p>
 </div>
