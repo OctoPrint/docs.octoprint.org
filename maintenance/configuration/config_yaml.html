@@ -2174,6 +2174,26 @@ lines from the display terminal log.</p>
 <span class="w">  </span><span class="c1"># Videocodec to be used for encoding. Defaults to mpeg2video.</span>
 <span class="w">  </span><span class="nt">ffmpegVideoCodec</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mpeg2video</span>
 
+<span class="w">  </span><span class="c1"># The full commandline to use for rendering timelapse recordings through ffmpeg. Supports the following placeholders:</span>
+<span class="w">  </span><span class="c1">#</span>
+<span class="w">  </span><span class="c1"># - ffmpeg: the ffmpeg command as defined under `webcam.ffmpeg`</span>
+<span class="w">  </span><span class="c1"># - fps: the fps setting as defined by the timelapse configuration</span>
+<span class="w">  </span><span class="c1"># - input: the path to the input files</span>
+<span class="w">  </span><span class="c1"># - videocodec: the video codec to use, as defined in `webcam.ffmpegVideoCodec`</span>
+<span class="w">  </span><span class="c1"># - threads: the number of threads to use, as defined in `webcam.ffmpegThreads`</span>
+<span class="w">  </span><span class="c1"># - bitrate: the bitrate to use, as defined in `webcam.bitrate`</span>
+<span class="w">  </span><span class="c1"># - containerformat: the container format to use, based on the selected codec</span>
+<span class="w">  </span><span class="c1"># - filters: the filter chain</span>
+<span class="w">  </span><span class="c1"># - output: the path to the output file</span>
+<span class="w">  </span><span class="nt">ffmpegCommandline</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{ffmpeg}</span><span class="nv"> </span><span class="s">-framerate</span><span class="nv"> </span><span class="s">{fps}</span><span class="nv"> </span><span class="s">-i</span><span class="nv"> </span><span class="s">&quot;{input}&quot;</span><span class="nv"> </span><span class="s">-vcodec</span><span class="nv"> </span><span class="s">{videocodec}</span><span class="nv"> </span><span class="s">-threads</span><span class="nv"> </span><span class="s">{threads}</span><span class="nv"> </span><span class="s">-b:v</span><span class="nv"> </span><span class="s">{bitrate}</span><span class="nv"> </span><span class="s">-f</span><span class="nv"> </span><span class="s">{containerformat}</span><span class="nv"> </span><span class="s">-y</span><span class="nv"> </span><span class="s">{filters}</span><span class="nv"> </span><span class="s">&quot;{output}&quot;&#39;</span>
+
+<span class="w">  </span><span class="c1"># The full commandline to use for generating thumbnails through ffmpeg. Supports the following placeholders:</span>
+<span class="w">  </span><span class="c1">#</span>
+<span class="w">  </span><span class="c1"># - ffmpeg: the ffmpeg command as defined under `webcam.ffmpeg`</span>
+<span class="w">  </span><span class="c1"># - input: the path to the input file</span>
+<span class="w">  </span><span class="c1"># - output: the path to the output file</span>
+<span class="w">  </span><span class="nt">ffmpegThumbnailCommandline</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{ffmpeg}</span><span class="nv"> </span><span class="s">-sseof</span><span class="nv"> </span><span class="s">-1</span><span class="nv"> </span><span class="s">-i</span><span class="nv"> </span><span class="s">&quot;{input}&quot;</span><span class="nv"> </span><span class="s">-update</span><span class="nv"> </span><span class="s">1</span><span class="nv"> </span><span class="s">-q:v</span><span class="nv"> </span><span class="s">0.7</span><span class="nv"> </span><span class="s">&quot;{output}&quot;&#39;</span>
+
 <span class="w">  </span><span class="c1"># The bitrate to use for rendering the timelapse video. This gets directly passed to ffmpeg.</span>
 <span class="w">  </span><span class="nt">bitrate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5000k</span>
 
