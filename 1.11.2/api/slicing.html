@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slicing &mdash; OctoPrint 1.11.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=3dbc9e18" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=1e67d180" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=ff71f5f3"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/mermaid.min.js?v=c0ebaf0d"></script>
+        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="System" href="system.html" />
+    <link rel="prev" title="Settings" href="settings.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OctoPrint
+          </a>
+              <div class="version">
+                1.11.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">REST API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="general.html">General information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version.html">Version information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">Server information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection.html">Connection handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">File operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="job.html">Job operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="languages.html">Languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logs.html">Log file management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html">Printer operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="printerprofiles.html">Printer profile operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Slicing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#list-all-slicers-and-slicing-profiles">List All Slicers and Slicing Profiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#list-slicing-profiles-of-a-specific-slicer">List Slicing Profiles of a Specific Slicer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#retrieve-specific-profile">Retrieve Specific Profile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-slicing-profile">Add Slicing Profile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#update-slicing-profile">Update Slicing Profile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#delete-slicing-profile">Delete Slicing Profile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-model">Data model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#slicer-list">Slicer list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slicer">Slicer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#profile-list">Profile list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#profile">Profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#profile-update-request">Profile Update Request</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html">Timelapse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="access.html">Access control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">Util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wizard.html">Wizard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="push.html">Push updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datamodel.html">Common data model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">REST API</a> &raquo;</li>
+        
+      <li>Slicing</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/slicing.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="slicing">
+<span id="sec-api-slicing"></span><h1><a class="toc-backref" href="#id1" role="doc-backlink">Slicing</a><a class="headerlink" href="#slicing" title="Link to this heading"></a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The interface documented here is the status quo that might be changed while the interfaces are streamlined for
+a more general consumption. If you happen to want to develop against it, you should drop me an email to make sure I can give you a heads-up when
+something changes.</p>
+</div>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#slicing" id="id1">Slicing</a></p>
+<ul>
+<li><p><a class="reference internal" href="#list-all-slicers-and-slicing-profiles" id="id2">List All Slicers and Slicing Profiles</a></p></li>
+<li><p><a class="reference internal" href="#list-slicing-profiles-of-a-specific-slicer" id="id3">List Slicing Profiles of a Specific Slicer</a></p></li>
+<li><p><a class="reference internal" href="#retrieve-specific-profile" id="id4">Retrieve Specific Profile</a></p></li>
+<li><p><a class="reference internal" href="#add-slicing-profile" id="id5">Add Slicing Profile</a></p></li>
+<li><p><a class="reference internal" href="#update-slicing-profile" id="id6">Update Slicing Profile</a></p></li>
+<li><p><a class="reference internal" href="#delete-slicing-profile" id="id7">Delete Slicing Profile</a></p></li>
+<li><p><a class="reference internal" href="#data-model" id="id8">Data model</a></p>
+<ul>
+<li><p><a class="reference internal" href="#slicer-list" id="id9">Slicer list</a></p></li>
+<li><p><a class="reference internal" href="#slicer" id="id10">Slicer</a></p></li>
+<li><p><a class="reference internal" href="#profile-list" id="id11">Profile list</a></p></li>
+<li><p><a class="reference internal" href="#profile" id="id12">Profile</a></p></li>
+<li><p><a class="reference internal" href="#profile-update-request" id="id13">Profile Update Request</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<p>The Slicing API on one hand offers methods for managing slicing profiles stored within OctoPrint, on the other hand
+it will be extended in the future to also allow for multi extruder slicing (which currently is not possible with the
+<code class="docutils literal notranslate"><span class="pre">slice</span></code> command of the <a class="reference internal" href="files.html#sec-api-fileops-filecommand"><span class="std std-ref">File operations API</span></a> and other things.</p>
+<section id="list-all-slicers-and-slicing-profiles">
+<span id="sec-api-slicing-listall"></span><h2><a class="toc-backref" href="#id2" role="doc-backlink">List All Slicers and Slicing Profiles</a><a class="headerlink" href="#list-all-slicers-and-slicing-profiles" title="Link to this heading"></a></h2>
+<dl class="http get">
+<dt class="sig sig-object http" id="get--api-slicing">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/slicing</span></span><a class="headerlink" href="#get--api-slicing" title="Link to this definition"></a></dt>
+<dd><p>Returns a list of all available slicing profiles for all registered slicers in the system.</p>
+<p>Returns a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> response with a <a class="reference internal" href="#sec-api-slicing-datamodel-slicerlist"><span class="std std-ref">Slicer list</span></a>
+as the body upon successful completion.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">SLICE</span></code> permission.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/slicing</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;curalegacy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;curalegacy&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;displayName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cura Legacy&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;profiles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;high_quality&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;high_quality&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;displayName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;High Quality&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/api/slicing/curalegacy/profiles/high_quality&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;medium_quality&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;medium_quality&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;displayName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Medium Quality&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/api/slicing/curalegacy/profiles/medium_quality&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Status Codes<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – No error</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="list-slicing-profiles-of-a-specific-slicer">
+<span id="sec-api-slicing-list"></span><h2><a class="toc-backref" href="#id3" role="doc-backlink">List Slicing Profiles of a Specific Slicer</a><a class="headerlink" href="#list-slicing-profiles-of-a-specific-slicer" title="Link to this heading"></a></h2>
+<dl class="http get">
+<dt class="sig sig-object http" id="get--api-slicing-(string-slicer)-profiles">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/slicing/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">string:</span> </em><em class="sig-param"><span class="pre">slicer</span></em><span class="sig-paren">)</span><span class="sig-name descname"><span class="pre">/profiles</span></span><a class="headerlink" href="#get--api-slicing-(string-slicer)-profiles" title="Link to this definition"></a></dt>
+<dd><p>Returns a list of all available slicing profiles for the requested slicer.</p>
+<p>Returns a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> response with a <a class="reference internal" href="#sec-api-slicing-datamodel-profilelist"><span class="std std-ref">Profile list</span></a>
+as the body upon successful completion.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">SLICE</span></code> permission.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/slicing/curalegacy/profiles</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;high_quality&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;high_quality&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;displayName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;High Quality&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/api/slicing/curalegacy/profiles/high_quality&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;medium_quality&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;medium_quality&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;displayName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Medium Quality&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/api/slicing/curalegacy/profiles/medium_quality&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slicer</strong> – The identifying key of the slicer for which to list the available profiles.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – No error</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a></span> – If the <code class="docutils literal notranslate"><span class="pre">slicer</span></code> was unknown to the system or not yet configured.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="retrieve-specific-profile">
+<span id="sec-api-slicing-listspecific"></span><h2><a class="toc-backref" href="#id4" role="doc-backlink">Retrieve Specific Profile</a><a class="headerlink" href="#retrieve-specific-profile" title="Link to this heading"></a></h2>
+<dl class="http get">
+<dt class="sig sig-object http" id="get--api-slicing-(string-slicer)-profiles-(string-key)">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/slicing/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">string:</span> </em><em class="sig-param"><span class="pre">slicer</span></em><span class="sig-paren">)</span><span class="sig-name descname"><span class="pre">/profiles/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">string:</span> </em><em class="sig-param"><span class="pre">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#get--api-slicing-(string-slicer)-profiles-(string-key)" title="Link to this definition"></a></dt>
+<dd><p>Retrieves the specified profile from the system.</p>
+<p>Returns a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> response with a <a class="reference internal" href="#sec-api-slicing-datamodel-profile"><span class="std std-ref">full Profile</span></a>
+as the body upon successful completion.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">SLICE</span></code> permission.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/slicing/curalegacy/profiles/quick_test</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;displayName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Just a test&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is just a test&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/api/slicing/curalegacy/profiles/quick_test&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;bottom_layer_speed&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">20.0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;bottom_thickness&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;brim_line_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;cool_head_lift&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;cool_min_feedrate&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">10.0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;cool_min_layer_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">5.0</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slicer</strong> – The identifying key of the slicer for which to list the available profiles.</p></li>
+<li><p><strong>name</strong> – The identifying key of the profile to retrieve</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – No error</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a></span> – If the <code class="docutils literal notranslate"><span class="pre">slicer</span></code> or the profile <code class="docutils literal notranslate"><span class="pre">key</span></code> was unknown to the system.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="add-slicing-profile">
+<span id="sec-api-slicing-add"></span><h2><a class="toc-backref" href="#id5" role="doc-backlink">Add Slicing Profile</a><a class="headerlink" href="#add-slicing-profile" title="Link to this heading"></a></h2>
+<dl class="http put">
+<dt class="sig sig-object http" id="put--api-slicing-(string-slicer)-profiles-(string-key)">
+<span class="sig-name descname"><span class="pre">PUT</span> </span><span class="sig-name descname"><span class="pre">/api/slicing/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">string:</span> </em><em class="sig-param"><span class="pre">slicer</span></em><span class="sig-paren">)</span><span class="sig-name descname"><span class="pre">/profiles/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">string:</span> </em><em class="sig-param"><span class="pre">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#put--api-slicing-(string-slicer)-profiles-(string-key)" title="Link to this definition"></a></dt>
+<dd><p>Adds a new slicing profile for the given <code class="docutils literal notranslate"><span class="pre">slicer</span></code> to the system. If the profile identified by <code class="docutils literal notranslate"><span class="pre">key</span></code> already exists,
+it will be overwritten.</p>
+<p>Expects a <a class="reference internal" href="#sec-api-slicing-datamodel-profile"><span class="std std-ref">Profile</span></a> as body.</p>
+<p>Returns a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> and an <a class="reference internal" href="#sec-api-slicing-datamodel-profile"><span class="std std-ref">abridged Profile</span></a> in the body
+upon successful completion.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">SETTINGS</span></code> permission.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">PUT</span> <span class="nn">/api/slicing/curalegacy/profiles/quick_test</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;displayName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Just a test&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is just a test to show how to create a curalegacy profile with a different layer height and skirt count&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;layer_height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;skirt_line_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">http://example.com/api/slicing/cura/profiles/quick_test</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;displayName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Just a test&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is just a test to show how to create a curalegacy profile with a different layer height and skirt count&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/api/slicing/curalegacy/profiles/quick_test&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slicer</strong> – The identifying key of the slicer for which to add the profile</p></li>
+<li><p><strong>key</strong> – The identifying key of the new profile</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a></span> – No error</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a></span> – If the <code class="docutils literal notranslate"><span class="pre">slicer</span></code> was unknown to the system.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="update-slicing-profile">
+<span id="sec-api-slicing-patch"></span><h2><a class="toc-backref" href="#id6" role="doc-backlink">Update Slicing Profile</a><a class="headerlink" href="#update-slicing-profile" title="Link to this heading"></a></h2>
+<dl class="http patch">
+<dt class="sig sig-object http" id="patch--api-slicing-(string-slicer)-profiles-(string-key)">
+<span class="sig-name descname"><span class="pre">PATCH</span> </span><span class="sig-name descname"><span class="pre">/api/slicing/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">string:</span> </em><em class="sig-param"><span class="pre">slicer</span></em><span class="sig-paren">)</span><span class="sig-name descname"><span class="pre">/profiles/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">string:</span> </em><em class="sig-param"><span class="pre">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#patch--api-slicing-(string-slicer)-profiles-(string-key)" title="Link to this definition"></a></dt>
+<dd><p>Updates the slicing profile identified by <code class="docutils literal notranslate"><span class="pre">key</span></code> for the slicer <code class="docutils literal notranslate"><span class="pre">slicer</span></code>.</p>
+<p>Expects a <a class="reference internal" href="#sec-api-slicing-datamodel-profileupdate"><span class="std std-ref">profile update request</span></a> as body.</p>
+<p>Returns a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> and an <a class="reference internal" href="#sec-api-slicing-datamodel-profile"><span class="std std-ref">abridged Profile</span></a> in the body
+upon successful completion.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">SETTINGS</span></code> permission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slicer</strong> – The identifying key of the slicer for which to update the profile</p></li>
+<li><p><strong>key</strong> – The identifying key of the profile to update</p></li>
+</ul>
+</dd>
+<dt class="field-even">JSON Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>data</strong> – New profile overrides to apply</p></li>
+<li><p><strong>displayName</strong> – New display name</p></li>
+<li><p><strong>description</strong> – New description</p></li>
+<li><p><strong>default</strong> – Whether to make the profile default (true) or not (false) for the slicer</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Status Codes<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – No error</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a></span> – Slicer or profile do not exist</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="delete-slicing-profile">
+<span id="sec-api-slicing-delete"></span><h2><a class="toc-backref" href="#id7" role="doc-backlink">Delete Slicing Profile</a><a class="headerlink" href="#delete-slicing-profile" title="Link to this heading"></a></h2>
+<dl class="http delete">
+<dt class="sig sig-object http" id="delete--api-slicing-(string-slicer)-profiles-(string-key)">
+<span class="sig-name descname"><span class="pre">DELETE</span> </span><span class="sig-name descname"><span class="pre">/api/slicing/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">string:</span> </em><em class="sig-param"><span class="pre">slicer</span></em><span class="sig-paren">)</span><span class="sig-name descname"><span class="pre">/profiles/</span></span><span class="sig-paren">(</span><em class="property"><span class="pre">string:</span> </em><em class="sig-param"><span class="pre">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#delete--api-slicing-(string-slicer)-profiles-(string-key)" title="Link to this definition"></a></dt>
+<dd><p>Delete the slicing profile identified by <code class="docutils literal notranslate"><span class="pre">key</span></code> for the slicer <code class="docutils literal notranslate"><span class="pre">slicer</span></code>. If the profile doesn’t exist, the
+request will succeed anyway.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">SETTINGS</span></code> permission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slicer</strong> – The identifying key of the slicer for which to delete the profile</p></li>
+<li><p><strong>key</strong> – The identifying key of the profile to delete</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a></span> – No error</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a></span> – If the <code class="docutils literal notranslate"><span class="pre">slicer</span></code> was unknown to the system.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="data-model">
+<span id="sec-api-slicing-datamodel"></span><h2><a class="toc-backref" href="#id8" role="doc-backlink">Data model</a><a class="headerlink" href="#data-model" title="Link to this heading"></a></h2>
+<section id="slicer-list">
+<span id="sec-api-slicing-datamodel-slicerlist"></span><h3><a class="toc-backref" href="#id9" role="doc-backlink">Slicer list</a><a class="headerlink" href="#slicer-list" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 8.3%" />
+<col style="width: 16.7%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;slicer</span> <span class="pre">key&gt;</span></code></p></td>
+<td><p>0..*</p></td>
+<td><p><a class="reference internal" href="#sec-api-slicing-datamodel-slicer"><span class="std std-ref">Slicer</span></a></p></td>
+<td><p>Information about a slicer registered in the system, incl. stored profiles without <code class="docutils literal notranslate"><span class="pre">data</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="slicer">
+<span id="sec-api-slicing-datamodel-slicer"></span><h3><a class="toc-backref" href="#id10" role="doc-backlink">Slicer</a><a class="headerlink" href="#slicer" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 8.3%" />
+<col style="width: 16.7%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">key</span></code></p></td>
+<td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Identifier of the slicer</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">displayName</span></code></p></td>
+<td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Display name of the slicer</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sameDevice</span></code></p></td>
+<td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
+<td><p>Whether the slicer runs on the same device as OctoPrint (<code class="docutils literal notranslate"><span class="pre">true</span></code>) and hence can’t be used while printing,
+or not (<code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">default</span></code></p></td>
+<td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
+<td><p>Whether the slicer is the default slicer to use (<code class="docutils literal notranslate"><span class="pre">true</span></code>) or not (<code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">profiles</span></code></p></td>
+<td><p>0..*</p></td>
+<td><p><a class="reference internal" href="#sec-api-slicing-datamodel-profilelist"><span class="std std-ref">Profile list</span></a></p></td>
+<td><p>Slicing profiles available for this slicer, mapped by their <code class="docutils literal notranslate"><span class="pre">key</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="profile-list">
+<span id="sec-api-slicing-datamodel-profilelist"></span><h3><a class="toc-backref" href="#id11" role="doc-backlink">Profile list</a><a class="headerlink" href="#profile-list" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 8.3%" />
+<col style="width: 16.7%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;profile</span> <span class="pre">key&gt;</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p><a class="reference internal" href="#sec-api-slicing-datamodel-profile"><span class="std std-ref">Profile</span></a></p></td>
+<td><p>Information about a profile stored in the system, <code class="docutils literal notranslate"><span class="pre">data</span></code> field will be left out.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="profile">
+<span id="sec-api-slicing-datamodel-profile"></span><h3><a class="toc-backref" href="#id12" role="doc-backlink">Profile</a><a class="headerlink" href="#profile" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 8.3%" />
+<col style="width: 16.7%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">key</span></code></p></td>
+<td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Identifier of the profile</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">displayName</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Display name of the profile</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">description</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Description of the profile</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">default</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
+<td><p>Whether this is the default profile to be used with this slicer (<code class="docutils literal notranslate"><span class="pre">true</span></code>) or not (<code class="docutils literal notranslate"><span class="pre">false</span></code>). Will always be
+returned in responses but can be left out of save/update requests.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">resource</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">URL</span></code></p></td>
+<td><p>Resource URL of the profile, will always be returned in responses but can be left out of save/update requests.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">data</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p>Object</p></td>
+<td><p>The actual profile data, including any default values if the profile was retrieved from the server. May contain
+only the keys differing from the defaults when saving/updating a profile. The keys to be found in here a slicer
+specific. Will be left out for list responses.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="profile-update-request">
+<span id="sec-api-slicing-datamodel-profileupdate"></span><h3><a class="toc-backref" href="#id13" role="doc-backlink">Profile Update Request</a><a class="headerlink" href="#profile-update-request" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 8.3%" />
+<col style="width: 16.7%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">data</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p>Object</p></td>
+<td><p>The profile data</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">displayName</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>The new display name for the profile</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">description</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>The new description for the profile</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">default</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
+<td><p>Whether to mark the profile as default for the slicer (true) or not (false)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="settings.html" class="btn btn-neutral float-left" title="Settings" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="system.html" class="btn btn-neutral float-right" title="System" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2025, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.11.2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.11.2/api/slicing.html">1.11.2</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.10.3/api/slicing.html">1.10.3</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/master/api/slicing.html">master</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/maintenance/api/slicing.html">maintenance</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
