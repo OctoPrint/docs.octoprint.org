@@ -1,0 +1,3249 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="index.html">
+      
+      
+        <link rel="next" href="browser.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>OctoPrintClient - OctoPrint dev documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.6ec1c446c2c357833.min.css?v=e2e8fea8" />
+        <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=e85523a8" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#OctoPrintClient" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+    These are not the docs of the latest released version. Those can be found <a href="/en/master">here</a>.
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL(".."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="OctoPrint dev documentation" class="md-header__button md-logo" aria-label="OctoPrint dev documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OctoPrint dev documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OctoPrintClient
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="OctoPrint dev documentation" class="md-nav__button md-logo" aria-label="OctoPrint dev documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    OctoPrint dev documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Features</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bundledplugins/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Bundled Plugins</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Configuration</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>REST API</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Events</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Development</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Developing Plugins</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Internal Modules</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Java<wbr>Script Client Library</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Java<wbr>Script Client Library</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client</span>
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client</span>
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient" class="md-nav__link">
+    
+      <span aria-label="JavaScript class" class="objinfo-icon objinfo-icon__data" title="JavaScript class">C</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient (JavaScript class)"><span>Octo<wbr>Print<wbr>Client</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.options" class="md-nav__link">
+    
+      <span aria-label="JavaScript attribute" class="objinfo-icon objinfo-icon__alias" title="JavaScript attribute">V</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.options (JavaScript attribute)"><span>Octo<wbr>Print<wbr>Client.<wbr>options</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins" class="md-nav__link">
+    
+      <span aria-label="JavaScript attribute" class="objinfo-icon objinfo-icon__alias" title="JavaScript attribute">V</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins (JavaScript attribute)"><span>Octo<wbr>Print<wbr>Client.<wbr>plugins</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.getBaseUrl" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.getBaseUrl (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>get<wbr>Base<wbr>Url</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.getBaseUrl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.getBaseUrl-returns-string" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns string</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.getCookie" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.getCookie (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>get<wbr>Cookie</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.getCookie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.getCookie-return-string" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Return string</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.getRequestHeaders" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.getRequestHeaders (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>get<wbr>Request<wbr>Headers</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.getRequestHeaders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.getRequestHeaders-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.getRequestHeaders-returns-object" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns object</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.ajax" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.ajax (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>ajax</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.ajax">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.ajax-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.ajax-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.ajaxWithData" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.ajaxWithData (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>ajax<wbr>With<wbr>Data</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.ajaxWithData">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.ajaxWithData-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.ajaxWithData-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.get" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.get (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>get</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.get">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.get-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.get-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.getWithQuery" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.getWithQuery (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>get<wbr>With<wbr>Query</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.getWithQuery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.getWithQuery-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.getWithQuery-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.post" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.post (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>post</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.post">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.post-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.post-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.postJson" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.postJson (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>post<wbr>Json</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.postJson">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.postJson-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.postJson-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.put" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.put (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>put</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.putJson" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.putJson (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>put<wbr>Json</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.patch" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.patch (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>patch</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.patchJson" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.patchJson (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>patch<wbr>Json</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.delete" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.delete (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>delete</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.delete">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.delete-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.delete-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.download" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.download (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>download</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.download">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.download-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.download-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.upload" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.upload (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>upload</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.upload">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.upload-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.issueCommand" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.issueCommand (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>issue<wbr>Command</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.issueCommand">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.issueCommand-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.issueCommand-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.getSimpleApiUrl" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.getSimpleApiUrl (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>get<wbr>Simple<wbr>Api<wbr>Url</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.getSimpleApiUrl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.getSimpleApiUrl-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.getSimpleApiUrl-returns-string" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns string</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.simpleApiGet" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.simpleApiGet (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>simple<wbr>Api<wbr>Get</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.simpleApiGet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.simpleApiGet-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.simpleApiGet-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.simpleApiCommand" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.simpleApiCommand (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>simple<wbr>Api<wbr>Command</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.simpleApiCommand">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.simpleApiCommand-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.simpleApiCommand-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.getBlueprintUrl" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.getBlueprintUrl (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>get<wbr>Blueprint<wbr>Url</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.createRejectedDeferred" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.createRejectedDeferred (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>create<wbr>Rejected<wbr>Deferred</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.createCustomException" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.createCustomException (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>create<wbr>Custom<wbr>Exception</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.registerPluginComponent" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.registerPluginComponent (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>register<wbr>Plugin<wbr>Component</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.registerPluginComponent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.registerPluginComponent-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.InvalidArgumentError" class="md-nav__link">
+    
+      <span aria-label="JavaScript class" class="objinfo-icon objinfo-icon__data" title="JavaScript class">C</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.InvalidArgumentError (JavaScript class)"><span>Octo<wbr>Print<wbr>Client.<wbr>Invalid<wbr>Argument<wbr>Error</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="browser.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>browser</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="connection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>connection</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="control.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>control</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="files.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>files</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="job.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>job</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="languages.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>languages</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>logs</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="printer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>printer</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="printerprofiles.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>printerprofiles</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="settings.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>settings</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="slicing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>slicing</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="socket.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>socket</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>system</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="timelapse.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>timelapse</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="users.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>users</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="util.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>util</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wizard.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>wizard</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient" class="md-nav__link">
+    
+      <span aria-label="JavaScript class" class="objinfo-icon objinfo-icon__data" title="JavaScript class">C</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient (JavaScript class)"><span>Octo<wbr>Print<wbr>Client</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.options" class="md-nav__link">
+    
+      <span aria-label="JavaScript attribute" class="objinfo-icon objinfo-icon__alias" title="JavaScript attribute">V</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.options (JavaScript attribute)"><span>Octo<wbr>Print<wbr>Client.<wbr>options</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.plugins" class="md-nav__link">
+    
+      <span aria-label="JavaScript attribute" class="objinfo-icon objinfo-icon__alias" title="JavaScript attribute">V</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.plugins (JavaScript attribute)"><span>Octo<wbr>Print<wbr>Client.<wbr>plugins</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.getBaseUrl" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.getBaseUrl (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>get<wbr>Base<wbr>Url</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.getBaseUrl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.getBaseUrl-returns-string" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns string</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.getCookie" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.getCookie (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>get<wbr>Cookie</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.getCookie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.getCookie-return-string" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Return string</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.getRequestHeaders" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.getRequestHeaders (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>get<wbr>Request<wbr>Headers</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.getRequestHeaders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.getRequestHeaders-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.getRequestHeaders-returns-object" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns object</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.ajax" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.ajax (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>ajax</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.ajax">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.ajax-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.ajax-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.ajaxWithData" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.ajaxWithData (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>ajax<wbr>With<wbr>Data</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.ajaxWithData">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.ajaxWithData-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.ajaxWithData-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.get" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.get (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>get</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.get">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.get-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.get-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.getWithQuery" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.getWithQuery (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>get<wbr>With<wbr>Query</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.getWithQuery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.getWithQuery-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.getWithQuery-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.post" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.post (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>post</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.post">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.post-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.post-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.postJson" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.postJson (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>post<wbr>Json</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.postJson">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.postJson-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.postJson-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.put" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.put (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>put</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.putJson" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.putJson (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>put<wbr>Json</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.patch" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.patch (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>patch</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.patchJson" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.patchJson (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>patch<wbr>Json</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.delete" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.delete (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>delete</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.delete">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.delete-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.delete-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.download" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.download (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>download</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.download">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.download-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.download-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.upload" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.upload (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>upload</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.upload">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.upload-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.issueCommand" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.issueCommand (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>issue<wbr>Command</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.issueCommand">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.issueCommand-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.issueCommand-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.getSimpleApiUrl" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.getSimpleApiUrl (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>get<wbr>Simple<wbr>Api<wbr>Url</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.getSimpleApiUrl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.getSimpleApiUrl-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.getSimpleApiUrl-returns-string" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns string</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.simpleApiGet" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.simpleApiGet (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>simple<wbr>Api<wbr>Get</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.simpleApiGet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.simpleApiGet-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.simpleApiGet-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.simpleApiCommand" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.simpleApiCommand (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>simple<wbr>Api<wbr>Command</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.simpleApiCommand">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.simpleApiCommand-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.simpleApiCommand-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.getBlueprintUrl" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.getBlueprintUrl (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>get<wbr>Blueprint<wbr>Url</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.createRejectedDeferred" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.createRejectedDeferred (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>create<wbr>Rejected<wbr>Deferred</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.createCustomException" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.createCustomException (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>create<wbr>Custom<wbr>Exception</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.registerPluginComponent" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.registerPluginComponent (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>register<wbr>Plugin<wbr>Component</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.registerPluginComponent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.registerPluginComponent-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.InvalidArgumentError" class="md-nav__link">
+    
+      <span aria-label="JavaScript class" class="objinfo-icon objinfo-icon__data" title="JavaScript class">C</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.InvalidArgumentError (JavaScript class)"><span>Octo<wbr>Print<wbr>Client.<wbr>Invalid<wbr>Argument<wbr>Error</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="octoprintclient"><span id="sec-jsclientlib-base"></span><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient</span></code><a class="headerlink" href="#octoprintclient" title="Link to this heading">¶</a></h1>
+<dl class="js class objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="n"><span class="pre">OctoPrintClient</span></span></span><span class="sig-paren">(</span><span class="optional">[</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">options</span></span></em></span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient" title="Link to this definition">¶</a></dt>
+<dd><p>Instantiates a new instance of the client library. Note that by default there’s always an instance registered
+globally called <code class="docutils literal notranslate"><span class="pre">OctoPrint</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>options</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – An optional object of options to set <a class="reference internal" href="#OctoPrintClient.options" title="OctoPrintClient.options"><code class="xref js js-attr docutils literal notranslate"><span class="pre">OctoPrintClient.options</span></code></a> to.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js attribute objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.options">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">options</span></span></span><a class="headerlink" href="#OctoPrintClient.options" title="Link to this definition">¶</a></dt>
+<dd><p>The client library instance’s options. The following keys are currently supported:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">baseurl</span></code></dt><dd><p>The base URL of the OctoPrint API</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apikey</span></code></dt><dd><p>The API Key to use for requests against the OctoPrint API. If left unset, you’ll
+need to authenticate your session through a login.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">locale</span></code></dt><dd><p>The locale to set in <code class="docutils literal notranslate"><span class="pre">X-Locale</span></code> headers on API requests. Useful for API
+endpoints that might return localized content.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js attribute objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.plugins">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">plugins</span></span></span><a class="headerlink" href="#OctoPrintClient.plugins" title="Link to this definition">¶</a></dt>
+<dd><p>Registration of client library components provided by plugins.</p>
+<p>OctoPrint plugins should always register their client classes here using their plugin identifier as key via
+<a class="reference internal" href="#OctoPrintClient.registerPluginComponent" title="OctoPrintClient.registerPluginComponent"><code class="xref js js-func docutils literal notranslate"><span class="pre">OctoPrintClient.registerPluginComponent()</span></code></a>.</p>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>The registration mechanism has changed slightly with OctoPrint 1.3.2 due to an otherwise unsolvable issue with
+allowing multiple clients to exist concurrently and still keeping the existing architecture intact.</p>
+<p>The old mechanism works fine as long as you are only planning to offer your plugin client implementation on the
+default client instance <code class="docutils literal notranslate"><span class="pre">OctoPrint</span></code>, however if you also want to support additional clients you’ll need to
+use the implementation and registration approach as described below.</p>
+</div>
+<p><strong>Example:</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nb">global</span><span class="p">,</span><span class="w"> </span><span class="nx">factory</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="nx">define</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;function&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">define</span><span class="p">.</span><span class="nx">amd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">define</span><span class="p">([</span><span class="s2">&quot;OctoPrintClient&quot;</span><span class="p">],</span><span class="w"> </span><span class="nx">factory</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">factory</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">OctoPrintClient</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">})(</span><span class="nb">window</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">OctoPrintClient</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">MyPluginClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">base</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">base</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="nx">MyPluginClient</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">someFunction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// do something</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="c1">// further define API</span>
+
+<span class="w">    </span><span class="nx">OctoPrintClient</span><span class="p">.</span><span class="nx">registerPluginComponent</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">MyPluginClient</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">MyPluginClient</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.getBaseUrl">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">getBaseUrl</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.getBaseUrl" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the canonical base URL to use for OctoPrint’s API. Uses the current value of
+<code class="xref js js-data docutils literal notranslate"><span class="pre">OctoPrint.options.baseurl</span></code>. If that doesn’t end in a <code class="docutils literal notranslate"><span class="pre">/</span></code>,
+a trailing <code class="docutils literal notranslate"><span class="pre">/</span></code> will be appended to the URL before the result is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.getBaseUrl-returns-string">Returns string<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.getBaseUrl-returns-string" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><p>The base url to use to access OctoPrint’s API.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.getCookie">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">getCookie</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">name</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.getCookie" title="Link to this definition">¶</a></dt>
+<dd><div class="admonition versionadded">
+<p class="admonition-title"><span class="versionmodified added">Added in version 1.8.3.</span></p>
+</div>
+<p>Returns the value of the cookie with name <code class="docutils literal notranslate"><span class="pre">name</span></code>. The port based cookie suffix and if
+necessary also the script root based suffix will be automatically applied to the <code class="docutils literal notranslate"><span class="pre">name</span></code>
+prior to looking up the value.</p>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.getCookie-return-string">Return string<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.getCookie-return-string" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><p>The value of the cookie, if set &amp; accessible, else an empty string.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.getRequestHeaders">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">getRequestHeaders</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">additional</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.getRequestHeaders" title="Link to this definition">¶</a></dt>
+<dd><div class="admonition versionchanged">
+<p class="admonition-title"><span class="versionmodified changed">Changed in version 1.8.3.</span></p>
+</div>
+<p>Generates a dictionary of HTTP headers to use for API requests against OctoPrint with all
+necessary headers and any additionally provided ones.</p>
+<p>At the moment this entails setting the <code class="docutils literal notranslate"><span class="pre">X-Api-Key</span></code> header based on the current value of
+<code class="docutils literal notranslate"><span class="pre">OctoPrint.options.apikey</span></code>, if set. Otherwise, for non-cross-domain requests targeting
+methods other than <code class="docutils literal notranslate"><span class="pre">GET</span></code>, <code class="docutils literal notranslate"><span class="pre">HEAD</span></code> or <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code>, the current CSRF token is read from the
+associated cookie and set as <code class="docutils literal notranslate"><span class="pre">X-CSRF-Token</span></code>.</p>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>Up until OctoPrint 1.8.3, this method’s signature consisted only of the <code class="docutils literal notranslate"><span class="pre">additional</span></code>
+parameter. It has been changed in a backward compatible way so that calling it with the
+first parameter being the set of additional headers will still work. This mode of operation
+is deprecated however and will be removed in a future version.
+A warning will be logged to the debug console accordingly.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.getRequestHeaders-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.getRequestHeaders-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">str()</span></code></span>) – Method of the request for which to set headers</p></li>
+<li><p><strong>additional</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional headers to add to the request, optional.</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional opts passed to the request, used to read cross domain setting, optional.</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="OctoPrintClient.getRequestHeaders-returns-object">Returns object<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.getRequestHeaders-returns-object" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>HTTP headers to use for requests.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.ajax">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ajax</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.ajax" title="Link to this definition">¶</a></dt>
+<dd><p>Performs an AJAX request against the OctoPrint API, utilizing <a class="reference external" href="http://api.jquery.com/jquery.ajax/">jQuery’s own ajax function</a>.</p>
+<p>The HTTP method to use may be defined through <code class="docutils literal notranslate"><span class="pre">opts.method</span></code> or - if that is not provided – through the
+<code class="docutils literal notranslate"><span class="pre">method</span></code> parameter. If neither is available, <code class="docutils literal notranslate"><span class="pre">GET</span></code> will be used.</p>
+<p>The URL to perform the request against may be defined through <code class="docutils literal notranslate"><span class="pre">opts.url</span></code> or – if that is not provided –
+through the <code class="docutils literal notranslate"><span class="pre">url</span></code> parameter. If neither is available, an empty string will be used (plain base URL). If the
+URL starts with <code class="docutils literal notranslate"><span class="pre">http://</span></code> or <code class="docutils literal notranslate"><span class="pre">https://</span></code> it will be used directly. Otherwise the return value of <code class="xref js js-func docutils literal notranslate"><span class="pre">OctoPrint.getBaseUrl()</span></code>
+will be prepended.</p>
+<p>As headers everything returned by <code class="xref js js-func docutils literal notranslate"><span class="pre">OctoPrint.getRequestHeaders()</span></code> will be used. Additional headers to set
+may be defined by providing them through <code class="docutils literal notranslate"><span class="pre">opts.headers</span></code>.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">opts.dataType</span></code> is set, it will be used for setting the corresponding option on the jQuery <code class="docutils literal notranslate"><span class="pre">ajax</span></code> call, otherwise
+<code class="docutils literal notranslate"><span class="pre">json</span></code> will be used.</p>
+<p>Anything provided in the <code class="docutils literal notranslate"><span class="pre">opts</span></code> parameter will also be passed on to the jQuery <code class="docutils literal notranslate"><span class="pre">ajax</span></code> call.</p>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.ajax-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.ajax-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The HTTP method to use for the request (optional)</p></li>
+<li><p><strong>url</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The URL to perform the request against (optional)</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options to use for the request, see above for details (optional)</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="OctoPrintClient.ajax-returns-promise">Returns Promise<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.ajax-returns-promise" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.ajaxWithData">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ajaxWithData</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.ajaxWithData" title="Link to this definition">¶</a></dt>
+<dd><p>Performs an AJAX request against the OctoPrint API, including the provided <code class="docutils literal notranslate"><span class="pre">data</span></code> in the body of the request.</p>
+<p>Utilizes <code class="xref js js-func docutils literal notranslate"><span class="pre">OctoPrint.ajax()</span></code>, see that for more details.</p>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.ajaxWithData-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.ajaxWithData-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The HTTP method to use for the request (optional)</p></li>
+<li><p><strong>url</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The URL to perform the request against (optional)</p></li>
+<li><p><strong>data</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – The data to send in the request body (optional)</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options to use for the request (optional)</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="OctoPrintClient.ajaxWithData-returns-promise">Returns Promise<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.ajaxWithData-returns-promise" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.get">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">get</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.get" title="Link to this definition">¶</a></dt>
+<dd><p>Performs a <code class="docutils literal notranslate"><span class="pre">GET</span></code> request against <code class="docutils literal notranslate"><span class="pre">url</span></code>.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;api/version&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;API:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">api</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Server:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">server</span><span class="p">);</span>
+<span class="w">    </span><span class="p">});</span>
+</code></pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.get-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.get-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – URL against which to make the request, relative to base url or absolute</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="OctoPrintClient.get-returns-promise">Returns Promise<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.get-returns-promise" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.getWithQuery">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">getWithQuery</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.getWithQuery" title="Link to this definition">¶</a></dt>
+<dd><p>Performs a <code class="docutils literal notranslate"><span class="pre">GET</span></code> request against <code class="docutils literal notranslate"><span class="pre">url</span></code> using the provided <code class="docutils literal notranslate"><span class="pre">data</span></code> as URL query.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="c1">// this should perform a GET of &quot;api/timelapse?unrendered=true&quot;</span>
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getWithQuery</span><span class="p">(</span><span class="s2">&quot;api/timelapse&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;unrendered&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">});</span>
+</code></pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.getWithQuery-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.getWithQuery-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – URL against which to make the request, relative to base url or absolute</p></li>
+<li><p><strong>data</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – An object containing the key/value pairs of the query data OR a string representation of the query</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="OctoPrintClient.getWithQuery-returns-promise">Returns Promise<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.getWithQuery-returns-promise" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.post">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">post</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.post" title="Link to this definition">¶</a></dt>
+<dd><p>Performs a <code class="docutils literal notranslate"><span class="pre">POST</span></code> request against <code class="docutils literal notranslate"><span class="pre">url</span></code> using the provided <code class="docutils literal notranslate"><span class="pre">data</span></code> as request body.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getBlueprintUrl</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;endpoint&quot;</span><span class="p">;</span>
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;a whole lot of data&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;contentType&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;application/octet-stream&quot;</span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// do something with the response</span>
+<span class="w">    </span><span class="p">});</span>
+</code></pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.post-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.post-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – URL against which to make the request, relative to base url or absolute</p></li>
+<li><p><strong>data</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – Data to post as request body</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+<li><p><strong>opts</strong> – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="OctoPrintClient.post-returns-promise">Returns Promise<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.post-returns-promise" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.postJson">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">postJson</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.postJson" title="Link to this definition">¶</a></dt>
+<dd><p>Performs a <code class="docutils literal notranslate"><span class="pre">POST</span></code> request against <code class="docutils literal notranslate"><span class="pre">url</span></code> using the provided <code class="docutils literal notranslate"><span class="pre">data</span></code> object as request body
+after serializing it to JSON.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getBlueprintUrl</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;endpoint&quot;</span><span class="p">;</span>
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">postJson</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;someKey&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;someValue&quot;</span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// do something with the response</span>
+<span class="w">    </span><span class="p">});</span>
+</code></pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.postJson-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.postJson-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – URL against which to make the request, relative to base url or absolute</p></li>
+<li><p><strong>data</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Data to post as request body after serialization to JSON</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="OctoPrintClient.postJson-returns-promise">Returns Promise<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.postJson-returns-promise" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.put">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">put</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.put" title="Link to this definition">¶</a></dt>
+<dd><p>Performs <code class="docutils literal notranslate"><span class="pre">PUT</span></code> request against <code class="docutils literal notranslate"><span class="pre">url</span></code> using the provided <code class="docutils literal notranslate"><span class="pre">data</span></code> as request body.</p>
+<p>See <code class="xref js js-func docutils literal notranslate"><span class="pre">OctoPrint.post()</span></code> for details.</p>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.putJson">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">putJson</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.putJson" title="Link to this definition">¶</a></dt>
+<dd><p>Performs <code class="docutils literal notranslate"><span class="pre">PUT</span></code> request against <code class="docutils literal notranslate"><span class="pre">url</span></code> using the provided <code class="docutils literal notranslate"><span class="pre">data</span></code> as request body after
+serializing it to JSON.</p>
+<p>See <code class="xref js js-func docutils literal notranslate"><span class="pre">OctoPrint.postJson()</span></code> for details.</p>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.patch">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">patch</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.patch" title="Link to this definition">¶</a></dt>
+<dd><p>Performs <code class="docutils literal notranslate"><span class="pre">PATCH</span></code> request against <code class="docutils literal notranslate"><span class="pre">url</span></code> using the provided <code class="docutils literal notranslate"><span class="pre">data</span></code> as request body.</p>
+<p>See <code class="xref js js-func docutils literal notranslate"><span class="pre">OctoPrint.post()</span></code> for details.</p>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.patchJson">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">patchJson</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.patchJson" title="Link to this definition">¶</a></dt>
+<dd><p>Performs <code class="docutils literal notranslate"><span class="pre">PATCH</span></code> request against <code class="docutils literal notranslate"><span class="pre">url</span></code> using the provided <code class="docutils literal notranslate"><span class="pre">data</span></code> as request body after
+serializing it to JSON.</p>
+<p>See <code class="xref js js-func docutils literal notranslate"><span class="pre">OctoPrint.postJson()</span></code> for details.</p>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.delete">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">delete</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.delete" title="Link to this definition">¶</a></dt>
+<dd><p>Performs a <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> request against <code class="docutils literal notranslate"><span class="pre">url</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.delete-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.delete-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – URL against which to make the request, relative to base url or absolute</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="OctoPrintClient.delete-returns-promise">Returns Promise<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.delete-returns-promise" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.download">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">download</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.download" title="Link to this definition">¶</a></dt>
+<dd><p>Downloads a file from <code class="docutils literal notranslate"><span class="pre">url</span></code>, returning the response body as data type <code class="docutils literal notranslate"><span class="pre">text</span></code>.</p>
+<p>Use this if you need to download a file from the server in order to process it further in the client. The
+response body returned on successful completion of the returned <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a>
+will contain the requested file as raw string/binary.</p>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.download-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.download-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – URL to download</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="OctoPrintClient.download-returns-promise">Returns Promise<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.download-returns-promise" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.upload">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">upload</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">additional</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.upload" title="Link to this definition">¶</a></dt>
+<dd><p>Uploads a <code class="docutils literal notranslate"><span class="pre">file</span></code> to <code class="docutils literal notranslate"><span class="pre">url</span></code> using a <code class="docutils literal notranslate"><span class="pre">multipart/form-data</span></code> <code class="docutils literal notranslate"><span class="pre">POST</span></code> request.</p>
+<p><code class="docutils literal notranslate"><span class="pre">file</span></code> should be either of</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>a jQuery element pointing at a file input of the page of which the first
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/File">File instance</a> will be used,</p></li>
+<li><p>a string usable as selector to address a file input of the page of which the first
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/File">File instance</a> will be used or</p></li>
+<li><p>a <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/File">File instance</a></p></li>
+</ul>
+</div></blockquote>
+<p>If <code class="docutils literal notranslate"><span class="pre">filename</span></code> is provided, the file upload data will contain its value as file name for the
+upload, otherwise the <code class="docutils literal notranslate"><span class="pre">name</span></code> property from the <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/File">File instance</a>.</p>
+<p>The function will return a <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> which will also be
+notified on the upload progress with an object containing the following properties:</p>
+<dl class="simple">
+<dt>loaded</dt><dd><p>The number of bytes already uploaded</p>
+</dd>
+<dt>total</dt><dd><p>The total number of bytes to upload</p>
+</dd>
+</dl>
+<p>This can be used to populate progress bars or other types of progress visualization.</p>
+<p>It is important to note that contrary to all the other request methods in this module, <code class="docutils literal notranslate"><span class="pre">OctoPrint.upload</span></code>
+is implemented using <code class="docutils literal notranslate"><span class="pre">XMLHttpRequest</span></code> directly instead of relying on jQuery’s <code class="docutils literal notranslate"><span class="pre">ajax</span></code> function. It still
+tries to replicate its behaviour on the returned <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a>
+however, meaning that the <code class="docutils literal notranslate"><span class="pre">resolve</span></code> and <code class="docutils literal notranslate"><span class="pre">reject</span></code> methods will be called with <code class="docutils literal notranslate"><span class="pre">(data,</span> <span class="pre">textStatus,</span> <span class="pre">request)</span></code>
+and <code class="docutils literal notranslate"><span class="pre">(request,</span> <span class="pre">textStatus,</span> <span class="pre">error)</span></code> parameters respectively.</p>
+<p>Additional form elements for the POSTed form can be supplied through the <code class="docutils literal notranslate"><span class="pre">additional</span></code> parameters.
+This should be an object of key/value pairs that are set as field name and value on the <a class="reference external" href="https://developer.mozilla.org/en/docs/Web/API/FormData">FormData</a>
+object that will be used in the request.</p>
+<p><strong>Example:</strong></p>
+<p>Uploading a file to <code class="docutils literal notranslate"><span class="pre">some/path</span></code> on the blueprint of plugin <code class="docutils literal notranslate"><span class="pre">myplugin</span></code>, from a file input element,
+updating a label with the current upload progress.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">fileInput</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#my-file-input&quot;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">progressOutput</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#progress-output&quot;</span><span class="p">);</span>
+
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">upload</span><span class="p">(</span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getBlueprintUrl</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;some/path&quot;</span><span class="p">,</span>
+<span class="w">                 </span><span class="nx">fileInput</span><span class="p">,</span>
+<span class="w">                 </span><span class="s2">&quot;myfilename.dat&quot;</span><span class="p">,</span>
+<span class="w">                 </span><span class="p">{</span><span class="s2">&quot;somekey&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;somevalue&quot;</span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">progress</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">total</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="nx">percentage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">loaded</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">100</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">total</span><span class="p">);</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">percentage</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">percentage</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">progressOutput</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="nx">percentage</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;%&quot;</span><span class="p">);</span>
+<span class="w">                </span><span class="k">return</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="nx">progressOutput</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">textStatus</span><span class="p">,</span><span class="w"> </span><span class="nx">request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">progressOutput</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Uploaded!&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">});</span>
+</code></pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.upload-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.upload-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – URL to which to POST the upload, relative to base url or absolute</p></li>
+<li><p><strong>file</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – The file to object, see description for details</p></li>
+<li><p><strong>filename</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – An optional file name to use for the upload</p></li>
+<li><p><strong>additional</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – An optional object of additional key/value pairs to set on the uploaded form data</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.issueCommand">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">issueCommand</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.issueCommand" title="Link to this definition">¶</a></dt>
+<dd><p>Issues a command against an OctoPrint command API endpoint.</p>
+<p>OctoPrint contains various API endpoints which follow a specific pattern: The payload of the request body is
+a JSON object which contains at least one property <code class="docutils literal notranslate"><span class="pre">command</span></code> and depending on the provided command additional
+parameters as further properties for the command. See the <a class="reference internal" href="../api/files.html#sec-api-fileops-filecommand"><span class="std std-ref">Issue a file command</span></a>
+for an example of an API endpoint following this pattern.</p>
+<p>Using this function sending commands to such API endpoints becomes a trivial task. The function expects
+the <code class="docutils literal notranslate"><span class="pre">url</span></code> of the endpoint, the <code class="docutils literal notranslate"><span class="pre">command</span></code> to send, and optional <code class="docutils literal notranslate"><span class="pre">payload</span></code> and additional <code class="docutils literal notranslate"><span class="pre">opts</span></code>.</p>
+<p>The function will take care of wrapping the <code class="docutils literal notranslate"><span class="pre">command</span></code> and the <code class="docutils literal notranslate"><span class="pre">payload</span></code> into one JSON object and
+POSTing that to the endpoint with the correct JSON content type.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getBlueprintUrl</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;myendpoint&quot;</span><span class="p">;</span>
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">issueCommand</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mycommand&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;someParameter&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;someValue&quot;</span><span class="p">,</span>
+<span class="w">                                          </span><span class="s2">&quot;someOtherParameter&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;someOtherValue&quot;</span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// do something with the response</span>
+<span class="w">    </span><span class="p">});</span>
+</code></pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.issueCommand-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.issueCommand-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The URL to <code class="docutils literal notranslate"><span class="pre">POST</span></code> the command to</p></li>
+<li><p><strong>command</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The command to issue</p></li>
+<li><p><strong>payload</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional payload data for the command</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="OctoPrintClient.issueCommand-returns-promise">Returns Promise<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.issueCommand-returns-promise" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.getSimpleApiUrl">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">getSimpleApiUrl</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.getSimpleApiUrl" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the proper URL for the endpoint of a <a class="reference internal" href="../plugins/mixins.html#octoprint.plugin.SimpleApiPlugin" title="octoprint.plugin.SimpleApiPlugin (Python class) — Bases: OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleApiPlugin</span></code></a>, based on the
+plugin identifier.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="c1">// prints &quot;api/plugin/myplugin&quot;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getSimpleApiUrl</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.getSimpleApiUrl-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.getSimpleApiUrl-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plugin</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The identifier of the plugin for which to return the URL</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="OctoPrintClient.getSimpleApiUrl-returns-string">Returns string<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.getSimpleApiUrl-returns-string" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>The URL to use as endpoint</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.simpleApiGet">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">simpleApiGet</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.simpleApiGet" title="Link to this definition">¶</a></dt>
+<dd><p>Performs a <code class="docutils literal notranslate"><span class="pre">GET</span></code> request against the endpoint of a <a class="reference internal" href="../plugins/mixins.html#octoprint.plugin.SimpleApiPlugin" title="octoprint.plugin.SimpleApiPlugin (Python class) — Bases: OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleApiPlugin</span></code></a> with
+identifier <code class="docutils literal notranslate"><span class="pre">plugin</span></code>.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">simpleApiGet</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// do something with the response</span>
+<span class="w">    </span><span class="p">});</span>
+</code></pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.simpleApiGet-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.simpleApiGet-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plugin</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The identifier of the plugin</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="OctoPrintClient.simpleApiGet-returns-promise">Returns Promise<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.simpleApiGet-returns-promise" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.simpleApiCommand">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">simpleApiCommand</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.simpleApiCommand" title="Link to this definition">¶</a></dt>
+<dd><p>Performs the API command <code class="docutils literal notranslate"><span class="pre">command</span></code> against the endpoint of a <a class="reference internal" href="../plugins/mixins.html#octoprint.plugin.SimpleApiPlugin" title="octoprint.plugin.SimpleApiPlugin (Python class) — Bases: OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleApiPlugin</span></code></a> with
+identifier <code class="docutils literal notranslate"><span class="pre">plugin</span></code>, including the optional <code class="docutils literal notranslate"><span class="pre">payload</span></code>.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">simpleApiCommand</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mycommand&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;someParameter&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;someValue&quot;</span><span class="p">,</span>
+<span class="w">                                                     </span><span class="s2">&quot;otherParameter&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;otherValue&quot;</span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// do something with the response</span>
+<span class="w">    </span><span class="p">});</span>
+</code></pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.simpleApiCommand-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.simpleApiCommand-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plugin</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The identifier of the plugin</p></li>
+<li><p><strong>command</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The command to issue</p></li>
+<li><p><strong>payload</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional payload data for the command</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="OctoPrintClient.simpleApiCommand-returns-promise">Returns Promise<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.simpleApiCommand-returns-promise" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.getBlueprintUrl">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">getBlueprintUrl</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.getBlueprintUrl" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the proper base URL for blueprint endpoints of a <a class="reference internal" href="../plugins/mixins.html#octoprint.plugin.BlueprintPlugin" title="octoprint.plugin.BlueprintPlugin (Python class) — Bases: OctoPrintPlugin, RestartNeedingPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlueprintPlugin</span></code></a> with
+identifier <code class="docutils literal notranslate"><span class="pre">plugin</span></code>.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="c1">// prints &quot;plugin/myplugin/&quot;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">getBlueprintUrl</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">));</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.createRejectedDeferred">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">createRejectedDeferred</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.createRejectedDeferred" title="Link to this definition">¶</a></dt>
+<dd><p>Static method.</p>
+<p>Shortcut for creating a rejected <a class="reference external" href="http://api.jquery.com/category/deferred-object/">jQuery Deferred</a>.</p>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.createCustomException">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">createCustomException</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">name</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.createCustomException" title="Link to this definition">¶</a></dt>
+<dd><p>Static method.</p>
+<p>Creates a custom exception class. <code class="docutils literal notranslate"><span class="pre">name</span></code> may be either a function in which case it will be used
+as constructor for the new exception class, or a string, in which case a constructor with proper
+<code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code> and <code class="docutils literal notranslate"><span class="pre">stack</span></code> attributes will be created. The class hierarchy will be properly
+setup to subclass <code class="docutils literal notranslate"><span class="pre">Error</span></code>.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="nx">MyCustomException</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">OctoPrintClient</span><span class="p">.</span><span class="nx">createCustomException</span><span class="p">(</span><span class="s2">&quot;MyCustomException&quot;</span><span class="p">);</span>
+<span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">MyCustomException</span><span class="p">(</span><span class="s2">&quot;Something went horribly wrong!&quot;</span><span class="p">);</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.registerPluginComponent">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">registerPluginComponent</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">identifier</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">clientClass</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.registerPluginComponent" title="Link to this definition">¶</a></dt>
+<dd><p>Static method.</p>
+<p>Registers the plugin client component <code class="docutils literal notranslate"><span class="pre">clientClass</span></code> under the name <code class="docutils literal notranslate"><span class="pre">identifier</span></code> on the
+<a class="reference internal" href="#OctoPrintClient.plugins" title="OctoPrintClient.plugins"><code class="xref js js-attr docutils literal notranslate"><span class="pre">OctoPrintClient.plugins</span></code></a> registry.</p>
+<p><code class="docutils literal notranslate"><span class="pre">clientClass</span></code> must have a constructor that follows the signature <code class="docutils literal notranslate"><span class="pre">ClientClass(base)</span></code> and in which it sets
+the attribute <code class="docutils literal notranslate"><span class="pre">base</span></code> on the instance to:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">MyPluginClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">base</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">base</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>Each <a class="reference internal" href="#OctoPrintClient" title="OctoPrintClient"><code class="xref js js-class docutils literal notranslate"><span class="pre">OctoPrintClient()</span></code></a> will create its own instance of registered plugin classes and make them available
+under <a class="reference internal" href="#OctoPrintClient.plugins" title="OctoPrintClient.plugins"><code class="xref js js-attr docutils literal notranslate"><span class="pre">OctoPrintClient.plugins</span></code></a>. It will inject itself into those instances in order to allow plugin
+clients to access its functionality via <code class="docutils literal notranslate"><span class="pre">this.base</span></code>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="nx">MyPluginClient</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">doSomething</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">opts</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">base</span><span class="p">.</span><span class="nx">simpleApiCommand</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;doSomething&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">opts</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.registerPluginComponent-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.registerPluginComponent-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>identifier</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The identifier of the plugin for which <code class="docutils literal notranslate"><span class="pre">clientClass</span></code> is the client</p></li>
+<li><p><strong>clientClass</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">class()</span></code></span>) – The client class to register. Constructor must follow the signature <code class="docutils literal notranslate"><span class="pre">ClientClass(base)</span></code>
+where <code class="docutils literal notranslate"><span class="pre">base</span></code> will be assigned to the instance as <code class="docutils literal notranslate"><span class="pre">this.base</span></code> and be the <a class="reference internal" href="#OctoPrintClient" title="OctoPrintClient"><code class="xref js js-class docutils literal notranslate"><span class="pre">OctoPrintClient()</span></code></a>
+instance to use for API calls etc via <code class="docutils literal notranslate"><span class="pre">this.base</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js class objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.InvalidArgumentError">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">InvalidArgumentError</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.InvalidArgumentError" title="Link to this definition">¶</a></dt>
+<dd><p>Exception to use when functions are called with invalid arguments.</p>
+</dd></dl>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: JavaScript Client Library">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                JavaScript Client Library
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="browser.html" class="md-footer__link md-footer__link--next" aria-label="Next: OctoPrintClient.browser">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                OctoPrintClient.browser
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2013-2025, OctoPrint.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.2.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.sections", "navigation.top", "navigation.footer", "search.share", "search.suggest", "toc.follow", "toc.sticky", "content.tabs.link", "content.code.copy", "content.tooltips", "announce.dismiss"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
+    
+  </body>
+</html>

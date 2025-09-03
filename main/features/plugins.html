@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plugins &mdash; OctoPrint main documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=3dbc9e18" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=1e67d180" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/mermaid.min.js?v=c0ebaf0d"></script>
+        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Safe mode" href="safemode.html" />
+    <link rel="prev" title="@ Commands" href="atcommands.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OctoPrint
+          </a>
+              <div class="version">
+                main
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="accesscontrol.html">Access Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_controls.html">Custom Controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gcode_scripts.html">GCODE Scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="action_commands.html">Action Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atcommands.html">&#64; Commands</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#finding-plugins">Finding Plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installing-plugins">Installing Plugins</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#manual-installation">Manual Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#developing-plugins">Developing Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="safemode.html">Safe mode</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+  <p style="padding: 10px;margin: 0 0 10px 0;border-radius: 2px;letter-spacing: 1px;font-size: 13px;color: white;text-align: center;background: #3a87ad;background-image: none;background-size: auto;background-size: 28px 28px;background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );">
+    <strong>Note:</strong>
+    These are not the docs of the latest released version. Those can be found <a href="https://docs.octoprint.org/en/1.11.2" style="color: white;text-decoration: underline">here</a>.
+  </p>
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Features</a> &raquo;</li>
+        
+      <li>Plugins</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/features/plugins.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="plugins">
+<span id="sec-features-plugins"></span><h1>Plugins<a class="headerlink" href="#plugins" title="Link to this heading"></a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.2.0.</span></p>
+</div>
+<p>Starting with OctoPrint 1.2.0, there’s now a plugin system in place which allows to individually
+extend OctoPrint’s functionality.</p>
+<p>Right now plugins can be used to extend OctoPrint’s web interface, to execute specific tasks on server startup and
+shutdown, to provide custom (API) endpoints or whole user interfaces with special functionality, to react to system
+events or progress reports or to add support for additional slicers. More plugin types are planned for the future.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Since a plugin might not function properly and cause issues that are hard to diagnose or outright disrupt server
+functionality, you might want to be able to start OctoPrint without any third party plugins enabled. This is also
+very important when reporting bugs in OctoPrint, to ensure that what you are observing is actually a bug in
+OctoPrint and not in any of your installed third party plugins.</p>
+<p>To do that, OctoPrint has a built-in safe mode that disables all plugins not shipped as part of OctoPrint. You can
+read more on how to enable that <a class="reference internal" href="safemode.html#sec-features-safemode"><span class="std std-ref">here</span></a>.</p>
+</div>
+<section id="finding-plugins">
+<span id="sec-features-plugins-available"></span><h2>Finding Plugins<a class="headerlink" href="#finding-plugins" title="Link to this heading"></a></h2>
+<p>The official OctoPrint Plugin Repository can be found at <a class="reference external" href="http://plugins.octoprint.org">plugins.octoprint.org</a>.</p>
+<p>Some plugins may also be found in the list provided in <a class="reference external" href="https://github.com/OctoPrint/OctoPrint/wiki#plugins">the OctoPrint wiki</a>
+and on the <a class="reference external" href="https://github.com/OctoPrint">OctoPrint organization Github page</a>.</p>
+</section>
+<section id="installing-plugins">
+<span id="sec-features-plugins-installing"></span><h2>Installing Plugins<a class="headerlink" href="#installing-plugins" title="Link to this heading"></a></h2>
+<p>Plugins can be installed through the bundled Plugin Manager, which allows installing plugins available in the
+<a class="reference external" href="http://plugins.octoprint.org">OctoPrint Plugin Repository</a>, from a web address or from an uploaded file archive.</p>
+<p>Please refer to the documentation of the plugin for additional installations instructions.</p>
+<section id="manual-installation">
+<h3>Manual Installation<a class="headerlink" href="#manual-installation" title="Link to this heading"></a></h3>
+<p>If you don’t want or can’t use the Plugin Manager, plugins may also be installed manually either by copying and
+unpacking them into one of the configured plugin folders (regularly those are <code class="docutils literal notranslate"><span class="pre">&lt;octoprint</span> <span class="pre">source</span> <span class="pre">root&gt;/plugins</span></code> and
+<code class="docutils literal notranslate"><span class="pre">&lt;octoprint</span> <span class="pre">config</span> <span class="pre">folder&gt;/plugins</span></code> <a class="footnote-reference brackets" href="#f1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> or by installing them as regular Python modules via <code class="docutils literal notranslate"><span class="pre">pip</span></code> <a class="footnote-reference brackets" href="#f2" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
+<p>For a plugin available on the Python Package Index (PyPi), the process is as simple as issuing a</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>&lt;plugin_name&gt;
+</pre></div>
+</div>
+<p>For plugins not available on PyPi, you’ll have to give <code class="docutils literal notranslate"><span class="pre">pip</span></code> an URL from which to install the package (e.g. the URL to
+a ZIP file of the current master branch of a Github repository hosting a plugin, or even a <code class="docutils literal notranslate"><span class="pre">git+https</span></code> URL), example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>https://github.com/OctoPrint/OctoPrint-Growl/archive/master.zip
+</pre></div>
+</div>
+<p>See <a class="reference external" href="http://pip.readthedocs.org/en/latest/reference/pip_install.html">the pip install documentation</a> for what URL
+types are possible.</p>
+</section>
+</section>
+<section id="developing-plugins">
+<span id="sec-features-plugins-developing"></span><h2>Developing Plugins<a class="headerlink" href="#developing-plugins" title="Link to this heading"></a></h2>
+<p>See <a class="reference internal" href="../plugins/index.html#sec-plugins"><span class="std std-ref">Developing Plugins</span></a>.</p>
+<p class="rubric">Footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>For Linux that will be <code class="docutils literal notranslate"><span class="pre">~/.octoprint/plugins</span></code>, for Windows it will be <code class="docutils literal notranslate"><span class="pre">%APPDATA%/OctoPrint/plugins</span></code> and for
+Mac <code class="docutils literal notranslate"><span class="pre">~/Library/Application</span> <span class="pre">Support/OctoPrint/plugins</span></code></p>
+</aside>
+<aside class="footnote brackets" id="f2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>Make sure to use the exact same Python installation for installing the plugin that you also used for
+installing &amp; running OctoPrint. For OctoPi this means using <code class="docutils literal notranslate"><span class="pre">~/oprint/bin/pip</span></code> for installing plugins
+instead of just <code class="docutils literal notranslate"><span class="pre">pip</span></code>.</p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="atcommands.html" class="btn btn-neutral float-left" title="@ Commands" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="safemode.html" class="btn btn-neutral float-right" title="Safe mode" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2025, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: main
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.11.2/features/plugins.html">1.11.2</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.10.3/features/plugins.html">1.10.3</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/main/features/plugins.html">main</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/dev/features/plugins.html">dev</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1850 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="users.html">
+      
+      
+        <link rel="next" href="wizard.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>OctoPrintClient.util - OctoPrint dev documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.6ec1c446c2c357833.min.css?v=e2e8fea8" />
+        <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=e85523a8" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#OctoPrintClient.util.test" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+    These are not the docs of the latest released version. Those can be found <a href="/en/master">here</a>.
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL(".."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="OctoPrint dev documentation" class="md-header__button md-logo" aria-label="OctoPrint dev documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OctoPrint dev documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OctoPrintClient.util
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="OctoPrint dev documentation" class="md-nav__button md-logo" aria-label="OctoPrint dev documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    OctoPrint dev documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Features</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bundledplugins/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Bundled Plugins</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Configuration</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>REST API</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Events</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Development</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Developing Plugins</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Internal Modules</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Java<wbr>Script Client Library</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Java<wbr>Script Client Library</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="base.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="browser.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>browser</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="connection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>connection</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="control.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>control</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="files.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>files</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="job.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>job</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="languages.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>languages</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>logs</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="printer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>printer</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="printerprofiles.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>printerprofiles</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="settings.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>settings</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="slicing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>slicing</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="socket.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>socket</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>system</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="timelapse.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>timelapse</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="users.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>users</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>util</span>
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>util</span>
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.test" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.util.test (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>util.<wbr>test</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.util.test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.test-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.test-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testPath" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.util.testPath (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>util.<wbr>test<wbr>Path</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.util.testPath">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testPath-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testPath-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testExecutable" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.util.testExecutable (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>util.<wbr>test<wbr>Executable</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.util.testExecutable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testExecutable-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testExecutable-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testUrl" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.util.testUrl (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>util.<wbr>test<wbr>Url</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.util.testUrl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testUrl-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testUrl-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testServer" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.util.testServer (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>util.<wbr>test<wbr>Server</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.util.testServer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testServer-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testServer-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testResolution" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.util.testResolution (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>util.<wbr>test<wbr>Resolution</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.util.testResolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testResolution-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testResolution-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wizard.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Octo<wbr>Print<wbr>Client.<wbr>wizard</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.test" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.util.test (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>util.<wbr>test</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.util.test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.test-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.test-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testPath" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.util.testPath (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>util.<wbr>test<wbr>Path</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.util.testPath">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testPath-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testPath-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testExecutable" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.util.testExecutable (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>util.<wbr>test<wbr>Executable</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.util.testExecutable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testExecutable-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testExecutable-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testUrl" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.util.testUrl (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>util.<wbr>test<wbr>Url</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.util.testUrl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testUrl-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testUrl-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testServer" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.util.testServer (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>util.<wbr>test<wbr>Server</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.util.testServer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testServer-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testServer-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testResolution" class="md-nav__link">
+    
+      <span aria-label="JavaScript function" class="objinfo-icon objinfo-icon__procedure" title="JavaScript function">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="OctoPrintClient.util.testResolution (JavaScript function)"><span>Octo<wbr>Print<wbr>Client.<wbr>util.<wbr>test<wbr>Resolution</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OctoPrintClient.util.testResolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testResolution-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Arguments</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#OctoPrintClient.util.testResolution-returns-promise" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns Promise</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="octoprintclient-util"><span id="sec-jsclientlib-util"></span><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.util</span></code><a class="headerlink" href="#octoprintclient-util" title="Link to this heading">¶</a></h1>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>All methods here require that the used API token or the existing browser session
+has admin rights.</p>
+</div>
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.util.test">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">util</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">test</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.util.test" title="Link to this definition">¶</a></dt>
+<dd><p>Execute a <a class="reference internal" href="../api/util.html#sec-api-util-test"><span class="std std-ref">test command</span></a>.</p>
+<p>See below for the more specialized versions of this.</p>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.util.test-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.util.test-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The command to execute (currently either <code class="docutils literal notranslate"><span class="pre">path</span></code> or <code class="docutils literal notranslate"><span class="pre">url</span></code>)</p></li>
+<li><p><strong>parameters</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – The parameters for the command</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="OctoPrintClient.util.test-returns-promise">Returns Promise<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.util.test-returns-promise" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.util.testPath">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">util</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">testPath</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">additional</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.util.testPath" title="Link to this definition">¶</a></dt>
+<dd><p>Test the provided <code class="docutils literal notranslate"><span class="pre">path</span></code> for existence. More test criteria supported by the <a class="reference internal" href="../api/util.html#sec-api-util-test-path"><span class="std std-ref">path test command</span></a>
+can be provided via the <code class="docutils literal notranslate"><span class="pre">additional</span></code> object.</p>
+<p><strong>Example 1</strong></p>
+<p>Test if <code class="docutils literal notranslate"><span class="pre">/some/path/to/a/file</span></code> exists.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">testPath</span><span class="p">(</span><span class="s2">&quot;/some/path/to/a/file&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check passed</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check failed</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+</code></pre></div>
+</div>
+<p><strong>Example 2</strong></p>
+<p>Test if <code class="docutils literal notranslate"><span class="pre">/some/path/to/a/file</span></code> exists, is a file and OctoPrint has read and executable rights on it.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">testPath</span><span class="p">(</span><span class="s2">&quot;/some/path/to/a/file&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;check_type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;file&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;check_access&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;r&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;x&quot;</span><span class="p">]})</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check passed</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check failed</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+</code></pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.util.testPath-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.util.testPath-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – Path to test</p></li>
+<li><p><strong>additional</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional parameters for the test command</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="OctoPrintClient.util.testPath-returns-promise">Returns Promise<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.util.testPath-returns-promise" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.util.testExecutable">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">util</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">testExecutable</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.util.testExecutable" title="Link to this definition">¶</a></dt>
+<dd><p>Shortcut to test if a provided <code class="docutils literal notranslate"><span class="pre">path</span></code> exists and is executable by OctoPrint.</p>
+<p><strong>Example</strong></p>
+<p>Test if <code class="docutils literal notranslate"><span class="pre">/some/path/to/a/file</span></code> exists and can be executed by OctoPrint.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">testExecutable</span><span class="p">(</span><span class="s2">&quot;/some/path/to/a/file&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check passed</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check failed</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+</code></pre></div>
+</div>
+<p>This is equivalent to calling <code class="xref js js-func docutils literal notranslate"><span class="pre">OctoPrint.util.testPath()</span></code> like this:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">testPath</span><span class="p">(</span><span class="s2">&quot;/some/path/to/a/file&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;access&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;x&quot;</span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check passed</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check failed</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+</code></pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.util.testExecutable-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.util.testExecutable-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – Path to test</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="OctoPrintClient.util.testExecutable-returns-promise">Returns Promise<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.util.testExecutable-returns-promise" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.util.testUrl">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">util</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">testUrl</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">additional</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.util.testUrl" title="Link to this definition">¶</a></dt>
+<dd><p>Test if a URL can be accessed. More test criteria supported by the <a class="reference internal" href="../api/util.html#sec-api-util-test-url"><span class="std std-ref">URL test command</span></a>
+can be provided via the <code class="docutils literal notranslate"><span class="pre">additional</span></code> object.</p>
+<p><strong>Example 1</strong></p>
+<p>Test if <code class="docutils literal notranslate"><span class="pre">http://octopi.local/online.gif</span></code> can be accessed and returns a non-error status code within the default timeout.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">testUrl</span><span class="p">(</span><span class="s2">&quot;http://octopi.local/online.gif&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check passed</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check failed</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+</code></pre></div>
+</div>
+<p><strong>Example 2</strong></p>
+<p>Test if <code class="docutils literal notranslate"><span class="pre">http://octopi.local/webcam/?action=snapshot</span></code> can be accessed and returns a non-error status code. Return the
+raw response data and headers from the check as well.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">testUrl</span><span class="p">(</span><span class="s2">&quot;http://octopi.local/webcam/?action=snapshot&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;bytes&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;method&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;GET&quot;</span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check passed</span>
+<span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="nx">content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">content</span><span class="p">;</span>
+<span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="nx">mimeType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;image/jpeg&quot;</span><span class="p">;</span>
+
+<span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="nx">headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">;</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">headers</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">headers</span><span class="p">[</span><span class="s2">&quot;content-type&quot;</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">mimeType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">headers</span><span class="p">[</span><span class="s2">&quot;content-type&quot;</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)[</span><span class="mf">0</span><span class="p">];</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="nx">image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#someimage&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="nx">image</span><span class="p">.</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;data:&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">mimeType</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;;base64,&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">content</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check failed</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+</code></pre></div>
+</div>
+<p><strong>Example 3</strong></p>
+<p>Test if a “GET” request against <code class="docutils literal notranslate"><span class="pre">http://example.com/idonotexist</span></code> returns either a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> or a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a>.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">testUrl</span><span class="p">(</span><span class="s2">&quot;http://example.com/idonotexist&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mf">400</span><span class="p">,</span><span class="w"> </span><span class="mf">404</span><span class="p">],</span><span class="w"> </span><span class="s2">&quot;method&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;GET&quot;</span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check passed</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check failed</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+</code></pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.util.testUrl-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.util.testUrl-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – URL to test</p></li>
+<li><p><strong>additional</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional parameters for the test command</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="OctoPrintClient.util.testUrl-returns-promise">Returns Promise<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.util.testUrl-returns-promise" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.util.testServer">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">util</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">testServer</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">host</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">additional</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.util.testServer" title="Link to this definition">¶</a></dt>
+<dd><p>Test if a server is reachable. More options supported by the <a class="reference internal" href="../api/util.html#sec-api-util-test-server"><span class="std std-ref">server test command</span></a>
+can be provided via the <code class="docutils literal notranslate"><span class="pre">additional</span></code> object.</p>
+<p><strong>Example 1</strong></p>
+<p>Test if <code class="docutils literal notranslate"><span class="pre">8.8.8.8</span></code> is reachable on port 53 within the default timeout.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">testServer</span><span class="p">(</span><span class="s2">&quot;8.8.8.8&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">53</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check passed</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check failed</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+</code></pre></div>
+</div>
+<p><strong>Example 2</strong></p>
+<p>Test if <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code> is reachable on port 1234 and UDP.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">testServer</span><span class="p">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">1234</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;protocol&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;udp&quot;</span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check passed</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check failed</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+</code></pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.util.testServer-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.util.testServer-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – Host to test</p></li>
+<li><p><strong>port</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">int()</span></code></span>) – Port to test</p></li>
+<li><p><strong>additional</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional parameters for the test command</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="OctoPrintClient.util.testServer-returns-promise">Returns Promise<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.util.testServer-returns-promise" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function objdesc">
+<dt class="sig sig-object highlight js" id="OctoPrintClient.util.testResolution">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">util</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">testResolution</span></span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">additional</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.util.testResolution" title="Link to this definition">¶</a></dt>
+<dd><p>Test if a host name can be resolved.</p>
+<p><strong>Example</strong></p>
+<p>Test if <code class="docutils literal notranslate"><span class="pre">octoprint.org</span></code> can be resolved.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">testResolution</span><span class="p">(</span><span class="s2">&quot;octoprint.org&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check passed</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check failed</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+</code></pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd" id="OctoPrintClient.util.testResolution-arguments">Arguments<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.util.testResolution-arguments" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – Host name to test</p></li>
+<li><p><strong>additional</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional parameters for the test command</p></li>
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the request</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="OctoPrintClient.util.testResolution-returns-promise">Returns Promise<span class="colon">:</span><a class="headerlink" href="#OctoPrintClient.util.testResolution-returns-promise" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>A <a class="reference external" href="http://api.jquery.com/Types/#Promise">jQuery Promise</a> for the request’s response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="seealso admonition">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../api/util.html#sec-api-util"><span class="std std-ref">Util API</span></a></dt><dd><p>Documentation of the underlying util API.</p>
+</dd>
+</dl>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="users.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: OctoPrintClient.users">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                OctoPrintClient.users
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="wizard.html" class="md-footer__link md-footer__link--next" aria-label="Next: OctoPrintClient.wizard">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                OctoPrintClient.wizard
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2013-2025, OctoPrint.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.2.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.sections", "navigation.top", "navigation.footer", "search.share", "search.suggest", "toc.follow", "toc.sticky", "content.tabs.link", "content.code.copy", "content.tooltips", "announce.dismiss"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
+    
+  </body>
+</html>

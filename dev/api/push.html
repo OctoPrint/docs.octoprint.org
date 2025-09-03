@@ -1,0 +1,1620 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="wizard.html">
+      
+      
+        <link rel="next" href="datamodel.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Push updates - OctoPrint dev documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.6ec1c446c2c357833.min.css?v=e2e8fea8" />
+        <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=e85523a8" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data-model" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+    These are not the docs of the latest released version. Those can be found <a href="/en/master">here</a>.
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL(".."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="OctoPrint dev documentation" class="md-header__button md-logo" aria-label="OctoPrint dev documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OctoPrint dev documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Push updates
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="OctoPrint dev documentation" class="md-nav__button md-logo" aria-label="OctoPrint dev documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    OctoPrint dev documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Features</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bundledplugins/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Bundled Plugins</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Configuration</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>REST API</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            <span>REST API</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="general.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>General information</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="version.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Version information</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="server.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Server information</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="connection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Connection handling</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="files.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>File operations</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="job.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Job operations</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="languages.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Languages</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Log file management</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="printer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Printer operations</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="printerprofiles.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Printer profile operations</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="settings.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Settings</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="slicing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Slicing</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>System</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="timelapse.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Timelapse</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="access.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Access Control</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="util.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Util</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wizard.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Wizard</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    <span>Push updates</span>
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Push updates</span>
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-model" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Data model</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connected-payload" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>connected payload</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#current-and-history-payload" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>current and history payload</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#event-payload" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>event payload</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slicingprogress-payload" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>slicing<wbr>Progress payload</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="datamodel.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Common data model</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Events</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Development</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Developing Plugins</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Internal Modules</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jsclientlib/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Java<wbr>Script Client Library</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-model" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Data model</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connected-payload" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>connected payload</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#current-and-history-payload" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>current and history payload</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#event-payload" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>event payload</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slicingprogress-payload" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>slicing<wbr>Progress payload</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="push-updates"><span id="sec-api-push"></span>Push updates<a class="headerlink" href="#push-updates" title="Link to this heading">¶</a></h1>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>The interface documented here is the status quo that might be changed while the interfaces are streamlined for
+a more general consumption. If you happen to want to develop against it, you should drop me an email to make sure I can give you a heads-up when
+something changes.</p>
+</div>
+<p>To enable real time information exchange between client and server, OctoPrint uses
+<a class="reference external" href="https://github.com/sockjs/sockjs-protocol">SockJS</a> to push
+status updates, temperature changes etc to connected web interface instances.</p>
+<p>Each pushed message consists of a simple JSON object that follows this basic structure:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;&lt;type&gt;&quot;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">payload</span><span class="o">&gt;</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">type</span></code> indicates the type of message being pushed to the client, the attached <code class="docutils literal notranslate"><span class="pre">payload</span></code> is message specific. The
+following message types are currently available for usage by 3rd party clients:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">connected</span></code>: Initial connection information, sent only right after establishing the socket connection. See
+<a class="reference internal" href="#sec-api-push-datamodel-connected"><span class="std std-ref">the payload data model</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reauthRequired</span></code>: A reauthentication of the current login session is required. The <code class="docutils literal notranslate"><span class="pre">reason</span></code> parameter in the
+payload defines whether a full active login is necessary (values <code class="docutils literal notranslate"><span class="pre">logout</span></code>, <code class="docutils literal notranslate"><span class="pre">stale</span></code>, <code class="docutils literal notranslate"><span class="pre">removed</span></code>) or a simple passive
+login will suffice (all other values).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">current</span></code>: Rate limited general state update, payload contains information about the printer’s state, job progress,
+accumulated temperature points and log lines since last update. OctoPrint will send these updates when new information
+is available, but not more often than twice per second in order to not flood the client with messages (e.g.
+during printing). See <a class="reference internal" href="#sec-api-push-datamodel-currentandhistory"><span class="std std-ref">the payload data model</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">history</span></code>: Current state, temperature and log history, sent upon initial connect to get the client up to date. Same
+payload data model as <code class="docutils literal notranslate"><span class="pre">current</span></code>, see <a class="reference internal" href="#sec-api-push-datamodel-currentandhistory"><span class="std std-ref">the payload data model</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">event</span></code>: Events triggered within OctoPrint, such as e.g. <code class="docutils literal notranslate"><span class="pre">PrintFailed</span></code> or <code class="docutils literal notranslate"><span class="pre">MovieRenderDone</span></code>. Payload is the event
+type and payload, see <a class="reference internal" href="#sec-api-push-datamodel-event"><span class="std std-ref">the payload data model</span></a>. Sent when an event is triggered internally.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slicingProgress</span></code>: Progress updates from an active slicing background job, payload contains information about the
+model being sliced, the target file, the slicer being used and the progress as a percentage.
+See <a class="reference internal" href="#sec-api-push-datamodel-slicingprogress"><span class="std std-ref">the payload data model</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plugin</span></code>: Messages generated by plugins. The payload data models are determined by the plugin which sent the
+message.</p></li>
+</ul>
+<p>Clients must ignore any unknown messages.</p>
+<p>The data model of the attached payloads is described further below.</p>
+<p>OctoPrint’s SockJS socket also accepts three commands from the client to the server.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">subscribe</span></code> (since 1.8.0): With the <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> message, clients may selectively
+subscribe to certain message types. The payload should be a dict of message types with
+supported keys as follows:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">state</span></code>: Either a boolean value indicating whether to generally receive state updates (<code class="docutils literal notranslate"><span class="pre">current</span></code> and <code class="docutils literal notranslate"><span class="pre">history</span></code>)
+or not, or a dict with further options for received state updates. Currently the following options are recognized here:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">logs</span></code>: A boolean value whether to include all log lines (<code class="docutils literal notranslate"><span class="pre">True</span></code>, default) or not (<code class="docutils literal notranslate"><span class="pre">False</span></code>). Alternatively a string with
+a regex pattern can be provided, in which case only log lines matching the pattern will be returned.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">messages</span></code>: Like <code class="docutils literal notranslate"><span class="pre">logs</span></code> but for the returned message lines.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plugins</span></code>: Either a boolean value indicating whether to generally receive plugin messages, or a list of plugin
+identifiers to receive plugin messages for.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">events</span></code>: Either a boolean value indicating whether to generally receive event messages, or a list of event
+types to receive event messages for.</p></li>
+</ul>
+<p>If you send a <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> message, OctoPrint will default the connection to not subscribe you to anything you did’t explicitly
+request. <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> messages do replace previous ones.</p>
+<p>Example for a <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> message subscribing only to updates from plugin <code class="docutils literal notranslate"><span class="pre">example</span></code> but neither state nor events:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;subscribe&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;plugins&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;example&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>Example for a <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> message subscribing to state, event and plugin updates,
+but filtering logs in state updates to only contain lines matching <code class="docutils literal notranslate"><span class="pre">^Recv:</span> <span class="pre">Cap</span></code> and also
+filtering out all messages:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;subscribe&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;state&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s2">&quot;logs&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;^Recv: Cap&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;messages&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="s2">&quot;events&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;plugins&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>Example for a <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> message subscribing only to events of type <code class="docutils literal notranslate"><span class="pre">PrintFailed</span></code>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;subscribe&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;events&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;PrintFailed&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>Per default, OctoPrint will subscribe connecting clients to all state, event and plugin updates
+without any filtering in place. If you wish to have your more selective subscription active
+right from the start of your socket session, be sure to send the <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> message
+<strong>before</strong> the <code class="docutils literal notranslate"><span class="pre">auth</span></code> message.</p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">auth</span></code> (since 1.3.10): With the <code class="docutils literal notranslate"><span class="pre">auth</span></code> message, clients may associate an
+existing user session with the socket. That is of special importance to receive
+any kind of messages, since the permission system will prevent any kind of status messages to be sent to connected
+clients lacking the <code class="docutils literal notranslate"><span class="pre">STATUS</span></code> permission.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">auth</span></code> message expects the user id of the user to authenticate followed by <code class="docutils literal notranslate"><span class="pre">:</span></code> and a session key to be
+obtained from the successful payload of a <a class="reference internal" href="general.html#sec-api-general-login"><span class="std std-ref">(passive or active) login via the API</span></a>.</p>
+<p>Example for a <code class="docutils literal notranslate"><span class="pre">auth</span></code> client-server-message:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;auth&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;someuser:LGZ0trf8By&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>An example for an auth roundtrip with only an API key using the <a class="reference internal" href="../jsclientlib/base.html#sec-jsclientlib-base"><span class="std std-ref">JS Client Library</span></a>
+can be found <a class="reference internal" href="../jsclientlib/socket.html#sec-jsclient-socket-authsample"><span class="std std-ref">here</span></a>.</p>
+<div class="mermaid-diagram docutils">
+<pre class="mermaid">
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>sequenceDiagram
+   participant Client
+   participant API
+   participant Websocket
+
+   Client-&gt;&gt;API: GET /api/login?passive=true&amp;apikey=...
+   API-&gt;&gt;Client: { name: ..., session: ..., ... }
+
+   note over Client: auth = name &quot;:&quot; session
+
+   Client-&gt;&gt;Websocket: { &quot;auth&quot;: auth }
+</code></pre></div>
+</div>
+</pre></div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">throttle</span></code>: Usually, OctoPrint will push the general state update
+in the <code class="docutils literal notranslate"><span class="pre">current</span></code> message twice per second. For some clients that might still
+be too fast, so they can signal a different factor to OctoPrint utilizing the
+<code class="docutils literal notranslate"><span class="pre">throttle</span></code> message. OctoPrint expects a single integer here which represents
+the multiplier for the base rate limit of one message every 500ms. A value of
+1 hence will produce the default behaviour of getting every update. A value of
+2 will set the rate limit to maximally one message every 1s, 3 to maximally one
+message every 1.5s and so on.</p>
+<p>Example for a <code class="docutils literal notranslate"><span class="pre">throttle</span></code> client-server-message:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;throttle&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</li>
+</ul>
+<h2 id="data-model"><span id="sec-api-push-datamodel"></span>Data model<a class="headerlink" href="#data-model" title="Link to this heading">¶</a></h2>
+<h3 id="connected-payload"><span id="sec-api-push-datamodel-connected"></span><code class="docutils literal notranslate"><span class="pre">connected</span></code> payload<a class="headerlink" href="#connected-payload" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 8.3%" />
+<col style="width: 16.7%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">apikey</span></code></p></td>
+<td><p>1</p></td>
+<td><p>String</p></td>
+<td><p>Current UI API KEY. The UI API KEY is a special API key that gets regenerated on every server restart and
+has no rights attached other than accessing the REST API. An additional browser session is needed to
+send valid requests when the UI API KEY is used.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">version</span></code></p></td>
+<td><p>1</p></td>
+<td><p>String</p></td>
+<td><p>The server’s version.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">branch</span></code></p></td>
+<td><p>1</p></td>
+<td><p>String</p></td>
+<td><p>The source code branch from which the server was built.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">display_version</span></code></p></td>
+<td><p>1</p></td>
+<td><p>String</p></td>
+<td><p>The server’s version and branch in a human readable format.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">plugin_hash</span></code></p></td>
+<td><p>1</p></td>
+<td><p>String</p></td>
+<td><p>A hash of all installed plugins. This allows to detect if there have been plugin changes between server
+restarts.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">config_hash</span></code></p></td>
+<td><p>1</p></td>
+<td><p>String</p></td>
+<td><p>A hash of the currently active config. This allows to detect if there have been configuration changes between
+server restarts.</p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="current-and-history-payload"><span id="sec-api-push-datamodel-currentandhistory"></span><code class="docutils literal notranslate"><span class="pre">current</span></code> and <code class="docutils literal notranslate"><span class="pre">history</span></code> payload<a class="headerlink" href="#current-and-history-payload" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 8.3%" />
+<col style="width: 16.7%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">state</span></code></p></td>
+<td><p>1</p></td>
+<td><p><a class="reference internal" href="datamodel.html#sec-api-datamodel-printer-state"><span class="std std-ref">State information</span></a></p></td>
+<td><p>Information about the current machine state</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">job</span></code></p></td>
+<td><p>1</p></td>
+<td><p><a class="reference internal" href="datamodel.html#sec-api-datamodel-jobs-job"><span class="std std-ref">Job information</span></a></p></td>
+<td><p>Information about the currently active print job</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">progress</span></code></p></td>
+<td><p>1</p></td>
+<td><p><a class="reference internal" href="datamodel.html#sec-api-datamodel-jobs-progress"><span class="std std-ref">Progress information</span></a></p></td>
+<td><p>Information about the current print/streaming progress</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">currentZ</span></code></p></td>
+<td><p>1</p></td>
+<td><p>Float</p></td>
+<td><p>Current height of the Z-Axis (= current height of model) during printing from a local file</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">offsets</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p><a class="reference internal" href="datamodel.html#sec-api-datamodel-printer-tempoffset"><span class="std std-ref">Temperature offsets</span></a></p></td>
+<td><p>Currently configured temperature offsets</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">temps</span></code></p></td>
+<td><p>0..*</p></td>
+<td><p>List of <a class="reference internal" href="datamodel.html#sec-api-datamodel-printer-temphistory"><span class="std std-ref">Temperature Data Points</span></a></p></td>
+<td><p>Temperature data points for plotting</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">logs</span></code></p></td>
+<td><p>0..*</p></td>
+<td><p>List of String</p></td>
+<td><p>Lines for the serial communication log (send/receive)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">messages</span></code></p></td>
+<td><p>0..*</p></td>
+<td><p>List of String</p></td>
+<td><p>Lines for the serial communication log (special messages)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">resends</span></code></p></td>
+<td><p>1</p></td>
+<td><p><a class="reference internal" href="datamodel.html#sec-api-datamodel-printer-resends"><span class="std std-ref">Resend stats</span></a></p></td>
+<td><p>Current resend statistics for the connection</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">plugins</span></code></p></td>
+<td><p>0..1</p></td>
+<td><p>Map of plugin identifiers to additional data</p></td>
+<td><p>Additional data injected by plugins via the <a class="reference internal" href="../plugins/hooks.html#sec-plugins-hook-plugin-printer-additional-state-data"><span class="std std-ref">octoprint.printer.additional_state_data hook</span></a>,
+indexed by plugin identifier. Structure of additional data is determined by the plugin.</p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="event-payload"><span id="sec-api-push-datamodel-event"></span><code class="docutils literal notranslate"><span class="pre">event</span></code> payload<a class="headerlink" href="#event-payload" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 8.3%" />
+<col style="width: 16.7%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">type</span></code></p></td>
+<td><p>1</p></td>
+<td><p>String</p></td>
+<td><p>Name of the event</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">payload</span></code></p></td>
+<td><p>1</p></td>
+<td><p>Object</p></td>
+<td><p>Payload associated with the event</p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="slicingprogress-payload"><span id="sec-api-push-datamodel-slicingprogress"></span><code class="docutils literal notranslate"><span class="pre">slicingProgress</span></code> payload<a class="headerlink" href="#slicingprogress-payload" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 8.3%" />
+<col style="width: 16.7%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Multiplicity</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">slicer</span></code></p></td>
+<td><p>1</p></td>
+<td><p>String</p></td>
+<td><p>Name of the slicer used</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source_location</span></code></p></td>
+<td><p>1</p></td>
+<td><p>String</p></td>
+<td><p>Location of the source file being sliced, at the moment either <code class="docutils literal notranslate"><span class="pre">local</span></code> or <code class="docutils literal notranslate"><span class="pre">sdcard</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">source_path</span></code></p></td>
+<td><p>1</p></td>
+<td><p>String</p></td>
+<td><p>Path of the source file being sliced (e.g. an STL file)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dest_location</span></code></p></td>
+<td><p>1</p></td>
+<td><p>String</p></td>
+<td><p>Location of the destination file being created, at the moment either <code class="docutils literal notranslate"><span class="pre">local</span></code> or <code class="docutils literal notranslate"><span class="pre">sdcard</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dest_path</span></code></p></td>
+<td><p>1</p></td>
+<td><p>String</p></td>
+<td><p>Path of the destination file being sliced (e.g. a GCODE file)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">progress</span></code></p></td>
+<td><p>1</p></td>
+<td><p>Number (Float)</p></td>
+<td><p>Percentage of slicing job already completed</p></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="wizard.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Wizard">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Wizard
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="datamodel.html" class="md-footer__link md-footer__link--next" aria-label="Next: Common data model">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Common data model
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2013-2025, OctoPrint.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.2.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.sections", "navigation.top", "navigation.footer", "search.share", "search.suggest", "toc.follow", "toc.sticky", "content.tabs.link", "content.code.copy", "content.tooltips", "announce.dismiss"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
+    
+  </body>
+</html>

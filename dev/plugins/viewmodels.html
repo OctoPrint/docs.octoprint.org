@@ -1,0 +1,1479 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="injectedproperties.html">
+      
+      
+        <link rel="next" href="gettingstarted.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Viewmodels - OctoPrint dev documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.6ec1c446c2c357833.min.css?v=e2e8fea8" />
+        <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=e85523a8" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#registering-custom-viewmodels" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+    These are not the docs of the latest released version. Those can be found <a href="/en/master">here</a>.
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL(".."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="OctoPrint dev documentation" class="md-header__button md-logo" aria-label="OctoPrint dev documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OctoPrint dev documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Viewmodels
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="OctoPrint dev documentation" class="md-nav__button md-logo" aria-label="OctoPrint dev documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    OctoPrint dev documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Features</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bundledplugins/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Bundled Plugins</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Configuration</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>REST API</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Events</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Development</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Developing Plugins</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Developing Plugins</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="concepts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>General Concepts</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="controlproperties.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Control Properties</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mixins.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Mixins</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="hooks.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Hooks</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="helpers.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Helpers</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="injectedproperties.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Injected Properties</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    <span>Viewmodels</span>
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Viewmodels</span>
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#registering-custom-viewmodels" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Registering custom viewmodels</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Dependencies</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#callbacks" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Callbacks</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lifecycle-diagrams" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Lifecycle diagrams</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lifecycle diagrams">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#web-interface-startup" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Web interface startup</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web-interface-reconnect" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Web interface reconnect</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gettingstarted.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Plugin Tutorial</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="distributing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Distributing your plugin</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="python3_migration.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Migrating to Python 3</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Internal Modules</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jsclientlib/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Java<wbr>Script Client Library</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#registering-custom-viewmodels" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Registering custom viewmodels</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Dependencies</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#callbacks" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Callbacks</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lifecycle-diagrams" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Lifecycle diagrams</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lifecycle diagrams">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#web-interface-startup" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Web interface startup</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web-interface-reconnect" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Web interface reconnect</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="viewmodels"><span id="sec-plugins-viewmodels"></span>Viewmodels<a class="headerlink" href="#viewmodels" title="Link to this heading">¶</a></h1>
+<p>When implementing frontend components, you’ll sooner or later want to define your own <a class="reference external" href="http://knockoutjs.com/">KnockoutJS view models</a>
+in order to provide custom functionality.</p>
+<h2 id="registering-custom-viewmodels"><span id="sec-plugins-viewmodels-registering"></span>Registering custom viewmodels<a class="headerlink" href="#registering-custom-viewmodels" title="Link to this heading">¶</a></h2>
+<p>Register your view model with OctoPrint’s web app by pushing a config object unto the global array <code class="docutils literal notranslate"><span class="pre">OCTOPRINT_VIEWMODELS</span></code>.</p>
+<p>Possible properties in this config object are:</p>
+<dl class="simple">
+<dt>construct</dt><dd><p>Function to use for constructing the view model instance. Usually that will be the view model class, which acts as
+a constructor. This property is mandatory.</p>
+</dd>
+<dt>name</dt><dd><p>Name to register the view model under. If not provided, the name of the <code class="docutils literal notranslate"><span class="pre">construct</span></code> function will
+be used, turning the first letter lower case. If a view model under the same name already exists at time
+of construction, an error will be logged and the view model will not be instantiated.</p>
+</dd>
+<dt>additionalNames</dt><dd><p>A list of additional names to also register the view model under. Only those that do not already exist will be
+registered.</p>
+</dd>
+<dt>dependencies</dt><dd><p>List of dependencies the view model needs injected. If any of the view models in this list cannot be found,
+initialization of the view model will fail.  The parameters injected on instantiation will consist of first
+the <code class="docutils literal notranslate"><span class="pre">dependencies</span></code>, then the <code class="docutils literal notranslate"><span class="pre">optional</span></code> list concatenated.</p>
+</dd>
+<dt>optional</dt><dd><p>A list of optional dependencies the view model needs injected. If any of the view models in this list cannot be found,
+they will be <code class="docutils literal notranslate"><span class="pre">null</span></code> in the parameter list injected to the constructor on instantiation. The parameters injected on
+instantiation will consist of first the <code class="docutils literal notranslate"><span class="pre">dependencies</span></code>, then the <code class="docutils literal notranslate"><span class="pre">optional</span></code> list concatenated.</p>
+</dd>
+<dt>elements</dt><dd><p>A list of UI elements to bind to. Each binding target can be either a string which will then be passed to jQuery’s
+<code class="docutils literal notranslate"><span class="pre">$(...)</span></code> method to resolve the target, or alternatively directly a jQuery element</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">MyCustomViewModel</span><span class="p">(</span><span class="nx">parameters</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">self</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">;</span>
+
+<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">loginState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">parameters</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span><span class="w"> </span><span class="c1">// requested as first dependency below</span>
+<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">settings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">parameters</span><span class="p">[</span><span class="mf">1</span><span class="p">];</span><span class="w"> </span><span class="c1">// requested as second dependency below</span>
+<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">someOtherViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">parameters</span><span class="p">[</span><span class="mf">2</span><span class="p">];</span><span class="w"> </span><span class="c1">// requested as first optional dependency below</span>
+
+<span class="w">        </span><span class="c1">// more of your view model&#39;s implementation</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="hll"><span class="w">    </span><span class="c1">// we don&#39;t explicitly declare a name property here</span>
+</span><span class="hll"><span class="w">    </span><span class="c1">// our view model will be registered under &quot;myCustomViewModel&quot; (implicit</span>
+</span><span class="hll"><span class="w">    </span><span class="c1">// name derived from constructor name) and &quot;yourCustomViewModel&quot; (explicitly</span>
+</span><span class="hll"><span class="w">    </span><span class="c1">// provided as additional name)</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">OCTOPRINT_VIEWMODELS</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+</span><span class="hll"><span class="w">        </span><span class="nx">construct</span><span class="o">:</span><span class="w"> </span><span class="nx">MyCustomViewModel</span><span class="p">,</span>
+</span><span class="hll"><span class="w">        </span><span class="nx">additionalNames</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;yourCustomViewModel&quot;</span><span class="p">],</span>
+</span><span class="hll"><span class="w">        </span><span class="nx">dependencies</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;loginStateViewModel&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;settingsViewModel&quot;</span><span class="p">],</span>
+</span><span class="hll"><span class="w">        </span><span class="nx">optional</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;someOtherViewModel&quot;</span><span class="p">],</span>
+</span><span class="hll"><span class="w">        </span><span class="nx">elements</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;#some_div&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;#some_other_div&quot;</span><span class="p">]</span>
+</span><span class="hll"><span class="w">    </span><span class="p">});</span>
+</span><span class="p">})</span>
+</code></pre></div>
+</div>
+<p>You might also come across a different approach to view model declaration, providing not a config object but instead
+a 3-tuple of constructor, dependencies and elements to bind to. Additional names, different names than the default name
+and optional dependencies cannot be specified with this format. It should be considered deprecated. Still, an example
+of how that would look in practice is provided here as well:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption highlight"><span class="filename"><span class="caption-number">Listing 38 </span><span class="caption-text">
+</span>Old tuple-based configuration format, consider this deprecated<a class="headerlink" href="#id1" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">MyCustomViewModel</span><span class="p">(</span><span class="nx">parameters</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">self</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">;</span>
+
+<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">loginState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">parameters</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span><span class="w"> </span><span class="c1">// requested as first constructor parameter below</span>
+<span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">settingsViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">parameters</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span><span class="w"> </span><span class="c1">// requested as second constructor parameter below</span>
+
+<span class="w">        </span><span class="c1">// more of your view model&#39;s implementation</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="hll"><span class="w">    </span><span class="c1">// construct, dependencies, elements</span>
+</span><span class="hll"><span class="w">    </span><span class="nx">OCTOPRINT_VIEWMODELS</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span>
+</span><span class="hll"><span class="w">        </span><span class="nx">MyCustomViewModel</span><span class="p">,</span>
+</span><span class="hll"><span class="w">        </span><span class="p">[</span><span class="s2">&quot;loginStateViewModel&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;settingsViewModel&quot;</span><span class="p">],</span>
+</span><span class="hll"><span class="w">        </span><span class="p">[</span><span class="s2">&quot;#some_div&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;#some_other_div&quot;</span><span class="p">]</span>
+</span><span class="hll"><span class="w">    </span><span class="p">]);</span>
+</span><span class="p">})</span>
+</code></pre></div>
+</div>
+</div>
+<h2 id="dependencies"><span id="sec-plugins-viewmodels-dependencies"></span>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading">¶</a></h2>
+<p>OctoPrint will try to inject all view model dependencies requested by your view model. In order to do this it will
+perform multiple passes iterating over all registered view models and collecting the necessary dependencies prior to
+construction. Circular dependencies (A depends on B, B on C, C on A) naturally cannot be resolved and will cause an
+error to be logged to the JavaScript console.</p>
+<p>OctoPrint’s core currently comes with the following view models that your plugin can request for injection:</p>
+<dl class="simple">
+<dt>appearanceViewModel</dt><dd><p>View model that holds the appearance settings (name, color and transparency flag).</p>
+</dd>
+<dt>connectionViewModel</dt><dd><p>View model for the connection sidebar entry.</p>
+</dd>
+<dt>controlViewModel</dt><dd><p>View model for the control tab.</p>
+</dd>
+<dt>filesViewModel</dt><dd><p>View model for the files sidebar entry. Also available under the deprecated name <code class="docutils literal notranslate"><span class="pre">gcodeFilesViewModel</span></code>.</p>
+</dd>
+<dt>firstRunViewModel</dt><dd><p>View model for the first run dialog.</p>
+</dd>
+<dt>gcodeViewModel</dt><dd><p>View model for the gcode viewer tab.</p>
+</dd>
+<dt>gcodeFilesViewModel</dt><dd><p>Deprecated in favor of <code class="docutils literal notranslate"><span class="pre">filesViewModel</span></code>.</p>
+</dd>
+<dt>logsViewModel</dt><dd><p>View model for the logfile settings dialog.</p>
+</dd>
+<dt>loginStateViewModel</dt><dd><p>View model for the current login state of the user, very interesting for plugins that need to
+evaluate the current login state or information about the current user, e.g. associated roles.</p>
+</dd>
+<dt>navigationViewModel</dt><dd><p>View model for the navigation bar.</p>
+</dd>
+<dt>printerProfilesViewModel</dt><dd><p>View model for the printer profiles settings dialog.</p>
+</dd>
+<dt>printerStateViewModel</dt><dd><p>View model for the current printer state, very interesting for plugins that need
+to know information about the current print job, if the printer is connected, operational etc.</p>
+</dd>
+<dt>settingsViewModel</dt><dd><p>View model for the settings dialog, also holds all settings to be used by other view models, hence
+very interesting for plugins as well.</p>
+</dd>
+<dt>slicingViewModel</dt><dd><p>View model for the slicing dialog.</p>
+</dd>
+<dt>temperatureViewModel</dt><dd><p>View model for the temperature tab, also holds current temperature information which
+might be interesting for plugins.</p>
+</dd>
+<dt>terminalViewModel</dt><dd><p>View model for the terminal tab, also holds terminal log entries.</p>
+</dd>
+<dt>timelapseViewModel</dt><dd><p>View model for the timelapse tab.</p>
+</dd>
+<dt>usersViewModel</dt><dd><p>View model for the user management in the settings dialog.</p>
+</dd>
+<dt>userSettingsViewModel</dt><dd><p>View model for settings associated with the currently logged in user, used for
+the user settings dialog.</p>
+</dd>
+<dt>wizardViewModel</dt><dd><p>View model for the wizard dialog.</p>
+</dd>
+</dl>
+<p>Each plugin’s view model will be added to the view model map used for resolving dependencies as well, using
+the view model’s class name with a lower case first character as identifier (so “MyCustomViewModel” will be registered
+for dependency injection as “myCustomViewModel”) or an alternative name provided in the <code class="docutils literal notranslate"><span class="pre">name</span></code> property of the
+config object, plus any configured <code class="docutils literal notranslate"><span class="pre">additionalNames</span></code>.</p>
+<h2 id="callbacks"><span id="sec-plugins-viewmodels-callbacks"></span>Callbacks<a class="headerlink" href="#callbacks" title="Link to this heading">¶</a></h2>
+<p>OctoPrint’s web application will call several callbacks on all registered view models, provided they implement them.
+Those are listed below:</p>
+<dl>
+<dt>onStartup()</dt><dd><p>Called when the first initialization has been done. All view models are constructed and hence their dependencies
+resolved, no bindings have been done yet.</p>
+</dd>
+<dt>onBeforeBinding()</dt><dd><p>Called per view model before attempting to bind it to its binding targets.</p>
+</dd>
+<dt>onAfterBinding()</dt><dd><p>Called per view model after binding it to its binding targets.</p>
+</dd>
+<dt>onAllBound(allViewModels)</dt><dd><p>Called after all view models have been bound, with the list of all view models as the single parameter.</p>
+</dd>
+<dt>onStartupComplete()</dt><dd><p>Called after the startup of the web app has been completed.</p>
+</dd>
+<dt>onServerDisconnect()</dt><dd><p>Called if a disconnect from the server is detected.</p>
+</dd>
+<dt>onDataUpdaterReconnect()</dt><dd><p>Called when the connection to the server has been reestablished after a disconnect.</p>
+</dd>
+<dt>fromHistoryData(data)</dt><dd><p>Called when history data is received from the server. Usually that happens only after initial connect in order to
+transmit the temperature and terminal log history to the connecting client. Called with the <code class="docutils literal notranslate"><span class="pre">data</span></code> as single parameter.</p>
+</dd>
+<dt>fromCurrentData(data)</dt><dd><p>Called when current printer status data is received from the server with the <code class="docutils literal notranslate"><span class="pre">data</span></code> as single parameter.</p>
+</dd>
+<dt>onSlicingProgress(slicer, modelPath, machineCodePath, progress)</dt><dd><p>Called on slicing progress, call rate is once per percentage point of the progress at maximum.</p>
+</dd>
+<dt>onEvent&lt;EventName&gt;(payload)</dt><dd><p>Called on firing of an event of type <code class="docutils literal notranslate"><span class="pre">EventName</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">onEventPrintDone</span></code>. See <a class="reference internal" href="../events/index.html#sec-events-available-events"><span class="std std-ref">the list of available events</span></a>
+for the possible events and their payloads.</p>
+</dd>
+<dt>fromTimelapseData(data)</dt><dd><p>Called when timelapse configuration data is received from the server. Usually that happens after initial connect.</p>
+</dd>
+<dt>onDataUpdaterPluginMessage(plugin, message)</dt><dd><p>Called when a plugin message is pushed from the server with the identifier of the calling plugin as first
+and the actual message as the second parameter. Note that the latter might be a full fledged object, depending
+on the plugin sending the message. You can use this method to asynchronously push data from your plugin’s server
+component to its frontend component.</p>
+</dd>
+<dt>onUserLoggedIn(user)</dt><dd><p>Called when a user gets logged into the web app, either passively (upon initial load of the page due to a valid
+“Remember Me” cookie) or due to an active completion of the login dialog. The user data of the just logged in user
+will be provided as only parameter.</p>
+</dd>
+<dt>onUserLoggedOut()</dt><dd><p>Called when a user gets logged out of the web app.</p>
+</dd>
+<dt>onUserPermissionsChanged(user)</dt><dd><p>Called when a change in the permissions of the current user is detected. The user data of the just logged in user
+will be provided as only parameter. Note that this may also be triggered for not logged in guests if the guest
+group is modified. In this case <code class="docutils literal notranslate"><span class="pre">user</span></code> will be undefined.</p>
+</dd>
+<dt>onBeforePrintStart(callback, data)</dt><dd><p>Called before a print is started either by clicking the “Print” button in the state panel or the select &amp; print icon
+in the file list. The callback to proceed with starting the print is provided as first parameter. By returning
+<code class="docutils literal notranslate"><span class="pre">false</span></code> from this, plugins may prevent a print from actually starting, optionally starting it at a later date by
+calling <code class="docutils literal notranslate"><span class="pre">callback</span></code> themselves. This can be used for example to implement an additional confirmation dialog. The
+second parameter is a file data object that includes details such as name, path, and origin.</p>
+</dd>
+<dt>onTabChange(next, current)</dt><dd><p>Called before the main tab view switches to a new tab, so <cite>before</cite> the new tab becomes visible. Called with the
+next (changed to) and current (still visible) tab’s hash (e.g. <code class="docutils literal notranslate"><span class="pre">#control</span></code>). Note that <code class="docutils literal notranslate"><span class="pre">current</span></code> might be undefined
+on the very first call.</p>
+</dd>
+<dt>onAfterTabChange(current, previous)</dt><dd><p>Called after the main tab view switches to a new tab, so <cite>after</cite> the new tab becomes visible. Called with the
+current and previous tab’s hash (e.g. <code class="docutils literal notranslate"><span class="pre">#control</span></code>).</p>
+</dd>
+<dt>getAdditionalControls()</dt><dd><p>Your view model may return additional custom control definitions for inclusion on the “Control” tab of OctoPrint’s
+interface. See <a class="reference internal" href="../features/custom_controls.html#sec-features-custom-controls"><span class="std std-ref">the custom control feature</span></a>.</p>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>Controls injected from a view model do not support feedback controls (as defined by
+<code class="docutils literal notranslate"><span class="pre">regex</span></code> and <code class="docutils literal notranslate"><span class="pre">template</span></code>).</p>
+</div>
+</dd>
+<dt>onSettingsShown()</dt><dd><p>Called when the settings dialog is shown.</p>
+</dd>
+<dt>onSettingsHidden()</dt><dd><p>Called when the settings dialog is hidden.</p>
+</dd>
+<dt>onSettingsBeforeSave()</dt><dd><p>Called just before the settings view model is sent to the server. This is useful, for example, if your plugin
+needs to compute persisted settings from a custom view model.</p>
+</dd>
+<dt>onUserSettingsShown()</dt><dd><p>Called when the user settings dialog is shown.</p>
+</dd>
+<dt>onUserSettingsHidden()</dt><dd><p>Called when the user settings dialog is hidden.</p>
+</dd>
+<dt>onUserSettingsBeforeSave()</dt><dd><p>Called just before the user settings view model is sent to the server. This is useful, for example, if your plugin
+needs to compute persisted settings from a custom view model.</p>
+</dd>
+<dt>onWizardDetails(response)</dt><dd><p>Called with the response from the wizard detail API call initiated before opening the wizard dialog. Will contain
+the data from all <a class="reference internal" href="mixins.html#octoprint.plugin.WizardPlugin" title="octoprint.plugin.WizardPlugin (Python class) — Bases: OctoPrintPlugin, ReloadNeedingPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">WizardPlugin</span></code></a> implementations returned by their <a class="reference internal" href="mixins.html#octoprint.plugin.WizardPlugin.get_wizard_details" title="octoprint.plugin.WizardPlugin.get_wizard_details (Python method) — Called by OctoPrint when the wizard wrapper dialog is shown. Allows the plugin to return data that will then be made available to the view models via the view model callback onWizardDetails."><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_wizard_details()</span></code></a>
+method, mapped by the plugin identifier.</p>
+</dd>
+<dt>onBeforeWizardTabChange(next, current)</dt><dd><p>Called before the wizard tab/step is changed, with the ids of the next (changed to) and the current (still visible) tab
+as parameters. Return false in order to prevent the tab change, e.g. if the wizard step is mandatory and not yet
+completed by the user. Take a look at the “Core Wizard” plugin bundled with OctoPrint and the ACL wizard step in
+particular for an example on how to use this.</p>
+</dd>
+<dt>onAfterWizardTabChange(current)</dt><dd><p>Called after the wizard tab/step is changed, with the id of the current tab as parameter. The id of the previous
+tab is sadly not available currently.</p>
+</dd>
+<dt>onBeforeWizardFinish()</dt><dd><p>Called before executing the finishing of the wizard. Return false here to stop the actual finish, e.g. if some step is
+still incomplete.</p>
+</dd>
+<dt>onWizardFinish()</dt><dd><p>Called after executing the finishing of the wizard and before closing the dialog. Return <code class="docutils literal notranslate"><span class="pre">reload</span></code> here in order to
+instruct OctoPrint to reload the UI after the wizard closes.</p>
+</dd>
+<dt>onWebcamVisibilityChange(visible)</dt><dd><p>Called when the webcam stream visibility changes, with the new visibility state as parameter.</p>
+</dd>
+<dt>onWebcamRefresh()</dt><dd><p>Called when the webcam refresh button in the UI is clicked. Implement this to allow refreshing the webcam stream on demand.</p>
+</dd>
+</dl>
+<p>In order to hook into any of those callbacks, just have your view model define a function named accordingly, e.g.
+to get called after all view models have been bound during application startup, implement a function <code class="docutils literal notranslate"><span class="pre">onAllBound</span></code>
+on your view model, taking a list of all bound view models:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">MyCustomViewModel</span><span class="p">(</span><span class="nx">parameters</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">self</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// ...</span>
+
+<span class="hll"><span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">onAllBound</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">allViewModels</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">            </span><span class="c1">// do something with them</span>
+</span><span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">OCTOPRINT_VIEWMODELS</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">construct</span><span class="o">:</span><span class="w"> </span><span class="nx">MyCustomViewModel</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">dependencies</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;loginStateViewModel&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nx">elements</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;#some_div&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;#some_other_div&quot;</span><span class="p">]</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="p">})</span>
+</code></pre></div>
+</div>
+<h2 id="lifecycle-diagrams"><span id="sec-plugins-viewmodels-livecycle"></span>Lifecycle diagrams<a class="headerlink" href="#lifecycle-diagrams" title="Link to this heading">¶</a></h2>
+<h3 id="web-interface-startup"><span id="sec-plugins-viewmodels-startup"></span>Web interface startup<a class="headerlink" href="#web-interface-startup" title="Link to this heading">¶</a></h3>
+<div class="mermaid-diagram docutils">
+<pre class="mermaid">
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>sequenceDiagram
+   participant Main
+   participant DataUpdater
+   participant LoginStateViewModel
+   participant SettingsViewModel
+   participant UiStateViewModel
+
+   Note over DataUpdater: connectCallback = undefined
+   Note over UiStateViewModel: loaded = false
+
+   activate Main
+
+   Main-&gt;&gt;+DataUpdater: connect
+   Note right of DataUpdater: initialized = false
+   DataUpdater--&gt;&gt;Main: ok
+   deactivate Main
+   DataUpdater-&gt;&gt;DataUpdater: asynchronous connect to server...
+   activate DataUpdater
+   Note right of DataUpdater: store any callbacks instead of triggering (e.g. onServerConnect, fromHistoryData, fromCurrentData, ...)
+   DataUpdater-X+Main: done
+   deactivate DataUpdater
+   deactivate DataUpdater
+
+   Main-&gt;&gt;+DataUpdater: connectCallback = onServerConnect
+   Note right of DataUpdater: connectCallback = onServerConnect
+   DataUpdater--&gt;&gt;-Main: ok
+   Main-&gt;&gt;+Main: onServerConnect
+   Main-&gt;&gt;+LoginStateViewModel: passiveLogin
+   LoginStateViewModel--&gt;&gt;Main: ok
+   Main--&gt;&gt;Main: ok
+   deactivate Main
+   deactivate Main
+
+   LoginStateViewModel-&gt;&gt;+LoginStateViewModel: asynchronous passive login
+   Note over Main,UiStateViewModel: Session available!
+   LoginStateViewModel-X+Main: done
+   deactivate LoginStateViewModel
+   deactivate LoginStateViewModel
+
+   Main-&gt;&gt;+DataUpdater: initialized
+   Note right of DataUpdater: initialized = true
+   DataUpdater-&gt;DataUpdater: trigger stored callbacks
+   DataUpdater--&gt;&gt;-Main: ok
+
+   Main-&gt;&gt;+Main: fetchSettings
+   Note right of Main: trigger onStartup
+
+   Main-&gt;&gt;+SettingsViewModel: requestData
+   SettingsViewModel--&gt;&gt;Main: ok
+   deactivate Main
+   deactivate Main
+
+   SettingsViewModel-&gt;&gt;+SettingsViewModel: asynchronous settings fetch
+   Note over Main,UiStateViewModel: Settings available!
+   SettingsViewModel-X+Main: done
+   deactivate SettingsViewModel
+   deactivate SettingsViewModel
+
+   Main-&gt;&gt;+Main: bindViewModels
+
+   loop for each view model
+       Main-&gt;Main: trigger onBeforeBinding
+       Main-&gt;Main: trigger onBoundTo
+       Main-&gt;Main: trigger onAfterBinding
+   end
+
+   Main-&gt;Main: trigger onAllBound
+   opt User is logged in
+      Main-&gt;&gt;+LoginStateViewModel: onAllBound
+      LoginStateViewModel-&gt;LoginStateViewModel: trigger onUserLoggedIn
+      LoginStateViewModel--&gt;&gt;-Main: ok
+   end
+
+   Main-&gt;&gt;+UiStateViewModel: loaded
+   Note right of UiStateViewModel: loaded = true
+   UiStateViewModel--&gt;&gt;-Main: ok
+
+   Main-&gt;Main: trigger onStartupComplete
+   deactivate Main
+   deactivate Main
+</code></pre></div>
+</div>
+</pre></div>
+<h3 id="web-interface-reconnect"><span id="sec-plugins-viewmodels-reconnect"></span>Web interface reconnect<a class="headerlink" href="#web-interface-reconnect" title="Link to this heading">¶</a></h3>
+<div class="mermaid-diagram docutils">
+<pre class="mermaid">
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>sequenceDiagram
+   participant onServerConnect
+   participant DataUpdater
+   participant LoginStateViewModel
+
+   activate DataUpdater
+   DataUpdater-&gt;&gt;DataUpdater: call connectCallback
+   DataUpdater-&gt;&gt;+onServerConnect: call
+   onServerConnect--&gt;&gt;DataUpdater: ok
+   deactivate DataUpdater
+
+   onServerConnect-&gt;&gt;+LoginStateViewModel: passiveLogin
+   LoginStateViewModel--&gt;&gt;onServerConnect: ok
+   deactivate onServerConnect
+   LoginStateViewModel-&gt;&gt;+LoginStateViewModel: asynchronous passive login
+   Note over onServerConnect,LoginStateViewModel: Session available!
+   opt User is logged in
+      LoginStateViewModel-&gt;LoginStateViewModel: trigger onUserLoggedIn
+   end
+
+   activate onServerConnect
+   LoginStateViewModel-XonServerConnect: done
+   deactivate LoginStateViewModel
+   deactivate LoginStateViewModel
+
+   onServerConnect-&gt;&gt;+DataUpdater: initialized
+   DataUpdater-&gt;DataUpdater: trigger stored callbacks
+   DataUpdater--&gt;&gt;onServerConnect: ok
+   deactivate DataUpdater
+   deactivate onServerConnect
+</code></pre></div>
+</div>
+</pre></div>
+<div class="seealso admonition">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://github.com/OctoPrint/OctoPrint/tree/master/src/octoprint/static/js/app/viewmodels">OctoPrint’s core viewmodels</a></dt><dd><p>OctoPrint’s own view models use the same mechanisms for interacting with each other and the web application as
+plugins. Their source code is therefore a good point of reference on how to achieve certain things.</p>
+</dd>
+<dt><a class="reference external" href="http://knockoutjs.com/documentation/introduction.html">KnockoutJS documentation</a></dt><dd><p>OctoPrint makes heavy use of KnockoutJS for building up its web app.</p>
+</dd>
+</dl>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="injectedproperties.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Injected Properties">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Injected Properties
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="gettingstarted.html" class="md-footer__link md-footer__link--next" aria-label="Next: Plugin Tutorial">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Plugin Tutorial
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2013-2025, OctoPrint.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.2.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.sections", "navigation.top", "navigation.footer", "search.share", "search.suggest", "toc.follow", "toc.sticky", "content.tabs.link", "content.code.copy", "content.tooltips", "announce.dismiss"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
+    
+  </body>
+</html>
