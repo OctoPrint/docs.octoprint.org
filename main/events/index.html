@@ -168,30 +168,51 @@
 </nav>
 <section id="configuration">
 <span id="sec-events-configuration"></span><h2><a class="toc-backref" href="#id2" role="doc-backlink">Configuration</a><a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.11.3.</span></p>
+</div>
 <p>Event hooks are configured via OctoPrint’s configuration file <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>. There they are contained in a
 <code class="docutils literal notranslate"><span class="pre">subscriptions</span></code> list located directly under the <code class="docutils literal notranslate"><span class="pre">events</span></code> node. The <code class="docutils literal notranslate"><span class="pre">command</span></code> node accepts either a single string
 or a list of strings so that multiple commands can be executed in one go. Each hook carries an additional node type that
 must be either <code class="docutils literal notranslate"><span class="pre">gcode</span></code> (for GCODE commands to be sent to the printer based on the event) or <code class="docutils literal notranslate"><span class="pre">system</span></code> (for commands to be
 executed on the system OctoPrint is running on).</p>
-<p>All event hooks can be disabled completely by setting <code class="docutils literal notranslate"><span class="pre">event</span> <span class="pre">&gt;</span> <span class="pre">enabled</span></code> to <code class="docutils literal notranslate"><span class="pre">false</span></code>. You can also disable individual
-hooks by setting the (optional) node <code class="docutils literal notranslate"><span class="pre">enabled</span></code> to false, see the example below.</p>
+<p>All event hooks configured in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> can be disabled completely by setting <code class="docutils literal notranslate"><span class="pre">events.enabled</span></code> property to <code class="docutils literal notranslate"><span class="pre">false</span></code>.
+You can also disable individual hooks by setting the (optional) <code class="docutils literal notranslate"><span class="pre">enabled</span></code> parameter to <code class="docutils literal notranslate"><span class="pre">false</span></code>, see the example below.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>OctoPrint 1.11.3 introduces a new <code class="docutils literal notranslate"><span class="pre">shell</span></code> parameter on <code class="docutils literal notranslate"><span class="pre">type:</span> <span class="pre">system</span></code> commands that allows to specify whether the command
+should be run in a shell (<code class="docutils literal notranslate"><span class="pre">true</span></code>, <em>currently</em> the default) or directly (<code class="docutils literal notranslate"><span class="pre">false</span></code>, the <em>future</em> default).</p>
+<p>Running commands in a shell has security implications as a misconfigured command with placeholders coming from external, potential
+untrusted sources can lead to arbitrary command execution. However, running commands in a shell also allows for more powerful
+scripting and also access to the shell’s environment, making it often unnecessary to set the full paths of commands that are
+supposed to be run.</p>
+<p>OctoPrint so far has been running system commands defined in event hooks within a shell. Starting with OctoPrint 1.11.3,
+OctoPrint will log a message to <code class="docutils literal notranslate"><span class="pre">octoprint.log</span></code> when it encounters a system hook that hasn’t yet explicitly configured
+<code class="docutils literal notranslate"><span class="pre">shell</span></code>, and default to enabling the shell. From 1.13.0 onward, this behaviour will change, and OctoPrint will default
+to <em>disabling</em> the shell in such cases, to further reduce the attack surface.</p>
+<p>You should make an explicit decision now. Try to make your commands work <em>without</em> having to enable shell mode, and thoroughly
+vet your commands and parameter processing if you have to enable shell mode.</p>
+</div>
 <section id="example">
 <h3><a class="toc-backref" href="#id3" role="doc-backlink">Example</a><a class="headerlink" href="#example" title="Link to this heading"></a></h3>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">events</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
 <span class="w">  </span><span class="nt">subscriptions</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Disconnected</span>
-<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python ~/growl.py -t mygrowlserver -d &quot;Lost connection to printer&quot; -a OctoPrint -i http://raspi/Octoprint_logo.png</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/python /path/to/growl.py -t mygrowlserver -d &quot;Lost connection to printer&quot; -a OctoPrint -i http://raspi/Octoprint_logo.png</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">system</span>
+<span class="w">    </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Disconnected</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PrintStarted</span>
-<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python ~/growl.py -t mygrowlserver -d &quot;Starting {file}&quot; -a OctoPrint -i http://raspi/Octoprint_logo.png</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/python /path/to/growl.py -t mygrowlserver -d &quot;Starting {file}&quot; -a OctoPrint -i http://raspi/Octoprint_logo.png</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">system</span>
+<span class="w">    </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Print Started</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PrintDone</span>
-<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python ~/growl.py -t mygrowlserver -d &quot;Completed {file}&quot; -a OctoPrint -i http://raspi/Octoprint_logo.png</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/python /path/to/growl.py -t mygrowlserver -d &quot;Completed {file}&quot; -a OctoPrint -i http://raspi/Octoprint_logo.png</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">system</span>
+<span class="w">    </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Print Done</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">event</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PrintStarted</span>
@@ -200,6 +221,7 @@ hooks by setting the (optional) node <code class="docutils literal notranslate">
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PrintCancelled</span>
 <span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python ~/growl.py -t mygrowlserver -d &quot;Event {__eventname} ({name})&quot; -a OctoPrint -i http://raspi/Octoprint_logo.png</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">system</span>
+<span class="w">    </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Multiple Events</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Connected</span>
 <span class="w">    </span><span class="nt">command</span><span class="p">:</span>
