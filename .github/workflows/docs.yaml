@@ -162,21 +162,21 @@ jobs:
           if [ $count != '0' ]; then
               rm -rf docs/* || true
               touch docs/.nojekyll
-              cp -rv artifacts/* docs
+              cp -rv "artifacts/*" docs
           fi
 
       - name: 🧹 Cleanup regenerated docs
         if: github.event_name == 'repository_dispatch'
         run: |
-          version="${{ github.event.client_payload.ref }}"
-          version=${version#"refs/heads/"}
-          version=${version#"refs/tags/"}
+          # there should only be one artifact
+          count=`ls -1 artifacts | wc -l`
 
-          echo "Version is $version"
+          if [ $count == '1' ]; then
+            version=$(ls artifacts | head -n1)
+            echo "Version is $version"
 
-          if [ -d "artifacts/$version" ]; then
-            rm -rf docs/$version || true
-            cp -r artifacts/$version docs/
+            rm -rf "docs/$version" || true
+            cp -r "artifacts/$version" docs/
           fi
 
       - name: 🚧 Generate versions.json
