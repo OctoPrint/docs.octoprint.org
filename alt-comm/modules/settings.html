@@ -1,0 +1,3004 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="server.html">
+      
+      
+        <link rel="next" href="slicing.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>octoprint.settings - OctoPrint alt-comm documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.acf80fe7f4d9ef9e2.min.css?v=9e56d0d2" />
+        <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=e85523a8" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#octoprint.settings.default_settings" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+    These are not the docs of the latest released version. Those can be found <a href="/en/main">here</a>.
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL(".."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="OctoPrint alt-comm documentation" class="md-header__button md-logo" aria-label="OctoPrint alt-comm documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OctoPrint alt-comm documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              octoprint.settings
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="OctoPrint alt-comm documentation" class="md-nav__button md-logo" aria-label="OctoPrint alt-comm documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    OctoPrint alt-comm documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gettingstarted.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Getting Started</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Features</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bundledplugins/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Bundled Plugins</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Configuration</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>REST API</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Events</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Development</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Developing Plugins</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Internal Modules</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Internal Modules</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="access.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>octoprint.<wbr>access.<wbr>users</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cli.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>octoprint.<wbr>cli</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cli.html#module-octoprint.cli.dev" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.cli.dev (Python module)"><span>octoprint.<wbr>cli.<wbr>dev</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cli.html#module-octoprint.cli.plugins" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.cli.plugins (Python module)"><span>octoprint.<wbr>cli.<wbr>plugins</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cli.html#module-octoprint.cli.server" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.cli.server (Python module)"><span>octoprint.<wbr>cli.<wbr>server</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="filemanager.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>octoprint.<wbr>filemanager</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="filemanager.html#module-octoprint.filemanager.analysis" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.filemanager.analysis (Python module)"><span>octoprint.<wbr>filemanager.<wbr>analysis</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="filemanager.html#module-octoprint.filemanager.destinations" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.filemanager.destinations (Python module)"><span>octoprint.<wbr>filemanager.<wbr>destinations</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="filemanager.html#module-octoprint.filemanager.storage" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.filemanager.storage (Python module)"><span>octoprint.<wbr>filemanager.<wbr>storage</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="filemanager.html#module-octoprint.filemanager.storage.local" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.filemanager.storage.local (Python module)"><span>octoprint.<wbr>filemanager.<wbr>storage.<wbr>local</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="filemanager.html#module-octoprint.filemanager.storage.printer" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.filemanager.storage.printer (Python module)"><span>octoprint.<wbr>filemanager.<wbr>storage.<wbr>printer</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="filemanager.html#module-octoprint.filemanager.util" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.filemanager.util (Python module)"><span>octoprint.<wbr>filemanager.<wbr>util</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="plugin.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>octoprint.<wbr>plugin</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="plugin.html#module-octoprint.plugin.core" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.plugin.core (Python module)"><span>octoprint.<wbr>plugin.<wbr>core</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="plugin.html#module-octoprint.plugin.types" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.plugin.types (Python module)"><span>octoprint.<wbr>plugin.<wbr>types</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="printer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>octoprint.<wbr>printer</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="printer.html#module-octoprint.printer.profile" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.printer.profile (Python module)"><span>octoprint.<wbr>printer.<wbr>profile</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="schema.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>octoprint.<wbr>schema</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="schema.html#module-octoprint.schema.config" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.schema.config (Python module)"><span>octoprint.<wbr>schema.<wbr>config</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="schema.html#module-octoprint.schema.webcam" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.schema.webcam (Python module)"><span>octoprint.<wbr>schema.<wbr>webcam</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="server.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>octoprint.<wbr>server</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="server.html#module-octoprint.server.util" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.server.util (Python module)"><span>octoprint.<wbr>server.<wbr>util</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="server.html#module-octoprint.server.util.flask" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.server.util.flask (Python module)"><span>octoprint.<wbr>server.<wbr>util.<wbr>flask</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="server.html#module-octoprint.server.util.sockjs" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.server.util.sockjs (Python module)"><span>octoprint.<wbr>server.<wbr>util.<wbr>sockjs</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="server.html#module-octoprint.server.util.tornado" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.server.util.tornado (Python module)"><span>octoprint.<wbr>server.<wbr>util.<wbr>tornado</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    <span>octoprint.<wbr>settings</span>
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>octoprint.<wbr>settings</span>
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#octoprint.settings.default_settings" class="md-nav__link">
+    
+      <span aria-label="Python data" class="objinfo-icon objinfo-icon__alias" title="Python data">V</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.default_settings (Python data) — The default settings of the core application."><span>octoprint.<wbr>settings.<wbr>default_<wbr>settings</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#octoprint.settings.valid_boolean_trues" class="md-nav__link">
+    
+      <span aria-label="Python data" class="objinfo-icon objinfo-icon__alias" title="Python data">V</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.valid_boolean_trues (Python data) — Values that are considered to be equivalent to the boolean True value, used for type conversion in various places."><span>octoprint.<wbr>settings.<wbr>valid_<wbr>boolean_<wbr>trues</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#octoprint.settings.settings" class="md-nav__link">
+    
+      <span aria-label="Python function" class="objinfo-icon objinfo-icon__procedure" title="Python function">F</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.settings (Python function) — Factory method for initially constructing and consecutively retrieving the Settings singleton."><span>octoprint.<wbr>settings.<wbr>settings</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="octoprint.settings.settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.settings-parameters" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Parameters</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.settings.init" class="md-nav__link">
+    
+      <span aria-label="Python parameter" class="objinfo-icon objinfo-icon__sub-data" title="Python parameter">p</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.settings.init (Python parameter) — A flag indicating whether this is the initial call to construct the singleton (True) or not (False, default)."><span>init</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.settings.basedir" class="md-nav__link">
+    
+      <span aria-label="Python parameter" class="objinfo-icon objinfo-icon__sub-data" title="Python parameter">p</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.settings.basedir (Python parameter) — Path of the base directory for all of OctoPrint&#39;s settings, log files, uploads etc."><span>basedir</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.settings.configfile" class="md-nav__link">
+    
+      <span aria-label="Python parameter" class="objinfo-icon objinfo-icon__sub-data" title="Python parameter">p</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.settings.configfile (Python parameter) — Path of the configuration file (config.yaml) to work on."><span>configfile</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.settings.overlays" class="md-nav__link">
+    
+      <span aria-label="Python parameter" class="objinfo-icon objinfo-icon__sub-data" title="Python parameter">p</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.settings.overlays (Python parameter) — List of paths to config overlays to put between default settings and config.yaml"><span>overlays</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.settings-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.settings-return-type" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Return type</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.settings-raises" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Raises</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings" class="md-nav__link">
+    
+      <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings (Python class) — The Settings class allows managing all of OctoPrint&#39;s settings. It takes care of initializing the settings directory, loading the configuration from config.yaml, persisting changes to disk etc and provides access methods for getting and setting specific values from the overall settings structure via paths."><span>octoprint.<wbr>settings.<wbr>Settings</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="octoprint.settings.Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.OVERLAY_KEY" class="md-nav__link">
+    
+      <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.OVERLAY_KEY (Python attribute)"><span>OVERLAY_<wbr>KEY</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.add_overlay" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.add_overlay (Python method)"><span>add_<wbr>overlay</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.add_path_update_callback" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.add_path_update_callback (Python method)"><span>add_<wbr>path_<wbr>update_<wbr>callback</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.backup" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.backup (Python method)"><span>backup</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.checkBaseFolder" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.checkBaseFolder (Python method)"><span>check<wbr>Base<wbr>Folder</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.config" class="md-nav__link">
+    
+      <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.config (Python property) — A view of the local config as stored in config.yaml"><span>config</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.config_hash" class="md-nav__link">
+    
+      <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.config_hash (Python property)"><span>config_<wbr>hash</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.config_yaml" class="md-nav__link">
+    
+      <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.config_yaml (Python property)"><span>config_<wbr>yaml</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.deleteApiKey" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.deleteApiKey (Python method)"><span>delete<wbr>Api<wbr>Key</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.effective" class="md-nav__link">
+    
+      <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.effective (Python property)"><span>effective</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.effective_hash" class="md-nav__link">
+    
+      <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.effective_hash (Python property)"><span>effective_<wbr>hash</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.effective_yaml" class="md-nav__link">
+    
+      <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.effective_yaml (Python property)"><span>effective_<wbr>yaml</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.generateApiKey" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.generateApiKey (Python method)"><span>generate<wbr>Api<wbr>Key</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.get" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.get (Python method)"><span>get</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.getBaseFolder" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.getBaseFolder (Python method)"><span>get<wbr>Base<wbr>Folder</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.getBoolean" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.getBoolean (Python method)"><span>get<wbr>Boolean</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.getFloat" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.getFloat (Python method)"><span>get<wbr>Float</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.getInt" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.getInt (Python method)"><span>get<wbr>Int</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.has" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.has (Python method)"><span>has</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.last_modified" class="md-nav__link">
+    
+      <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.last_modified (Python property) — Returns: (int) The last modification time of the configuration file."><span>last_<wbr>modified</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.last_modified_or_made_dirty" class="md-nav__link">
+    
+      <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.last_modified_or_made_dirty (Python property)"><span>last_<wbr>modified_<wbr>or_<wbr>made_<wbr>dirty</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.listScripts" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.listScripts (Python method)"><span>list<wbr>Scripts</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.load" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.load (Python method)"><span>load</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.loadScript" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.loadScript (Python method)"><span>load<wbr>Script</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.load_overlay" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.load_overlay (Python method)"><span>load_<wbr>overlay</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.load_overlays" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.load_overlays (Python method)"><span>load_<wbr>overlays</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.remove" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.remove (Python method)"><span>remove</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.remove_overlay" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.remove_overlay (Python method)"><span>remove_<wbr>overlay</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.remove_path_update_callback" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.remove_path_update_callback (Python method)"><span>remove_<wbr>path_<wbr>update_<wbr>callback</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.sanity_check_folders" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.sanity_check_folders (Python method)"><span>sanity_<wbr>check_<wbr>folders</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.save" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.save (Python method)"><span>save</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.saveScript" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.saveScript (Python method)"><span>save<wbr>Script</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.set" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.set (Python method)"><span>set</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.setBaseFolder" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.setBaseFolder (Python method)"><span>set<wbr>Base<wbr>Folder</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.setBoolean" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.setBoolean (Python method)"><span>set<wbr>Boolean</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.setFloat" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.setFloat (Python method)"><span>set<wbr>Float</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.setInt" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.setInt (Python method)"><span>set<wbr>Int</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.warn_about_risky_settings" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.warn_about_risky_settings (Python method)"><span>warn_<wbr>about_<wbr>risky_<wbr>settings</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="slicing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>octoprint.<wbr>slicing</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="slicing.html#module-octoprint.slicing.exceptions" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.slicing.exceptions (Python module)"><span>octoprint.<wbr>slicing.<wbr>exceptions</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="util.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>octoprint.<wbr>util</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="util.html#module-octoprint.util.commandline" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.util.commandline (Python module)"><span>octoprint.<wbr>util.<wbr>commandline</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="util.html#module-octoprint.util.platform" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span title="octoprint.util.platform (Python module)"><span>octoprint.<wbr>util.<wbr>platform</span></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jsclientlib/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Java<wbr>Script Client Library</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#octoprint.settings.default_settings" class="md-nav__link">
+    
+      <span aria-label="Python data" class="objinfo-icon objinfo-icon__alias" title="Python data">V</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.default_settings (Python data) — The default settings of the core application."><span>octoprint.<wbr>settings.<wbr>default_<wbr>settings</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#octoprint.settings.valid_boolean_trues" class="md-nav__link">
+    
+      <span aria-label="Python data" class="objinfo-icon objinfo-icon__alias" title="Python data">V</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.valid_boolean_trues (Python data) — Values that are considered to be equivalent to the boolean True value, used for type conversion in various places."><span>octoprint.<wbr>settings.<wbr>valid_<wbr>boolean_<wbr>trues</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#octoprint.settings.settings" class="md-nav__link">
+    
+      <span aria-label="Python function" class="objinfo-icon objinfo-icon__procedure" title="Python function">F</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.settings (Python function) — Factory method for initially constructing and consecutively retrieving the Settings singleton."><span>octoprint.<wbr>settings.<wbr>settings</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="octoprint.settings.settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.settings-parameters" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Parameters</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.settings.init" class="md-nav__link">
+    
+      <span aria-label="Python parameter" class="objinfo-icon objinfo-icon__sub-data" title="Python parameter">p</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.settings.init (Python parameter) — A flag indicating whether this is the initial call to construct the singleton (True) or not (False, default)."><span>init</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.settings.basedir" class="md-nav__link">
+    
+      <span aria-label="Python parameter" class="objinfo-icon objinfo-icon__sub-data" title="Python parameter">p</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.settings.basedir (Python parameter) — Path of the base directory for all of OctoPrint&#39;s settings, log files, uploads etc."><span>basedir</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.settings.configfile" class="md-nav__link">
+    
+      <span aria-label="Python parameter" class="objinfo-icon objinfo-icon__sub-data" title="Python parameter">p</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.settings.configfile (Python parameter) — Path of the configuration file (config.yaml) to work on."><span>configfile</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.settings.overlays" class="md-nav__link">
+    
+      <span aria-label="Python parameter" class="objinfo-icon objinfo-icon__sub-data" title="Python parameter">p</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.settings.overlays (Python parameter) — List of paths to config overlays to put between default settings and config.yaml"><span>overlays</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.settings-returns" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Returns</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.settings-return-type" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Return type</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.settings-raises" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Raises</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings" class="md-nav__link">
+    
+      <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings (Python class) — The Settings class allows managing all of OctoPrint&#39;s settings. It takes care of initializing the settings directory, loading the configuration from config.yaml, persisting changes to disk etc and provides access methods for getting and setting specific values from the overall settings structure via paths."><span>octoprint.<wbr>settings.<wbr>Settings</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="octoprint.settings.Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.OVERLAY_KEY" class="md-nav__link">
+    
+      <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.OVERLAY_KEY (Python attribute)"><span>OVERLAY_<wbr>KEY</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.add_overlay" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.add_overlay (Python method)"><span>add_<wbr>overlay</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.add_path_update_callback" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.add_path_update_callback (Python method)"><span>add_<wbr>path_<wbr>update_<wbr>callback</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.backup" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.backup (Python method)"><span>backup</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.checkBaseFolder" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.checkBaseFolder (Python method)"><span>check<wbr>Base<wbr>Folder</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.config" class="md-nav__link">
+    
+      <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.config (Python property) — A view of the local config as stored in config.yaml"><span>config</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.config_hash" class="md-nav__link">
+    
+      <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.config_hash (Python property)"><span>config_<wbr>hash</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.config_yaml" class="md-nav__link">
+    
+      <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.config_yaml (Python property)"><span>config_<wbr>yaml</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.deleteApiKey" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.deleteApiKey (Python method)"><span>delete<wbr>Api<wbr>Key</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.effective" class="md-nav__link">
+    
+      <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.effective (Python property)"><span>effective</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.effective_hash" class="md-nav__link">
+    
+      <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.effective_hash (Python property)"><span>effective_<wbr>hash</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.effective_yaml" class="md-nav__link">
+    
+      <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.effective_yaml (Python property)"><span>effective_<wbr>yaml</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.generateApiKey" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.generateApiKey (Python method)"><span>generate<wbr>Api<wbr>Key</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.get" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.get (Python method)"><span>get</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.getBaseFolder" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.getBaseFolder (Python method)"><span>get<wbr>Base<wbr>Folder</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.getBoolean" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.getBoolean (Python method)"><span>get<wbr>Boolean</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.getFloat" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.getFloat (Python method)"><span>get<wbr>Float</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.getInt" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.getInt (Python method)"><span>get<wbr>Int</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.has" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.has (Python method)"><span>has</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.last_modified" class="md-nav__link">
+    
+      <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.last_modified (Python property) — Returns: (int) The last modification time of the configuration file."><span>last_<wbr>modified</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.last_modified_or_made_dirty" class="md-nav__link">
+    
+      <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.last_modified_or_made_dirty (Python property)"><span>last_<wbr>modified_<wbr>or_<wbr>made_<wbr>dirty</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.listScripts" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.listScripts (Python method)"><span>list<wbr>Scripts</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.load" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.load (Python method)"><span>load</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.loadScript" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.loadScript (Python method)"><span>load<wbr>Script</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.load_overlay" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.load_overlay (Python method)"><span>load_<wbr>overlay</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.load_overlays" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.load_overlays (Python method)"><span>load_<wbr>overlays</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.remove" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.remove (Python method)"><span>remove</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.remove_overlay" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.remove_overlay (Python method)"><span>remove_<wbr>overlay</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.remove_path_update_callback" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.remove_path_update_callback (Python method)"><span>remove_<wbr>path_<wbr>update_<wbr>callback</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.sanity_check_folders" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.sanity_check_folders (Python method)"><span>sanity_<wbr>check_<wbr>folders</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.save" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.save (Python method)"><span>save</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.saveScript" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.saveScript (Python method)"><span>save<wbr>Script</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.set" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.set (Python method)"><span>set</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.setBaseFolder" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.setBaseFolder (Python method)"><span>set<wbr>Base<wbr>Folder</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.setBoolean" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.setBoolean (Python method)"><span>set<wbr>Boolean</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.setFloat" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.setFloat (Python method)"><span>set<wbr>Float</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.setInt" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.setInt (Python method)"><span>set<wbr>Int</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#octoprint.settings.Settings.warn_about_risky_settings" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="octoprint.settings.Settings.warn_about_risky_settings (Python method)"><span>warn_<wbr>about_<wbr>risky_<wbr>settings</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="module-octoprint.settings"><span id="octoprint-settings"></span><span id="sec-modules-settings"></span>octoprint.settings<a class="headerlink" href="#module-octoprint.settings" title="Link to this heading">¶</a></h1>
+<p>This module represents OctoPrint’s settings management. Within this module the default settings for the core
+application are defined and the instance of the <a class="reference internal" href="#octoprint.settings.Settings" title="octoprint.settings.Settings (Python class) — The Settings class allows managing all of OctoPrint's settings. It takes care of initializing the settings directory, loading the configuration from config.yaml, persisting changes to disk etc and provides access methods for getting and setting specific values from the overall settings structure via paths."><code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code></a> is held, which offers getter and setter
+methods for the raw configuration values as well as various convenience methods to access the paths to base folders
+of various types and the configuration file itself.</p>
+<dl class="py data objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.default_settings">
+<span class="sig-prename descclassname"><span class="pre">octoprint.settings.</span></span><span class="sig-name descname"><span class="pre">default_settings</span></span><em class="property"><span class="w"> </span><span class="pre">=</span> <span class="pre">dict(...)</span></em><a class="headerlink" href="#octoprint.settings.default_settings" title="Link to this definition">¶</a></dt>
+<dd><p>The default settings of the core application.</p>
+</dd></dl>
+
+<dl class="py data objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="octoprint.settings.valid_boolean_trues">
+<span class="sig-prename descclassname"><span class="pre">octoprint.settings.</span></span><span class="sig-name descname"><span class="pre">valid_boolean_trues</span></span><span class="p"> <span class="pre">=</span> </span><code class="code python docutils literal highlight highlight-python"><span class="o">&lt;</span><span class="n">octoprint</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">CaseInsensitiveSet</span> <span class="nb">object</span><span class="o">&gt;</span></code><a class="headerlink" href="#octoprint.settings.valid_boolean_trues" title="Link to this definition">¶</a></dt>
+<dd><p>Values that are considered to be equivalent to the boolean <code class="docutils literal notranslate"><span class="pre">True</span></code> value, used for type conversion in various places.</p>
+</dd></dl>
+
+<dl class="py function objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="octoprint.settings.settings">
+<span class="sig-prename descclassname"><span class="pre">octoprint.settings.</span></span><span class="sig-name descname"><span class="pre">settings</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.settings.init" title="octoprint.settings.settings.init (Python parameter) — A flag indicating whether this is the initial call to construct the singleton (True) or not (False, default)."><span class="n"><span class="pre">init</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.settings.basedir" title="octoprint.settings.settings.basedir (Python parameter) — Path of the base directory for all of OctoPrint's settings, log files, uploads etc."><span class="n"><span class="pre">basedir</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.settings.configfile" title="octoprint.settings.settings.configfile (Python parameter) — Path of the configuration file (config.yaml) to work on."><span class="n"><span class="pre">configfile</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.settings.overlays" title="octoprint.settings.settings.overlays (Python parameter) — List of paths to config overlays to put between default settings and config.yaml"><span class="n"><span class="pre">overlays</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.settings" title="Link to this definition">¶</a></dt>
+<dd><p>Factory method for initially constructing and consecutively retrieving the <a class="reference internal" href="#octoprint.settings.Settings" title="octoprint.settings.Settings (Python class) — The Settings class allows managing all of OctoPrint's settings. It takes care of initializing the settings directory, loading the configuration from config.yaml, persisting changes to disk etc and provides access methods for getting and setting specific values from the overall settings structure via paths."><code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code></a>
+singleton.</p>
+<dl class="field-list simple">
+<dt class="field-odd" id="octoprint.settings.settings-parameters">Parameters<span class="colon">:</span><a class="headerlink" href="#octoprint.settings.settings-parameters" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><dl class="simple api-field highlight">
+<dt id="octoprint.settings.settings.init"><span class="sig-name descname">init</span><span class="p"> : </span><span class="desctype"><span class="desctype">boolean</span></span><a class="headerlink" href="#octoprint.settings.settings.init" title="Permalink to this definition">¶</a></dt><dd><p>A flag indicating whether this is the initial call to construct the singleton (True) or not
+(False, default). If this is set to True and the plugin manager has already been initialized, a <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></a>
+will be raised. The same will happen if the plugin manager has not yet been initialized and this is set to
+False.</p>
+</dd>
+<dt id="octoprint.settings.settings.basedir"><span class="sig-name descname">basedir</span><span class="p"> : </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></span></span><a class="headerlink" href="#octoprint.settings.settings.basedir" title="Permalink to this definition">¶</a></dt><dd><p>Path of the base directory for all of OctoPrint’s settings, log files, uploads etc. If not set
+the default will be used: <code class="docutils literal notranslate"><span class="pre">~/.octoprint</span></code> on Linux, <code class="docutils literal notranslate"><span class="pre">%APPDATA%/OctoPrint</span></code> on Windows and
+<code class="docutils literal notranslate"><span class="pre">~/Library/Application</span> <span class="pre">Support/OctoPrint</span></code> on MacOS.</p>
+</dd>
+<dt id="octoprint.settings.settings.configfile"><span class="sig-name descname">configfile</span><span class="p"> : </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></span></span><a class="headerlink" href="#octoprint.settings.settings.configfile" title="Permalink to this definition">¶</a></dt><dd><p>Path of the configuration file (<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>) to work on. If not set the default will
+be used: <code class="docutils literal notranslate"><span class="pre">&lt;basedir&gt;/config.yaml</span></code> for <code class="docutils literal notranslate"><span class="pre">basedir</span></code> as defined above.</p>
+</dd>
+<dt id="octoprint.settings.settings.overlays"><span class="sig-name descname">overlays</span><span class="p"> : </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></span></span><a class="headerlink" href="#octoprint.settings.settings.overlays" title="Permalink to this definition">¶</a></dt><dd><p>List of paths to config overlays to put between default settings and config.yaml</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even" id="octoprint.settings.settings-returns">Returns<span class="colon">:</span><a class="headerlink" href="#octoprint.settings.settings-returns" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>The fully initialized <a class="reference internal" href="#octoprint.settings.Settings" title="octoprint.settings.Settings (Python class) — The Settings class allows managing all of OctoPrint's settings. It takes care of initializing the settings directory, loading the configuration from config.yaml, persisting changes to disk etc and provides access methods for getting and setting specific values from the overall settings structure via paths."><code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code></a> instance.</p>
+</dd>
+<dt class="field-odd" id="octoprint.settings.settings-return-type">Return type<span class="colon">:</span><a class="headerlink" href="#octoprint.settings.settings-return-type" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#octoprint.settings.Settings" title="octoprint.settings.Settings (Python class) — The Settings class allows managing all of OctoPrint's settings. It takes care of initializing the settings directory, loading the configuration from config.yaml, persisting changes to disk etc and provides access methods for getting and setting specific values from the overall settings structure via paths.">Settings</a></p>
+</dd>
+<dt class="field-even" id="octoprint.settings.settings-raises">Raises<span class="colon">:</span><a class="headerlink" href="#octoprint.settings.settings-raises" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – <code class="docutils literal notranslate"><span class="pre">init</span></code> is True but settings are already initialized or vice versa.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="octoprint.settings.Settings">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">octoprint.settings.</span></span><span class="sig-name descname"><span class="pre">Settings</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings" title="octoprint.settings.Settings.__init__.configfile (Python parameter)"><span class="n"><span class="pre">configfile</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings" title="octoprint.settings.Settings.__init__.basedir (Python parameter)"><span class="n"><span class="pre">basedir</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings" title="octoprint.settings.Settings.__init__.overlays (Python parameter)"><span class="n"><span class="pre">overlays</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings" title="Link to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="#octoprint.settings.Settings" title="octoprint.settings.Settings (Python class) — The Settings class allows managing all of OctoPrint's settings. It takes care of initializing the settings directory, loading the configuration from config.yaml, persisting changes to disk etc and provides access methods for getting and setting specific values from the overall settings structure via paths."><code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code></a> class allows managing all of OctoPrint’s settings. It takes care of initializing the settings
+directory, loading the configuration from <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>, persisting changes to disk etc and provides access
+methods for getting and setting specific values from the overall settings structure via paths.</p>
+<p>A general word on the concept of paths, since they play an important role in OctoPrint’s settings management. A
+path is basically a list or tuple consisting of keys to follow down into the settings (which are basically like
+a <code class="docutils literal notranslate"><span class="pre">dict</span></code>) in order to set or retrieve a specific value (or more than one). For example, for a settings
+structure like the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">serial</span><span class="p">:</span>
+    <span class="n">port</span><span class="p">:</span> <span class="s2">&quot;/dev/ttyACM0&quot;</span>
+    <span class="n">baudrate</span><span class="p">:</span> <span class="mi">250000</span>
+    <span class="n">timeout</span><span class="p">:</span>
+        <span class="n">communication</span><span class="p">:</span> <span class="mf">20.0</span>
+        <span class="n">temperature</span><span class="p">:</span> <span class="mf">5.0</span>
+        <span class="n">sdStatus</span><span class="p">:</span> <span class="mf">1.0</span>
+        <span class="n">connection</span><span class="p">:</span> <span class="mf">10.0</span>
+<span class="n">server</span><span class="p">:</span>
+    <span class="n">host</span><span class="p">:</span> <span class="s2">&quot;0.0.0.0&quot;</span>
+    <span class="n">port</span><span class="p">:</span> <span class="mi">5000</span>
+</code></pre></div>
+</div>
+<p>the following paths could be used:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Path</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[&quot;serial&quot;,</span> <span class="pre">&quot;port&quot;]</span></code></p></td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="s2">&quot;/dev/ttyACM0&quot;</span>
+</code></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[&quot;serial&quot;,</span> <span class="pre">&quot;timeout&quot;]</span></code></p></td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">communication</span><span class="p">:</span> <span class="mf">20.0</span>
+<span class="n">temperature</span><span class="p">:</span> <span class="mf">5.0</span>
+<span class="n">sdStatus</span><span class="p">:</span> <span class="mf">1.0</span>
+<span class="n">connection</span><span class="p">:</span> <span class="mf">10.0</span>
+</code></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[&quot;serial&quot;,</span> <span class="pre">&quot;timeout&quot;,</span> <span class="pre">&quot;temperature&quot;]</span></code></p></td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="mf">5.0</span>
+</code></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[&quot;server&quot;,</span> <span class="pre">&quot;port&quot;]</span></code></p></td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="mi">5000</span>
+</code></pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>However, these would be invalid paths: <code class="docutils literal notranslate"><span class="pre">[&quot;key&quot;]</span></code>, <code class="docutils literal notranslate"><span class="pre">[&quot;serial&quot;,</span> <span class="pre">&quot;port&quot;,</span> <span class="pre">&quot;value&quot;]</span></code>, <code class="docutils literal notranslate"><span class="pre">[&quot;server&quot;,</span> <span class="pre">&quot;host&quot;,</span> <span class="pre">3]</span></code>.</p>
+<dl class="py attribute objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.OVERLAY_KEY">
+<span class="sig-name descname"><span class="pre">OVERLAY_KEY</span></span><span class="p"> <span class="pre">=</span> </span><code class="code python docutils literal highlight highlight-python"><span class="s1">&#39;__overlay__&#39;</span></code><a class="headerlink" href="#octoprint.settings.Settings.OVERLAY_KEY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="octoprint.settings.Settings.add_overlay">
+<span class="sig-name descname"><span class="pre">add_overlay</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.add_overlay" title="octoprint.settings.Settings.add_overlay.overlay (Python parameter)"><span class="n"><span class="pre">overlay</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.add_overlay" title="octoprint.settings.Settings.add_overlay.at_end (Python parameter)"><span class="n"><span class="pre">at_end</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.add_overlay" title="octoprint.settings.Settings.add_overlay.key (Python parameter)"><span class="n"><span class="pre">key</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.add_overlay" title="octoprint.settings.Settings.add_overlay.deprecated (Python parameter)"><span class="n"><span class="pre">deprecated</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.add_overlay" title="octoprint.settings.Settings.add_overlay.replace (Python parameter)"><span class="n"><span class="pre">replace</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.add_overlay" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.add_path_update_callback">
+<span class="sig-name descname"><span class="pre">add_path_update_callback</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.add_path_update_callback" title="octoprint.settings.Settings.add_path_update_callback.path (Python parameter)"><span class="n"><span class="pre">path</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.add_path_update_callback" title="octoprint.settings.Settings.add_path_update_callback.callback (Python parameter)"><span class="n"><span class="pre">callback</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.add_path_update_callback" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.backup">
+<span class="sig-name descname"><span class="pre">backup</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.backup" title="octoprint.settings.Settings.backup.suffix (Python parameter)"><span class="n"><span class="pre">suffix</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.backup" title="octoprint.settings.Settings.backup.path (Python parameter)"><span class="n"><span class="pre">path</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.backup" title="octoprint.settings.Settings.backup.ext (Python parameter)"><span class="n"><span class="pre">ext</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.backup" title="octoprint.settings.Settings.backup.hidden (Python parameter)"><span class="n"><span class="pre">hidden</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.backup" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.checkBaseFolder">
+<span class="sig-name descname"><span class="pre">checkBaseFolder</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.checkBaseFolder" title="octoprint.settings.Settings.checkBaseFolder.type (Python parameter)"><span class="n"><span class="pre">type</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.checkBaseFolder" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.config">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">config</span></span><a class="headerlink" href="#octoprint.settings.Settings.config" title="Link to this definition">¶</a></dt>
+<dd><p>A view of the local config as stored in config.yaml</p>
+<p>Does not support modifications, they will be thrown away silently. If you need to
+modify anything in the settings, utilize the provided set and remove methods.</p>
+</dd></dl>
+
+<dl class="py property objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.config_hash">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">config_hash</span></span><a class="headerlink" href="#octoprint.settings.Settings.config_hash" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.config_yaml">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">config_yaml</span></span><a class="headerlink" href="#octoprint.settings.Settings.config_yaml" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.deleteApiKey">
+<span class="sig-name descname"><span class="pre">deleteApiKey</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.deleteApiKey" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.effective">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">effective</span></span><a class="headerlink" href="#octoprint.settings.Settings.effective" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.effective_hash">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">effective_hash</span></span><a class="headerlink" href="#octoprint.settings.Settings.effective_hash" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.effective_yaml">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">effective_yaml</span></span><a class="headerlink" href="#octoprint.settings.Settings.effective_yaml" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.generateApiKey">
+<span class="sig-name descname"><span class="pre">generateApiKey</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.generateApiKey" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.get" title="octoprint.settings.Settings.get.path (Python parameter)"><span class="n"><span class="pre">path</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><a class="n reference internal" href="#octoprint.settings.Settings.get" title="octoprint.settings.Settings.get.kwargs (Python parameter)"><span class="n"><span class="pre">kwargs</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.get" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="octoprint.settings.Settings.getBaseFolder">
+<span class="sig-name descname"><span class="pre">getBaseFolder</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.getBaseFolder" title="octoprint.settings.Settings.getBaseFolder.type (Python parameter)"><span class="n"><span class="pre">type</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.getBaseFolder" title="octoprint.settings.Settings.getBaseFolder.create (Python parameter)"><span class="n"><span class="pre">create</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">True</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.getBaseFolder" title="octoprint.settings.Settings.getBaseFolder.allow_fallback (Python parameter)"><span class="n"><span class="pre">allow_fallback</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">True</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.getBaseFolder" title="octoprint.settings.Settings.getBaseFolder.check_writable (Python parameter)"><span class="n"><span class="pre">check_writable</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">True</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.getBaseFolder" title="octoprint.settings.Settings.getBaseFolder.deep_check_writable (Python parameter)"><span class="n"><span class="pre">deep_check_writable</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.getBaseFolder" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.getBoolean">
+<span class="sig-name descname"><span class="pre">getBoolean</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.getBoolean" title="octoprint.settings.Settings.getBoolean.path (Python parameter)"><span class="n"><span class="pre">path</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><a class="n reference internal" href="#octoprint.settings.Settings.getBoolean" title="octoprint.settings.Settings.getBoolean.kwargs (Python parameter)"><span class="n"><span class="pre">kwargs</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.getBoolean" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.getFloat">
+<span class="sig-name descname"><span class="pre">getFloat</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.getFloat" title="octoprint.settings.Settings.getFloat.path (Python parameter)"><span class="n"><span class="pre">path</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><a class="n reference internal" href="#octoprint.settings.Settings.getFloat" title="octoprint.settings.Settings.getFloat.kwargs (Python parameter)"><span class="n"><span class="pre">kwargs</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.getFloat" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.getInt">
+<span class="sig-name descname"><span class="pre">getInt</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.getInt" title="octoprint.settings.Settings.getInt.path (Python parameter)"><span class="n"><span class="pre">path</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><a class="n reference internal" href="#octoprint.settings.Settings.getInt" title="octoprint.settings.Settings.getInt.kwargs (Python parameter)"><span class="n"><span class="pre">kwargs</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.getInt" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.has">
+<span class="sig-name descname"><span class="pre">has</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.has" title="octoprint.settings.Settings.has.path (Python parameter)"><span class="n"><span class="pre">path</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><a class="n reference internal" href="#octoprint.settings.Settings.has" title="octoprint.settings.Settings.has.kwargs (Python parameter)"><span class="n"><span class="pre">kwargs</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.has" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.last_modified">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">last_modified</span></span><a class="headerlink" href="#octoprint.settings.Settings.last_modified" title="Link to this definition">¶</a></dt>
+<dd><p>Returns:
+(int) The last modification time of the configuration file.</p>
+</dd></dl>
+
+<dl class="py property objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.last_modified_or_made_dirty">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">last_modified_or_made_dirty</span></span><a class="headerlink" href="#octoprint.settings.Settings.last_modified_or_made_dirty" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.listScripts">
+<span class="sig-name descname"><span class="pre">listScripts</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.listScripts" title="octoprint.settings.Settings.listScripts.script_type (Python parameter)"><span class="n"><span class="pre">script_type</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.listScripts" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.load" title="octoprint.settings.Settings.load.migrate (Python parameter)"><span class="n"><span class="pre">migrate</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.load" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.loadScript">
+<span class="sig-name descname"><span class="pre">loadScript</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.loadScript" title="octoprint.settings.Settings.loadScript.script_type (Python parameter)"><span class="n"><span class="pre">script_type</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.loadScript" title="octoprint.settings.Settings.loadScript.name (Python parameter)"><span class="n"><span class="pre">name</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.loadScript" title="octoprint.settings.Settings.loadScript.context (Python parameter)"><span class="n"><span class="pre">context</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.loadScript" title="octoprint.settings.Settings.loadScript.source (Python parameter)"><span class="n"><span class="pre">source</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.loadScript" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.load_overlay">
+<span class="sig-name descname"><span class="pre">load_overlay</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.load_overlay" title="octoprint.settings.Settings.load_overlay.overlay (Python parameter)"><span class="n"><span class="pre">overlay</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.load_overlay" title="octoprint.settings.Settings.load_overlay.migrate (Python parameter)"><span class="n"><span class="pre">migrate</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">True</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.load_overlay" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.load_overlays">
+<span class="sig-name descname"><span class="pre">load_overlays</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.load_overlays" title="octoprint.settings.Settings.load_overlays.overlays (Python parameter)"><span class="n"><span class="pre">overlays</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.load_overlays" title="octoprint.settings.Settings.load_overlays.migrate (Python parameter)"><span class="n"><span class="pre">migrate</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">True</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.load_overlays" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.remove" title="octoprint.settings.Settings.remove.path (Python parameter)"><span class="n"><span class="pre">path</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.remove" title="octoprint.settings.Settings.remove.config (Python parameter)"><span class="n"><span class="pre">config</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.remove" title="octoprint.settings.Settings.remove.error_on_path (Python parameter)"><span class="n"><span class="pre">error_on_path</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.remove" title="octoprint.settings.Settings.remove.defaults (Python parameter)"><span class="n"><span class="pre">defaults</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.remove" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.remove_overlay">
+<span class="sig-name descname"><span class="pre">remove_overlay</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.remove_overlay" title="octoprint.settings.Settings.remove_overlay.key (Python parameter)"><span class="n"><span class="pre">key</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.remove_overlay" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.remove_path_update_callback">
+<span class="sig-name descname"><span class="pre">remove_path_update_callback</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.remove_path_update_callback" title="octoprint.settings.Settings.remove_path_update_callback.path (Python parameter)"><span class="n"><span class="pre">path</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.remove_path_update_callback" title="octoprint.settings.Settings.remove_path_update_callback.callback (Python parameter)"><span class="n"><span class="pre">callback</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.remove_path_update_callback" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.sanity_check_folders">
+<span class="sig-name descname"><span class="pre">sanity_check_folders</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.sanity_check_folders" title="octoprint.settings.Settings.sanity_check_folders.folders (Python parameter)"><span class="n"><span class="pre">folders</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.sanity_check_folders" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.save" title="octoprint.settings.Settings.save.force (Python parameter)"><span class="n"><span class="pre">force</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.save" title="octoprint.settings.Settings.save.trigger_event (Python parameter)"><span class="n"><span class="pre">trigger_event</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.save" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.saveScript">
+<span class="sig-name descname"><span class="pre">saveScript</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.saveScript" title="octoprint.settings.Settings.saveScript.script_type (Python parameter)"><span class="n"><span class="pre">script_type</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.saveScript" title="octoprint.settings.Settings.saveScript.name (Python parameter)"><span class="n"><span class="pre">name</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.saveScript" title="octoprint.settings.Settings.saveScript.script (Python parameter)"><span class="n"><span class="pre">script</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.saveScript" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight sig-wrap py" id="octoprint.settings.Settings.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.set" title="octoprint.settings.Settings.set.path (Python parameter)"><span class="n"><span class="pre">path</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.set" title="octoprint.settings.Settings.set.value (Python parameter)"><span class="n"><span class="pre">value</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.set" title="octoprint.settings.Settings.set.force (Python parameter)"><span class="n"><span class="pre">force</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.set" title="octoprint.settings.Settings.set.defaults (Python parameter)"><span class="n"><span class="pre">defaults</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.set" title="octoprint.settings.Settings.set.config (Python parameter)"><span class="n"><span class="pre">config</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.set" title="octoprint.settings.Settings.set.preprocessors (Python parameter)"><span class="n"><span class="pre">preprocessors</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.set" title="octoprint.settings.Settings.set.error_on_path (Python parameter)"><span class="n"><span class="pre">error_on_path</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">*</span></span><a class="n reference internal" href="#octoprint.settings.Settings.set" title="octoprint.settings.Settings.set.args (Python parameter)"><span class="n"><span class="pre">args</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><a class="n reference internal" href="#octoprint.settings.Settings.set" title="octoprint.settings.Settings.set.kwargs (Python parameter)"><span class="n"><span class="pre">kwargs</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.set" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.setBaseFolder">
+<span class="sig-name descname"><span class="pre">setBaseFolder</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.setBaseFolder" title="octoprint.settings.Settings.setBaseFolder.type (Python parameter)"><span class="n"><span class="pre">type</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.setBaseFolder" title="octoprint.settings.Settings.setBaseFolder.path (Python parameter)"><span class="n"><span class="pre">path</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.setBaseFolder" title="octoprint.settings.Settings.setBaseFolder.force (Python parameter)"><span class="n"><span class="pre">force</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.setBaseFolder" title="octoprint.settings.Settings.setBaseFolder.validate (Python parameter)"><span class="n"><span class="pre">validate</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">True</span></code></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.setBaseFolder" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.setBoolean">
+<span class="sig-name descname"><span class="pre">setBoolean</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.setBoolean" title="octoprint.settings.Settings.setBoolean.path (Python parameter)"><span class="n"><span class="pre">path</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.setBoolean" title="octoprint.settings.Settings.setBoolean.value (Python parameter)"><span class="n"><span class="pre">value</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><a class="n reference internal" href="#octoprint.settings.Settings.setBoolean" title="octoprint.settings.Settings.setBoolean.kwargs (Python parameter)"><span class="n"><span class="pre">kwargs</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.setBoolean" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.setFloat">
+<span class="sig-name descname"><span class="pre">setFloat</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.setFloat" title="octoprint.settings.Settings.setFloat.path (Python parameter)"><span class="n"><span class="pre">path</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.setFloat" title="octoprint.settings.Settings.setFloat.value (Python parameter)"><span class="n"><span class="pre">value</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><a class="n reference internal" href="#octoprint.settings.Settings.setFloat" title="octoprint.settings.Settings.setFloat.kwargs (Python parameter)"><span class="n"><span class="pre">kwargs</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.setFloat" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.setInt">
+<span class="sig-name descname"><span class="pre">setInt</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.setInt" title="octoprint.settings.Settings.setInt.path (Python parameter)"><span class="n"><span class="pre">path</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#octoprint.settings.Settings.setInt" title="octoprint.settings.Settings.setInt.value (Python parameter)"><span class="n"><span class="pre">value</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><a class="n reference internal" href="#octoprint.settings.Settings.setInt" title="octoprint.settings.Settings.setInt.kwargs (Python parameter)"><span class="n"><span class="pre">kwargs</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.setInt" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="octoprint.settings.Settings.warn_about_risky_settings">
+<span class="sig-name descname"><span class="pre">warn_about_risky_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.settings.Settings.warn_about_risky_settings" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="server.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: octoprint.server">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                octoprint.server
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="slicing.html" class="md-footer__link md-footer__link--next" aria-label="Next: octoprint.slicing">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                octoprint.slicing
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2013-2025, OctoPrint.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.2.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.sections", "navigation.top", "navigation.footer", "search.share", "search.suggest", "toc.follow", "toc.sticky", "content.tabs.link", "content.code.copy", "content.tooltips", "announce.dismiss"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
+    
+  </body>
+</html>

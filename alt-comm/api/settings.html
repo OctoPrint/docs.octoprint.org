@@ -1,0 +1,1909 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="printerprofiles.html">
+      
+      
+        <link rel="next" href="slicing.html">
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Settings - OctoPrint alt-comm documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.acf80fe7f4d9ef9e2.min.css?v=9e56d0d2" />
+        <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=e85523a8" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#retrieve-current-settings" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+    These are not the docs of the latest released version. Those can be found <a href="/en/main">here</a>.
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL(".."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="OctoPrint alt-comm documentation" class="md-header__button md-logo" aria-label="OctoPrint alt-comm documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OctoPrint alt-comm documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Settings
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="OctoPrint alt-comm documentation" class="md-nav__button md-logo" aria-label="OctoPrint alt-comm documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    </a>
+    OctoPrint alt-comm documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/OctoPrint/OctoPrint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OctoPrint/OctoPrint
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gettingstarted.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Getting Started</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Features</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bundledplugins/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Bundled Plugins</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Configuration</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>REST API</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            <span>REST API</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="general.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>General information</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="version.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Version information</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="server.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Server information</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="connection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Connection handling</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="files.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>File operations</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="job.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Job operations</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="languages.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Languages</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Log file management</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="printer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Printer operations</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="printerprofiles.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Printer profile operations</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    <span>Settings</span>
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Settings</span>
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#retrieve-current-settings" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Retrieve current settings</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Retrieve current settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--api-settings" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/api/settings (HTTP get)"><span>GET /api/settings</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#save-settings" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Save settings</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Save settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post--api-settings" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/api/settings (HTTP post)"><span>POST /api/settings</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regenerate-the-system-wide-api-key" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Regenerate the system wide API key</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regenerate the system wide API key">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post--api-settings-apikey" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/api/settings/apikey (HTTP post)"><span>POST /api/settings/apikey</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="POST /api/settings/apikey">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post--api-settings-apikey-status-codes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Status Codes</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fetch-template-data" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Fetch template data</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fetch template data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--api-settings-templates" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/api/settings/templates (HTTP get)"><span>GET /api/settings/templates</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GET /api/settings/templates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--api-settings-templates-status-codes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Status Codes</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-model" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Data model</span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="slicing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Slicing</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>System</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="timelapse.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Timelapse</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="access.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Access Control</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="util.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Util</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wizard.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Wizard</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="push.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Push updates</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="datamodel.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Common data model</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Events</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Development</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Developing Plugins</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Internal Modules</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jsclientlib/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Java<wbr>Script Client Library</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#retrieve-current-settings" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Retrieve current settings</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Retrieve current settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--api-settings" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/api/settings (HTTP get)"><span>GET /api/settings</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#save-settings" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Save settings</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Save settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post--api-settings" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/api/settings (HTTP post)"><span>POST /api/settings</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regenerate-the-system-wide-api-key" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Regenerate the system wide API key</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regenerate the system wide API key">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post--api-settings-apikey" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/api/settings/apikey (HTTP post)"><span>POST /api/settings/apikey</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="POST /api/settings/apikey">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post--api-settings-apikey-status-codes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Status Codes</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fetch-template-data" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Fetch template data</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fetch template data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--api-settings-templates" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/api/settings/templates (HTTP get)"><span>GET /api/settings/templates</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GET /api/settings/templates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--api-settings-templates-status-codes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Status Codes</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-model" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Data model</span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="settings"><span id="sec-api-settings"></span>Settings<a class="headerlink" href="#settings" title="Link to this heading">¶</a></h1>
+<h2 id="retrieve-current-settings"><span id="sec-api-settings-retrieve"></span>Retrieve current settings<a class="headerlink" href="#retrieve-current-settings" title="Link to this heading">¶</a></h2>
+<dl class="http get objdesc">
+<dt class="sig sig-object highlight http" id="get--api-settings">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/settings</span></span><a class="headerlink" href="#get--api-settings" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves the current configuration of OctoPrint.</p>
+<p>Returns a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with the current settings as a JSON object in the
+response body.</p>
+<p>The <a class="reference internal" href="#sec-api-settings-datamodel"><span class="std std-ref">data model</span></a> is similar to what can be found in
+<a class="reference internal" href="../configuration/config_yaml.html#sec-configuration-config-yaml"><span class="std std-ref">config.yaml</span></a>, see below for details.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">SETTINGS_READ</span></code> permission.</p>
+</dd></dl>
+
+<h2 id="save-settings"><span id="sec-api-settings-save"></span>Save settings<a class="headerlink" href="#save-settings" title="Link to this heading">¶</a></h2>
+<dl class="http post objdesc">
+<dt class="sig sig-object highlight http" id="post--api-settings">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/api/settings</span></span><a class="headerlink" href="#post--api-settings" title="Link to this definition">¶</a></dt>
+<dd><p>Saves the provided settings in OctoPrint.</p>
+<p>Expects a JSON object with the settings to change as request body. This can be either a
+full settings tree, or only a partial tree containing only those fields that should
+be updated.</p>
+<p>Returns the currently active settings on success, as part of a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> response.</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">SETTINGS</span></code> permission.</p>
+<p><strong>Example</strong></p>
+<p>Only change the UI color to black.</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/api/settings</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;appearance&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;color&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;black&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;api&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;appearance&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;color&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;black&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<h2 id="regenerate-the-system-wide-api-key"><span id="sec-api-settings-generateapikey"></span>Regenerate the system wide API key<a class="headerlink" href="#regenerate-the-system-wide-api-key" title="Link to this heading">¶</a></h2>
+<dl class="http post objdesc">
+<dt class="sig sig-object highlight http" id="post--api-settings-apikey">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/api/settings/apikey</span></span><a class="headerlink" href="#post--api-settings-apikey" title="Link to this definition">¶</a></dt>
+<dd><p>Generates a new system wide API key.</p>
+<p>Does not expect a body. Will return the generated API key as <code class="docutils literal notranslate"><span class="pre">apikey</span></code>
+property in the JSON object contained in the response body.</p>
+<p>Requires admin rights.</p>
+<dl class="field-list simple">
+<dt class="field-odd" id="post--api-settings-apikey-status-codes">Status Codes<span class="colon">:</span><a class="headerlink" href="#post--api-settings-apikey-status-codes" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – No error</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4">403 Forbidden</a></span> – No admin rights</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<h2 id="fetch-template-data"><span id="sec-api-settings-fetchtemplaatedata"></span>Fetch template data<a class="headerlink" href="#fetch-template-data" title="Link to this heading">¶</a></h2>
+<dl class="http get objdesc">
+<dt class="sig sig-object highlight http" id="get--api-settings-templates">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/settings/templates</span></span><a class="headerlink" href="#get--api-settings-templates" title="Link to this definition">¶</a></dt>
+<dd><p>Fetch data (currently only the sorting order) of all registered template components in the system.</p>
+<p>Use this to get a full list of the identifiers of all UI components provided either by core OctoPrint or any
+currently active plugins.</p>
+<p>Example:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/api/settings/templates</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</code></pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;order&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;about&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;about&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;About OctoPrint&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;supporters&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Supporters&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;authors&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Authors&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;changelog&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Changelog&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;license&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OctoPrint License&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;thirdparty&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Third Party Licenses&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;plugin_pluginmanager&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Plugin Licenses&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pluginmanager&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Plugin Manager&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;generic&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;plugin_announcements&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;plugin_announcements&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;announcements&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Announcement Plugin&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;navbar&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;settings&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;settings&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;systemmenu&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;systemmenu&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;plugin_announcements&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;plugin_announcements&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;announcements&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Announcement Plugin&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;login&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;login&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;plugin_pluginmanager_about_thirdparty&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">    </span><span class="nt">&quot;settings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;section_printer&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Printer&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;serial&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Serial Connection&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;printerprofiles&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Printer Profiles&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;temperatures&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Temperatures&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;terminalfilters&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Terminal Filters&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gcodescripts&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GCODE Scripts&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;section_features&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Features&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;features&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Features&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webcam&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Webcam &amp; Timelapse&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;accesscontrol&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Access Control&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gcodevisualizer&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GCODE Visualizer&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;api&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;API&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;section_octoprint&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OctoPrint&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;server&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Server&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;folders&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Folders&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;appearance&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Appearance&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;plugin_logging&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Logging&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;logging&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Logging&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;plugin_pluginmanager&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Plugin Manager&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pluginmanager&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Plugin Manager&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;plugin_softwareupdate&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Software Update&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;softwareupdate&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Software Update&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;plugin_announcements&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Announcements&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;announcements&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Announcement Plugin&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;section_plugins&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Plugins&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;plugin_action_command_prompt&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Action Command Prompt&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;action_command_prompt&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Action Command Prompt Support&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;plugin_curalegacy&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cura Legacy&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;curalegacy&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cura Legacy&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;sidebar&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;plugin_printer_safety_check&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Printer Safety Warning&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;printer_safety_check&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;plugin_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Printer Safety Check&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connection&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Connection&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;state&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;State&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;files&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Files&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;tab&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;temperature&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Temperature&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;control&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Control&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gcodeviewer&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GCode Viewer&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;terminal&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Terminal&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;timelapse&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Timelapse&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;usersettings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;access&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Access&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Interface&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;wizard&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>Requires admin rights.</p>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>This API endpoint is in beta. Things might change. If you happen to want to develop against it, you should drop
+me an email to make sure I can give you a heads-up when something changes in an backwards incompatible way.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd" id="get--api-settings-templates-status-codes">Status Codes<span class="colon">:</span><a class="headerlink" href="#get--api-settings-templates-status-codes" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – No error</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4">403 Forbidden</a></span> – No admin rights</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<h2 id="data-model"><span id="sec-api-settings-datamodel"></span>Data model<a class="headerlink" href="#data-model" title="Link to this heading">¶</a></h2>
+<p>The data model on the settings API mostly reflects the contents of
+<a class="reference internal" href="../configuration/config_yaml.html#sec-configuration-config-yaml"><span class="std std-ref">config.yaml</span></a>, which are directly
+mapped, with the following exceptions:</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">accessControl.*</span></code></p></td>
+<td><p>Only <code class="docutils literal notranslate"><span class="pre">autologinLocal</span></code> and <code class="docutils literal notranslate"><span class="pre">autologinHeadsupAcknowledged</span></code> are mapped, and only for users with the ADMIN permission.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">api.*</span></code></p></td>
+<td><p>Only <code class="docutils literal notranslate"><span class="pre">key</span></code> and <code class="docutils literal notranslate"><span class="pre">allowCrossOrigin</span></code> are mapped, and <code class="docutils literal notranslate"><span class="pre">key</span></code> only for users with the ADMIN permission and a recent credential check.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">appearance.components</span></code></p></td>
+<td><p>Not mapped.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">controls.*</span></code></p></td>
+<td><p>Only returned for users with the CONTROL permission.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">devel.*</span></code></p></td>
+<td><p>Only <code class="docutils literal notranslate"><span class="pre">pluginTimings</span></code> is mapped.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">estimation</span></code></p></td>
+<td><p>Not mapped.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">events.*</span></code></p></td>
+<td><p>Not mapped (but <code class="docutils literal notranslate"><span class="pre">events.subscriptions</span></code> is mapped by the bundled EventManager plugin on its subtree)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">feature.gcodeViewer</span></code></p></td>
+<td><p>Maps to <code class="docutils literal notranslate"><span class="pre">gcodeViewer.enabled</span></code> in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">feature.sizeThreshold</span></code></p></td>
+<td><p>Maps to <code class="docutils literal notranslate"><span class="pre">gcodeViewer.sizeThreshold</span></code> in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">feature.mobileSizeThreshold</span></code></p></td>
+<td><p>Maps to <code class="docutils literal notranslate"><span class="pre">gcodeViewer.mobileSizeThreshold</span></code> in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">folder.*</span></code></p></td>
+<td><p>Only <code class="docutils literal notranslate"><span class="pre">uploads</span></code>, <code class="docutils literal notranslate"><span class="pre">timelapse</span></code> and <code class="docutils literal notranslate"><span class="pre">watched</span></code> are mapped.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gcodeAnalysis.*</span></code></p></td>
+<td><p>Only <code class="docutils literal notranslate"><span class="pre">runAt</span></code> and <code class="docutils literal notranslate"><span class="pre">bedZ</span></code> are mapped.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gcodeViewer.enabled</span></code></p></td>
+<td><p>Mapped to <code class="docutils literal notranslate"><span class="pre">feature.gcodeViewer</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gcodeViewer.sizeThreshold</span></code></p></td>
+<td><p>Mapped to <code class="docutils literal notranslate"><span class="pre">feature.sizeThreshold</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gcodeViewer.mobileSizeThreshold</span></code></p></td>
+<td><p>Mapped to <code class="docutils literal notranslate"><span class="pre">feature.mobileSizeThreshold</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">plugins.*</span></code></p></td>
+<td><p>Plugin settings as available from <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> and <a class="reference internal" href="../plugins/mixins.html#octoprint.plugin.SettingsPlugin" title="octoprint.plugin.SettingsPlugin (Python class) — Bases: OctoPrintPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">SettingsPlugin</span></code></a> implementations. All of <code class="docutils literal notranslate"><span class="pre">plugins._*</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">plugins._disabled</span></code>) are not mapped.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">printerProfiles.*</span></code></p></td>
+<td><p>Not mapped, available on the dedicated <a class="reference internal" href="printerprofiles.html#sec-api-printerprofiles"><span class="std std-ref">API endpoints</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">serial.timeout.*</span></code></p></td>
+<td><p>Mapped to <code class="docutils literal notranslate"><span class="pre">serial.timeout*</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">serial.maxCommunicationTimeouts.*</span></code></p></td>
+<td><p>Mapped to <code class="docutils literal notranslate"><span class="pre">serial.maxTimeouts*</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">server.*</span></code></p></td>
+<td><p>Only <code class="docutils literal notranslate"><span class="pre">server.commands</span></code>, <code class="docutils literal notranslate"><span class="pre">server.diskspace</span></code>, <code class="docutils literal notranslate"><span class="pre">server.onlineCheck</span></code>, <code class="docutils literal notranslate"><span class="pre">server.pluginBlacklist</span></code> and <code class="docutils literal notranslate"><span class="pre">server.allowFraming</span></code> are mapped. Modifying <code class="docutils literal notranslate"><span class="pre">server.commands</span></code> requires a recent credentials check.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">slicing.*</span></code></p></td>
+<td><p>Only <code class="docutils literal notranslate"><span class="pre">slicing.defaultslicer</span></code> is mapped.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">webcam.*</span></code></p></td>
+<td><p>Only returned for users with the WEBCAM permission. Largely mapped to <code class="docutils literal notranslate"><span class="pre">webcam.*</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">webcam.ffmpeg</span></code></p></td>
+<td><p>Mapped to <code class="docutils literal notranslate"><span class="pre">webcam.ffmpegPath</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">webcam.ffmpegThumbnailCommandline</span></code></p></td>
+<td><p>Not mapped.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">webcam.timelapse</span></code></p></td>
+<td><p>Not mapped, available on the dedicated <a class="reference internal" href="timelapse.html#sec-api-timelapse"><span class="std std-ref">API endpoints</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">webcam.cleanTmpAfterDays</span></code></p></td>
+<td><p>Not mapped.</p></td>
+</tr>
+<tr class="row-even"><td><p>Information about available webcam providers</p></td>
+<td><p>Mapped to <code class="docutils literal notranslate"><span class="pre">webcam.webcams[]</span></code>, fields of each entry are: <code class="docutils literal notranslate"><span class="pre">provider</span></code>, <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">displayName</span></code>, <code class="docutils literal notranslate"><span class="pre">canSnapshot</span></code>, <code class="docutils literal notranslate"><span class="pre">snapshotDisplay</span></code>, <code class="docutils literal notranslate"><span class="pre">flipH</span></code>, <code class="docutils literal notranslate"><span class="pre">flipV</span></code>, <code class="docutils literal notranslate"><span class="pre">rotate90</span></code>, <code class="docutils literal notranslate"><span class="pre">extras</span></code> and <code class="docutils literal notranslate"><span class="pre">compat.*</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Default webcam’s config options <code class="docutils literal notranslate"><span class="pre">flipH</span></code>, <code class="docutils literal notranslate"><span class="pre">flipV</span></code>, <code class="docutils literal notranslate"><span class="pre">rotate90</span></code> and <code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>Mapped to <code class="docutils literal notranslate"><span class="pre">webcam.flipH</span></code>, <code class="docutils literal notranslate"><span class="pre">webcam.flipV</span></code>, <code class="docutils literal notranslate"><span class="pre">webcam.rotate90</span></code> and <code class="docutils literal notranslate"><span class="pre">webcam.defaultWebcam</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Default webcam’s compatibility layer <code class="docutils literal notranslate"><span class="pre">stream</span></code>, <code class="docutils literal notranslate"><span class="pre">streamRatio</span></code>, <code class="docutils literal notranslate"><span class="pre">streamTimeout</span></code>, <code class="docutils literal notranslate"><span class="pre">streamWebrtcIceServers</span></code>, <code class="docutils literal notranslate"><span class="pre">snapshot</span></code>, <code class="docutils literal notranslate"><span class="pre">snapshotTimeout</span></code>, <code class="docutils literal notranslate"><span class="pre">snapshotSslValidation</span></code>, <code class="docutils literal notranslate"><span class="pre">cacheBuster</span></code></p></td>
+<td><p>Mapped to <code class="docutils literal notranslate"><span class="pre">webcam.*</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Snapshot webcam’s name</p></td>
+<td><p>Mapped to <code class="docutils literal notranslate"><span class="pre">webcam.snapshotWebcam</span></code></p></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="printerprofiles.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Printer profile operations">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Printer profile operations
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="slicing.html" class="md-footer__link md-footer__link--next" aria-label="Next: Slicing">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Slicing
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2013-2025, OctoPrint.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.2.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.sections", "navigation.top", "navigation.footer", "search.share", "search.suggest", "toc.follow", "toc.sticky", "content.tabs.link", "content.code.copy", "content.tooltips", "announce.dismiss"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "../versions.json"}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
+    
+  </body>
+</html>
