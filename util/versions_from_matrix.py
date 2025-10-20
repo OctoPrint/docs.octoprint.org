@@ -21,7 +21,7 @@ if __name__ == "__main__":
 
     versions = dict()
     for version in matrix:
-        name = version["version"]
+        name = version.get("slug", version["version"])
         source = version["source"]
         print("Adding {}/{} to versions.json".format(name, source))
 
