@@ -3154,10 +3154,42 @@ Seconds of difference.</p></td>
 <td><p>Whether event subscriptions should be enabled or not.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">subscriptions</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">list[EventSubscription]</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">subscriptions[]</span></code></p></td>
+<td></td>
 <td><p>A list of event subscriptions.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">subscriptions[].event</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>The event to subscribe to.</p></td>
+<td><p><em>required</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">subscriptions[].name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>The event name to show on the UI.</p></td>
+<td><p><em>unset</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">subscriptions[].command</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>The command to execute when the event is triggered, either a GCODE or a system command.</p></td>
+<td><p><em>required</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">subscriptions[].type</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>The type of the command.</p>
+<p>Valid values: <code class="docutils literal notranslate"><span class="pre">gcode</span></code>, <code class="docutils literal notranslate"><span class="pre">system</span></code>.</p>
+</td>
+<td><p><em>required</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">subscriptions[].enabled</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether the event subscription should be enabled.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">subscriptions[].debug</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, OctoPrint will log the command after performing all placeholder replacements.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -3548,22 +3580,22 @@ plugins are tracked.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_disabled</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list[str]</span></code></p></td>
 <td><p>Identifiers of installed but disabled plugins.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_forcedCompatible</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list[str]</span></code></p></td>
 <td><p>Identifiers of plugins for which python compatibility information will be ignored and the plugin considered compatible in any case. Only for development, do <strong>NOT</strong> use in production.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_sortingOrder</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dict[str,</span> <span class="pre">dict[str,</span> <span class="pre">int]]</span></code></p></td>
 <td><p>Custom sorting of hooks and implementations provided by plugins. Two-tiered dictionary structure, plugin identifier mapping to a dictionary of order overrides mapped by sorting context/hook name.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">{}</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_flags</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dict[str,</span> <span class="pre">list[str]]</span></code></p></td>
 <td><p>Configured flags for plugins by plugin identifier.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">{}</span></code></p></td>
 </tr>
@@ -4481,10 +4513,13 @@ see <a class="reference external" href="https://docs.python.org/3/library/codecs
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">reverseProxy.*</span></code></p></td>
 <td></td>
-<td><p>Settings if OctoPrint is running behind a reverse proxy (haproxy, nginx, apache, …) that doesn’t
-correctly set the <a class="reference external" href="https://community.octoprint.org/t/1107">required headers</a>. These are necessary
+<td><dl class="simple">
+<dt>Settings if OctoPrint is running behind a reverse proxy (haproxy, nginx, apache, …) that doesn’t</dt><dd><p>correctly set the <a class="reference external" href="https://community.octoprint.org/t/1107">required headers</a>. These are necessary
 in order to make OctoPrint generate correct external URLs so that AJAX requests and download URLs
-work, and so that client IPs are read correctly.</p></td>
+work, and so that client IPs are read correctly.</p>
+</dd>
+</dl>
+</td>
 <td></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">reverseProxy.prefixHeader</span></code></p></td>
@@ -4571,12 +4606,15 @@ the local machine in trustedProxies (as in, don’t include <code class="docutil
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">uploads.*</span></code></p></td>
 <td></td>
-<td><p>Settings for file uploads to OctoPrint, such as maximum allowed file size and header suffixes to use
-for streaming uploads. OctoPrint does some nifty things internally in order to allow streaming of large
+<td><dl class="simple">
+<dt>Settings for file uploads to OctoPrint, such as maximum allowed file size and header suffixes to use</dt><dd><p>for streaming uploads. OctoPrint does some nifty things internally in order to allow streaming of large
 file uploads to the application rather than just storing them in memory. For that it needs to do some
 rewriting of the incoming upload HTTP requests, storing the uploaded file to a temporary location on disk
 and then sending an internal request to the application containing the original filename and the location
-of the temporary file.</p></td>
+of the temporary file.</p>
+</dd>
+</dl>
+</td>
 <td></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">uploads.maxSize</span></code></p></td>
@@ -4907,10 +4945,40 @@ solve this on its own/ship with https that doesn’t cause scary warnings in you
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">actions</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">list[Action]</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">actions[]</span></code></p></td>
+<td></td>
 <td><p>A list of system actions to show in the UI.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">actions[].action</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>The identifier used internally to identify the action. Set to <code class="docutils literal notranslate"><span class="pre">divider</span></code> to generate a divider in the menu.</p></td>
+<td><p><em>required</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">actions[].name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>The name of the action that will be shown on the menu. Must be set if the action is not a divider.</p></td>
+<td><p><em>unset</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">actions[].command</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>The command to execute when the action is selected. Must be set if the action is not a divider.</p></td>
+<td><p><em>unset</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">actions[].async</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether to run the command asynchronously.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">actions[].confirm</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>An optional confirmation message to show before executing the command.</p></td>
+<td><p><em>unset</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">actions[].fresh_credentials</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether to require a fresh credential check for executing the command.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -4951,7 +5019,7 @@ False if a confirmation dialog is not desired).</p>
 <td><p><em>unset</em></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">async</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 <td><p>Whether to run the command asynchronously.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
@@ -5016,22 +5084,37 @@ OctoPrint is running is allowed to do this without password entry:</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">profiles</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">list[Profile]</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">profiles[]</span></code></p></td>
+<td></td>
 <td><p>Temperature profiles to offer in the UI for quick pre-heating.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">[TemperatureProfile(name='ABS',</span> <span class="pre">extruder=210,</span> <span class="pre">bed=100),</span> <span class="pre">TemperatureProfile(name='PLA',</span> <span class="pre">extruder=180,</span> <span class="pre">bed=60)]</span></code></p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cutoff</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">profiles[].name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>Name of the profile.</p></td>
+<td><p><em>required</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">profiles[].extruder</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Hotend temperature to set with the profile.</p></td>
+<td><p><em>required</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">profiles[].bed</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Bed temperature to set with the profile.</p></td>
+<td><p><em>required</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cutoff</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 <td><p>Cut off time for the temperature data, in minutes.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">30</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sendAutomatically</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sendAutomatically</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 <td><p>Whether to send new temperature settings made in the UI automatically.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sendAutomaticallyAfter</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sendAutomaticallyAfter</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
 <td><p>After what time to send the new temperature settings automatically, in seconds.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
