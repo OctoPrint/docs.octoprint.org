@@ -1430,10 +1430,13 @@ the current request and changed body to the <code class="docutils literal notran
 <dt class="sig sig-object py" id="octoprint.server.util.tornado.UploadStorageFallbackHandler.on_finish">
 <span class="sig-name descname"><span class="pre">on_finish</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#octoprint.server.util.tornado.UploadStorageFallbackHandler.on_finish" title="Link to this definition"></a></dt>
 <dd><p>Called after the end of a request.</p>
-<p>Override this method to perform cleanup, logging, etc.
-This method is a counterpart to <cite>prepare</cite>.  <code class="docutils literal notranslate"><span class="pre">on_finish</span></code> may
-not produce any output, as it is called after the response
-has been sent to the client.</p>
+<p>Override this method to perform cleanup, logging, etc. This method is primarily intended as
+a counterpart to <cite>prepare</cite>. However, there are a few error cases where <code class="docutils literal notranslate"><span class="pre">on_finish</span></code> may be
+called when <code class="docutils literal notranslate"><span class="pre">prepare</span></code> has not. (These are considered bugs and may be fixed in the future,
+but for now you may need to check to see if the initialization work done in <code class="docutils literal notranslate"><span class="pre">prepare</span></code> has
+occurred)</p>
+<p><code class="docutils literal notranslate"><span class="pre">on_finish</span></code> may not produce any output, as it is called after the response has been sent
+to the client.</p>
 </dd></dl>
 
 <dl class="py method">
