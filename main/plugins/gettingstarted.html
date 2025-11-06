@@ -335,9 +335,10 @@ plugin_installurl [https://github.com/yourGithubName/OctoPrint-Helloworld/archiv
 <span class="n">babel</span><span class="o">.</span><span class="n">cfg</span>
 <span class="n">MANIFEST</span><span class="o">.</span><span class="ow">in</span>
 <span class="n">README</span><span class="o">.</span><span class="n">md</span>
+<span class="n">pyproject</span><span class="o">.</span><span class="n">toml</span>
 <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
 <span class="n">setup</span><span class="o">.</span><span class="n">py</span>
-<span class="n">setup</span><span class="o">.</span><span class="n">cfg</span>
+<span class="n">Taskfile</span><span class="o">.</span><span class="n">yml</span>
 </pre></div>
 </div>
 <p>While we’ll need some of those folders later on, we’ll now delete everything that we don’t need right now first, that
@@ -358,87 +359,60 @@ will make it easier to understand what folder does what later on. Delete the fol
 <span class="n">babel</span><span class="o">.</span><span class="n">cfg</span>
 <span class="n">MANIFEST</span><span class="o">.</span><span class="ow">in</span>
 <span class="n">README</span><span class="o">.</span><span class="n">md</span>
+<span class="n">pyproject</span><span class="o">.</span><span class="n">toml</span>
 <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
-<span class="n">setup</span><span class="o">.</span><span class="n">cfg</span>
 <span class="n">setup</span><span class="o">.</span><span class="n">py</span>
+<span class="n">Taskfile</span><span class="o">.</span><span class="n">yml</span>
 </pre></div>
 </div>
-<p>Out of curiosity, take a look into the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file. The cookiecutter template should have prefilled all the
+<p>Out of curiosity, take a look into the <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file. The cookiecutter template should have prefilled all the
 configuration parameters for you:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># coding=utf-8</span>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[build-system]</span>
+<span class="n">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;setuptools&gt;=68&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;wheel&quot;</span><span class="p">]</span>
+<span class="n">build-backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;setuptools.build_meta&quot;</span>
 
-<span class="c1">########################################################################################################################</span>
-<span class="c1">### Do not forget to adjust the following variables to your own plugin.</span>
+<span class="k">[project]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;OctoPrint-Helloworld&quot;</span>
+<span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span>
+<span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;A quick &quot;</span><span class="n">Hello</span><span class="w"> </span><span class="n">World</span><span class="s2">&quot; example plugin for OctoPrint&quot;</span>
+<span class="n">authors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="n">name</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;Your name&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;you@somewhere.net&quot;</span><span class="p">}</span>
+<span class="p">]</span>
+<span class="n">readme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">file</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;README.md&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">content-type</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;text/markdown&quot;</span><span class="p">}</span>
+<span class="n">dynamic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;license&quot;</span>
+<span class="p">]</span>
 
-<span class="c1"># The plugin&#39;s identifier, has to be unique</span>
-<span class="n">plugin_identifier</span> <span class="o">=</span> <span class="s2">&quot;helloworld&quot;</span>
+<span class="n">requires-python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&gt;=3.7, &lt;4&quot;</span>
 
-<span class="c1"># The plugin&#39;s python package, should be &quot;octoprint_&lt;plugin identifier&gt;&quot;, has to be unique</span>
-<span class="n">plugin_package</span> <span class="o">=</span> <span class="s2">&quot;octoprint_helloworld&quot;</span>
+<span class="c1"># any additional requirements (besides OctoPrint) should be listed here</span>
+<span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
 
-<span class="c1"># The plugin&#39;s human readable name. Can be overwritten within OctoPrint&#39;s internal data via __plugin_name__ in the</span>
-<span class="c1"># plugin module</span>
-<span class="n">plugin_name</span> <span class="o">=</span> <span class="s2">&quot;OctoPrint-Helloworld&quot;</span>
+<span class="k">[tool.setuptools]</span>
+<span class="n">include-package-data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 
-<span class="c1"># The plugin&#39;s version. Can be overwritten within OctoPrint&#39;s internal data via __plugin_version__ in the plugin module</span>
-<span class="n">plugin_version</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
+<span class="k">[tool.setuptools.packages.find]</span>
+<span class="n">include</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;octoprint_helloworld&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;octoprint_helloworld.*&quot;</span>
+<span class="p">]</span>
 
-<span class="c1"># The plugin&#39;s description. Can be overwritten within OctoPrint&#39;s internal data via __plugin_description__ in the plugin</span>
-<span class="c1"># module</span>
-<span class="n">plugin_description</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;A quick &quot;Hello World&quot; example plugin for OctoPrint&quot;&quot;&quot;</span>
+<span class="k">[project.entry-points.</span><span class="s2">&quot;octoprint.plugin&quot;</span><span class="k">]</span>
+<span class="n">helloworld</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;octoprint_helloworld&quot;</span>
 
-<span class="c1"># The plugin&#39;s author. Can be overwritten within OctoPrint&#39;s internal data via __plugin_author__ in the plugin module</span>
-<span class="n">plugin_author</span> <span class="o">=</span> <span class="s2">&quot;Your name&quot;</span>
+<span class="k">[project.urls]</span>
+<span class="n">Homepage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://github.com/yourGithubName/OctoPrint-Helloworld&quot;</span>
 
-<span class="c1"># The plugin&#39;s author&#39;s mail address.</span>
-<span class="n">plugin_author_email</span> <span class="o">=</span> <span class="s2">&quot;you@somewhere.net&quot;</span>
-
-<span class="c1"># The plugin&#39;s homepage URL. Can be overwritten within OctoPrint&#39;s internal data via __plugin_url__ in the plugin module</span>
-<span class="n">plugin_url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/yourGithubName/OctoPrint-Helloworld&quot;</span>
-
-<span class="c1"># The plugin&#39;s license. Can be overwritten within OctoPrint&#39;s internal data via __plugin_license__ in the plugin module</span>
-<span class="n">plugin_license</span> <span class="o">=</span> <span class="s2">&quot;AGPLv3&quot;</span>
-
-<span class="c1"># Any additional requirements besides OctoPrint should be listed here</span>
-<span class="n">plugin_requires</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="c1">### --------------------------------------------------------------------------------------------------------------------</span>
-<span class="c1">### More advanced options that you usually shouldn&#39;t have to touch follow after this point</span>
-<span class="c1">### --------------------------------------------------------------------------------------------------------------------</span>
-
-<span class="c1"># Additional package data to install for this plugin. The subfolders &quot;templates&quot;, &quot;static&quot; and &quot;translations&quot; will</span>
-<span class="c1"># already be installed automatically if they exist. Note that if you add something here you&#39;ll also need to update</span>
-<span class="c1"># MANIFEST.in to match to ensure that python setup.py sdist produces a source distribution that contains all your</span>
-<span class="c1"># files. This is sadly due to how python&#39;s setup.py works, see also http://stackoverflow.com/a/14159430/2028598</span>
-<span class="n">plugin_additional_data</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="c1"># Any additional python packages you need to install with your plugin that are not contained in &lt;plugin_package&gt;.*</span>
-<span class="n">plugin_additional_packages</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="c1"># Any python packages within &lt;plugin_package&gt;.* you do NOT want to install with your plugin</span>
-<span class="n">plugin_ignored_packages</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="c1"># Additional parameters for the call to setuptools.setup. If your plugin wants to register additional entry points,</span>
-<span class="c1"># define dependency links or other things like that, this is the place to go. Will be merged recursively with the</span>
-<span class="c1"># default setup parameters as provided by octoprint_setuptools.create_plugin_setup_parameters using</span>
-<span class="c1"># octoprint.util.dict_merge.</span>
-<span class="c1">#</span>
-<span class="c1"># Example:</span>
-<span class="c1">#     plugin_requires = [&quot;someDependency==dev&quot;]</span>
-<span class="c1">#     additional_setup_parameters = {&quot;dependency_links&quot;: [&quot;https://github.com/someUser/someRepo/archive/master.zip#egg=someDependency-dev&quot;]}</span>
-<span class="c1"># &quot;python_requires&quot;: &quot;&gt;=3,&lt;4&quot; blocks installation on Python 2 systems, to prevent confused users and provide a helpful error.</span>
-<span class="c1"># Remove it if you would like to support Python 2 as well as 3 (not recommended).</span>
-<span class="n">additional_setup_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;python_requires&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;=3,&lt;4&quot;</span><span class="p">}</span>
-
-<span class="c1">########################################################################################################################</span>
-
-<span class="c1"># ... remaining setup.py content ...</span>
+<span class="k">[project.optional-dependencies]</span>
+<span class="n">develop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;go-task-bin&quot;</span>
+<span class="p">]</span>
 </pre></div>
 </div>
 <p>Now all that’s left to do is to move our <code class="docutils literal notranslate"><span class="pre">helloworld.py</span></code> into the <code class="docutils literal notranslate"><span class="pre">octoprint_helloworld</span></code> folder and renaming it to
 <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>. Make sure to delete the copy under <code class="docutils literal notranslate"><span class="pre">~/.octoprint/plugins</span></code> in the process, including the <code class="docutils literal notranslate"><span class="pre">.pyc</span></code> file!</p>
-<p>The plugin is now ready to be installed via <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code>. However, since we are still
-working on our plugin, it makes more sense to use <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">develop</span></code> for now – this way the plugin becomes
+<p>The plugin is now ready to be installed via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.</span></code>. However, since we are still
+working on our plugin, it makes more sense to use <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> for now – this way the plugin becomes
 discoverable by OctoPrint, however we don’t have to reinstall it after any changes we will still do. We can have the
 <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">dev</span> <span class="pre">plugin:install</span></code> command do everything for us here, it will ensure to use the python binary belonging
 to your OctoPrint installation:</p>
@@ -446,15 +420,11 @@ to your OctoPrint installation:</p>
 &gt;&gt; /home/gina/.pyenv/versions/3.11.2/envs/octoprint-py311/bin/python -m pip install -e .
 Obtaining file:///home/gina/devel/OctoPrint-Helloworld
 
-  Preparing metadata (setup.py): started
-
-  Preparing metadata (setup.py): finished with status &#39;done&#39;
-
 [...]
 
 Installing collected packages: OctoPrint-Helloworld
 
-  Running setup.py develop for OctoPrint-Helloworld
+[...]
 
 Successfully installed OctoPrint-Helloworld-0.1.0
 </pre></div>
@@ -474,7 +444,7 @@ Successfully installed OctoPrint-Helloworld-0.1.0
 </pre></div>
 </div>
 <p>Looks like it still works!</p>
-<p>Something is still a bit ugly though. Take a look into <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> and <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>. It seems like we have a bunch
+<p>Something is still a bit ugly though. Take a look into <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> and <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>. It seems like we have a bunch
 of information now defined twice:</p>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-number">Listing 39 </span><span class="caption-text">__init__.py</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
@@ -485,26 +455,20 @@ of information now defined twice:</p>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-number">Listing 40 </span><span class="caption-text">setup.py</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
+<div class="code-block-caption"><span class="caption-number">Listing 40 </span><span class="caption-text">pyproject.toml</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ...</span>
 
-<span class="c1"># The plugin&#39;s human readable name. Can be overwritten within OctoPrint&#39;s internal data via __plugin_name__ in the</span>
-<span class="c1"># plugin module</span>
-<span class="n">plugin_name</span> <span class="o">=</span> <span class="s2">&quot;OctoPrint-Helloworld&quot;</span>
-
-<span class="c1"># The plugin&#39;s version. Can be overwritten within OctoPrint&#39;s internal data via __plugin_version__ in the plugin module</span>
-<span class="n">plugin_version</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
-
-<span class="c1"># The plugin&#39;s description. Can be overwritten within OctoPrint&#39;s internal data via __plugin_description__ in the plugin</span>
-<span class="c1"># module</span>
-<span class="n">plugin_description</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;A quick &quot;Hello World&quot; example plugin for OctoPrint&quot;&quot;&quot;</span>
+<span class="p">[</span><span class="n">project</span><span class="p">]</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;OctoPrint-Helloworld&quot;</span>
+<span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
+<span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;A quick &quot;</span><span class="n">Hello</span> <span class="n">World</span><span class="s2">&quot; example plugin for OctoPrint&quot;</span>
 
 <span class="c1"># ...</span>
 </pre></div>
 </div>
 </div>
 <p>The nice thing about our plugin now being a proper Python package is that OctoPrint can and will access the metadata defined
-within <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>! So, we don’t really need to define all this data twice. Remove <code class="docutils literal notranslate"><span class="pre">__plugin_name__</span></code>, <code class="docutils literal notranslate"><span class="pre">__plugin_version__</span></code>
+within <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>! So, we don’t really need to define all this data twice. Remove <code class="docutils literal notranslate"><span class="pre">__plugin_name__</span></code>, <code class="docutils literal notranslate"><span class="pre">__plugin_version__</span></code>
 and <code class="docutils literal notranslate"><span class="pre">__plugin_description__</span></code> from <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>, but leave <code class="docutils literal notranslate"><span class="pre">__plugin_implementation__</span></code> and <code class="docutils literal notranslate"><span class="pre">__plugin_pythoncompat__</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
 
@@ -543,7 +507,7 @@ and <code class="docutils literal notranslate"><span class="pre">__plugin_descri
 <span class="p">[</span><span class="o">...</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>Much better! You can override pretty much all of the metadata defined within <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> from within your Plugin itself –
+<p>Much better! You can override pretty much all of the metadata defined within <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> from within your Plugin itself –
 take a look at <a class="reference internal" href="controlproperties.html#sec-plugins-controlproperties"><span class="std std-ref">the available control properties</span></a> for all available
 overrides.</p>
 <p>Following the README of the <a class="reference external" href="https://github.com/OctoPrint/OctoPrint-PluginSkeleton">Plugin Skeleton</a> you could now
@@ -588,9 +552,10 @@ add the <code class="xref py py-class docutils literal notranslate"><span class=
 <span class="n">babel</span><span class="o">.</span><span class="n">cfg</span>
 <span class="n">MANIFEST</span><span class="o">.</span><span class="ow">in</span>
 <span class="n">README</span><span class="o">.</span><span class="n">md</span>
+<span class="n">pyproject</span><span class="o">.</span><span class="n">toml</span>
 <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
 <span class="n">setup</span><span class="o">.</span><span class="n">py</span>
-<span class="n">setup</span><span class="o">.</span><span class="n">cfg</span>
+<span class="n">Taskfile</span><span class="o">.</span><span class="n">yml</span>
 </pre></div>
 </div>
 <p>Restart OctoPrint and open the web interface in your browser (make sure to clear your browser’s cache!).</p>
@@ -792,9 +757,10 @@ look like this:</p>
 <span class="n">babel</span><span class="o">.</span><span class="n">cfg</span>
 <span class="n">MANIFEST</span><span class="o">.</span><span class="ow">in</span>
 <span class="n">README</span><span class="o">.</span><span class="n">md</span>
+<span class="n">pyproject</span><span class="o">.</span><span class="n">toml</span>
 <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
 <span class="n">setup</span><span class="o">.</span><span class="n">py</span>
-<span class="n">setup</span><span class="o">.</span><span class="n">cfg</span>
+<span class="n">Taskfile</span><span class="o">.</span><span class="n">yml</span>
 </pre></div>
 </div>
 <p>We need to tell OctoPrint about this new static asset so that it will properly inject it into the page. For this we
@@ -928,8 +894,10 @@ add a CSS file to our plugin’s provided static assets.</p>
 <span class="n">babel</span><span class="o">.</span><span class="n">cfg</span>
 <span class="n">MANIFEST</span><span class="o">.</span><span class="ow">in</span>
 <span class="n">README</span><span class="o">.</span><span class="n">md</span>
+<span class="n">pyproject</span><span class="o">.</span><span class="n">toml</span>
 <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
 <span class="n">setup</span><span class="o">.</span><span class="n">py</span>
+<span class="n">Taskfile</span><span class="o">.</span><span class="n">yml</span>
 </pre></div>
 </div>
 <p>Put something like the following into <code class="docutils literal notranslate"><span class="pre">helloworld.css</span></code>:</p>
@@ -1020,8 +988,10 @@ in the process. The folder structure of our plugin should now look like this:</p
 <span class="n">babel</span><span class="o">.</span><span class="n">cfg</span>
 <span class="n">MANIFEST</span><span class="o">.</span><span class="ow">in</span>
 <span class="n">README</span><span class="o">.</span><span class="n">md</span>
+<span class="n">pyproject</span><span class="o">.</span><span class="n">toml</span>
 <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
 <span class="n">setup</span><span class="o">.</span><span class="n">py</span>
+<span class="n">Taskfile</span><span class="o">.</span><span class="n">yml</span>
 </pre></div>
 </div>
 <p>Then adjust our returned assets to include our LESS file as well:</p>
