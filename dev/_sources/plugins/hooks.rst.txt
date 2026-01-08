@@ -327,7 +327,7 @@ octoprint.cli.commands
    Handlers are expected to return a list of callables annotated as `Click commands <http://click.pocoo.org/5/>`_ to register with the
    CLI.
 
-   The custom ``MultiCommand`` instance :class:`~octoprint.cli.plugins.OctoPrintPluginCommands` is provided
+   The custom ``Group`` instance :class:`~octoprint.cli.plugins.OctoPrintPluginCommands` is provided
    as parameter. Via that object handlers may access the *global* :class:`~octoprint.settings.Settings`
    and the :class:`~octoprint.plugin.core.PluginManager` instance as ``cli_group.settings`` and ``cli_group.plugin_manager``.
 
