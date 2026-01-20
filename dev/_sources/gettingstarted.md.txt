@@ -1,5 +1,21 @@
 # Getting Started
 
+## What is OctoPrint?
+
+OctoPrint is a *server application* that provides you with a *web interface* to your *3d printer*.
+
+You install OctoPrint on a computer connected to your 3d printer. This computer can be 
+a single board computer like a Raspberry Pi, an old laptop, a full blown PC or even a gaming handheld running a 
+compatible operating system (Linux, Windows, MacOS). It doesn't need to have a (working) display, but it needs to be accessible
+on your local network, either through WiFi or a wired network connection.
+
+You then access OctoPrint running on this computer through your web browser on your regular computer, 
+your laptop, your tablet, your phone or whatever else you use to access web sites.
+
+Most slicers out there also support connecting to OctoPrint over your local network, so that you can
+automatically upload any sliced models to your OctoPrint instance and immediately start a print
+on your printer.
+
 ## Installation
 
 Installation instructions for installing from source for different operating
