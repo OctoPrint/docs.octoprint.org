@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Migrating to pyproject.toml and build isolation &mdash; OctoPrint 1.11.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=3dbc9e18" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=1e67d180" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=0300ef54"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/mermaid.min.js?v=c0ebaf0d"></script>
+        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Internal Modules" href="../modules/index.html" />
+    <link rel="prev" title="Migrating to Python 3" href="python3_migration.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OctoPrint
+          </a>
+              <div class="version">
+                1.11.6
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developing Plugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="concepts.html">General Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controlproperties.html">Control Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mixins.html">Mixins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hooks.html">Hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="helpers.html">Helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="injectedproperties.html">Injected Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="viewmodels.html">Viewmodels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted.html">Plugin Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributing.html">Distributing your plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python3_migration.html">Migrating to Python 3</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Migrating to <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> and build isolation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#obtaining-octoprint-plugin-tool">Obtaining <code class="docutils literal notranslate"><span class="pre">octoprint-plugin-tool</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-use-octoprint-plugin-tool">How to use <code class="docutils literal notranslate"><span class="pre">octoprint-plugin-tool</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#further-reading">Further reading</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jsclientlib/index.html">JavaScript Client Library</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Developing Plugins</a> &raquo;</li>
+        
+      <li>Migrating to <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> and build isolation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/plugins/pyproject_toml_migration.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="migrating-to-pyproject-toml-and-build-isolation">
+<span id="sec-plugins-pyproject-toml"></span><h1>Migrating to <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> and build isolation<a class="headerlink" href="#migrating-to-pyproject-toml-and-build-isolation" title="Link to this heading"></a></h1>
+<p>Python’s packaging has come a long ways in recent years with regards to getting modernized. The old <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> based approach of configuring your
+package for packaging has been replaced by a <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> that supports a whole lot more build systems beyond <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> as well
+as configuring the various development tools that are part of the Python ecosystem. In addition to that, current versions of
+<code class="docutils literal notranslate"><span class="pre">pip</span></code> (25.3+) by default install packages - including OctoPrint plugins - in what’s called “build isolation”, to ensure less of a
+dependency nightmare by building an installable “wheel” for a package in an isolated environment with the barest minimum of dependencies, as
+defined by the package.</p>
+<p>This build isolation causes issues with OctoPrint plugins that still use the old <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> based plugin template, as that requires
+a dependency provided by OctoPrint during installation - when build isolation is active, that cannot be pulled in and the
+installation fails. Thankfully, <code class="docutils literal notranslate"><span class="pre">pip</span></code> provides a workaround in the shape of the parameters <code class="docutils literal notranslate"><span class="pre">--use-pep517</span> <span class="pre">--no-build-isolation</span></code>
+and OctoPrint 1.11.4+ detects automatically whether these parameters are needed to install or update a plugin package.</p>
+<p>However, it would be good if plugin developers make sure their code gets updated to more modern tooling. Not only has it
+various advantages, all of Python’s ecosystem is fully going into that direction and long term even the above workaround
+might at some point vanish. We don’t know, so we should modernize!</p>
+<p>With <code class="docutils literal notranslate"><span class="pre">octoprint-plugin-tool</span></code> there’s a quick solution to migrate most plugins still using the legacy packaging approach
+to a more modern setup.</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#obtaining-octoprint-plugin-tool" id="id1">Obtaining <code class="docutils literal notranslate"><span class="pre">octoprint-plugin-tool</span></code></a></p></li>
+<li><p><a class="reference internal" href="#how-to-use-octoprint-plugin-tool" id="id2">How to use <code class="docutils literal notranslate"><span class="pre">octoprint-plugin-tool</span></code></a></p></li>
+<li><p><a class="reference internal" href="#further-reading" id="id3">Further reading</a></p></li>
+</ul>
+</nav>
+<section id="obtaining-octoprint-plugin-tool">
+<span id="sec-plugins-pyproject-toml-install-tool"></span><h2><a class="toc-backref" href="#id1" role="doc-backlink">Obtaining <code class="docutils literal notranslate"><span class="pre">octoprint-plugin-tool</span></code></a><a class="headerlink" href="#obtaining-octoprint-plugin-tool" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">octoprint-plugin-tool</span></code> is available on the official Python package Index PyPI and thus can easily be obtained
+through pip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">octoprint</span><span class="o">-</span><span class="n">plugin</span><span class="o">-</span><span class="n">tool</span>
+</pre></div>
+</div>
+<p>Alternatively, you may also run it directly through <code class="docutils literal notranslate"><span class="pre">pipx</span> <span class="pre">run</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipx</span> <span class="n">run</span> <span class="n">octoprint</span><span class="o">-</span><span class="n">plugin</span><span class="o">-</span><span class="n">tool</span>
+</pre></div>
+</div>
+<p>or <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">tool</span> <span class="pre">run</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uv</span> <span class="n">tool</span> <span class="n">run</span> <span class="n">octoprint</span><span class="o">-</span><span class="n">plugin</span><span class="o">-</span><span class="n">tool</span>
+</pre></div>
+</div>
+<p>Note that it requires Python 3.9 and newer.</p>
+<p>OctoPrint 1.12.0 will also include it and offer its functionality on its command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">octoprint</span> <span class="n">dev</span> <span class="n">plugin</span><span class="p">:</span><span class="n">migrate</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">pyproject</span>
+</pre></div>
+</div>
+</section>
+<section id="how-to-use-octoprint-plugin-tool">
+<span id="sec-plugins-pyproject-toml-use-tool"></span><h2><a class="toc-backref" href="#id2" role="doc-backlink">How to use <code class="docutils literal notranslate"><span class="pre">octoprint-plugin-tool</span></code></a><a class="headerlink" href="#how-to-use-octoprint-plugin-tool" title="Link to this heading"></a></h2>
+<p>In most cases, migrating your plugin to <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> is as easy as running</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">octoprint</span><span class="o">-</span><span class="n">plugin</span><span class="o">-</span><span class="n">tool</span> <span class="n">to</span><span class="o">-</span><span class="n">pyproject</span> <span class="o">--</span><span class="n">path</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">plugin</span><span class="o">/</span><span class="n">checkout</span>
+</pre></div>
+</div>
+<p>That will do the necessary conversion steps and you’ll end up with a modified source tree that
+should already work fine.</p>
+<p><strong>If there’s any reason the tool cannot do the migration, it will tell you why.</strong> Also take
+note of any warnings and instructions on how to proceed it outputs.</p>
+<p>It is strongly advised to test packaging and installing your plugin now the way you usually would. Once
+you are satisfied everything is still working like it should, release your changes as a new version
+of your plugin.</p>
+</section>
+<section id="further-reading">
+<span id="sec-plugins-pyproject-toml-furtherreading"></span><h2><a class="toc-backref" href="#id3" role="doc-backlink">Further reading</a><a class="headerlink" href="#further-reading" title="Link to this heading"></a></h2>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://packaging.python.org/en/latest/guides/writing-pyproject-toml/">Writing your pyproject.toml</a></dt><dd><p>The official Python 3 packaging guide explains how a <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file should look.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/OctoPrint/octoprint-plugin-tool">octoprint-plugin-tool</a></dt><dd><p>The repository and README of <code class="docutils literal notranslate"><span class="pre">octoprint-plugin-tool</span></code>.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="python3_migration.html" class="btn btn-neutral float-left" title="Migrating to Python 3" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../modules/index.html" class="btn btn-neutral float-right" title="Internal Modules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2026, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.11.6
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.11.6/plugins/pyproject_toml_migration.html">1.11.6</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.10.3/plugins/pyproject_toml_migration.html">1.10.3</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/main/plugins/pyproject_toml_migration.html">main</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/dev/plugins/pyproject_toml_migration.html">dev</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
