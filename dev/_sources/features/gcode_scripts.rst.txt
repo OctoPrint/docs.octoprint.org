@@ -84,9 +84,23 @@ All GCODE scripts have access to the following template variables through the te
   note that ``actual`` and ``target`` might be ``None``.
 * ``last_fanspeed``: Last fan speed set. It contains the value taken from command (M106 and M107) sent through OctoPrint.
   The value might be ``None`` if no fan speed has been set.
+* ``relative_axes_requested``: If ``true``, relative axes coordinates were requested through OctoPrint using ``G91``. See the note below.
+* ``relative_extruder_requested``: If ``true``, relative extrusion coordinates were requested through OctoPrint, by sending ``M83``. See the note below.
 * ``script``: An object wrapping the script's type (``gcode``) and name (e.g. ``afterPrintCancelled``) as ``script.type``
   and ``script.name`` respectively.
 * ``plugins``: An object containing variables provided by plugins (e.g ``plugins.myplugin.myvariable``)
+
+.. note::
+
+   ``relative_axes_requested`` will mirror whether OctoPrint last saw a ``G91`` (``true``) or a ``G90`` (``false``) and starts set to ``false``, 
+   matching general firmware behaviour. ``relative_extruder_requested`` will mirror whether OctoPrint last saw an ``M83`` (``true``) or 
+   ``M82`` (``false``) and also starts set to ``false``, matching general firmware behaviour.
+
+   OctoPrint makes no attempt at tracking whether ``G91`` also sets the extruder into relative mode, and whether ``G90`` restores absolute 
+   extruder mode. The reason for that is a myriad of implementation variants in firmwares out there that are impossible to automatically
+   detect correctly and would also most likely turn into yet another maintenance nightmare.
+
+   It's thus up to the user to utilize both template variables in a way that matches the behaviour of their respective printer.
 
 There are a few additional template variables available for the following specific scripts:
 

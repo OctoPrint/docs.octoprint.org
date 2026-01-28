@@ -996,10 +996,22 @@ present here, neither must the heated bed - it depends on whether OctoPrint has 
 note that <code class="docutils literal notranslate"><span class="pre">actual</span></code> and <code class="docutils literal notranslate"><span class="pre">target</span></code> might be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">last_fanspeed</span></code>: Last fan speed set. It contains the value taken from command (M106 and M107) sent through OctoPrint.
 The value might be <code class="docutils literal notranslate"><span class="pre">None</span></code> if no fan speed has been set.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">relative_axes_requested</span></code>: If <code class="docutils literal notranslate"><span class="pre">true</span></code>, relative axes coordinates were requested through OctoPrint using <code class="docutils literal notranslate"><span class="pre">G91</span></code>. See the note below.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">relative_extruder_requested</span></code>: If <code class="docutils literal notranslate"><span class="pre">true</span></code>, relative extrusion coordinates were requested through OctoPrint, by sending <code class="docutils literal notranslate"><span class="pre">M83</span></code>. See the note below.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">script</span></code>: An object wrapping the script’s type (<code class="docutils literal notranslate"><span class="pre">gcode</span></code>) and name (e.g. <code class="docutils literal notranslate"><span class="pre">afterPrintCancelled</span></code>) as <code class="docutils literal notranslate"><span class="pre">script.type</span></code>
 and <code class="docutils literal notranslate"><span class="pre">script.name</span></code> respectively.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">plugins</span></code>: An object containing variables provided by plugins (e.g <code class="docutils literal notranslate"><span class="pre">plugins.myplugin.myvariable</span></code>)</p></li>
 </ul>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">relative_axes_requested</span></code> will mirror whether OctoPrint last saw a <code class="docutils literal notranslate"><span class="pre">G91</span></code> (<code class="docutils literal notranslate"><span class="pre">true</span></code>) or a <code class="docutils literal notranslate"><span class="pre">G90</span></code> (<code class="docutils literal notranslate"><span class="pre">false</span></code>) and starts set to <code class="docutils literal notranslate"><span class="pre">false</span></code>,
+matching general firmware behaviour. <code class="docutils literal notranslate"><span class="pre">relative_extruder_requested</span></code> will mirror whether OctoPrint last saw an <code class="docutils literal notranslate"><span class="pre">M83</span></code> (<code class="docutils literal notranslate"><span class="pre">true</span></code>) or
+<code class="docutils literal notranslate"><span class="pre">M82</span></code> (<code class="docutils literal notranslate"><span class="pre">false</span></code>) and also starts set to <code class="docutils literal notranslate"><span class="pre">false</span></code>, matching general firmware behaviour.</p>
+<p>OctoPrint makes no attempt at tracking whether <code class="docutils literal notranslate"><span class="pre">G91</span></code> also sets the extruder into relative mode, and whether <code class="docutils literal notranslate"><span class="pre">G90</span></code> restores absolute
+extruder mode. The reason for that is a myriad of implementation variants in firmwares out there that are impossible to automatically
+detect correctly and would also most likely turn into yet another maintenance nightmare.</p>
+<p>It’s thus up to the user to utilize both template variables in a way that matches the behaviour of their respective printer.</p>
+</div>
 <p>There are a few additional template variables available for the following specific scripts:</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">afterPrintPaused</span></code> and <code class="docutils literal notranslate"><span class="pre">beforePrintResumed</span></code></p>
