@@ -1378,17 +1378,23 @@ the specified ranges.</p>
 from the URL check will be returned as part of the check result as well. <code class="docutils literal notranslate"><span class="pre">json</span></code> will attempt
 to parse the response as json and return the parsed result. <code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">bytes</span></code> will base64 encode the body
 and return that.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">content_type_whitelist</span></code>: Optional array of supported content types. If set and the URL returns a content
+<li><p><code class="docutils literal notranslate"><span class="pre">content_type_allowlist</span></code>: Optional array of supported content types. If set and the URL returns a content
 type not included in this list, the test will fail. E.g. <code class="docutils literal notranslate"><span class="pre">[&quot;image/*&quot;,</span> <span class="pre">&quot;text/plain&quot;]</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">content_type_blacklist</span></code>: Optional array of unsupported content types. If set and the URL returns a content
-type included in this list, the test will fail. E.g. <code class="docutils literal notranslate"><span class="pre">[&quot;video/*&quot;]</span></code>. Can be used together with <code class="docutils literal notranslate"><span class="pre">content_type_whitelist</span></code>
-to further limit broader content type definition, e.g. by putting <code class="docutils literal notranslate"><span class="pre">image/*</span></code> into the whitelist, but disallowing
-PNG by including <code class="docutils literal notranslate"><span class="pre">image/png</span></code> on the blacklist.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">content_type_blocklist</span></code>: Optional array of unsupported content types. If set and the URL returns a content
+type included in this list, the test will fail. E.g. <code class="docutils literal notranslate"><span class="pre">[&quot;video/*&quot;]</span></code>. Can be used together with <code class="docutils literal notranslate"><span class="pre">content_type_allowlist</span></code>
+to further limit broader content type definition, e.g. by putting <code class="docutils literal notranslate"><span class="pre">image/*</span></code> into the allow, but disallowing
+PNG by including <code class="docutils literal notranslate"><span class="pre">image/png</span></code> on the blocklist.</p></li>
 </ul>
 </div></blockquote>
 <p>The <code class="docutils literal notranslate"><span class="pre">url</span></code> command returns <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a <a class="reference internal" href="#sec-api-util-datamodel-urltestresult"><span class="std std-ref">URL test result</span></a>
 when the test could be performed. The status code of the response does NOT reflect the
 test result!</p>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>Former versions of OctoPrint used <code class="docutils literal notranslate"><span class="pre">content_type_whitelist</span></code> and <code class="docutils literal notranslate"><span class="pre">content_type_blacklist</span></code>. Those continue to function
+for reasons of backwards compatibility, but have been replaced by the aforementioned <code class="docutils literal notranslate"><span class="pre">content_type_allowlist</span></code> and <code class="docutils literal notranslate"><span class="pre">content_type_blocklist</span></code>.
+New implementations should make use of these, existing implementations should migrate if possible.</p>
+</div>
 </dd>
 </dl>
 <dl id="sec-api-util-test-server">

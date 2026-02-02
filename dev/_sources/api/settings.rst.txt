@@ -399,7 +399,7 @@ mapped, with the following exceptions:
    * - ``serial.maxCommunicationTimeouts.*``
      - Mapped to ``serial.maxTimeouts*``
    * - ``server.*``
-     - Only ``server.commands``, ``server.diskspace``, ``server.onlineCheck``, ``server.pluginBlacklist`` and ``server.allowFraming`` are mapped. Modifying ``server.commands`` requires a recent credentials check.
+     - Only ``server.commands``, ``server.diskspace``, ``server.onlineCheck``, ``server.pluginBlocklist`` and ``server.allowFraming`` are mapped. Modifying ``server.commands`` requires a recent credentials check.
    * - ``slicing.*``
      - Only ``slicing.defaultslicer`` is mapped.
    * - ``webcam.*``
