@@ -14,7 +14,7 @@
         <link rel="prev" href="general.html">
       
       
-        <link rel="next" href="server.html">
+        <link rel="next" href="authentication.html">
       
       
       <link rel="icon" href="">
@@ -523,6 +523,30 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="authentication.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Authentication</span>
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1128,10 +1152,13 @@
 <dl class="http get objdesc">
 <dt class="sig sig-object highlight http" id="get--api-version">
 <span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/version</span></span><a class="headerlink" href="#get--api-version" title="Link to this definition">¶</a></dt>
-<dd><p>Retrieve information regarding server and API version. Returns a JSON object with three keys, <code class="docutils literal notranslate"><span class="pre">api</span></code> containing
-the API version, <code class="docutils literal notranslate"><span class="pre">server</span></code> containing the server version, <code class="docutils literal notranslate"><span class="pre">text</span></code> containing the server version including
-the prefix <code class="docutils literal notranslate"><span class="pre">OctoPrint</span></code> (to determine that this is indeed a genuine OctoPrint instance).</p>
-<p><strong>Example Request</strong></p>
+<dd><p>Retrieve information regarding server and API version.</p>
+<p>If no specific API version was requested, or an API version that predates 1.12.0, this returns a JSON object with three keys, <code class="docutils literal notranslate"><span class="pre">api</span></code> set to <code class="docutils literal notranslate"><span class="pre">0.1</span></code>,
+<code class="docutils literal notranslate"><span class="pre">server</span></code> containing the server version, <code class="docutils literal notranslate"><span class="pre">text</span></code> containing the server version including the prefix <code class="docutils literal notranslate"><span class="pre">OctoPrint</span></code> (to determine that this is indeed
+a genuine OctoPrint instance).</p>
+<p>If an API version of 1.12.0 or higher was requested, this returns a JSON object with two keys, <code class="docutils literal notranslate"><span class="pre">server</span></code> containing the server version and
+<code class="docutils literal notranslate"><span class="pre">text</span></code> containing the server version including the prefix <code class="docutils literal notranslate"><span class="pre">OctoPrint</span></code> (to determine that this is indeed a genuine OctoPrint instance).</p>
+<p><strong>Example Request: No requested API version</strong></p>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/api/version</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
 <span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
@@ -1143,8 +1170,25 @@ the prefix <code class="docutils literal notranslate"><span class="pre">OctoPrin
 
 <span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;api&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;server&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.3.10&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OctoPrint 1.3.10&quot;</span>
+<span class="w">  </span><span class="nt">&quot;server&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.12.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OctoPrint 1.12.0&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p><strong>Example Request: Requested API version of 1.12.0</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/api/version</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-OctoPrint-Api-Version</span><span class="o">:</span> <span class="l">1.12.0</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</code></pre></div>
+</div>
+<p><strong>Example Response</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;server&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.12.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OctoPrint 1.12.0&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -1212,13 +1256,13 @@ the prefix <code class="docutils literal notranslate"><span class="pre">OctoPrin
         
         
           
-          <a href="server.html" class="md-footer__link md-footer__link--next" aria-label="Next: Server information">
+          <a href="authentication.html" class="md-footer__link md-footer__link--next" aria-label="Next: Authentication">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Server information
+                Authentication
               </div>
             </div>
             <div class="md-footer__button md-icon">

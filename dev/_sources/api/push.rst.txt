@@ -119,7 +119,7 @@ OctoPrint's SockJS socket also accepts three commands from the client to the ser
   clients lacking the ``STATUS`` permission.
 
   The ``auth`` message expects the user id of the user to authenticate followed by ``:`` and a session key to be
-  obtained from the successful payload of a :ref:`(passive or active) login via the API <sec-api-general-login>`.
+  obtained from the successful payload of a :ref:`(passive or active) login via the API <sec-api-authentication-login>`.
 
   Example for a ``auth`` client-server-message:
 

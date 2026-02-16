@@ -9,6 +9,7 @@ REST API
 
    general.rst
    version.rst
+   authentication.rst
    server.rst
    connection.rst
    files.rst
