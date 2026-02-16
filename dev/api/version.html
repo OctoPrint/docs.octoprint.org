@@ -519,6 +519,32 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#get--api-version" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/api/version (HTTP get)"><span>GET /api/version</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GET /api/version">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--api-version-status-codes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Status Codes</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1132,6 +1158,32 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#get--api-version" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="/api/version (HTTP get)"><span>GET /api/version</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GET /api/version">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get--api-version-status-codes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Status Codes</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1149,14 +1201,22 @@
 
 
 <h1 id="version-information"><span id="sec-api-version"></span>Version information<a class="headerlink" href="#version-information" title="Link to this heading">¶</a></h1>
+<div class="admonition versionchanged">
+<p class="admonition-title"><span class="versionmodified changed">Changed in version 1.12.0: </span>API versioning</p>
+<p>For requested versions of 1.12.0 or higher the <code class="docutils literal notranslate"><span class="pre">api</span></code> key on the response has been dropped.</p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2">
+<input checked type="radio" id="__tabbed_1_1" name="__tabbed_1"><input type="radio" id="__tabbed_1_2" name="__tabbed_1"><div class="tabbed-labels docutils">
+<label class="tabbed-label" for="__tabbed_1_1">
+API version 1.12.0+</label><label class="tabbed-label" for="__tabbed_1_2">
+API version pre 1.12.0</label></div>
+<div class="tabbed-content docutils">
+<div class="tabbed-block docutils">
 <dl class="http get objdesc">
 <dt class="sig sig-object highlight http" id="get--api-version">
 <span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/version</span></span><a class="headerlink" href="#get--api-version" title="Link to this definition">¶</a></dt>
 <dd><p>Retrieve information regarding server and API version.</p>
-<p>If no specific API version was requested, or an API version that predates 1.12.0, this returns a JSON object with three keys, <code class="docutils literal notranslate"><span class="pre">api</span></code> set to <code class="docutils literal notranslate"><span class="pre">0.1</span></code>,
-<code class="docutils literal notranslate"><span class="pre">server</span></code> containing the server version, <code class="docutils literal notranslate"><span class="pre">text</span></code> containing the server version including the prefix <code class="docutils literal notranslate"><span class="pre">OctoPrint</span></code> (to determine that this is indeed
-a genuine OctoPrint instance).</p>
-<p>If an API version of 1.12.0 or higher was requested, this returns a JSON object with two keys, <code class="docutils literal notranslate"><span class="pre">server</span></code> containing the server version and
+<p>Returns a JSON object with two keys, <code class="docutils literal notranslate"><span class="pre">server</span></code> containing the server version and
 <code class="docutils literal notranslate"><span class="pre">text</span></code> containing the server version including the prefix <code class="docutils literal notranslate"><span class="pre">OctoPrint</span></code> (to determine that this is indeed a genuine OctoPrint instance).</p>
 <p><strong>Example Request: No requested API version</strong></p>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/api/version</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -1169,20 +1229,19 @@ a genuine OctoPrint instance).</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 
 <span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;api&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;server&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.12.0&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OctoPrint 1.12.0&quot;</span>
+<span class="nt">&quot;api&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1&quot;</span><span class="p">,</span>
+<span class="nt">&quot;server&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.12.0&quot;</span><span class="p">,</span>
+<span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OctoPrint 1.12.0&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
-<p><strong>Example Request: Requested API version of 1.12.0</strong></p>
+<p><strong>Example</strong></p>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/api/version</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer abcdef...</span>
 <span class="na">X-OctoPrint-Api-Version</span><span class="o">:</span> <span class="l">1.12.0</span>
-<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
 </code></pre></div>
 </div>
-<p><strong>Example Response</strong></p>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 
@@ -1200,6 +1259,44 @@ a genuine OctoPrint instance).</p>
 </dd>
 </dl>
 </dd></dl>
+
+</div>
+<div class="tabbed-block docutils">
+<dl class="http get objdesc">
+<dt class="sig sig-object highlight http" id="get--api-version">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/version</span></span><a class="headerlink" href="#get--api-version" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve information regarding server and API version.</p>
+<p>Returns a JSON object with three keys, <code class="docutils literal notranslate"><span class="pre">api</span></code> set to <code class="docutils literal notranslate"><span class="pre">0.1</span></code>,
+<code class="docutils literal notranslate"><span class="pre">server</span></code> containing the server version, <code class="docutils literal notranslate"><span class="pre">text</span></code> containing the server version including the prefix <code class="docutils literal notranslate"><span class="pre">OctoPrint</span></code> (to determine that this is indeed
+a genuine OctoPrint instance).</p>
+<p><strong>Example</strong></p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/api/version</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">X-Api-Key</span><span class="o">:</span> <span class="l">abcdef...</span>
+</code></pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;api&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;server&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.12.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OctoPrint 1.12.0&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd" id="get--api-version-status-codes">Status Codes<span class="colon">:</span><a class="headerlink" href="#get--api-version-status-codes" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – No error</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+</div>
 
 
 
