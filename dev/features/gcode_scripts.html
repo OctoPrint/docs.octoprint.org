@@ -994,13 +994,13 @@ heated bed. This is a dictionary of key-value pairs. The keys are the indices of
 to the corresponding temperature in degrees Celsius. Note that not all tools your printer has must necessarily be
 present here, neither must the heated bed - it depends on whether OctoPrint has values for a tool or the bed. Also
 note that <code class="docutils literal notranslate"><span class="pre">actual</span></code> and <code class="docutils literal notranslate"><span class="pre">target</span></code> might be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">last_fanspeed</span></code>: Last fan speed set. It contains the value taken from command (M106 and M107) sent through OctoPrint.
+<li><p><code class="docutils literal notranslate"><span class="pre">last_fanspeed</span></code>: Last fan speed set. It contains the value taken from commands (M106 and M107) sent through OctoPrint.
 The value might be <code class="docutils literal notranslate"><span class="pre">None</span></code> if no fan speed has been set.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">relative_axes_requested</span></code>: If <code class="docutils literal notranslate"><span class="pre">true</span></code>, relative axes coordinates were requested through OctoPrint using <code class="docutils literal notranslate"><span class="pre">G91</span></code>. See the note below.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">relative_extruder_requested</span></code>: If <code class="docutils literal notranslate"><span class="pre">true</span></code>, relative extrusion coordinates were requested through OctoPrint, by sending <code class="docutils literal notranslate"><span class="pre">M83</span></code>. See the note below.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">script</span></code>: An object wrapping the script’s type (<code class="docutils literal notranslate"><span class="pre">gcode</span></code>) and name (e.g. <code class="docutils literal notranslate"><span class="pre">afterPrintCancelled</span></code>) as <code class="docutils literal notranslate"><span class="pre">script.type</span></code>
 and <code class="docutils literal notranslate"><span class="pre">script.name</span></code> respectively.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">plugins</span></code>: An object containing variables provided by plugins (e.g <code class="docutils literal notranslate"><span class="pre">plugins.myplugin.myvariable</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plugins</span></code>: An object containing variables provided by plugins (e.g. <code class="docutils literal notranslate"><span class="pre">plugins.myplugin.myvariable</span></code>)</p></li>
 </ul>
 <div class="note admonition">
 <p class="admonition-title">Note</p>
@@ -1127,7 +1127,7 @@ to the persisted pause position on resume, making sure to also reset the extrude
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-number">Listing 6 </span><span class="caption-text">
 </span><code class="docutils literal notranslate"><span class="pre">afterPrintPaused</span></code> script<a class="headerlink" href="#id4" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><code><span class="x">; (optional) disable stepper inactivity timeout - uncomment if you printer disables steppers during pause and supports this command</span>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><code><span class="x">; (optional) disable stepper inactivity timeout - uncomment if your printer disables steppers during pause and supports this command</span>
 <span class="x">;M18 S0</span>
 
 <span class="cp">{%</span> <span class="k">if</span> <span class="nv">pause_position.x</span> <span class="k">is</span> <span class="k">not</span> <span class="nf">none</span> <span class="cp">%}</span>

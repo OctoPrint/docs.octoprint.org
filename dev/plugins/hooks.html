@@ -7032,7 +7032,7 @@ implementations, plugins inform OctoPrint about hook handlers using a control pr
 <p>This control property is a dictionary consisting of the implemented hooks’ names as keys and either the hook callback
 or a 2-tuple of hook callback and order value as value.</p>
 <p>Each hook defines a contract detailing the call parameters for the hook handler method and the expected return type.
-OctoPrint will call the hook with the define parameters and process the result depending on the hook.</p>
+OctoPrint will call the hook with the defined parameters and process the result depending on the hook.</p>
 <p>An example for a hook within OctoPrint is <code class="docutils literal notranslate"><span class="pre">octoprint.comm.protocol.scripts</span></code>, which allows adding additional
 lines to OctoPrint’s <a class="reference internal" href="../features/gcode_scripts.html#sec-features-gcode-scripts"><span class="std std-ref">GCODE scripts</span></a>, either as <code class="docutils literal notranslate"><span class="pre">prefix</span></code> (before the existing lines)
 or as <code class="docutils literal notranslate"><span class="pre">postfix</span></code> (after the existing lines).</p>
@@ -7076,7 +7076,7 @@ care to add prefix and suffix as necessary after a small round of preprocessing.
 declares a custom hook “octoprint.plugin.softwareupdate.check_config” which other plugins can add handlers for in order
 to register themselves with the Software Update Plugin by returning their own update check configuration.</p>
 <p>If you want your hook handler to be an instance method of a mixin implementation of your plugin (for example since you
-need access to instance variables handed to your implementation via mixin invocations), you can get this work
+need access to instance variables handed to your implementation via mixin invocations), you can get this to work
 by using a small trick. Instead of defining it directly via <code class="docutils literal notranslate"><span class="pre">__plugin_hooks__</span></code> utilize the <code class="docutils literal notranslate"><span class="pre">__plugin_load__</span></code>
 property instead, manually instantiate your implementation instance and then add its hook handler method to the
 <code class="docutils literal notranslate"><span class="pre">__plugin_hooks__</span></code> property and itself to the <code class="docutils literal notranslate"><span class="pre">__plugin_implementation__</span></code> property. See the following example.</p>
@@ -7112,9 +7112,9 @@ property instead, manually instantiate your implementation instance and then add
 <h2 id="execution-order"><span id="sec-plugins-hooks-ordering"></span>Execution Order<a class="headerlink" href="#execution-order" title="Link to this heading">¶</a></h2>
 <p>Hooks may also define an order number to allow influencing the execution order of the registered hook handlers. Instead
 of registering only a callback as hook handler, it is also possible to register a 2-tuple consisting of a callback and
-an integer value used for ordering handlers. They way this works is that OctoPrint will first sort all registered
-hook handlers with a order number, taking their identifier as the second sorting criteria, then after that append
-all hook handlers without a order number sorted only by their identifier.</p>
+an integer value used for ordering handlers. The way this works is that OctoPrint will first sort all registered
+hook handlers with an order number, taking their identifier as the second sorting criteria, then after that append
+all hook handlers without an order number sorted only by their identifier.</p>
 <p>An example should help clear this up. Let’s assume we have the following plugin <code class="docutils literal notranslate"><span class="pre">ordertest</span></code> which defines a new
 hook called <code class="docutils literal notranslate"><span class="pre">octoprint.plugin.ordertest.callback</span></code>:</p>
 <div class="literal-block-wrapper docutils container" id="id2">
@@ -7190,11 +7190,11 @@ hook called <code class="docutils literal notranslate"><span class="pre">octopri
 </code></pre></div>
 </div>
 </div>
-<p>Both <code class="docutils literal notranslate"><span class="pre">orderedhook.py</span></code> and <code class="docutils literal notranslate"><span class="pre">anotherorderedhook.py</span></code> not only define a handler callback in the hook registration,
+<p>Both <code class="docutils literal notranslate"><span class="pre">oneorderedhook.py</span></code> and <code class="docutils literal notranslate"><span class="pre">anotherorderedhook.py</span></code> not only define a handler callback in the hook registration,
 but actually a 2-tuple consisting of a callback and an order number. <code class="docutils literal notranslate"><span class="pre">yetanotherhook.py</span></code> only defines a callback.</p>
-<p>OctoPrint will sort these hooks so that <code class="docutils literal notranslate"><span class="pre">orderedhook</span></code> will be called first, then <code class="docutils literal notranslate"><span class="pre">anotherorderedhook</span></code>, then
-<code class="docutils literal notranslate"><span class="pre">yetanotherhook</span></code>. Just going by the identifiers, the expected order would be <code class="docutils literal notranslate"><span class="pre">anotherorderedhook</span></code>, <code class="docutils literal notranslate"><span class="pre">orderedhook</span></code>,
-<code class="docutils literal notranslate"><span class="pre">yetanotherhook</span></code>, but since <code class="docutils literal notranslate"><span class="pre">orderedhook</span></code> defines a lower order number (<code class="docutils literal notranslate"><span class="pre">1</span></code>) than <code class="docutils literal notranslate"><span class="pre">anotherorderedhook</span></code> (<code class="docutils literal notranslate"><span class="pre">2</span></code>),
+<p>OctoPrint will sort these hooks so that <code class="docutils literal notranslate"><span class="pre">oneorderedhook</span></code> will be called first, then <code class="docutils literal notranslate"><span class="pre">anotherorderedhook</span></code>, then
+<code class="docutils literal notranslate"><span class="pre">yetanotherhook</span></code>. Just going by the identifiers, the expected order would be <code class="docutils literal notranslate"><span class="pre">anotherorderedhook</span></code>, <code class="docutils literal notranslate"><span class="pre">oneorderedhook</span></code>,
+<code class="docutils literal notranslate"><span class="pre">yetanotherhook</span></code>, but since <code class="docutils literal notranslate"><span class="pre">oneorderedhook</span></code> defines a lower order number (<code class="docutils literal notranslate"><span class="pre">1</span></code>) than <code class="docutils literal notranslate"><span class="pre">anotherorderedhook</span></code> (<code class="docutils literal notranslate"><span class="pre">2</span></code>),
 it will be sorted before <code class="docutils literal notranslate"><span class="pre">anotherorderedhook</span></code>. If you copy those files into your <code class="docutils literal notranslate"><span class="pre">~/.octoprint/plugins</span></code> folder
 and start up OctoPrint, you’ll see output like this:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>[...]
@@ -7940,7 +7940,7 @@ parameter) upon queuing and logs all sent <code class="docutils literal notransl
 <code class="docutils literal notranslate"><span class="pre">sent</span></code>. Will always match the <code class="docutils literal notranslate"><span class="pre">&lt;phase&gt;</span></code> of the hook.</p>
 </dd>
 <dt id="protocol_gcodephase_hook.cmd"><span class="sig-name descname">cmd</span><span class="p"> : </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></span></span><a class="headerlink" href="#protocol_gcodephase_hook.cmd" title="Permalink to this definition">¶</a></dt><dd><p>The GCODE command for which the hook was triggered. This is the full command as taken either
-from the currently streamed GCODE file or via other means (e.g. user input our status polling).</p>
+from the currently streamed GCODE file or via other means (e.g. user input or status polling).</p>
 </dd>
 <dt id="protocol_gcodephase_hook.cmd_type"><span class="sig-name descname">cmd_type</span><span class="p"> : </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></span></span><a class="headerlink" href="#protocol_gcodephase_hook.cmd_type" title="Permalink to this definition">¶</a></dt><dd><p>Type of command, e.g. <code class="docutils literal notranslate"><span class="pre">temperature_poll</span></code> for temperature polling or <code class="docutils literal notranslate"><span class="pre">sd_status_poll</span></code> for SD
 printing status polling.</p>
@@ -8567,7 +8567,7 @@ representing the file object to store.</p>
 <p>Use this to inject additional data into the data structure returned from the printer backend to the frontend
 on the push socket or other registered <a class="reference internal" href="../modules/printer.html#octoprint.printer.PrinterCallback" title="octoprint.printer.PrinterCallback (Python class) — Called when the PrinterInterface receives a new communication log entry from the communication layer."><code class="xref py py-class docutils literal notranslate"><span class="pre">octoprint.printer.PrinterCallback</span></code></a>. Anything you return here
 will be located beneath <code class="docutils literal notranslate"><span class="pre">plugins.&lt;your</span> <span class="pre">plugin</span> <span class="pre">id&gt;</span></code> in the resulting initial and current data push structure.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">initial</span></code> parameter will be <code class="docutils literal notranslate"><span class="pre">True</span></code> if this the additional update sent to the callback. Your handler should
+<p>The <code class="docutils literal notranslate"><span class="pre">initial</span></code> parameter will be <code class="docutils literal notranslate"><span class="pre">True</span></code> if this is the initial update sent to the callback. Your handler should
 return a <code class="docutils literal notranslate"><span class="pre">dict</span></code>, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if nothing should be included.</p>
 <div class="warning admonition">
 <p class="admonition-title">Warning</p>
@@ -8641,7 +8641,7 @@ class will be instantiated.</p>
 </div>
 <p>Allows plugins to perform actions upon connecting to a printer. By returning <code class="docutils literal notranslate"><span class="pre">True</span></code>,
 plugins may also prevent further processing of the connect command. This hook is of
-special interest if your plugin needs a connect from going through under certain
+special interest if your plugin needs a connection from going through under certain
 circumstances or if you need to do something before a connection to the printer is
 established (e.g. switching on power to the printer).</p>
 <dl class="field-list simple">
@@ -8836,7 +8836,7 @@ own thread, which is important in order to not block the main application!</p>
 <p class="admonition-title"><span class="versionmodified added">Added in version 1.3.10.</span></p>
 </div>
 <p>Allows adding additional access validators to the default tornado routers.</p>
-<p>Your plugin might need to this to restrict access to downloads and webcam snapshots further.</p>
+<p>Your plugin might need this to restrict access to downloads and webcam snapshots further.</p>
 <div class="important tip admonition">
 <p class="admonition-title">Important</p>
 <p>Implementing this hook will make your plugin require a restart of OctoPrint for enabling/disabling it fully.</p>
