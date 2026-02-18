@@ -954,8 +954,7 @@ Issue an SD command
 
    init
      Initializes the printer's SD card, making it available for use. This also includes an initial retrieval of the
-     list of files currently stored on the SD card, so after issuing that command a :ref:`retrieval of the files
-     on SD card <sec-api-fileops-retrievelocation>` will return a successful result.
+     list of files currently stored on the SD card, so after issuing that command a request to :ref:`sec-api-fileops-retrievestorage` will return a successful result.
 
      .. note::
         If OctoPrint detects the availability of a SD card on the printer during connection, it will automatically attempt

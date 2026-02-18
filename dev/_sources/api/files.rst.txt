@@ -4,507 +4,1037 @@
 File operations
 ***************
 
+.. versionchanged:: 1.12.0
+
+   API versioning, ``sdcard`` renamed to ``printer``
+
 .. _sec-api-fileops-retrieveall:
 
 Retrieve all files
 ==================
 
-.. http:get:: /api/files
+.. md-tab-set::
 
-   Retrieve information regarding all files currently available and regarding the disk space still available
-   locally in the system. The results are cached for performance reasons. If you
-   want to override the cache, supply the query parameter ``force`` and set it to ``true``. Note that
-   while printing a refresh/override of the cache for files stored on the printer's SD card
-   is disabled due to bandwidth restrictions on the serial interface.
+   .. md-tab-item:: API version 1.12.0+
 
-   By default only returns the files and folders in the root directory. If the query parameter ``recursive``
-   is provided and set to ``true``, returns all files and folders.
+      .. http:get:: /api/files
+      
+         Retrieve information regarding all files currently available and regarding the disk space still available
+         locally in the system. The results are cached for performance reasons. If you
+         want to override the cache, supply the query parameter ``force`` and set it to ``true``. Note that
+         while printing a refresh/override of the cache for files stored on the printer's SD card
+         is disabled due to bandwidth restrictions on the serial interface.
+      
+         By default only returns the files and folders in the root directory. If the query parameter ``recursive``
+         is provided and set to ``true``, returns all files and folders.
+      
+         Returns an object mapping storage IDs to :ref:`sec-api-fileops-datamodel-storage-data`.
+      
+         Requires the ``FILES_LIST`` permission.
+      
+         **Example 1**:
+      
+         Fetch only the files and folders from the root folder.
+      
+         .. sourcecode:: http
+      
+            GET /api/files HTTP/1.1
+            Host: example.com
+            Authorization: Bearer abcdef...
+            X-OctoPrint-Api-Version: 1.12.0
+      
+         .. sourcecode:: http
+      
+            HTTP/1.1 200 OK
+            Content-Type: application/json
 
-   Returns a :ref:`Retrieve response <sec-api-fileops-datamodel-retrieveresponse>`.
-
-   Requires the ``FILES_LIST`` permission.
-
-   **Example 1**:
-
-   Fetch only the files and folders from the root folder.
-
-   .. sourcecode:: http
-
-      GET /api/files HTTP/1.1
-      Host: example.com
-      X-Api-Key: abcdef...
-
-   .. sourcecode:: http
-
-      HTTP/1.1 200 OK
-      Content-Type: application/json
-
-      {
-        "files": [
-          {
-            "name": "whistle_v2.gcode",
-            "path": "whistle_v2.gcode",
-            "type": "machinecode",
-            "typePath": ["machinecode", "gcode"],
-            "hash": "...",
-            "size": 1468987,
-            "date": 1378847754,
-            "origin": "local",
-            "refs": {
-              "resource": "http://example.com/api/files/local/whistle_v2.gcode",
-              "download": "http://example.com/downloads/files/local/whistle_v2.gcode"
-            },
-            "gcodeAnalysis": {
-              "estimatedPrintTime": 1188,
-              "filament": {
-                "length": 810,
-                "volume": 5.36
-              }
-            },
-            "print": {
-              "failure": 4,
-              "success": 23,
-              "last": {
-                "date": 1387144346,
-                "success": true
-              }
-            }
-          },
-          {
-            "name": "whistle_.gco",
-            "path": "whistle_.gco",
-            "type": "machinecode",
-            "typePath": ["machinecode", "gcode"],
-            "origin": "sdcard",
-            "refs": {
-              "resource": "http://example.com/api/files/sdcard/whistle_.gco"
-            }
-          },
-          {
-            "name": "folderA",
-            "path": "folderA",
-            "type": "folder",
-            "typePath": ["folder"],
-            "children": [
-              {
-                "name": "whistle_v2_copy.gcode",
-                "path": "whistle_v2_copy.gcode",
-                "type": "machinecode",
-                "typePath": ["machinecode", "gcode"],
-                "hash": "...",
-                "size": 1468987,
-                "date": 1378847754,
-                "origin": "local",
-                "refs": {
-                  "resource": "http://example.com/api/files/local/folderA/whistle_v2_copy.gcode",
-                  "download": "http://example.com/downloads/files/local/folderA/whistle_v2_copy.gcode"
+            {
+              "local": {
+                "key": "local",
+                "name": "Local",
+                "capabilities": {
+                  "add_folder": true,
+                  "concurrent_printing": true,
+                  "copy_file": true,
+                  "copy_folder": true,
+                  "history": true,
+                  "metadata": true,
+                  "move_file": true,
+                  "move_folder": true,
+                  "path_on_disk": true,
+                  "read_file": true,
+                  "remove_file": true,
+                  "remove_folder": true,
+                  "thumbnails": true,
+                  "write_file": true
                 },
-                "gcodeAnalysis": {
-                  "estimatedPrintTime": 1188,
-                  "filament": {
-                    "length": 810,
-                    "volume": 5.36
-                  }
-                },
-                "print": {
-                  "failure": 4,
-                  "success": 23,
-                  "last": {
-                    "date": 1387144346,
-                    "success": true
-                  }
-                }
-              }
-            ]
-          }
-        ],
-        "free": "3.2GB"
-      }
-
-   **Example 2**
-
-   Recursively fetch all files and folders.
-
-   .. sourcecode:: http
-
-      GET /api/files?recursive=true HTTP/1.1
-      Host: example.com
-      X-Api-Key: abcdef...
-
-   .. sourcecode:: http
-
-      HTTP/1.1 200 OK
-      Content-Type: application/json
-
-      {
-        "files": [
-          {
-            "name": "whistle_v2.gcode",
-            "path": "whistle_v2.gcode",
-            "type": "machinecode",
-            "typePath": ["machinecode", "gcode"],
-            "hash": "...",
-            "size": 1468987,
-            "date": 1378847754,
-            "origin": "local",
-            "refs": {
-              "resource": "http://example.com/api/files/local/whistle_v2.gcode",
-              "download": "http://example.com/downloads/files/local/whistle_v2.gcode"
-            },
-            "gcodeAnalysis": {
-              "estimatedPrintTime": 1188,
-              "filament": {
-                "length": 810,
-                "volume": 5.36
-              }
-            },
-            "print": {
-              "failure": 4,
-              "success": 23,
-              "last": {
-                "date": 1387144346,
-                "success": true
-              }
-            }
-          },
-          {
-            "name": "whistle_.gco",
-            "path": "whistle_.gco",
-            "type": "machinecode",
-            "typePath": ["machinecode", "gcode"],
-            "origin": "sdcard",
-            "refs": {
-              "resource": "http://example.com/api/files/sdcard/whistle_.gco"
-            }
-          },
-          {
-            "name": "folderA",
-            "path": "folderA",
-            "type": "folder",
-            "typePath": ["folder"],
-            "children": [
-              {
-                "name": "test.gcode",
-                "path": "folderA/test.gcode",
-                "type": "machinecode",
-                "typePath": ["machinecode", "gcode"],
-                "hash": "...",
-                "size": 1234,
-                "date": 1378847754,
-                "origin": "local",
-                "refs": {
-                  "resource": "http://example.com/api/files/local/folderA/test.gcode",
-                  "download": "http://example.com/downloads/files/local/folderA/test.gcode"
-                }
-              },
-              {
-                "name": "subfolder",
-                "path": "folderA/subfolder",
-                "type": "folder",
-                "typePath": ["folder"],
-                "children": [
+                "files": [
                   {
-                    "name": "test.gcode",
-                    "path": "folderA/subfolder/test2.gcode",
+                    "name": "whistle_v2.gcode",
+                    "path": "whistle_v2.gcode",
                     "type": "machinecode",
                     "typePath": ["machinecode", "gcode"],
                     "hash": "...",
-                    "size": 100,
+                    "size": 1468987,
                     "date": 1378847754,
                     "origin": "local",
                     "refs": {
-                      "resource": "http://example.com/api/files/local/folderA/subfolder/test2.gcode",
-                      "download": "http://example.com/downloads/files/local/folderA/subfolder/test2.gcode"
+                      "resource": "http://example.com/api/files/local/whistle_v2.gcode",
+                      "download": "http://example.com/downloads/files/local/whistle_v2.gcode"
+                    },
+                    "gcodeAnalysis": {
+                      "estimatedPrintTime": 1188,
+                      "filament": {
+                        "length": 810,
+                        "volume": 5.36
+                      }
+                    },
+                    "print": {
+                      "failure": 4,
+                      "success": 23,
+                      "last": {
+                        "date": 1387144346,
+                        "success": true
+                      }
                     }
                   },
+                  {
+                    "name": "folderA",
+                    "path": "folderA",
+                    "type": "folder",
+                    "typePath": ["folder"],
+                    "children": []
+                  }
                 ],
-                "size": 100,
-                "refs": {
-                  "resource": "http://example.com/api/files/local/folderA/subfolder",
+                "usage": {
+                  "free": 123000,
+                  "total": 123456
                 }
-              }
-            ],
-            "size": 1334,
-            "refs": {
-              "resource": "http://example.com/api/files/local/folderA",
-            }
-          }
-        ],
-        "free": "3.2GB"
-      }
-
-   :param force: If set to ``true``, forces a refresh, overriding the cache.
-   :param recursive: If set to ``true``, return all files and folders recursively. Otherwise only return items on same level.
-   :statuscode 200: No error
-
-.. _sec-api-fileops-retrievelocation:
-
-Retrieve files from specific location
-=====================================
-
-.. http:get:: /api/files/(string:location)
-
-   Retrieve information regarding the files currently available on the selected `location` and -- if targeting
-   the ``local`` location -- regarding the disk space still available locally in the system. The results are cached for performance reasons. If you
-   want to override the cache, supply the query parameter ``force`` and set it to ``true``.
-   Note that while printing a refresh/override of the cache for files stored on the printer's SD card
-   is disabled due to bandwidth restrictions on the serial interface.
-
-   By default only returns the files and folders in the root directory. If the query parameter ``recursive``
-   is provided and set to ``true``, returns all files and folders.
-
-   Returns a :ref:`Retrieve response <sec-api-fileops-datamodel-retrieveresponse>`.
-
-   Requires the ``FILES_LIST`` permission.
-
-   **Example**:
-
-   .. sourcecode:: http
-
-      GET /api/files/local HTTP/1.1
-      Host: example.com
-      X-Api-Key: abcdef...
-
-   .. sourcecode:: http
-
-      HTTP/1.1 200 OK
-      Content-Type: application/json
-
-      {
-        "files": [
-          {
-            "name": "whistle_v2.gcode",
-            "path": "whistle_v2.gcode",
-            "type": "machinecode",
-            "typePath": ["machinecode", "gcode"],
-            "hash": "...",
-            "size": 1468987,
-            "date": 1378847754,
-            "origin": "local",
-            "refs": {
-              "resource": "http://example.com/api/files/local/whistle_v2.gcode",
-              "download": "http://example.com/downloads/files/local/whistle_v2.gcode"
-            },
-            "gcodeAnalysis": {
-              "estimatedPrintTime": 1188,
-              "filament": {
-                "length": 810,
-                "volume": 5.36
-              }
-            },
-            "print": {
-              "failure": 4,
-              "success": 23,
-              "last": {
-                "date": 1387144346,
-                "success": true
+              },
+              "printer": {
+                "key": "printer",
+                "name": "Printer",
+                "capabilities": {
+                  "add_folder": false,
+                  "concurrent_printing": false,
+                  "copy_file": false,
+                  "copy_folder": false,
+                  "history": false,
+                  "metadata": true,
+                  "move_file": false,
+                  "move_folder": false,
+                  "path_on_disk": false,
+                  "read_file": false,
+                  "remove_file": true,
+                  "remove_folder": false,
+                  "thumbnails": false,
+                  "write_file": true
+                },
+                "files": [
+                  {
+                    "name": "whistle_.gco",
+                    "path": "whistle_.gco",
+                    "type": "machinecode",
+                    "typePath": ["machinecode", "gcode"],
+                    "origin": "printer",
+                    "refs": {
+                      "resource": "http://example.com/api/files/printer/whistle_.gco"
+                    }
+                  }
+                ]
               }
             }
-          }
-        ],
-        "free": "3.2GB"
-      }
+      
+         **Example 2**
+      
+         Recursively fetch all files and folders.
+      
+         .. sourcecode:: http
+      
+            GET /api/files?recursive=true HTTP/1.1
+            Host: example.com
+            Authorization: Bearer abcdef...
+            X-OctoPrint-Api-Version: 1.12.0
+      
+         .. sourcecode:: http
+      
+            HTTP/1.1 200 OK
+            Content-Type: application/json
 
-   :param location: The origin location from which to retrieve the files. Currently only ``local`` and ``sdcard`` are
-                    supported, with ``local`` referring to files stored in OctoPrint's ``uploads`` folder and ``sdcard``
-                    referring to files stored on the printer's SD card (if available).
-   :param force: If set to ``true``, forces a refresh, overriding the cache.
-   :param recursive: If set to ``true``, return all files and folders recursively. Otherwise only return items on same level.
-   :statuscode 200: No error
-   :statuscode 404: If `location` is neither ``local`` nor ``sdcard``
+            {
+              "local": {
+                "key": "local",
+                "name": "Local",
+                "capabilities": {
+                  "add_folder": true,
+                  "concurrent_printing": true,
+                  "copy_file": true,
+                  "copy_folder": true,
+                  "history": true,
+                  "metadata": true,
+                  "move_file": true,
+                  "move_folder": true,
+                  "path_on_disk": true,
+                  "read_file": true,
+                  "remove_file": true,
+                  "remove_folder": true,
+                  "thumbnails": true,
+                  "write_file": true
+                },
+                "files": [
+                  {
+                    "name": "whistle_v2.gcode",
+                    "path": "whistle_v2.gcode",
+                    "type": "machinecode",
+                    "typePath": ["machinecode", "gcode"],
+                    "hash": "...",
+                    "size": 1468987,
+                    "date": 1378847754,
+                    "origin": "local",
+                    "refs": {
+                      "resource": "http://example.com/api/files/local/whistle_v2.gcode",
+                      "download": "http://example.com/downloads/files/local/whistle_v2.gcode"
+                    },
+                    "gcodeAnalysis": {
+                      "estimatedPrintTime": 1188,
+                      "filament": {
+                        "length": 810,
+                        "volume": 5.36
+                      }
+                    },
+                    "print": {
+                      "failure": 4,
+                      "success": 23,
+                      "last": {
+                        "date": 1387144346,
+                        "success": true
+                      }
+                    }
+                  },
+                  {
+                    "name": "folderA",
+                    "path": "folderA",
+                    "type": "folder",
+                    "typePath": ["folder"],
+                    "children": [
+                      {
+                        "name": "whistle_v2_copy.gcode",
+                        "path": "whistle_v2_copy.gcode",
+                        "type": "machinecode",
+                        "typePath": ["machinecode", "gcode"],
+                        "hash": "...",
+                        "size": 1468987,
+                        "date": 1378847754,
+                        "origin": "local",
+                        "refs": {
+                          "resource": "http://example.com/api/files/local/folderA/whistle_v2_copy.gcode",
+                          "download": "http://example.com/downloads/files/local/folderA/whistle_v2_copy.gcode"
+                        },
+                        "gcodeAnalysis": {
+                          "estimatedPrintTime": 1188,
+                          "filament": {
+                            "length": 810,
+                            "volume": 5.36
+                          }
+                        },
+                        "print": {
+                          "failure": 4,
+                          "success": 23,
+                          "last": {
+                            "date": 1387144346,
+                            "success": true
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "usage": {
+                  "free": 123000,
+                  "total": 123456
+                }
+              },
+              "printer": {
+                "key": "printer",
+                "name": "Printer",
+                "capabilities": {
+                  "add_folder": false,
+                  "concurrent_printing": false,
+                  "copy_file": false,
+                  "copy_folder": false,
+                  "history": false,
+                  "metadata": true,
+                  "move_file": false,
+                  "move_folder": false,
+                  "path_on_disk": false,
+                  "read_file": false,
+                  "remove_file": true,
+                  "remove_folder": false,
+                  "thumbnails": false,
+                  "write_file": true
+                },
+                "files": [
+                  {
+                    "name": "whistle_.gco",
+                    "path": "whistle_.gco",
+                    "type": "machinecode",
+                    "typePath": ["machinecode", "gcode"],
+                    "origin": "printer",
+                    "refs": {
+                      "resource": "http://example.com/api/files/printer/whistle_.gco"
+                    }
+                  }
+                ]
+              }
+            }
+      
+      
+         :param force: If set to ``true``, forces a refresh, overriding the cache.
+         :param recursive: If set to ``true``, return all files and folders recursively. Otherwise only return items on same level.
+         :statuscode 200: No error
+
+   .. md-tab-item:: API version pre 1.12.0
+
+      .. http:get:: /api/files
+      
+         Retrieve information regarding all files currently available and regarding the disk space still available
+         locally in the system. The results are cached for performance reasons. If you
+         want to override the cache, supply the query parameter ``force`` and set it to ``true``. Note that
+         while printing a refresh/override of the cache for files stored on the printer's SD card
+         is disabled due to bandwidth restrictions on the serial interface.
+      
+         By default only returns the files and folders in the root directory. If the query parameter ``recursive``
+         is provided and set to ``true``, returns all files and folders.
+      
+         Returns a :ref:`sec-api-fileops-datamodel-readfiles-pre-1_12`.
+      
+         Requires the ``FILES_LIST`` permission.
+      
+         **Example 1**:
+      
+         Fetch only the files and folders from the root folder.
+      
+         .. sourcecode:: http
+      
+            GET /api/files HTTP/1.1
+            Host: example.com
+            Authorization: Bearer abcdef...
+      
+         .. sourcecode:: http
+      
+            HTTP/1.1 200 OK
+            Content-Type: application/json
+      
+            {
+              "files": [
+                {
+                  "name": "whistle_v2.gcode",
+                  "path": "whistle_v2.gcode",
+                  "type": "machinecode",
+                  "typePath": ["machinecode", "gcode"],
+                  "hash": "...",
+                  "size": 1468987,
+                  "date": 1378847754,
+                  "origin": "local",
+                  "refs": {
+                    "resource": "http://example.com/api/files/local/whistle_v2.gcode",
+                    "download": "http://example.com/downloads/files/local/whistle_v2.gcode"
+                  },
+                  "gcodeAnalysis": {
+                    "estimatedPrintTime": 1188,
+                    "filament": {
+                      "length": 810,
+                      "volume": 5.36
+                    }
+                  },
+                  "print": {
+                    "failure": 4,
+                    "success": 23,
+                    "last": {
+                      "date": 1387144346,
+                      "success": true
+                    }
+                  }
+                },
+                {
+                  "name": "whistle_.gco",
+                  "path": "whistle_.gco",
+                  "type": "machinecode",
+                  "typePath": ["machinecode", "gcode"],
+                  "origin": "printer",
+                  "refs": {
+                    "resource": "http://example.com/api/files/printer/whistle_.gco"
+                  }
+                },
+                {
+                  "name": "folderA",
+                  "path": "folderA",
+                  "type": "folder",
+                  "typePath": ["folder"],
+                  "children": []
+                }
+              ],
+              "free": "3.2GB"
+            }
+      
+         **Example 2**
+      
+         Recursively fetch all files and folders.
+      
+         .. sourcecode:: http
+      
+            GET /api/files?recursive=true HTTP/1.1
+            Host: example.com
+            Authorization: Bearer abcdef...
+      
+         .. sourcecode:: http
+      
+            HTTP/1.1 200 OK
+            Content-Type: application/json
+      
+            {
+              "files": [
+                {
+                  "name": "whistle_v2.gcode",
+                  "path": "whistle_v2.gcode",
+                  "type": "machinecode",
+                  "typePath": ["machinecode", "gcode"],
+                  "hash": "...",
+                  "size": 1468987,
+                  "date": 1378847754,
+                  "origin": "local",
+                  "refs": {
+                    "resource": "http://example.com/api/files/local/whistle_v2.gcode",
+                    "download": "http://example.com/downloads/files/local/whistle_v2.gcode"
+                  },
+                  "gcodeAnalysis": {
+                    "estimatedPrintTime": 1188,
+                    "filament": {
+                      "length": 810,
+                      "volume": 5.36
+                    }
+                  },
+                  "print": {
+                    "failure": 4,
+                    "success": 23,
+                    "last": {
+                      "date": 1387144346,
+                      "success": true
+                    }
+                  }
+                },
+                {
+                  "name": "whistle_.gco",
+                  "path": "whistle_.gco",
+                  "type": "machinecode",
+                  "typePath": ["machinecode", "gcode"],
+                  "origin": "printer",
+                  "refs": {
+                    "resource": "http://example.com/api/files/printer/whistle_.gco"
+                  }
+                },
+                {
+                  "name": "folderA",
+                  "path": "folderA",
+                  "type": "folder",
+                  "typePath": ["folder"],
+                  "children": [
+                    {
+                      "name": "test.gcode",
+                      "path": "folderA/test.gcode",
+                      "type": "machinecode",
+                      "typePath": ["machinecode", "gcode"],
+                      "hash": "...",
+                      "size": 1234,
+                      "date": 1378847754,
+                      "origin": "local",
+                      "refs": {
+                        "resource": "http://example.com/api/files/local/folderA/test.gcode",
+                        "download": "http://example.com/downloads/files/local/folderA/test.gcode"
+                      }
+                    },
+                    {
+                      "name": "subfolder",
+                      "path": "folderA/subfolder",
+                      "type": "folder",
+                      "typePath": ["folder"],
+                      "children": [
+                        {
+                          "name": "test.gcode",
+                          "path": "folderA/subfolder/test2.gcode",
+                          "type": "machinecode",
+                          "typePath": ["machinecode", "gcode"],
+                          "hash": "...",
+                          "size": 100,
+                          "date": 1378847754,
+                          "origin": "local",
+                          "refs": {
+                            "resource": "http://example.com/api/files/local/folderA/subfolder/test2.gcode",
+                            "download": "http://example.com/downloads/files/local/folderA/subfolder/test2.gcode"
+                          }
+                        },
+                      ],
+                      "size": 100,
+                      "refs": {
+                        "resource": "http://example.com/api/files/local/folderA/subfolder",
+                      }
+                    }
+                  ],
+                  "size": 1334,
+                  "refs": {
+                    "resource": "http://example.com/api/files/local/folderA",
+                  }
+                }
+              ],
+              "free": "3.2GB"
+            }
+      
+         :param force: If set to ``true``, forces a refresh, overriding the cache.
+         :param recursive: If set to ``true``, return all files and folders recursively. Otherwise only return items on same level.
+         :statuscode 200: No error
+
+.. _sec-api-fileops-retrievestorage:
+
+Retrieve data of specific storage
+=================================
+
+.. md-tab-set::
+
+   .. md-tab-item:: API version 1.12.0+
+
+      .. http:get:: /api/files/(string:storage)
+
+         Retrieve information regarding the files currently available on the selected ``storage``. The results are cached for performance reasons. If you
+         want to override the cache, supply the query parameter ``force`` and set it to ``true``.
+ 
+         By default only returns the files and folders in the root directory. If the query parameter ``recursive``
+         is provided and set to ``true``, returns all files and folders.
+ 
+         Returns the requested :ref:`sec-api-fileops-datamodel-storage-data`.
+ 
+         Requires the ``FILES_LIST`` permission.
+ 
+         **Example**:
+ 
+         .. sourcecode:: http
+ 
+             GET /api/files/local HTTP/1.1
+             Host: example.com
+             Authorization: Bearer abcdef...
+             X-OctoPrint-Api-Version: 1.12.0
+ 
+         .. sourcecode:: http
+ 
+             HTTP/1.1 200 OK
+             Content-Type: application/json
+ 
+             {
+               "key": "local",
+               "name": "Local",
+               "capabilities": {
+                 "add_folder": true,
+                 "concurrent_printing": true,
+                 "copy_file": true,
+                 "copy_folder": true,
+                 "history": true,
+                 "metadata": true,
+                 "move_file": true,
+                 "move_folder": true,
+                 "path_on_disk": true,
+                 "read_file": true,
+                 "remove_file": true,
+                 "remove_folder": true,
+                 "thumbnails": true,
+                 "write_file": true
+               },
+               "files": [
+                {
+                   "name": "whistle_v2.gcode",
+                   "path": "whistle_v2.gcode",
+                   "type": "machinecode",
+                   "typePath": ["machinecode", "gcode"],
+                   "hash": "...",
+                   "size": 1468987,
+                   "date": 1378847754,
+                   "origin": "local",
+                   "refs": {
+                     "resource": "http://example.com/api/files/local/whistle_v2.gcode",
+                     "download": "http://example.com/downloads/files/local/whistle_v2.gcode"
+                   },
+                   "gcodeAnalysis": {
+                     "estimatedPrintTime": 1188,
+                     "filament": {
+                       "length": 810,
+                       "volume": 5.36
+                     }
+                   },
+                   "print": {
+                     "failure": 4,
+                     "success": 23,
+                     "last": {
+                       "date": 1387144346,
+                       "success": true
+                     }
+                   }
+                 },
+                 {
+                   "name": "folderA",
+                   "path": "folderA",
+                   "type": "folder",
+                   "typePath": ["folder"],
+                   "children": []
+                 }
+               ],
+               "usage": {
+                 "free": 123000,
+                 "total": 123456
+               }
+             }
+ 
+         :param storage: The storage from which to retrieve the files. Must be one of the currently registered storages.
+         :param force: If set to ``true``, forces a refresh, overriding the cache.
+         :param recursive: If set to ``true``, return all files and folders recursively. Otherwise only return items on same level.
+         :statuscode 200: No error
+         :statuscode 404: If `storage` is not one of the registered storages (stock: ``local``, ``printer``)
+
+   .. md-tab-item:: API version pre 1.12.0
+
+      .. http:get:: /api/files/(string:storage)
+
+         Retrieve information regarding the files currently available on the selected ``location`` and -- if targeting
+         the ``local`` storage -- regarding the disk space still available locally in the system. The results are cached for performance reasons. If you
+         want to override the cache, supply the query parameter ``force`` and set it to ``true``.
+         Note that while printing a refresh/override of the cache for files stored on the printer's SD card
+         is disabled due to bandwidth restrictions on the serial interface.
+ 
+         By default only returns the files and folders in the root directory. If the query parameter ``recursive``
+         is provided and set to ``true``, returns all files and folders.
+ 
+         Returns a :ref:`sec-api-fileops-datamodel-readstorage-pre-1_12`.
+ 
+         Requires the ``FILES_LIST`` permission.
+ 
+         **Example**:
+ 
+         .. sourcecode:: http
+ 
+             GET /api/files/local HTTP/1.1
+             Host: example.com
+             Authorization: Bearer abcdef...
+ 
+         .. sourcecode:: http
+ 
+             HTTP/1.1 200 OK
+             Content-Type: application/json
+ 
+             {
+               "files": [
+                 {
+                   "name": "whistle_v2.gcode",
+                   "path": "whistle_v2.gcode",
+                   "type": "machinecode",
+                   "typePath": ["machinecode", "gcode"],
+                   "size": 1468987,
+                   "date": 1378847754,
+                   "origin": "local",
+                   "refs": {
+                     "resource": "http://example.com/api/files/local/whistle_v2.gcode",
+                     "download": "http://example.com/downloads/files/local/whistle_v2.gcode"
+                   },
+                   "gcodeAnalysis": {
+                     "estimatedPrintTime": 1188,
+                     "filament": {
+                       "length": 810,
+                       "volume": 5.36
+                     }
+                   },
+                   "print": {
+                     "failure": 4,
+                     "success": 23,
+                     "last": {
+                       "date": 1387144346,
+                       "success": true
+                     }
+                   }
+                 }
+               ],
+               "free": 123000
+             }
+ 
+         :param storage: The storage from which to retrieve the files. Currently only ``local`` and ``printer`` (or the deprecated ``sdcard``) are
+                           supported, with ``local`` referring to files stored in OctoPrint's ``uploads`` folder and ``printer``
+                           referring to files stored on the printer's internal storage (if available).
+         :param force: If set to ``true``, forces a refresh, overriding the cache.
+         :param recursive: If set to ``true``, return all files and folders recursively. Otherwise only return items on same level.
+         :statuscode 200: No error
+         :statuscode 404: If ``storage`` is unknown
 
 .. _sec-api-fileops-uploadfile:
 
 Upload file or create folder
 ============================
 
-.. http:post:: /api/files/(string:location)
+.. md-tab-set::
 
-   Upload a file to the selected ``location`` or create a new empty folder on it.
+   .. md-tab-item:: API version 1.12.0+
 
-   Other than most of the other requests on OctoPrint's API which are expected as JSON, this request is expected as
-   ``Content-Type: multipart/form-data`` due to the included file upload. A ``Content-Length`` header specifying
-   the full length of the request body is required as well.
+      .. http:post:: /api/files/(string:storage)
 
-   To upload a file, the request body must at least contain the ``file`` form field with the
-   contents and file name of the file to upload.
+         Upload a file to the selected ``storage`` or create a new empty folder on it.
+ 
+         Other than most of the other requests on OctoPrint's API which are expected as JSON, this request is expected as
+         ``Content-Type: multipart/form-data`` due to the included file upload. A ``Content-Length`` header specifying
+         the full length of the request body is required as well.
+ 
+         To upload a file, the request body must at least contain the ``file`` form field with the
+         contents and file name of the file to upload.
+ 
+         To create a new folder, the request body must at least contain the ``foldername`` form field,
+         specifying the name of the new folder. Note that folder creation support depends on the selected
+         ``storage``, see ``capabilities.add_folder`` in the response of :ref:`sec-api-fileops-retrievestorage`.
+ 
+         Returns a :http:statuscode:`201` response with a ``Location`` header set to the management URL of the uploaded
+         file and an :ref:`sec-api-fileops-datamodel-uploadresponse` as the body upon successful completion.
+ 
+         Requires the ``FILES_UPLOAD`` permission.
+ 
+         **Example for uploading a file**
+ 
+         .. sourcecode:: http
+ 
+             POST /api/files/printer HTTP/1.1
+             Host: example.com
+             Authorization: Bearer abcdef...
+             Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryDeC2E3iWbTv1PwMC
+             Content-Length: 430
+ 
+             ------WebKitFormBoundaryDeC2E3iWbTv1PwMC
+             Content-Disposition: form-data; name="file"; filename="whistle_v2.gcode"
+             Content-Type: application/octet-stream
+ 
+             M109 T0 S220.000000
+             T0
+             G21
+             G90
+ 
+             ------WebKitFormBoundaryDeC2E3iWbTv1PwMC
+             Content-Disposition: form-data; name="select"
+ 
+             true
+             ------WebKitFormBoundaryDeC2E3iWbTv1PwMC
+             Content-Disposition: form-data; name="print"
+ 
+             true
+             ------WebKitFormBoundaryDeC2E3iWbTv1PwMC--
+ 
+         .. sourcecode:: http
+ 
+             HTTP/1.1 200 OK
+             Content-Type: application/json
+             Location: http://example.com/api/files/printer/whistle_.gcode
+ 
+             {
+               "file": {
+                 "name": "whistle_.gco",
+                 "path": "whistle_.gco",
+                 "origin": "sdcard",
+                 "refs": {
+                   "resource": "http://example.com/api/files/printer/whistle_.gco"
+                 }
+               },
+               "done": false,
+               "effectiveSelect": true,
+               "effectivePrint": true
+             }
+ 
+         **Example with UTF-8 encoded filename following RFC 5987**
+ 
+         .. sourcecode:: http
+ 
+             POST /api/files/local HTTP/1.1
+             Host: example.com
+             Authorization: Bearer abcdef...
+             Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryDeC2E3iWbTv1PwMC
+             Content-Length: 263
+ 
+             ------WebKitFormBoundaryDeC2E3iWbTv1PwMC
+             Content-Disposition: form-data; name="file"; filename*=utf-8''20mm-%C3%BCml%C3%A4ut-b%C3%B6x.gcode
+             Content-Type: application/octet-stream
+ 
+             M109 T0 S220.000000
+             T0
+             G21
+             G90
+ 
+             ------WebKitFormBoundaryDeC2E3iWbTv1PwMC--
+ 
+         .. sourcecode:: http
+ 
+             HTTP/1.1 200 OK
+             Content-Type: application/json
+             Location: http://example.com/api/files/local/20mm-umlaut-box.gcode
+ 
+             {
+               "file": {
+                 "name": "20mm-umlaut-box",
+                 "origin": "local",
+                 "refs": {
+                   "resource": "http://example.com/api/files/local/whistle_v2.gcode",
+                   "download": "http://example.com/downloads/files/local/whistle_v2.gcode"
+                 }
+               },
+               "done": true,
+               "effectiveSelect": false,
+               "effectivePrint": false
+             }
+ 
+         **Example for creating a folder**
+ 
+         .. sourcecode:: http
+ 
+             POST /api/files/local HTTP/1.1
+             Host: example.com
+             Authorization: Bearer abcdef...
+             Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryDeC2E3iWbTv1PwMD
+             Content-Length: 246
+ 
+             ------WebKitFormBoundaryDeC2E3iWbTv1PwMD
+             Content-Disposition: form-data; name="foldername"
+ 
+             subfolder
+             ------WebKitFormBoundaryDeC2E3iWbTv1PwMD
+             Content-Disposition: form-data; name="path"
+ 
+             folder/
+             ------WebKitFormBoundaryDeC2E3iWbTv1PwMD--
+ 
+         .. sourcecode:: http
+ 
+             HTTP/1.1 200 OK
+             Content-Type: application/json
+             Location: http://example.com/api/files/local/folder/subfolder
+ 
+             {
+               "folder": {
+                 "name": "subfolder",
+                 "path": "folder/subfolder",
+                 "origin": "local",
+                 "refs": {
+                   "resource": "http://example.com/api/files/local/folder/subfolder"
+                 }
+               },
+               "done": true
+             }
+ 
+         :param storage:  The target location to which to upload the file. Currently only ``local`` and ``sdcard`` are supported
+                           here, with ``local`` referring to OctoPrint's ``uploads`` folder and ``sdcard`` referring to
+                           the printer's SD card. If an upload targets the SD card, it will also be stored locally first.
+         :form file:       The file to upload, including a valid ``filename``.
+         :form path:       The path within the ``location`` to upload the file to or create the folder in (without the future
+                           filename or ``foldername`` - basically the parent folder). If unset will be taken from the provided
+                           ``file``'s name or ``foldername`` and default to the root folder of the ``location``.
+         :form select:     Whether to select the file directly after upload (``true``) or not (``false``). Optional, defaults
+                           to ``false``. If the printer is not operational, this will have no
+                           effect and the ``effectiveSelect`` field in the response will be set to ``false``. Ignored when creating a folder.
+         :form print:      Whether to start printing the file directly after upload (``true``) or not (``false``). If set, ``select``
+                           is implicitly ``true`` as well. Optional, defaults to ``false``. If the
+                           printer is not operational, this will have no effect and the ``effectivePrint`` field in the response will be set
+                           to ``false``. Ignored when creating a folder.
+         :form userdata:   [Optional] An optional string that if specified will be interpreted as JSON and then saved along
+                           with the file as metadata (metadata key ``userdata``). Ignored when creating a folder.
+         :form foldername: The name of the folder to create. Ignored when uploading a file.
+         :statuscode 201:  No error
+         :statuscode 400:  If no ``file`` or ``foldername`` are included in the request, ``userdata`` was provided but could
+                           not be parsed as JSON or the request is otherwise invalid.
+         :statuscode 404:  If ``location`` is neither ``local`` nor ``sdcard`` or trying to upload to SD card and SD card support
+                           is disabled
+         :statuscode 409:  If the upload of the file would override the file that is currently being printed or if an upload
+                           to SD card was requested and the printer is either not operational or currently busy with a print job.
+         :statuscode 415:  If the file is neither a ``gcode`` nor an ``stl`` file (or it is an ``stl`` file but slicing support
+                           is disabled)
+         :statuscode 500:  If the upload failed internally
 
-   To create a new folder, the request body must at least contain the ``foldername`` form field,
-   specifying the name of the new folder. Note that folder creation is currently only supported on
-   the ``local`` file system.
+   .. md-tab-item:: API version pre 1.12.0
 
-   Returns a :http:statuscode:`201` response with a ``Location`` header set to the management URL of the uploaded
-   file and an :ref:`Upload Response <sec-api-fileops-datamodel-uploadresponse>` as the body upon successful completion.
+      .. http:post:: /api/files/(string:storage)
 
-   Requires the ``FILES_UPLOAD`` permission.
-
-   **Example for uploading a file**
-
-   .. sourcecode:: http
-
-      POST /api/files/sdcard HTTP/1.1
-      Host: example.com
-      X-Api-Key: abcdef...
-      Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryDeC2E3iWbTv1PwMC
-      Content-Length: 430
-
-      ------WebKitFormBoundaryDeC2E3iWbTv1PwMC
-      Content-Disposition: form-data; name="file"; filename="whistle_v2.gcode"
-      Content-Type: application/octet-stream
-
-      M109 T0 S220.000000
-      T0
-      G21
-      G90
-
-      ------WebKitFormBoundaryDeC2E3iWbTv1PwMC
-      Content-Disposition: form-data; name="select"
-
-      true
-      ------WebKitFormBoundaryDeC2E3iWbTv1PwMC
-      Content-Disposition: form-data; name="print"
-
-      true
-      ------WebKitFormBoundaryDeC2E3iWbTv1PwMC--
-
-   .. sourcecode:: http
-
-      HTTP/1.1 200 OK
-      Content-Type: application/json
-      Location: http://example.com/api/files/sdcard/whistle_v2.gcode
-
-      {
-        "files": {
-          "local": {
-            "name": "whistle_v2.gcode",
-            "path": "whistle_v2.gcode",
-            "type": "machinecode",
-            "typePath": ["machinecode", "gcode"],
-            "origin": "local",
-            "refs": {
-              "resource": "http://example.com/api/files/local/whistle_v2.gcode",
-              "download": "http://example.com/downloads/files/local/whistle_v2.gcode"
-            }
-          },
-          "sdcard": {
-            "name": "whistle_.gco",
-            "path": "whistle_.gco",
-            "origin": "sdcard",
-            "refs": {
-              "resource": "http://example.com/api/files/sdcard/whistle_.gco"
-            }
-          }
-        },
-        "done": false,
-        "effectiveSelect": true,
-        "effectivePrint": true
-      }
-
-   **Example with UTF-8 encoded filename following RFC 5987**
-
-   .. sourcecode:: http
-
-      POST /api/files/local HTTP/1.1
-      Host: example.com
-      X-Api-Key: abcdef...
-      Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryDeC2E3iWbTv1PwMC
-      Content-Length: 263
-
-      ------WebKitFormBoundaryDeC2E3iWbTv1PwMC
-      Content-Disposition: form-data; name="file"; filename*=utf-8''20mm-%C3%BCml%C3%A4ut-b%C3%B6x.gcode
-      Content-Type: application/octet-stream
-
-      M109 T0 S220.000000
-      T0
-      G21
-      G90
-
-      ------WebKitFormBoundaryDeC2E3iWbTv1PwMC--
-
-   .. sourcecode:: http
-
-      HTTP/1.1 200 OK
-      Content-Type: application/json
-      Location: http://example.com/api/files/local/20mm-umlaut-box.gcode
-
-      {
-        "files": {
-          "local": {
-            "name": "20mm-umlaut-box",
-            "origin": "local",
-            "refs": {
-              "resource": "http://example.com/api/files/local/whistle_v2.gcode",
-              "download": "http://example.com/downloads/files/local/whistle_v2.gcode"
-            }
-          }
-        },
-        "done": true,
-        "effectiveSelect": false,
-        "effectivePrint": false
-      }
-
-   **Example for creating a folder**
-
-   .. sourcecode:: http
-
-      POST /api/files/local HTTP/1.1
-      Host: example.com
-      X-Api-Key: abcdef...
-      Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryDeC2E3iWbTv1PwMD
-      Content-Length: 246
-
-      ------WebKitFormBoundaryDeC2E3iWbTv1PwMD
-      Content-Disposition: form-data; name="foldername"
-
-      subfolder
-      ------WebKitFormBoundaryDeC2E3iWbTv1PwMD
-      Content-Disposition: form-data; name="path"
-
-      folder/
-      ------WebKitFormBoundaryDeC2E3iWbTv1PwMD--
-
-   .. sourcecode:: http
-
-      HTTP/1.1 200 OK
-      Content-Type: application/json
-      Location: http://example.com/api/files/local/folder/subfolder
-
-      {
-        "folder": {
-          "name": "subfolder",
-          "path": "folder/subfolder",
-          "origin": "local"
-        },
-        "done": true
-      }
-
-   :param location:  The target location to which to upload the file. Currently only ``local`` and ``sdcard`` are supported
-                     here, with ``local`` referring to OctoPrint's ``uploads`` folder and ``sdcard`` referring to
-                     the printer's SD card. If an upload targets the SD card, it will also be stored locally first.
-   :form file:       The file to upload, including a valid ``filename``.
-   :form path:       The path within the ``location`` to upload the file to or create the folder in (without the future
-                     filename or ``foldername`` - basically the parent folder). If unset will be taken from the provided
-                     ``file``'s name or ``foldername`` and default to the root folder of the ``location``.
-   :form select:     Whether to select the file directly after upload (``true``) or not (``false``). Optional, defaults
-                     to ``false``. If the printer is not operational, this will have no
-                     effect and the ``effectiveSelect`` field in the response will be set to ``false``. Ignored when creating a folder.
-   :form print:      Whether to start printing the file directly after upload (``true``) or not (``false``). If set, ``select``
-                     is implicitly ``true`` as well. Optional, defaults to ``false``. If the
-                     printer is not operational, this will have no effect and the ``effectivePrint`` field in the response will be set
-                     to ``false``. Ignored when creating a folder.
-   :form userdata:   [Optional] An optional string that if specified will be interpreted as JSON and then saved along
-                     with the file as metadata (metadata key ``userdata``). Ignored when creating a folder.
-   :form foldername: The name of the folder to create. Ignored when uploading a file.
-   :statuscode 201:  No error
-   :statuscode 400:  If no ``file`` or ``foldername`` are included in the request, ``userdata`` was provided but could
-                     not be parsed as JSON or the request is otherwise invalid.
-   :statuscode 404:  If ``location`` is neither ``local`` nor ``sdcard`` or trying to upload to SD card and SD card support
-                     is disabled
-   :statuscode 409:  If the upload of the file would override the file that is currently being printed or if an upload
-                     to SD card was requested and the printer is either not operational or currently busy with a print job.
-   :statuscode 415:  If the file is neither a ``gcode`` nor an ``stl`` file (or it is an ``stl`` file but slicing support
-                     is disabled)
-   :statuscode 500:  If the upload failed internally
+         Upload a file to the selected ``storage`` or create a new empty folder on it.
+ 
+         Other than most of the other requests on OctoPrint's API which are expected as JSON, this request is expected as
+         ``Content-Type: multipart/form-data`` due to the included file upload. A ``Content-Length`` header specifying
+         the full length of the request body is required as well.
+ 
+         To upload a file, the request body must at least contain the ``file`` form field with the
+         contents and file name of the file to upload.
+ 
+         To create a new folder, the request body must at least contain the ``foldername`` form field,
+         specifying the name of the new folder. Note that folder creation support depends on the selected
+         ``storage``, see ``capabilities.add_folder`` in the response of :ref:`sec-api-fileops-retrievestorage`.
+ 
+         Returns a :http:statuscode:`201` response with a ``Location`` header set to the management URL of the uploaded
+         file and an :ref:`sec-api-fileops-datamodel-uploadresponse-pre-1_12` as the body upon successful completion.
+ 
+         Requires the ``FILES_UPLOAD`` permission.
+ 
+         **Example for uploading a file**
+ 
+         .. sourcecode:: http
+ 
+             POST /api/files/printer HTTP/1.1
+             Host: example.com
+             Authorization: Bearer abcdef...
+             Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryDeC2E3iWbTv1PwMC
+             Content-Length: 430
+ 
+             ------WebKitFormBoundaryDeC2E3iWbTv1PwMC
+             Content-Disposition: form-data; name="file"; filename="whistle_v2.gcode"
+             Content-Type: application/octet-stream
+ 
+             M109 T0 S220.000000
+             T0
+             G21
+             G90
+ 
+             ------WebKitFormBoundaryDeC2E3iWbTv1PwMC
+             Content-Disposition: form-data; name="select"
+ 
+             true
+             ------WebKitFormBoundaryDeC2E3iWbTv1PwMC
+             Content-Disposition: form-data; name="print"
+ 
+             true
+             ------WebKitFormBoundaryDeC2E3iWbTv1PwMC--
+ 
+         .. sourcecode:: http
+ 
+             HTTP/1.1 200 OK
+             Content-Type: application/json
+             Location: http://example.com/api/files/printer/whistle_.gcode
+ 
+             {
+               "files": {
+                 "printer": {
+                   "name": "whistle_.gco",
+                   "path": "whistle_.gco",
+                   "origin": "sdcard",
+                   "refs": {
+                     "resource": "http://example.com/api/files/printer/whistle_.gco"
+                   }
+                 }
+               },
+               "done": false,
+               "effectiveSelect": true,
+               "effectivePrint": true
+             }
+ 
+         **Example with UTF-8 encoded filename following RFC 5987**
+ 
+         .. sourcecode:: http
+ 
+             POST /api/files/local HTTP/1.1
+             Host: example.com
+             Authorization: Bearer abcdef...
+             Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryDeC2E3iWbTv1PwMC
+             Content-Length: 263
+ 
+             ------WebKitFormBoundaryDeC2E3iWbTv1PwMC
+             Content-Disposition: form-data; name="file"; filename*=utf-8''20mm-%C3%BCml%C3%A4ut-b%C3%B6x.gcode
+             Content-Type: application/octet-stream
+ 
+             M109 T0 S220.000000
+             T0
+             G21
+             G90
+ 
+             ------WebKitFormBoundaryDeC2E3iWbTv1PwMC--
+ 
+         .. sourcecode:: http
+ 
+             HTTP/1.1 200 OK
+             Content-Type: application/json
+             Location: http://example.com/api/files/local/20mm-umlaut-box.gcode
+ 
+             {
+               "files": {
+                 "local": {
+                   "name": "20mm-umlaut-box",
+                   "origin": "local",
+                   "refs": {
+                     "resource": "http://example.com/api/files/local/whistle_v2.gcode",
+                     "download": "http://example.com/downloads/files/local/whistle_v2.gcode"
+                   }
+                 }
+               },
+               "done": true,
+               "effectiveSelect": false,
+               "effectivePrint": false
+             }
+ 
+         **Example for creating a folder**
+ 
+         .. sourcecode:: http
+ 
+             POST /api/files/local HTTP/1.1
+             Host: example.com
+             Authorization: Bearer abcdef...
+             Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryDeC2E3iWbTv1PwMD
+             Content-Length: 246
+ 
+             ------WebKitFormBoundaryDeC2E3iWbTv1PwMD
+             Content-Disposition: form-data; name="foldername"
+ 
+             subfolder
+             ------WebKitFormBoundaryDeC2E3iWbTv1PwMD
+             Content-Disposition: form-data; name="path"
+ 
+             folder/
+             ------WebKitFormBoundaryDeC2E3iWbTv1PwMD--
+ 
+         .. sourcecode:: http
+ 
+             HTTP/1.1 200 OK
+             Content-Type: application/json
+             Location: http://example.com/api/files/local/folder/subfolder
+ 
+             {
+               "folder": {
+                 "name": "subfolder",
+                 "path": "folder/subfolder",
+                 "origin": "local",
+                 "refs": {
+                   "resource": "http://example.com/api/files/local/folder/subfolder"
+                 }
+               },
+               "done": true
+             }
+ 
+         :param storage:  The target location to which to upload the file. Currently only ``local`` and ``sdcard`` are supported
+                           here, with ``local`` referring to OctoPrint's ``uploads`` folder and ``sdcard`` referring to
+                           the printer's SD card. If an upload targets the SD card, it will also be stored locally first.
+         :form file:       The file to upload, including a valid ``filename``.
+         :form path:       The path within the ``location`` to upload the file to or create the folder in (without the future
+                           filename or ``foldername`` - basically the parent folder). If unset will be taken from the provided
+                           ``file``'s name or ``foldername`` and default to the root folder of the ``location``.
+         :form select:     Whether to select the file directly after upload (``true``) or not (``false``). Optional, defaults
+                           to ``false``. If the printer is not operational, this will have no
+                           effect and the ``effectiveSelect`` field in the response will be set to ``false``. Ignored when creating a folder.
+         :form print:      Whether to start printing the file directly after upload (``true``) or not (``false``). If set, ``select``
+                           is implicitly ``true`` as well. Optional, defaults to ``false``. If the
+                           printer is not operational, this will have no effect and the ``effectivePrint`` field in the response will be set
+                           to ``false``. Ignored when creating a folder.
+         :form userdata:   [Optional] An optional string that if specified will be interpreted as JSON and then saved along
+                           with the file as metadata (metadata key ``userdata``). Ignored when creating a folder.
+         :form foldername: The name of the folder to create. Ignored when uploading a file.
+         :statuscode 201:  No error
+         :statuscode 400:  If no ``file`` or ``foldername`` are included in the request, ``userdata`` was provided but could
+                           not be parsed as JSON or the request is otherwise invalid.
+         :statuscode 404:  If ``location`` is neither ``local`` nor ``sdcard`` or trying to upload to SD card and SD card support
+                           is disabled
+         :statuscode 409:  If the upload of the file would override the file that is currently being printed or if an upload
+                           to SD card was requested and the printer is either not operational or currently busy with a print job.
+         :statuscode 415:  If the file is neither a ``gcode`` nor an ``stl`` file (or it is an ``stl`` file but slicing support
+                           is disabled)
+         :statuscode 500:  If the upload failed internally
 
 .. _sec-api-fileops-retrievefileinfo:
 
@@ -520,7 +1050,7 @@ Retrieve a specific file's or folder's information
    If the targeted path is a folder, by default only its direct children will be returned. If ``recursive`` is
    provided and set to ``true``, all sub folders and their children will be returned too.
 
-   On success, a :http:statuscode:`200` is returned, with a :ref:`file information item <sec-api-datamodel-files-file>`
+   On success, a :http:statuscode:`200` is returned, with a :ref:`sec-api-fileops-datamodel-file`
    as the response body.
 
    Requires the ``FILES_LIST`` permission.
@@ -531,7 +1061,7 @@ Retrieve a specific file's or folder's information
 
       GET /api/files/local/whistle_v2.gcode HTTP/1.1
       Host: example.com
-      X-Api-Key: abcdef...
+      Authorization: Bearer abcdef...
 
    .. sourcecode:: http
 
@@ -600,6 +1130,78 @@ Issue a file command
 
      Requires the ``FILES_SELECT`` permission.
 
+   copy
+     Copies the file or folder to a new ``destination`` on the same ``location`` or another ``storage``. Additional parameters are:
+
+     * ``destination``: The path of the parent folder to which to copy the file or folder. It must already exist. Mandatory.
+     * ``storage``: The optional target storage to copy the file to.
+
+     .. note::
+
+        Whether this command is supported depends on the involved storage's capabilities.
+
+        For an in-storage move, the storage needs to support ``copy_file`` or ``copy_folder`` respectively.
+
+        For a cross-storage file move, the source needs to support ``read_file`` and the target needs 
+        to support ``write_file``. Cross-storage folder copies are currently not supported.
+
+     If there already exists a file or folder of the same name at ``destination``, the request will return a :http:statuscode:`409`.
+     If the ``destination`` folder does not exist, a :http:statuscode:`404` will be returned.
+
+     A :http:statuscode:`400` will be returned if:
+
+     * the ``destination`` is missing from the request
+     * the cross-storage target ``storage`` is not available
+     * the cross-storage operation's ``destination`` is a folder
+     * the targeted ``path`` is neither a file nor a folder
+     * the involved storages lack the necessary capabilities to perform the operation
+
+     Upon success, a status code of :http:statuscode:`201` and a :ref:`sec-api-fileops-datamodel-uploaded-entry` in the response
+     body will be returned.
+
+     Requires the ``FILES_UPLOAD`` permission.
+
+     .. versionchanged:: 1.12.0
+
+        cross-storage support
+
+   move
+     Moves the file or folder to a new ``destination`` on the same ``location`` or another ``storage``. Additional parameters are:
+
+     * ``destination``: The path of the parent folder to which to move the file or folder.
+     * ``storage``: The optional target storage to move the file to.
+
+     .. note::
+
+        Whether this command is supported depends on the involved storage's capabilities.
+
+        For an in-storage move, the storage needs to support ``move_file`` or ``move_folder`` respectively.
+
+        For a cross-storage file move, the source needs to support ``read_file`` and ``remove_file`` and the target needs 
+        to support ``write_file``. Cross-storage folder moves are currently not supported.
+
+     If there already exists a file or folder of the same name at ``destination``, the request will return a :http:statuscode:`409`.
+     If the ``destination`` folder does not exist, a :http:statuscode:`404` will be returned. If the ``path`` is currently
+     in use by OctoPrint (e.g. it is a GCODE file that's currently being printed) a :http:statuscode:`409` will be
+     returned.
+
+     A :http:statuscode:`400` will be returned if:
+
+     * the ``destination`` is missing from the request
+     * the cross-storage target ``storage`` is not available
+     * the cross-storage operation's ``destination`` is a folder
+     * the targeted ``path`` is neither a file nor a folder
+     * the involved storages lack the necessary capabilities to perform the operation
+
+     Upon success, a status code of :http:statuscode:`201` and a :ref:`sec-api-fileops-datamodel-uploaded-entry` in the response
+     body will be returned.
+
+     Requires the ``FILES_UPLOAD`` permission.
+
+     .. versionchanged:: 1.12.0
+
+        cross-storage support
+
    slice
      Slices an STL file into GCODE. Note that this is an asynchronous operation that will take place in the background
      after the response has been sent back to the client. Additional parameters are:
@@ -627,38 +1229,10 @@ Issue a file command
      also mean that if it was supposed to be directly selected and start printing after the slicing finished, this will not
      take place anymore and whether this will happen with the new sliced file depends entirely on the new request!
 
-     Upon success, a status code of :http:statuscode:`202` and a :ref:`sec-api-datamodel-files-fileabridged` in the response
+     Upon success, a status code of :http:statuscode:`202` and a :ref:`sec-api-fileops-datamodel-uploaded-entry` in the response
      body will be returned.
 
      Requires the ``SLICE`` permission.
-
-   copy
-     Copies the file or folder to a new ``destination`` on the same ``location``. Additional parameters are:
-
-     * ``destination``: The path of the parent folder to which to copy the file or folder. It must already exist.
-
-     If there already exists a file or folder of the same name at ``destination``, the request will return a :http:statuscode:`409`.
-     If the ``destination`` folder does not exist, a :http:statuscode:`404` will be returned.
-
-     Upon success, a status code of :http:statuscode:`201` and a :ref:`sec-api-datamodel-files-fileabridged` in the response
-     body will be returned.
-
-     Requires the ``FILES_UPLOAD`` permission.
-
-   move
-     Moves the file or folder to a new ``destination`` on the same ``location``. Additional parameters are:
-
-     * ``destination``: The path of the parent folder to which to move the file or folder.
-
-     If there already exists a file or folder of the same name at ``destination``, the request will return a :http:statuscode:`409`.
-     If the ``destination`` folder does not exist, a :http:statuscode:`404` will be returned. If the ``path`` is currently
-     in use by OctoPrint (e.g. it is a GCODE file that's currently being printed) a :http:statuscode:`409` will be
-     returned.
-
-     Upon success, a status code of :http:statuscode:`201` and a :ref:`sec-api-datamodel-files-fileabridged` in the response
-     body will be returned.
-
-     Requires the ``FILES_UPLOAD`` permission.
 
    **Example Select Request**
 
@@ -667,7 +1241,7 @@ Issue a file command
       POST /api/files/local/whistle_v2.gcode HTTP/1.1
       Host: example.com
       Content-Type: application/json
-      X-Api-Key: abcdef...
+      Authorization: Bearer abcdef...
 
       {
         "command": "select",
@@ -685,7 +1259,7 @@ Issue a file command
       POST /api/files/local/some_folder/some_model.stl HTTP/1.1
       Host: example.com
       Content-Type: application/json
-      X-Api-Key: abcdef...
+      Authorization: Bearer abcdef...
 
       {
         "command": "slice",
@@ -714,14 +1288,14 @@ Issue a file command
         }
       }
 
-   **Example Copy Request**
+   **Example in-storage Copy Request**
 
    .. sourcecode:: http
 
       POST /api/files/local/some_folder/some_model.gcode HTTP/1.1
       Host: example.com
       Content-Type: application/json
-      X-Api-Key: abcdef...
+      Authorization: Bearer abcdef...
 
       {
         "command": "copy",
@@ -732,6 +1306,7 @@ Issue a file command
 
       HTTP/1.1 201 Created
       Content-Type: application/json
+      Location: http://example.com/api/files/local/some_other_folder/subfolder/some_model.gcode
 
       {
         "origin": "local",
@@ -743,14 +1318,14 @@ Issue a file command
         }
       }
 
-   **Example Move Request**
+   **Example in-storage Move Request**
 
    .. sourcecode:: http
 
       POST /api/files/local/some_folder/and_a_subfolder HTTP/1.1
       Host: example.com
       Content-Type: application/json
-      X-Api-Key: abcdef...
+      Authorization: Bearer abcdef...
 
       {
         "command": "move",
@@ -761,6 +1336,7 @@ Issue a file command
 
       HTTP/1.1 201 Created
       Content-Type: application/json
+      Location: http://example.com/api/files/local/some_other_folder/and_a_subfolder
 
       {
         "origin": "local",
@@ -768,6 +1344,36 @@ Issue a file command
         "path": "some_other_folder/and_a_subfolder",
         "refs": {
           "resource": "http://example.com/api/files/local/some_other_folder/and_a_subfolder"
+        }
+      }
+
+   **Example cross-storage Copy Request**
+
+   .. sourcecode:: http
+
+      POST /api/files/local/some_folder/some_model.gcode HTTP/1.1
+      Host: example.com
+      Content-Type: application/json
+      Authorization: Bearer abcdef...
+
+      {
+        "command": "copy",
+        "destination": "/",
+        "storage": "printer"
+      }
+
+   .. sourcecode:: http
+
+      HTTP/1.1 201 Created
+      Content-Type: application/json
+      Location: http://example.com/api/files/printer/some_mo~1.gco
+
+      {
+        "origin": "printer",
+        "name": "some_mo~1.gco",
+        "path": "some_mo~1.gco",
+        "refs": {
+          "resource": "http://example.com/api/files/printer/some_mo~1.gco"
         }
       }
 
@@ -818,7 +1424,7 @@ Delete file
 
       DELETE /api/files/local/whistle_v2.gcode HTTP/1.1
       Host: example.com
-      X-Api-Key: abcdef...
+      Authorization: Bearer abcdef...
 
    :param location: The target location on which to delete the file, either ``local`` (for OctoPrint's ``uploads``
                     folder) or ``sdcard`` for the printer's SD card (if available)
@@ -832,74 +1438,128 @@ Delete file
 Data model
 ==========
 
-.. _sec-api-fileops-datamodel-retrieveresponse:
+.. _sec-api-fileops-datamodel-readfiles-pre-1_12:
 
-Retrieve response
------------------
+Files response (pre 1.12.0)
+---------------------------
 
-.. list-table::
-   :widths: 15 5 10 30
-   :header-rows: 1
+.. pydantic-table:: octoprint.schema.api.files.ReadGcodeFilesResponse_pre_1_12
 
-   * - Name
-     - Multiplicity
-     - Type
-     - Description
-   * - ``files``
-     - 0..*
-     - Array of :ref:`File information items <sec-api-datamodel-files-file>`
-     - The list of requested files. Might be an empty list if no files are available
-   * - ``free``
-     - 0..1
-     - String
-     - The amount of disk space in bytes available in the local disk space (refers to OctoPrint's ``uploads`` folder). Only
-       returned if file list was requested for origin ``local`` or all origins.
+   octoprint.schema.api.files.ApiStorageFile = File
+   octoprint.schema.api.files.ApiStorageFolder = Folder
+
+.. _sec-api-fileops-datamodel-readstorage-pre-1_12:
+
+Files for storage response (pre 1.12.0)
+---------------------------------------
+
+.. pydantic-table:: octoprint.schema.api.files.ReadGcodeFilesForOriginResponse_pre_1_12
+
+   octoprint.schema.api.files.ApiStorageFile = File
+   octoprint.schema.api.files.ApiStorageFolder = Folder
 
 .. _sec-api-fileops-datamodel-uploadresponse:
 
 Upload response
 ---------------
 
-.. list-table::
-   :widths: 15 5 10 30
-   :header-rows: 1
+.. pydantic-table:: octoprint.schema.api.files.UploadResponse
 
-   * - Name
-     - Multiplicity
-     - Type
-     - Description
-   * - ``files``
-     - 0..1
-     - Object
-     - (File only) Abridged information regarding the file that was just uploaded. If only uploaded to ``local`` this will only
-       contain the ``local`` property. If uploaded to SD card, this will contain both ``local`` and ``sdcard`` properties.
-   * - ``files.local``
-     - 1
-     - :ref:`sec-api-datamodel-files-fileabridged`
-     - The information regarding the file that was just uploaded to the local storage.
-   * - ``files.sdcard``
-     - 0..1
-     - :ref:`sec-api-datamodel-files-fileabridged`
-     - The information regarding the file that was just uploaded to the printer's SD card.
-   * - ``folder``
-     - 0..1
-     - :ref:`sec-api-datamodel-files-fileabridged`
-     - (Folder only) Abridged information regarding the folder that was just created.
-   * - ``done``
-     - 1
-     - Boolean
-     - Whether any file processing after upload has already finished (``true``) or not, e.g. due to first needing
-       to perform a slicing step (``false``). Clients may use this information to direct progress displays related to
-       the upload. Always ``true`` for folders.
-   * - ``effectiveSelect``
-     - 0..1
-     - Boolean
-     - (File only) Whether the file that was just uploaded was selected for printing (``true``) or not (``false``). If this
-       is ``false`` but was requested to be ``true`` in the upload request, the user lacked permissions, the printer was not
-       operational or already printing and thus the request could not be fulfilled.
-   * - ``effectivePrint``
-     - 0..1
-     - Boolean
-     - (File only) Whether the file that was just uploaded was started to print (``true``) or not (``false``). If this
-       is ``false`` but was requested to be ``true`` in the upload request, the user lacked permissions, the printer was not
-       operational or already printing and thus the request could not be fulfilled.
+   octoprint.schema.api.files.ApiAddedEntry = AddedEntry
+   ApiAddedEntry = AddedEntry
+
+.. _sec-api-fileops-datamodel-uploadresponse-pre-1_12:
+
+Upload response (pre 1.12.0)
+----------------------------
+
+.. pydantic-table:: octoprint.schema.api.files.UploadResponse_pre_1_12
+
+   octoprint.schema.api.files.ApiAddedEntry = AddedEntry
+   ApiAddedEntry = AddedEntry
+
+.. _sec-api-fileops-datamodel-storage-data:
+
+Storage data
+------------
+
+.. pydantic-table:: octoprint.schema.api.files.ApiStorageData
+
+    octoprint.schema.api.files.ApiStorageFile = File
+    octoprint.schema.api.files.ApiStorageFolder = Folder
+    ApiStorageUsage = Usage
+
+.. _sec-api-fileops-datamodel-storage-capabilities:
+
+Storage capabilities
+--------------------
+
+.. pydantic-table:: octoprint.filemanager.storage.StorageCapabilities
+
+.. _sec-api-fileops-datamodel-usage-data:
+
+Usage data
+----------
+
+.. pydantic-table:: octoprint.schema.api.files.ApiStorageUsage
+
+.. _sec-api-fileops-datamodel-file:
+
+File entry
+----------
+
+.. pydantic-table:: octoprint.schema.api.files.ApiStorageFile
+
+   ApiEntryLastPrint = LastPrint
+   ApiEntryAnalysis = Analysis
+   ApiEntryStatistics = Statistics
+
+.. _sec-api-fileops-datamodel-folder:
+
+Folder entry
+------------
+
+.. pydantic-table:: octoprint.schema.api.files.ApiStorageFolder
+
+   octoprint.schema.api.files.ApiStorageFile = File
+   octoprint.schema.api.files.ApiStorageFolder = Folder
+   ApiEntryPrints = PrintStats
+
+.. _sec-api-fileops-datamodel-uploaded-entry:
+
+Uploaded entry
+--------------
+
+.. pydantic-table:: octoprint.schema.api.files.ApiAddedEntry
+
+.. _sec-api-fileops-datamodel-analysis:
+
+Analysis result
+---------------
+
+.. pydantic-table:: octoprint.schema.api.files.ApiEntryAnalysis
+
+   ApiAnalysisVolume = Volume
+   ApiAnalysisDimensions = Dimensions
+   octoprint.schema.api.files.ApiAnalysisFilamentUse = FilamentUse
+
+.. _sec-api-fileops-datamodel-filament:
+
+Filament use
+------------
+
+.. pydantic-table:: octoprint.schema.api.files.ApiAnalysisFilamentUse
+
+.. _sec-api-fileops-datamodel-volume:
+
+Volume
+------
+
+.. pydantic-table:: octoprint.schema.api.files.ApiAnalysisVolume
+
+.. _sec-api-fileops-datamodel-dimensions:
+
+Dimensions
+----------
+
+.. pydantic-table:: octoprint.schema.api.files.ApiAnalysisDimensions

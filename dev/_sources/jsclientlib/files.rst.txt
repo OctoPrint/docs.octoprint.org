@@ -66,7 +66,7 @@
 
    For folders, all children will have their ``parent`` property set to the folder entry.
 
-   See :ref:`Retrieve files from specific location <sec-api-fileops-retrievelocation>` for more details.
+   See :ref:`sec-api-fileops-retrievestorage` for more details.
 
    :param string location: The location for which to retrieve the list
    :param boolean recursively: Whether to list the files recursively (including all sub folders, true) or not (false, default)

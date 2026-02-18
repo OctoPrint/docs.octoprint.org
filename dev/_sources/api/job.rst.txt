@@ -4,6 +4,10 @@
 Job operations
 **************
 
+.. versionchanged:: 1.12.0
+
+   API versioning
+
 Use these operations to query the currently selected file and start/cancel/restart/pause the
 actual print job.
 
@@ -64,7 +68,7 @@ Issue a job command
       POST /api/job HTTP/1.1
       Host: example.com
       Content-Type: application/json
-      X-Api-Key: abcdef...
+      Authorization: Bearer abcdef...
 
       {
         "command": "start"
@@ -81,7 +85,7 @@ Issue a job command
       POST /api/job HTTP/1.1
       Host: example.com
       Content-Type: application/json
-      X-Api-Key: abcdef...
+      Authorization: Bearer abcdef...
 
       {
         "command": "cancel"
@@ -98,7 +102,7 @@ Issue a job command
       POST /api/job HTTP/1.1
       Host: example.com
       Content-Type: application/json
-      X-Api-Key: abcdef...
+      Authorization: Bearer abcdef...
 
       {
         "command": "restart"
@@ -115,7 +119,7 @@ Issue a job command
       POST /api/job HTTP/1.1
       Host: example.com
       Content-Type: application/json
-      X-Api-Key: abcdef...
+      Authorization: Bearer abcdef...
 
       {
         "command": "pause",
@@ -133,7 +137,7 @@ Issue a job command
       POST /api/job HTTP/1.1
       Host: example.com
       Content-Type: application/json
-      X-Api-Key: abcdef...
+      Authorization: Bearer abcdef...
 
       {
         "command": "pause",
@@ -151,7 +155,7 @@ Issue a job command
       POST /api/job HTTP/1.1
       Host: example.com
       Content-Type: application/json
-      X-Api-Key: abcdef...
+      Authorization: Bearer abcdef...
 
       {
         "command": "pause",
@@ -172,53 +176,112 @@ Issue a job command
 Retrieve information about the current job
 ==========================================
 
-.. http:get:: /api/job
+.. md-tab-set::
 
-   Retrieve information about the current job (if there is one).
+   .. md-tab-item:: API version 1.12.0+
 
-   Returns a :http:statuscode:`200` with a :ref:`sec-api-job-datamodel-response` in the body.
+      .. http:get:: /api/job
 
-   Requires the ``STATUS`` permission.
+         Retrieve information about the current job (if there is one).
+ 
+         Returns a :http:statuscode:`200` with a :ref:`sec-api-job-datamodel-response-pre-1_12` in the body.
+ 
+         Requires the ``STATUS`` permission.
+ 
+         **Example**
+ 
+         .. sourcecode:: http
+ 
+             GET /api/job HTTP/1.1
+             Host: example.com
+             Authorization: Bearer abcdef...
+ 
+         .. sourcecode:: http
+ 
+             HTTP/1.1 200 OK
+             Content-Type: application/json
+ 
+             {
+               "job": {
+                 "file": {
+                   "name": "whistle_v2.gcode",
+                   "origin": "local",
+                   "size": 1468987,
+                   "date": 1378847754
+                 },
+                 "estimatedPrintTime": 8811,
+                 "filament": {
+                   "tool0": {
+                     "length": 810,
+                     "volume": 5.36
+                   }
+                 },
+                 "user": "someone"
+               },
+               "progress": {
+                 "completion": 0.2298468264184775,
+                 "filepos": 337942,
+                 "printTime": 276,
+                 "printTimeLeft": 912,
+                 "printTimeLeftOrigin": "linear"
+               },
+               "state": "Printing"
+             }
+ 
+         :statuscode 200: No error
 
-   **Example**
+   .. md-tab-item:: API version pre 1.12.0
 
-   .. sourcecode:: http
+      .. http:get:: /api/job
 
-      GET /api/job HTTP/1.1
-      Host: example.com
-      X-Api-Key: abcdef...
-
-   .. sourcecode:: http
-
-      HTTP/1.1 200 OK
-      Content-Type: application/json
-
-      {
-        "job": {
-          "file": {
-            "name": "whistle_v2.gcode",
-            "origin": "local",
-            "size": 1468987,
-            "date": 1378847754
-          },
-          "estimatedPrintTime": 8811,
-          "filament": {
-            "tool0": {
-              "length": 810,
-              "volume": 5.36
-            }
-          }
-        },
-        "progress": {
-          "completion": 0.2298468264184775,
-          "filepos": 337942,
-          "printTime": 276,
-          "printTimeLeft": 912
-        },
-        "state": "Printing"
-      }
-
-   :statuscode 200: No error
+         Retrieve information about the current job (if there is one).
+ 
+         Returns a :http:statuscode:`200` with a :ref:`sec-api-job-datamodel-response-pre-1_12` in the body.
+ 
+         Requires the ``STATUS`` permission.
+ 
+         **Example**
+ 
+         .. sourcecode:: http
+ 
+             GET /api/job HTTP/1.1
+             Host: example.com
+             Authorization: Bearer abcdef...
+ 
+         .. sourcecode:: http
+ 
+             HTTP/1.1 200 OK
+             Content-Type: application/json
+ 
+             {
+               "job": {
+                 "file": {
+                   "name": "whistle_v2.gcode",
+                   "origin": "local",
+                   "size": 1468987,
+                   "date": 1378847754
+                 },
+                 "estimatedPrintTime": 8811,
+                 "lastPrintTime": null,
+                 "filament": {
+                   "tool0": {
+                     "length": 810,
+                     "volume": 5.36
+                   }
+                 },
+                 "user": "someone"
+               },
+               "progress": {
+                 "completion": 0.2298468264184775,
+                 "filepos": 337942,
+                 "printTime": 276,
+                 "printTimeLeft": 912,
+                 "printTimeLeftOrigin": "linear"
+               },
+               "state": "Printing"
+             }
+ 
+         :statuscode 200: No error
 
 .. _sec-api-job-datamodel:
 
@@ -230,29 +293,11 @@ Data model
 Job information response
 ------------------------
 
-.. list-table::
-   :widths: 15 5 10 30
-   :header-rows: 1
+.. pydantic-table:: octoprint.schema.api.job.ApiJobResponse
 
-   * - Name
-     - Multiplicity
-     - Type
-     - Description
-   * - ``job``
-     - 1
-     - :ref:`sec-api-datamodel-jobs-job`
-     - Information regarding the target of the current print job
-   * - ``progress``
-     - 1
-     - :ref:`sec-api-datamodel-jobs-progress`
-     - Information regarding the progress of the current print job
-   * - ``state``
-     - 1
-     - String
-     - A textual representation of the current state of the job or connection, e.g. "Operational", "Printing", "Pausing", "Paused",
-       "Cancelling", "Error", "Offline", "Offline after error", "Opening serial connection", ... -- please note
-       that this list is not exhaustive!
-   * - ``error``
-     - 0..1
-     - String
-     - Any error message for the job or connection, only set if there has been an error.
+.. _sec-api-job-datamodel-response-pre-1_12:
+
+Job information response (pre 1.12.0)
+-------------------------------------
+
+.. pydantic-table:: octoprint.schema.api.job.ApiJobResponse_pre_1_12

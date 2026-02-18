@@ -21,27 +21,6 @@ Version information
          Returns a JSON object with two keys, ``server`` containing the server version and
          ``text`` containing the server version including the prefix ``OctoPrint`` (to determine that this is indeed a genuine OctoPrint instance).
 
-         **Example Request: No requested API version**
-
-         .. sourcecode:: http
-
-            GET /api/version HTTP/1.1
-            Host: example.com
-            X-Api-Key: abcdef...
-
-         **Example Response**
-
-         .. sourcecode:: http
-
-            HTTP/1.1 200 OK
-            Content-Type: application/json
-
-            {
-            "api": "0.1",
-            "server": "1.12.0",
-            "text": "OctoPrint 1.12.0"
-            }
-
          **Example**
 
          .. sourcecode:: http

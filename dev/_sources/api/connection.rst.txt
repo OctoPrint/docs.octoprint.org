@@ -56,13 +56,11 @@ Get connection settings
                      "parameters": {
                        "port": [
                          "VIRTUAL",
-                         "/dev/ttyACM0",
-                         ...
+                         "/dev/ttyACM0"
                        ],
                        "baudrate": [
                          115200,
-                         250000,
-                         ...
+                         250000
                        ]
                      }
                    },
