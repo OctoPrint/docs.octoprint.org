@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OctoPrintClient.socket &mdash; OctoPrint 1.11.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=3dbc9e18" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=1e67d180" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=a7786b4d"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/mermaid.min.js?v=c0ebaf0d"></script>
+        <script data-domain="docs.octoprint.org" defer="defer" src="https://plausible.octoprint.org/js/plausible.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="OctoPrintClient.system" href="system.html" />
+    <link rel="prev" title="OctoPrintClient.slicing" href="slicing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OctoPrint
+          </a>
+              <div class="version">
+                1.11.7
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bundledplugins/index.html">Bundled Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/index.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Developing Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Internal Modules</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">JavaScript Client Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="base.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="browser.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.browser</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.connection</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.control</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.files</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="job.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.job</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="languages.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.languages</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logs.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.logs</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printer.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.printer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="printerprofiles.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.printerprofiles</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.settings</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.slicing</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.socket</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.options"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.options</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.connect"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.connect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.reconnect"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.reconnect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.disconnect"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.disconnect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.onMessage"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.onMessage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.removeMessage"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.removeMessage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.sendMessage"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.sendMessage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.sendAuth"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.sendAuth()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.onRateTooLow"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.onRateTooLow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.onRateTooHigh"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.onRateTooHigh()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.increaseRate"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.increaseRate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#OctoPrintClient.socket.decreaseRate"><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.decreaseRate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sample-to-setup-an-authed-socket">Sample to setup an authed socket</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#communication-throttling">Communication Throttling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="system.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.system</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="timelapse.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.timelapse</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.users</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.util</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="wizard.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.wizard</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OctoPrint</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">JavaScript Client Library</a> &raquo;</li>
+        
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.socket</span></code></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/jsclientlib/socket.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="octoprintclient-socket">
+<span id="sec-jsclientlib-socket"></span><h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">OctoPrintClient.socket</span></code><a class="headerlink" href="#octoprintclient-socket" title="Link to this heading"></a></h1>
+<dl class="js attribute">
+<dt class="sig sig-object js" id="OctoPrintClient.socket.options">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">options</span></span></span><a class="headerlink" href="#OctoPrintClient.socket.options" title="Link to this definition"></a></dt>
+<dd><p>The socket client’s options.</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.options.timeouts</span></code></dt><dd><p>A list of consecutive timeouts after which to attempt reconnecting to a
+disconnected sockets, in seconds. Defaults to <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">5,</span> <span class="pre">8,</span> <span class="pre">13,</span> <span class="pre">20,</span> <span class="pre">40,</span> <span class="pre">100]</span></code>.
+The default setting here makes the client slowly back off after the first couple of very
+fast connection attempts don’t succeed, and give up after 10 tries.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">OctoPrintClient.socket.options.rateSlidingWindowSize</span></code></dt><dd><p>Number of last rate measurements to take into account for timing analysis and
+communication throttling. See <a class="reference internal" href="#sec-jsclient-socket-throttling"><span class="std std-ref">Communication Throttling</span></a>
+below.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.socket.connect">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">connect</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.socket.connect" title="Link to this definition"></a></dt>
+<dd><p>Connects the socket client to OctoPrint’s <a class="reference external" href="http://sockjs.org/">SockJS</a> socket.</p>
+<p>The optional parameter <code class="docutils literal notranslate"><span class="pre">opts</span></code> may be used to provide additional configuration options
+to the SockJS constructor. See the <a class="reference external" href="https://github.com/sockjs/sockjs-client#sockjs-class">SockJS documentation</a> on potential options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>opts</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Additional options for the SockJS constructor.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.socket.reconnect">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">reconnect</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.socket.reconnect" title="Link to this definition"></a></dt>
+<dd><p>Reconnects the socket client. If the socket is currently connected it will be disconnected first.</p>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.socket.disconnect">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">disconnect</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.socket.disconnect" title="Link to this definition"></a></dt>
+<dd><p>Disconnects the socket client.</p>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.socket.onMessage">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">onMessage</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handler</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.socket.onMessage" title="Link to this definition"></a></dt>
+<dd><p>Registers the <code class="docutils literal notranslate"><span class="pre">handler</span></code> for messages of type <code class="docutils literal notranslate"><span class="pre">message</span></code>.</p>
+<p>To register for all message types, provide <code class="docutils literal notranslate"><span class="pre">*</span></code> as the type to register for.</p>
+<p><code class="docutils literal notranslate"><span class="pre">handler</span></code> is expected to be a function accepting one object parameter <code class="docutils literal notranslate"><span class="pre">eventObj</span></code>, consisting
+of the received message as property <code class="docutils literal notranslate"><span class="pre">event</span></code> and the received payload (if any) as property <code class="docutils literal notranslate"><span class="pre">data</span></code>.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">onMessage</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// do something with the message object</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>The socket client will measure how long message processing over all handlers will take and utilize
+that measurement to determine if the <a class="reference internal" href="#sec-jsclient-socket-throttling"><span class="std std-ref">communication throttling</span></a>
+needs to be adjusted or not.</p>
+<p>Please refer to the <a class="reference internal" href="../api/push.html#sec-api-push"><span class="std std-ref">Push API documentation</span></a>
+for details on the possible message types and their payloads.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The type of message for which to register</p></li>
+<li><p><strong>handler</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">function()</span></code></span>) – The handler function</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.socket.removeMessage">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">removeMessage</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handler</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.socket.removeMessage" title="Link to this definition"></a></dt>
+<dd><p>Removes the <code class="docutils literal notranslate"><span class="pre">handler</span></code> for messages of type <code class="docutils literal notranslate"><span class="pre">message</span></code>.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">message</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// do something with the message object</span>
+<span class="p">};</span>
+
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">onMessage</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="p">);</span>
+<span class="c1">// Use the same reference to the handler function to remove it again</span>
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">removeMessage</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – The type of message for which to remove the handler</p></li>
+<li><p><strong>handler</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">function()</span></code></span>) – The handler function</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.socket.sendMessage">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">sendMessage</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.socket.sendMessage" title="Link to this definition"></a></dt>
+<dd><p>Sends a message of type <code class="docutils literal notranslate"><span class="pre">type</span></code> with the provided <code class="docutils literal notranslate"><span class="pre">payload</span></code> to the server.</p>
+<p>Note that at the time of writing, OctoPrint only supports the <code class="docutils literal notranslate"><span class="pre">throttle</span></code> and <code class="docutils literal notranslate"><span class="pre">auth</span></code> messages. See
+also the <a class="reference internal" href="../api/push.html#sec-api-push"><span class="std std-ref">Push API documentation</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – Type of message to send</p></li>
+<li><p><strong>payload</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">object()</span></code></span>) – Payload to send</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.socket.sendAuth">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">sendAuth</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">userId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.socket.sendAuth" title="Link to this definition"></a></dt>
+<dd><p>Sends an <code class="docutils literal notranslate"><span class="pre">auth</span></code> message with the provided <code class="docutils literal notranslate"><span class="pre">userId</span></code> and <code class="docutils literal notranslate"><span class="pre">session</span></code> to the server.</p>
+<p><code class="docutils literal notranslate"><span class="pre">session</span></code> is expected to be the <code class="docutils literal notranslate"><span class="pre">session</span></code> value retrieved
+from any valid <a class="reference internal" href="browser.html#sec-jsclientlib-browser"><span class="std std-ref">OctoPrint.browser.login(userId,…)</span></a> response.</p>
+<p>See also the <a class="reference internal" href="../api/push.html#sec-api-push"><span class="std std-ref">Push API documentation</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>userId</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – An existing OctoPrint username</p></li>
+<li><p><strong>session</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">string()</span></code></span>) – A valid session id for the provided username</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.socket.onRateTooLow">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">onRateTooLow</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measured</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.socket.onRateTooLow" title="Link to this definition"></a></dt>
+<dd><p>Called by the socket client when the measured message round trip times have been lower than
+the current lower processing limit over the full sliding window, indicating that messages
+are now processed faster than the current rate and a faster rate might be possible.</p>
+<p>Can be overwritten with custom handler methods. The default implementation will call
+<code class="xref js js-func docutils literal notranslate"><span class="pre">OctoPrint.socket.increaseRate()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>measured</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">Number()</span></code></span>) – Maximal measured message round trip time</p></li>
+<li><p><strong>minimum</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">Number()</span></code></span>) – Lower round trip time limit for keeping the rate</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.socket.onRateTooHigh">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">onRateTooHigh</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measured</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.socket.onRateTooHigh" title="Link to this definition"></a></dt>
+<dd><p>Called by the socket client when the last measured round trip time was higher than the
+current upper processing limit, indicating that the messages are now processed slower than
+the current rate requires and a slower rate might be necessary.</p>
+<p>Can be overwritten with custom handler methods. The default implementation will call
+<code class="xref js js-func docutils literal notranslate"><span class="pre">OctoPrint.socket.decreaseRate()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>measured</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">Number()</span></code></span>) – Measured message round trip time</p></li>
+<li><p><strong>minimum</strong> (<span><code class="xref js js-func docutils literal notranslate"><span class="pre">Number()</span></code></span>) – Upper round trip time limit for keeping the rate</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.socket.increaseRate">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">increaseRate</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.socket.increaseRate" title="Link to this definition"></a></dt>
+<dd><p>Instructs the server to increase the message rate by 500ms.</p>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="OctoPrintClient.socket.decreaseRate">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">OctoPrintClient</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">socket</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">decreaseRate</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#OctoPrintClient.socket.decreaseRate" title="Link to this definition"></a></dt>
+<dd><p>Instructs the server to decrease the message rate by 500ms.</p>
+</dd></dl>
+
+<section id="sample-to-setup-an-authed-socket">
+<span id="sec-jsclient-socket-authsample"></span><h2>Sample to setup an authed socket<a class="headerlink" href="#sample-to-setup-an-authed-socket" title="Link to this heading"></a></h2>
+<p>If you have a username and a password:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span>
+<span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">login</span><span class="p">(</span><span class="s2">&quot;myusername&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mypassword&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">OctoPrint</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">sendAuth</span><span class="p">(</span><span class="s2">&quot;myusername&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">session</span><span class="p">);</span>
+<span class="w">    </span><span class="p">});</span>
+</pre></div>
+</div>
+<p>If you have an API key:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">OctoPrintClient</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">baseurl</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">apikey</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;abcdef&quot;</span>
+<span class="p">});</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">passiveLogin</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">client</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">sendAuth</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">session</span><span class="p">);</span>
+<span class="w">    </span><span class="p">});</span>
+</pre></div>
+</div>
+</section>
+<section id="communication-throttling">
+<span id="sec-jsclient-socket-throttling"></span><h2>Communication Throttling<a class="headerlink" href="#communication-throttling" title="Link to this heading"></a></h2>
+<p>The socket client supports communication throttling. It will measure how long each incoming message takes
+to be processed by all registered handlers. If the processing times in a sliding window are longer than
+the current rate limit configured on the socket (default: 500ms between messages), the socket client will
+instruct the server to send slower. If the messages are handled faster than half the current rate limit,
+the socket client will instruct the server to send faster.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="slicing.html" class="btn btn-neutral float-left" title="OctoPrintClient.slicing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="system.html" class="btn btn-neutral float-right" title="OctoPrintClient.system" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2013-2026, Gina Häußge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 1.11.7
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="https://docs.octoprint.org/en/1.11.7/jsclientlib/socket.html">1.11.7</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.10.3/jsclientlib/socket.html">1.10.3</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="https://docs.octoprint.org/en/main/jsclientlib/socket.html">main</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/dev/jsclientlib/socket.html">dev</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -212,7 +212,7 @@ fallback on directing the user to manually supply the the user specific API key.
 <p>Please be advised that clients should use the header field variant if at all possible.</p>
 <p>If the key is missing or invalid, OctoPrint will treat the request as it would any unauthenticated anonymous request to the endpoint.
 That means that any requests without or with an invalid API key targeting other API endpoints than <a class="reference internal" href="#sec-api-general-login"><span class="std std-ref">Login</span></a>
-will be denied with a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4">403 Forbidden</a>.</p>
+will be denied with a <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/403">403 Forbidden</a>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If <a class="reference internal" href="../features/accesscontrol.html#sec-features-access-control"><span class="std std-ref">Access Control</span></a> is disabled, OctoPrint will treat any unauthenticated anonymous requests and thus also requests
@@ -329,14 +329,14 @@ for details on how to retrieve the cookie value and how to construct the header.
 <p>Can be used in one of two ways: to login a user via username and password and create a persistent session (usually
 from a UI in the browser), or to retrieve information about the active user (from an existing session or an API key)
 via the <code class="docutils literal notranslate"><span class="pre">passive</span></code> flag.</p>
-<p>Will return a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a <a class="reference internal" href="#sec-api-general-datamodel-login"><span class="std std-ref">login response</span></a> on successful
-login, whether active or passive. The active (username/password) login may also return a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4">403 Forbidden</a> in
+<p>Will return a <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/200">200 OK</a> with a <a class="reference internal" href="#sec-api-general-datamodel-login"><span class="std std-ref">login response</span></a> on successful
+login, whether active or passive. The active (username/password) login may also return a <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/403">403 Forbidden</a> in
 case of a username/password mismatch, unknown user or a deactivated account.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Previous versions of this API endpoint did return a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> in case of a username/password
+<p>Previous versions of this API endpoint did return a <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/401">401 Unauthorized</a> in case of a username/password
 mismatch or an unknown user. That was incompatible with basic authentication since it was a wrong use of
-the <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> code and got therefore changed as part of a bug fix.</p>
+the <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/401">401 Unauthorized</a> code and got therefore changed as part of a bug fix.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -356,8 +356,8 @@ active either through an existing session or the used API key</p></li>
 </dd>
 <dt class="field-even">Status Codes<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – Successful login</p></li>
-<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4">403 Forbidden</a></span> – Username/password mismatch, unknown user or deactivated account</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/200">200 OK</a></span> – Successful login</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/403">403 Forbidden</a></span> – Username/password mismatch, unknown user or deactivated account</p></li>
 </ul>
 </dd>
 </dl>
@@ -371,11 +371,11 @@ active either through an existing session or the used API key</p></li>
 <span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/api/logout</span></span><a class="headerlink" href="#post--api-logout" title="Link to this definition"></a></dt>
 <dd><p>Ends the current login session of the current user.</p>
 <p>Only makes sense in the context of browser based workflows.</p>
-<p>Will return a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a>.</p>
+<p>Will return a <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/204">204 No Content</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Status Codes<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a></span> – No error</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/204">204 No Content</a></span> – No error</p></li>
 </ul>
 </dd>
 </dl>
@@ -388,12 +388,12 @@ active either through an existing session or the used API key</p></li>
 <dt class="sig sig-object http" id="get--api-currentuser">
 <span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/api/currentuser</span></span><a class="headerlink" href="#get--api-currentuser" title="Link to this definition"></a></dt>
 <dd><p>Retrieves information about the current user.</p>
-<p>Will return a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a <a class="reference internal" href="#sec-api-general-datamodel-currentuser"><span class="std std-ref">current user object</span></a>
+<p>Will return a <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/200">200 OK</a> with a <a class="reference internal" href="#sec-api-general-datamodel-currentuser"><span class="std std-ref">current user object</span></a>
 as body.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Status Codes<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – No error</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/200">200 OK</a></span> – No error</p></li>
 </ul>
 </dd>
 </dl>
@@ -505,7 +505,7 @@ as body.</p>
   <div class="rst-other-versions">
     <dl>
       <dt>Tags</dt>
-      <dd><a href="https://docs.octoprint.org/en/1.11.6/api/general.html">1.11.6</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.11.7/api/general.html">1.11.7</a></dd>
       <dd><a href="https://docs.octoprint.org/en/1.10.3/api/general.html">1.10.3</a></dd>
     </dl>
     <dl>

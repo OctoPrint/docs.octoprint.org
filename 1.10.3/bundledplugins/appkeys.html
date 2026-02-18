@@ -216,20 +216,20 @@ of the following steps:</p>
 <li><p>The User opens the App and gets prompted to enter or select an instance URL. Optionally (recommended!) the User also
 enters their username which is also their user ID into the App.</p></li>
 <li><p>The App <a class="reference internal" href="#sec-bundledplugins-appkeys-api-probe"><span class="std std-ref">probes for workflow support</span></a> on the Server. If this request
-doesn’t get an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> the App needs to direct the user to an alternative manual workflow
+doesn’t get an HTTP <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/204">204 No Content</a> the App needs to direct the user to an alternative manual workflow
 (copy-paste API key) and abort this one. Otherwise it proceeds to the next step.</p></li>
 <li><p>The App sends an <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-authrequest"><span class="std std-ref">Authorization request</span></a> to the Server to start the
 authorization process.</p></li>
 <li><p>The Server triggers a confirmation dialog for the User on the Webinterface (unused here) and returns an endpoint to the
-App to poll for a decision in the <code class="docutils literal notranslate"><span class="pre">Location</span></code> header of an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a>
+App to poll for a decision in the <code class="docutils literal notranslate"><span class="pre">Location</span></code> header of an HTTP <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/201">201 Created</a>
 and an <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-authresponse"><span class="std std-ref">Authorization response</span></a> (unused here).</p></li>
-<li><p>The App uses the obtained request specific endpoint to poll for a decision every second. An HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.3">202 Accepted</a>
+<li><p>The App uses the obtained request specific endpoint to poll for a decision every second. An HTTP <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/202">202 Accepted</a>
 signals that no decision has been made yet.</p></li>
 <li><p>The User either accepts or denies the access request which makes the Webinterface send a
 <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-decisionrequest"><span class="std std-ref">decision request</span></a> to the Server.</p></li>
-<li><p>If the User accepted the request, the App receives an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with an attached
+<li><p>If the User accepted the request, the App receives an HTTP <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/200">200 OK</a> with an attached
 <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-keyresponse"><span class="std std-ref">API key response</span></a>. If they deny it, the App will receive
-an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a>.</p></li>
+an HTTP <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/404">404 Not Found</a>.</p></li>
 </ol>
 </div></blockquote>
 <object data="../_images/mermaid-29cc0989a08e3995529dfe636546bddf4d51634b.svg" type="image/svg+xml">
@@ -303,21 +303,21 @@ dialog. To implementat that, follow these steps:</p>
 <li><p>The User opens the App and gets prompted to enter or select an instance URL. Optionally (recommended!) the User also
 enters their username which is also their user ID into the App.</p></li>
 <li><p>The App <a class="reference internal" href="#sec-bundledplugins-appkeys-api-probe"><span class="std std-ref">probes for workflow support</span></a> on the Server. If this request
-doesn’t get an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> the App needs to direct the user to an alternative manual workflow
+doesn’t get an HTTP <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/204">204 No Content</a> the App needs to direct the user to an alternative manual workflow
 (copy-paste API key) and abort this one. Otherwise it proceeds to the next step.</p></li>
 <li><p>The App sends an <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-authrequest"><span class="std std-ref">Authorization request</span></a> to the Server to start the
 authorization process.</p></li>
 <li><p>The Server triggers a confirmation dialog for the User on the Webinterface (unused here) and returns an endpoint to the
-App to poll for a decision in the <code class="docutils literal notranslate"><span class="pre">Location</span></code> header of an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a>
+App to poll for a decision in the <code class="docutils literal notranslate"><span class="pre">Location</span></code> header of an HTTP <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/201">201 Created</a>
 and an <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-authresponse"><span class="std std-ref">Authorization response</span></a>.</p></li>
 <li><p>The App opens a browser window with the provided <cite>auth_dialog</cite> URL for the user to log in and confirm the request. At the
-same time the App also uses the obtained request specific endpoint to poll for a decision every second. An HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.3">202 Accepted</a>
+same time the App also uses the obtained request specific endpoint to poll for a decision every second. An HTTP <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/202">202 Accepted</a>
 signals that no decision has been made yet.</p></li>
 <li><p>The User logs in and either accepts or denies the access request which makes the auth dialog send a
 <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-decisionrequest"><span class="std std-ref">decision request</span></a> to the Server.</p></li>
-<li><p>If the User accepted the request, the App receives an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with an attached
+<li><p>If the User accepted the request, the App receives an HTTP <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/200">200 OK</a> with an attached
 <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-keyresponse"><span class="std std-ref">API key response</span></a>. If they deny it, the App will receive
-an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a>.</p></li>
+an HTTP <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/404">404 Not Found</a>.</p></li>
 </ol>
 </div></blockquote>
 <object data="../_images/mermaid-1e2a4354753c75597109db1548404e3800e6202d.svg" type="image/svg+xml">
@@ -387,12 +387,12 @@ an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616
 <dt class="sig sig-object http" id="get--plugin-appkeys-probe">
 <span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/plugin/appkeys/probe</span></span><a class="headerlink" href="#get--plugin-appkeys-probe" title="Link to this definition"></a></dt>
 <dd><p>Probes for support of the workflow.</p>
-<p>Normally returns an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a>, indicating workflow availability. If a different status code is returned
-(usually an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a>), the plugin is disabled or not installed. Fall back to manual api key exchange.</p>
+<p>Normally returns an HTTP <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/204">204 No Content</a>, indicating workflow availability. If a different status code is returned
+(usually an HTTP <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/404">404 Not Found</a>), the plugin is disabled or not installed. Fall back to manual api key exchange.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Status Codes<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a></span> – the workflow is supported</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/204">204 No Content</a></span> – the workflow is supported</p></li>
 </ul>
 </dd>
 </dl>
@@ -415,7 +415,7 @@ account. E.g. if a user <code class="docutils literal notranslate"><span class="
 it in the <code class="docutils literal notranslate"><span class="pre">user</span></code> parameter. OctoPrint will then only display the authorization request on browsers the user <code class="docutils literal notranslate"><span class="pre">me</span></code>
 is logged in on.</p>
 <p>Returns a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-authresponse"><span class="std std-ref">Authorization response</span></a>
-and HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> with the <code class="docutils literal notranslate"><span class="pre">Location</span></code> header set to the endpoint to poll for a decision.</p>
+and HTTP <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/201">201 Created</a> with the <code class="docutils literal notranslate"><span class="pre">Location</span></code> header set to the endpoint to poll for a decision.</p>
 <dl class="field-list simple">
 <dt class="field-odd">JSON Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -425,7 +425,7 @@ and HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc261
 </dd>
 <dt class="field-even">Status Codes<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a></span> – authorization process started, polling URL to query can be found in <code class="docutils literal notranslate"><span class="pre">Location</span></code> header</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/201">201 Created</a></span> – authorization process started, polling URL to query can be found in <code class="docutils literal notranslate"><span class="pre">Location</span></code> header</p></li>
 </ul>
 </dd>
 </dl>
@@ -438,9 +438,9 @@ and HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc261
 <dt class="sig sig-object http" id="get--plugin-appkeys-request--str-app_token-">
 <span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/plugin/appkeys/request/&lt;str:app_token&gt;</span></span><a class="headerlink" href="#get--plugin-appkeys-request--str-app_token-" title="Link to this definition"></a></dt>
 <dd><p>Endpoint generated per authorization request to poll for the result.</p>
-<p>Returns an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.3">202 Accepted</a> while no decision has been made yet, an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> and
+<p>Returns an HTTP <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/202">202 Accepted</a> while no decision has been made yet, an HTTP <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/200">200 OK</a> and
 a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-keyresponse"><span class="std std-ref">Key response</span></a> if access has been granted and an
-HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a> if the request has been denied or timed out.</p>
+HTTP <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/404">404 Not Found</a> if the request has been denied or timed out.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The request will be considered stale and deleted internally if the polling endpoint for it isn’t called
@@ -449,9 +449,9 @@ for more than 5s.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Status Codes<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – access granted, API key in response body</p></li>
-<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.3">202 Accepted</a></span> – no decision has been made yet, continue polling</p></li>
-<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a></span> – access denied or request timed out</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/200">200 OK</a></span> – access granted, API key in response body</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/202">202 Accepted</a></span> – no decision has been made yet, continue polling</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/404">404 Not Found</a></span> – access denied or request timed out</p></li>
 </ul>
 </dd>
 </dl>
@@ -465,7 +465,7 @@ for more than 5s.</p>
 <span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/plugin/appkeys/decision/&lt;str:user_token&gt;</span></span><a class="headerlink" href="#post--plugin-appkeys-decision--str-user_token-" title="Link to this definition"></a></dt>
 <dd><p>Endpoint to decide on the authorization request.</p>
 <p>Expects a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-decisionrequest"><span class="std std-ref">Decision request</span></a> as request body.</p>
-<p>Returns an HTTP <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> on success.</p>
+<p>Returns an HTTP <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/204">204 No Content</a> on success.</p>
 <p>Requires the <code class="docutils literal notranslate"><span class="pre">PLUGIN_APPKEYS_GRANT</span></code> permissions and a recent credentials check.</p>
 <dl class="field-list simple">
 <dt class="field-odd">JSON Parameters<span class="colon">:</span></dt>
@@ -475,7 +475,7 @@ for more than 5s.</p>
 </dd>
 <dt class="field-even">Status Codes<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a></span> – success</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/204">204 No Content</a></span> – success</p></li>
 </ul>
 </dd>
 </dl>
@@ -493,7 +493,7 @@ of <em>all*</em> application keys and pending requests registered in the system 
 <p>If the additional optional parameter <code class="docutils literal notranslate"><span class="pre">app</span></code> is provided, only the key for the specified application identifier and the
 current user will be returned. A user with the <code class="docutils literal notranslate"><span class="pre">PLUGIN_APPKEYS_ADMIN``permission</span> <span class="pre">may</span> <span class="pre">also</span> <span class="pre">specify</span> <span class="pre">the</span> <span class="pre">``user</span></code> parameter
 to fetch the key for the specified application identifier and a different user.</p>
-<p>Returns a <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> with a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-listreponse"><span class="std std-ref">List response</span></a> in the
+<p>Returns a <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/200">200 OK</a> with a <a class="reference internal" href="#sec-bundledplugins-appkey-datamodel-listreponse"><span class="std std-ref">List response</span></a> in the
 body upon success.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Query Parameters<span class="colon">:</span></dt>
@@ -523,7 +523,7 @@ for other users but the current one can be generated by admins with the addition
 the user id.</p>
 </dd>
 </dl>
-<p>Upon success, a status code of <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> and an empty body is returned.</p>
+<p>Upon success, a status code of <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/204">204 No Content</a> and an empty body is returned.</p>
 <p>Requires user rights and a fresh credentials check.</p>
 <div class="deprecated">
 <p><span class="versionmodified deprecated">Deprecated since version 1.10.0: </span>Revoking a key by supplying the key itself has been deprecated as of OctoPrint 1.10.0. Use <code class="docutils literal notranslate"><span class="pre">app</span></code> and optionally
@@ -598,9 +598,9 @@ as of OctoPrint 1.10.0. Use <code class="docutils literal notranslate"><span cla
 </dd>
 <dt class="field-even">Status Codes<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – Key generation successful</p></li>
-<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a></span> – No error during key revocation</p></li>
-<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a></span> – Invalid or missing parameter</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/200">200 OK</a></span> – Key generation successful</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/204">204 No Content</a></span> – No error during key revocation</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/400">400 Bad Request</a></span> – Invalid or missing parameter</p></li>
 </ul>
 </dd>
 </dl>
@@ -1099,7 +1099,7 @@ its source repository under <code class="docutils literal notranslate"><span cla
   <div class="rst-other-versions">
     <dl>
       <dt>Tags</dt>
-      <dd><a href="https://docs.octoprint.org/en/1.11.6/bundledplugins/appkeys.html">1.11.6</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/1.11.7/bundledplugins/appkeys.html">1.11.7</a></dd>
       <dd><a href="https://docs.octoprint.org/en/1.10.3/bundledplugins/appkeys.html">1.10.3</a></dd>
     </dl>
     <dl>
