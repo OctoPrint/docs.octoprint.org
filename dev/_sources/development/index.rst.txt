@@ -9,7 +9,8 @@ Development
 
    versioning.rst
    branches.rst
-   environment.rst
+   commits.md
+   environment.md
    virtual_printer.rst
    request-profiling.rst
 
