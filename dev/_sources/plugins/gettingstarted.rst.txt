@@ -385,8 +385,7 @@ Much better! You can override pretty much all of the metadata defined within ``p
 take a look at :ref:`the available control properties <sec-plugins-controlproperties>` for all available
 overrides.
 
-Following the README of the `Plugin Skeleton <https://github.com/OctoPrint/OctoPrint-PluginSkeleton>`_ you could now
-already publish your plugin on Github and it would be directly installable by others using pip::
+You could now already publish your plugin on Github and it would be directly installable by others using pip::
 
    (venv) $ pip install https://github.com/yourGithubName/OctoPrint-HelloWorld/archive/main.zip
 
@@ -1089,16 +1088,17 @@ Where do we go from here?
 -------------------------
 
 You've now seen how easy it is to add functionality to OctoPrint with this little tutorial. You can find the full
-source code of the little Hello World plugin we built together here `on Github <https://github.com/OctoPrint/Plugin-Examples/tree/master/helloworld>`_.
+source code of the little Hello World plugin we built together here `on Github <https://github.com/OctoPrint/OctoPrint/tree/dev/docs/plugins/examples/helloworld>`_.
 
 But I want to invite you to dive deeper into OctoPrint's plugin system. To get an idea of all the other various plugin types
 you haven't seen yet, :ref:`take a look at the available plugin mixins <sec-plugins-mixins>`.
 
 For some insight on how to create plugins that react to various events within OctoPrint,
-`the Growl Plugin <https://github.com/OctoPrint/OctoPrint-Growl>`_ might be a good example to learn from. For how to
+`the bundled Achievements Plugin <https://github.com/OctoPrint/OctoPrint/tree/dev/src/octoprint/plugins/achievements>`_ might be a good example to learn from. For how to
 add support for a slicer, the `CuraEngine Legacy plugin <https://github.com/OctoPrint/OctoPrint-CuraEngineLegacy>`_
-might give some hints. For extending OctoPrint's interface, the `NavbarTemp plugin <https://github.com/imrahil/OctoPrint-NavbarTemp>`_
-might show what's possible with a few lines of code already. Finally, just take a look at the
+might give some hints. For extending OctoPrint's interface, the `Wrapped plugin <https://github.com/OctoPrint/OctoPrint-Wrapped>`_
+might show what's possible with a few lines of code already. Finally, just take a look at
+`OctoPrint's bundled plugins <https://github.com/OctoPrint/OctoPrint/tree/dev/src/octoprint/plugins>` and the 
 `official Plugin Repository <http://plugins.octoprint.org>`_ if you are looking for examples.
 
 .. seealso::
