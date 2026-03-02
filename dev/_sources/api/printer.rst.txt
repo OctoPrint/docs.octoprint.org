@@ -4,6 +4,10 @@
 Printer operations
 ******************
 
+.. versionchanged:: 1.12.0
+
+   API versioning
+
 Printer control is mostly achieved through the use of commands, issued to resources reflecting components of the
 printer. OctoPrint currently knows the following components:
 
@@ -25,10 +29,11 @@ Chamber
   the corresponding resource returns temperature information including an optional history. Note that Chamber commands
   are only available if the currently selected printer profile has a heated chamber.
   See :ref:`sec-api-printer-chambercommand`.
-SD card
-  SD commands allow initialization, refresh and release of the printer's SD card (if available). Querying the
-  corresponding resource returns the current SD card state.
-  See :ref:`sec-api-printer-sdcommand`.
+Printer storage
+  Printer storage commands allow initialization and release of the printer's internal storage (if available), as well
+  as refreshing its file list (deprecated as that can now be done through :ref:`sec-api-fileops-retrievestorage`, but still supported for reasons
+  of backwards compatibility). Querying the corresponding resource returns the current storage mounting state.
+  See :ref:`sec-api-printer-storagecommand`.
 
 Besides that, OctoPrint also provides a :ref:`full state report of the printer <sec-api-printer-state>`.
 
@@ -60,150 +65,303 @@ Besides that, OctoPrint also provides a :ref:`full state report of the printer <
 Retrieve the current printer state
 ==================================
 
-.. http:get:: /api/printer
+.. md-tab-set::
 
-   Retrieves the current state of the printer. Returned information includes:
+   .. md-tab-item:: API version 1.12.0+
 
-   * temperature information (see also :ref:`Retrieve the current tool state <sec-api-printer-toolstate>` and
-     :ref:`Retrieve the current bed state <sec-api-printer-bedstate>`)
-   * sd state (if available, see also :ref:`Retrieve the current SD state <sec-api-printer-sdstate>`)
-   * general printer state
-
-   Temperature information can also be made to include the printer's temperature history by supplying the ``history``
-   query parameter. The amount of data points to return here can be limited using the ``limit`` query parameter.
-
-   Clients can specify a list of attributes to not return in the response (e.g. if they don't need it) via the
-   ``exclude`` query parameter.
-
-   Returns a :http:statuscode:`200` with a :ref:`Full State Response <sec-api-printer-datamodel-fullstate>` in the
-   body upon success.
-
-   Requires the ``STATUS`` permission.
-
-   **Example 1**
-
-   Include temperature history data, but limit it to two entries.
-
-   .. sourcecode:: http
-
-      GET /api/printer?history=true&limit=2 HTTP/1.1
-      Host: example.com
-      X-Api-Key: abcdef...
-
-   .. sourcecode:: http
-
-      HTTP/1.1 200 OK
-      Content-Type: application/json
-
-      {
-        "temperature": {
-          "tool0": {
-            "actual": 214.8821,
-            "target": 220.0,
-            "offset": 0
-          },
-          "tool1": {
-            "actual": 25.3,
-            "target": null,
-            "offset": 0
-          },
-          "bed": {
-            "actual": 50.221,
-            "target": 70.0,
-            "offset": 5
-          },
-          "history": [
+      .. http:get:: /api/printer
+      
+         Retrieves the current state of the printer. Returned information includes:
+      
+         * temperature information (see also :ref:`Retrieve the current tool state <sec-api-printer-toolstate>` and
+           :ref:`Retrieve the current bed state <sec-api-printer-bedstate>`)
+         * storage state (if available, see also :ref:`sec-api-printer-storagestate`)
+         * general printer state
+      
+         Temperature information can also be made to include the printer's temperature history by supplying the ``history``
+         query parameter. The amount of data points to return here can be limited using the ``limit`` query parameter.
+      
+         Clients can specify a list of attributes to not return in the response (e.g. if they don't need it) via the
+         ``exclude`` query parameter.
+      
+         Returns a :http:statuscode:`200` with a :ref:`sec-api-printer-datamodel-fullstate` in the
+         body upon success.
+      
+         Requires the ``STATUS`` permission.
+      
+         **Example 1**
+      
+         Include temperature history data, but limit it to two entries.
+      
+         .. sourcecode:: http
+      
+            GET /api/printer?history=true&limit=2 HTTP/1.1
+            Host: example.com
+            Authorization: Bearer abcdef...
+            X-OctoPrint-Api-Version: 1.12.0
+      
+         .. sourcecode:: http
+      
+            HTTP/1.1 200 OK
+            Content-Type: application/json
+      
             {
-              "time": 1395651928,
-              "tool0": {
-                "actual": 214.8821,
-                "target": 220.0
+              "temperature": {
+                "tool0": {
+                  "actual": 214.8821,
+                  "target": 220.0,
+                  "offset": 0
+                },
+                "tool1": {
+                  "actual": 25.3,
+                  "target": null,
+                  "offset": 0
+                },
+                "bed": {
+                  "actual": 50.221,
+                  "target": 70.0,
+                  "offset": 5
+                },
+                "history": [
+                  {
+                    "time": 1395651928,
+                    "tool0": {
+                      "actual": 214.8821,
+                      "target": 220.0
+                    },
+                    "tool1": {
+                      "actual": 25.3,
+                      "target": null
+                    },
+                    "bed": {
+                      "actual": 50.221,
+                      "target": 70.0
+                    }
+                  },
+                  {
+                    "time": 1395651926,
+                    "tool0": {
+                      "actual": 212.32,
+                      "target": 220.0
+                    },
+                    "tool1": {
+                      "actual": 25.1,
+                      "target": null
+                    },
+                    "bed": {
+                      "actual": 49.1123,
+                      "target": 70.0
+                    }
+                  }
+                ]
               },
-              "tool1": {
-                "actual": 25.3,
-                "target": null
+              "storage": {
+                "ready": true
               },
-              "bed": {
-                "actual": 50.221,
-                "target": 70.0
-              }
-            },
-            {
-              "time": 1395651926,
-              "tool0": {
-                "actual": 212.32,
-                "target": 220.0
-              },
-              "tool1": {
-                "actual": 25.1,
-                "target": null
-              },
-              "bed": {
-                "actual": 49.1123,
-                "target": 70.0
+              "state": {
+                "text": "Operational",
+                "flags": {
+                  "operational": true,
+                  "paused": false,
+                  "printing": false,
+                  "cancelling": false,
+                  "pausing": false,
+                  "sdReady": true,
+                  "error": false,
+                  "ready": true,
+                  "closedOrError": false
+                }
               }
             }
-          ]
-        },
-        "sd": {
-          "ready": true
-        },
-        "state": {
-          "text": "Operational",
-          "flags": {
-            "operational": true,
-            "paused": false,
-            "printing": false,
-            "cancelling": false,
-            "pausing": false,
-            "sdReady": true,
-            "error": false,
-            "ready": true,
-            "closedOrError": false
-          }
-        }
-      }
+      
+         **Example 2**
+      
+         Exclude temperature and storage data.
+      
+         .. sourcecode:: http
+      
+            GET /api/printer?exclude=temperature,storage HTTP/1.1
+            Host: example.com
+            Authorization: Bearer abcdef...
+            X-OctoPrint-Api-Version: 1.12.0
+      
+         .. sourcecode:: http
+      
+            HTTP/1.1 200 OK
+            Content-Type: application/json
+      
+            {
+              "state": {
+                "text": "Operational",
+                "flags": {
+                  "operational": true,
+                  "paused": false,
+                  "printing": false,
+                  "cancelling": false,
+                  "pausing": false,
+                  "sdReady": true,
+                  "error": false,
+                  "ready": true,
+                  "closedOrError": false
+                }
+              }
+            }
+      
+         :query exclude:  An optional comma-separated list of fields to exclude from the response (e.g. if not needed by
+                          the client). Valid values to supply here are ``temperature``, ``storage`` and ``state``.
+         :query history:  If set to ``true`` (or: ``yes``, ``y``, ``1``), history information will be included in the response
+                          too. If no ``limit`` parameter is given, all available temperature history data will be returned.
+         :query limit:    If set to an integer (``n``), only the last ``n`` data points from the printer's temperature history
+                          will be returned. Will be ignored if ``history`` is not enabled.
+         :statuscode 200: No error
+         :statuscode 409: If the printer is not operational.
 
-   **Example 2**
+   .. md-tab-item:: API version pre 1.12.0
 
-   Exclude temperature and sd data.
-
-   .. sourcecode:: http
-
-      GET /api/printer?exclude=temperature,sd HTTP/1.1
-      Host: example.com
-      X-Api-Key: abcdef...
-
-   .. sourcecode:: http
-
-      HTTP/1.1 200 OK
-      Content-Type: application/json
-
-      {
-        "state": {
-          "text": "Operational",
-          "flags": {
-            "operational": true,
-            "paused": false,
-            "printing": false,
-            "cancelling": false,
-            "pausing": false,
-            "sdReady": true,
-            "error": false,
-            "ready": true,
-            "closedOrError": false
-          }
-        }
-      }
-
-   :query exclude:  An optional comma-separated list of fields to exclude from the response (e.g. if not needed by
-                    the client). Valid values to supply here are ``temperature``, ``sd`` and ``state``.
-   :query history:  If set to ``true`` (or: ``yes``, ``y``, ``1``), history information will be included in the response
-                    too. If no ``limit`` parameter is given, all available temperature history data will be returned.
-   :query limit:    If set to an integer (``n``), only the last ``n`` data points from the printer's temperature history
-                    will be returned. Will be ignored if ``history`` is not enabled.
-   :statuscode 200: No error
-   :statuscode 409: If the printer is not operational.
+      .. http:get:: /api/printer
+      
+         Retrieves the current state of the printer. Returned information includes:
+      
+         * temperature information (see also :ref:`Retrieve the current tool state <sec-api-printer-toolstate>` and
+           :ref:`Retrieve the current bed state <sec-api-printer-bedstate>`)
+         * storage state (if available, see also :ref:`sec-api-printer-storagestate`)
+         * general printer state
+      
+         Temperature information can also be made to include the printer's temperature history by supplying the ``history``
+         query parameter. The amount of data points to return here can be limited using the ``limit`` query parameter.
+      
+         Clients can specify a list of attributes to not return in the response (e.g. if they don't need it) via the
+         ``exclude`` query parameter.
+      
+         Returns a :http:statuscode:`200` with a :ref:`sec-api-printer-datamodel-fullstate-pre-1_12_0` in the
+         body upon success.
+      
+         Requires the ``STATUS`` permission.
+      
+         **Example 1**
+      
+         Include temperature history data, but limit it to two entries.
+      
+         .. sourcecode:: http
+      
+            GET /api/printer?history=true&limit=2 HTTP/1.1
+            Host: example.com
+            X-Api-Key: abcdef...
+      
+         .. sourcecode:: http
+      
+            HTTP/1.1 200 OK
+            Content-Type: application/json
+      
+            {
+              "temperature": {
+                "tool0": {
+                  "actual": 214.8821,
+                  "target": 220.0,
+                  "offset": 0
+                },
+                "tool1": {
+                  "actual": 25.3,
+                  "target": null,
+                  "offset": 0
+                },
+                "bed": {
+                  "actual": 50.221,
+                  "target": 70.0,
+                  "offset": 5
+                },
+                "history": [
+                  {
+                    "time": 1395651928,
+                    "tool0": {
+                      "actual": 214.8821,
+                      "target": 220.0
+                    },
+                    "tool1": {
+                      "actual": 25.3,
+                      "target": null
+                    },
+                    "bed": {
+                      "actual": 50.221,
+                      "target": 70.0
+                    }
+                  },
+                  {
+                    "time": 1395651926,
+                    "tool0": {
+                      "actual": 212.32,
+                      "target": 220.0
+                    },
+                    "tool1": {
+                      "actual": 25.1,
+                      "target": null
+                    },
+                    "bed": {
+                      "actual": 49.1123,
+                      "target": 70.0
+                    }
+                  }
+                ]
+              },
+              "sd": {
+                "ready": true
+              },
+              "state": {
+                "text": "Operational",
+                "flags": {
+                  "operational": true,
+                  "paused": false,
+                  "printing": false,
+                  "cancelling": false,
+                  "pausing": false,
+                  "sdReady": true,
+                  "error": false,
+                  "ready": true,
+                  "closedOrError": false
+                }
+              }
+            }
+      
+         **Example 2**
+      
+         Exclude temperature and sd data.
+      
+         .. sourcecode:: http
+      
+            GET /api/printer?exclude=temperature,sd HTTP/1.1
+            Host: example.com
+            X-Api-Key: abcdef...
+      
+         .. sourcecode:: http
+      
+            HTTP/1.1 200 OK
+            Content-Type: application/json
+      
+            {
+              "state": {
+                "text": "Operational",
+                "flags": {
+                  "operational": true,
+                  "paused": false,
+                  "printing": false,
+                  "cancelling": false,
+                  "pausing": false,
+                  "sdReady": true,
+                  "error": false,
+                  "ready": true,
+                  "closedOrError": false
+                }
+              }
+            }
+      
+         :query exclude:  An optional comma-separated list of fields to exclude from the response (e.g. if not needed by
+                          the client). Valid values to supply here are ``temperature``, ``sd`` and ``state``.
+         :query history:  If set to ``true`` (or: ``yes``, ``y``, ``1``), history information will be included in the response
+                          too. If no ``limit`` parameter is given, all available temperature history data will be returned.
+         :query limit:    If set to an integer (``n``), only the last ``n`` data points from the printer's temperature history
+                          will be returned. Will be ignored if ``history`` is not enabled.
+         :statuscode 200: No error
+         :statuscode 409: If the printer is not operational.
 
 .. _sec-api-printer-printheadcommand:
 
@@ -941,33 +1099,38 @@ Retrieve the current chamber state
    :statuscode 409: If the printer is not operational or the selected printer profile
                     does not have a heated chamber.
 
-.. _sec-api-printer-sdcommand:
+.. _sec-api-printer-storagecommand:
 
-Issue an SD command
-===================
+Issue a Storage command
+=======================
 
-.. http:post:: /api/printer/sd
+.. http:post:: /api/printer/storage
 
-   SD commands allow initialization, refresh and release of the printer's SD card (if available).
+   .. note::
+
+      This endpoint is also available as ``/api/printer/sd`` for now. However, this endpoint should be considered deprecated. 
+      Clients should use the current endpoint ``/api/printer/storage``.
+
+   Storage commands allow initialization, refresh and release of the printer's internal storage (if available).
 
    Available commands are:
 
    init
-     Initializes the printer's SD card, making it available for use. This also includes an initial retrieval of the
-     list of files currently stored on the SD card, so after issuing that command a request to :ref:`sec-api-fileops-retrievestorage` will return a successful result.
+     Initializes/mounts the printer's storage, making it available for use. This also includes an initial retrieval of the
+     list of files currently stored on internal storage, so after issuing that command a request to :ref:`sec-api-fileops-retrievestorage` will return a successful result.
 
      .. note::
-        If OctoPrint detects the availability of a SD card on the printer during connection, it will automatically attempt
+        If OctoPrint detects the availability of internal printer side storage like e.g. an SD card on the printer during connection, it will automatically attempt
         to initialize it.
 
    refresh
      Refreshes the list of files stored on the printer's SD card. Will return a :http:statuscode:`409` if the card
-     has not been initialized yet (see the ``init`` command and :ref:`SD state <sec-api-printer-sdstate>`).
+     has not been initialized yet (see the ``init`` command and :ref:`sec-api-printer-storagestate`).
 
    release
-     Releases the SD card from the printer. The reverse operation to ``init``. After issuing this command, the SD
-     card won't be available anymore, hence any operations targeting files stored on it will fail. Will return a :http:statuscode:`409`
-     if the card has not been initialized yet (see the ``init`` command and :ref:`SD state <sec-api-printer-sdstate>`).
+     Releases/unmounts the printer's storage. The reverse operation to ``init``. After issuing this command, the storage
+     won't be available anymore, hence any operations targeting files stored on it will fail. Will return a :http:statuscode:`409`
+     if the card has not been initialized yet (see the ``init`` command and :ref:`sec-api-printer-storagestate`).
 
    Upon success, a status code of :http:statuscode:`204` and an empty body is returned.
 
@@ -975,14 +1138,14 @@ Issue an SD command
 
    **Example Init Request**
 
-   Initialize the SD card.
+   Initialize the internal storage.
 
    .. sourcecode:: http
 
-      POST /api/printer/sd HTTP/1.1
+      POST /api/printer/storage HTTP/1.1
       Host: example.com
       Content-Type: application/json
-      X-Api-Key: abcdef...
+      Authorization: Bearer abcdef...
 
       {
         "command": "init"
@@ -994,14 +1157,14 @@ Issue an SD command
 
    **Example Refresh Request**
 
-   Refresh the file list of the SD card
+   Refresh the file list of the internal storage
 
    .. sourcecode:: http
 
-      POST /api/printer/sd HTTP/1.1
+      POST /api/printer/storage HTTP/1.1
       Host: example.com
       Content-Type: application/json
-      X-Api-Key: abcdef...
+      Authorization: Bearer abcdef...
 
       {
         "command": "refresh"
@@ -1013,14 +1176,14 @@ Issue an SD command
 
    **Example Release Request**
 
-   Release the SD card
+   Release the internal storage
 
    .. sourcecode:: http
 
-      POST /api/printer/sd HTTP/1.1
+      POST /api/printer/storage HTTP/1.1
       Host: example.com
       Content-Type: application/json
-      X-Api-Key: abcdef...
+      Authorization: Bearer abcdef...
 
       {
         "command": "release"
@@ -1032,34 +1195,39 @@ Issue an SD command
 
    :json string command: The command to issue, either ``init``, ``refresh`` or ``release``.
    :statuscode 204:      No error
-   :statuscode 409:      If a ``refresh`` or ``release`` command is issued but the SD card has not been initialized (e.g.
+   :statuscode 409:      If a ``refresh`` or ``release`` command is issued but the storage has not been initialized (e.g.
                          via ``init``.
 
-.. _sec-api-printer-sdstate:
+.. _sec-api-printer-storagestate:
 
-Retrieve the current SD state
-=============================
+Retrieve the current storage state
+==================================
 
-.. http:get:: /api/printer/sd
+.. http:get:: /api/printer/storage
 
-   Retrieves the current state of the printer's SD card. For this request no authentication is needed.
+   .. note::
 
-   If SD support has been disabled in OctoPrint's settings, a :http:statuscode:`404` is returned.
+      This endpoint is also available as ``/api/printer/sd`` for now. However, this endpoint should be considered deprecated. 
+      Clients should use the current endpoint ``/api/printer/storage``.
 
-   Returns a :http:statuscode:`200` with an :ref:`SD State Response <sec-api-printer-datamodel-sdstate>` in the body
+   Retrieves the current state of the printer's internal storage. For this request no authentication is needed.
+
+   If storage support has been disabled in OctoPrint's settings, a :http:statuscode:`404` is returned.
+
+   Returns a :http:statuscode:`200` with an :ref:`sec-api-printer-datamodel-storagestate` in the body
    upon success.
 
    Requires the ``STATUS`` permission.
 
    **Example**
 
-   Read the current state of the SD card.
+   Read the current state of the storage.
 
    .. sourcecode:: http
 
-      GET /api/printer/sd HTTP/1.1
+      GET /api/printer/storage HTTP/1.1
       Host: example.com
-      X-Api-Key: abcdef...
+      Authorization: Bearer abcdef...
 
    .. sourcecode:: http
 
@@ -1071,7 +1239,7 @@ Retrieve the current SD state
       }
 
    :statuscode 200: No error
-   :statuscode 404: If SD support has been disabled in OctoPrint's config.
+   :statuscode 404: If storage support has been disabled in OctoPrint's config.
 
 .. _sec-api-printer-error:
 
@@ -1216,8 +1384,34 @@ Data model
 
 .. _sec-api-printer-datamodel-fullstate:
 
-Full State Response
--------------------
+Full State Response (1.12.0+)
+-----------------------------
+
+.. list-table::
+   :widths: 15 5 10 30
+   :header-rows: 1
+
+   * - Name
+     - Multiplicity
+     - Type
+     - Description
+   * - ``temperature``
+     - 0..1
+     - :ref:`Temperature State <sec-api-printer-datamodel-temps>`
+     - The printer's temperature state data
+   * - ``storage``
+     - 0..1
+     - :ref:`Internal Storage State <sec-api-printer-datamodel-storagestate>`
+     - The printer's internal storage state data
+   * - ``state``
+     - 0..1
+     - :ref:`Printer State <sec-api-datamodel-printer-state>`
+     - The printer's general state
+
+.. _sec-api-printer-datamodel-fullstate-pre-1_12_0:
+
+Full State Response (pre 1.12.0)
+--------------------------------
 
 .. list-table::
    :widths: 15 5 10 30
@@ -1233,8 +1427,8 @@ Full State Response
      - The printer's temperature state data
    * - ``sd``
      - 0..1
-     - :ref:`SD State <sec-api-printer-datamodel-sdstate>`
-     - The printer's sd state data
+     - :ref:`Internal Storage State <sec-api-printer-datamodel-storagestate>`
+     - The printer's internal storage state data
    * - ``state``
      - 0..1
      - :ref:`Printer State <sec-api-datamodel-printer-state>`
@@ -1268,10 +1462,10 @@ Temperature State
      - List of :ref:`Historic Temperature Datapoint <sec-api-datamodel-printer-temphistory>`
      - Temperature history
 
-.. _sec-api-printer-datamodel-sdstate:
+.. _sec-api-printer-datamodel-storagestate:
 
-SD State
---------
+Storage State
+-------------
 
 .. list-table::
    :widths: 15 5 10 30
@@ -1284,7 +1478,7 @@ SD State
    * - ``ready``
      - 1
      - Boolean
-     - Whether the SD card has been initialized (``true``) or not (``false``).
+     - Whether the printer's internal storage is currently mounted & available (``true``) or not (``false``).
 
 .. _sec-api-printer-datamodel-arbcommand:
 
