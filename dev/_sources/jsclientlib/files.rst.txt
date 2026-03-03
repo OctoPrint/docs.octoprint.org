@@ -56,7 +56,7 @@
    :param object opts: Additional options for the request
    :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
 
-.. js:function:: OctoPrintClient.files.listForLocation(location, recursively, opts)
+.. js:function:: OctoPrintClient.files.listForLocation(location, recursively, force, opts)
 
    Retrieves a list of all files stored at the specified ``location`` from the server.
 
@@ -68,8 +68,13 @@
 
    See :ref:`sec-api-fileops-retrievestorage` for more details.
 
+   .. versionchanged:: 1.12.0
+
+      ``force`` parameter added
+
    :param string location: The location for which to retrieve the list
    :param boolean recursively: Whether to list the files recursively (including all sub folders, true) or not (false, default)
+   :param boolean force: Whether to force refresh the file list from the storage
    :param object opts: Additional options for the request
    :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
 
@@ -83,6 +88,32 @@
    :param string location: The location of the file to select
    :param string path: The name of the file to select
    :param boolean print: Whether to print the file after selection (true) or not (false, default)
+   :param object opts: Additional options for the request
+   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
+
+.. js:function:: OctoPrintClient.files.analyse(location, path, parameters, opts)
+
+   (Re)analyses a file at ``location`` called ``filename``.
+
+   See the ``analyse`` command in :ref:`Issue a file command <sec-api-fileops-filecommand>` for more details.
+
+   :param string location: The location of the file to analyse
+   :param string path: The path of the file to analyse
+   :param object parameters: Additional parameters for the ``analyse`` command
+   :param object opts: Additional options for the request
+   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
+
+.. js:function:: OctoPrintClient.files.refreshThumbnails(location, path, parameters, opts)
+
+   Refreshes the thumbnails for the file or folder at ``location`` called ``filename``, using the supplied slice command ``parameters``.
+
+   See the ``refresh_thumbnails`` command in :ref:`Issue a file command <sec-api-fileops-filecommand>` for more details.
+
+   .. versionadded:: 1.12.0
+
+   :param string location: The location of the file
+   :param string path: The path of the file
+   :param object parameters: Additional parameters for the ``refresh_thumbnails`` command
    :param object opts: Additional options for the request
    :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
 
@@ -109,7 +140,7 @@
    :param object opts: Additional options for the request
    :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
 
-.. js:function:: OctoPrintClient.files.copy(location, path, destination, opts)
+.. js:function:: OctoPrintClient.files.copy(location, path, destination, allowOverwrite, opts)
 
    Copies file or folder ``path`` on ``location`` to new parent folder ``destination`` on ``location``.
 
@@ -126,10 +157,35 @@
    :param string location: The location of the file to copy, currently only "local" is supported
    :param string path: The path of the file or folder to copy
    :param string destination: The path of the parent to which to copy the file or folder
+   :param boolean allowOverwrite: Whether to allow overwriting the destination if it already exists
    :param object opts: Additional options for the request
    :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
 
-.. js:function:: OctoPrintClient.files.move(location, filename, destination, opts)
+.. js:function:: OctoPrintClient.files.copyAcrossStorage(storage, path, destinationStorage, destinationPath, allowOverwrite, opts)
+
+   Copies file or folder ``path`` on ``storage`` to new parent folder ``destinationPath`` on ``destinationStorage``.
+
+   ``destinationPath`` must already exist, ``storage`` must support reading files and ``destinationStorage`` must support writing files and creating folders.
+
+   **Example:**
+
+   .. code-block:: javascript
+
+      OctoPrint.files.copyAcrossStorage("local", "some/file.gco", "printer", "some/folder");
+
+   See :ref:`Issue a file command <sec-api-fileops-filecommand>` for more details.
+
+   .. versionadded:: 1.12.0
+
+   :param string storage: The storage of the file to copy, currently only "local" is supported
+   :param string path: The path of the file or folder to copy
+   :param string destinationStorage: The destination storage
+   :param string destinationStorage: The path of the parent to which to copy the file or folder
+   :param boolean allowOverwrite: Whether to allow overwriting the destination if it already exists
+   :param object opts: Additional options for the request
+   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
+
+.. js:function:: OctoPrintClient.files.move(location, filename, destination, allowOverwrite, opts)
 
    Moves file or folder ``path`` on ``location`` to new parent folder ``destination`` on ``location``.
 
@@ -146,6 +202,31 @@
    :param string location: The location of the file to move, currently only "local" is supported
    :param string path: The path of the file or folder to move
    :param string destination: The path of the parent to which to move the file or folder
+   :param boolean allowOverwrite: Whether to allow the destination if it already exists
+   :param object opts: Additional options for the request
+   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
+
+.. js:function:: OctoPrintClient.files.moveAcrossStorage(storage, path, destinationStorage, destinationPath, allowOverwrite, opts)
+
+   Moves file or folder ``path`` on ``storage`` to new parent folder ``destinationPath`` on ``destinationStorage``.
+
+   ``destinationPath`` must already exist, ``storage`` must support reading and deleting files and deleting folders and ``destinationStorage`` must support writing files and creating folders.
+
+   **Example:**
+
+   .. code-block:: javascript
+
+      OctoPrint.files.moveAcrossStorage("local", "some/file.gco", "printer", "some/folder");
+
+   See :ref:`Issue a file command <sec-api-fileops-filecommand>` for more details.
+
+   .. versionadded:: 1.12.0
+
+   :param string storage: The storage of the file to copy, currently only "local" is supported
+   :param string path: The path of the file or folder to copy
+   :param string destinationStorage: The destination storage
+   :param string destinationStorage: The path of the parent to which to copy the file or folder
+   :param boolean allowOverwrite: Whether to allow overwriting the destination if it already exists
    :param object opts: Additional options for the request
    :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
 

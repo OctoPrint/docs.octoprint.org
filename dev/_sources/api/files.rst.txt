@@ -1202,6 +1202,21 @@ Issue a file command
 
         cross-storage support
 
+   refresh_thumbnails
+     Forces a refresh of the thumbnail of the targeted file, or the files contained in the targeted folder.
+
+     Additional parameters are:
+
+     * ``force``: If ``true``, a thumbnail refresh will be even done if a thumbnail already exists.
+     * ``recursive``: If ``true`` and targeting a folder, any contained subfolders will also be fully processed.
+
+     Upon success, a status code of :http:statuscode:`204` and empty body is returned. The request will only return after the
+     refresh has been processed - it thus might be long running!
+
+     Requires the ``FILES_UPLOAD`` permission.
+
+     .. versionadded:: 1.12.0
+
    slice
      Slices an STL file into GCODE. Note that this is an asynchronous operation that will take place in the background
      after the response has been sent back to the client. Additional parameters are:
