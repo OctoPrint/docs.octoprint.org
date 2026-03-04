@@ -27,7 +27,7 @@ plugin subsystem [#f1]_:
 .. code-block:: toml
 
    [project.entry-points."octoprint.plugin"]
-   <your plugin's identifier> = "<your plugin's package name>"
+   your_plugins_identifier = "your_plugins_package_name"
 
 For an example of how the directory structure and related files would look like in this case, please take a
 look at one of OctoPrint's bundled but externally maintained plugins, e.g. `OctoPrint-FileCheck <https://github.com/OctoPrint/OctoPrint-FileCheck/>`_.
