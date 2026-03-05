@@ -236,9 +236,13 @@ Data model
      - :ref:`Progress information <sec-api-datamodel-jobs-progress>`
      - Information about the current print/streaming progress
    * - ``currentZ``
-     - 1
+     - 0..1
      - Float
-     - Current height of the Z-Axis (= current height of model) during printing from a local file
+     - Current height of the Z-Axis (= current height of model) based on position updates or commands *sent through OctoPrint*, ``null`` if unknown.
+   * - ``currentTool``
+     - 0..1
+     - Float
+     - Currently selected tool based on commands *sent through OctoPrint*, ``null`` if unknown.
    * - ``offsets``
      - 0..1
      - :ref:`Temperature offsets <sec-api-datamodel-printer-tempoffset>`
