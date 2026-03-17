@@ -133,6 +133,7 @@ The following scopes can be used. This list is non-exhaustive and will be extend
 - ``jsclient``: JavaScript client library
 - ``plugins``: anything plugins related
 - ``pmgr``: bundled plugin manager plugin
+- ``printer``: related to printer interface
 - ``serial``: bundled serial connector plugin
 - ``settings``: settings related
 - ``storage``: related to the internal storage API
