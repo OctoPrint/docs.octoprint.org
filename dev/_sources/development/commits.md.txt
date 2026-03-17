@@ -110,6 +110,7 @@ The following types can be used. This list is non-exhaustive and will be extende
 
 The following scopes can be used. This list is non-exhaustive and will be extended as needed.
 
+- ``access``: related to access management code
 - ``achievements``: bundled achievements plugin
 - ``analysis``: related to the file analysis
 - ``api``: related to the public REST API
