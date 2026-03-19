@@ -4572,15 +4572,16 @@ lines from the display terminal log.</p>
 <h3 id="id38">Defaults<a class="headerlink" href="#id38" title="Link to this heading">¶</a></h3>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">terminalFilters</span><span class="p">:</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Suppress temperature messages</span>
-<span class="w">  </span><span class="nt">regex</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;(Send:</span><span class="nv"> </span><span class="s">(N\d+\s+)?M105)|(Recv:\s+(ok\s+([PBN]\d+\s+)*)?([BCLPR]|T\d*):-?\d+)&#39;</span>
+<span class="w">  </span><span class="nt">regex</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">((Send:|&gt;&gt;&gt;)\s+(N\d+\s+)?M105)|((Recv:|&lt;&lt;&lt;)\s+(ok\s+([PBN]\d+\s+)*)?([BCLPR]|T\d*):-?\d+)</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Suppress SD status messages</span>
-<span class="w">  </span><span class="nt">regex</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;(Send:</span><span class="nv"> </span><span class="s">(N\d+\s+)?M27)|(Recv:</span><span class="nv"> </span><span class="s">SD</span><span class="nv"> </span><span class="s">printing</span><span class="nv"> </span><span class="s">byte)|(Recv:</span><span class="nv"> </span><span class="s">Not</span><span class="nv"> </span><span class="s">SD</span><span class="nv"> </span><span class="s">printing)&#39;</span>
+<span class="w">  </span><span class="nt">regex</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">((Send:|&gt;&gt;&gt;)\s+(N\d+\s+)?M27)|((Recv:|&lt;&lt;&lt;)\s+SD printing byte)|((Recv:|&lt;&lt;&lt;)\s+Not</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">SD printing)</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Suppress position messages</span>
-<span class="w">  </span><span class="nt">regex</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">(Send:\s+(N\d+\s+)?M114)|(Recv:\s+(ok\s+)?X:[+-]?([0-9]*[.])?[0-9]+\s+Y:[+-]?([0-9]*[.])?[0-9]+\s+Z:[+-]?([0-9]*[.])?[0-9]+\s+E\d*:[+-]?([0-9]*[.])?[0-9]+).*</span>
+<span class="w">  </span><span class="nt">regex</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">((Send:|&gt;&gt;&gt;)\s+(N\d+\s+)?M114)|((Recv:|&lt;&lt;&lt;)\s+(ok\s+)?X:[+-]?([0-9]*[.])?[0-9]+\s+Y:[+-]?([0-9]*[.])?[0-9]+\s+Z:[+-]?([0-9]*[.])?[0-9]+\s+E\d*:[+-]?([0-9]*[.])?[0-9]+).*</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Suppress wait responses</span>
-<span class="w">  </span><span class="nt">regex</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Recv:</span><span class="nv"> </span><span class="s">wait&#39;</span>
+<span class="w">  </span><span class="nt">regex</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">(Recv:|&lt;&lt;&lt;)\s+wait</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Suppress processing responses</span>
-<span class="w">  </span><span class="nt">regex</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Recv:</span><span class="nv"> </span><span class="s">(echo:\s*)?busy:\s*processing&#39;</span>
+<span class="w">  </span><span class="nt">regex</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">(Recv:|&lt;&lt;&lt;)\s+(echo:\s*)?busy:\s*processing</span>
 </code></pre></div>
 </div>
 <h3 id="id39">Data model<a class="headerlink" href="#id39" title="Link to this heading">¶</a></h3>
