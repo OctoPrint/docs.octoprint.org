@@ -2198,7 +2198,7 @@ They can also be configured via <a class="reference internal" href="cli.html#sec
 <span class="w">  </span><span class="nt">sessionStaleAfter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15</span>
 <span class="w">  </span><span class="nt">trustBasicAuthentication</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">  </span><span class="nt">trustRemoteGroups</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">  </span><span class="nt">trustRemoteUser</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">trustedAuthProxies</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
 <span class="w">  </span><span class="nt">userManager</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">octoprint.access.users.FilebasedUserManager</span>
 <span class="w">  </span><span class="nt">userfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 </code></pre></div>
@@ -2285,13 +2285,17 @@ match OctoPrint accounts, by setting this to <code class="docutils literal notra
 <td><p>Whether to also check the password provided through Basic Authentication, if the Basic Authentication header is to be trusted. Disabling this will only match the user name in the Basic Authentication header and login the user without further checks, thus disable with caution.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">trustRemoteUser</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
-<td><p>Whether to trust remote user headers. If you have setup authentication in front of OctoPrint and the user names you use there match OctoPrint
-accounts, by setting this to true users will be logged into OctoPrint as the user provided in the header.</p>
-<p><strong>ONLY ENABLE THIS</strong> if your OctoPrint instance is only accessible through a connection locked down through an authenticating reverse proxy!</p>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">trustedAuthProxies</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list[str]</span></code></p></td>
+<td><p>If you want to setup a authenticating reverse proxy in front of OctoPrint, add its address (or CIDR range) here to enable trusting
+the remote user header defined in <code class="docutils literal notranslate"><span class="pre">remoteUserHeader</span></code>.</p>
+<p>Please note that your auth proxy must either also be included in the set of trusted reverse proxies (see <code class="docutils literal notranslate"><span class="pre">server.reverseProxy.trustedProxies</span></code> and <code class="docutils literal notranslate"><span class="pre">server.reverseProxy.trustLocalhostProxies</span></code>)
+or <em>directly</em> connect to OctoPrint!</p>
+<p>If left unset (the default), the remote user header defined in <code class="docutils literal notranslate"><span class="pre">remoteUserHeader</span></code> won’t ever be trusted!</p>
+<p><strong>Please note:</strong> If you are coming from a previous version of OctoPrint that still supported the <code class="docutils literal notranslate"><span class="pre">trustRemoteUser</span></code> setting and you had that set to <code class="docutils literal notranslate"><span class="pre">true</span></code>,
+this setting will be prepopulated with your trusted reverse proxies for you during settings migration. You definitely should give this a sanity check however!</p>
 </td>
-<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">remoteUserHeader</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
