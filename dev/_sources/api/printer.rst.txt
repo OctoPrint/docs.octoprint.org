@@ -4,7 +4,7 @@
 Printer operations
 ******************
 
-.. versionchanged:: 1.12.0
+.. versionchanged:: 2.0.0
 
    API versioning
 
@@ -67,7 +67,7 @@ Retrieve the current printer state
 
 .. md-tab-set::
 
-   .. md-tab-item:: API version 1.12.0+
+   .. md-tab-item:: API version 2.0.0+
 
       .. http:get:: /api/printer
       
@@ -98,7 +98,7 @@ Retrieve the current printer state
             GET /api/printer?history=true&limit=2 HTTP/1.1
             Host: example.com
             Authorization: Bearer abcdef...
-            X-OctoPrint-Api-Version: 1.12.0
+            X-OctoPrint-Api-Version: 2.0.0
       
          .. sourcecode:: http
       
@@ -183,7 +183,7 @@ Retrieve the current printer state
             GET /api/printer?exclude=temperature,storage HTTP/1.1
             Host: example.com
             Authorization: Bearer abcdef...
-            X-OctoPrint-Api-Version: 1.12.0
+            X-OctoPrint-Api-Version: 2.0.0
       
          .. sourcecode:: http
       
@@ -216,7 +216,7 @@ Retrieve the current printer state
          :statuscode 200: No error
          :statuscode 409: If the printer is not operational.
 
-   .. md-tab-item:: API version pre 1.12.0
+   .. md-tab-item:: API version pre 2.0.0
 
       .. http:get:: /api/printer
       
@@ -233,7 +233,7 @@ Retrieve the current printer state
          Clients can specify a list of attributes to not return in the response (e.g. if they don't need it) via the
          ``exclude`` query parameter.
       
-         Returns a :http:statuscode:`200` with a :ref:`sec-api-printer-datamodel-fullstate-pre-1_12_0` in the
+         Returns a :http:statuscode:`200` with a :ref:`sec-api-printer-datamodel-fullstate-pre-2_0_0` in the
          body upon success.
       
          Requires the ``STATUS`` permission.
@@ -1384,7 +1384,7 @@ Data model
 
 .. _sec-api-printer-datamodel-fullstate:
 
-Full State Response (1.12.0+)
+Full State Response (2.0.0+)
 -----------------------------
 
 .. list-table::
@@ -1408,9 +1408,9 @@ Full State Response (1.12.0+)
      - :ref:`Printer State <sec-api-datamodel-printer-state>`
      - The printer's general state
 
-.. _sec-api-printer-datamodel-fullstate-pre-1_12_0:
+.. _sec-api-printer-datamodel-fullstate-pre-2_0_0:
 
-Full State Response (pre 1.12.0)
+Full State Response (pre 2.0.0)
 --------------------------------
 
 .. list-table::

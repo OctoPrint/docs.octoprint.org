@@ -4,7 +4,7 @@
 File operations
 ***************
 
-.. versionchanged:: 1.12.0
+.. versionchanged:: 2.0.0
 
    API versioning, ``sdcard`` renamed to ``printer``
 
@@ -15,7 +15,7 @@ Retrieve all files
 
 .. md-tab-set::
 
-   .. md-tab-item:: API version 1.12.0+
+   .. md-tab-item:: API version 2.0.0+
 
       .. http:get:: /api/files
       
@@ -41,7 +41,7 @@ Retrieve all files
             GET /api/files HTTP/1.1
             Host: example.com
             Authorization: Bearer abcdef...
-            X-OctoPrint-Api-Version: 1.12.0
+            X-OctoPrint-Api-Version: 2.0.0
       
          .. sourcecode:: http
       
@@ -154,7 +154,7 @@ Retrieve all files
             GET /api/files?recursive=true HTTP/1.1
             Host: example.com
             Authorization: Bearer abcdef...
-            X-OctoPrint-Api-Version: 1.12.0
+            X-OctoPrint-Api-Version: 2.0.0
       
          .. sourcecode:: http
       
@@ -293,7 +293,7 @@ Retrieve all files
          :param recursive: If set to ``true``, return all files and folders recursively. Otherwise only return items on same level.
          :statuscode 200: No error
 
-   .. md-tab-item:: API version pre 1.12.0
+   .. md-tab-item:: API version pre 2.0.0
 
       .. http:get:: /api/files
       
@@ -500,7 +500,7 @@ Retrieve data of specific storage
 
 .. md-tab-set::
 
-   .. md-tab-item:: API version 1.12.0+
+   .. md-tab-item:: API version 2.0.0+
 
       .. http:get:: /api/files/(string:storage)
 
@@ -521,7 +521,7 @@ Retrieve data of specific storage
              GET /api/files/local HTTP/1.1
              Host: example.com
              Authorization: Bearer abcdef...
-             X-OctoPrint-Api-Version: 1.12.0
+             X-OctoPrint-Api-Version: 2.0.0
  
          .. sourcecode:: http
  
@@ -597,7 +597,7 @@ Retrieve data of specific storage
          :statuscode 200: No error
          :statuscode 404: If `storage` is not one of the registered storages (stock: ``local``, ``printer``)
 
-   .. md-tab-item:: API version pre 1.12.0
+   .. md-tab-item:: API version pre 2.0.0
 
       .. http:get:: /api/files/(string:storage)
 
@@ -676,7 +676,7 @@ Upload file or create folder
 
 .. md-tab-set::
 
-   .. md-tab-item:: API version 1.12.0+
+   .. md-tab-item:: API version 2.0.0+
 
       .. http:post:: /api/files/(string:storage)
 
@@ -854,7 +854,7 @@ Upload file or create folder
                            is disabled)
          :statuscode 500:  If the upload failed internally
 
-   .. md-tab-item:: API version pre 1.12.0
+   .. md-tab-item:: API version pre 2.0.0
 
       .. http:post:: /api/files/(string:storage)
 
@@ -1161,7 +1161,7 @@ Issue a file command
 
      Requires the ``FILES_UPLOAD`` permission.
 
-     .. versionchanged:: 1.12.0
+     .. versionchanged:: 2.0.0
 
         cross-storage support
 
@@ -1198,7 +1198,7 @@ Issue a file command
 
      Requires the ``FILES_UPLOAD`` permission.
 
-     .. versionchanged:: 1.12.0
+     .. versionchanged:: 2.0.0
 
         cross-storage support
 
@@ -1215,7 +1215,7 @@ Issue a file command
 
      Requires the ``FILES_UPLOAD`` permission.
 
-     .. versionadded:: 1.12.0
+     .. versionadded:: 2.0.0
 
    slice
      Slices an STL file into GCODE. Note that this is an asynchronous operation that will take place in the background
@@ -1455,20 +1455,20 @@ Data model
 
 .. _sec-api-fileops-datamodel-readfiles-pre-1_12:
 
-Files response (pre 1.12.0)
+Files response (pre 2.0.0)
 ---------------------------
 
-.. pydantic-table:: octoprint.schema.api.files.ReadGcodeFilesResponse_pre_1_12
+.. pydantic-table:: octoprint.schema.api.files.ReadGcodeFilesResponse_pre_2_0_0
 
    octoprint.schema.api.files.ApiStorageFile = File
    octoprint.schema.api.files.ApiStorageFolder = Folder
 
 .. _sec-api-fileops-datamodel-readstorage-pre-1_12:
 
-Files for storage response (pre 1.12.0)
+Files for storage response (pre 2.0.0)
 ---------------------------------------
 
-.. pydantic-table:: octoprint.schema.api.files.ReadGcodeFilesForOriginResponse_pre_1_12
+.. pydantic-table:: octoprint.schema.api.files.ReadGcodeFilesForOriginResponse_pre_2_0_0
 
    octoprint.schema.api.files.ApiStorageFile = File
    octoprint.schema.api.files.ApiStorageFolder = Folder
@@ -1485,10 +1485,10 @@ Upload response
 
 .. _sec-api-fileops-datamodel-uploadresponse-pre-1_12:
 
-Upload response (pre 1.12.0)
+Upload response (pre 2.0.0)
 ----------------------------
 
-.. pydantic-table:: octoprint.schema.api.files.UploadResponse_pre_1_12
+.. pydantic-table:: octoprint.schema.api.files.UploadResponse_pre_2_0_0
 
    octoprint.schema.api.files.ApiAddedEntry = AddedEntry
    ApiAddedEntry = AddedEntry

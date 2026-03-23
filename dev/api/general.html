@@ -1223,7 +1223,7 @@ key can be either the globally configured one, a user specific one or an app and
 authorization workflow implemented by the bundled <a class="reference internal" href="../bundledplugins/appkeys.html#sec-bundledplugins-appkeys"><span class="std std-ref">Application Keys Plugin</span></a> (since 1.3.10).</p>
 <p>Clients are advised to implement the <a class="reference internal" href="../bundledplugins/appkeys.html#sec-bundledplugins-appkeys-workflow"><span class="std std-ref">Application Keys Plugin workflow</span></a> first and
 fallback on directing the user to manually supply the user specific API key. The global key is deprecated, will be removed
-in 1.13.0 and should no longer be used.</p>
+in 2.1.0 and should no longer be used.</p>
 <p>The API key must either be supplied in the custom HTTP header <code class="docutils literal notranslate"><span class="pre">X-Api-Key</span></code>, e.g.</p>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/api/files</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
@@ -1255,15 +1255,15 @@ The API key options in the User Settings. Users can generate and revoke their cu
 <span id="fig-api-general-globalapikey"></span><img alt="Global API key in the API settings" src="../_images/settings-global-api-key.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 26 </span><span class="caption-text"><span class="caption-text">
-The global API key can be found in the “API” settings. However, it is deprecated and will be removed in 1.13.0.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></figcaption>
+The global API key can be found in the “API” settings. However, it is deprecated and will be removed in 2.1.0.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></figcaption>
 </figure>
 <h2 id="api-versioning"><span id="sec-api-general-versioning"></span>API Versioning<a class="headerlink" href="#api-versioning" title="Link to this heading">¶</a></h2>
 <div class="admonition versionadded">
-<p class="admonition-title"><span class="versionmodified added">Added in version 1.12.0.</span></p>
+<p class="admonition-title"><span class="versionmodified added">Added in version 2.0.0.</span></p>
 </div>
 <p>OctoPrint supports requesting a certain API version on requests by setting the <code class="docutils literal notranslate"><span class="pre">X-OctoPrint-Api-Version</span></code> header
 accordingly. API versions hereby the implementation as present in OctoPrint’s server versions.</p>
-<p>If the header is left out, the API will behave according to its documented pre-1.12.0 behaviour. If the header is set, the API will
+<p>If the header is left out, the API will behave according to its documented pre-2.0.0 behaviour. If the header is set, the API will
 follow the behaviour found in that OctoPrint version.</p>
 <p>Example without explicit version:</p>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/api/version</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -1276,24 +1276,24 @@ follow the behaviour found in that OctoPrint version.</p>
 
 <span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;api&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;server&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.12.0&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OctoPrint 1.12.0&quot;</span>
+<span class="w">  </span><span class="nt">&quot;server&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.0.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OctoPrint 2.0.0&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
-<p>Example with a requested API version of 1.12.0:</p>
+<p>Example with a requested API version of 2.0.0:</p>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/api/version</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer abcdef...</span>
-<span class="na">X-OctoPrint-Api-Version</span><span class="o">:</span> <span class="l">1.12.0</span>
+<span class="na">X-OctoPrint-Api-Version</span><span class="o">:</span> <span class="l">2.0.0</span>
 </code></pre></div>
 </div>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 
 <span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;server&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.12.0&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OctoPrint 1.12.0&quot;</span>
+<span class="w">  </span><span class="nt">&quot;server&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.0.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OctoPrint 2.0.0&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>

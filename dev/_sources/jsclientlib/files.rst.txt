@@ -68,7 +68,7 @@
 
    See :ref:`sec-api-fileops-retrievestorage` for more details.
 
-   .. versionchanged:: 1.12.0
+   .. versionchanged:: 2.0.0
 
       ``force`` parameter added
 
@@ -109,7 +109,7 @@
 
    See the ``refresh_thumbnails`` command in :ref:`Issue a file command <sec-api-fileops-filecommand>` for more details.
 
-   .. versionadded:: 1.12.0
+   .. versionadded:: 2.0.0
 
    :param string location: The location of the file
    :param string path: The path of the file
@@ -175,7 +175,7 @@
 
    See :ref:`Issue a file command <sec-api-fileops-filecommand>` for more details.
 
-   .. versionadded:: 1.12.0
+   .. versionadded:: 2.0.0
 
    :param string storage: The storage of the file to copy, currently only "local" is supported
    :param string path: The path of the file or folder to copy
@@ -220,7 +220,7 @@
 
    See :ref:`Issue a file command <sec-api-fileops-filecommand>` for more details.
 
-   .. versionadded:: 1.12.0
+   .. versionadded:: 2.0.0
 
    :param string storage: The storage of the file to move, currently only "local" is supported
    :param string path: The path of the file or folder to move
