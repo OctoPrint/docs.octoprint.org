@@ -286,7 +286,7 @@
    Downloads the file at ``path`` in ``location``.
 
    The downloaded file will be returned as response body in the completed `Promise <http://api.jquery.com/Types/#Promise>`_.
-   Note that not all locations support downloading of files (``sdcard`` for example doesn't).
+   Note that not all locations support downloading of files.
 
    **Example:**
 

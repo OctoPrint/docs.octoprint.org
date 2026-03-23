@@ -1124,7 +1124,7 @@ Issue a Storage command
         to initialize it.
 
    refresh
-     Refreshes the list of files stored on the printer's SD card. Will return a :http:statuscode:`409` if the card
+     Refreshes the list of files stored on the printer's internal storage. Will return a :http:statuscode:`409` if the card
      has not been initialized yet (see the ``init`` command and :ref:`sec-api-printer-storagestate`).
 
    release

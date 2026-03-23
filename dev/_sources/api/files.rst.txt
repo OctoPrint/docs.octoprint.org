@@ -22,7 +22,7 @@ Retrieve all files
          Retrieve information regarding all files currently available and regarding the disk space still available
          locally in the system. The results are cached for performance reasons. If you
          want to override the cache, supply the query parameter ``force`` and set it to ``true``. Note that
-         while printing a refresh/override of the cache for files stored on the printer's SD card
+         while printing a refresh/override of the cache for files stored on the printer's internal storage
          is disabled due to bandwidth restrictions on the serial interface.
       
          By default only returns the files and folders in the root directory. If the query parameter ``recursive``
@@ -300,7 +300,7 @@ Retrieve all files
          Retrieve information regarding all files currently available and regarding the disk space still available
          locally in the system. The results are cached for performance reasons. If you
          want to override the cache, supply the query parameter ``force`` and set it to ``true``. Note that
-         while printing a refresh/override of the cache for files stored on the printer's SD card
+         while printing a refresh/override of the cache for files stored on the printer's internal storage
          is disabled due to bandwidth restrictions on the serial interface.
       
          By default only returns the files and folders in the root directory. If the query parameter ``recursive``
@@ -604,7 +604,7 @@ Retrieve data of specific storage
          Retrieve information regarding the files currently available on the selected ``location`` and -- if targeting
          the ``local`` storage -- regarding the disk space still available locally in the system. The results are cached for performance reasons. If you
          want to override the cache, supply the query parameter ``force`` and set it to ``true``.
-         Note that while printing a refresh/override of the cache for files stored on the printer's SD card
+         Note that while printing a refresh/override of the cache for files stored on the printer's internal storage
          is disabled due to bandwidth restrictions on the serial interface.
  
          By default only returns the files and folders in the root directory. If the query parameter ``recursive``
@@ -737,7 +737,7 @@ Upload file or create folder
                "file": {
                  "name": "whistle_.gco",
                  "path": "whistle_.gco",
-                 "origin": "sdcard",
+                 "origin": "printer",
                  "refs": {
                    "resource": "http://example.com/api/files/printer/whistle_.gco"
                  }
@@ -826,9 +826,9 @@ Upload file or create folder
                "done": true
              }
  
-         :param storage:  The target location to which to upload the file. Currently only ``local`` and ``sdcard`` are supported
-                           here, with ``local`` referring to OctoPrint's ``uploads`` folder and ``sdcard`` referring to
-                           the printer's SD card. If an upload targets the SD card, it will also be stored locally first.
+         :param storage:  The target location to which to upload the file. By default only ``local`` and ``printer`` are supported
+                           here, with ``local`` referring to OctoPrint's ``uploads`` folder and ``printer`` referring to
+                           the printer's internal storage.
          :form file:       The file to upload, including a valid ``filename``.
          :form path:       The path within the ``location`` to upload the file to or create the folder in (without the future
                            filename or ``foldername`` - basically the parent folder). If unset will be taken from the provided
@@ -846,8 +846,7 @@ Upload file or create folder
          :statuscode 201:  No error
          :statuscode 400:  If no ``file`` or ``foldername`` are included in the request, ``userdata`` was provided but could
                            not be parsed as JSON or the request is otherwise invalid.
-         :statuscode 404:  If ``location`` is neither ``local`` nor ``sdcard`` or trying to upload to SD card and SD card support
-                           is disabled
+         :statuscode 404:  If ``location`` is not among the registered storages (e.g. ``local``, ``printer``)
          :statuscode 409:  If the upload of the file would override the file that is currently being printed or if an upload
                            to SD card was requested and the printer is either not operational or currently busy with a print job.
          :statuscode 415:  If the file is neither a ``gcode`` nor an ``stl`` file (or it is an ``stl`` file but slicing support
@@ -1008,9 +1007,9 @@ Upload file or create folder
                "done": true
              }
  
-         :param storage:  The target location to which to upload the file. Currently only ``local`` and ``sdcard`` are supported
-                           here, with ``local`` referring to OctoPrint's ``uploads`` folder and ``sdcard`` referring to
-                           the printer's SD card. If an upload targets the SD card, it will also be stored locally first.
+         :param storage:  The target location to which to upload the file. By default only ``local`` and ``printer`` (and its deprecated alias ``sdcard``) are supported
+                           here, with ``local`` referring to OctoPrint's ``uploads`` folder and ``printer`` referring to
+                           the printer's internal storage.
          :form file:       The file to upload, including a valid ``filename``.
          :form path:       The path within the ``location`` to upload the file to or create the folder in (without the future
                            filename or ``foldername`` - basically the parent folder). If unset will be taken from the provided
@@ -1028,8 +1027,7 @@ Upload file or create folder
          :statuscode 201:  No error
          :statuscode 400:  If no ``file`` or ``foldername`` are included in the request, ``userdata`` was provided but could
                            not be parsed as JSON or the request is otherwise invalid.
-         :statuscode 404:  If ``location`` is neither ``local`` nor ``sdcard`` or trying to upload to SD card and SD card support
-                           is disabled
+         :statuscode 404:  If ``location`` is not among the registered storages (e.g. ``local``, ``printer`` or its deprecated alias ``sdcard``)
          :statuscode 409:  If the upload of the file would override the file that is currently being printed or if an upload
                            to SD card was requested and the printer is either not operational or currently busy with a print job.
          :statuscode 415:  If the file is neither a ``gcode`` nor an ``stl`` file (or it is an ``stl`` file but slicing support
@@ -1094,11 +1092,11 @@ Retrieve a specific file's or folder's information
         }
       }
 
-   :param location: The location of the file for which to retrieve the information, either ``local`` or ``sdcard``.
+   :param location: The location of the file for which to retrieve the information, by default ``local`` (for OctoPrint's ``uploads``
+                    folder) or ``printer`` or its deprecated alias ``sdcard`` for the printer's internal storage (if available)
    :param filename: The filename of the file for which to retrieve the information
    :statuscode 200: No error
-   :statuscode 404: If ``target`` is neither ``local`` nor ``sdcard``, ``sdcard`` but SD card support is disabled or the
-                    requested file was not found
+   :statuscode 404: If ``target`` is not among the registered storages (e.g. ``local``, ``printer`` or its deprecated alias ``sdcard``)
 
 .. _sec-api-fileops-filecommand:
 
@@ -1392,8 +1390,8 @@ Issue a file command
         }
       }
 
-   :param location:             The target location on which to send the command for is located, either ``local`` (for OctoPrint's ``uploads``
-                                folder) or ``sdcard`` for the printer's SD card (if available)
+   :param location:             The target location on which to send the command for is located, by default ``local`` (for OctoPrint's ``uploads``
+                                folder) or ``printer`` or its deprecated alias ``sdcard`` for the printer's internal storage (if available)
    :param path:                 The path of the file for which to issue the command
    :json string command:        The command to issue for the file, currently only ``select`` is supported
    :json boolean print:         ``select`` and ``slice`` command: Optional, whether to start printing the file directly after selection
@@ -1412,7 +1410,7 @@ Issue a file command
    :statuscode 202:             No error for a ``slice`` command.
    :statuscode 400:             If the ``command`` is unknown or the request is otherwise invalid
    :statuscode 415:             If a ``slice`` command was issued against something other than an STL file.
-   :statuscode 404:             If ``location`` is neither ``local`` nor ``sdcard`` or the requested file was not found
+   :statuscode 404:             If ``location`` is not among the registered storages (e.g. ``local``, ``printer`` or its deprecated alias ``sdcard``) or the requested file was not found
    :statuscode 409:             If a selected file is supposed to start printing directly but the printer is not operational
                                 or if a file is to be selected but the printer is already printing or
                                 if a file to be sliced is supposed to be selected or start printing directly but the printer
@@ -1441,11 +1439,11 @@ Delete file
       Host: example.com
       Authorization: Bearer abcdef...
 
-   :param location: The target location on which to delete the file, either ``local`` (for OctoPrint's ``uploads``
-                    folder) or ``sdcard`` for the printer's SD card (if available)
+   :param location: The target location on which to delete the file, by default ``local`` (for OctoPrint's ``uploads``
+                    folder) or ``printer`` or its deprecated alias ``sdcard`` for the printer's internal storage (if available)
    :param path:     The path of the file to delete
    :statuscode 204: No error
-   :statuscode 404: If ``location`` is neither ``local`` nor ``sdcard`` or the requested file was not found
+   :statuscode 404: If ``location`` is not among the registered storages (e.g. ``local``, ``printer`` or its deprecated alias ``sdcard``) or the requested file was not found
    :statuscode 409: If the file to be deleted is currently being printed
 
 .. _sec-api-fileops-datamodel:

@@ -2326,7 +2326,7 @@ API version pre 2.0.0</label></div>
 <dd><p>Retrieve information regarding all files currently available and regarding the disk space still available
 locally in the system. The results are cached for performance reasons. If you
 want to override the cache, supply the query parameter <code class="docutils literal notranslate"><span class="pre">force</span></code> and set it to <code class="docutils literal notranslate"><span class="pre">true</span></code>. Note that
-while printing a refresh/override of the cache for files stored on the printer’s SD card
+while printing a refresh/override of the cache for files stored on the printer’s internal storage
 is disabled due to bandwidth restrictions on the serial interface.</p>
 <p>By default only returns the files and folders in the root directory. If the query parameter <code class="docutils literal notranslate"><span class="pre">recursive</span></code>
 is provided and set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, returns all files and folders.</p>
@@ -2603,7 +2603,7 @@ is provided and set to <code class="docutils literal notranslate"><span class="p
 <dd><p>Retrieve information regarding all files currently available and regarding the disk space still available
 locally in the system. The results are cached for performance reasons. If you
 want to override the cache, supply the query parameter <code class="docutils literal notranslate"><span class="pre">force</span></code> and set it to <code class="docutils literal notranslate"><span class="pre">true</span></code>. Note that
-while printing a refresh/override of the cache for files stored on the printer’s SD card
+while printing a refresh/override of the cache for files stored on the printer’s internal storage
 is disabled due to bandwidth restrictions on the serial interface.</p>
 <p>By default only returns the files and folders in the root directory. If the query parameter <code class="docutils literal notranslate"><span class="pre">recursive</span></code>
 is provided and set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, returns all files and folders.</p>
@@ -2913,7 +2913,7 @@ is provided and set to <code class="docutils literal notranslate"><span class="p
 <dd><p>Retrieve information regarding the files currently available on the selected <code class="docutils literal notranslate"><span class="pre">location</span></code> and – if targeting
 the <code class="docutils literal notranslate"><span class="pre">local</span></code> storage – regarding the disk space still available locally in the system. The results are cached for performance reasons. If you
 want to override the cache, supply the query parameter <code class="docutils literal notranslate"><span class="pre">force</span></code> and set it to <code class="docutils literal notranslate"><span class="pre">true</span></code>.
-Note that while printing a refresh/override of the cache for files stored on the printer’s SD card
+Note that while printing a refresh/override of the cache for files stored on the printer’s internal storage
 is disabled due to bandwidth restrictions on the serial interface.</p>
 <p>By default only returns the files and folders in the root directory. If the query parameter <code class="docutils literal notranslate"><span class="pre">recursive</span></code>
 is provided and set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, returns all files and folders.</p>
@@ -3042,7 +3042,7 @@ true
 <span class="w">  </span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;whistle_.gco&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;whistle_.gco&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sdcard&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;printer&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;refs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com/api/files/printer/whistle_.gco&quot;</span>
 <span class="w">    </span><span class="p">}</span>
@@ -3129,9 +3129,9 @@ folder/
 <dl class="field-list simple">
 <dt class="field-odd" id="post--api-files-(string-storage)-parameters">Parameters<span class="colon">:</span><a class="headerlink" href="#post--api-files-(string-storage)-parameters" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>storage</strong> – The target location to which to upload the file. Currently only <code class="docutils literal notranslate"><span class="pre">local</span></code> and <code class="docutils literal notranslate"><span class="pre">sdcard</span></code> are supported
-here, with <code class="docutils literal notranslate"><span class="pre">local</span></code> referring to OctoPrint’s <code class="docutils literal notranslate"><span class="pre">uploads</span></code> folder and <code class="docutils literal notranslate"><span class="pre">sdcard</span></code> referring to
-the printer’s SD card. If an upload targets the SD card, it will also be stored locally first.</p></li>
+<li><p><strong>storage</strong> – The target location to which to upload the file. By default only <code class="docutils literal notranslate"><span class="pre">local</span></code> and <code class="docutils literal notranslate"><span class="pre">printer</span></code> are supported
+here, with <code class="docutils literal notranslate"><span class="pre">local</span></code> referring to OctoPrint’s <code class="docutils literal notranslate"><span class="pre">uploads</span></code> folder and <code class="docutils literal notranslate"><span class="pre">printer</span></code> referring to
+the printer’s internal storage.</p></li>
 </ul>
 </dd>
 <dt class="field-even" id="post--api-files-(string-storage)-form-parameters">Form Parameters<span class="colon">:</span><a class="headerlink" href="#post--api-files-(string-storage)-form-parameters" title="Permalink to this headline">¶</a></dt>
@@ -3157,8 +3157,7 @@ with the file as metadata (metadata key <code class="docutils literal notranslat
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a></span> – No error</p></li>
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a></span> – If no <code class="docutils literal notranslate"><span class="pre">file</span></code> or <code class="docutils literal notranslate"><span class="pre">foldername</span></code> are included in the request, <code class="docutils literal notranslate"><span class="pre">userdata</span></code> was provided but could
 not be parsed as JSON or the request is otherwise invalid.</p></li>
-<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a></span> – If <code class="docutils literal notranslate"><span class="pre">location</span></code> is neither <code class="docutils literal notranslate"><span class="pre">local</span></code> nor <code class="docutils literal notranslate"><span class="pre">sdcard</span></code> or trying to upload to SD card and SD card support
-is disabled</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a></span> – If <code class="docutils literal notranslate"><span class="pre">location</span></code> is not among the registered storages (e.g. <code class="docutils literal notranslate"><span class="pre">local</span></code>, <code class="docutils literal notranslate"><span class="pre">printer</span></code>)</p></li>
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a></span> – If the upload of the file would override the file that is currently being printed or if an upload
 to SD card was requested and the printer is either not operational or currently busy with a print job.</p></li>
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.16">415 Unsupported Media Type</a></span> – If the file is neither a <code class="docutils literal notranslate"><span class="pre">gcode</span></code> nor an <code class="docutils literal notranslate"><span class="pre">stl</span></code> file (or it is an <code class="docutils literal notranslate"><span class="pre">stl</span></code> file but slicing support
@@ -3312,9 +3311,9 @@ folder/
 <dl class="field-list simple">
 <dt class="field-odd" id="post--api-files-(string-storage)-parameters">Parameters<span class="colon">:</span><a class="headerlink" href="#post--api-files-(string-storage)-parameters" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>storage</strong> – The target location to which to upload the file. Currently only <code class="docutils literal notranslate"><span class="pre">local</span></code> and <code class="docutils literal notranslate"><span class="pre">sdcard</span></code> are supported
-here, with <code class="docutils literal notranslate"><span class="pre">local</span></code> referring to OctoPrint’s <code class="docutils literal notranslate"><span class="pre">uploads</span></code> folder and <code class="docutils literal notranslate"><span class="pre">sdcard</span></code> referring to
-the printer’s SD card. If an upload targets the SD card, it will also be stored locally first.</p></li>
+<li><p><strong>storage</strong> – The target location to which to upload the file. By default only <code class="docutils literal notranslate"><span class="pre">local</span></code> and <code class="docutils literal notranslate"><span class="pre">printer</span></code> (and its deprecated alias <code class="docutils literal notranslate"><span class="pre">sdcard</span></code>) are supported
+here, with <code class="docutils literal notranslate"><span class="pre">local</span></code> referring to OctoPrint’s <code class="docutils literal notranslate"><span class="pre">uploads</span></code> folder and <code class="docutils literal notranslate"><span class="pre">printer</span></code> referring to
+the printer’s internal storage.</p></li>
 </ul>
 </dd>
 <dt class="field-even" id="post--api-files-(string-storage)-form-parameters">Form Parameters<span class="colon">:</span><a class="headerlink" href="#post--api-files-(string-storage)-form-parameters" title="Permalink to this headline">¶</a></dt>
@@ -3340,8 +3339,7 @@ with the file as metadata (metadata key <code class="docutils literal notranslat
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a></span> – No error</p></li>
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a></span> – If no <code class="docutils literal notranslate"><span class="pre">file</span></code> or <code class="docutils literal notranslate"><span class="pre">foldername</span></code> are included in the request, <code class="docutils literal notranslate"><span class="pre">userdata</span></code> was provided but could
 not be parsed as JSON or the request is otherwise invalid.</p></li>
-<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a></span> – If <code class="docutils literal notranslate"><span class="pre">location</span></code> is neither <code class="docutils literal notranslate"><span class="pre">local</span></code> nor <code class="docutils literal notranslate"><span class="pre">sdcard</span></code> or trying to upload to SD card and SD card support
-is disabled</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a></span> – If <code class="docutils literal notranslate"><span class="pre">location</span></code> is not among the registered storages (e.g. <code class="docutils literal notranslate"><span class="pre">local</span></code>, <code class="docutils literal notranslate"><span class="pre">printer</span></code> or its deprecated alias <code class="docutils literal notranslate"><span class="pre">sdcard</span></code>)</p></li>
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a></span> – If the upload of the file would override the file that is currently being printed or if an upload
 to SD card was requested and the printer is either not operational or currently busy with a print job.</p></li>
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.16">415 Unsupported Media Type</a></span> – If the file is neither a <code class="docutils literal notranslate"><span class="pre">gcode</span></code> nor an <code class="docutils literal notranslate"><span class="pre">stl</span></code> file (or it is an <code class="docutils literal notranslate"><span class="pre">stl</span></code> file but slicing support
@@ -3404,15 +3402,15 @@ as the response body.</p>
 <dl class="field-list simple">
 <dt class="field-odd" id="get--api-files-(string-location)-(path-filename)-parameters">Parameters<span class="colon">:</span><a class="headerlink" href="#get--api-files-(string-location)-(path-filename)-parameters" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>location</strong> – The location of the file for which to retrieve the information, either <code class="docutils literal notranslate"><span class="pre">local</span></code> or <code class="docutils literal notranslate"><span class="pre">sdcard</span></code>.</p></li>
+<li><p><strong>location</strong> – The location of the file for which to retrieve the information, by default <code class="docutils literal notranslate"><span class="pre">local</span></code> (for OctoPrint’s <code class="docutils literal notranslate"><span class="pre">uploads</span></code>
+folder) or <code class="docutils literal notranslate"><span class="pre">printer</span></code> or its deprecated alias <code class="docutils literal notranslate"><span class="pre">sdcard</span></code> for the printer’s internal storage (if available)</p></li>
 <li><p><strong>filename</strong> – The filename of the file for which to retrieve the information</p></li>
 </ul>
 </dd>
 <dt class="field-even" id="get--api-files-(string-location)-(path-filename)-status-codes">Status Codes<span class="colon">:</span><a class="headerlink" href="#get--api-files-(string-location)-(path-filename)-status-codes" title="Permalink to this headline">¶</a></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – No error</p></li>
-<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a></span> – If <code class="docutils literal notranslate"><span class="pre">target</span></code> is neither <code class="docutils literal notranslate"><span class="pre">local</span></code> nor <code class="docutils literal notranslate"><span class="pre">sdcard</span></code>, <code class="docutils literal notranslate"><span class="pre">sdcard</span></code> but SD card support is disabled or the
-requested file was not found</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a></span> – If <code class="docutils literal notranslate"><span class="pre">target</span></code> is not among the registered storages (e.g. <code class="docutils literal notranslate"><span class="pre">local</span></code>, <code class="docutils literal notranslate"><span class="pre">printer</span></code> or its deprecated alias <code class="docutils literal notranslate"><span class="pre">sdcard</span></code>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -3674,8 +3672,8 @@ body will be returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd" id="post--api-files-(string-location)-(path-path)-parameters">Parameters<span class="colon">:</span><a class="headerlink" href="#post--api-files-(string-location)-(path-path)-parameters" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>location</strong> – The target location on which to send the command for is located, either <code class="docutils literal notranslate"><span class="pre">local</span></code> (for OctoPrint’s <code class="docutils literal notranslate"><span class="pre">uploads</span></code>
-folder) or <code class="docutils literal notranslate"><span class="pre">sdcard</span></code> for the printer’s SD card (if available)</p></li>
+<li><p><strong>location</strong> – The target location on which to send the command for is located, by default <code class="docutils literal notranslate"><span class="pre">local</span></code> (for OctoPrint’s <code class="docutils literal notranslate"><span class="pre">uploads</span></code>
+folder) or <code class="docutils literal notranslate"><span class="pre">printer</span></code> or its deprecated alias <code class="docutils literal notranslate"><span class="pre">sdcard</span></code> for the printer’s internal storage (if available)</p></li>
 <li><p><strong>path</strong> – The path of the file for which to issue the command</p></li>
 </ul>
 </dd>
@@ -3702,7 +3700,7 @@ defaults to <code class="docutils literal notranslate"><span class="pre">false</
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.3">202 Accepted</a></span> – No error for a <code class="docutils literal notranslate"><span class="pre">slice</span></code> command.</p></li>
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a></span> – If the <code class="docutils literal notranslate"><span class="pre">command</span></code> is unknown or the request is otherwise invalid</p></li>
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.16">415 Unsupported Media Type</a></span> – If a <code class="docutils literal notranslate"><span class="pre">slice</span></code> command was issued against something other than an STL file.</p></li>
-<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a></span> – If <code class="docutils literal notranslate"><span class="pre">location</span></code> is neither <code class="docutils literal notranslate"><span class="pre">local</span></code> nor <code class="docutils literal notranslate"><span class="pre">sdcard</span></code> or the requested file was not found</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a></span> – If <code class="docutils literal notranslate"><span class="pre">location</span></code> is not among the registered storages (e.g. <code class="docutils literal notranslate"><span class="pre">local</span></code>, <code class="docutils literal notranslate"><span class="pre">printer</span></code> or its deprecated alias <code class="docutils literal notranslate"><span class="pre">sdcard</span></code>) or the requested file was not found</p></li>
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a></span> – If a selected file is supposed to start printing directly but the printer is not operational
 or if a file is to be selected but the printer is already printing or
 if a file to be sliced is supposed to be selected or start printing directly but the printer
@@ -3729,15 +3727,15 @@ is not operational or already printing.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd" id="delete--api-files-(string-location)-(path-path)-parameters">Parameters<span class="colon">:</span><a class="headerlink" href="#delete--api-files-(string-location)-(path-path)-parameters" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>location</strong> – The target location on which to delete the file, either <code class="docutils literal notranslate"><span class="pre">local</span></code> (for OctoPrint’s <code class="docutils literal notranslate"><span class="pre">uploads</span></code>
-folder) or <code class="docutils literal notranslate"><span class="pre">sdcard</span></code> for the printer’s SD card (if available)</p></li>
+<li><p><strong>location</strong> – The target location on which to delete the file, by default <code class="docutils literal notranslate"><span class="pre">local</span></code> (for OctoPrint’s <code class="docutils literal notranslate"><span class="pre">uploads</span></code>
+folder) or <code class="docutils literal notranslate"><span class="pre">printer</span></code> or its deprecated alias <code class="docutils literal notranslate"><span class="pre">sdcard</span></code> for the printer’s internal storage (if available)</p></li>
 <li><p><strong>path</strong> – The path of the file to delete</p></li>
 </ul>
 </dd>
 <dt class="field-even" id="delete--api-files-(string-location)-(path-path)-status-codes">Status Codes<span class="colon">:</span><a class="headerlink" href="#delete--api-files-(string-location)-(path-path)-status-codes" title="Permalink to this headline">¶</a></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a></span> – No error</p></li>
-<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a></span> – If <code class="docutils literal notranslate"><span class="pre">location</span></code> is neither <code class="docutils literal notranslate"><span class="pre">local</span></code> nor <code class="docutils literal notranslate"><span class="pre">sdcard</span></code> or the requested file was not found</p></li>
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5">404 Not Found</a></span> – If <code class="docutils literal notranslate"><span class="pre">location</span></code> is not among the registered storages (e.g. <code class="docutils literal notranslate"><span class="pre">local</span></code>, <code class="docutils literal notranslate"><span class="pre">printer</span></code> or its deprecated alias <code class="docutils literal notranslate"><span class="pre">sdcard</span></code>) or the requested file was not found</p></li>
 <li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">409 Conflict</a></span> – If the file to be deleted is currently being printed</p></li>
 </ul>
 </dd>
