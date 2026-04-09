@@ -7237,7 +7237,7 @@ can be accessed as <code class="docutils literal notranslate"><span class="pre">
 <li><p><code class="docutils literal notranslate"><span class="pre">description</span></code>: A human readable description of the permission.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">permissions</span></code>: A list of permissions this permission includes, by key.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">roles</span></code>: A list of roles this permission includes. Roles are simple strings you define. Usually one role will
-suffice.</p></li>
+suffice. Note: Not to be confused with the deprecated and removed user roles predating the permissions system.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">dangerous</span></code>: Whether this permission should be considered dangerous (<code class="docutils literal notranslate"><span class="pre">True</span></code>) or not (<code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">default_groups</span></code>: A list of standard groups this permission should be apply to by default. Standard groups
 are <code class="docutils literal notranslate"><span class="pre">octoprint.access.ADMIN_GROUP</span></code>, <code class="docutils literal notranslate"><span class="pre">octoprint.access.USER_GROUP</span></code>, <code class="docutils literal notranslate"><span class="pre">octoprint.access.READONLY_GROUP</span></code> and <code class="docutils literal notranslate"><span class="pre">octoprint.access.GUEST_GROUP</span></code></p></li>
@@ -7326,7 +7326,7 @@ file <code class="docutils literal notranslate"><span class="pre">~/.octoprint/u
 </div>
 <p>Via this hook plugins may validate their own customized API keys to be used to access OctoPrint’s API.</p>
 <p><code class="docutils literal notranslate"><span class="pre">apikey</span></code> will be the API key as read from the request headers.</p>
-<p>Hook handlers are expected to return a <a class="reference internal" href="../modules/access.html#octoprint.access.users.User" title="octoprint.access.users.User (Python class) — Deprecated since version 1.4.0: Replaced by as_dict()"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a> instance here that will then be considered that
+<p>Hook handlers are expected to return a <a class="reference internal" href="../modules/access.html#octoprint.access.users.User" title="octoprint.access.users.User (Python class)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a> instance here that will then be considered that
 user making the request. By returning <code class="docutils literal notranslate"><span class="pre">None</span></code> or nothing at all, hook handlers signal that they do not handle the
 provided key.</p>
 <p><strong>Example:</strong></p>
@@ -7335,13 +7335,13 @@ and merely provided for educational purposes):</p>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-number">Listing 19 </span><span class="caption-text">
 </span>custom_keyvalidator.py<a class="headerlink" href="#id6" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># Needs OctoPrint 1.3.6 or newer</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># Needs OctoPrint 1.4.0 or newer</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">hook</span><span class="p">(</span><span class="n">apikey</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.server</span><span class="w"> </span><span class="kn">import</span> <span class="n">userManager</span>
 
-    <span class="k">return</span> <span class="n">userManager</span><span class="o">.</span><span class="n">findUser</span><span class="p">(</span><span class="n">userid</span><span class="o">=</span><span class="n">apikey</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">userManager</span><span class="o">.</span><span class="n">find_user</span><span class="p">(</span><span class="n">userid</span><span class="o">=</span><span class="n">apikey</span><span class="p">)</span>
 
 
 <span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
@@ -7363,7 +7363,7 @@ and merely provided for educational purposes):</p>
 <dd class="field-even"><p>The user in whose name the request will be processed further</p>
 </dd>
 <dt class="field-odd" id="acl_keyvalidator_hook-return-type">Return type<span class="colon">:</span><a class="headerlink" href="#acl_keyvalidator_hook-return-type" title="Permalink to this headline">¶</a></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../modules/access.html#octoprint.access.users.User" title="octoprint.access.users.User (Python class) — Deprecated since version 1.4.0: Replaced by as_dict()"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a></p>
+<dd class="field-odd"><p><a class="reference internal" href="../modules/access.html#octoprint.access.users.User" title="octoprint.access.users.User (Python class)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
