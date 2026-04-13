@@ -11,17 +11,17 @@
       
       
       
-        <link rel="prev" href="concepts.html">
+        <link rel="prev" href="migration_python3.html">
       
       
-        <link rel="next" href="mixins.html">
+        <link rel="next" href="migration_2_0_0.html">
       
       
       <link rel="icon" href="">
     
     
       
-        <title>Control Properties - OctoPrint dev documentation</title>
+        <title>Migrating to pyproject.toml and build isolation - OctoPrint dev documentation</title>
       
     
     
@@ -70,6 +70,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#obtaining-octoprint-plugin-tool" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -114,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Control Properties
+              Migrating to pyproject.toml and build isolation
             
           </span>
         </div>
@@ -507,18 +512,11 @@
                 
   
   
-    
-  
-    
   
   
   
-    <li class="md-nav__item md-nav__item--active">
-      
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      <a href="#" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="controlproperties.html" class="md-nav__link">
         
   
   
@@ -529,7 +527,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -731,11 +728,31 @@
                 
   
   
+    
+  
+    
   
   
   
-    <li class="md-nav__item">
-      <a href="migration_pyproject_toml.html" class="md-nav__link">
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    <span>Migrating to pyproject.<wbr>toml and build isolation</span>
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
         
   
   
@@ -746,6 +763,55 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#obtaining-octoprint-plugin-tool" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Obtaining octoprint-<wbr>plugin-<wbr>tool</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-use-octoprint-plugin-tool" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>How to use octoprint-<wbr>plugin-<wbr>tool</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Further reading</span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -846,6 +912,44 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#obtaining-octoprint-plugin-tool" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Obtaining octoprint-<wbr>plugin-<wbr>tool</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-use-octoprint-plugin-tool" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>How to use octoprint-<wbr>plugin-<wbr>tool</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Further reading</span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -860,140 +964,70 @@
                   
 
 
-<h1 id="control-properties"><span id="sec-plugins-controlproperties"></span>Control Properties<a class="headerlink" href="#control-properties" title="Link to this heading">¶</a></h1>
-<p>As already mentioned earlier, plugins are Python packages which provide certain pieces of metadata to tell OctoPrint’s
-plugin subsystem about themselves. These are simple package attributes defined in the top most package file, e.g.:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">octoprint.plugin</span>
-
-<span class="c1"># ...</span>
-
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;My Plugin&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">__plugin_load__</span><span class="p">():</span>
-    <span class="c1"># whatever you need to do to load your plugin, if anything at all</span>
-    <span class="k">pass</span>
+<h1 id="migrating-to-pyproject-toml-and-build-isolation"><span id="sec-plugins-pyproject-toml"></span>Migrating to <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> and build isolation<a class="headerlink" href="#migrating-to-pyproject-toml-and-build-isolation" title="Link to this heading">¶</a></h1>
+<p>Python’s packaging has come a long ways in recent years with regards to getting modernized. The old <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> based approach of configuring your
+package for packaging has been replaced by a <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> that supports a whole lot more build systems beyond <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> as well
+as configuring the various development tools that are part of the Python ecosystem. In addition to that, current versions of
+<code class="docutils literal notranslate"><span class="pre">pip</span></code> (25.3+) by default install packages - including OctoPrint plugins - in what’s called “build isolation”, to ensure less of a
+dependency nightmare by building an installable “wheel” for a package in an isolated environment with the barest minimum of dependencies, as
+defined by the package.</p>
+<p>This build isolation causes issues with OctoPrint plugins that still use the old <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> based plugin template, as that requires
+a dependency provided by OctoPrint during installation - when build isolation is active, that cannot be pulled in and the
+installation fails. Thankfully, <code class="docutils literal notranslate"><span class="pre">pip</span></code> provides a workaround in the shape of the parameters <code class="docutils literal notranslate"><span class="pre">--use-pep517</span> <span class="pre">--no-build-isolation</span></code>
+and OctoPrint 1.11.4+ detects automatically whether these parameters are needed to install or update a plugin package.</p>
+<p>However, it would be good if plugin developers make sure their code gets updated to more modern tooling. Not only has it
+various advantages, all of Python’s ecosystem is fully going into that direction and long term even the above workaround
+might at some point vanish. We don’t know, so we should modernize!</p>
+<p>With <code class="docutils literal notranslate"><span class="pre">octoprint-plugin-tool</span></code> there’s a quick solution to migrate most plugins still using the legacy packaging approach
+to a more modern setup.</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#obtaining-octoprint-plugin-tool" id="id1">Obtaining <code class="docutils literal notranslate"><span class="pre">octoprint-plugin-tool</span></code></a></p></li>
+<li><p><a class="reference internal" href="#how-to-use-octoprint-plugin-tool" id="id2">How to use <code class="docutils literal notranslate"><span class="pre">octoprint-plugin-tool</span></code></a></p></li>
+<li><p><a class="reference internal" href="#further-reading" id="id3">Further reading</a></p></li>
+</ul>
+</nav>
+<h2 id="obtaining-octoprint-plugin-tool"><span id="sec-plugins-pyproject-toml-install-tool"></span><a class="toc-backref" href="#id1" role="doc-backlink">Obtaining <code class="docutils literal notranslate"><span class="pre">octoprint-plugin-tool</span></code></a><a class="headerlink" href="#obtaining-octoprint-plugin-tool" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">octoprint-plugin-tool</span></code> is available on the official Python package Index PyPI and thus can easily be obtained
+through pip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">pip</span> <span class="n">install</span> <span class="n">octoprint</span><span class="o">-</span><span class="n">plugin</span><span class="o">-</span><span class="n">tool</span>
 </code></pre></div>
 </div>
-<p>The following properties are recognized:</p>
-<dl class="simple" id="sec-plugins-controlproperties-plugin-name">
-<dt><code class="docutils literal notranslate"><span class="pre">__plugin_name__</span></code></dt><dd><p>Name of your plugin, optional, overrides the name specified in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> if provided. If neither this property nor
-a name from <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> is available to the plugin subsystem, the plugin’s identifier (= package name) will be
-used instead.</p>
-</dd>
-</dl>
-<dl class="simple" id="sec-plugins-controlproperties-plugin-version">
-<dt><code class="docutils literal notranslate"><span class="pre">__plugin_version__</span></code></dt><dd><p>Version of your plugin, optional, overrides the version specified in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> if provided.</p>
-</dd>
-</dl>
-<dl class="simple" id="sec-plugins-controlproperties-plugin-description">
-<dt><code class="docutils literal notranslate"><span class="pre">__plugin_description__</span></code></dt><dd><p>Description of your plugin, optional, overrides the description specified in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> if provided.</p>
-</dd>
-</dl>
-<dl class="simple" id="sec-plugins-controlproperties-plugin-author">
-<dt><code class="docutils literal notranslate"><span class="pre">__plugin_author__</span></code></dt><dd><p>Author of your plugin, optional, overrides the author specified in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> if provided.</p>
-</dd>
-</dl>
-<dl class="simple" id="sec-plugins-controlproperties-plugin-url">
-<dt><code class="docutils literal notranslate"><span class="pre">__plugin_url__</span></code></dt><dd><p>URL of the webpage of your plugin, e.g. the Github repository, optional, overrides the URL specified in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> if
-provided.</p>
-</dd>
-</dl>
-<dl class="simple" id="sec-plugins-controlproperties-plugin-license">
-<dt><code class="docutils literal notranslate"><span class="pre">__plugin_license__</span></code></dt><dd><p>License of your plugin, optional, overrides the license specified in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> if provided.</p>
-</dd>
-</dl>
-<dl class="simple" id="sec-plugins-controlproperties-plugin-privacypolicy">
-<dt><code class="docutils literal notranslate"><span class="pre">__plugin_privacypolicy__</span></code></dt><dd><p>URL of the privacy policy of your plugin, optional.</p>
-</dd>
-</dl>
-<dl id="sec-plugins-controlproperties-plugin-pythoncompat">
-<dt><code class="docutils literal notranslate"><span class="pre">__plugin_pythoncompat__</span></code></dt><dd><p>Python compatibility string of your plugin, optional, defaults to <code class="docutils literal notranslate"><span class="pre">&gt;=2.7,&lt;3</span></code> if not set and thus Python 2 but no
-Python 3 compatibility. This is used as a precaution against issues with some of the Python 2 only plugins
-that are still out there, as OctoPrint will not even attempt to load plugins whose Python compatibility
-information doesn’t match its current environment.</p>
-<p>If your plugin is compatible to supported Python 3 versions only, you should set this to <code class="docutils literal notranslate"><span class="pre">&gt;=3.9,&lt;4</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.9,&lt;4&quot;</span>
+<p>Alternatively, you may also run it directly through <code class="docutils literal notranslate"><span class="pre">pipx</span> <span class="pre">run</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">pipx</span> <span class="n">run</span> <span class="n">octoprint</span><span class="o">-</span><span class="n">plugin</span><span class="o">-</span><span class="n">tool</span>
 </code></pre></div>
 </div>
-</dd>
-</dl>
-<dl id="sec-plugins-controlproperties-plugin-implementation">
-<dt><code class="docutils literal notranslate"><span class="pre">__plugin_implementation__</span></code></dt><dd><p>Instance of an implementation of one or more <a class="reference internal" href="mixins.html#sec-plugins-mixins"><span class="std std-ref">plugin mixins</span></a>. E.g.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">MyPlugin</span><span class="p">()</span>
+<p>or <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">tool</span> <span class="pre">run</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">uv</span> <span class="n">tool</span> <span class="n">run</span> <span class="n">octoprint</span><span class="o">-</span><span class="n">plugin</span><span class="o">-</span><span class="n">tool</span>
 </code></pre></div>
 </div>
-</dd>
-</dl>
-<dl id="sec-plugins-controlproperties-plugin-hooks">
-<dt><code class="docutils literal notranslate"><span class="pre">__plugin_hooks__</span></code></dt><dd><p>Handlers for one or more of the various <a class="reference internal" href="hooks.html#sec-plugins-hooks"><span class="std std-ref">plugin hooks</span></a>. E.g.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">handle_gcode_sent</span><span class="p">(</span><span class="n">comm_instance</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">cmd_type</span><span class="p">,</span> <span class="n">gcode</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">gcode</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;M106&quot;</span><span class="p">,</span> <span class="s2">&quot;M107&quot;</span><span class="p">):</span>
-        <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;We just sent a fan command to the printer!&quot;</span><span class="p">)</span>
-
-<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;octoprint.comm.protocol.gcode.sent&quot;</span><span class="p">:</span> <span class="n">handle_gcode_sent</span>
-<span class="p">}</span>
+<p>Note that it requires Python 3.9 and newer.</p>
+<p>OctoPrint 2.0.0 will also include it and offer its functionality on its command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">octoprint</span> <span class="n">dev</span> <span class="n">plugin</span><span class="p">:</span><span class="n">migrate</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">pyproject</span>
 </code></pre></div>
 </div>
-</dd>
-</dl>
-<dl id="sec-plugins-controlproperties-plugin-check">
-<dt><code class="docutils literal notranslate"><span class="pre">__plugin_check__</span></code></dt><dd><p>Method called upon discovery of the plugin by the plugin subsystem, should return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the
-plugin can be instantiated later on, <code class="docutils literal notranslate"><span class="pre">False</span></code> if there are reasons why not, e.g. if dependencies
-are missing. An example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">__plugin_check__</span><span class="p">():</span>
-    <span class="c1"># Make sure we only run our plugin if some_dependency is available</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="kn">import</span><span class="w"> </span><span class="nn">some_dependency</span>
-    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">False</span>
-
-    <span class="k">return</span> <span class="kc">True</span>
+<h2 id="how-to-use-octoprint-plugin-tool"><span id="sec-plugins-pyproject-toml-use-tool"></span><a class="toc-backref" href="#id2" role="doc-backlink">How to use <code class="docutils literal notranslate"><span class="pre">octoprint-plugin-tool</span></code></a><a class="headerlink" href="#how-to-use-octoprint-plugin-tool" title="Link to this heading">¶</a></h2>
+<p>In most cases, migrating your plugin to <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> is as easy as running</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">octoprint</span><span class="o">-</span><span class="n">plugin</span><span class="o">-</span><span class="n">tool</span> <span class="n">to</span><span class="o">-</span><span class="n">pyproject</span> <span class="o">--</span><span class="n">path</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">plugin</span><span class="o">/</span><span class="n">checkout</span>
 </code></pre></div>
 </div>
+<p>That will do the necessary conversion steps and you’ll end up with a modified source tree that
+should already work fine.</p>
+<p><strong>If there’s any reason the tool cannot do the migration, it will tell you why.</strong> Also take
+note of any warnings and instructions on how to proceed it outputs.</p>
+<p>It is strongly advised to test packaging and installing your plugin now the way you usually would. Once
+you are satisfied everything is still working like it should, release your changes as a new version
+of your plugin.</p>
+<h2 id="further-reading"><span id="sec-plugins-pyproject-toml-furtherreading"></span><a class="toc-backref" href="#id3" role="doc-backlink">Further reading</a><a class="headerlink" href="#further-reading" title="Link to this heading">¶</a></h2>
+<div class="seealso admonition">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://packaging.python.org/en/latest/guides/writing-pyproject-toml/">Writing your pyproject.toml</a></dt><dd><p>The official Python 3 packaging guide explains how a <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file should look.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/OctoPrint/octoprint-plugin-tool">octoprint-plugin-tool</a></dt><dd><p>The repository and README of <code class="docutils literal notranslate"><span class="pre">octoprint-plugin-tool</span></code>.</p>
 </dd>
 </dl>
-<dl id="sec-plugins-controlproperties-plugin-load">
-<dt><code class="docutils literal notranslate"><span class="pre">__plugin_load__</span></code></dt><dd><p>Method called upon loading of the plugin by the plugin subsystem, can be used to instantiate
-plugin implementations, connecting them to hooks etc. An example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">__plugin_load__</span><span class="p">():</span>
-    <span class="k">global</span> <span class="n">__plugin_implementation__</span>
-    <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">MyPlugin</span><span class="p">()</span>
-
-    <span class="k">global</span> <span class="n">__plugin_hooks__</span>
-    <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;octoprint.plugin.softwareupdate.check_config&quot;</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">get_update_information</span>
-    <span class="p">}</span>
-</code></pre></div>
 </div>
-</dd>
-</dl>
-<dl class="simple" id="sec-plugins-controlproperties-plugin-unload">
-<dt><code class="docutils literal notranslate"><span class="pre">__plugin_unload__</span></code></dt><dd><p>Method called upon unloading of the plugin by the plugin subsystem, can be used to do any final clean ups.</p>
-</dd>
-</dl>
-<dl class="simple" id="sec-plugins-controlproperties-plugin-enable">
-<dt><code class="docutils literal notranslate"><span class="pre">__plugin_enable__</span></code></dt><dd><p>Method called upon enabling of the plugin by the plugin subsystem. Also see <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.Plugin.on_plugin_enabled" title="octoprint.plugin.core.Plugin.on_plugin_enabled (Python method) — Called by the plugin core when the plugin was enabled. Override this to react to the event."><code class="xref py py-func docutils literal notranslate"><span class="pre">on_plugin_enabled()</span></code></a>.</p>
-</dd>
-</dl>
-<dl class="simple" id="sec-plugins-controlproperties-plugin-disable">
-<dt><code class="docutils literal notranslate"><span class="pre">__plugin_disable__</span></code></dt><dd><p>Method called upon disabling of the plugin by the plugin subsystem. Also see <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.core.Plugin.on_plugin_disabled" title="octoprint.plugin.core.Plugin.on_plugin_disabled (Python method) — Called by the plugin core when the plugin was disabled. Override this to react to the event."><code class="xref py py-func docutils literal notranslate"><span class="pre">on_plugin_disabled()</span></code></a>.</p>
-</dd>
-</dl>
-<dl id="sec-plugins-controlproperties-plugin-settings-overlay">
-<dt><code class="docutils literal notranslate"><span class="pre">__plugin_settings_overlay__</span></code></dt><dd><p>An optional <code class="docutils literal notranslate"><span class="pre">dict</span></code> providing an overlay over the application’s default settings. Plugins can use that to modify the
-<strong>default</strong> settings of OctoPrint and its plugins that apply when there’s no different configuration present in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>. Note that <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>
-has the final say - it is not possible to override what is in there through an overlay. Plugin authors should use this
-sparingly - it’s supposed to be utilized when creating specific customization of the core application that necessitate
-changes in things like e.g. standard naming, UI ordering or API endpoints. Example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">__plugin_settings_overlay__</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">api</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">enabled</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-                                   <span class="n">server</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
-                                               <span class="n">port</span><span class="o">=</span><span class="mi">5001</span><span class="p">))</span>
-</code></pre></div>
-</div>
-</dd>
-</dl>
 
 
 
@@ -1033,7 +1067,7 @@ changes in things like e.g. standard naming, UI ordering or API endpoints. Examp
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="concepts.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: General Concepts">
+          <a href="migration_python3.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Migrating to Python 3">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1043,20 +1077,20 @@ changes in things like e.g. standard naming, UI ordering or API endpoints. Examp
                 Previous
               </span>
               <div class="md-ellipsis">
-                General Concepts
+                Migrating to Python 3
               </div>
             </div>
           </a>
         
         
           
-          <a href="mixins.html" class="md-footer__link md-footer__link--next" aria-label="Next: Mixins">
+          <a href="migration_2_0_0.html" class="md-footer__link md-footer__link--next" aria-label="Next: Migrating to OctoPrint 2.0.0">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Mixins
+                Migrating to OctoPrint 2.0.0
               </div>
             </div>
             <div class="md-footer__button md-icon">
