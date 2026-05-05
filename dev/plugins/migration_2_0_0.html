@@ -2064,6 +2064,10 @@ to switch over to <code class="docutils literal notranslate"><span class="pre">t
 <p>The long-deprecated <code class="docutils literal notranslate"><span class="pre">octoprint.plugin.PluginSettings.get_plugin_data_folder</span></code> has finally been removed in favor of its established replacement <a class="reference internal" href="../modules/plugin.html#octoprint.plugin.types.OctoPrintPlugin.get_plugin_data_folder" title="octoprint.plugin.types.OctoPrintPlugin.get_plugin_data_folder (Python method) — Retrieves the path to a data folder specifically for the plugin, ensuring it exists and if not creating it before returning it."><span class="xref myst py py-meth"><code class="docutils literal notranslate"><span class="pre">octoprint.plugin.OctoPrintPlugin.get_plugin_data_folder</span></code></span></a>.</p>
 <p>In practice for plugins that means replacing any calls to <code class="docutils literal notranslate"><span class="pre">self._settings.get_plugin_data_folder</span></code> with <code class="docutils literal notranslate"><span class="pre">self.get_plugin_data_folder</span></code>. Note that if the only reason for your plugin to implement <a class="reference internal" href="mixins.html#octoprint.plugin.SettingsPlugin" title="octoprint.plugin.SettingsPlugin (Python class) — Bases: OctoPrintPlugin"><span class="xref myst py py-class">the <code class="docutils literal notranslate"><span class="pre">SettingsPlugin</span></code> mixin</span></a> was to be able to access your plugin’s data folder, you can then also remove that mixin from your plugin.</p>
 <h3 id="printer-interaction"><span id="sec-plugins-octo-2-0-0-server-printer"></span>Printer interaction<a class="headerlink" href="#printer-interaction" title="Link to this heading">¶</a></h3>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Printer</span></code> class mentioned is injected into plugins as <code class="docutils literal notranslate"><span class="pre">self._printer</span></code>.</p>
+</div>
 <h4 id="internal-attributes-of-printer-class-renamed-or-removed"><span id="sec-plugins-octo-2-0-0-server-printer-internal"></span>Internal attributes of <code class="docutils literal notranslate"><span class="pre">Printer</span></code> class renamed or removed<a class="headerlink" href="#internal-attributes-of-printer-class-renamed-or-removed" title="Link to this heading">¶</a></h4>
 <p>Some internal attributes of the <code class="docutils literal notranslate"><span class="pre">octoprint.printer.Printer</span></code> class (injected as <code class="docutils literal notranslate"><span class="pre">self._printer</span></code> into plugin implementations) have been renamed or removed. Plugins that accessed the following (<strong>private</strong>) attributes will need to update the names. Please note that these are <em>not</em> drop-in replacements!</p>
 <div class="attention warning admonition">
@@ -2082,7 +2086,7 @@ to switch over to <code class="docutils literal notranslate"><span class="pre">t
 </ul>
 <h4 id="printer-get-transport-deprecated"><span id="sec-plugins-octo-2-0-0-server-printer-get-transport"></span><code class="docutils literal notranslate"><span class="pre">Printer.get_transport</span></code> deprecated<a class="headerlink" href="#printer-get-transport-deprecated" title="Link to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">get_transport</span></code> has been deprecated, and the compatibility layer in place is only functional if the current printer connection is provided by the bundled serial connector plugin.</p>
-<p>This compatibility layer is planned to get removed in a future version, so if your plugin still relies on <code class="docutils literal notranslate"><span class="pre">self._printer</span></code>, for now <em>refactor it</em> to instead check for the serial connector yourself and then fetch the <code class="docutils literal notranslate"><span class="pre">_comm</span></code> and its <code class="docutils literal notranslate"><span class="pre">_serial</span></code> object yourself, with a lot of error checking to protect against internal changes (these are <em>private</em> properties shown by the <code class="docutils literal notranslate"><span class="pre">_</span></code> prefix - they are <em>not</em> part of the official plugin API!):</p>
+<p>This compatibility layer is planned to get removed in a future version, so if your plugin still relies on <code class="docutils literal notranslate"><span class="pre">self._printer.get_transport</span></code>, for now <em>refactor it</em> to instead check for the serial connector yourself and then fetch the <code class="docutils literal notranslate"><span class="pre">_comm</span></code> and its <code class="docutils literal notranslate"><span class="pre">_serial</span></code> object yourself, with a lot of error checking to protect against internal changes (these are <em>private</em> properties shown by the <code class="docutils literal notranslate"><span class="pre">_</span></code> prefix - they are <em>not</em> part of the official plugin API!):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">connection</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">connector</span> <span class="o">!=</span> <span class="s2">&quot;serial&quot;</span><span class="p">:</span>
     <span class="k">return</span>
 
@@ -2099,7 +2103,38 @@ to switch over to <code class="docutils literal notranslate"><span class="pre">t
 <h4 id="format-of-terminal-log-lines-changed"><span id="sec-plugins-octo-2-0-0-server-printer-log-format"></span>Format of terminal log lines changed<a class="headerlink" href="#format-of-terminal-log-lines-changed" title="Link to this heading">¶</a></h4>
 <p>Terminal log lines as generated by the serial connection no longer have the prefixes <code class="docutils literal notranslate"><span class="pre">Recv:</span></code> and <code class="docutils literal notranslate"><span class="pre">Send:</span></code> but rather <code class="docutils literal notranslate"><span class="pre">&lt;&lt;&lt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code>.</p>
 <p>Any consumers of these logs must update their parsers.</p>
-<p>The terminal filters have already been updated accordingly.</p>
+<p>The bundled default terminal filters have already been updated accordingly, with regular expressions that match both the old and the new prefix so they keep working on logs from any third party plugins that might still emit the legacy format.</p>
+<p>The table below lists the default terminal filters in their old and new form.</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Old default regex</p></th>
+<th class="head"><p>OctoPrint 2.0.0 default regex</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Suppress temperature messages</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(Send:</span> <span class="pre">(N\d+\s+)?M105)|(Recv:\s+(ok\s+([PBN]\d+\s+)*)?([BCLPR]|T\d*):-?\d+)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">((Send:|&gt;&gt;&gt;)\s+(N\d+\s+)?M105)|((Recv:|&lt;&lt;&lt;)\s+(ok\s+([PBN]\d+\s+)*)?([BCLPR]|T\d*):-?\d+)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Suppress SD status messages</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(Send:</span> <span class="pre">(N\d+\s+)?M27)|(Recv:</span> <span class="pre">SD</span> <span class="pre">printing</span> <span class="pre">byte)|(Recv:</span> <span class="pre">Not</span> <span class="pre">SD</span> <span class="pre">printing)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">((Send:|&gt;&gt;&gt;)\s+(N\d+\s+)?M27)|((Recv:|&lt;&lt;&lt;)\s+SD</span> <span class="pre">printing</span> <span class="pre">byte)|((Recv:|&lt;&lt;&lt;)\s+Not</span> <span class="pre">SD</span> <span class="pre">printing)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Suppress position messages</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(Send:\s+(N\d+\s+)?M114)|(Recv:\s+(ok\s+)?X:[+-]?([0-9]*[.])?[0-9]+\s+Y:[+-]?([0-9]*[.])?[0-9]+\s+Z:[+-]?([0-9]*[.])?[0-9]+\s+E\d*:[+-]?([0-9]*[.])?[0-9]+).*</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">((Send:|&gt;&gt;&gt;)\s+(N\d+\s+)?M114)|((Recv:|&lt;&lt;&lt;)\s+(ok\s+)?X:[+-]?([0-9]*[.])?[0-9]+\s+Y:[+-]?([0-9]*[.])?[0-9]+\s+Z:[+-]?([0-9]*[.])?[0-9]+\s+E\d*:[+-]?([0-9]*[.])?[0-9]+).*</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Suppress wait responses</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Recv:</span> <span class="pre">wait</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(Recv:|&lt;&lt;&lt;)\s+wait</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Suppress processing responses</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Recv:</span> <span class="pre">(echo:\s*)?busy:\s*processing</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(Recv:|&lt;&lt;&lt;)\s+(echo:\s*)?busy:\s*processing</span></code></p></td>
+</tr>
+</tbody>
+</table>
 <h4 id="octoprint-printer-profile-bedtypes-removed"><span id="sec-plugins-octo-2-0-0-server-printer-bedtypes"></span><code class="docutils literal notranslate"><span class="pre">octoprint.printer.profile.BedTypes</span></code> removed<a class="headerlink" href="#octoprint-printer-profile-bedtypes-removed" title="Link to this heading">¶</a></h4>
 <p>The long deprecated <code class="docutils literal notranslate"><span class="pre">octoprint.printer.profile.BedTypes</span></code> type has been removed. Its drop-in replacement is the more aptly named <code class="docutils literal notranslate"><span class="pre">octoprint.printer.profile.BedFormFactor</span></code>.</p>
 <h3 id="server"><span id="sec-plugins-octo-2-0-0-server-server"></span>Server<a class="headerlink" href="#server" title="Link to this heading">¶</a></h3>

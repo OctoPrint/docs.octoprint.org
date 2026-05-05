@@ -1063,6 +1063,62 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Removal of deprecated methods on octoprint.printer.standard.Printer, also known as self._printer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#migration-example-select-file" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Migration example:<wbr> select_<wbr>file</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migration-example-unselect-file" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Migration example:<wbr> unselect_<wbr>file</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migration-example-refresh-sd-files-get-sd-files" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Migration example:<wbr> refresh_<wbr>sd_<wbr>files &amp; get_<wbr>sd_<wbr>files</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migration-example-can-modify-file" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Migration example:<wbr> can_<wbr>modify_<wbr>file</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migration-example-is-current-file" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Migration example:<wbr> is_<wbr>current_<wbr>file</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1483,6 +1539,62 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Removal of deprecated methods on octoprint.printer.standard.Printer, also known as self._printer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#migration-example-select-file" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Migration example:<wbr> select_<wbr>file</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migration-example-unselect-file" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Migration example:<wbr> unselect_<wbr>file</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migration-example-refresh-sd-files-get-sd-files" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Migration example:<wbr> refresh_<wbr>sd_<wbr>files &amp; get_<wbr>sd_<wbr>files</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migration-example-can-modify-file" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Migration example:<wbr> can_<wbr>modify_<wbr>file</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migration-example-is-current-file" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Migration example:<wbr> is_<wbr>current_<wbr>file</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1816,6 +1928,65 @@ to be prefixed referencing the target plugin going forward:</p>
 </ul>
 <div class="admonition deprecated">
 <p class="admonition-title"><span class="versionmodified deprecated">Deprecated since version 2.0.0.</span></p>
+</div>
+<h4 id="migration-example-select-file">Migration example: <code class="docutils literal notranslate"><span class="pre">select_file</span></code><a class="headerlink" href="#migration-example-select-file" title="Link to this heading">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.filemanager</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileDestinations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.util.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_octoprint_compatible</span>
+
+<span class="k">if</span> <span class="n">is_octoprint_compatible</span><span class="p">(</span><span class="s2">&quot;&gt;=2&quot;</span><span class="p">):</span>
+    <span class="n">job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_manager</span><span class="o">.</span><span class="n">create_job</span><span class="p">(</span><span class="n">storage</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">set_job</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">print_after_select</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">is_sd</span> <span class="o">=</span> <span class="n">storage</span> <span class="o">==</span> <span class="n">FileDestinations</span><span class="o">.</span><span class="n">SDCARD</span>
+    <span class="n">file_to_select</span> <span class="o">=</span> <span class="n">path</span> <span class="k">if</span> <span class="n">is_sd</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_manager</span><span class="o">.</span><span class="n">path_on_disk</span><span class="p">(</span><span class="n">storage</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">select_file</span><span class="p">(</span><span class="n">file_to_select</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">is_sd</span><span class="p">,</span> <span class="n">printAfterSelect</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<h4 id="migration-example-unselect-file">Migration example: <code class="docutils literal notranslate"><span class="pre">unselect_file</span></code><a class="headerlink" href="#migration-example-unselect-file" title="Link to this heading">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.util.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_octoprint_compatible</span>
+
+<span class="k">if</span> <span class="n">is_octoprint_compatible</span><span class="p">(</span><span class="s2">&quot;&gt;=2&quot;</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">set_job</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">unselect_file</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<h4 id="migration-example-refresh-sd-files-get-sd-files">Migration example: <code class="docutils literal notranslate"><span class="pre">refresh_sd_files</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">get_sd_files</span></code><a class="headerlink" href="#migration-example-refresh-sd-files-get-sd-files" title="Link to this heading">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.filemanager</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileDestinations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.util.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_octoprint_compatible</span>
+
+<span class="k">if</span> <span class="n">is_octoprint_compatible</span><span class="p">(</span><span class="s2">&quot;&gt;=2&quot;</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_file_manager</span><span class="o">.</span><span class="n">list_storage_entries</span><span class="p">([</span><span class="n">FileDestinations</span><span class="o">.</span><span class="n">PRINTER</span><span class="p">],</span> <span class="n">force_refresh</span><span class="o">=</span><span class="n">blocking</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">get_sd_files</span><span class="p">(</span><span class="n">blocking</span><span class="o">=</span><span class="n">blocking</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<h4 id="migration-example-can-modify-file">Migration example: <code class="docutils literal notranslate"><span class="pre">can_modify_file</span></code><a class="headerlink" href="#migration-example-can-modify-file" title="Link to this heading">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.filemanager</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileDestinations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.util.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_octoprint_compatible</span>
+
+<span class="k">if</span> <span class="n">is_octoprint_compatible</span><span class="p">(</span><span class="s2">&quot;&gt;=2&quot;</span><span class="p">):</span>
+    <span class="n">current_job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">current_job</span>
+    <span class="n">is_current_job</span> <span class="o">=</span> <span class="n">current_job</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">current_job</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="n">path</span> <span class="ow">and</span> <span class="n">current_job</span><span class="o">.</span><span class="n">storage</span> <span class="o">==</span> <span class="n">storage</span>
+    <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="n">is_current_job</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">is_printing</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">is_paused</span><span class="p">()))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">is_sd</span> <span class="o">=</span> <span class="n">storage</span> <span class="o">==</span> <span class="n">FileDestinations</span><span class="o">.</span><span class="n">SDCARD</span>
+    <span class="n">storage_path</span> <span class="o">=</span> <span class="n">path</span> <span class="k">if</span> <span class="n">is_sd</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_manager</span><span class="o">.</span><span class="n">path_on_disk</span><span class="p">(</span><span class="n">storage</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">can_modify_file</span><span class="p">(</span><span class="n">storage_path</span><span class="p">,</span> <span class="n">is_sd</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<h4 id="migration-example-is-current-file">Migration example: <code class="docutils literal notranslate"><span class="pre">is_current_file</span></code><a class="headerlink" href="#migration-example-is-current-file" title="Link to this heading">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.filemanager</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileDestinations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.util.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_octoprint_compatible</span>
+
+<span class="k">if</span> <span class="n">is_octoprint_compatible</span><span class="p">(</span><span class="s2">&quot;&gt;=2&quot;</span><span class="p">):</span>
+    <span class="n">current_job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">current_job</span>
+    <span class="k">return</span> <span class="n">current_job</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">current_job</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="n">path</span> <span class="ow">and</span> <span class="n">current_job</span><span class="o">.</span><span class="n">storage</span> <span class="o">==</span> <span class="n">storage</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">is_sd</span> <span class="o">=</span> <span class="n">storage</span> <span class="o">==</span> <span class="n">FileDestinations</span><span class="o">.</span><span class="n">SDCARD</span>
+    <span class="n">storage_path</span> <span class="o">=</span> <span class="n">path</span> <span class="k">if</span> <span class="n">is_sd</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_manager</span><span class="o">.</span><span class="n">path_on_disk</span><span class="p">(</span><span class="n">storage</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">is_current_file</span><span class="p">(</span><span class="n">storage_path</span><span class="p">,</span> <span class="n">is_sd</span><span class="p">)</span>
+</code></pre></div>
 </div>
 <h3 id="removal-of-direct-access-to-octoprint-util-comm">Removal of direct access to <code class="docutils literal notranslate"><span class="pre">octoprint.util.comm</span></code><a class="headerlink" href="#removal-of-direct-access-to-octoprint-util-comm" title="Link to this heading">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">octoprint.util.comm</span></code> module has been moved into the bundled plugin <code class="docutils literal notranslate"><span class="pre">serial_connector</span></code> and is now available as <code class="docutils literal notranslate"><span class="pre">octoprint.plugins.serial_connector.serial_comm</span></code>. Direct access to <code class="docutils literal notranslate"><span class="pre">octoprint.util.comm</span></code> is deprecated and only kept as a compatibility layer that re-exports from the new location.</p>
