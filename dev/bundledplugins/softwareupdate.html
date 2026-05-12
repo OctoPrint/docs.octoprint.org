@@ -1578,7 +1578,7 @@ Options:
 <span class="w">        </span><span class="c1"># published on OctoPrint&#39;s Github repository and pip as update method</span>
 <span class="w">        </span><span class="c1"># against the release archives on Github - this is the default</span>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github_release</span>
-<span class="w">        </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foosel</span>
+<span class="w">        </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OctoPrint</span>
 <span class="w">        </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OctoPrint</span>
 <span class="w">        </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip</span>
 <span class="w">        </span><span class="nt">pip</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;https://github.com/OctoPrint/OctoPrint/archive/{target_version}.zip&#39;</span>
@@ -1617,6 +1617,10 @@ Options:
 <span class="w">      </span><span class="c1">#   https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token</span>
 <span class="w">      </span><span class="c1"># Unset by default</span>
 <span class="w">      </span><span class="nt">github</span><span class="p">:</span>
+
+<span class="w">      </span><span class="c1"># Codeberg API token to use for the codeberg_release or forgejo_release version check with forge set to codeberg.</span>
+<span class="w">      </span><span class="c1"># See https://docs.codeberg.org/advanced/access-token/</span>
+<span class="w">      </span><span class="nt">codeberg</span><span class="p">:</span>
 
 <span class="w">      </span><span class="c1"># Bitbucket user name and password, used by the bitbucket_commit version check if</span>
 <span class="w">      </span><span class="c1"># provided, but only if the check doesn&#39;t specify credentials on its own.</span>
@@ -1686,6 +1690,62 @@ config parameters:</p>
 <code class="docutils literal notranslate"><span class="pre">master</span></code> if not set.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">current</span></code>: Current commit hash. Will be updated automatically.</p></li>
 </ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">forgejo_release</span></code>: Checks against releases published on a (reachable) <a class="reference external" href="https://forgejo.org/">Forgejo instance</a> (e.g. Codeberg). Additional
+config parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">forge</span></code>: (mandatory) Either a known forge name (currently supported: <code class="docutils literal notranslate"><span class="pre">codeberg</span></code>) or a fully qualified
+base URL for the API of the forge (e.g. <code class="docutils literal notranslate"><span class="pre">https://codeberg.org/api/v1</span></code>), starting with <code class="docutils literal notranslate"><span class="pre">http://</span></code> or <code class="docutils literal notranslate"><span class="pre">https://</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>: (mandatory) user the repository to check belongs to</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">repo</span></code>: (mandatory) repository to check</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prerelease</span></code>: <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>, default <code class="docutils literal notranslate"><span class="pre">False</span></code>, set to
+<code class="docutils literal notranslate"><span class="pre">True</span></code> to also include releases marked as prerelease.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prerelease_branches</span></code>: Prerelease channel definitions, optional. List of:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">branch</span></code>: Branch associated with the channel, acts as ID</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: Human readable name of the release channel</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">commitish</span></code>: List of values to check against <code class="docutils literal notranslate"><span class="pre">target_commitish</span></code>
+field in release data - release will only be included if the
+values match. Defaults to being unset, in which case the <code class="docutils literal notranslate"><span class="pre">branch</span></code>
+will be matched.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stable_branch</span></code>: Stable channel definition, optional. Structure:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">branch</span></code>: Branch associated with the channel, acts as ID</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: Human readable name of the release channel</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">commitish</span></code>: List of values to check against <code class="docutils literal notranslate"><span class="pre">target_commitish</span></code>
+field in release data - release will only be included if the
+values match. Defaults to being unset, in which case the <code class="docutils literal notranslate"><span class="pre">branch</span></code>
+will be matched.</p></li>
+</ul>
+</li>
+</ul>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>Setting <code class="docutils literal notranslate"><span class="pre">type</span></code> to <code class="docutils literal notranslate"><span class="pre">codeberg_release</span></code> will automatically set <code class="docutils literal notranslate"><span class="pre">type</span></code> to <code class="docutils literal notranslate"><span class="pre">forgejo_release</span></code> and <code class="docutils literal notranslate"><span class="pre">forge</span></code>
+to <code class="docutils literal notranslate"><span class="pre">codeberg</span></code>. Thus, in case of a version check against codeberg, this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="s2">&quot;check&quot;</span><span class="p">:</span> <span class="s2">&quot;codeberg_release&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;SomeUser&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;repo&quot;</span><span class="p">:</span> <span class="s2">&quot;SomeRepo&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>will internally be turned into:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="s2">&quot;check&quot;</span><span class="p">:</span> <span class="s2">&quot;forgejo_release&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;forge&quot;</span><span class="p">:</span> <span class="s2">&quot;codeberg&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;SomeUser&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;repo&quot;</span><span class="p">:</span> <span class="s2">&quot;SomeRepo&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>and thus can be used as a shortcut.</p>
+</div>
+<div class="admonition versionadded">
+<p class="admonition-title"><span class="versionmodified added">Added in version 2.0.0.</span></p>
+</div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">bitbucket_commit</span></code>: Checks against commits pushed to Bitbucket. Additional
 config parameters:</p>
