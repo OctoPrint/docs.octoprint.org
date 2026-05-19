@@ -1486,11 +1486,11 @@ stable release versions, but you can also switch to one of the available release
 or outright git commit tracking via the plugin’s configuration dialog. To open this dialog, fire up OctoPrint’s
 Settings Dialog, navigate to the Software Update section therein and once you are there click on the little
 wrench icon in the upper right corner.</p>
-<figure class="align-center" id="id2">
+<figure class="align-center" id="id3">
 <span id="fig-bundledplugins-softwareupdate-plugin-configuration"></span><img alt="Software Update plugin configuration dialog" src="../_images/bundledplugins-softwareupdate-configuration.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 22 </span><span class="caption-text"><span class="caption-text">
-The Software Update plugin configuration dialog</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></figcaption>
+The Software Update plugin configuration dialog</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></figcaption>
 </figure>
 <p>There you can adjust the following settings:</p>
 <ul class="simple">
@@ -1615,16 +1615,20 @@ Options:
 <span class="w">      </span><span class="c1"># Helpful if you regularly run into rate limit issues with the GitHub API using</span>
 <span class="w">      </span><span class="c1"># the default anonymous access. Use a personal access token:</span>
 <span class="w">      </span><span class="c1">#   https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token</span>
-<span class="w">      </span><span class="c1"># Unset by default</span>
+<span class="w">      </span><span class="c1"># Unset by default.</span>
 <span class="w">      </span><span class="nt">github</span><span class="p">:</span>
 
-<span class="w">      </span><span class="c1"># Codeberg API token to use for the codeberg_release or forgejo_release version check with forge set to codeberg.</span>
-<span class="w">      </span><span class="c1"># See https://docs.codeberg.org/advanced/access-token/</span>
-<span class="w">      </span><span class="nt">codeberg</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># Forgejo API tokens to use for forgejo_release version check. Key is the API Baseurl of the forge. Special codeberg key</span>
+<span class="w">      </span><span class="c1"># can be used to set codeberg API key without having to use the URL.</span>
+<span class="w">      </span><span class="c1"># See https://docs.codeberg.org/advanced/access-token/ and https://forgejo.org/docs/latest/user/api-usage/#generating-and-listing-api-tokens</span>
+<span class="w">      </span><span class="c1"># Empty by default.</span>
+<span class="w">      </span><span class="nt">forgejo</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">codeberg</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aabbcc...</span>
+<span class="w">        </span><span class="nt">https://git.example.com/api/v1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aabbcc...</span>
 
 <span class="w">      </span><span class="c1"># Bitbucket user name and password, used by the bitbucket_commit version check if</span>
 <span class="w">      </span><span class="c1"># provided, but only if the check doesn&#39;t specify credentials on its own.</span>
-<span class="w">      </span><span class="c1"># Unset by default</span>
+<span class="w">      </span><span class="c1"># Unset by default.</span>
 <span class="w">      </span><span class="nt">bitbucket_user</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">bitbucket_password</span><span class="p">:</span>
 </code></pre></div>
@@ -1735,6 +1739,43 @@ to <code class="docutils literal notranslate"><span class="pre">codeberg</span><
 <p>will internally be turned into:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
   <span class="s2">&quot;check&quot;</span><span class="p">:</span> <span class="s2">&quot;forgejo_release&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;forge&quot;</span><span class="p">:</span> <span class="s2">&quot;codeberg&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;SomeUser&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;repo&quot;</span><span class="p">:</span> <span class="s2">&quot;SomeRepo&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>and thus can be used as a shortcut.</p>
+</div>
+<div class="admonition versionadded">
+<p class="admonition-title"><span class="versionmodified added">Added in version 2.0.0.</span></p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">forgejo_commit</span></code>: Checks against commits pushed to a (reachable) <a class="reference external" href="https://forgejo.org/">Forgejo instance</a> (e.g. Codeberg). Additional
+config parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">forge</span></code>: (mandatory) Either a known forge name (currently supported: <code class="docutils literal notranslate"><span class="pre">codeberg</span></code>) or a fully qualified
+base URL for the API of the forge (e.g. <code class="docutils literal notranslate"><span class="pre">https://codeberg.org/api/v1</span></code>), starting with <code class="docutils literal notranslate"><span class="pre">http://</span></code> or <code class="docutils literal notranslate"><span class="pre">https://</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>: (mandatory) user the repository to check belongs to</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">repo</span></code>: (mandatory) repository to check</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">branch</span></code>: Branch of the repository to check, defaults to
+<code class="docutils literal notranslate"><span class="pre">master</span></code> if not set.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">current</span></code>: Current commit hash. Will be updated automatically.</p></li>
+</ul>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>Setting <code class="docutils literal notranslate"><span class="pre">type</span></code> to <code class="docutils literal notranslate"><span class="pre">codeberg_commit</span></code> will automatically set <code class="docutils literal notranslate"><span class="pre">type</span></code> to <code class="docutils literal notranslate"><span class="pre">forgejo_commit</span></code> and <code class="docutils literal notranslate"><span class="pre">forge</span></code>
+to <code class="docutils literal notranslate"><span class="pre">codeberg</span></code>. Thus, in case of a version check against codeberg, this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="s2">&quot;check&quot;</span><span class="p">:</span> <span class="s2">&quot;codeberg_commit&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;SomeUser&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;repo&quot;</span><span class="p">:</span> <span class="s2">&quot;SomeRepo&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>will internally be turned into:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="s2">&quot;check&quot;</span><span class="p">:</span> <span class="s2">&quot;forgejo_commit&quot;</span><span class="p">,</span>
   <span class="s2">&quot;forge&quot;</span><span class="p">:</span> <span class="s2">&quot;codeberg&quot;</span><span class="p">,</span>
   <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;SomeUser&quot;</span><span class="p">,</span>
   <span class="s2">&quot;repo&quot;</span><span class="p">:</span> <span class="s2">&quot;SomeRepo&quot;</span>
@@ -2143,7 +2184,7 @@ at the (fictional) repository <code class="docutils literal notranslate"><span c
 </dd></dl>
 
 <h2 id="helpers"><span id="sec-bundledplugins-softwareupdate-helpers"></span>Helpers<a class="headerlink" href="#helpers" title="Link to this heading">¶</a></h2>
-<h3 id="sec-bundledplugins-softwareupdate-helpers-version-checks"><span id="id1"></span>version_checks<a class="headerlink" href="#sec-bundledplugins-softwareupdate-helpers-version-checks" title="Link to this heading">¶</a></h3>
+<h3 id="sec-bundledplugins-softwareupdate-helpers-version-checks"><span id="id2"></span>version_checks<a class="headerlink" href="#sec-bundledplugins-softwareupdate-helpers-version-checks" title="Link to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">version_checks</span></code> module of the Software Update plugin, allows reusing the
 bundled version check variants from plugins (e.g. wrapped in a <code class="docutils literal notranslate"><span class="pre">python_checker</span></code>).</p>
 <h3 id="updaters"><span id="sec-bundledplugins-softwareupdate-helpers-updaters"></span>updaters<a class="headerlink" href="#updaters" title="Link to this heading">¶</a></h3>
