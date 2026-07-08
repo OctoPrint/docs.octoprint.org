@@ -7,9 +7,8 @@ There are two main branches in OctoPrint:
 
 ``main``
     The main branch always contains the current stable release plus any changes
-    since made to *documentation*, *CI related tests* or *Github meta files*. OctoPrint's actual
-    code will only be modified on new releases. Will have a version number following
-    the scheme ``<x>.<y>.<z>`` (e.g. ``1.11.2``).
+    since made to the *documentation*. OctoPrint's actual code will only be modified on new releases. 
+    Will have a version number following the scheme ``<x>.<y>.<z>`` (e.g. ``1.11.2``).
 ``dev``
     Ongoing development of what will become the next non-bugfix release.
     More or less continuously updated. You can consider this a preview of the next
@@ -29,7 +28,7 @@ There are couple more bugfix and RC related branches that see regular use:
     of ``<x>.<y>.<z>`` (e.g. ``1.11.3.dev4`` for a stable ``1.11.2``).
 ``next``
     This branch is reserved for future releases that have graduated from
-    the ``dev`` branch and are now being pushed on the "Maintenance"
+    the ``dev`` branch and are now being pushed on the "Prerelease"
     pre release channel for further testing. Version number usually follows the scheme
     ``<x>.<y+1>.0rc<n>`` for a current release of ``<x>.<y>.<z>`` (e.g. ``1.12.0rc1`` for a stable ``1.11.2``).
     On a backwards incompatible release, it will be ``<x+1>.0.0rc<n>`` (e.g. ``2.0.0rc1`` for a stable ``1.11.2``).
@@ -43,7 +42,9 @@ Those usually have one of the following prefixes:
 ``regression/...``
     Fixes for regressions discovered in the current RC that are to be merged into the ``next``
     branch.
-``wip/...``
+``fixnext/...``, ``wipnext/...``
+    Changes under development that are to be merged into the ``next`` branch.
+``fix/...``, ``wip/...``
     Changes under development that are to be merged into the ``dev`` branch.
 
 There are also a few older development branches that are slowly being migrated or deleted.
