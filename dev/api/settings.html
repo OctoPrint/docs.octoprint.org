@@ -1290,7 +1290,15 @@
 response body.</p>
 <p>The <a class="reference internal" href="#sec-api-settings-datamodel"><span class="std std-ref">data model</span></a> is similar to what can be found in
 <a class="reference internal" href="../configuration/config_yaml.html#sec-configuration-config-yaml"><span class="std std-ref">config.yaml</span></a>, see below for details.</p>
-<p>Requires the <code class="docutils literal notranslate"><span class="pre">SETTINGS_READ</span></code> permission.</p>
+<p>Returned settings depend on the permissions of the requesting user. The data model will still be
+returned in full, however the restricted values will be set to <cite>null</cite> (in case of singular values)
+or an empty list (in case of lists).</p>
+<p>Requires the <code class="docutils literal notranslate"><span class="pre">SETTINGS_READ</span></code> permission for read access to frontend-related settings,
+the <code class="docutils literal notranslate"><span class="pre">SETTINGS</span></code> permission for access of backend-related settings and the <code class="docutils literal notranslate"><span class="pre">ADMIN</span></code> permission
+for access to access control and (deprecated) global API key settings.</p>
+<div class="admonition versionchanged">
+<p class="admonition-title"><span class="versionmodified changed">Changed in version 2.0.0: </span>More granular permission checking.</p>
+</div>
 </dd></dl>
 
 <h2 id="save-settings"><span id="sec-api-settings-save"></span>Save settings<a class="headerlink" href="#save-settings" title="Link to this heading">¶</a></h2>
