@@ -1127,11 +1127,11 @@ your entire network. Proceed with extreme caution.</strong></p>
 actually isn’t. Just <a class="reference external" href="https://lifehacker.com/how-to-find-your-local-and-external-ip-address-5833108">figure out your PC’s IP address and subnet mask</a>
 and then combine both with a / in between.</p>
 <p>On OctoPi (or another Linux distribution) you can use the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">ip</span> <span class="n">route</span> <span class="o">|</span> <span class="n">grep</span> <span class="o">-</span><span class="n">P</span> <span class="s1">&#39;eth0|wlan0&#39;</span> <span class="o">|</span> <span class="n">awk</span> <span class="s1">&#39;{print $1}&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">ip</span> <span class="n">route</span> <span class="o">|</span> <span class="n">grep</span> <span class="o">-</span><span class="n">P</span> <span class="s1">'eth0|wlan0'</span> <span class="o">|</span> <span class="n">awk</span> <span class="s1">'{print $1}'</span>
 </code></pre></div>
 </div>
 <p>Or, for IPv6, use this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">ip</span> <span class="o">-</span><span class="mi">6</span> <span class="n">route</span> <span class="o">|</span> <span class="n">grep</span> <span class="o">-</span><span class="n">P</span> <span class="s1">&#39;eth0|wlan0&#39;</span> <span class="o">|</span> <span class="n">awk</span> <span class="s1">&#39;{print $1}&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">ip</span> <span class="o">-</span><span class="mi">6</span> <span class="n">route</span> <span class="o">|</span> <span class="n">grep</span> <span class="o">-</span><span class="n">P</span> <span class="s1">'eth0|wlan0'</span> <span class="o">|</span> <span class="n">awk</span> <span class="s1">'{print $1}'</span>
 </code></pre></div>
 </div>
 <p>This will be what you set as the subnet in the plugin, or where it says
@@ -1170,22 +1170,22 @@ salt line):</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">accessControl</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">salt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aabbccddee1234523452345</span>
 <span class="w">    </span><span class="nt">autologinLocal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="nt">autologinAs</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;yourUsername&gt;&quot;</span>
+<span class="w">    </span><span class="nt">autologinAs</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;yourUsername&gt;"</span>
 <span class="w">    </span><span class="nt">localNetworks</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;127.0.0.0/8&quot;</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;::1/128&quot;</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;&lt;yourAddressRange&gt;&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"127.0.0.0/8"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"::1/128"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"&lt;yourAddressRange&gt;"</span>
 </code></pre></div>
 </div>
 <p>Otherwise, add the following lines to the very top of the file, making sure to keep the
 indentation:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">accessControl</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">autologinLocal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="nt">autologinAs</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;yourUsername&gt;&quot;</span>
+<span class="w">    </span><span class="nt">autologinAs</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;yourUsername&gt;"</span>
 <span class="w">    </span><span class="nt">localNetworks</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;127.0.0.0/8&quot;</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;::1/128&quot;</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;&lt;yourAddressRange&gt;&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"127.0.0.0/8"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"::1/128"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"&lt;yourAddressRange&gt;"</span>
 </code></pre></div>
 </div>
 </li>
