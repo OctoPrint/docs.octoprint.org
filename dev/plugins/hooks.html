@@ -7084,15 +7084,15 @@ OctoPrint will call the hook with the defined parameters and process the result 
 <p>An example for a hook within OctoPrint is <code class="docutils literal notranslate"><span class="pre">octoprint.comm.protocol.scripts</span></code>, which allows adding additional
 lines to OctoPrint’s <a class="reference internal" href="../features/gcode_scripts.html#sec-features-gcode-scripts"><span class="std std-ref">GCODE scripts</span></a>, either as <code class="docutils literal notranslate"><span class="pre">prefix</span></code> (before the existing lines)
 or as <code class="docutils literal notranslate"><span class="pre">postfix</span></code> (after the existing lines).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="bp">self</span><span class="o">.</span><span class="n">_gcode_hooks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pluginManager</span><span class="o">.</span><span class="n">get_hooks</span><span class="p">(</span><span class="s2">&quot;octoprint.comm.protocol.scripts&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="bp">self</span><span class="o">.</span><span class="n">_gcode_hooks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pluginManager</span><span class="o">.</span><span class="n">get_hooks</span><span class="p">(</span><span class="s2">"octoprint.comm.protocol.scripts"</span><span class="p">)</span>
 
 <span class="c1"># ...</span>
 
 <span class="k">for</span> <span class="n">hook</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gcodescript_hooks</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">retval</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gcodescript_hooks</span><span class="p">[</span><span class="n">hook</span><span class="p">](</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;gcode&quot;</span><span class="p">,</span> <span class="n">scriptName</span><span class="p">)</span>
+        <span class="n">retval</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gcodescript_hooks</span><span class="p">[</span><span class="n">hook</span><span class="p">](</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"gcode"</span><span class="p">,</span> <span class="n">scriptName</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Error while processing gcodescript hook </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">hook</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">"Error while processing gcodescript hook </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="n">hook</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">retval</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">continue</span>
@@ -7101,7 +7101,7 @@ or as <code class="docutils literal notranslate"><span class="pre">postfix</span
 
         <span class="k">def</span><span class="w"> </span><span class="nf">to_list</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="n">data</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">))</span>
 
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
                 <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -7136,14 +7136,14 @@ property instead, manually instantiate your implementation instance and then add
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CustomActionCommandPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">OctoPrintPlugin</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">custom_action_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">comm</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;custom&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"custom"</span><span class="p">:</span>
             <span class="k">return</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Received &quot;custom&quot; action from printer&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Received "custom" action from printer'</span><span class="p">)</span>
 
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Custom action command&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Custom action command"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=2.7,&lt;4"</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">__plugin_load__</span><span class="p">():</span>
@@ -7153,7 +7153,7 @@ property instead, manually instantiate your implementation instance and then add
     <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">plugin</span>
 
     <span class="k">global</span> <span class="n">__plugin_hooks__</span>
-    <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;octoprint.comm.protocol.action&quot;</span><span class="p">:</span> <span class="n">plugin</span><span class="o">.</span><span class="n">custom_action_handler</span><span class="p">}</span>
+    <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"octoprint.comm.protocol.action"</span><span class="p">:</span> <span class="n">plugin</span><span class="o">.</span><span class="n">custom_action_handler</span><span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -7175,16 +7175,16 @@ hook called <code class="docutils literal notranslate"><span class="pre">octopri
         <span class="k">return</span> <span class="mi">10</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">on_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;############### Order Test Plugin: StartupPlugin.on_startup called&quot;</span><span class="p">)</span>
-        <span class="n">hooks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_manager</span><span class="o">.</span><span class="n">get_hooks</span><span class="p">(</span><span class="s2">&quot;octoprint.plugin.ordertest.callback&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"############### Order Test Plugin: StartupPlugin.on_startup called"</span><span class="p">)</span>
+        <span class="n">hooks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_manager</span><span class="o">.</span><span class="n">get_hooks</span><span class="p">(</span><span class="s2">"octoprint.plugin.ordertest.callback"</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">hook</span> <span class="ow">in</span> <span class="n">hooks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">hook</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;############### Order Test Plugin: StartupPlugin.on_after_startup called&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"############### Order Test Plugin: StartupPlugin.on_after_startup called"</span><span class="p">)</span>
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Order Test&quot;</span>
-<span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">&quot;0.1.0&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Order Test"</span>
+<span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">"0.1.0"</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">OrderTestPlugin</span><span class="p">()</span>
 </code></pre></div>
 </div>
@@ -7196,12 +7196,12 @@ hook called <code class="docutils literal notranslate"><span class="pre">octopri
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
  <span class="k">def</span><span class="w"> </span><span class="nf">callback</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-     <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;octoprint.plugins.&quot;</span> <span class="o">+</span> <span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Callback called in oneorderedhook&quot;</span><span class="p">)</span>
+     <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"octoprint.plugins."</span> <span class="o">+</span> <span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Callback called in oneorderedhook"</span><span class="p">)</span>
 
- <span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;One Ordered Hook&quot;</span>
- <span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">&quot;0.1.0&quot;</span>
+ <span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"One Ordered Hook"</span>
+ <span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">"0.1.0"</span>
  <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-     <span class="s2">&quot;octoprint.plugin.ordertest.callback&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+     <span class="s2">"octoprint.plugin.ordertest.callback"</span><span class="p">:</span> <span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
  <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -7212,12 +7212,12 @@ hook called <code class="docutils literal notranslate"><span class="pre">octopri
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">callback</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;octoprint.plugins.&quot;</span> <span class="o">+</span> <span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Callback called in anotherorderedhook&quot;</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"octoprint.plugins."</span> <span class="o">+</span> <span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Callback called in anotherorderedhook"</span><span class="p">)</span>
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Another Ordered Hook&quot;</span>
-<span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">&quot;0.1.0&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Another Ordered Hook"</span>
+<span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">"0.1.0"</span>
 <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;octoprint.plugin.ordertest.callback&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="s2">"octoprint.plugin.ordertest.callback"</span><span class="p">:</span> <span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -7228,12 +7228,12 @@ hook called <code class="docutils literal notranslate"><span class="pre">octopri
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">callback</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;octoprint.plugins.&quot;</span> <span class="o">+</span> <span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Callback called in yetanotherhook&quot;</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"octoprint.plugins."</span> <span class="o">+</span> <span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Callback called in yetanotherhook"</span><span class="p">)</span>
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Yet Another Hook&quot;</span>
-<span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">&quot;0.1.0&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Yet Another Hook"</span>
+<span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">"0.1.0"</span>
 <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;octoprint.plugin.ordertest.callback&quot;</span><span class="p">:</span> <span class="n">callback</span>
+    <span class="s2">"octoprint.plugin.ordertest.callback"</span><span class="p">:</span> <span class="n">callback</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -7298,16 +7298,16 @@ group:</p>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_additional_permissions</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">[</span>
-        <span class="nb">dict</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;ADMIN&quot;</span><span class="p">,</span>
-             <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Admin access&quot;</span><span class="p">,</span>
-             <span class="n">description</span><span class="o">=</span><span class="n">gettext</span><span class="p">(</span><span class="s2">&quot;Allows administrating all application keys&quot;</span><span class="p">),</span>
-             <span class="n">roles</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;admin&quot;</span><span class="p">],</span>
+        <span class="nb">dict</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">"ADMIN"</span><span class="p">,</span>
+             <span class="n">name</span><span class="o">=</span><span class="s2">"Admin access"</span><span class="p">,</span>
+             <span class="n">description</span><span class="o">=</span><span class="n">gettext</span><span class="p">(</span><span class="s2">"Allows administrating all application keys"</span><span class="p">),</span>
+             <span class="n">roles</span><span class="o">=</span><span class="p">[</span><span class="s2">"admin"</span><span class="p">],</span>
              <span class="n">dangerous</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
              <span class="n">default_groups</span><span class="o">=</span><span class="p">[</span><span class="n">ADMIN_GROUP</span><span class="p">])</span>
     <span class="p">]</span>
 
 <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;octoprint.access.permissions&quot;</span><span class="p">:</span> <span class="n">get_additional_permissions</span>
+    <span class="s2">"octoprint.access.permissions"</span><span class="p">:</span> <span class="n">get_additional_permissions</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -7392,8 +7392,8 @@ and merely provided for educational purposes):</p>
     <span class="k">return</span> <span class="n">userManager</span><span class="o">.</span><span class="n">find_user</span><span class="p">(</span><span class="n">userid</span><span class="o">=</span><span class="n">apikey</span><span class="p">)</span>
 
 
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
-<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;octoprint.accesscontrol.keyvalidator&quot;</span><span class="p">:</span> <span class="n">hook</span><span class="p">}</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=2.7,&lt;4"</span>
+<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"octoprint.accesscontrol.keyvalidator"</span><span class="p">:</span> <span class="n">hook</span><span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -7441,27 +7441,27 @@ OctoPrint:</p>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">clitest_commands</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;greet&quot;</span><span class="p">)</span>
-    <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--greeting&quot;</span><span class="p">,</span> <span class="s2">&quot;-g&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The greeting to use&quot;</span><span class="p">)</span>
-    <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;World&quot;</span><span class="p">)</span>
+    <span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">"greet"</span><span class="p">)</span>
+    <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">"--greeting"</span><span class="p">,</span> <span class="s2">"-g"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">"Hello"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"The greeting to use"</span><span class="p">)</span>
+    <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">"World"</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">greet_command</span><span class="p">(</span><span class="n">greeting</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Greet someone by name, the greeting can be customized.&quot;&quot;&quot;</span>
-        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">greeting</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">"""Greet someone by name, the greeting can be customized."""</span>
+        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">greeting</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">!"</span><span class="p">)</span>
 
-    <span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;random&quot;</span><span class="p">)</span>
-    <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;World&quot;</span><span class="p">)</span>
+    <span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">"random"</span><span class="p">)</span>
+    <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">"World"</span><span class="p">)</span>
     <span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">random_greet_command</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Greet someone by name with a random greeting.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Greet someone by name with a random greeting."""</span>
 
         <span class="n">greetings</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s2">&quot;Hello&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;Buon giorno&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;Hola&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;Konnichiwa&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;Oh hai&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;Hey&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;Salve&quot;</span><span class="p">,</span>
+            <span class="s2">"Hello"</span><span class="p">,</span>
+            <span class="s2">"Buon giorno"</span><span class="p">,</span>
+            <span class="s2">"Hola"</span><span class="p">,</span>
+            <span class="s2">"Konnichiwa"</span><span class="p">,</span>
+            <span class="s2">"Oh hai"</span><span class="p">,</span>
+            <span class="s2">"Hey"</span><span class="p">,</span>
+            <span class="s2">"Salve"</span><span class="p">,</span>
         <span class="p">]</span>
 
         <span class="kn">from</span><span class="w"> </span><span class="nn">random</span><span class="w"> </span><span class="kn">import</span> <span class="n">randrange</span>
@@ -7472,8 +7472,8 @@ OctoPrint:</p>
     <span class="k">return</span> <span class="p">[</span><span class="n">greet_command</span><span class="p">,</span> <span class="n">random_greet_command</span><span class="p">]</span>
 
 
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
-<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;octoprint.cli.commands&quot;</span><span class="p">:</span> <span class="n">clitest_commands</span><span class="p">}</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=2.7,&lt;4"</span>
+<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"octoprint.cli.commands"</span><span class="p">:</span> <span class="n">clitest_commands</span><span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -7516,7 +7516,7 @@ Options:
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>$ octoprint plugins custom_cli_command:greet
 Hello World!
 
-$ octoprint plugins custom_cli_command:greet --greeting &quot;Good morning&quot;
+$ octoprint plugins custom_cli_command:greet --greeting "Good morning"
 Good morning World!
 
 $ octoprint plugins custom_cli_command:random stranger
@@ -7542,7 +7542,7 @@ that and the plugin manager instance yourself:</p>
         <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
         <span class="n">settings</span> <span class="o">=</span> <span class="n">cli_group</span><span class="o">.</span><span class="n">_settings</span>
-        <span class="n">plugin_settings</span> <span class="o">=</span> <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">plugin_settings_for_settings_plugin</span><span class="p">(</span><span class="s2">&quot;myplugin&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">plugin_settings</span> <span class="o">=</span> <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">plugin_settings_for_settings_plugin</span><span class="p">(</span><span class="s2">"myplugin"</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">plugin_settings</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># this can happen if anything goes wrong with preparing the PluginSettings instance</span>
             <span class="k">return</span> <span class="nb">dict</span><span class="p">()</span>
@@ -7584,9 +7584,9 @@ report line and provides the parsed <code class="docutils literal notranslate"><
 response line <code class="docutils literal notranslate"><span class="pre">FIRMWARE_NAME:Some</span> <span class="pre">Firmware</span> <span class="pre">Name</span> <span class="pre">FIRMWARE_VERSION:1.2.3</span> <span class="pre">PROTOCOL_VERSION:1.0</span></code> for example will
 be turned into a <code class="docutils literal notranslate"><span class="pre">dict</span></code> looking like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="s2">&quot;FIRMWARE_NAME&quot;</span><span class="p">:</span> <span class="s2">&quot;Some Firmware Name&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;FIRMWARE_VERSION&quot;</span><span class="p">:</span> <span class="s2">&quot;1.2.3&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;PROTOCOL_VERSION&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span>
+    <span class="s2">"FIRMWARE_NAME"</span><span class="p">:</span> <span class="s2">"Some Firmware Name"</span><span class="p">,</span>
+    <span class="s2">"FIRMWARE_VERSION"</span><span class="p">:</span> <span class="s2">"1.2.3"</span><span class="p">,</span>
+    <span class="s2">"PROTOCOL_VERSION"</span><span class="p">:</span> <span class="s2">"1.0"</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -7676,7 +7676,7 @@ you will effectively block the receive loop, causing the communication with the 
 <h3 id="octoprint-comm-protocol-action"><span id="sec-plugins-hook-comm-protocol-action"></span>octoprint.comm.protocol.action<a class="headerlink" href="#octoprint-comm-protocol-action" title="Link to this heading">¶</a></h3>
 <dl class="py function objdesc">
 <dt class="sig sig-object highlight sig-wrap py" id="protocol_action_hook">
-<span class="sig-name descname"><span class="pre">protocol_action_hook</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#protocol_action_hook.comm_instance" title="protocol_action_hook.comm_instance (Python parameter) — The MachineCom instance which triggered the hook."><span class="n"><span class="pre">comm_instance</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#protocol_action_hook.line" title="protocol_action_hook.line (Python parameter) — The complete line as received from the printer, format // action:&lt;command&gt;"><span class="n"><span class="pre">line</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#protocol_action_hook.action" title="protocol_action_hook.action (Python parameter) — The parsed out action command incl."><span class="n"><span class="pre">action</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#protocol_action_hook.name" title="protocol_action_hook.name (Python parameter) — The action command name, for a line like // action:some_command key value this will be some_command"><span class="n"><span class="pre">name</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="s1">&#39;&#39;</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#protocol_action_hook.params" title="protocol_action_hook.params (Python parameter) — The action command's parameter, for a line like // action:some_command key value this will be key value"><span class="n"><span class="pre">params</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="s1">&#39;&#39;</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">*</span></span><a class="n reference internal" href="#protocol_action_hook" title="protocol_action_hook.args (Python parameter)"><span class="n"><span class="pre">args</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><a class="n reference internal" href="#protocol_action_hook" title="protocol_action_hook.kwargs (Python parameter)"><span class="n"><span class="pre">kwargs</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#protocol_action_hook" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">protocol_action_hook</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#protocol_action_hook.comm_instance" title="protocol_action_hook.comm_instance (Python parameter) — The MachineCom instance which triggered the hook."><span class="n"><span class="pre">comm_instance</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#protocol_action_hook.line" title="protocol_action_hook.line (Python parameter) — The complete line as received from the printer, format // action:&lt;command&gt;"><span class="n"><span class="pre">line</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#protocol_action_hook.action" title="protocol_action_hook.action (Python parameter) — The parsed out action command incl."><span class="n"><span class="pre">action</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#protocol_action_hook.name" title="protocol_action_hook.name (Python parameter) — The action command name, for a line like // action:some_command key value this will be some_command"><span class="n"><span class="pre">name</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="s1">''</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#protocol_action_hook.params" title="protocol_action_hook.params (Python parameter) — The action command's parameter, for a line like // action:some_command key value this will be key value"><span class="n"><span class="pre">params</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="s1">''</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">*</span></span><a class="n reference internal" href="#protocol_action_hook" title="protocol_action_hook.args (Python parameter)"><span class="n"><span class="pre">args</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><a class="n reference internal" href="#protocol_action_hook" title="protocol_action_hook.kwargs (Python parameter)"><span class="n"><span class="pre">kwargs</span></span></a></em></span><span class="sig-paren">)</span><a class="headerlink" href="#protocol_action_hook" title="Link to this definition">¶</a></dt>
 <dd><div class="admonition versionadded">
 <p class="admonition-title"><span class="versionmodified added">Added in version 1.2.0.</span></p>
 </div>
@@ -7700,14 +7700,14 @@ you will effectively block the receive loop, causing the communication with the 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CustomActionCommandPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">OctoPrintPlugin</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">custom_action_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">comm</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;custom&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"custom"</span><span class="p">:</span>
             <span class="k">return</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Received &quot;custom&quot; action from printer&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Received "custom" action from printer'</span><span class="p">)</span>
 
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Custom action command&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Custom action command"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=2.7,&lt;4"</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">__plugin_load__</span><span class="p">():</span>
@@ -7717,7 +7717,7 @@ you will effectively block the receive loop, causing the communication with the 
     <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">plugin</span>
 
     <span class="k">global</span> <span class="n">__plugin_hooks__</span>
-    <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;octoprint.comm.protocol.action&quot;</span><span class="p">:</span> <span class="n">plugin</span><span class="o">.</span><span class="n">custom_action_handler</span><span class="p">}</span>
+    <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"octoprint.comm.protocol.action"</span><span class="p">:</span> <span class="n">plugin</span><span class="o">.</span><span class="n">custom_action_handler</span><span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -7777,23 +7777,23 @@ different name).</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">custom_atcommand_handler</span><span class="p">(</span>
     <span class="n">comm</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">):</span>
-    <span class="k">if</span> <span class="n">command</span> <span class="o">!=</span> <span class="s2">&quot;wait&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">command</span> <span class="o">!=</span> <span class="s2">"wait"</span><span class="p">:</span>
         <span class="k">return</span>
 
     <span class="k">if</span> <span class="n">tags</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">tags</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
-    <span class="k">if</span> <span class="s2">&quot;script:afterPrintPaused&quot;</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
-        <span class="c1"># This makes sure we don&#39;t run into an infinite loop if the user included @wait in the afterPrintPaused</span>
+    <span class="k">if</span> <span class="s2">"script:afterPrintPaused"</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+        <span class="c1"># This makes sure we don't run into an infinite loop if the user included @wait in the afterPrintPaused</span>
         <span class="c1"># GCODE script for whatever reason</span>
         <span class="k">return</span>
 
     <span class="n">comm</span><span class="o">.</span><span class="n">setPause</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">)</span>
 
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Custom @ command&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
-<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;octoprint.comm.protocol.atcommand.queuing&quot;</span><span class="p">:</span> <span class="n">custom_atcommand_handler</span><span class="p">}</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Custom @ command"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=2.7,&lt;4"</span>
+<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"octoprint.comm.protocol.atcommand.queuing"</span><span class="p">:</span> <span class="n">custom_atcommand_handler</span><span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -7892,15 +7892,15 @@ utilize the same hook for multiple phases if required.</p>
 an empty <code class="docutils literal notranslate"><span class="pre">return</span></code> statement is used or just nothing is returned explicitly from the handler. Hence, the following
 examples are all falling into this category and equivalent:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">one</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I return None explicitly&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"I return None explicitly"</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">None</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">two</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I just return without any values&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"I just return without any values"</span><span class="p">)</span>
     <span class="k">return</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">three</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I don&#39;t explicitly return anything at all&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"I don't explicitly return anything at all"</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <p>Handlers which do not wish to modify (or suppress) <code class="docutils literal notranslate"><span class="pre">cmd</span></code> or <code class="docutils literal notranslate"><span class="pre">cmd_type</span></code> at all should use this option.</p>
@@ -7921,15 +7921,15 @@ many. The following example shows how any queued command could be turned into a 
 line number reset, display of the <code class="docutils literal notranslate"><span class="pre">gcode</span></code> on the printer’s display and finally the actual command (this example
 does not make a lot of sense to be quite honest):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">rewrite_foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">comm_instance</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">cmd_type</span><span class="p">,</span> <span class="n">gcode</span><span class="p">,</span> <span class="n">subcode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="kc">None</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">gcode</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">cmd</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;@foo&quot;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">gcode</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">cmd</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"@foo"</span><span class="p">):</span>
         <span class="k">return</span>
 
-    <span class="k">return</span> <span class="p">[(</span><span class="s2">&quot;M105&quot;</span><span class="p">,</span> <span class="s2">&quot;temperature_poll&quot;</span><span class="p">),</span>    <span class="c1"># 2-tuple, command &amp; command type</span>
-            <span class="p">(</span><span class="s2">&quot;M110&quot;</span><span class="p">,),</span>                       <span class="c1"># 1-tuple, just the command</span>
-            <span class="s2">&quot;M117 echo foo: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cmd</span><span class="p">)]</span> <span class="c1"># string, just the command</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="s2">"M105"</span><span class="p">,</span> <span class="s2">"temperature_poll"</span><span class="p">),</span>    <span class="c1"># 2-tuple, command &amp; command type</span>
+            <span class="p">(</span><span class="s2">"M110"</span><span class="p">,),</span>                       <span class="c1"># 1-tuple, just the command</span>
+            <span class="s2">"M117 echo foo: </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cmd</span><span class="p">)]</span> <span class="c1"># string, just the command</span>
 
 <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;octoprint.comm.protocol.gcode.queuing&quot;</span><span class="p">:</span> <span class="n">rewrite_foo</span>
+    <span class="s2">"octoprint.comm.protocol.gcode.queuing"</span><span class="p">:</span> <span class="n">rewrite_foo</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -7954,17 +7954,17 @@ parameter) upon queuing and logs all sent <code class="docutils literal notransl
 
 <span class="k">class</span><span class="w"> </span><span class="nc">RewriteM107Plugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">OctoPrintPlugin</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">rewrite_m107</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">comm_instance</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">cmd_type</span><span class="p">,</span> <span class="n">gcode</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">gcode</span> <span class="ow">and</span> <span class="n">gcode</span> <span class="o">==</span> <span class="s2">&quot;M107&quot;</span><span class="p">:</span>
-            <span class="n">cmd</span> <span class="o">=</span> <span class="s2">&quot;M106 S0&quot;</span>
+        <span class="k">if</span> <span class="n">gcode</span> <span class="ow">and</span> <span class="n">gcode</span> <span class="o">==</span> <span class="s2">"M107"</span><span class="p">:</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="s2">"M106 S0"</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">cmd</span><span class="p">,)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">sent_m106</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">comm_instance</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">cmd_type</span><span class="p">,</span> <span class="n">gcode</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">gcode</span> <span class="ow">and</span> <span class="n">gcode</span> <span class="o">==</span> <span class="s2">&quot;M106&quot;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Just sent M106: </span><span class="si">{</span><span class="n">cmd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">gcode</span> <span class="ow">and</span> <span class="n">gcode</span> <span class="o">==</span> <span class="s2">"M106"</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Just sent M106: </span><span class="si">{</span><span class="n">cmd</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Rewrite M107&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Rewrite M107"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=2.7,&lt;4"</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">__plugin_load__</span><span class="p">():</span>
@@ -7973,8 +7973,8 @@ parameter) upon queuing and logs all sent <code class="docutils literal notransl
 
     <span class="k">global</span> <span class="n">__plugin_hooks__</span>
     <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;octoprint.comm.protocol.gcode.queuing&quot;</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">rewrite_m107</span><span class="p">,</span>
-        <span class="s2">&quot;octoprint.comm.protocol.gcode.sent&quot;</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">sent_m106</span><span class="p">,</span>
+        <span class="s2">"octoprint.comm.protocol.gcode.queuing"</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">rewrite_m107</span><span class="p">,</span>
+        <span class="s2">"octoprint.comm.protocol.gcode.sent"</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">sent_m106</span><span class="p">,</span>
     <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -8034,7 +8034,7 @@ you will effectively block the receive loop, causing the communication with the 
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">detect_machine_type</span><span class="p">(</span><span class="n">comm</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">if</span> <span class="s2">&quot;MACHINE_TYPE&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s2">"MACHINE_TYPE"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">line</span>
 
     <span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.util.comm</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_firmware_line</span>
@@ -8042,16 +8042,16 @@ you will effectively block the receive loop, causing the communication with the 
     <span class="c1"># Create a dict with all the keys/values returned by the M115 request</span>
     <span class="n">printer_data</span> <span class="o">=</span> <span class="n">parse_firmware_line</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
 
-    <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;octoprint.plugin.&quot;</span> <span class="o">+</span> <span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-        <span class="s2">&quot;Machine type detected: </span><span class="si">{machine}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">machine</span><span class="o">=</span><span class="n">printer_data</span><span class="p">[</span><span class="s2">&quot;MACHINE_TYPE&quot;</span><span class="p">])</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"octoprint.plugin."</span> <span class="o">+</span> <span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s2">"Machine type detected: </span><span class="si">{machine}</span><span class="s2">."</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">machine</span><span class="o">=</span><span class="n">printer_data</span><span class="p">[</span><span class="s2">"MACHINE_TYPE"</span><span class="p">])</span>
     <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">line</span>
 
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Detect Machine Data&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
-<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;octoprint.comm.protocol.gcode.received&quot;</span><span class="p">:</span> <span class="n">detect_machine_type</span><span class="p">}</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Detect Machine Data"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=2.7,&lt;4"</span>
+<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"octoprint.comm.protocol.gcode.received"</span><span class="p">:</span> <span class="n">detect_machine_type</span><span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -8100,21 +8100,21 @@ plugin.</p>
 </span>./examples/comm_error_handler_test.py<a class="headerlink" href="#id12" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
-<span class="n">_HANDLED_ERRORS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;fan error&quot;</span><span class="p">,</span> <span class="s2">&quot;bed missing&quot;</span><span class="p">)</span>
+<span class="n">_HANDLED_ERRORS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"fan error"</span><span class="p">,</span> <span class="s2">"bed missing"</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">handle_error</span><span class="p">(</span><span class="n">comm</span><span class="p">,</span> <span class="n">error_message</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="n">lower_error</span> <span class="o">=</span> <span class="n">error_message</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lower_error</span><span class="p">,</span> <span class="n">_HANDLED_ERRORS</span><span class="p">)):</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;octoprint.plugin.error_handler_test&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;Error &quot;</span><span class="si">{</span><span class="n">error_message</span><span class="si">}</span><span class="s1">&quot; is handled by this plugin&#39;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"octoprint.plugin.error_handler_test"</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">'Error "</span><span class="si">{</span><span class="n">error_message</span><span class="si">}</span><span class="s1">" is handled by this plugin'</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span>
 
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Comm Error Handler Test&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
-<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;octoprint.comm.protocol.gcode.error&quot;</span><span class="p">:</span> <span class="n">handle_error</span><span class="p">}</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Comm Error Handler Test"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=2.7,&lt;4"</span>
+<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"octoprint.comm.protocol.gcode.error"</span><span class="p">:</span> <span class="n">handle_error</span><span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -8162,17 +8162,17 @@ will be split by the caller if necessary).</p>
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-number">Listing 26 </span><span class="caption-text">
 </span>message_on_connect.py<a class="headerlink" href="#id13" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">message_on_connect</span><span class="p">(</span><span class="n">comm</span><span class="p">,</span> <span class="n">script_type</span><span class="p">,</span> <span class="n">script_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">script_type</span> <span class="o">==</span> <span class="s2">&quot;gcode&quot;</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">script_name</span> <span class="o">==</span> <span class="s2">&quot;afterPrinterConnected&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">script_type</span> <span class="o">==</span> <span class="s2">"gcode"</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">script_name</span> <span class="o">==</span> <span class="s2">"afterPrinterConnected"</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="n">prefix</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">postfix</span> <span class="o">=</span> <span class="s2">&quot;M117 OctoPrint connected&quot;</span>
+    <span class="n">postfix</span> <span class="o">=</span> <span class="s2">"M117 OctoPrint connected"</span>
     <span class="k">return</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">postfix</span>
 
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Message on connect&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
-<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;octoprint.comm.protocol.scripts&quot;</span><span class="p">:</span> <span class="n">message_on_connect</span><span class="p">}</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Message on connect"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=2.7,&lt;4"</span>
+<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"octoprint.comm.protocol.scripts"</span><span class="p">:</span> <span class="n">message_on_connect</span><span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -8182,18 +8182,18 @@ will be split by the caller if necessary).</p>
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-number">Listing 27 </span><span class="caption-text">
 </span>gcode_script_variables.py<a class="headerlink" href="#id14" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">gcode_script_variables</span><span class="p">(</span><span class="n">comm</span><span class="p">,</span> <span class="n">script_type</span><span class="p">,</span> <span class="n">script_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">script_type</span> <span class="o">==</span> <span class="s2">&quot;gcode&quot;</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">script_name</span> <span class="o">==</span> <span class="s2">&quot;beforePrintStarted&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">script_type</span> <span class="o">==</span> <span class="s2">"gcode"</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">script_name</span> <span class="o">==</span> <span class="s2">"beforePrintStarted"</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="n">prefix</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">postfix</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">variables</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">myvariable</span><span class="o">=</span><span class="s2">&quot;Hi! I&#39;m a variable!&quot;</span><span class="p">)</span>
+    <span class="n">variables</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">myvariable</span><span class="o">=</span><span class="s2">"Hi! I'm a variable!"</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">postfix</span><span class="p">,</span> <span class="n">variables</span>
 
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;gcode script variables&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
-<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;octoprint.comm.protocol.scripts&quot;</span><span class="p">:</span> <span class="n">gcode_script_variables</span><span class="p">}</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"gcode script variables"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=2.7,&lt;4"</span>
+<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"octoprint.comm.protocol.scripts"</span><span class="p">:</span> <span class="n">gcode_script_variables</span><span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -8254,10 +8254,10 @@ you will effectively block the receive loop, causing the communication with the 
     <span class="k">return</span> <span class="mf">1.0</span> <span class="o">&lt;=</span> <span class="n">actual</span> <span class="o">&lt;=</span> <span class="mf">300.0</span>
 
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Sanitize Temperatures&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Sanitize Temperatures"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=2.7,&lt;4"</span>
 <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;octoprint.comm.protocol.temperatures.received&quot;</span><span class="p">:</span> <span class="n">sanitize_temperatures</span>
+    <span class="s2">"octoprint.comm.protocol.temperatures.received"</span><span class="p">:</span> <span class="n">sanitize_temperatures</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -8327,20 +8327,20 @@ closely if directly utilizing <code class="xref py py-class docutils literal not
 <p>Serial factory similar to the default one which performs auto detection of the serial port if <code class="docutils literal notranslate"><span class="pre">port</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>
 or <code class="docutils literal notranslate"><span class="pre">AUTO</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">default</span><span class="p">(</span><span class="n">comm_instance</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">baudrate</span><span class="p">,</span> <span class="n">connection_timeout</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">port</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">port</span> <span class="o">==</span> <span class="s1">&#39;AUTO&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">port</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">port</span> <span class="o">==</span> <span class="s1">'AUTO'</span><span class="p">:</span>
         <span class="c1"># no known port, try auto detection</span>
         <span class="n">comm_instance</span><span class="o">.</span><span class="n">_changeState</span><span class="p">(</span><span class="n">comm_instance</span><span class="o">.</span><span class="n">STATE_DETECT_SERIAL</span><span class="p">)</span>
         <span class="n">serial_obj</span> <span class="o">=</span> <span class="n">comm_instance</span><span class="o">.</span><span class="n">_detectPort</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">serial_obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">comm_instance</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="s2">&quot;Failed to autodetect serial port&quot;</span><span class="p">)</span>
-            <span class="n">comm_instance</span><span class="o">.</span><span class="n">_errorValue</span> <span class="o">=</span> <span class="s1">&#39;Failed to autodetect serial port.&#39;</span>
+            <span class="n">comm_instance</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="s2">"Failed to autodetect serial port"</span><span class="p">)</span>
+            <span class="n">comm_instance</span><span class="o">.</span><span class="n">_errorValue</span> <span class="o">=</span> <span class="s1">'Failed to autodetect serial port.'</span>
             <span class="n">comm_instance</span><span class="o">.</span><span class="n">_changeState</span><span class="p">(</span><span class="n">comm_instance</span><span class="o">.</span><span class="n">STATE_ERROR</span><span class="p">)</span>
-            <span class="n">eventManager</span><span class="p">()</span><span class="o">.</span><span class="n">fire</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="n">comm_instance</span><span class="o">.</span><span class="n">getErrorString</span><span class="p">()})</span>
+            <span class="n">eventManager</span><span class="p">()</span><span class="o">.</span><span class="n">fire</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span> <span class="p">{</span><span class="s2">"error"</span><span class="p">:</span> <span class="n">comm_instance</span><span class="o">.</span><span class="n">getErrorString</span><span class="p">()})</span>
             <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># connect to regular serial port</span>
-        <span class="n">comm_instance</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="s2">&quot;Connecting to: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">port</span><span class="p">)</span>
+        <span class="n">comm_instance</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="s2">"Connecting to: </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="n">port</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">baudrate</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">serial_obj</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">port</span><span class="p">),</span> <span class="mi">115200</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">connection_timeout</span><span class="p">,</span> <span class="n">writeTimeout</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">parity</span><span class="o">=</span><span class="n">serial</span><span class="o">.</span><span class="n">PARITY_ODD</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -8393,7 +8393,7 @@ value will be prefixed with <code class="docutils literal notranslate"><span cla
 in the system, <code class="docutils literal notranslate"><span class="pre">octoprint.events.Events.PLUGIN_MYPLUGIN_MY_CUSTOM_EVENT</span></code> with value <code class="docutils literal notranslate"><span class="pre">plugin_myplugin_my_custom_event</span></code>
 and <code class="docutils literal notranslate"><span class="pre">octoprint.events.Events.PLUGIN_MYPLUGIN_MY_OTHER_CUSTOM_EVENT</span></code> with value <code class="docutils literal notranslate"><span class="pre">plugin_myplugin_my_other_custom_event</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">register_custom_events</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;my_custom_event&quot;</span><span class="p">,</span> <span class="s2">&quot;my_other_custom_event&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="s2">"my_custom_event"</span><span class="p">,</span> <span class="s2">"my_other_custom_event"</span><span class="p">]</span>
 </code></pre></div>
 </div>
 <dl class="field-list simple">
@@ -8459,7 +8459,7 @@ and <code class="docutils literal notranslate"><span class="pre">s3g</span></cod
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">support_x3g_machinecode</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
         <span class="n">machinecode</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-            <span class="n">x3g</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x3g&quot;</span><span class="p">,</span> <span class="s2">&quot;s3g&quot;</span><span class="p">]</span>
+            <span class="n">x3g</span><span class="o">=</span><span class="p">[</span><span class="s2">"x3g"</span><span class="p">,</span> <span class="s2">"s3g"</span><span class="p">]</span>
         <span class="p">)</span>
     <span class="p">)</span>
 </code></pre></div>
@@ -8509,7 +8509,7 @@ to wrap it further. Handlers which do not wish to handle the <cite>file_object</
         <span class="n">decoded_line</span> <span class="o">=</span> <span class="n">strip_comment</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">decoded_line</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">decoded_line</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">decoded_line</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\r\n</span><span class="s2">"</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">strip_all_comments</span><span class="p">(</span>
@@ -8521,13 +8521,13 @@ to wrap it further. Handlers which do not wish to handle the <cite>file_object</
     <span class="o">*</span><span class="n">args</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">octoprint</span><span class="o">.</span><span class="n">filemanager</span><span class="o">.</span><span class="n">valid_file_type</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;gcode&quot;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">octoprint</span><span class="o">.</span><span class="n">filemanager</span><span class="o">.</span><span class="n">valid_file_type</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"gcode"</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">file_object</span>
 
     <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
     <span class="n">name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">file_object</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;_strip&quot;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"_strip"</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">file_object</span>
 
     <span class="k">return</span> <span class="n">octoprint</span><span class="o">.</span><span class="n">filemanager</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">StreamWrapper</span><span class="p">(</span>
@@ -8535,13 +8535,13 @@ to wrap it further. Handlers which do not wish to handle the <cite>file_object</
     <span class="p">)</span>
 
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Strip comments from GCODE&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Strip comments from GCODE"</span>
 <span class="n">__plugin_description__</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">&quot;Strips all comments and empty lines from uploaded/generated GCODE files ending on the name &quot;</span>
-    <span class="s1">&#39;postfix &quot;_strip&quot;, e.g. &quot;some_file_strip.gcode&quot;.&#39;</span>
+    <span class="s2">"Strips all comments and empty lines from uploaded/generated GCODE files ending on the name "</span>
+    <span class="s1">'postfix "_strip", e.g. "some_file_strip.gcode".'</span>
 <span class="p">)</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3,&lt;4&quot;</span>
-<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;octoprint.filemanager.preprocessor&quot;</span><span class="p">:</span> <span class="n">strip_all_comments</span><span class="p">}</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=3,&lt;4"</span>
+<span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"octoprint.filemanager.preprocessor"</span><span class="p">:</span> <span class="n">strip_all_comments</span><span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -8741,13 +8741,13 @@ two hours of print time left:</p>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">estimate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">progress</span><span class="p">,</span> <span class="n">printTime</span><span class="p">,</span> <span class="n">cleanedPrintTime</span><span class="p">,</span> <span class="n">statisticalTotalPrintTime</span><span class="p">,</span> <span class="n">statisticalTotalPrintTimeType</span><span class="p">):</span>
         <span class="c1"># always reports 2h as printTimeLeft</span>
-        <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">,</span> <span class="s2">&quot;estimate&quot;</span>
+        <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">,</span> <span class="s2">"estimate"</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">create_estimator_factory</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">CustomPrintTimeEstimator</span>
 
 <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;octoprint.printer.estimation.factory&quot;</span><span class="p">:</span> <span class="n">create_estimator_factory</span>
+    <span class="s2">"octoprint.printer.estimation.factory"</span><span class="p">:</span> <span class="n">create_estimator_factory</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -8800,15 +8800,15 @@ own thread, which is important in order to not block the main application!</p>
 <span class="k">def</span><span class="w"> </span><span class="nf">nop_upload_to_sd</span><span class="p">(</span><span class="n">printer</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">sd_upload_started</span><span class="p">,</span> <span class="n">sd_upload_succeeded</span><span class="p">,</span> <span class="n">sd_upload_failed</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-    <span class="n">remote_name</span> <span class="o">=</span> <span class="n">printer</span><span class="o">.</span><span class="n">available_file_name</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting dummy SDCard upload from </span><span class="si">{}</span><span class="s2"> to </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">remote_name</span><span class="p">))</span>
+    <span class="n">remote_name</span> <span class="o">=</span> <span class="n">printer</span><span class="o">.</span><span class="n">available_file_name</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Starting dummy SDCard upload from </span><span class="si">{}</span><span class="s2"> to </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">remote_name</span><span class="p">))</span>
 
     <span class="n">sd_upload_started</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">remote_name</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">():</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Sleeping 10s...&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Sleeping 10s..."</span><span class="p">)</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;And done!&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"And done!"</span><span class="p">)</span>
         <span class="n">sd_upload_succeeded</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">remote_name</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 
     <span class="n">thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">process</span><span class="p">)</span>
@@ -8817,9 +8817,9 @@ own thread, which is important in order to not block the main application!</p>
 
     <span class="k">return</span> <span class="n">remote_name</span>
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;No-op SDCard Upload Test&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"No-op SDCard Upload Test"</span>
 <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;octoprint.printer.sdcardupload&quot;</span><span class="p">:</span> <span class="n">nop_upload_to_sd</span>
+    <span class="s2">"octoprint.printer.sdcardupload"</span><span class="p">:</span> <span class="n">nop_upload_to_sd</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -8935,32 +8935,32 @@ size (as multipart request with the file upload residing in request parameter <c
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sizes</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
 
-    <span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/upload/&lt;int:size&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+    <span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"/upload/&lt;int:size&gt;"</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">"POST"</span><span class="p">])</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">api_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">size</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sizes</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">flask</span><span class="o">.</span><span class="n">make_response</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
 
-        <span class="n">input_name</span> <span class="o">=</span> <span class="s2">&quot;file&quot;</span>
-        <span class="n">keys</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="s2">&quot;content_type&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">)</span>
+        <span class="n">input_name</span> <span class="o">=</span> <span class="s2">"file"</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"size"</span><span class="p">,</span> <span class="s2">"content_type"</span><span class="p">,</span> <span class="s2">"path"</span><span class="p">)</span>
 
         <span class="n">result</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
             <span class="n">found_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
-            <span class="n">param</span> <span class="o">=</span> <span class="n">input_name</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">key</span>
+            <span class="n">param</span> <span class="o">=</span> <span class="n">input_name</span> <span class="o">+</span> <span class="s2">"."</span> <span class="o">+</span> <span class="n">key</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">flask</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
-                <span class="n">result</span><span class="p">[</span><span class="s2">&quot;found_file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">result</span><span class="p">[</span><span class="s2">"found_file"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">flask</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">param</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="n">flask</span><span class="o">.</span><span class="n">jsonify</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">bodysize_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_max_body_sizes</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">[(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;/upload/</span><span class="si">%i</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">size</span><span class="p">,</span> <span class="n">size</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">)</span> <span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sizes</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[(</span><span class="s2">"POST"</span><span class="p">,</span> <span class="sa">r</span><span class="s2">"/upload/</span><span class="si">%i</span><span class="s2">"</span> <span class="o">%</span> <span class="n">size</span><span class="p">,</span> <span class="n">size</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">)</span> <span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sizes</span><span class="p">]</span>
 
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Increase upload size&quot;</span>
-<span class="n">__plugin_description__</span> <span class="o">=</span> <span class="s2">&quot;Increases the body size on some custom API endpoints&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Increase upload size"</span>
+<span class="n">__plugin_description__</span> <span class="o">=</span> <span class="s2">"Increases the body size on some custom API endpoints"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=2.7,&lt;4"</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">__plugin_load__</span><span class="p">():</span>
@@ -8969,7 +8969,7 @@ size (as multipart request with the file upload residing in request parameter <c
 
     <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">BodySizePlugin</span><span class="p">()</span>
     <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;octoprint.server.http.bodysize&quot;</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">bodysize_hook</span>
+        <span class="s2">"octoprint.server.http.bodysize"</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">bodysize_hook</span>
     <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -9059,10 +9059,10 @@ in the webserver which roughly replicate the functionality of <code class="docut
 
         <span class="k">return</span> <span class="p">[</span>
             <span class="p">(</span>
-                <span class="sa">r</span><span class="s2">&quot;/download/(.*)&quot;</span><span class="p">,</span>
+                <span class="sa">r</span><span class="s2">"/download/(.*)"</span><span class="p">,</span>
                 <span class="n">LargeResponseHandler</span><span class="p">,</span>
                 <span class="nb">dict</span><span class="p">(</span>
-                    <span class="n">path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">global_get_basefolder</span><span class="p">(</span><span class="s2">&quot;uploads&quot;</span><span class="p">),</span>
+                    <span class="n">path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">global_get_basefolder</span><span class="p">(</span><span class="s2">"uploads"</span><span class="p">),</span>
                     <span class="n">as_attachment</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">path_validation</span><span class="o">=</span><span class="n">path_validation_factory</span><span class="p">(</span>
                         <span class="k">lambda</span> <span class="n">path</span><span class="p">:</span> <span class="ow">not</span> <span class="n">is_hidden_path</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">status_code</span><span class="o">=</span><span class="mi">404</span>
@@ -9070,19 +9070,19 @@ in the webserver which roughly replicate the functionality of <code class="docut
                 <span class="p">),</span>
             <span class="p">),</span>
             <span class="p">(</span>
-                <span class="sa">r</span><span class="s2">&quot;forward&quot;</span><span class="p">,</span>
+                <span class="sa">r</span><span class="s2">"forward"</span><span class="p">,</span>
                 <span class="n">UrlProxyHandler</span><span class="p">,</span>
                 <span class="nb">dict</span><span class="p">(</span>
-                    <span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">global_get</span><span class="p">([</span><span class="s2">&quot;webcam&quot;</span><span class="p">,</span> <span class="s2">&quot;snapshot&quot;</span><span class="p">]),</span>
+                    <span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">global_get</span><span class="p">([</span><span class="s2">"webcam"</span><span class="p">,</span> <span class="s2">"snapshot"</span><span class="p">]),</span>
                     <span class="n">as_attachment</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">),</span>
             <span class="p">),</span>
         <span class="p">]</span>
 
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Add Tornado Route&quot;</span>
-<span class="n">__plugin_description__</span> <span class="o">=</span> <span class="s2">&quot;Adds two tornado routes to demonstrate hook usage&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Add Tornado Route"</span>
+<span class="n">__plugin_description__</span> <span class="o">=</span> <span class="s2">"Adds two tornado routes to demonstrate hook usage"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=2.7,&lt;4"</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">__plugin_load__</span><span class="p">():</span>
@@ -9091,7 +9091,7 @@ in the webserver which roughly replicate the functionality of <code class="docut
 
     <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">TornadoRoutePlugin</span><span class="p">()</span>
     <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;octoprint.server.http.routes&quot;</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">route_hook</span>
+        <span class="s2">"octoprint.server.http.routes"</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">route_hook</span>
     <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -9272,15 +9272,15 @@ structure:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_additional_commands</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">[</span>
         <span class="p">{</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Just a test&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;logger This is just a test of an OctoPrint system command from a plugin&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;before&quot;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
+            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Just a test"</span><span class="p">,</span>
+            <span class="s2">"action"</span><span class="p">:</span> <span class="s2">"test"</span><span class="p">,</span>
+            <span class="s2">"command"</span><span class="p">:</span> <span class="s2">"logger This is just a test of an OctoPrint system command from a plugin"</span><span class="p">,</span>
+            <span class="s2">"before"</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"Hello World!"</span><span class="p">)</span>
         <span class="p">}</span>
     <span class="p">]</span>
 
 <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;octoprint.system.additional_commands&quot;</span><span class="p">:</span> <span class="n">get_additional_commands</span>
+    <span class="s2">"octoprint.system.additional_commands"</span><span class="p">:</span> <span class="n">get_additional_commands</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -9308,11 +9308,11 @@ that will be called to generate the file’s content inside the bundle.</p>
 <p><strong>Example</strong></p>
 <p>Add a plugin’s <code class="docutils literal notranslate"><span class="pre">console</span></code> log file to the systeminfo bundle:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_additional_bundle_files</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-  <span class="n">console_log</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get_plugin_logfile_path</span><span class="p">(</span><span class="n">postfix</span><span class="o">=</span><span class="s2">&quot;console&quot;</span><span class="p">)</span>
+  <span class="n">console_log</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get_plugin_logfile_path</span><span class="p">(</span><span class="n">postfix</span><span class="o">=</span><span class="s2">"console"</span><span class="p">)</span>
   <span class="k">return</span> <span class="p">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">console_log</span><span class="p">):</span> <span class="n">console_log</span><span class="p">}</span>
 
 <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;octoprint.systeminfo.additional_bundle_files&quot;</span><span class="p">:</span> <span class="n">get_additional_bundle_files</span>
+    <span class="s2">"octoprint.systeminfo.additional_bundle_files"</span><span class="p">:</span> <span class="n">get_additional_bundle_files</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -9338,10 +9338,10 @@ additional file extensions.</p>
 <p><strong>Example</strong></p>
 <p>Allow the management of timelapse GIFs with extension <code class="docutils literal notranslate"><span class="pre">gif</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_timelapse_extensions</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;gif&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="s2">"gif"</span><span class="p">]</span>
 
 <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;octoprint.timelapse.extensions&quot;</span><span class="p">:</span> <span class="n">get_timelapse_extensions</span>
+    <span class="s2">"octoprint.timelapse.extensions"</span><span class="p">:</span> <span class="n">get_timelapse_extensions</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -9460,15 +9460,15 @@ template rule).</p>
     <span class="k">def</span><span class="w"> </span><span class="nf">add_templatetype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_order</span><span class="p">,</span> <span class="n">current_rules</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span>
             <span class="p">(</span>
-                <span class="s2">&quot;awesometemplate&quot;</span><span class="p">,</span>
+                <span class="s2">"awesometemplate"</span><span class="p">,</span>
                 <span class="nb">dict</span><span class="p">(),</span>
-                <span class="nb">dict</span><span class="p">(</span><span class="n">template</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="s2">&quot;_awesometemplate.jinja2&quot;</span><span class="p">),</span>
+                <span class="nb">dict</span><span class="p">(</span><span class="n">template</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="s2">"_awesometemplate.jinja2"</span><span class="p">),</span>
             <span class="p">)</span>
         <span class="p">]</span>
 
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Custom Template Provider&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Custom Template Provider"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=2.7,&lt;4"</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">__plugin_load__</span><span class="p">():</span>
@@ -9477,7 +9477,7 @@ template rule).</p>
 
     <span class="k">global</span> <span class="n">__plugin_hooks__</span>
     <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;octoprint.ui.web.templatetypes&quot;</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">add_templatetype</span>
+        <span class="s2">"octoprint.ui.web.templatetypes"</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">add_templatetype</span>
     <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -9485,11 +9485,11 @@ template rule).</p>
 <div class="literal-block-wrapper docutils container" id="id20">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-number">Listing 33 </span><span class="caption-text">
 </span>custom_template_provider/templates/custom_template_provider_settings.jinja2<a class="headerlink" href="#id20" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Awesome Template Injections&#39;</span><span class="p">)</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">_</span><span class="p">(</span><span class="s1">'Awesome Template Injections'</span><span class="p">)</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
 
 <span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">templates</span><span class="o">.</span><span class="n">plugin_custom_template_provider_awesometemplate</span><span class="o">.</span><span class="n">order</span> <span class="o">%</span><span class="p">}</span>
     <span class="p">{</span><span class="o">%</span> <span class="nb">set</span> <span class="n">heading</span><span class="p">,</span> <span class="n">config</span> <span class="o">=</span> <span class="n">templates</span><span class="o">.</span><span class="n">plugin_custom_template_provider_awesometemplate</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">%</span><span class="p">}</span>
-    <span class="o">&lt;</span><span class="n">div</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;{{ config._div }}&quot;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">div</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"{{ config._div }}"</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="n">h4</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">heading</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">h4</span><span class="o">&gt;</span>
         <span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="n">config</span><span class="o">.</span><span class="n">template</span> <span class="n">ignore</span> <span class="n">missing</span> <span class="o">%</span><span class="p">}</span>
     <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
@@ -9506,22 +9506,22 @@ template rule).</p>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CustomTemplateTypeConsumer</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_template_configs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="s2">&quot;custom_template_provider&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_manager</span><span class="o">.</span><span class="n">enabled_plugins</span><span class="p">:</span>
-            <span class="c1"># if our custom template provider is not registered, we&#39;ll act as a regular settings plugin</span>
+        <span class="k">if</span> <span class="s2">"custom_template_provider"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_manager</span><span class="o">.</span><span class="n">enabled_plugins</span><span class="p">:</span>
+            <span class="c1"># if our custom template provider is not registered, we'll act as a regular settings plugin</span>
             <span class="k">return</span> <span class="p">[</span>
                 <span class="nb">dict</span><span class="p">(</span>
-                    <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;settings&quot;</span><span class="p">,</span>
-                    <span class="n">template</span><span class="o">=</span><span class="s2">&quot;custom_template_consumer_awesometemplate.jinja2&quot;</span><span class="p">,</span>
+                    <span class="nb">type</span><span class="o">=</span><span class="s2">"settings"</span><span class="p">,</span>
+                    <span class="n">template</span><span class="o">=</span><span class="s2">"custom_template_consumer_awesometemplate.jinja2"</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># else we&#39;ll inject ourselves as an awesometemplate type instead - since we named our jinja2 file</span>
-            <span class="c1"># accordingly we don&#39;t have to explicitly define that here, it will be picked up automatically</span>
+            <span class="c1"># else we'll inject ourselves as an awesometemplate type instead - since we named our jinja2 file</span>
+            <span class="c1"># accordingly we don't have to explicitly define that here, it will be picked up automatically</span>
             <span class="k">return</span> <span class="p">[]</span>
 
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Custom Template Consumer&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Custom Template Consumer"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=2.7,&lt;4"</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">CustomTemplateTypeConsumer</span><span class="p">()</span>
 </code></pre></div>
 </div>
@@ -9529,7 +9529,7 @@ template rule).</p>
 <div class="literal-block-wrapper docutils container" id="id22">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-number">Listing 35 </span><span class="caption-text">
 </span>custom_template_consumer/templates/custom_template_consumer_awesometemplate.jinja2<a class="headerlink" href="#id22" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="s2">&quot;Hello World!&quot;</span> <span class="kn">from</span><span class="w"> </span><span class="nn">an</span> <span class="n">injected</span> <span class="n">awesome</span> <span class="n">template</span><span class="o">.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="s2">"Hello World!"</span> <span class="kn">from</span><span class="w"> </span><span class="nn">an</span> <span class="n">injected</span> <span class="n">awesome</span> <span class="n">template</span><span class="o">.</span>
 </code></pre></div>
 </div>
 </div>
@@ -9568,10 +9568,10 @@ CSS file URLs to inject into the dialog HTML.</p>
 <p>Example usage by a plugin:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">loginui_theming</span><span class="p">():</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">url_for</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;plugin.myplugin.static&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;css/loginui_theme.css&quot;</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">url_for</span><span class="p">(</span><span class="s2">"plugin.myplugin.static"</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">"css/loginui_theme.css"</span><span class="p">)]</span>
 
 <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;octoprint.theming.login&quot;</span><span class="p">:</span> <span class="n">loginui_theming</span>
+    <span class="s2">"octoprint.theming.login"</span><span class="p">:</span> <span class="n">loginui_theming</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>

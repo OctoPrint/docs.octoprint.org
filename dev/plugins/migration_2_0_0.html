@@ -2011,11 +2011,11 @@
 
 <span class="c1"># instead of user.is_admin:</span>
 <span class="n">is_admin</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">has_permission</span><span class="p">(</span><span class="n">Permissions</span><span class="o">.</span><span class="n">ADMIN</span><span class="p">)</span>  <span class="c1"># preferred!</span>
-<span class="n">is_admin</span> <span class="o">=</span> <span class="s2">&quot;admin&quot;</span> <span class="ow">in</span> <span class="n">user</span><span class="o">.</span><span class="n">groups</span>
+<span class="n">is_admin</span> <span class="o">=</span> <span class="s2">"admin"</span> <span class="ow">in</span> <span class="n">user</span><span class="o">.</span><span class="n">groups</span>
 
 <span class="c1"># instead of user.is_user:</span>
 <span class="n">is_user</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">user</span><span class="o">.</span><span class="n">is_anonymous</span>  <span class="c1"># preferred!</span>
-<span class="n">is_user</span> <span class="o">=</span> <span class="s2">&quot;user&quot;</span> <span class="ow">in</span> <span class="n">user</span><span class="o">.</span><span class="n">groups</span>
+<span class="n">is_user</span> <span class="o">=</span> <span class="s2">"user"</span> <span class="ow">in</span> <span class="n">user</span><span class="o">.</span><span class="n">groups</span>
 </code></pre></div>
 </div>
 </li>
@@ -2060,21 +2060,21 @@ to switch over to <code class="docutils literal notranslate"><span class="pre">t
 <p>As of OctoPrint 2.0.0 and announced with the release of OctoPrint 1.8.3, endpoints provided through a <a class="reference internal" href="mixins.html#octoprint.plugin.BlueprintPlugin" title="octoprint.plugin.BlueprintPlugin (Python class) — Bases: OctoPrintPlugin, RestartNeedingPlugin"><span class="xref myst py py-class"><code class="docutils literal notranslate"><span class="pre">BlueprintPlugin</span> <span class="pre">mixin</span></code></span></a> do now automatically fall under OctoPrint’s <a class="reference internal" href="../api/general.html#sec-api-general-csrf"><span class="std std-ref">CSRF protection</span></a>.</p>
 <p>If this breaks your plugin, you can exempt individual endpoints through the <code class="docutils literal notranslate"><span class="pre">&#64;octoprint.plugin.BlueprintPlugin.csrf_exempt</span></code> decorator:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MyPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="p">):</span>
-    <span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/hello_world&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
+    <span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"/hello_world"</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">"GET"</span><span class="p">])</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">hello_world</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># This is a GET request and thus not subject to CSRF protection</span>
-        <span class="k">return</span> <span class="s2">&quot;Hello world!&quot;</span>
+        <span class="k">return</span> <span class="s2">"Hello world!"</span>
 
-    <span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/hello_you&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+    <span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"/hello_you"</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">"POST"</span><span class="p">])</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">hello_you</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># This is a POST request and thus subject to CSRF protection. It is not exempt.</span>
-        <span class="k">return</span> <span class="s2">&quot;Hello you!&quot;</span>
+        <span class="k">return</span> <span class="s2">"Hello you!"</span>
 
-    <span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/hello_me&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+    <span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"/hello_me"</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">"POST"</span><span class="p">])</span>
 <span class="hll">    <span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">csrf_exempt</span><span class="p">()</span>
 </span>    <span class="k">def</span><span class="w"> </span><span class="nf">hello_me</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># This is a POST request and thus subject to CSRF protection, but this one is exempt.</span>
-        <span class="k">return</span> <span class="s2">&quot;Hello me!&quot;</span>
+        <span class="k">return</span> <span class="s2">"Hello me!"</span>
 
 <span class="hll">    <span class="k">def</span><span class="w"> </span><span class="nf">is_blueprint_csrf_protected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span class="hll">        <span class="k">return</span> <span class="kc">True</span>
@@ -2107,14 +2107,14 @@ to switch over to <code class="docutils literal notranslate"><span class="pre">t
 <h4 id="printer-get-transport-deprecated"><span id="sec-plugins-octo-2-0-0-server-printer-get-transport"></span><code class="docutils literal notranslate"><span class="pre">Printer.get_transport</span></code> deprecated<a class="headerlink" href="#printer-get-transport-deprecated" title="Link to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">get_transport</span></code> has been deprecated, and the compatibility layer in place is only functional if the current printer connection is provided by the bundled serial connector plugin.</p>
 <p>This compatibility layer is planned to get removed in a future version, so if your plugin still relies on <code class="docutils literal notranslate"><span class="pre">self._printer.get_transport</span></code>, for now <em>refactor it</em> to instead check for the serial connector yourself and then fetch the <code class="docutils literal notranslate"><span class="pre">_comm</span></code> and its <code class="docutils literal notranslate"><span class="pre">_serial</span></code> object yourself, with a lot of error checking to protect against internal changes (these are <em>private</em> properties shown by the <code class="docutils literal notranslate"><span class="pre">_</span></code> prefix - they are <em>not</em> part of the official plugin API!):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">connection</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">connector</span> <span class="o">!=</span> <span class="s2">&quot;serial&quot;</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">connection</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">connector</span> <span class="o">!=</span> <span class="s2">"serial"</span><span class="p">:</span>
     <span class="k">return</span>
 
-<span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">,</span> <span class="s2">&quot;_comm&quot;</span><span class="p">):</span>
+<span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="p">,</span> <span class="s2">"_comm"</span><span class="p">):</span>
   <span class="c1"># this gets you what used to be self._printer._comm...</span>
   <span class="n">comm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">_comm</span>  
 
-  <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">comm</span><span class="p">,</span> <span class="s2">&quot;_serial&quot;</span><span class="p">):</span>
+  <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">comm</span><span class="p">,</span> <span class="s2">"_serial"</span><span class="p">):</span>
       <span class="c1"># ... and this what used to be returned by self._printer.get_transport()</span>
       <span class="n">serial</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">_serial</span>  
 </code></pre></div>
@@ -2203,7 +2203,7 @@ removal cycle of deprecated features!</p>
 <p>There have been changes to the following long-deprecated methods from <code class="docutils literal notranslate"><span class="pre">octoprint.util</span></code>:</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">octoprint.util.bom_aware_open</span></code> removed, use the <code class="docutils literal notranslate"><span class="pre">-sig</span></code> suffixed encoding to handle BOM automatically, e.g.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8-sig&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8-sig"</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="c1"># do something</span>
 </code></pre></div>
 </div>
@@ -2253,8 +2253,8 @@ Instead, use the returned promise:</p>
 is no longer supported, instead callers need to add additional headers via the <code class="docutils literal notranslate"><span class="pre">additional</span></code>
 parameter. Example:</p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">OctoPrintClient</span><span class="p">.</span><span class="nx">getRequestHeaders</span><span class="p">(</span>
-<span class="w">    </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="p">{</span><span class="s2">&quot;Some-Header&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Some Value&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="s2">"POST"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="s2">"Some-Header"</span><span class="o">:</span><span class="w"> </span><span class="s2">"Some Value"</span><span class="p">}</span>
 <span class="p">)</span>
 </code></pre></div>
 </div>
@@ -2281,9 +2281,9 @@ should instead use <a class="reference internal" href="../modules/plugin.html#oc
         <span class="bp">self</span><span class="o">.</span><span class="n">_port</span> <span class="o">=</span> <span class="n">port</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">fetch_api_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://localhost:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="si">}</span><span class="s2">/api/version&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"https://localhost:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="si">}</span><span class="s2">/api/version"</span>
 <span class="hll">        <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-</span><span class="hll">            <span class="s2">&quot;X-Api-Key&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin_apikey</span>
+</span><span class="hll">            <span class="s2">"X-Api-Key"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin_apikey</span>
 </span><span class="hll">        <span class="p">}</span>
 </span>
         <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>

@@ -1697,31 +1697,31 @@
 <p>Look for two things in your code:</p>
 <ol class="arabic">
 <li><p>Imports of other plugin templates in your own plugin’s templates, e.g.</p>
-<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><code><span class="cp">{%</span> <span class="k">include</span> <span class="s2">&quot;snippets/my_snippet.jinja2&quot;</span> <span class="cp">%}</span>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><code><span class="cp">{%</span> <span class="k">include</span> <span class="s2">"snippets/my_snippet.jinja2"</span> <span class="cp">%}</span>
 </code></pre></div>
 </div>
 <p>will only be resolved relatively to the current plugin, and thus need
 to be prefixed referencing the target plugin going forward:</p>
-<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><code><span class="cp">{%</span> <span class="k">include</span> <span class="s2">&quot;plugin_some_other_plugin/snippets/my_snippet.jinja2&quot;</span> <span class="cp">%}</span>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><code><span class="cp">{%</span> <span class="k">include</span> <span class="s2">"plugin_some_other_plugin/snippets/my_snippet.jinja2"</span> <span class="cp">%}</span>
 </code></pre></div>
 </div>
 </li>
 <li><p>Templates rendered by your plugin. e.g. in a custom route created through the <a class="reference internal" href="mixins.html#sec-plugins-mixins-blueprintplugin"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">BlueprintPlugin</span></code> mixin</span></a> need to be prefixed as well. Example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/foo&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"/foo"</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">"GET"</span><span class="p">])</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">foo_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">flask</span><span class="o">.</span><span class="n">make_response</span><span class="p">(</span>
       <span class="n">flask</span><span class="o">.</span><span class="n">render_template</span><span class="p">(</span>
-<span class="hll">        <span class="s2">&quot;some_template.jinja2&quot;</span>
+<span class="hll">        <span class="s2">"some_template.jinja2"</span>
 </span>      <span class="p">)</span>
     <span class="p">)</span>
 </code></pre></div>
 </div>
 <p>needs to be turned into</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/foo&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">BlueprintPlugin</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"/foo"</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">"GET"</span><span class="p">])</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">foo_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">flask</span><span class="o">.</span><span class="n">make_response</span><span class="p">(</span>
       <span class="n">flask</span><span class="o">.</span><span class="n">render_template</span><span class="p">(</span>
-<span class="hll">        <span class="s2">&quot;plugin_my_plugin/some_template.jinja2&quot;</span>
+<span class="hll">        <span class="s2">"plugin_my_plugin/some_template.jinja2"</span>
 </span>      <span class="p">)</span>
     <span class="p">)</span>
 </code></pre></div>
@@ -1907,7 +1907,7 @@ to be prefixed referencing the target plugin going forward:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.filemanager</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileDestinations</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.util.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_octoprint_compatible</span>
 
-<span class="k">if</span> <span class="n">is_octoprint_compatible</span><span class="p">(</span><span class="s2">&quot;&gt;=2&quot;</span><span class="p">):</span>
+<span class="k">if</span> <span class="n">is_octoprint_compatible</span><span class="p">(</span><span class="s2">"&gt;=2"</span><span class="p">):</span>
     <span class="n">job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_manager</span><span class="o">.</span><span class="n">create_job</span><span class="p">(</span><span class="n">storage</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">set_job</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">print_after_select</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
@@ -1919,7 +1919,7 @@ to be prefixed referencing the target plugin going forward:</p>
 <h4 id="migration-example-unselect-file">Migration example: <code class="docutils literal notranslate"><span class="pre">unselect_file</span></code><a class="headerlink" href="#migration-example-unselect-file" title="Link to this heading">¶</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.util.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_octoprint_compatible</span>
 
-<span class="k">if</span> <span class="n">is_octoprint_compatible</span><span class="p">(</span><span class="s2">&quot;&gt;=2&quot;</span><span class="p">):</span>
+<span class="k">if</span> <span class="n">is_octoprint_compatible</span><span class="p">(</span><span class="s2">"&gt;=2"</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">set_job</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">unselect_file</span><span class="p">()</span>
@@ -1929,7 +1929,7 @@ to be prefixed referencing the target plugin going forward:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.filemanager</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileDestinations</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.util.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_octoprint_compatible</span>
 
-<span class="k">if</span> <span class="n">is_octoprint_compatible</span><span class="p">(</span><span class="s2">&quot;&gt;=2&quot;</span><span class="p">):</span>
+<span class="k">if</span> <span class="n">is_octoprint_compatible</span><span class="p">(</span><span class="s2">"&gt;=2"</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_file_manager</span><span class="o">.</span><span class="n">list_storage_entries</span><span class="p">([</span><span class="n">FileDestinations</span><span class="o">.</span><span class="n">PRINTER</span><span class="p">],</span> <span class="n">force_refresh</span><span class="o">=</span><span class="n">blocking</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">get_sd_files</span><span class="p">(</span><span class="n">blocking</span><span class="o">=</span><span class="n">blocking</span><span class="p">)</span>
@@ -1939,7 +1939,7 @@ to be prefixed referencing the target plugin going forward:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.filemanager</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileDestinations</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.util.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_octoprint_compatible</span>
 
-<span class="k">if</span> <span class="n">is_octoprint_compatible</span><span class="p">(</span><span class="s2">&quot;&gt;=2&quot;</span><span class="p">):</span>
+<span class="k">if</span> <span class="n">is_octoprint_compatible</span><span class="p">(</span><span class="s2">"&gt;=2"</span><span class="p">):</span>
     <span class="n">current_job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">current_job</span>
     <span class="n">is_current_job</span> <span class="o">=</span> <span class="n">current_job</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">current_job</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="n">path</span> <span class="ow">and</span> <span class="n">current_job</span><span class="o">.</span><span class="n">storage</span> <span class="o">==</span> <span class="n">storage</span>
     <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="n">is_current_job</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">is_printing</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">is_paused</span><span class="p">()))</span>
@@ -1953,7 +1953,7 @@ to be prefixed referencing the target plugin going forward:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.filemanager</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileDestinations</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">octoprint.util.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_octoprint_compatible</span>
 
-<span class="k">if</span> <span class="n">is_octoprint_compatible</span><span class="p">(</span><span class="s2">&quot;&gt;=2&quot;</span><span class="p">):</span>
+<span class="k">if</span> <span class="n">is_octoprint_compatible</span><span class="p">(</span><span class="s2">"&gt;=2"</span><span class="p">):</span>
     <span class="n">current_job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_printer</span><span class="o">.</span><span class="n">current_job</span>
     <span class="k">return</span> <span class="n">current_job</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">current_job</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="n">path</span> <span class="ow">and</span> <span class="n">current_job</span><span class="o">.</span><span class="n">storage</span> <span class="o">==</span> <span class="n">storage</span>
 <span class="k">else</span><span class="p">:</span>

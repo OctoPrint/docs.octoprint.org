@@ -1196,7 +1196,7 @@ something changes.</p>
 status updates, temperature changes etc to connected web interface instances.</p>
 <p>Each pushed message consists of a simple JSON object that follows this basic structure:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="s2">&quot;&lt;type&gt;&quot;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">payload</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="s2">"&lt;type&gt;"</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">payload</span><span class="o">&gt;</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -1247,8 +1247,8 @@ types to receive event messages for.</p></li>
 request. <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> messages do replace previous ones.</p>
 <p>Example for a <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> message subscribing only to updates from plugin <code class="docutils literal notranslate"><span class="pre">example</span></code> but neither state nor events:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="s2">&quot;subscribe&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="s2">&quot;plugins&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;example&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="s2">"subscribe"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">"plugins"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"example"</span><span class="p">]</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -1257,21 +1257,21 @@ request. <code class="docutils literal notranslate"><span class="pre">subscribe<
 but filtering logs in state updates to only contain lines matching <code class="docutils literal notranslate"><span class="pre">^Recv:</span> <span class="pre">Cap</span></code> and also
 filtering out all messages:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="s2">&quot;subscribe&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="s2">&quot;state&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="s2">&quot;logs&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;^Recv: Cap&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="s2">&quot;messages&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">  </span><span class="s2">"subscribe"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">"state"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s2">"logs"</span><span class="o">:</span><span class="w"> </span><span class="s2">"^Recv: Cap"</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">"messages"</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="s2">&quot;events&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;plugins&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="s2">"events"</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"plugins"</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
 <p>Example for a <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> message subscribing only to events of type <code class="docutils literal notranslate"><span class="pre">PrintFailed</span></code>:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="s2">&quot;subscribe&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="s2">&quot;events&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;PrintFailed&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="s2">"subscribe"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">"events"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"PrintFailed"</span><span class="p">]</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -1292,7 +1292,7 @@ clients lacking the <code class="docutils literal notranslate"><span class="pre"
 obtained from the successful payload of a <a class="reference internal" href="authentication.html#sec-api-authentication-login"><span class="std std-ref">(passive or active) login via the API</span></a>.</p>
 <p>Example for a <code class="docutils literal notranslate"><span class="pre">auth</span></code> client-server-message:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="s2">&quot;auth&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;someuser:LGZ0trf8By&quot;</span>
+<span class="w">  </span><span class="s2">"auth"</span><span class="o">:</span><span class="w"> </span><span class="s2">"someuser:LGZ0trf8By"</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -1308,9 +1308,9 @@ can be found <a class="reference internal" href="../jsclientlib/socket.html#sec-
    Client-&gt;&gt;API: GET /api/login?passive=true&amp;apikey=...
    API-&gt;&gt;Client: { name: ..., session: ..., ... }
 
-   note over Client: auth = name &quot;:&quot; session
+   note over Client: auth = name ":" session
 
-   Client-&gt;&gt;Websocket: { &quot;auth&quot;: auth }
+   Client-&gt;&gt;Websocket: { "auth": auth }
 </code></pre></div>
 </div>
 </pre></div>
@@ -1325,7 +1325,7 @@ the multiplier for the base rate limit of one message every 500ms. A value of
 message every 1.5s and so on.</p>
 <p>Example for a <code class="docutils literal notranslate"><span class="pre">throttle</span></code> client-server-message:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="s2">&quot;throttle&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span>
+<span class="w">  </span><span class="s2">"throttle"</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>

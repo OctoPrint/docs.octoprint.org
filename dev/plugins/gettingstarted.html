@@ -1081,7 +1081,7 @@ $ cd OctoPrint
 $ virtualenv venv
 [...]
 $ source venv/bin/activate
-(venv) $ pip install -e &#39;.[develop,plugins]&#39;
+(venv) $ pip install -e '.[develop,plugins]'
 [...]
 (venv) $ octoprint --help
 Usage: octoprint [OPTIONS] COMMAND [ARGS]...
@@ -1113,10 +1113,10 @@ by running <code class="docutils literal notranslate"><span class="pre">octoprin
 web interface.</p>
 </div>
 <p>We’ll start at the most basic form a plugin can take - just a few simple lines of Python code:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-<span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
-<span class="n">__plugin_description__</span> <span class="o">=</span> <span class="s2">&quot;A quick </span><span class="se">\&quot;</span><span class="s2">Hello World</span><span class="se">\&quot;</span><span class="s2"> example plugin for OctoPrint&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.10,&lt;4&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Hello World"</span>
+<span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">"1.0.0"</span>
+<span class="n">__plugin_description__</span> <span class="o">=</span> <span class="s2">"A quick </span><span class="se">\"</span><span class="s2">Hello World</span><span class="se">\"</span><span class="s2"> example plugin for OctoPrint"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=3.10,&lt;4"</span>
 </code></pre></div>
 </div>
 <p>Saving this as <code class="docutils literal notranslate"><span class="pre">helloworld.py</span></code> in <code class="docutils literal notranslate"><span class="pre">~/.octoprint/plugins</span></code> yields you something resembling these log entries upon server startup:</p>
@@ -1152,12 +1152,12 @@ the end-of-life Python 2.</p>
 </span><span class="hll">
 </span><span class="hll"><span class="k">class</span><span class="w"> </span><span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
 </span><span class="hll">    <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
+</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Hello World!"</span><span class="p">)</span>
 </span>
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-<span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
-<span class="n">__plugin_description__</span> <span class="o">=</span> <span class="s2">&quot;A quick </span><span class="se">\&quot;</span><span class="s2">Hello World</span><span class="se">\&quot;</span><span class="s2"> example plugin for OctoPrint&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.10,&lt;4&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Hello World"</span>
+<span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">"1.0.0"</span>
+<span class="n">__plugin_description__</span> <span class="o">=</span> <span class="s2">"A quick </span><span class="se">\"</span><span class="s2">Hello World</span><span class="se">\"</span><span class="s2"> example plugin for OctoPrint"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=3.10,&lt;4"</span>
 <span class="hll"><span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </span></code></pre></div>
 </div>
@@ -1191,13 +1191,13 @@ or alternatively manually utilizing Python’s standard package manager <code cl
 <p>So let’s begin. We’ll use the <a class="reference external" href="https://github.com/audreyr/cookiecutter">cookiecutter</a> template for OctoPrint plugins
 here. This should already be installed if you used the <code class="docutils literal notranslate"><span class="pre">plugins</span></code> extra while installing OctoPrint.  However,
 you may install it with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>(venv) $ pip install &quot;cookiecutter&gt;=2.1.1,&lt;3&quot;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>(venv) $ pip install "cookiecutter&gt;=2.1.1,&lt;3"
 </code></pre></div>
 </div>
 <p>Then we can use the <code class="docutils literal notranslate"><span class="pre">octoprint</span> <span class="pre">dev</span> <span class="pre">plugin:new</span></code> command <a class="footnote-reference brackets" href="#f1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> to generate a new OctoPrint plugin skeleton for us:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>(venv) $ cd ~/devel
 (venv) $ octoprint dev plugin:new helloworld
-Cloning into &#39;cookiecutter-octoprint-plugin&#39;...
+Cloning into 'cookiecutter-octoprint-plugin'...
 remote: Counting objects: 101, done.
 remote: Total 101 (delta 0), reused 0 (delta 0), pack-reused 101
 Receiving objects: 100% (101/101), 53.69 KiB, done.
@@ -1209,7 +1209,7 @@ full_name [You]: Your Name
 email [you@example.com]: you@somewhere.net
 github_username [you]: yourGithubName
 plugin_version [0.1.0]: 1.0.0
-plugin_description [TODO]: A quick &quot;Hello World&quot; example plugin for OctoPrint
+plugin_description [TODO]: A quick "Hello World" example plugin for OctoPrint
 plugin_license [AGPLv3]:
 plugin_homepage [https://github.com/yourGithubName/OctoPrint-Helloworld]:
 plugin_source [https://github.com/yourGithubName/OctoPrint-Helloworld]:
@@ -1278,22 +1278,22 @@ will make it easier to understand what folder does what later on. Delete the fol
 <p>Out of curiosity, take a look into the <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file. The cookiecutter template should have prefilled all the
 configuration parameters for you:</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><code><span class="k">[build-system]</span>
-<span class="n">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;setuptools&gt;=68&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;wheel&quot;</span><span class="p">]</span>
-<span class="n">build-backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;setuptools.build_meta&quot;</span>
+<span class="n">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"setuptools&gt;=68"</span><span class="p">,</span><span class="w"> </span><span class="s2">"wheel"</span><span class="p">]</span>
+<span class="n">build-backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"setuptools.build_meta"</span>
 
 <span class="k">[project]</span>
-<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;OctoPrint-Helloworld&quot;</span>
-<span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span>
-<span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;A quick &quot;</span><span class="n">Hello</span><span class="w"> </span><span class="n">World</span><span class="s2">&quot; example plugin for OctoPrint&quot;</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"OctoPrint-Helloworld"</span>
+<span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"1.0.0"</span>
+<span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"A quick "</span><span class="n">Hello</span><span class="w"> </span><span class="n">World</span><span class="s2">" example plugin for OctoPrint"</span>
 <span class="n">authors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span><span class="n">name</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;Your name&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;you@somewhere.net&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">{</span><span class="n">name</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"Your name"</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"you@somewhere.net"</span><span class="p">}</span>
 <span class="p">]</span>
-<span class="n">readme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">file</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;README.md&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">content-type</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;text/markdown&quot;</span><span class="p">}</span>
+<span class="n">readme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">file</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"README.md"</span><span class="p">,</span><span class="w"> </span><span class="n">content-type</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"text/markdown"</span><span class="p">}</span>
 <span class="n">dynamic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="s2">&quot;license&quot;</span>
+<span class="w">    </span><span class="s2">"license"</span>
 <span class="p">]</span>
 
-<span class="n">requires-python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&gt;=3.7, &lt;4&quot;</span>
+<span class="n">requires-python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"&gt;=3.7, &lt;4"</span>
 
 <span class="c1"># any additional requirements (besides OctoPrint) should be listed here</span>
 <span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
@@ -1303,19 +1303,19 @@ configuration parameters for you:</p>
 
 <span class="k">[tool.setuptools.packages.find]</span>
 <span class="n">include</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="s2">&quot;octoprint_helloworld&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;octoprint_helloworld.*&quot;</span>
+<span class="w">    </span><span class="s2">"octoprint_helloworld"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"octoprint_helloworld.*"</span>
 <span class="p">]</span>
 
-<span class="k">[project.entry-points.</span><span class="s2">&quot;octoprint.plugin&quot;</span><span class="k">]</span>
-<span class="n">helloworld</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;octoprint_helloworld&quot;</span>
+<span class="k">[project.entry-points.</span><span class="s2">"octoprint.plugin"</span><span class="k">]</span>
+<span class="n">helloworld</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"octoprint_helloworld"</span>
 
 <span class="k">[project.urls]</span>
-<span class="n">Homepage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://github.com/yourGithubName/OctoPrint-Helloworld&quot;</span>
+<span class="n">Homepage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"https://github.com/yourGithubName/OctoPrint-Helloworld"</span>
 
 <span class="k">[project.optional-dependencies]</span>
 <span class="n">develop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="s2">&quot;go-task-bin&quot;</span>
+<span class="w">    </span><span class="s2">"go-task-bin"</span>
 <span class="p">]</span>
 </code></pre></div>
 </div>
@@ -1359,9 +1359,9 @@ of information now defined twice:</p>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-number">Listing 39 </span><span class="caption-text">
 </span>__init__.py<a class="headerlink" href="#id3" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-<span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
-<span class="n">__plugin_description__</span> <span class="o">=</span> <span class="s2">&quot;A quick </span><span class="se">\&quot;</span><span class="s2">Hello World</span><span class="se">\&quot;</span><span class="s2"> example plugin for OctoPrint&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Hello World"</span>
+<span class="n">__plugin_version__</span> <span class="o">=</span> <span class="s2">"1.0.0"</span>
+<span class="n">__plugin_description__</span> <span class="o">=</span> <span class="s2">"A quick </span><span class="se">\"</span><span class="s2">Hello World</span><span class="se">\"</span><span class="s2"> example plugin for OctoPrint"</span>
 </code></pre></div>
 </div>
 </div>
@@ -1371,9 +1371,9 @@ of information now defined twice:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># ...</span>
 
 <span class="p">[</span><span class="n">project</span><span class="p">]</span>
-<span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;OctoPrint-Helloworld&quot;</span>
-<span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
-<span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;A quick &quot;</span><span class="n">Hello</span> <span class="n">World</span><span class="s2">&quot; example plugin for OctoPrint&quot;</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s2">"OctoPrint-Helloworld"</span>
+<span class="n">version</span> <span class="o">=</span> <span class="s2">"1.0.0"</span>
+<span class="n">description</span> <span class="o">=</span> <span class="s2">"A quick "</span><span class="n">Hello</span> <span class="n">World</span><span class="s2">" example plugin for OctoPrint"</span>
 
 <span class="c1"># ...</span>
 </code></pre></div>
@@ -1386,9 +1386,9 @@ and <code class="docutils literal notranslate"><span class="pre">__plugin_descri
 
 <span class="k">class</span><span class="w"> </span><span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Hello World!"</span><span class="p">)</span>
 
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.10,&lt;4&quot;</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=3.10,&lt;4"</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </code></pre></div>
 </div>
@@ -1405,10 +1405,10 @@ and <code class="docutils literal notranslate"><span class="pre">__plugin_descri
 
 <span class="k">class</span><span class="w"> </span><span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Hello World!"</span><span class="p">)</span>
 
-<span class="hll"><span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-</span><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.10,&lt;4&quot;</span>
+<span class="hll"><span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Hello World"</span>
+</span><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=3.10,&lt;4"</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </code></pre></div>
 </div>
@@ -1439,16 +1439,16 @@ add the <code class="xref py py-class docutils literal notranslate"><span class=
 <span class="k">class</span><span class="w"> </span><span class="nc">HelloWorldPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">StartupPlugin</span><span class="p">,</span>
 <span class="hll">                       <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">):</span>
 </span>    <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Hello World!"</span><span class="p">)</span>
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.10,&lt;4&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Hello World"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=3.10,&lt;4"</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <p>Next, we’ll create a sub folder <code class="docutils literal notranslate"><span class="pre">templates</span></code> underneath our <code class="docutils literal notranslate"><span class="pre">octoprint_helloworld</span></code> folder, and within that a file
 <code class="docutils literal notranslate"><span class="pre">helloworld_navbar.jinja2</span></code> like so:</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://en.wikipedia.org/wiki/Hello_world&quot;</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"https://en.wikipedia.org/wiki/Hello_world"</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
 </code></pre></div>
 </div>
 <p>Our plugin’s directory structure should now look like this:</p>
@@ -1488,13 +1488,13 @@ mixin.</p>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
 <span class="hll">                       <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">SettingsPlugin</span><span class="p">):</span>
 </span>    <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World! (more: </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;url&quot;</span><span class="p">]))</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Hello World! (more: </span><span class="si">%s</span><span class="s2">)"</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">"url"</span><span class="p">]))</span>
 </span>
 <span class="hll">    <span class="k">def</span><span class="w"> </span><span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span class="hll">        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://en.wikipedia.org/wiki/Hello_world&quot;</span><span class="p">)</span>
+</span><span class="hll">        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"https://en.wikipedia.org/wiki/Hello_world"</span><span class="p">)</span>
 </span>
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.10,&lt;4&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Hello World"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=3.10,&lt;4"</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </code></pre></div>
 </div>
@@ -1515,21 +1515,21 @@ to add our URL as a template variable.</p>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">SettingsPlugin</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World! (more: </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;url&quot;</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Hello World! (more: </span><span class="si">%s</span><span class="s2">)"</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">"url"</span><span class="p">]))</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://en.wikipedia.org/wiki/Hello_world&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"https://en.wikipedia.org/wiki/Hello_world"</span><span class="p">)</span>
 
 <span class="hll">    <span class="k">def</span><span class="w"> </span><span class="nf">get_template_vars</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span class="hll">        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;url&quot;</span><span class="p">]))</span>
+</span><span class="hll">        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">"url"</span><span class="p">]))</span>
 </span>
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.10,&lt;4&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Hello World"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=3.10,&lt;4"</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </code></pre></div>
 </div>
 <p>Also adjust your plugin’s <code class="docutils literal notranslate"><span class="pre">templates/helloworld_navbar.jinja2</span></code> like this:</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ plugin_helloworld_url|escape }}&quot;</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"{{ plugin_helloworld_url|escape }}"</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
 </code></pre></div>
 </div>
 <p>OctoPrint injects the template variables that your plugin defines prefixed with <code class="docutils literal notranslate"><span class="pre">plugin_&lt;plugin</span> <span class="pre">identifier&gt;_</span></code> into
@@ -1556,11 +1556,11 @@ the server and reload the page every time we want a value change to take effect.
 <p>First of all, we’ll create the settings dialog. You might already have guessed that we’ll need another template for that.
 So in your plugin’s <code class="docutils literal notranslate"><span class="pre">templates</span></code> folder create a new file <code class="docutils literal notranslate"><span class="pre">helloworld_settings.jinja2</span></code> and put the following content
 into it:</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">form</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-horizontal&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;control-group&quot;</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">label</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;control-label&quot;</span><span class="p">&gt;</span>{{ _(&#39;URL&#39;) }}<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;controls&quot;</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input-block-level&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;value: settings.plugins.helloworld.url&quot;</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">form</span> <span class="na">class</span><span class="o">=</span><span class="s">"form-horizontal"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"control-group"</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">label</span> <span class="na">class</span><span class="o">=</span><span class="s">"control-label"</span><span class="p">&gt;</span>{{ _('URL') }}<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"controls"</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">"text"</span> <span class="na">class</span><span class="o">=</span><span class="s">"input-block-level"</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">"value: settings.plugins.helloworld.url"</span><span class="p">&gt;</span>
         <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
     <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
@@ -1574,7 +1574,7 @@ We’ll bind our own settings dialog to the existing <code class="docutils liter
 property.</p>
 <p>Now adjust your <code class="docutils literal notranslate"><span class="pre">templates/helloworld_navbar.jinja2</span></code> file to use a <code class="docutils literal notranslate"><span class="pre">data-bind</span></code> attribute to set the value from the
 settings view model into the <code class="docutils literal notranslate"><span class="pre">href</span></code> attribute of the link tag:</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;javascript:void()&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;attr: {href: settings.settings.plugins.helloworld.url}&quot;</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"javascript:void()"</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">"attr: {href: settings.settings.plugins.helloworld.url}"</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
 </code></pre></div>
 </div>
 <p>You might have noticed the quite ugly way to access our plugin’s <code class="docutils literal notranslate"><span class="pre">url</span></code> property here: <code class="docutils literal notranslate"><span class="pre">settings.settings.plugins.helloworld.url</span></code>.
@@ -1597,19 +1597,19 @@ again since we don’t use that anymore:</p>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">TemplatePlugin</span><span class="p">,</span>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">SettingsPlugin</span><span class="p">):</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World! (more: </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;url&quot;</span><span class="p">]))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Hello World! (more: </span><span class="si">%s</span><span class="s2">)"</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">"url"</span><span class="p">]))</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://en.wikipedia.org/wiki/Hello_world&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"https://en.wikipedia.org/wiki/Hello_world"</span><span class="p">)</span>
 
 <span class="hll"><span class="k">def</span><span class="w"> </span><span class="nf">get_template_configs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span class="hll">    <span class="k">return</span> <span class="p">[</span>
-</span><span class="hll">        <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;navbar&quot;</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-</span><span class="hll">        <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;settings&quot;</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span class="hll">        <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">"navbar"</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+</span><span class="hll">        <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">"settings"</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </span><span class="hll">    <span class="p">]</span>
 </span>
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.10,&lt;4&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Hello World"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=3.10,&lt;4"</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </code></pre></div>
 </div>
@@ -1636,13 +1636,13 @@ showing the website behind the URL from the settings in an IFrame but also allow
 without having to change the settings.</p>
 <p>First let us create the Jinja2 template for our tab. In your plugin’s <code class="docutils literal notranslate"><span class="pre">templates</span></code> folder create a new file
 <code class="docutils literal notranslate"><span class="pre">helloworld_tab.jinja2</span></code> like so:</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input-append&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input-xxlarge&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;value: newUrl&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-primary&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;click: goToUrl&quot;</span><span class="p">&gt;</span>{{ _(&#39;Go&#39;) }}<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"input-append"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">"text"</span> <span class="na">class</span><span class="o">=</span><span class="s">"input-xxlarge"</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">"value: newUrl"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">"btn btn-primary"</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">"click: goToUrl"</span><span class="p">&gt;</span>{{ _('Go') }}<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
 
-<span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;attr: {src: currentUrl}&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;width: 100%; height: 600px; border: 1px solid #808080&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">"attr: {src: currentUrl}"</span> <span class="na">style</span><span class="o">=</span><span class="s">"width: 100%; height: 600px; border: 1px solid #808080"</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
 </code></pre></div>
 </div>
 <p>Then we create a new folder in your plugin’s root called <code class="docutils literal notranslate"><span class="pre">static</span></code> and within that folder another folder by the name of
@@ -1678,24 +1678,24 @@ like so:</p>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">SettingsPlugin</span><span class="p">,</span>
 <span class="hll">                       <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">AssetPlugin</span><span class="p">):</span>
 </span> <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-     <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World! (more: </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;url&quot;</span><span class="p">]))</span>
+     <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Hello World! (more: </span><span class="si">%s</span><span class="s2">)"</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">"url"</span><span class="p">]))</span>
 
  <span class="k">def</span><span class="w"> </span><span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://en.wikipedia.org/wiki/Hello_world&quot;</span><span class="p">)</span>
+     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"https://en.wikipedia.org/wiki/Hello_world"</span><span class="p">)</span>
 
  <span class="k">def</span><span class="w"> </span><span class="nf">get_template_configs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
      <span class="k">return</span> <span class="p">[</span>
-         <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;navbar&quot;</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-         <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;settings&quot;</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+         <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">"navbar"</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+         <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">"settings"</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
      <span class="p">]</span>
 
 <span class="hll"> <span class="k">def</span><span class="w"> </span><span class="nf">get_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span class="hll">     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
-</span><span class="hll">         <span class="n">js</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;js/helloworld.js&quot;</span><span class="p">]</span>
+</span><span class="hll">         <span class="n">js</span><span class="o">=</span><span class="p">[</span><span class="s2">"js/helloworld.js"</span><span class="p">]</span>
 </span><span class="hll">     <span class="p">)</span>
 </span>
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.10,&lt;4&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Hello World"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=3.10,&lt;4"</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </code></pre></div>
 </div>
@@ -1717,7 +1717,7 @@ like so:</p>
 <span class="w">        </span><span class="c1">// this will hold the URL entered in the text field</span>
 <span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">newUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">();</span>
 
-<span class="w">        </span><span class="c1">// this will be called when the user clicks the &quot;Go&quot; button and set the iframe&#39;s URL to</span>
+<span class="w">        </span><span class="c1">// this will be called when the user clicks the "Go" button and set the iframe's URL to</span>
 <span class="w">        </span><span class="c1">// the entered URL</span>
 <span class="w">        </span><span class="nx">self</span><span class="p">.</span><span class="nx">goToUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="nx">self</span><span class="p">.</span><span class="nx">currentUrl</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">newUrl</span><span class="p">());</span>
@@ -1742,10 +1742,10 @@ like so:</p>
 </span><span class="hll"><span class="w">        </span><span class="c1">// This is a list of dependencies to inject into the plugin, the order which you request</span>
 </span><span class="hll"><span class="w">        </span><span class="c1">// here is the order in which the dependencies will be injected into your view model upon</span>
 </span><span class="hll"><span class="w">        </span><span class="c1">// instantiation via the parameters argument</span>
-</span><span class="hll"><span class="w">        </span><span class="p">[</span><span class="s2">&quot;settingsViewModel&quot;</span><span class="p">],</span>
+</span><span class="hll"><span class="w">        </span><span class="p">[</span><span class="s2">"settingsViewModel"</span><span class="p">],</span>
 </span><span class="hll">
 </span><span class="hll"><span class="w">        </span><span class="c1">// Finally, this is the list of selectors for all elements we want this view model to be bound to.</span>
-</span><span class="hll"><span class="w">        </span><span class="p">[</span><span class="s2">&quot;#tab_plugin_helloworld&quot;</span><span class="p">]</span>
+</span><span class="hll"><span class="w">        </span><span class="p">[</span><span class="s2">"#tab_plugin_helloworld"</span><span class="p">]</span>
 </span><span class="hll"><span class="w">    </span><span class="p">]);</span>
 </span><span class="p">});</span>
 </code></pre></div>
@@ -1768,12 +1768,12 @@ of the same article.</p>
 <h2 id="style-matters-injecting-custom-css-into-the-page">Style matters: Injecting custom CSS into the page<a class="headerlink" href="#style-matters-injecting-custom-css-into-the-page" title="Link to this heading">¶</a></h2>
 <p>So it appears that this stuff is working great already. Only one thing is a bit ugly, let’s take another look at
 our <code class="docutils literal notranslate"><span class="pre">helloworld_tab.jinja2</span></code>:</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input-append&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input-xxlarge&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;value: newUrl&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-primary&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;click: goToUrl&quot;</span><span class="p">&gt;</span>{{ _(&#39;Go&#39;) }}<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"input-append"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">"text"</span> <span class="na">class</span><span class="o">=</span><span class="s">"input-xxlarge"</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">"value: newUrl"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">"btn btn-primary"</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">"click: goToUrl"</span><span class="p">&gt;</span>{{ _('Go') }}<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-<span class="hll"><span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;attr: {src: currentUrl}&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;width: 100%; height: 600px; border: 1px solid #808080&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
+<span class="hll"><span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">"attr: {src: currentUrl}"</span> <span class="na">style</span><span class="o">=</span><span class="s">"width: 100%; height: 600px; border: 1px solid #808080"</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
 </span></code></pre></div>
 </div>
 <p>We hardcoded some <code class="docutils literal notranslate"><span class="pre">style</span></code> on our <code class="docutils literal notranslate"><span class="pre">iframe</span></code> in line 6, to make it look a bit better. It would be nicer if that was actually
@@ -1812,12 +1812,12 @@ add a CSS file to our plugin’s provided static assets.</p>
 </code></pre></div>
 </div>
 <p>Don’t forget to remove the <code class="docutils literal notranslate"><span class="pre">style</span></code> attribute from the <code class="docutils literal notranslate"><span class="pre">iframe</span></code> tag in <code class="docutils literal notranslate"><span class="pre">helloworld_tab.jinja2</span></code>:</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input-append&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input-xxlarge&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;value: newUrl&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-primary&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;click: goToUrl&quot;</span><span class="p">&gt;</span>{{ _(&#39;Go&#39;) }}<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"input-append"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">"text"</span> <span class="na">class</span><span class="o">=</span><span class="s">"input-xxlarge"</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">"value: newUrl"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">"btn btn-primary"</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">"click: goToUrl"</span><span class="p">&gt;</span>{{ _('Go') }}<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-<span class="hll"><span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;attr: {src: currentUrl}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
+<span class="hll"><span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">"attr: {src: currentUrl}"</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
 </span></code></pre></div>
 </div>
 <p>Then adjust our plugin’s <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> so that the <a class="reference internal" href="mixins.html#octoprint.plugin.AssetPlugin.get_assets" title="octoprint.plugin.AssetPlugin.get_assets (Python method) — Defines the static assets the plugin offers. The following asset types are recognized and automatically imported at the appropriate places to be available:"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_assets()</span></code></a> method returns
@@ -1830,25 +1830,25 @@ a reference to our CSS file:</p>
                        <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">AssetPlugin</span><span class="p">):</span>
 
  <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-     <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World! (more: </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;url&quot;</span><span class="p">]))</span>
+     <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Hello World! (more: </span><span class="si">%s</span><span class="s2">)"</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">"url"</span><span class="p">]))</span>
 
  <span class="k">def</span><span class="w"> </span><span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://en.wikipedia.org/wiki/Hello_world&quot;</span><span class="p">)</span>
+     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"https://en.wikipedia.org/wiki/Hello_world"</span><span class="p">)</span>
 
  <span class="k">def</span><span class="w"> </span><span class="nf">get_template_configs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
      <span class="k">return</span> <span class="p">[</span>
-         <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;navbar&quot;</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-         <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;settings&quot;</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+         <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">"navbar"</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+         <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">"settings"</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
      <span class="p">]</span>
 
  <span class="k">def</span><span class="w"> </span><span class="nf">get_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
      <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
-         <span class="n">js</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;js/helloworld.js&quot;</span><span class="p">],</span>
-<span class="hll">         <span class="n">css</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;css/helloworld.css&quot;</span><span class="p">]</span>
+         <span class="n">js</span><span class="o">=</span><span class="p">[</span><span class="s2">"js/helloworld.js"</span><span class="p">],</span>
+<span class="hll">         <span class="n">css</span><span class="o">=</span><span class="p">[</span><span class="s2">"css/helloworld.css"</span><span class="p">]</span>
 </span>     <span class="p">)</span>
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.10,&lt;4&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Hello World"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=3.10,&lt;4"</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </code></pre></div>
 </div>
@@ -1906,26 +1906,26 @@ in the process. The folder structure of our plugin should now look like this:</p
                       <span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">AssetPlugin</span><span class="p">):</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello World! (more: </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;url&quot;</span><span class="p">]))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Hello World! (more: </span><span class="si">%s</span><span class="s2">)"</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">"url"</span><span class="p">]))</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_settings_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://en.wikipedia.org/wiki/Hello_world&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"https://en.wikipedia.org/wiki/Hello_world"</span><span class="p">)</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_template_configs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">[</span>
-        <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;navbar&quot;</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-        <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;settings&quot;</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">"navbar"</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+        <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">"settings"</span><span class="p">,</span> <span class="n">custom_bindings</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="p">]</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
-        <span class="n">js</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;js/helloworld.js&quot;</span><span class="p">],</span>
-        <span class="n">css</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;css/helloworld.css&quot;</span><span class="p">],</span>
-<span class="hll">        <span class="n">less</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;less/helloworld.less&quot;</span><span class="p">]</span>
+        <span class="n">js</span><span class="o">=</span><span class="p">[</span><span class="s2">"js/helloworld.js"</span><span class="p">],</span>
+        <span class="n">css</span><span class="o">=</span><span class="p">[</span><span class="s2">"css/helloworld.css"</span><span class="p">],</span>
+<span class="hll">        <span class="n">less</span><span class="o">=</span><span class="p">[</span><span class="s2">"less/helloworld.less"</span><span class="p">]</span>
 </span>    <span class="p">)</span>
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3.10,&lt;4&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"Hello World"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=3.10,&lt;4"</span>
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">HelloWorldPlugin</span><span class="p">()</span>
 </code></pre></div>
 </div>
@@ -1943,11 +1943,11 @@ source code. In the <code class="docutils literal notranslate"><span class="pre"
 embedded the <code class="docutils literal notranslate"><span class="pre">helloworld.less</span></code> file instead:</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
     <span class="cm">&lt;!-- [...] --&gt;</span>
-    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/static/less/octoprint.less&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet/less&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="na">media</span><span class="o">=</span><span class="s">&quot;screen&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">"/static/less/octoprint.less"</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet/less"</span> <span class="na">type</span><span class="o">=</span><span class="s">"text/css"</span> <span class="na">media</span><span class="o">=</span><span class="s">"screen"</span><span class="p">&gt;</span>
     <span class="cm">&lt;!-- [...] --&gt;</span>
-<span class="hll">    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/plugin/helloworld/static/less/helloworld.less&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet/less&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="na">media</span><span class="o">=</span><span class="s">&quot;screen&quot;</span><span class="p">&gt;</span>
+<span class="hll">    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">"/plugin/helloworld/static/less/helloworld.less"</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet/less"</span> <span class="na">type</span><span class="o">=</span><span class="s">"text/css"</span> <span class="na">media</span><span class="o">=</span><span class="s">"screen"</span><span class="p">&gt;</span>
 </span>    <span class="cm">&lt;!-- [...] --&gt;</span>
-    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/static/js/lib/less.min.js&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"/static/js/lib/less.min.js"</span> <span class="na">type</span><span class="o">=</span><span class="s">"text/javascript"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
     <span class="cm">&lt;!-- [...] --&gt;</span>
 <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
 </code></pre></div>
@@ -1965,11 +1965,11 @@ setting it to <code class="docutils literal notranslate"><span class="pre">css</
 <p>Restart and shift-reload and take another look at the <code class="docutils literal notranslate"><span class="pre">head</span></code>:</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
     <span class="cm">&lt;!-- [...] --&gt;</span>
-    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/static/css/octoprint.css&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="na">media</span><span class="o">=</span><span class="s">&quot;screen&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">"/static/css/octoprint.css"</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span> <span class="na">type</span><span class="o">=</span><span class="s">"text/css"</span> <span class="na">media</span><span class="o">=</span><span class="s">"screen"</span><span class="p">&gt;</span>
     <span class="cm">&lt;!-- [...] --&gt;</span>
-<span class="hll">    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/plugin/helloworld/static/css/helloworld.css&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="na">media</span><span class="o">=</span><span class="s">&quot;screen&quot;</span><span class="p">&gt;</span>
+<span class="hll">    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">"/plugin/helloworld/static/css/helloworld.css"</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span> <span class="na">type</span><span class="o">=</span><span class="s">"text/css"</span> <span class="na">media</span><span class="o">=</span><span class="s">"screen"</span><span class="p">&gt;</span>
 </span>    <span class="cm">&lt;!-- [...] --&gt;</span>
-    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/static/js/lib/less.min.js&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"/static/js/lib/less.min.js"</span> <span class="na">type</span><span class="o">=</span><span class="s">"text/javascript"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
     <span class="cm">&lt;!-- [...] --&gt;</span>
 <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
 </code></pre></div>
@@ -1988,9 +1988,9 @@ stop it from doing that at the start of this section, we should switch this back
 <p>Just out of curiosity, restart, shift-reload and take a final look at the <code class="docutils literal notranslate"><span class="pre">head</span></code>:</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
     <span class="cm">&lt;!-- [...] --&gt;</span>
-<span class="hll">    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/static/webassets/packed.css?85a134&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="na">media</span><span class="o">=</span><span class="s">&quot;screen&quot;</span><span class="p">&gt;</span>
-</span><span class="hll">    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/static/webassets/packed.less?85a134&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet/less&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="na">media</span><span class="o">=</span><span class="s">&quot;screen&quot;</span><span class="p">&gt;</span>
-</span><span class="hll">    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/static/js/lib/less.min.js&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="hll">    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">"/static/webassets/packed.css?85a134"</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span> <span class="na">type</span><span class="o">=</span><span class="s">"text/css"</span> <span class="na">media</span><span class="o">=</span><span class="s">"screen"</span><span class="p">&gt;</span>
+</span><span class="hll">    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">"/static/webassets/packed.less?85a134"</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet/less"</span> <span class="na">type</span><span class="o">=</span><span class="s">"text/css"</span> <span class="na">media</span><span class="o">=</span><span class="s">"screen"</span><span class="p">&gt;</span>
+</span><span class="hll">    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"/static/js/lib/less.min.js"</span> <span class="na">type</span><span class="o">=</span><span class="s">"text/javascript"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span>    <span class="cm">&lt;!-- [...] --&gt;</span>
 <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
 </code></pre></div>

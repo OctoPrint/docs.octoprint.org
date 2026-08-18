@@ -1532,7 +1532,7 @@ Usage: octoprint plugins softwareupdate:check [OPTIONS] [TARGETS]...
       utilizing cached version information.
   - octoprint plugins softwareupdate:check --force
       This will check all components for available updates,
-      ignoring any cached version information even if it&#39;s
+      ignoring any cached version information even if it's
       still valid.
   - octoprint plugins softwareupdate:check octoprint
       This will only check OctoPrint itself for available
@@ -1556,7 +1556,7 @@ Usage: octoprint plugins softwareupdate:update [OPTIONS] [TARGETS]...
       that can be updated.
   - octoprint plugins softwareupdate:update --force
       This will force an update of all registered components
-      that can be updated, even if they don&#39;t have an update
+      that can be updated, even if they don't have an update
       pending.
   - octoprint plugins softwareupdate:update octoprint
       This will only update OctoPrint and leave any further
@@ -1572,16 +1572,16 @@ Options:
 <span class="w">  </span><span class="nt">softwareupdate</span><span class="p">:</span>
 <span class="w">    </span><span class="c1"># configured version check and update methods</span>
 <span class="w">    </span><span class="nt">checks</span><span class="p">:</span>
-<span class="w">      </span><span class="c1"># &quot;octoprint&quot; is reserved for OctoPrint</span>
+<span class="w">      </span><span class="c1"># "octoprint" is reserved for OctoPrint</span>
 <span class="w">      </span><span class="nt">octoprint</span><span class="p">:</span>
 <span class="w">        </span><span class="c1"># this defines a version check that will check against releases</span>
-<span class="w">        </span><span class="c1"># published on OctoPrint&#39;s Github repository and pip as update method</span>
+<span class="w">        </span><span class="c1"># published on OctoPrint's Github repository and pip as update method</span>
 <span class="w">        </span><span class="c1"># against the release archives on Github - this is the default</span>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github_release</span>
 <span class="w">        </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OctoPrint</span>
 <span class="w">        </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OctoPrint</span>
 <span class="w">        </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip</span>
-<span class="w">        </span><span class="nt">pip</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;https://github.com/OctoPrint/OctoPrint/archive/{target_version}.zip&#39;</span>
+<span class="w">        </span><span class="nt">pip</span><span class="p">:</span><span class="w"> </span><span class="s">'https://github.com/OctoPrint/OctoPrint/archive/{target_version}.zip'</span>
 
 <span class="w">      </span><span class="c1"># further checks may be defined here</span>
 
@@ -1627,7 +1627,7 @@ Options:
 <span class="w">        </span><span class="nt">https://git.example.com/api/v1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aabbcc...</span>
 
 <span class="w">      </span><span class="c1"># Bitbucket user name and password, used by the bitbucket_commit version check if</span>
-<span class="w">      </span><span class="c1"># provided, but only if the check doesn&#39;t specify credentials on its own.</span>
+<span class="w">      </span><span class="c1"># provided, but only if the check doesn't specify credentials on its own.</span>
 <span class="w">      </span><span class="c1"># Unset by default.</span>
 <span class="w">      </span><span class="nt">bitbucket_user</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">bitbucket_password</span><span class="p">:</span>
@@ -1730,18 +1730,18 @@ will be matched.</p></li>
 <p>Setting <code class="docutils literal notranslate"><span class="pre">type</span></code> to <code class="docutils literal notranslate"><span class="pre">codeberg_release</span></code> will automatically set <code class="docutils literal notranslate"><span class="pre">type</span></code> to <code class="docutils literal notranslate"><span class="pre">forgejo_release</span></code> and <code class="docutils literal notranslate"><span class="pre">forge</span></code>
 to <code class="docutils literal notranslate"><span class="pre">codeberg</span></code>. Thus, in case of a version check against codeberg, this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="s2">&quot;check&quot;</span><span class="p">:</span> <span class="s2">&quot;codeberg_release&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;SomeUser&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;repo&quot;</span><span class="p">:</span> <span class="s2">&quot;SomeRepo&quot;</span>
+  <span class="s2">"check"</span><span class="p">:</span> <span class="s2">"codeberg_release"</span><span class="p">,</span>
+  <span class="s2">"user"</span><span class="p">:</span> <span class="s2">"SomeUser"</span><span class="p">,</span>
+  <span class="s2">"repo"</span><span class="p">:</span> <span class="s2">"SomeRepo"</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
 <p>will internally be turned into:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="s2">&quot;check&quot;</span><span class="p">:</span> <span class="s2">&quot;forgejo_release&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;forge&quot;</span><span class="p">:</span> <span class="s2">&quot;codeberg&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;SomeUser&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;repo&quot;</span><span class="p">:</span> <span class="s2">&quot;SomeRepo&quot;</span>
+  <span class="s2">"check"</span><span class="p">:</span> <span class="s2">"forgejo_release"</span><span class="p">,</span>
+  <span class="s2">"forge"</span><span class="p">:</span> <span class="s2">"codeberg"</span><span class="p">,</span>
+  <span class="s2">"user"</span><span class="p">:</span> <span class="s2">"SomeUser"</span><span class="p">,</span>
+  <span class="s2">"repo"</span><span class="p">:</span> <span class="s2">"SomeRepo"</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -1767,18 +1767,18 @@ base URL for the API of the forge (e.g. <code class="docutils literal notranslat
 <p>Setting <code class="docutils literal notranslate"><span class="pre">type</span></code> to <code class="docutils literal notranslate"><span class="pre">codeberg_commit</span></code> will automatically set <code class="docutils literal notranslate"><span class="pre">type</span></code> to <code class="docutils literal notranslate"><span class="pre">forgejo_commit</span></code> and <code class="docutils literal notranslate"><span class="pre">forge</span></code>
 to <code class="docutils literal notranslate"><span class="pre">codeberg</span></code>. Thus, in case of a version check against codeberg, this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="s2">&quot;check&quot;</span><span class="p">:</span> <span class="s2">&quot;codeberg_commit&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;SomeUser&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;repo&quot;</span><span class="p">:</span> <span class="s2">&quot;SomeRepo&quot;</span>
+  <span class="s2">"check"</span><span class="p">:</span> <span class="s2">"codeberg_commit"</span><span class="p">,</span>
+  <span class="s2">"user"</span><span class="p">:</span> <span class="s2">"SomeUser"</span><span class="p">,</span>
+  <span class="s2">"repo"</span><span class="p">:</span> <span class="s2">"SomeRepo"</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
 <p>will internally be turned into:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="s2">&quot;check&quot;</span><span class="p">:</span> <span class="s2">&quot;forgejo_commit&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;forge&quot;</span><span class="p">:</span> <span class="s2">&quot;codeberg&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;SomeUser&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;repo&quot;</span><span class="p">:</span> <span class="s2">&quot;SomeRepo&quot;</span>
+  <span class="s2">"check"</span><span class="p">:</span> <span class="s2">"forgejo_commit"</span><span class="p">,</span>
+  <span class="s2">"forge"</span><span class="p">:</span> <span class="s2">"codeberg"</span><span class="p">,</span>
+  <span class="s2">"user"</span><span class="p">:</span> <span class="s2">"SomeUser"</span><span class="p">,</span>
+  <span class="s2">"repo"</span><span class="p">:</span> <span class="s2">"SomeRepo"</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -1962,8 +1962,8 @@ update method.</p>
 <span class="w">        </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foosel</span>
 <span class="w">        </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OctoPrint</span>
 <span class="w">        </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip</span>
-<span class="w">        </span><span class="nt">pip</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;https://github.com/OctoPrint/OctoPrint/archive/{target_version}.zip&#39;</span>
-<span class="w">        </span><span class="nt">update_script</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{python}</span><span class="nv"> </span><span class="s">&quot;/path/to/octoprint-update.py&quot;</span><span class="nv"> </span><span class="s">--python=&quot;{python}&quot;</span><span class="nv"> </span><span class="s">&quot;{folder}&quot;</span><span class="nv"> </span><span class="s">&quot;{target}&quot;&#39;</span>
+<span class="w">        </span><span class="nt">pip</span><span class="p">:</span><span class="w"> </span><span class="s">'https://github.com/OctoPrint/OctoPrint/archive/{target_version}.zip'</span>
+<span class="w">        </span><span class="nt">update_script</span><span class="p">:</span><span class="w"> </span><span class="s">'{python}</span><span class="nv"> </span><span class="s">"/path/to/octoprint-update.py"</span><span class="nv"> </span><span class="s">--python="{python}"</span><span class="nv"> </span><span class="s">"{folder}"</span><span class="nv"> </span><span class="s">"{target}"'</span>
 <span class="w">        </span><span class="nt">checkout_folder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/octoprint/checkout/folder</span>
 </code></pre></div>
 </div>
@@ -1994,7 +1994,7 @@ tracked:</p>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github_release</span>
 <span class="w">        </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">someUser</span>
 <span class="w">        </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OctoPrint-SomePlugin</span>
-<span class="w">        </span><span class="nt">pip</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;https://github.com/someUser/OctoPrint-SomePlugin/archive/{target}.zip&#39;</span>
+<span class="w">        </span><span class="nt">pip</span><span class="p">:</span><span class="w"> </span><span class="s">'https://github.com/someUser/OctoPrint-SomePlugin/archive/{target}.zip'</span>
 </code></pre></div>
 </div>
 <p>The same, but declaring three release channels “Stable”, “Maintenance RCs” (tagged on <code class="docutils literal notranslate"><span class="pre">rc/maintenance</span></code> or <code class="docutils literal notranslate"><span class="pre">master</span></code>,
@@ -2024,7 +2024,7 @@ but with “Stable” active:</p>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rc/devel</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rc/maintenance</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
-<span class="w">        </span><span class="nt">pip</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;https://github.com/someUser/OctoPrint-SomePlugin/archive/{target}.zip&#39;</span>
+<span class="w">        </span><span class="nt">pip</span><span class="p">:</span><span class="w"> </span><span class="s">'https://github.com/someUser/OctoPrint-SomePlugin/archive/{target}.zip'</span>
 </code></pre></div>
 </div>
 <p>And now with “Maintenance RCs” active (note the <code class="docutils literal notranslate"><span class="pre">prerelease</span></code> and <code class="docutils literal notranslate"><span class="pre">prerelease_channel</span></code> settings):</p>
@@ -2054,7 +2054,7 @@ but with “Stable” active:</p>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
 <span class="w">        </span><span class="nt">prerelease</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
 <span class="w">        </span><span class="nt">prerelease_channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rc/maintenance</span>
-<span class="w">        </span><span class="nt">pip</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;https://github.com/someUser/OctoPrint-SomePlugin/archive/{target}.zip&#39;</span>
+<span class="w">        </span><span class="nt">pip</span><span class="p">:</span><span class="w"> </span><span class="s">'https://github.com/someUser/OctoPrint-SomePlugin/archive/{target}.zip'</span>
 </code></pre></div>
 </div>
 <p>The same plugin again, but tracking all commits pushed to branch <code class="docutils literal notranslate"><span class="pre">devel</span></code> (thus allowing
@@ -2067,7 +2067,7 @@ but with “Stable” active:</p>
 <span class="w">        </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">someUser</span>
 <span class="w">        </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OctoPrint-SomePlugin</span>
 <span class="w">        </span><span class="nt">branch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">devel</span>
-<span class="w">        </span><span class="nt">pip</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;https://github.com/someUser/OctoPrint-SomePlugin/archive/{target}.zip&#39;</span>
+<span class="w">        </span><span class="nt">pip</span><span class="p">:</span><span class="w"> </span><span class="s">'https://github.com/someUser/OctoPrint-SomePlugin/archive/{target}.zip'</span>
 </code></pre></div>
 </div>
 <p>Single file plugin hosted in a gist <code class="docutils literal notranslate"><span class="pre">https://gist.github.com/someUser/somegist</span></code> and updated whenever there are changes:</p>
@@ -2077,7 +2077,7 @@ but with “Stable” active:</p>
 <span class="w">      </span><span class="nt">some_plugin</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">httpheader</span>
 <span class="w">        </span><span class="nt">header_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ETag</span>
-<span class="w">        </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;https://gist.github.com/someUser/somegist/raw/some_plugin.py&#39;</span>
+<span class="w">        </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">'https://gist.github.com/someUser/somegist/raw/some_plugin.py'</span>
 <span class="w">        </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">single_file_plugin</span>
 </code></pre></div>
 </div>
@@ -2087,8 +2087,8 @@ but with “Stable” active:</p>
 <span class="w">    </span><span class="nt">checks</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">some_plugin</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jsondata</span>
-<span class="w">        </span><span class="nt">jsondata</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;https://gist.github.com/someUser/somegist/raw/version.json&#39;</span>
-<span class="w">        </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;https://gist.github.com/someUser/somegist/raw/some_plugin.py&#39;</span>
+<span class="w">        </span><span class="nt">jsondata</span><span class="p">:</span><span class="w"> </span><span class="s">'https://gist.github.com/someUser/somegist/raw/version.json'</span>
+<span class="w">        </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">'https://gist.github.com/someUser/somegist/raw/some_plugin.py'</span>
 <span class="w">        </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">single_file_plugin</span>
 </code></pre></div>
 </div>
@@ -2159,17 +2159,17 @@ at the (fictional) repository <code class="docutils literal notranslate"><span c
             <span class="n">displayName</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_plugin_name</span><span class="p">,</span>
             <span class="n">displayVersion</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_plugin_version</span><span class="p">,</span>
 
-            <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;github_release&quot;</span><span class="p">,</span>
+            <span class="nb">type</span><span class="o">=</span><span class="s2">"github_release"</span><span class="p">,</span>
             <span class="n">current</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_plugin_version</span><span class="p">,</span>
-            <span class="n">user</span><span class="o">=</span><span class="s2">&quot;someUser&quot;</span><span class="p">,</span>
-            <span class="n">repo</span><span class="o">=</span><span class="s2">&quot;OctoPrint-UpdatePluginDemo&quot;</span><span class="p">,</span>
+            <span class="n">user</span><span class="o">=</span><span class="s2">"someUser"</span><span class="p">,</span>
+            <span class="n">repo</span><span class="o">=</span><span class="s2">"OctoPrint-UpdatePluginDemo"</span><span class="p">,</span>
 
-            <span class="n">pip</span><span class="o">=</span><span class="s2">&quot;https://github.com/someUser/OctoPrint-UpdatePluginDemo/archive/</span><span class="si">{target}</span><span class="s2">.zip&quot;</span>
+            <span class="n">pip</span><span class="o">=</span><span class="s2">"https://github.com/someUser/OctoPrint-UpdatePluginDemo/archive/</span><span class="si">{target}</span><span class="s2">.zip"</span>
         <span class="p">)</span>
     <span class="p">)</span>
 
 <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-<span class="s2">&quot;octoprint.plugin.softwareupdate.check_config&quot;</span><span class="p">:</span> <span class="n">get_update_information</span>
+<span class="s2">"octoprint.plugin.softwareupdate.check_config"</span><span class="p">:</span> <span class="n">get_update_information</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
