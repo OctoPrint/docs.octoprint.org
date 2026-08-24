@@ -140,8 +140,8 @@ plugin subsystem about themselves. These are simple package attributes defined i
 
 <span class="c1"># ...</span>
 
-<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">&quot;My Plugin&quot;</span>
-<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="n">__plugin_name__</span> <span class="o">=</span> <span class="s2">"My Plugin"</span>
+<span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=2.7,&lt;4"</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">__plugin_load__</span><span class="p">():</span>
     <span class="c1"># whatever you need to do to load your plugin, if anything at all</span>
     <span class="k">pass</span>
@@ -186,7 +186,7 @@ that are still out there, as OctoPrint will not even attempt to load plugins who
 information doesn’t match its current environment.</p>
 <p>If your plugin is compatible to Python 3 only, you should set this to <code class="docutils literal notranslate"><span class="pre">&gt;=3.7,&lt;4</span></code>.</p>
 <p>If your plugin is compatible to Python 2 and Python 3, you should set this to <code class="docutils literal notranslate"><span class="pre">&gt;=2.7,&lt;4</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=2.7,&lt;4"</span>
 </pre></div>
 </div>
 </dd>
@@ -201,12 +201,12 @@ information doesn’t match its current environment.</p>
 <dl id="sec-plugins-controlproperties-plugin-hooks">
 <dt><code class="docutils literal notranslate"><span class="pre">__plugin_hooks__</span></code></dt><dd><p>Handlers for one or more of the various <a class="reference internal" href="hooks.html#sec-plugins-hooks"><span class="std std-ref">plugin hooks</span></a>. E.g.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">handle_gcode_sent</span><span class="p">(</span><span class="n">comm_instance</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">cmd_type</span><span class="p">,</span> <span class="n">gcode</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">gcode</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;M106&quot;</span><span class="p">,</span> <span class="s2">&quot;M107&quot;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">gcode</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"M106"</span><span class="p">,</span> <span class="s2">"M107"</span><span class="p">):</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;We just sent a fan command to the printer!&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"We just sent a fan command to the printer!"</span><span class="p">)</span>
 
 <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;octoprint.comm.protocol.gcode.sent&quot;</span><span class="p">:</span> <span class="n">handle_gcode_sent</span>
+    <span class="s2">"octoprint.comm.protocol.gcode.sent"</span><span class="p">:</span> <span class="n">handle_gcode_sent</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -237,7 +237,7 @@ plugin implementations, connecting them to hooks etc. An example:</p>
 
     <span class="k">global</span> <span class="n">__plugin_hooks__</span>
     <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;octoprint.plugin.softwareupdate.check_config&quot;</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">get_update_information</span>
+        <span class="s2">"octoprint.plugin.softwareupdate.check_config"</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">get_update_information</span>
     <span class="p">}</span>
 </pre></div>
 </div>
@@ -262,7 +262,7 @@ has the final say - it is not possible to override what is in there through an o
 sparingly - it’s supposed to be utilized when creating specific customization of the core application that necessitate
 changes in things like e.g. standard naming, UI ordering or API endpoints. Example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__plugin_settings_overlay__</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">api</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">enabled</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-                                   <span class="n">server</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+                                   <span class="n">server</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">"127.0.0.1"</span><span class="p">,</span>
                                                <span class="n">port</span><span class="o">=</span><span class="mi">5001</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -304,7 +304,7 @@ changes in things like e.g. standard naming, UI ordering or API endpoints. Examp
   <div class="rst-other-versions">
     <dl>
       <dt>Tags</dt>
-      <dd><a href="https://docs.octoprint.org/en/2.0.0rc4/plugins/controlproperties.html">2.0.0rc4</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/2.0.0rc5/plugins/controlproperties.html">2.0.0rc5</a></dd>
       <dd><a href="https://docs.octoprint.org/en/1.11.8/plugins/controlproperties.html">1.11.8</a></dd>
     </dl>
     <dl>

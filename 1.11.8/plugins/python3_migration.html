@@ -191,7 +191,7 @@ to <code class="docutils literal notranslate"><span class="pre">virtualenv</span
 </div>
 <p>After creating the virtual environment, make sure to activate &amp; install OctoPrint into it:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>source venv3/bin/activate
-pip install &quot;OctoPrint&gt;=1.4.0rc1&quot;
+pip install "OctoPrint&gt;=1.4.0rc1"
 </pre></div>
 </div>
 <p>Then create an editable install of your plugin, start the server and start testing:</p>
@@ -204,7 +204,7 @@ octoprint serve --debug
 <p>On Windows that will probably look something like this instead:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>virtualenv --python=C:/Python37/python.exe venv37
 venv3/Script/activate.bat
-pip install &quot;OctoPrint&gt;=1.4.0rc1&quot;
+pip install "OctoPrint&gt;=1.4.0rc1"
 pip install -e path/to/your/plugin
 octoprint serve --debug
 </pre></div>
@@ -218,7 +218,7 @@ create a new one based on Python 3 (which should already be present on current O
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>mv ~/oprint ~/oprint.py2
 virtualenv --python=/usr/bin/python3 oprint
 source ~/oprint/bin/activate
-pip install &quot;OctoPrint&gt;=1.4.0&quot;
+pip install "OctoPrint&gt;=1.4.0"
 sudo service octoprint restart
 </pre></div>
 </div>
@@ -231,14 +231,14 @@ compatible to a Python 3 environment. By default OctoPrint will assume your plug
 running under Python 3 itself.</p>
 <p>To tell OctoPrint about this, all you need is to set the <code class="docutils literal notranslate"><span class="pre">__plugin_pythoncompat__</span></code> property in your plugins’s <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>
 accordingly, e.g.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=2.7,&lt;4"</span>
 </pre></div>
 </div>
 <p>This would tell OctoPrint that your plugin is compatible to all Python versions between 2.7 and 3.x. This should be
 your target compatibility range for now.</p>
 <p>If at a later date you want to go all-in on Python 3 and mark your plugin as no longer supporting Python 2, tell
 OctoPrint about this as well:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=3,&lt;4&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=3,&lt;4"</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -246,8 +246,8 @@ OctoPrint about this as well:</p>
 <p>You can also tell OctoPrint to ignore the Python compatibility flags for a specific plugin via <cite>config.yaml</cite>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">_forcedCompatible</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;myplugin&quot;</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;anotherplugin&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"myplugin"</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"anotherplugin"</span>
 </pre></div>
 </div>
 <p>Note that this should only be used temporarily during testing and migration, or to mark an important plugin
@@ -261,7 +261,7 @@ therein) so that OctoPrint’s built-in Plugin Manager will see that your plugin
 to install it through it. In order to do that, you need to add a new flag compatibility.python to the front matter in
 your plugin registration file and file a pull request for that. Adjust the markdown file so that it contains this:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">compatibility</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">python</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&gt;=2.7,&lt;3&quot;</span>
+<span class="w">  </span><span class="nt">python</span><span class="p">:</span><span class="w"> </span><span class="s">"&gt;=2.7,&lt;3"</span>
 </pre></div>
 </div>
 <p>The value here follows the same mechanism as the <code class="docutils literal notranslate"><span class="pre">__plugin_pythoncompat__</span></code> property, so <code class="docutils literal notranslate"><span class="pre">&gt;=2.7,&lt;3</span></code> for 2 and 3
@@ -363,7 +363,7 @@ out trying the Python 2 import instead:</p>
 <p>This should be the preferred method of handling situations like this. If you actually do need to do explicit version
 specific imports that cannot be handled this way, you can check for the Python version like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'2'</span><span class="p">:</span>
    <span class="c1"># Python 2 specific imports</span>
 <span class="k">else</span><span class="p">:</span>
    <span class="c1"># Python 3 specific imports</span>
@@ -408,7 +408,7 @@ to be used outside of the calling code (even though that comes with a small perf
 <li><p>Create a Python 3 virtualenv and install OctoPrint and your plugin into it for testing.</p></li>
 <li><p>Tell OctoPrint your plugin is Python 2 and 3 compatible by adding a new property <code class="docutils literal notranslate"><span class="pre">__plugin_pycompat__</span></code> to its
 <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">&quot;&gt;=2.7,&lt;4&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__plugin_pythoncompat__</span> <span class="o">=</span> <span class="s2">"&gt;=2.7,&lt;4"</span>
 </pre></div>
 </div>
 </li>
@@ -425,7 +425,7 @@ used in your code, as those have proven to be the biggest issues during past mig
 increment the version!), update your registration file in the Official Plugin Repository to include the correct
 Python compatibility information as well:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">compatibility</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">python</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&gt;=2.7,&lt;4&quot;</span>
+<span class="w">  </span><span class="nt">python</span><span class="p">:</span><span class="w"> </span><span class="s">"&gt;=2.7,&lt;4"</span>
 </pre></div>
 </div>
 </li>
@@ -490,7 +490,7 @@ compatibility.</p>
   <div class="rst-other-versions">
     <dl>
       <dt>Tags</dt>
-      <dd><a href="https://docs.octoprint.org/en/2.0.0rc4/plugins/python3_migration.html">2.0.0rc4</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/2.0.0rc5/plugins/python3_migration.html">2.0.0rc5</a></dd>
       <dd><a href="https://docs.octoprint.org/en/1.11.8/plugins/python3_migration.html">1.11.8</a></dd>
     </dl>
     <dl>

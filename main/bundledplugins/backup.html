@@ -200,8 +200,8 @@ It adds two new commands, <code class="docutils literal notranslate"><span class
   Creates a new backup.
 
   Options:
-    --exclude TEXT  Identifiers of data folders to exclude, e.g. &#39;uploads&#39; to
-                    exclude uploads or &#39;timelapse&#39; to exclude timelapses.
+    --exclude TEXT  Identifiers of data folders to exclude, e.g. 'uploads' to
+                    exclude uploads or 'timelapse' to exclude timelapses.
     --help          Show this message and exit.
 
 $ octoprint plugins backup:restore --help
@@ -267,17 +267,17 @@ plugin’s data folder will be excluded from the backup.</p>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">BackupExcludeTestPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">OctoPrintPlugin</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_plugin_data_folder</span><span class="p">(),</span> <span class="s2">&quot;foo.txt&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_plugin_data_folder</span><span class="p">(),</span> <span class="s2">&quot;bar.txt&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_plugin_data_folder</span><span class="p">(),</span> <span class="s2">"foo.txt"</span><span class="p">),</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"Hello</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_plugin_data_folder</span><span class="p">(),</span> <span class="s2">"bar.txt"</span><span class="p">),</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"Hello</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">additional_excludes_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">excludes</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;foo.txt&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">"foo.txt"</span><span class="p">]</span>
 
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">BackupExcludeTestPlugin</span><span class="p">()</span>
 <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;octoprint.plugin.backup.additional_excludes&quot;</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">additional_excludes_hook</span>
+    <span class="s2">"octoprint.plugin.backup.additional_excludes"</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">additional_excludes_hook</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -291,17 +291,17 @@ backup if uploaded GCODE files are also excluded:</p>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">BackupExcludeTestPlugin</span><span class="p">(</span><span class="n">octoprint</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">OctoPrintPlugin</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_plugin_data_folder</span><span class="p">(),</span> <span class="s2">&quot;foo.txt&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_plugin_data_folder</span><span class="p">(),</span> <span class="s2">"foo.txt"</span><span class="p">),</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"Hello</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">additional_excludes_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">excludes</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="s2">&quot;uploads&quot;</span> <span class="ow">in</span> <span class="n">excludes</span><span class="p">:</span>
-           <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;.&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">"uploads"</span> <span class="ow">in</span> <span class="n">excludes</span><span class="p">:</span>
+           <span class="k">return</span> <span class="p">[</span><span class="s2">"."</span><span class="p">]</span>
         <span class="k">return</span> <span class="p">[]</span>
 
 <span class="n">__plugin_implementation__</span> <span class="o">=</span> <span class="n">BackupExcludeTestPlugin</span><span class="p">()</span>
 <span class="n">__plugin_hooks__</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;octoprint.plugin.backup.additional_excludes&quot;</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">additional_excludes_hook</span>
+    <span class="s2">"octoprint.plugin.backup.additional_excludes"</span><span class="p">:</span> <span class="n">__plugin_implementation__</span><span class="o">.</span><span class="n">additional_excludes_hook</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -398,10 +398,10 @@ manager’s <code class="docutils literal notranslate"><span class="pre">get_hel
 <p><strong>Example</strong></p>
 <p>The following code snippet can be used from within a plugin, and will create a backup
 excluding two folders (<code class="docutils literal notranslate"><span class="pre">timelapse</span></code> and <code class="docutils literal notranslate"><span class="pre">uploads</span></code>)</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">helpers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_manager</span><span class="o">.</span><span class="n">get_helpers</span><span class="p">(</span><span class="s2">&quot;backup&quot;</span><span class="p">,</span> <span class="s2">&quot;create_backup&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">helpers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_manager</span><span class="o">.</span><span class="n">get_helpers</span><span class="p">(</span><span class="s2">"backup"</span><span class="p">,</span> <span class="s2">"create_backup"</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="n">helpers</span> <span class="ow">and</span> <span class="s2">&quot;create_backup&quot;</span> <span class="ow">in</span> <span class="n">helpers</span><span class="p">:</span>
-    <span class="n">helpers</span><span class="p">[</span><span class="s2">&quot;create_backup&quot;</span><span class="p">](</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;timelapse&quot;</span><span class="p">,</span> <span class="s2">&quot;uploads&quot;</span><span class="p">])</span>
+<span class="k">if</span> <span class="n">helpers</span> <span class="ow">and</span> <span class="s2">"create_backup"</span> <span class="ow">in</span> <span class="n">helpers</span><span class="p">:</span>
+    <span class="n">helpers</span><span class="p">[</span><span class="s2">"create_backup"</span><span class="p">](</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s2">"timelapse"</span><span class="p">,</span> <span class="s2">"uploads"</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>By using the <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">helpers</span> <span class="pre">[...]</span></code> clause, plugins can fall back to other methods
@@ -432,10 +432,10 @@ manager’s <code class="docutils literal notranslate"><span class="pre">get_hel
 <p><strong>Example</strong>
 The following code snippet can be used from within a plugin, and will attempt to
 delete the backup named <code class="docutils literal notranslate"><span class="pre">ExampleBackup.zip</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">helpers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_manager</span><span class="o">.</span><span class="n">get_helpers</span><span class="p">(</span><span class="s2">&quot;backup&quot;</span><span class="p">,</span> <span class="s2">&quot;delete_backup&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">helpers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_manager</span><span class="o">.</span><span class="n">get_helpers</span><span class="p">(</span><span class="s2">"backup"</span><span class="p">,</span> <span class="s2">"delete_backup"</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="n">helpers</span> <span class="ow">and</span> <span class="s2">&quot;delete_backup&quot;</span> <span class="ow">in</span> <span class="n">helpers</span><span class="p">:</span>
-    <span class="n">helpers</span><span class="p">[</span><span class="s2">&quot;delete_backup&quot;</span><span class="p">](</span><span class="s2">&quot;ExampleBackup.zip&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">helpers</span> <span class="ow">and</span> <span class="s2">"delete_backup"</span> <span class="ow">in</span> <span class="n">helpers</span><span class="p">:</span>
+    <span class="n">helpers</span><span class="p">[</span><span class="s2">"delete_backup"</span><span class="p">](</span><span class="s2">"ExampleBackup.zip"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>By using the <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">helpers</span> <span class="pre">[...]</span></code> clause, plugins can fall back to other methods
@@ -514,7 +514,7 @@ creation time.</p>
   <div class="rst-other-versions">
     <dl>
       <dt>Tags</dt>
-      <dd><a href="https://docs.octoprint.org/en/2.0.0rc4/bundledplugins/backup.html">2.0.0rc4</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/2.0.0rc5/bundledplugins/backup.html">2.0.0rc5</a></dd>
       <dd><a href="https://docs.octoprint.org/en/1.11.8/bundledplugins/backup.html">1.11.8</a></dd>
     </dl>
     <dl>

@@ -143,8 +143,8 @@ which provides its SSDP browsing and Zeroconf browsing and publishing functions 
 <div class="code-block-caption"><span class="caption-number">Listing 36 </span><span class="caption-text">Excerpt from the Discovery Plugin showing the declaration of its exported helpers.</span><a class="headerlink" href="#sec-plugin-concepts-helpers-example-export" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">__plugin_load__</span><span class="p">():</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">pybonjour</span><span class="p">:</span>
-        <span class="c1"># no pybonjour available, we can&#39;t use that</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;octoprint.plugins.&quot;</span> <span class="o">+</span> <span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;pybonjour is not installed, Zeroconf Discovery won&#39;t be available&quot;</span><span class="p">)</span>
+        <span class="c1"># no pybonjour available, we can't use that</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"octoprint.plugins."</span> <span class="o">+</span> <span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"pybonjour is not installed, Zeroconf Discovery won't be available"</span><span class="p">)</span>
 
     <span class="n">plugin</span> <span class="o">=</span> <span class="n">DiscoveryPlugin</span><span class="p">()</span>
 
@@ -170,13 +170,13 @@ them as (hopefully) documented.</p>
 <div class="literal-block-wrapper docutils container" id="sec-plugin-concepts-helpers-example-usage">
 <div class="code-block-caption"><span class="caption-number">Listing 37 </span><span class="caption-text">Excerpt from the Growl Plugin showing utilization of the helpers published by the Discovery Plugin.</span><a class="headerlink" href="#sec-plugin-concepts-helpers-example-usage" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">on_after_startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="n">host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;hostname&quot;</span><span class="p">])</span>
-    <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">getInt</span><span class="p">([</span><span class="s2">&quot;port&quot;</span><span class="p">])</span>
-    <span class="n">password</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">&quot;password&quot;</span><span class="p">])</span>
+    <span class="n">host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">"hostname"</span><span class="p">])</span>
+    <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">getInt</span><span class="p">([</span><span class="s2">"port"</span><span class="p">])</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="s2">"password"</span><span class="p">])</span>
 
-<span class="hll">    <span class="n">helpers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_manager</span><span class="o">.</span><span class="n">get_helpers</span><span class="p">(</span><span class="s2">&quot;discovery&quot;</span><span class="p">,</span> <span class="s2">&quot;zeroconf_browse&quot;</span><span class="p">)</span>
-</span><span class="hll">    <span class="k">if</span> <span class="n">helpers</span> <span class="ow">and</span> <span class="s2">&quot;zeroconf_browse&quot;</span> <span class="ow">in</span> <span class="n">helpers</span><span class="p">:</span>
-</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">zeroconf_browse</span> <span class="o">=</span> <span class="n">helpers</span><span class="p">[</span><span class="s2">&quot;zeroconf_browse&quot;</span><span class="p">]</span>
+<span class="hll">    <span class="n">helpers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_manager</span><span class="o">.</span><span class="n">get_helpers</span><span class="p">(</span><span class="s2">"discovery"</span><span class="p">,</span> <span class="s2">"zeroconf_browse"</span><span class="p">)</span>
+</span><span class="hll">    <span class="k">if</span> <span class="n">helpers</span> <span class="ow">and</span> <span class="s2">"zeroconf_browse"</span> <span class="ow">in</span> <span class="n">helpers</span><span class="p">:</span>
+</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">zeroconf_browse</span> <span class="o">=</span> <span class="n">helpers</span><span class="p">[</span><span class="s2">"zeroconf_browse"</span><span class="p">]</span>
 </span>
     <span class="bp">self</span><span class="o">.</span><span class="n">growl</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_register_growl</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">)</span>
 
@@ -188,8 +188,8 @@ them as (hopefully) documented.</p>
             <span class="n">browsing_enabled</span><span class="o">=</span><span class="kc">False</span>
         <span class="p">))</span>
 
-<span class="hll">    <span class="n">browse_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zeroconf_browse</span><span class="p">(</span><span class="s2">&quot;_gntp._tcp&quot;</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span>    <span class="n">growl_instances</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="n">host</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="s2">&quot;host&quot;</span><span class="p">],</span> <span class="n">port</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="s2">&quot;port&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">browse_results</span><span class="p">]</span>
+<span class="hll">    <span class="n">browse_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zeroconf_browse</span><span class="p">(</span><span class="s2">"_gntp._tcp"</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span>    <span class="n">growl_instances</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="s2">"name"</span><span class="p">],</span> <span class="n">host</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="s2">"host"</span><span class="p">],</span> <span class="n">port</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="s2">"port"</span><span class="p">])</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">browse_results</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">flask</span><span class="o">.</span><span class="n">jsonify</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
         <span class="n">browsing_enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -234,7 +234,7 @@ them as (hopefully) documented.</p>
   <div class="rst-other-versions">
     <dl>
       <dt>Tags</dt>
-      <dd><a href="https://docs.octoprint.org/en/2.0.0rc4/plugins/helpers.html">2.0.0rc4</a></dd>
+      <dd><a href="https://docs.octoprint.org/en/2.0.0rc5/plugins/helpers.html">2.0.0rc5</a></dd>
       <dd><a href="https://docs.octoprint.org/en/1.11.8/plugins/helpers.html">1.11.8</a></dd>
     </dl>
     <dl>
