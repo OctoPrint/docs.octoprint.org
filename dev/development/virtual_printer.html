@@ -440,7 +440,7 @@
   
   
   <span class="md-ellipsis">
-    <span>Development</span>
+    <span>Developing Octo<wbr>Print</span>
     
   </span>
   
@@ -457,7 +457,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
-            <span>Development</span>
+            <span>Developing Octo<wbr>Print</span>
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -629,6 +629,32 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Virtual printer configuration options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#defaults" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Defaults</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-model" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Data model</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -728,7 +754,7 @@
   
   
   <span class="md-ellipsis">
-    <span>Internal Modules</span>
+    <span>Internal API Reference</span>
     
   </span>
   
@@ -802,6 +828,32 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Virtual printer configuration options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#defaults" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Defaults</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-model" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Data model</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -848,247 +900,617 @@ that may be hard to reproduce with a real printer.</p>
 <p>The virtual printer can be enabled through its Settings panel.</p>
 <h2 id="virtual-printer-configuration-options"><span id="sec-development-virtual-printer-config"></span>Virtual printer configuration options<a class="headerlink" href="#virtual-printer-configuration-options" title="Link to this heading">¶</a></h2>
 <p>There are many configuration options via <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> for the virtual printer that allow you to fine-tune its behavior:</p>
+<h3 id="defaults">Defaults<a class="headerlink" href="#defaults" title="Link to this heading">¶</a></h3>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
-
-<span class="w">  </span><span class="c1"># Settings for the virtual printer</span>
 <span class="w">  </span><span class="nt">virtual_printer</span><span class="p">:</span>
-
-<span class="w">    </span><span class="c1"># Whether to enable the virtual printer and include it in the list of available serial connections.</span>
-<span class="w">    </span><span class="c1"># Defaults to false.</span>
-<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-
-<span class="w">    </span><span class="c1"># Whether to send an additional "ok" after a resend request (like Repetier)</span>
-<span class="w">    </span><span class="nt">okAfterResend</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">    </span><span class="c1"># Whether to force checksums and line number in the communication (like Repetier), if set to true</span>
-<span class="w">    </span><span class="c1"># printer will only accept commands that come with linenumber and checksum and throw an error for</span>
-<span class="w">    </span><span class="c1"># lines that don't. Defaults to false</span>
-<span class="w">    </span><span class="nt">forceChecksum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">    </span><span class="c1"># Whether to send "ok" responses with the line number that gets acknowledged by the "ok". Defaults</span>
-<span class="w">    </span><span class="c1"># to false.</span>
-<span class="w">    </span><span class="nt">okWithLinenumber</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">    </span><span class="c1"># Number of extruders to simulate on the virtual printer. Map from tool id (0, 1, ...) to temperature</span>
-<span class="w">    </span><span class="c1"># in °C</span>
-<span class="w">    </span><span class="nt">numExtruders</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-
-<span class="w">    </span><span class="c1"># Allows pinning certain hotends to a fixed temperature</span>
-<span class="w">    </span><span class="nt">pinnedExtruders</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
-
-<span class="w">    </span><span class="c1"># Whether to include the current tool temperature in the M105 output as separate T segment or not.</span>
-<span class="w">    </span><span class="c1">#</span>
-<span class="w">    </span><span class="c1"># True:  &gt; M105</span>
-<span class="w">    </span><span class="c1">#        &lt; ok T:23.5/0.0 T0:34.3/0.0 T1:23.5/0.0 B:43.2/0.0</span>
-<span class="w">    </span><span class="c1"># False: &gt; M105</span>
-<span class="w">    </span><span class="c1">#        &lt; ok T0:34.3/0.0 T1:23.5/0.0 B:43.2/0.0</span>
-<span class="w">    </span><span class="nt">includeCurrentToolInTemps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-
-<span class="w">    </span><span class="c1"># Whether to include the selected filename in the M23 File opened response.</span>
-<span class="w">    </span><span class="c1">#</span>
-<span class="w">    </span><span class="c1"># True:  &gt; M23 filename.gcode</span>
-<span class="w">    </span><span class="c1">#        &lt; File opened: filename.gcode  Size: 27</span>
-<span class="w">    </span><span class="c1"># False: &gt; M23 filename.gcode</span>
-<span class="w">    </span><span class="c1">#        &gt; File opened</span>
-<span class="w">    </span><span class="nt">includeFilenameInOpened</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-
-<span class="w">    </span><span class="c1"># Whether the simulated printer should also simulate a heated bed or not</span>
-<span class="w">    </span><span class="nt">hasBed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-
-<span class="w">    </span><span class="c1"># Whether the simulated printer should also simulate a heated chamber or not</span>
-<span class="w">    </span><span class="nt">hasChamber</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">    </span><span class="c1"># If enabled, reports the set target temperatures as separate messages from the firmware</span>
-<span class="w">    </span><span class="c1">#</span>
-<span class="w">    </span><span class="c1"># True:  &gt; M109 S220.0</span>
-<span class="w">    </span><span class="c1">#        &lt; TargetExtr0:220.0</span>
-<span class="w">    </span><span class="c1">#        &lt; ok</span>
-<span class="w">    </span><span class="c1">#        &gt; M105</span>
-<span class="w">    </span><span class="c1">#        &lt; ok T0:34.3 T1:23.5 B:43.2</span>
-<span class="w">    </span><span class="c1"># False: &gt; M109 S220.0</span>
-<span class="w">    </span><span class="c1">#        &lt; ok</span>
-<span class="w">    </span><span class="c1">#        &gt; M105</span>
-<span class="w">    </span><span class="c1">#        &lt; ok T0:34.3/220.0 T1:23.5/0.0 B:43.2/0.0</span>
-<span class="w">    </span><span class="nt">repetierStyleTargetTemperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">    </span><span class="c1"># If enabled, uses repetier style resends, sending multiple resends for the same line</span>
-<span class="w">    </span><span class="c1"># to make sure nothing gets lost on the line</span>
-<span class="w">    </span><span class="nt">repetierStyleResends</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">    </span><span class="c1"># If enabled, ok will be sent before a commands output, otherwise after or inline (M105)</span>
-<span class="w">    </span><span class="c1">#</span>
-<span class="w">    </span><span class="c1"># True:  &gt; M20</span>
-<span class="w">    </span><span class="c1">#        &lt; ok</span>
-<span class="w">    </span><span class="c1">#        &lt; Begin file list</span>
-<span class="w">    </span><span class="c1">#        &lt; End file list</span>
-<span class="w">    </span><span class="c1"># False: &gt; M20</span>
-<span class="w">    </span><span class="c1">#        &lt; Begin file list</span>
-<span class="w">    </span><span class="c1">#        &lt; End file list</span>
-<span class="w">    </span><span class="c1">#        &lt; ok</span>
-<span class="w">    </span><span class="nt">okBeforeCommandOutput</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">    </span><span class="c1"># If enabled, reports the first extruder in M105 responses as T instead of T0</span>
-<span class="w">    </span><span class="c1">#</span>
-<span class="w">    </span><span class="c1"># True:  &gt; M105</span>
-<span class="w">    </span><span class="c1">#        &lt; ok T:34.3/0.0 T1:23.5/0.0 B:43.2/0.0</span>
-<span class="w">    </span><span class="c1"># False: &gt; M105</span>
-<span class="w">    </span><span class="c1">#        &lt; ok T0:34.3/0.0 T1:23.5/0.0 B:43.2/0.0</span>
-<span class="w">    </span><span class="nt">smoothieTemperatureReporting</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">    </span><span class="c1"># Settings related to the SD file list output</span>
-<span class="w">    </span><span class="nt">sdFiles</span><span class="p">:</span>
-<span class="w">      </span><span class="c1"># Whether M20 responses will include filesize or not</span>
-<span class="w">      </span><span class="c1">#</span>
-<span class="w">      </span><span class="c1"># True:  &lt;filename&gt; &lt;filesize in bytes&gt;</span>
-<span class="w">      </span><span class="c1"># False: &lt;filename&gt;</span>
-<span class="w">      </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-
-<span class="w">      </span><span class="c1"># Whether M20 responses will include timestamp or not (only if size = true as well)</span>
-<span class="w">      </span><span class="c1">#</span>
-<span class="w">      </span><span class="c1"># True: &lt;filename&gt; &lt;filesize in bytes&gt; &lt;timestamp as hex&gt;</span>
-<span class="w">      </span><span class="c1"># False: &lt;filename&gt; &lt;filesize in bytes&gt;</span>
-<span class="w">      </span><span class="nt">timestamp</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">      </span><span class="c1"># Whether M20 responses will include longname or not (only if size = true as well)</span>
-<span class="w">      </span><span class="c1">#</span>
-<span class="w">      </span><span class="c1"># True:  &lt;filename&gt; &lt;filesize in bytes&gt; &lt;longname&gt;</span>
-<span class="w">      </span><span class="c1"># False: &lt;filename&gt; &lt;filesize in bytes&gt;</span>
-<span class="w">      </span><span class="nt">longname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">    </span><span class="c1"># Forced pause for retrieving from the outgoing buffer</span>
-<span class="w">    </span><span class="nt">throttle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span>
-
-<span class="w">    </span><span class="c1"># Whether to send "wait" responses every "waitInterval" seconds when serial rx buffer is empty</span>
-<span class="w">    </span><span class="nt">sendWait</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">    </span><span class="c1"># Interval in which to send "wait" lines when rx buffer is empty</span>
-<span class="w">    </span><span class="nt">waitInterval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-
-<span class="w">    </span><span class="c1"># Size of the simulated RX buffer in bytes, when it's full a send from OctoPrint's</span>
-<span class="w">    </span><span class="c1"># side will block</span>
-<span class="w">    </span><span class="nt">rxBuffer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span>
-
-<span class="w">    </span><span class="c1"># Size of simulated command buffer, number of commands. If full, buffered commands will block</span>
-<span class="w">    </span><span class="c1"># until a slot frees up</span>
-<span class="w">    </span><span class="nt">commandBuffer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
-
-<span class="w">    </span><span class="c1"># Whether to support the M112 command with simulated kill</span>
-<span class="w">    </span><span class="nt">supportM112</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-
-<span class="w">    </span><span class="c1"># Whether to send messages received via M117 back as "echo:" lines</span>
-<span class="w">    </span><span class="nt">echoOnM117</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-
-<span class="w">    </span><span class="c1"># Whether to simulate broken M29 behaviour (missing ok after response)</span>
+<span class="w">    </span><span class="nt">ambientTemperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">21.3</span>
 <span class="w">    </span><span class="nt">brokenM29</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-
-<span class="w">    </span><span class="c1"># Whether F is supported as individual command</span>
-<span class="w">    </span><span class="nt">supportF</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">    </span><span class="c1"># Firmware name to report (useful for testing firmware detection)</span>
-<span class="w">    </span><span class="nt">firmwareName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Virtual Marlin 1.0</span>
-
-<span class="w">    </span><span class="c1"># Simulate a shared nozzle</span>
-<span class="w">    </span><span class="nt">sharedNozzle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">    </span><span class="c1"># Send "busy" messages if busy processing something</span>
-<span class="w">    </span><span class="nt">sendBusy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">    </span><span class="c1"># Simulate a reset on connect</span>
-<span class="w">    </span><span class="nt">simulateReset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-
-<span class="w">    </span><span class="c1"># Lines to send on simulated reset</span>
-<span class="w">    </span><span class="nt">resetLines</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">start</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"Marlin:</span><span class="nv"> </span><span class="s">Virtual</span><span class="nv"> </span><span class="s">Marlin!"</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"SD</span><span class="nv"> </span><span class="s">card</span><span class="nv"> </span><span class="s">ok"</span>
-
-<span class="w">    </span><span class="c1"># Initial set of prepared oks to use instead of regular ok (e.g. to simulate</span>
-<span class="w">    </span><span class="c1"># mis-sent oks). Can also be filled at runtime via the debug command prepare_ok</span>
-<span class="w">    </span><span class="nt">preparedOks</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
-
-<span class="w">    </span><span class="c1"># Format string for ok response.</span>
-<span class="w">    </span><span class="c1">#</span>
-<span class="w">    </span><span class="c1"># Placeholders:</span>
-<span class="w">    </span><span class="c1"># - lastN: last acknowledged line number</span>
-<span class="w">    </span><span class="c1"># - buffer: empty slots in internal command buffer</span>
-<span class="w">    </span><span class="c1">#</span>
-<span class="w">    </span><span class="c1"># Example format string for "extended" ok format:</span>
-<span class="w">    </span><span class="c1">#   ok N{lastN} P{buffer}</span>
-<span class="w">    </span><span class="nt">okFormatString</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ok</span>
-
-<span class="w">    </span><span class="c1"># Format string for M115 output.</span>
-<span class="w">    </span><span class="c1">#</span>
-<span class="w">    </span><span class="c1"># Placeholders:</span>
-<span class="w">    </span><span class="c1"># - firmware_name: The firmware name as defined in firmwareName</span>
-<span class="w">    </span><span class="nt">m115FormatString</span><span class="p">:</span><span class="w"> </span><span class="s">"FIRMWARE_NAME:</span><span class="nv"> </span><span class="s">{firmware_name}</span><span class="nv"> </span><span class="s">PROTOCOL_VERSION:1.0"</span>
-
-<span class="w">    </span><span class="c1"># Whether to include capability report in M115 output</span>
-<span class="w">    </span><span class="nt">m115ReportCapabilities</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-
-<span class="w">    </span><span class="c1"># Capabilities to report if capability report is enabled</span>
+<span class="w">    </span><span class="nt">brokenResend</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">busyInterval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
 <span class="w">    </span><span class="nt">capabilities</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">AUTOREPORT_TEMP</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">      </span><span class="nt">AUTOREPORT_TEMP</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">      </span><span class="nt">AUTOREPORT_SD_STATUS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">      </span><span class="nt">AUTOREPORT_POS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">AUTOREPORT_SD_STATUS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">AUTOREPORT_TEMP</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">BUSY_PROTOCOL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">CHAMBER_TEMPERATURE</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">      </span><span class="nt">EMERGENCY_PARSER</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">      </span><span class="nt">EXTENDED_M20</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">      </span><span class="nt">LFN_WRITE</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">    </span><span class="c1"># Whether to include area report in the M115 output (M115_GEOMETRY_REPORT in Marlin)</span>
-<span class="w">    </span><span class="nt">m115ReportArea</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">    </span><span class="c1"># Simulated ambient temperature in °C</span>
-<span class="w">    </span><span class="nt">ambientTemperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">21.3</span>
-
-<span class="w">    </span><span class="c1"># Response to M105 when there is a target</span>
-<span class="w">    </span><span class="c1"># Placeholders:</span>
-<span class="w">    </span><span class="c1"># - heater: The heater id (eg. T0, T1, B)</span>
-<span class="w">    </span><span class="c1"># - actual: The actual temperature of the heater</span>
-<span class="w">    </span><span class="c1"># - target: The target temperature of heater</span>
-<span class="w">    </span><span class="nt">m105TargetFormatString</span><span class="p">:</span><span class="w"> </span><span class="s">"{heater}:{actual:.2f}/</span><span class="nv"> </span><span class="s">{target:.2f}"</span>
-
-<span class="w">    </span><span class="c1"># Response to M105 when there is no target</span>
-<span class="w">    </span><span class="c1"># Placeholders:</span>
-<span class="w">    </span><span class="c1"># - heater: The heater id (eg. T0, T1, B)</span>
-<span class="w">    </span><span class="c1"># - actual: The actual temperature of the heater</span>
-<span class="w">    </span><span class="nt">m105NoTargetFormatString</span><span class="p">:</span><span class="w"> </span><span class="s">"{heater}:{actual:.2f}"</span>
-
-<span class="w">    </span><span class="c1"># Response to M123 for fan RPM</span>
-<span class="w">    </span><span class="c1"># Placeholders:</span>
-<span class="w">    </span><span class="c1"># - fan: The fan id (e.g. E0)</span>
-<span class="w">    </span><span class="c1"># - rpm: The rotation speed of the fan</span>
-<span class="w">    </span><span class="nt">m123RPMFormatString</span><span class="p">:</span><span class="w"> </span><span class="s">"{fan}:{rpm}</span><span class="nv"> </span><span class="s">RPM"</span>
-
-<span class="w">    </span><span class="c1"># Response to M123 for fan power level</span>
-<span class="w">    </span><span class="c1"># Placeholders:</span>
-<span class="w">    </span><span class="c1"># - fan: The fan id (e.g. E0)</span>
-<span class="w">    </span><span class="c1"># - power: The power level being delivered to the fan</span>
-<span class="w">    </span><span class="nt">m123RPMFormatString</span><span class="p">:</span><span class="w"> </span><span class="s">"{fan}@:{power}"</span>
-
-<span class="w">    </span><span class="c1"># The maximum speed (in RPM) the virtual printer's virtual fans can spin at.</span>
-<span class="w">    </span><span class="nt">fanMaxSpeed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4560</span>
-
-<span class="w">    </span><span class="c1"># Enable virtual EEPROM</span>
-<span class="w">    </span><span class="c1"># If enabled, a file `eeprom.json` will be created in the plugin data folder</span>
-<span class="w">    </span><span class="c1"># to enable settings persistence across connections. Enables M500/1/2/4 commands</span>
-<span class="w">    </span><span class="c1"># And a selection of other settings commands. Responses modeled on Marlin 2.0</span>
+<span class="w">    </span><span class="nt">commandBuffer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">    </span><span class="nt">echoOnM117</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">    </span><span class="nt">enable_eeprom</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-
-<span class="w">    </span><span class="c1"># Support M503</span>
-<span class="w">    </span><span class="nt">support_m503</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-
-<span class="w">    </span><span class="c1"># Resend ratio to simulate noise on the line</span>
-<span class="w">    </span><span class="nt">resend_ratio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
-
-<span class="w">    </span><span class="c1"># communication errors to simulate at specific line numbers</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">errors</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">checksum_mismatch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checksum mismatch</span>
+<span class="w">      </span><span class="nt">checksum_missing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Missing checksum</span>
+<span class="w">      </span><span class="nt">command_unknown</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Unknown command {}</span>
+<span class="w">      </span><span class="nt">lineno_mismatch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">expected line {} got {}</span>
+<span class="w">      </span><span class="nt">lineno_missing</span><span class="p">:</span><span class="w"> </span><span class="s">'No</span><span class="nv"> </span><span class="s">Line</span><span class="nv"> </span><span class="s">Number</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">checksum,</span><span class="nv"> </span><span class="s">Last</span><span class="nv"> </span><span class="s">Line:</span><span class="nv"> </span><span class="s">{}'</span>
+<span class="w">      </span><span class="nt">maxtemp</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MAXTEMP triggered!</span>
+<span class="w">      </span><span class="nt">mintemp</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MINTEMP triggered!</span>
+<span class="w">    </span><span class="nt">fanMaxSpeed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4560</span>
+<span class="w">    </span><span class="nt">firmwareName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Virtual Marlin 1.0</span>
+<span class="w">    </span><span class="nt">forceChecksum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">hasBed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">hasChamber</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">includeCurrentToolInTemps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">includeFilenameInOpened</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">klipperTemperatureReporting</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">locked</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">m105NoTargetFormatString</span><span class="p">:</span><span class="w"> </span><span class="s">'{heater}:{actual:.2f}'</span>
+<span class="w">    </span><span class="nt">m105TargetFormatString</span><span class="p">:</span><span class="w"> </span><span class="s">'{heater}:{actual:.2f}/</span><span class="nv"> </span><span class="s">{target:.2f}'</span>
+<span class="w">    </span><span class="nt">m114FormatString</span><span class="p">:</span><span class="w"> </span><span class="s">'X:{x}</span><span class="nv"> </span><span class="s">Y:{y}</span><span class="nv"> </span><span class="s">Z:{z}</span><span class="nv"> </span><span class="s">E:{e[current]}</span><span class="nv"> </span><span class="s">Count:</span><span class="nv"> </span><span class="s">A:{a}</span><span class="nv"> </span><span class="s">B:{b}</span><span class="nv"> </span><span class="s">C:{c}'</span>
+<span class="w">    </span><span class="nt">m115FormatString</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FIRMWARE_NAME:{firmware_name} PROTOCOL_VERSION:1.0</span>
+<span class="w">    </span><span class="nt">m115ReportArea</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">m115ReportCapabilities</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">m123PowerFormatString</span><span class="p">:</span><span class="w"> </span><span class="s">'{fan}@:{power}'</span>
+<span class="w">    </span><span class="nt">m123RPMFormatString</span><span class="p">:</span><span class="w"> </span><span class="s">'{fan}:{rpm}</span><span class="nv"> </span><span class="s">RPM'</span>
+<span class="w">    </span><span class="nt">numExtruders</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">okAfterResend</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">okBeforeCommandOutput</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">okFormatString</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ok</span>
+<span class="w">    </span><span class="nt">passcode</span><span class="p">:</span><span class="w"> </span><span class="s">'1234'</span>
+<span class="w">    </span><span class="nt">pinnedExtruders</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">preparedOks</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">repetierStyleTargetTemperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">reprapfwM114</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">resend_ratio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">    </span><span class="nt">resetLines</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">start</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'Marlin:</span><span class="nv"> </span><span class="s">Virtual</span><span class="nv"> </span><span class="s">Marlin!'</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"</span><span class="se">\x80</span><span class="s">"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SD card ok</span>
+<span class="w">    </span><span class="nt">rxBuffer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span>
+<span class="w">    </span><span class="nt">sdFiles</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">longname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">longname_quoted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">timestamp</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">upper_case</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">sendBusy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">sendWait</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">sharedNozzle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">simulateReset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">    </span><span class="nt">simulated_errors</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100:resend</span><span class="w">  </span><span class="c1"># requests a simple resend at line 100</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">105:resend_with_timeout</span><span class="w">  </span><span class="c1"># requests a resend at line 105 and simulates not responding to it</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">110:missing_lineno</span><span class="w">  </span><span class="c1"># simulates a missing line number at line 110</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">115:checksum_mismatch</span><span class="w">  </span><span class="c1"># simulates a checksum mismatch at line 115</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100:resend</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">105:resend_with_timeout</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">110:missing_lineno</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">115:checksum_mismatch</span>
+<span class="w">    </span><span class="nt">smoothieTemperatureReporting</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">supportF</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">supportM112</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">support_M503</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">throttle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span>
+<span class="w">    </span><span class="nt">waitInterval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
 </code></pre></div>
 </div>
+<h3 id="data-model">Data model<a class="headerlink" href="#data-model" title="Link to this heading">¶</a></h3>
+<table class="docutils data align-default" style="width: 100%">
+<colgroup>
+<col style="width: 15.0%" />
+<col style="width: 5.0%" />
+<col style="width: 60.0%" />
+<col style="width: 20.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">enabled</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether to enable the virtual printer and include it in the list of available serial connections.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">okAfterResend</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether to send an additional “ok” after a resend request (like Repetier)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">forceChecksum</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether to force checksums and line number in the communication (like Repetier), if set to true
+printer will only accept commands that come with linenumber and checksum and throw an error for
+lines that don’t</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">numExtruders</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Number of extruders to simulate on the virtual printer. Map from tool id (0, 1, …) to temperature in °C</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pinnedExtruders</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dict[int,</span> <span class="pre">float]</span></code></p></td>
+<td><p>Allows pinning certain hotends to a fixed temperature</p></td>
+<td><p><em>unset</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">includeCurrentToolInTemps</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether to include the current tool temperature in the M105 output as separate T segment or not.</p>
+<ul>
+<li><p>True:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>&gt;&gt;&gt; M105
+&lt;&lt;&lt; ok T:23.5/0.0 T0:34.3/0.0 T1:23.5/0.0 B:43.2/0.0
+</code></pre></div>
+</div>
+</li>
+<li><p>False:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>&gt;&gt;&gt; M105
+&lt;&lt;&lt; ok T0:34.3/0.0 T1:23.5/0.0 B:43.2/0.0
+</code></pre></div>
+</div>
+</li>
+</ul>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">includeFilenameInOpened</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether to include the selected filename in the M23 File opened response.</p>
+<ul>
+<li><p>True:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>&gt;&gt;&gt; M23 filename.gcode
+&lt;&lt;&lt; File opened: filename.gcode  Size: 27
+</code></pre></div>
+</div>
+</li>
+<li><p>False:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>&gt;&gt;&gt; M23 filename.gcode
+&lt;&lt;&lt; File opened
+</code></pre></div>
+</div>
+</li>
+</ul>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hasBed</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether the simulated printer should also simulate a heated bed or not</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hasChamber</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether the simulated printer should also simulate a heated chamber or not</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">repetierStyleTargetTemperature</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>If enabled, reports the set target temperatures as separate messages from the firmware</p>
+<ul>
+<li><p>True:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>&gt;&gt;&gt; M109 S220.0
+&lt;&lt;&lt; TargetExtr0:220.0
+&lt;&lt;&lt; ok
+&gt;&gt;&gt; M105
+&lt;&lt;&lt; ok T0:34.3 T1:23.5 B:43.2
+</code></pre></div>
+</div>
+</li>
+<li><p>False:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>&gt;&gt;&gt; M109 S220.0
+&lt;&lt;&lt; ok
+&gt;&gt;&gt; M105
+&lt;&lt;&lt; ok T0:34.3/220.0 T1:23.5/0.0 B:43.2/0.0
+</code></pre></div>
+</div>
+</li>
+</ul>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">okBeforeCommandOutput</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>If enabled, ok will be sent before a commands output, otherwise after or inline (M105)</p>
+<ul>
+<li><p>True:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>&gt;&gt;&gt; M20
+&lt;&lt;&lt; ok
+&lt;&lt;&lt; Begin file list
+&lt;&lt;&lt; End file list
+</code></pre></div>
+</div>
+</li>
+<li><p>False:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>&gt;&gt;&gt; M20
+&lt;&lt;&lt; Begin file list
+&lt;&lt;&lt; End file list
+&lt;&lt;&lt; ok
+</code></pre></div>
+</div>
+</li>
+</ul>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">smoothieTemperatureReporting</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>If enabled, reports the first extruder in M105 responses as T instead of T0</p>
+<ul>
+<li><p>True:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>&gt;&gt;&gt; M105
+&lt;&lt;&lt; ok T:34.3/0.0 T1:23.5/0.0 B:43.2/0.0
+</code></pre></div>
+</div>
+</li>
+<li><p>False:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>&gt;&gt;&gt; M105
+&lt;&lt;&lt; ok T0:34.3/0.0 T1:23.5/0.0 B:43.2/0.0
+</code></pre></div>
+</div>
+</li>
+</ul>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">klipperTemperatureReporting</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">reprapfwM114</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sdFiles.*</span></code></p></td>
+<td></td>
+<td><p>Settings related to the SD file list output</p>
+<p>General format:
+<code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;[</span> <span class="pre">&lt;filesize</span> <span class="pre">in</span> <span class="pre">bytes&gt;</span> <span class="pre">[</span> <span class="pre">&lt;timestamp&gt;][</span> <span class="pre">(&lt;longname&gt;</span> <span class="pre">|</span> <span class="pre">&quot;&lt;longname&gt;&quot;)]]</span></code></p>
+</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sdFiles.size</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether M20 responses will include filesize or not</p>
+<ul class="simple">
+<li><p>True: <code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;</span> <span class="pre">&lt;filesize</span> <span class="pre">in</span> <span class="pre">bytes&gt;</span></code></p></li>
+<li><p>False: <code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;</span></code></p></li>
+</ul>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sdFiles.timestamp</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether M20 responses will include timestamp or not (only if <code class="docutils literal notranslate"><span class="pre">size</span></code> is enabled)</p>
+<ul class="simple">
+<li><p>True: <code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;</span> <span class="pre">&lt;filesize</span> <span class="pre">in</span> <span class="pre">bytes&gt;</span> <span class="pre">&lt;timestamp</span> <span class="pre">as</span> <span class="pre">hex&gt;</span></code></p></li>
+<li><p>False: <code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;</span> <span class="pre">&lt;filesize</span> <span class="pre">in</span> <span class="pre">bytes&gt;</span></code></p></li>
+</ul>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sdFiles.longname</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether M20 responses will include longname or not (only if <code class="docutils literal notranslate"><span class="pre">size</span></code> is enabled)</p>
+<p>Mutually exclusive with <code class="docutils literal notranslate"><span class="pre">longname_quoted</span></code></p>
+<ul class="simple">
+<li><p>True: <code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;</span> <span class="pre">&lt;filesize</span> <span class="pre">in</span> <span class="pre">bytes&gt;</span> <span class="pre">&lt;longname&gt;</span></code></p></li>
+<li><p>False: <code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;</span> <span class="pre">&lt;filesize</span> <span class="pre">in</span> <span class="pre">bytes&gt;</span></code></p></li>
+</ul>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sdFiles.longname_quoted</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether M20 responses will include quoted longname or not (only if <code class="docutils literal notranslate"><span class="pre">size</span></code> is enabled)</p>
+<p>Mutually exclusive with <code class="docutils literal notranslate"><span class="pre">longname</span></code>.</p>
+<ul class="simple">
+<li><p>True: <code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;</span> <span class="pre">&lt;filesize</span> <span class="pre">in</span> <span class="pre">bytes&gt;</span> <span class="pre">&quot;&lt;longname&gt;&quot;</span></code></p></li>
+<li><p>False: <code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;</span> <span class="pre">&lt;filesize</span> <span class="pre">in</span> <span class="pre">bytes&gt;</span></code></p></li>
+</ul>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sdFiles.upper_case</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether to uppercase the filenames in M20 responses</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">throttle</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Forced pause for retrieving from the outgoing buffer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.01</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sendWait</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether to send “wait” responses every “waitInterval” seconds when serial rx buffer is empty</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">waitInterval</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Interval in which to send “wait” lines when rx buffer is empty</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1.0</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rxBuffer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Size of the simulated RX buffer in bytes, when it’s full a send from OctoPrint’s side will block</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">64</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">commandBuffer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Size of simulated command buffer, number of commands. If full, buffered commands will block until a slot frees up</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">4</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">supportM112</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether to support the M112 command with simulated kill</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">echoOnM117</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether to send messages received via M117 back as “echo:” lines</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">brokenM29</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether to simulate broken M29 behaviour (missing ok after response)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">brokenResend</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>If enabled, uses repetier style resends, sending multiple resends for the same line
+# to make sure nothing gets lost on the line</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">supportF</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether F is supported as individual command</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">firmwareName</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>Firmware name to report (useful for testing firmware detection)</p>
+<p><strong>Default</strong>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">'Virtual</span> <span class="pre">Marlin</span> <span class="pre">1.0'</span></code></p>
+</td>
+<td><p><em>see left</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sharedNozzle</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Simulate a shared nozzle</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sendBusy</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Send “busy” messages if busy processing something</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">busyInterval</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Interval in which to send “busy” lines while processing</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2.0</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">simulateReset</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Simulate a reset on connect</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">resetLines</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list[str]</span></code></p></td>
+<td><p>Lines to send on simulated reset</p>
+<p><strong>Default</strong>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">['start',</span> <span class="pre">'Marlin:</span> <span class="pre">Virtual</span> <span class="pre">Marlin!',</span> <span class="pre">'\x80',</span> <span class="pre">'SD</span> <span class="pre">card</span> <span class="pre">ok']</span></code></p>
+</td>
+<td><p><em>see left</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">preparedOks</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list[str]</span></code></p></td>
+<td><p>Initial set of prepared oks to use instead of regular ok (e.g. to simulate mis-sent oks). Can also be filled at runtime via the debug command prepare_ok</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">okFormatString</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>Format string for ok response.</p>
+<p>Placeholders:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lastN</span></code>: last acknowledged line number</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">buffer</span></code>: empty slots in internal command buffer</p></li>
+</ul>
+<p>Example format string for “extended” ok format:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>ok N{lastN} P{buffer}
+</code></pre></div>
+</div>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">'ok'</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">m115FormatString</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>Format string for M115 output.</p>
+<p>Placeholders:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">firmware_name</span></code>: The firmware name as defined in firmwareName</p></li>
+</ul>
+<p><strong>Default</strong>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">'FIRMWARE_NAME:{firmware_name}</span> <span class="pre">PROTOCOL_VERSION:1.0'</span></code></p>
+</td>
+<td><p><em>see left</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">m115ReportCapabilities</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether to include capability report in M115 output</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">capabilities</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dict[str,</span> <span class="pre">bool]</span></code></p></td>
+<td><p>Capabilities to report if capability report is enabled</p>
+<p><strong>Default</strong>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">{'AUTOREPORT_TEMP':</span> <span class="pre">True,</span> <span class="pre">'AUTOREPORT_SD_STATUS':</span> <span class="pre">True,</span> <span class="pre">'AUTOREPORT_POS':</span> <span class="pre">False,</span> <span class="pre">'BUSY_PROTOCOL':</span> <span class="pre">False,</span> <span class="pre">'CHAMBER_TEMPERATURE':</span> <span class="pre">False,</span> <span class="pre">'EMERGENCY_PARSER':</span> <span class="pre">True,</span> <span class="pre">'EXTENDED_M20':</span> <span class="pre">False,</span> <span class="pre">'LFN_WRITE':</span> <span class="pre">False}</span></code></p>
+</td>
+<td><p><em>see left</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">m115ReportArea</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether to include area report in the M115 output (M115_GEOMETRY_REPORT in Marlin)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">m114FormatString</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p><strong>Default</strong>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">'X:{x}</span> <span class="pre">Y:{y}</span> <span class="pre">Z:{z}</span> <span class="pre">E:{e[current]}</span> <span class="pre">Count:</span> <span class="pre">A:{a}</span> <span class="pre">B:{b}</span> <span class="pre">C:{c}'</span></code></p>
+</td>
+<td><p><em>see left</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">m105TargetFormatString</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>Response to M105 when there is a target</p>
+<p>Placeholders:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">heater</span></code>: The heater id (eg. <code class="docutils literal notranslate"><span class="pre">T0</span></code>, <code class="docutils literal notranslate"><span class="pre">T1</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">actual</span></code>: The actual temperature of the heater</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">target</span></code>: The target temperature of heater</p></li>
+</ul>
+<p><strong>Default</strong>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">'{heater}:{actual:.2f}/</span> <span class="pre">{target:.2f}'</span></code></p>
+</td>
+<td><p><em>see left</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">m105NoTargetFormatString</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>Response to M105 when there is no target</p>
+<p>Placeholders:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">heater</span></code>: The heater id (eg. <code class="docutils literal notranslate"><span class="pre">T0</span></code>, <code class="docutils literal notranslate"><span class="pre">T1</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">actual</span></code>: The actual temperature of the heater</p></li>
+</ul>
+<p><strong>Default</strong>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">'{heater}:{actual:.2f}'</span></code></p>
+</td>
+<td><p><em>see left</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">m123RPMFormatString</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>Response to M123 for fan RPM</p>
+<p>Placeholders:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fan</span></code>: The fan id (e.g. E0)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rpm</span></code>: The rotation speed of the fan</p></li>
+</ul>
+<p><strong>Default</strong>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">'{fan}:{rpm}</span> <span class="pre">RPM'</span></code></p>
+</td>
+<td><p><em>see left</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">m123PowerFormatString</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>Response to M123 for fan power level</p>
+<p>Placeholders:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fan</span></code>: The fan id (e.g. E0)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">power</span></code>: The power level being delivered to the fan</p></li>
+</ul>
+<p><strong>Default</strong>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">'{fan}&#64;:{power}'</span></code></p>
+</td>
+<td><p><em>see left</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ambientTemperature</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Simulated ambient temperature in °C</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">21.3</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fanMaxSpeed</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>The maximum speed (in RPM) the virtual printer’s virtual fans can spin at</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">4560</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">errors.*</span></code></p></td>
+<td></td>
+<td><p>Format strings for various error types</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">errors.checksum_mismatch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p><strong>Default</strong>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">'Checksum</span> <span class="pre">mismatch'</span></code></p>
+</td>
+<td><p><em>see left</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">errors.checksum_missing</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p><strong>Default</strong>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">'Missing</span> <span class="pre">checksum'</span></code></p>
+</td>
+<td><p><em>see left</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">errors.lineno_mismatch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p><strong>Default</strong>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">'expected</span> <span class="pre">line</span> <span class="pre">{}</span> <span class="pre">got</span> <span class="pre">{}'</span></code></p>
+</td>
+<td><p><em>see left</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">errors.lineno_missing</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p><strong>Default</strong>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">'No</span> <span class="pre">Line</span> <span class="pre">Number</span> <span class="pre">with</span> <span class="pre">checksum,</span> <span class="pre">Last</span> <span class="pre">Line:</span> <span class="pre">{}'</span></code></p>
+</td>
+<td><p><em>see left</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">errors.maxtemp</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p><strong>Default</strong>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">'MAXTEMP</span> <span class="pre">triggered!'</span></code></p>
+</td>
+<td><p><em>see left</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">errors.mintemp</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p><strong>Default</strong>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">'MINTEMP</span> <span class="pre">triggered!'</span></code></p>
+</td>
+<td><p><em>see left</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">errors.command_unknown</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p><strong>Default</strong>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">'Unknown</span> <span class="pre">command</span> <span class="pre">{}'</span></code></p>
+</td>
+<td><p><em>see left</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">enable_eeprom</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Enable virtual EEPROM</p>
+<p>If enabled, a file <code class="docutils literal notranslate"><span class="pre">eeprom.json</span></code> will be created in the plugin data folder
+to enable settings persistence across connections. Enables <code class="docutils literal notranslate"><span class="pre">M50{0124}</span></code> commands
+and a selection of other settings commands. Responses modeled on Marlin 2.0</p>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">support_M503</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Support M503</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">resend_ratio</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Resend ratio to simulate noise on the line</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">locked</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Whether the printer starts out as locked (active <code class="docutils literal notranslate"><span class="pre">M510</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">passcode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>Passcode for unlocking the printer via <code class="docutils literal notranslate"><span class="pre">M511</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">'1234'</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">simulated_errors</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list[str]</span></code></p></td>
+<td><p>Communication errors to simulate at specific line numbers, format <code class="docutils literal notranslate"><span class="pre">&lt;lineno&gt;:&lt;resend</span> <span class="pre">type&gt;</span></code></p>
+<p><strong>Default</strong>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">['100:resend',</span> <span class="pre">'105:resend_with_timeout',</span> <span class="pre">'110:missing_lineno',</span> <span class="pre">'115:checksum_mismatch']</span></code></p>
+</td>
+<td><p><em>see left</em></p></td>
+</tr>
+</tbody>
+</table>
 <h2 id="log-file"><span id="sec-development-virtual-printer-log"></span>Log file<a class="headerlink" href="#log-file" title="Link to this heading">¶</a></h2>
 <p>Once activated, the virtual printer will log all serial communication in the <code class="docutils literal notranslate"><span class="pre">plugin_virtual_printer_serial.log</span></code> file
 that can be found in the OctoPrint logs folder.</p>
