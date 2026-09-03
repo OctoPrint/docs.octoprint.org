@@ -953,7 +953,7 @@ that may be hard to reproduce with a real printer.</p>
 <span class="w">    </span><span class="nt">pinnedExtruders</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">    </span><span class="nt">preparedOks</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
 <span class="w">    </span><span class="nt">repetierStyleTargetTemperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">    </span><span class="nt">resend_ratio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">    </span><span class="nt">resend_ratio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
 <span class="w">    </span><span class="nt">resetLines</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">start</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'Marlin:</span><span class="nv"> </span><span class="s">Virtual</span><span class="nv"> </span><span class="s">Marlin!'</span>
@@ -1480,8 +1480,8 @@ and a selection of other settings commands. Responses modeled on Marlin 2.0</p>
 <td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">resend_ratio</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
-<td><p>Resend ratio to simulate noise on the line</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Resend ratio to simulate noise on the line (percentage)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">locked</span></code></p></td>
@@ -1512,7 +1512,7 @@ that can be found in the OctoPrint logs folder.</p>
 <p>All commands start with <code class="docutils literal notranslate"><span class="pre">!!DEBUG:</span></code> and are followed by the command you want to execute. For instance, sending
 <code class="docutils literal notranslate"><span class="pre">!!DEBUG:action_disconnect</span></code> will disconnect the printer. Sending <code class="docutils literal notranslate"><span class="pre">!!DEBUG</span></code> without command will show a help
 message with all the available commands:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>OctoPrint Virtual Printer debug commands
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>OctoPrint Virtual Printer debug commands
 
 help
 ?
@@ -1545,11 +1545,23 @@ trigger_missing_checksum
 | Triggers a resend error with a missing checksum
 trigger_missing_lineno
 | Triggers a "no line number with checksum" error w/o resend request
+trigger_fatal_error_marlin
+| Triggers a fatal error/simulated heater fail, Marlin style
+trigger_fatal_error_repetier
+| Triggers a fatal error/simulated heater fail, Repetier style
 drop_connection
 | Drops the serial connection
 prepare_ok &lt;broken ok&gt;
 | Will cause &lt;broken ok&gt; to be enqueued for use,
 | will be used instead of actual "ok"
+rerequest_last
+| Will cause the last line number + 1 to be rerequest add infinitum
+resend_ratio &lt;int:percentage&gt;
+| Sets the resend ratio to the given percentage, simulating noisy lines.
+| Set to 0 to disable noise simulation.
+toggle_klipper_connection
+| Toggles the Klipper connection state. If disabled, the printer will
+| respond to all commands with "!! Lost communication with MCU 'mcu'"
 
 # Reply Timing / Sleeping
 
@@ -1559,6 +1571,15 @@ sleep_after &lt;str:command&gt; &lt;int:seconds&gt;
 | Sleeps &lt;seconds&gt; s after each execution of &lt;command&gt;
 sleep_after_next &lt;str:command&gt; &lt;int:seconds&gt;
 | Sleeps &lt;seconds&gt; s after execution of next &lt;command&gt;
+
+# Temperatures
+
+set_ambient &lt;float:temperature&gt;
+| Sets the simulated ambient temperature to the given value in °C
+mintemp_error
+| Triggers a mintemp error
+maxtemp_error
+| Triggers a maxtemp error
 
 # SD printing
 
@@ -1576,6 +1597,8 @@ send &lt;str:message&gt;
 | Sends back &lt;message&gt;
 reset
 | Simulates a reset. Internal state will be lost.
+unbusy
+| Unsets the busy loop.
 </code></pre></div>
 </div>
 
