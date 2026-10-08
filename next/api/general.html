@@ -497,6 +497,22 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Content Type">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#special-handling-of-multipart-form-data" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Special handling of multipart/form-<wbr>data</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1144,6 +1160,22 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Content Type">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#special-handling-of-multipart-form-data" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Special handling of multipart/form-<wbr>data</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1277,6 +1309,21 @@ follow the behaviour found in that OctoPrint version.</p>
 OctoPrint that requires API changes without breaking existing third party software.</p>
 <h2 id="content-type"><span id="sec-api-general-contenttype"></span>Content Type<a class="headerlink" href="#content-type" title="Link to this heading">¶</a></h2>
 <p>If not otherwise stated, OctoPrint’s API expects request bodies and issues response bodies as <code class="docutils literal notranslate"><span class="pre">Content-Type:</span> <span class="pre">application/json</span></code>.</p>
+<h3 id="special-handling-of-multipart-form-data"><span id="sec-api-general-contenttype-multipart"></span>Special handling of <code class="docutils literal notranslate"><span class="pre">multipart/form-data</span></code><a class="headerlink" href="#special-handling-of-multipart-form-data" title="Link to this heading">¶</a></h3>
+<p>In order to support the upload of files that exceed the available system memory, OctoPrint preprocesses all requests with
+<code class="docutils literal notranslate"><span class="pre">Content-Type:</span> <span class="pre">multipart/form-data</span></code> (as used for upload endpoints like <a class="reference internal" href="files.html#sec-api-fileops-uploadfile"><span class="std std-ref">Upload file</span></a>).</p>
+<p>OctoPrint will rewrite the body before forwarding it to the internal API endpoint: included files will be extracted and written
+to disk in a temporary folder, their part will then be replaced by parts containing the name, path, size and – if available –
+the content type of the uploaded file. The names of those parts depend on the original name of the part containing the
+upload, with a suffix:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;part</span> <span class="pre">name&gt;.name</span></code>: the file name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;part</span> <span class="pre">name&gt;.path</span></code>: the path of the temporary file on disk</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;part</span> <span class="pre">name&gt;.size</span></code>: the file size</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;part</span> <span class="pre">name&gt;.content_type</span></code>: the content type according to the original part header</p></li>
+</ul>
+<p>Example: An upload request containing a part named <code class="docutils literal notranslate"><span class="pre">file</span></code> with an attached file will get replaced by parts <code class="docutils literal notranslate"><span class="pre">file.name</span></code>,
+<code class="docutils literal notranslate"><span class="pre">file.path</span></code>, <code class="docutils literal notranslate"><span class="pre">file.size</span></code> and – if a content type has been provided – <code class="docutils literal notranslate"><span class="pre">file.content_type</span></code>.</p>
 <h2 id="encoding"><span id="sec-api-general-encoding"></span>Encoding<a class="headerlink" href="#encoding" title="Link to this heading">¶</a></h2>
 <p>OctoPrint uses UTF-8 as charset.</p>
 <p>That also includes headers in <code class="docutils literal notranslate"><span class="pre">multipart/form-data</span></code> requests, in order to allow the full UTF-8 range of characters
