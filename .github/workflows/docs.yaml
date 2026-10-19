@@ -61,7 +61,7 @@ jobs:
 
       - name: ⬇ Checkout docs.octoprint.org
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           path: docs.octoprint.org
           persist-credentials: false
@@ -100,7 +100,7 @@ jobs:
 
       - name: ⬇ Checkout OctoPrint
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.client_payload.ref == format('refs/{0}/{1}', matrix.source, matrix.version)
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: "OctoPrint/OctoPrint"
           ref: ${{ matrix.version }}
@@ -146,7 +146,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⬇ Checkout docs.octoprint.org
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with: # this intentionally lacks a persist_credentials: false, as we need to push again!
           ref: gh-pages
           path: docs
