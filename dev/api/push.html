@@ -1229,12 +1229,22 @@ message.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">subscribe</span></code> (since 1.8.0): With the <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> message, clients may selectively
 subscribe to certain message types. The payload should be a dict of message types with
 supported keys as follows:</p>
-<ul class="simple">
+<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">state</span></code>: Either a boolean value indicating whether to generally receive state updates (<code class="docutils literal notranslate"><span class="pre">current</span></code> and <code class="docutils literal notranslate"><span class="pre">history</span></code>)
 or not, or a dict with further options for received state updates. Currently the following options are recognized here:</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">logs</span></code>: A boolean value whether to include all log lines (<code class="docutils literal notranslate"><span class="pre">True</span></code>, default) or not (<code class="docutils literal notranslate"><span class="pre">False</span></code>). Alternatively a string with
-a regex pattern can be provided, in which case only log lines matching the pattern will be returned.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">logs</span></code>: A boolean value whether to include all log lines (<code class="docutils literal notranslate"><span class="pre">True</span></code>, default) or not (<code class="docutils literal notranslate"><span class="pre">False</span></code>). Alternatively a string
+can be provided, in which case only log lines containing the string will be returned, e.g. a search string <code class="docutils literal notranslate"><span class="pre">foo</span></code> will
+match all lines containing <code class="docutils literal notranslate"><span class="pre">foo</span></code>. The string may also start or end with a wildcard <code class="docutils literal notranslate"><span class="pre">*</span></code> to check for prefixes or suffixes,
+e.g. a search string <code class="docutils literal notranslate"><span class="pre">*foo</span></code> will match any lines ending with <code class="docutils literal notranslate"><span class="pre">foo</span></code>, a search string <code class="docutils literal notranslate"><span class="pre">foo*</span></code> will match any lines starting
+with <code class="docutils literal notranslate"><span class="pre">foo</span></code>. Note that the wildcard <code class="docutils literal notranslate"><span class="pre">*</span></code> is only supported at the start or the end, so something like <code class="docutils literal notranslate"><span class="pre">foo*bar</span></code> will not
+work and produce an error.</p>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>Up until OctoPrint 2.0.0, this supported a regular expression pattern to use for matching lines. This is no longer
+supported for security reasons.</p>
+</div>
+</li>
 <li><p><code class="docutils literal notranslate"><span class="pre">messages</span></code>: Like <code class="docutils literal notranslate"><span class="pre">logs</span></code> but for the returned message lines.</p></li>
 </ul>
 </li>
@@ -1254,12 +1264,12 @@ request. <code class="docutils literal notranslate"><span class="pre">subscribe<
 </code></pre></div>
 </div>
 <p>Example for a <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> message subscribing to state, event and plugin updates,
-but filtering logs in state updates to only contain lines matching <code class="docutils literal notranslate"><span class="pre">^Recv:</span> <span class="pre">Cap</span></code> and also
+but filtering logs in state updates to only contain lines starting with <code class="docutils literal notranslate"><span class="pre">&lt;&lt;&lt;</span> <span class="pre">Cap</span></code> and also
 filtering out all messages:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="s2">"subscribe"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="s2">"state"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="s2">"logs"</span><span class="o">:</span><span class="w"> </span><span class="s2">"^Recv: Cap"</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">"logs"</span><span class="o">:</span><span class="w"> </span><span class="s2">"&lt;&lt;&lt; Cap*"</span><span class="p">,</span>
 <span class="w">      </span><span class="s2">"messages"</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="s2">"events"</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>

@@ -545,6 +545,16 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#request-limits" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Request limits</span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1208,6 +1218,16 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#request-limits" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Request limits</span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1374,6 +1394,24 @@ several JS frameworks can be found in the <a class="reference external" href="ht
 Take a look at the implementations of <code class="docutils literal notranslate"><span class="pre">OctoPrintClient.getCookie</span></code> and <code class="docutils literal notranslate"><span class="pre">OctoPrintClient.getHeaders</span></code> in <code class="docutils literal notranslate"><span class="pre">src/octoprint/static/js/client/base.js</span></code>
 for details on how to retrieve the cookie value and how to construct the header.</p>
 </div>
+<h2 id="request-limits"><span id="sec-api-general-requestlimits"></span>Request limits<a class="headerlink" href="#request-limits" title="Link to this heading">¶</a></h2>
+<p>To protect the resources of the underlying system, OctoPrint applies some limitations to incoming requests:</p>
+<ol class="arabic">
+<li><dl class="simple">
+<dt><em>Request bodies</em> in general must not be larger than <a class="reference internal" href="../configuration/config_yaml.html#sec-configuration-config-yaml-server"><span class="std std-ref">configured</span></a> in <code class="docutils literal notranslate"><span class="pre">server.maxSize</span></code>, 100KB by default. Exceptions are in place for the following endpoints:</dt><dd><ul class="simple">
+<li><p><a class="reference internal" href="files.html#sec-api-fileops-uploadfile"><span class="std std-ref">Upload file</span></a> (<cite>/api/files</cite>): <a class="reference internal" href="../configuration/config_yaml.html#sec-configuration-config-yaml-server"><span class="std std-ref">configured</span></a> in <code class="docutils literal notranslate"><span class="pre">server.uploads.maxSize</span></code>, 1GB by default</p></li>
+<li><p><a class="reference internal" href="languages.html#sec-api-languages-upload"><span class="std std-ref">Upload a language pack</span></a> (<cite>/api/languages</cite>): 5MB</p></li>
+<li><p>Backup restore upload (<code class="docutils literal notranslate"><span class="pre">/plugin/backup/restore</span></code>): 1GB</p></li>
+<li><p>Plugin archive upload (<code class="docutils literal notranslate"><span class="pre">/plugin/pluginmanager/upload_file</span></code>): 50MB</p></li>
+</ul>
+</dd>
+</dl>
+<p>Plugins may define additional exceptions with higher limits for their own endpoints via <a class="reference internal" href="../plugins/hooks.html#sec-plugins-hook-server-http-bodysize"><span class="std std-ref">hook</span></a>.</p>
+</li>
+<li><p><em>Multipart headers</em> must not be larger than 5KB.</p></li>
+<li><p><em>Multipart bodies</em> other than file uploads must not be larger than 500KB.</p></li>
+<li><p><em>Multipart part count</em> must not be larger than 100 parts.</p></li>
+</ol>
 
 
 
