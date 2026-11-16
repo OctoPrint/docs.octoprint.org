@@ -1,7 +1,9 @@
 .. _sec-jsclientlib-printer:
 
-:mod:`OctoPrintClient.printer`
-------------------------------
+.. js:module:: OctoPrintClient.printer
+
+``OctoPrintClient.printer``
+---------------------------
 
 .. note::
 
@@ -15,7 +17,7 @@
 .. contents::
    :local:
 
-.. js:function:: OctoPrintClient.printer.getFullState(flags, opts)
+.. js:function:: getFullState(flags, opts)
 
    Retrieves the full printer state, including temperature information, sd state and general
    printer state.
@@ -34,7 +36,7 @@
    :param object opts: Additional options for the request
    :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
 
-.. js:function:: OctoPrintClient.printer.getToolState(flags, opts)
+.. js:function:: getToolState(flags, opts)
 
    Retrieves the current printer extruder state/temperature information, and optionally also the temperature
    history.
@@ -52,7 +54,7 @@
    :param object opts: Additional options for the request
    :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
 
-.. js:function:: OctoPrintClient.printer.setToolTargetTemperatures(targets, opts)
+.. js:function:: setToolTargetTemperatures(targets, opts)
 
    Sets the given temperatures on the printer's extruders.
 
@@ -72,7 +74,7 @@
    :param object opts: Additional options for the request
    :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
 
-.. js:function:: OctoPrintClient.printer.setToolTemperatureOffsets(offsets, opts)
+.. js:function:: setToolTemperatureOffsets(offsets, opts)
 
    Sets the given temperature offsets for the printer's extruders.
 
@@ -93,7 +95,7 @@
    :param object opts: Additional options for the request
    :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
 
-.. js:function:: OctoPrintClient.printer.selectTool(tool, opts)
+.. js:function:: selectTool(tool, opts)
 
    Selects the printer's current extruder.
 
@@ -119,7 +121,7 @@
    :param object opts: Additional options for the request
    :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
 
-.. js:function:: OctoPrintClient.printer.extrude(amount, opts)
+.. js:function:: extrude(amount, opts)
 
    Extrudes or retracts ``amount`` mm of filament on the currently selected extruder.
 
@@ -140,162 +142,7 @@
    :param object opts: Additional options for the request
    :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
 
-.. js:function:: OctoPrintClient.printer.setFlowrate(factor, opts)
-
-   Sets the current flowrate multiplier.
-
-   ``factor`` is expected to be a integer value >0 representing the new flowrate percentage.
-
-   See the ``flowrate`` command in :ref:`Issue a tool command <sec-api-printer-toolcommand>` for more details.
-
-   :param integer factor: The flowrate as percentage
-   :param object opts: Additional options for the request
-   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
-
-.. js:function:: OctoPrintClient.printer.getBedState(data, opts)
-
-   Retrieves the current printer bed state/temperature information, and optionally also the temperature
-   history.
-
-   The ``flags`` object can be used to specify the data to retrieve further via the following
-   properties:
-
-     * ``history``: a boolean value to specify whether the temperature history should be included (``true``)
-       or not (``false``), defaults to it not being included
-     * ``limit``: an integer value to specify how many history entries to include
-
-   See :ref:`Retrieve the current bed state <sec-api-printer-bedstate>` for more details.
-
-   :param object flags: Flags that further specify which data to retrieve, see above for details
-   :param object opts: Additional options for the request
-   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
-
-.. js:function:: OctoPrintClient.printer.setBedTargetTemperature(target, opts)
-
-   Sets the given temperature on the printer's heated bed (if available).
-
-   ``target`` is expected to be the target temperature as a float value.
-
-   **Example:**
-
-   Set the bed to 90°C.
-
-   .. code-block:: javascript
-
-      OctoPrint.printer.setBedTargetTemperature(90.0);
-
-   See the ``target`` command in :ref:`Issue a bed command <sec-api-printer-bedcommand>` for more details.
-
-   :param float target: The target to set
-   :param object opts: Additional options for the request
-   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
-
-.. js:function:: OctoPrintClient.printer.setBedTemperatureOffset(offset, opts)
-
-   Sets the given temperature offset for the printer's heated bed (if available).
-
-   ``offset`` is expected to be the temperature offset to set.
-
-   **Example:**
-
-   Set the offset for the bed to -5°C.
-
-   .. code-block:: javascript
-
-      OctoPrint.printer.setBedTemperatureOffset(-5);
-
-   See the ``offset`` command in :ref:`Issue a bed command <sec-api-printer-bedcommand>` for more details.
-
-   :param object offsets: The offsets to set
-   :param object opts: Additional options for the request
-   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
-
-.. js:function:: OctoPrintClient.printer.getChamberState(data, opts)
-
-   Retrieves the current printer chamber state/temperature information, and optionally also the temperature
-   history.
-
-   The ``flags`` object can be used to specify the data to retrieve further via the following
-   properties:
-
-     * ``history``: a boolean value to specify whether the temperature history should be included (``true``)
-       or not (``false``), defaults to it not being included
-     * ``limit``: an integer value to specify how many history entries to include
-
-   See :ref:`Retrieve the current bed state <sec-api-printer-chamberstate>` for more details.
-
-   :param object flags: Flags that further specify which data to retrieve, see above for details
-   :param object opts: Additional options for the request
-   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
-
-.. js:function:: OctoPrintClient.printer.setChamberTargetTemperature(target, opts)
-
-   Sets the given temperature on the printer's heated chamber (if available).
-
-   ``target`` is expected to be the target temperature as a float value.
-
-   **Example:**
-
-   Set the chamber to 50°C.
-
-   .. code-block:: javascript
-
-      OctoPrint.printer.setChamberTargetTemperature(50.0);
-
-   See the ``target`` command in :ref:`Issue a chamber command <sec-api-printer-chambercommand>` for more details.
-
-   :param float target: The target to set
-   :param object opts: Additional options for the request
-   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
-
-.. js:function:: OctoPrintClient.printer.setChamberTemperatureOffset(offset, opts)
-
-   Sets the given temperature offset for the printer's heated chamber (if available).
-
-   ``offset`` is expected to be the temperature offset to set.
-
-   **Example:**
-
-   Set the offset for the chamber to -5°C.
-
-   .. code-block:: javascript
-
-      OctoPrint.printer.setChamberTemperatureOffset(-5);
-
-   See the ``offset`` command in :ref:`Issue a chamber command <sec-api-printer-chambercommand>` for more details.
-
-   :param object offsets: The offsets to set
-   :param object opts: Additional options for the request
-   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
-
-.. js:function:: OctoPrintClient.printer.jog(amounts, opts)
-
-   Jogs the specified axes by the specified ``amounts``.
-
-   ``amounts`` is expected to be an object with properties reflecting the axes to be jogged by the specified
-   amount given as value.
-
-   **Example:**
-
-   Jog X by 10mm.
-
-   .. code-block:: javascript
-
-      OctoPrint.printer.jog({"x", 10.0});
-
-   Jog Y by -5mm and Z by 0.2mm.
-
-   .. code-block:: javascript
-
-      OctoPrint.printer.jog({"y": -5.0, "z": 0.2});
-
-   See the ``jog`` command in :ref:`Issue a print head command <sec-api-printer-printheadcommand>` for more details.
-
-   :param object amounts: Key-value-pairs of axes to jog and amount to jog it.
-   :param object opts: Additional options for the request
-   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
-
-.. js:function:: OctoPrintClient.printer.home(axes, opts)
+.. js:function:: home(axes, opts)
 
    Homes the specified ``axes``.
 
@@ -321,53 +168,229 @@
    :param object opts: Additional options for the request
    :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
 
-.. js:function:: OctoPrintClient.printer.setFeedrate(factor, opts)
+.. js:function:: setFeedrate(factor, opts)
 
    Sets the feedrate multiplier to use.
 
-   ``factor`` is expected to be a integer value >0 representing the new feedrate percentage.
+   ``factor`` is expected to be an integer value >0 representing the new feedrate percentage.
 
    See the ``feedrate`` command in :ref:`Issue a print head command <sec-api-printer-printheadcommand>` for more details.
 
-   :param integer factor: The feedrate multiplier as percentage
+   :param int factor: The feedrate multiplier as percentage
    :param object opts: Additional options for the request
    :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
 
-.. js:function:: OctoPrintClient.printer.getSdState(opts)
+.. js:function:: setFlowrate(factor, opts)
 
-   Retrieves the current ready state of the printer's SD card.
+   Sets the current flowrate multiplier.
 
-   See :ref:`Retrieve the current SD state <sec-api-printer-sdstate>` for more details.
+   ``factor`` is expected to be an integer value >0 representing the new flowrate percentage.
+
+   See the ``flowrate`` command in :ref:`Issue a tool command <sec-api-printer-toolcommand>` for more details.
+
+   :param int factor: The flowrate as percentage
+   :param object opts: Additional options for the request
+   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
+
+.. js:function:: getBedState(data, opts)
+
+   Retrieves the current printer bed state/temperature information, and optionally also the temperature
+   history.
+
+   The ``flags`` object can be used to specify the data to retrieve further via the following
+   properties:
+
+     * ``history``: a boolean value to specify whether the temperature history should be included (``true``)
+       or not (``false``), defaults to it not being included
+     * ``limit``: an integer value to specify how many history entries to include
+
+   See :ref:`Retrieve the current bed state <sec-api-printer-bedstate>` for more details.
+
+   :param object flags: Flags that further specify which data to retrieve, see above for details
+   :param object opts: Additional options for the request
+   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
+
+.. js:function:: setBedTargetTemperature(target, opts)
+
+   Sets the given temperature on the printer's heated bed (if available).
+
+   ``target`` is expected to be the target temperature as a float value.
+
+   **Example:**
+
+   Set the bed to 90°C.
+
+   .. code-block:: javascript
+
+      OctoPrint.printer.setBedTargetTemperature(90.0);
+
+   See the ``target`` command in :ref:`Issue a bed command <sec-api-printer-bedcommand>` for more details.
+
+   :param float target: The target to set
+   :param object opts: Additional options for the request
+   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
+
+.. js:function:: setBedTemperatureOffset(offset, opts)
+
+   Sets the given temperature offset for the printer's heated bed (if available).
+
+   ``offset`` is expected to be the temperature offset to set.
+
+   **Example:**
+
+   Set the offset for the bed to -5°C.
+
+   .. code-block:: javascript
+
+      OctoPrint.printer.setBedTemperatureOffset(-5);
+
+   See the ``offset`` command in :ref:`Issue a bed command <sec-api-printer-bedcommand>` for more details.
+
+   :param object offsets: The offsets to set
+   :param object opts: Additional options for the request
+   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
+
+.. js:function:: getChamberState(data, opts)
+
+   Retrieves the current printer chamber state/temperature information, and optionally also the temperature
+   history.
+
+   The ``flags`` object can be used to specify the data to retrieve further via the following
+   properties:
+
+     * ``history``: a boolean value to specify whether the temperature history should be included (``true``)
+       or not (``false``), defaults to it not being included
+     * ``limit``: an integer value to specify how many history entries to include
+
+   See :ref:`Retrieve the current chamber state <sec-api-printer-chamberstate>` for more details.
+
+   :param object flags: Flags that further specify which data to retrieve, see above for details
+   :param object opts: Additional options for the request
+   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
+
+.. js:function:: setChamberTargetTemperature(target, opts)
+
+   Sets the given temperature on the printer's heated chamber (if available).
+
+   ``target`` is expected to be the target temperature as a float value.
+
+   **Example:**
+
+   Set the chamber to 50°C.
+
+   .. code-block:: javascript
+
+      OctoPrint.printer.setChamberTargetTemperature(50.0);
+
+   See the ``target`` command in :ref:`Issue a chamber command <sec-api-printer-chambercommand>` for more details.
+
+   :param float target: The target to set
+   :param object opts: Additional options for the request
+   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
+
+.. js:function:: setChamberTemperatureOffset(offset, opts)
+
+   Sets the given temperature offset for the printer's heated chamber (if available).
+
+   ``offset`` is expected to be the temperature offset to set.
+
+   **Example:**
+
+   Set the offset for the chamber to -5°C.
+
+   .. code-block:: javascript
+
+      OctoPrint.printer.setChamberTemperatureOffset(-5);
+
+   See the ``offset`` command in :ref:`Issue a chamber command <sec-api-printer-chambercommand>` for more details.
+
+   :param object offsets: The offsets to set
+   :param object opts: Additional options for the request
+   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
+
+.. js:function:: jog(amounts, opts)
+
+   Jogs the specified axes by the specified ``amounts``.
+
+   ``amounts`` is expected to be an object with properties reflecting the axes to be jogged by the specified
+   amount given as value.
+
+   **Example:**
+
+   Jog X by 10mm.
+
+   .. code-block:: javascript
+
+      OctoPrint.printer.jog({"x": 10.0});
+
+   Jog Y by -5mm and Z by 0.2mm.
+
+   .. code-block:: javascript
+
+      OctoPrint.printer.jog({"y": -5.0, "z": 0.2});
+
+   See the ``jog`` command in :ref:`Issue a print head command <sec-api-printer-printheadcommand>` for more details.
+
+   :param object amounts: Key-value-pairs of axes to jog and amount to jog it.
+   :param object opts: Additional options for the request
+   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
+
+.. js:function:: getStorageState(opts)
+
+   Retrieves the current ready state of the printer's internal storage.
+
+   See :ref:`Retrieve the current storage state <sec-api-printer-storagestate>` for more details.
+
+   .. versionadded:: 2.0.0
 
    :param object opts: Additional options for the request
    :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
 
-.. js:function:: OctoPrintClient.printer.initSd(opts)
+.. js:function:: initStorage(opts)
 
-   Instructs the printer to initialize its SD card (if present).
+   Instructs the printer to initialize and mounts its internal storage (if present).
 
-   See the ``init`` command in :ref:`Issue an SD command <sec-api-printer-sdcommand>` for more details.
+   See the ``init`` command in :ref:`Issue a storage command <sec-api-printer-storagecommand>` for more details.
 
-   :param object opts: Additional options for the request
-   :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
-
-.. js:function:: OctoPrintClient.printer.refreshSd(opts)
-
-   Instructs the printer to refresh the list of files on the SD card (if present).
-
-   See the ``refresh`` command in :ref:`Issue an SD command <sec-api-printer-sdcommand>` for more details.
+   .. versionadded:: 2.0.0
 
    :param object opts: Additional options for the request
    :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
 
-.. js:function:: OctoPrintClient.printer.releaseSd(opts)
+.. js:function:: releaseStorage(opts)
 
-   Instructs the printer to release its SD card (if present).
+   Instructs the printer to unmount its internal storage (if present and possible).
 
-   See the ``release`` command in :ref:`Issue an SD command <sec-api-printer-sdcommand>` for more details.
+   See the ``release`` command in :ref:`Issue a storage command <sec-api-printer-storagecommand>` for more details.
+
+   .. versionadded:: 2.0.0
 
    :param object opts: Additional options for the request
    :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
+
+.. js:function:: getSdState(opts)
+
+   .. deprecated:: 2.0.0
+
+      Deprecated in favor of :js:func:`getStorageState`, will be removed in 3.0.0
+
+.. js:function:: initSd(opts)
+
+   .. deprecated:: 2.0.0
+
+      Deprecated in favor of :js:func:`initStorage`, will be removed in 3.0.0
+
+.. js:function:: refreshSd(opts)
+
+   .. deprecated:: 2.0.0
+
+      Deprecated in favor of :js:func:`OctoPrintClient.files.listForLocation`, will be removed in 3.0.0
+
+.. js:function:: releaseSd(opts)
+
+   .. deprecated:: 2.0.0
+
+      Deprecated in favor of :js:func:`releaseStorage`, will be removed in 3.0.0
 
 .. seealso::
 

@@ -4,8 +4,6 @@
 Printer profile operations
 **************************
 
-.. contents::
-
 OctoPrint allows the management of Printer profiles that define a printer's physical properties (such as print volume,
 whether a heated bed is available, maximum speeds on its axes etc). The data stored within these profiles is used
 for both slicing and gcode visualization.
@@ -317,7 +315,7 @@ Add a new printer profile
         }
       }
 
-.. _sec-api-printerporfiles-update:
+.. _sec-api-printerprofiles-update:
 
 Update an existing printer profile
 ==================================
@@ -333,6 +331,9 @@ Update an existing printer profile
    in the JSON body upon success.
 
    Requires the ``SETTINGS`` permission.
+
+   :statuscode 200: No error
+   :statuscode 404: The profile does not exist
 
    **Example**
 
@@ -416,9 +417,13 @@ Remove an existing printer profile
    If the profile to be deleted is the currently selected profile, a :http:statuscode:`409` will be
    returned.
 
-   Returns a :http:statuscode:`204` an empty body upon success.
+   Returns a :http:statuscode:`204` and an empty body upon success.
 
    Requires the ``SETTINGS`` permission.
+
+   :statuscode 204: No error
+   :statuscode 404: The profile does not exist
+   :statuscode 409: The profile is the currently selected or default profile
 
    **Example**
 

@@ -1,7 +1,7 @@
 .. _sec-jsclientlib-base:
 
-:mod:`OctoPrintClient`
-----------------------
+``OctoPrintClient``
+-------------------
 
 .. js:class:: OctoPrintClient([options])
 
@@ -69,7 +69,7 @@
 .. js:function:: OctoPrintClient.getBaseUrl()
 
    Returns the canonical base URL to use for OctoPrint's API. Uses the current value of
-   :js:data:`OctoPrint.options.baseurl <OctoPrint.options>`. If that doesn't end in a ``/``,
+   :js:attr:`OctoPrint.options.baseurl <OctoPrintClient.options>`. If that doesn't end in a ``/``,
    a trailing ``/`` will be appended to the URL before the result is returned.
 
    :returns string: The base url to use to access OctoPrint's API.
@@ -84,6 +84,33 @@
 
    :return string: The value of the cookie, if set & accessible, else an empty string.
 
+.. js:function:: OctoPrintClient.setCookie(name, value, opts)
+
+   Allows to set the cookie with name ``name`` to the value ``value``. The port based suffix
+   and if necessary also the script root based suffix will be automatically applied to the ``name``
+   prior to setting the value.
+
+   Some additional options are supported in ``opts`` to set on the created cookie:
+
+     * ``path``: ``;path=<opts.path>``
+     * ``expires``: ``;expires=<opts.expires>``
+     * ``maxage``: ``;max-age=<opts.maxage>``
+     * ``secure``: ``;secure`` if ``true`` (automatically set if the current connection goes via https)
+
+   For infos on these parameters please refer to `document.cookie <https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie>`_.
+
+   :param string name: Name of the cookie to set
+   :param string value: Value to set the cookie to
+   :param object opts: Additional options to set on the cookie.
+
+.. js:function:: OctoPrintClient.deleteCookie(name)
+
+   Deletes the cookie with name ``name``. The port based cookie suffix and if
+   necessary also the script root based suffix will be automatically applied to the ``name``
+   prior to deleting it.
+
+   :param string name: Name of the cookie to delete
+
 .. js:function:: OctoPrintClient.getRequestHeaders(method, additional, opts)
 
    .. versionchanged:: 1.8.3
@@ -96,15 +123,7 @@
    methods other than ``GET``, ``HEAD`` or ``OPTIONS``, the current CSRF token is read from the
    associated cookie and set as ``X-CSRF-Token``.
 
-   .. note::
-
-      Up until OctoPrint 1.8.3, this method's signature consisted only of the ``additional``
-      parameter. It has been changed in a backward compatible way so that calling it with the
-      first parameter being the set of additional headers will still work. This mode of operation
-      is deprecated however and will be removed in a future version.
-      A warning will be logged to the debug console accordingly.
-
-   :param str method: Method of the request for which to set headers
+   :param string method: Method of the request for which to set headers
    :param object additional: Additional headers to add to the request, optional.
    :param object opts: Additional opts passed to the request, used to read cross domain setting, optional.
    :returns object: HTTP headers to use for requests.
@@ -118,10 +137,10 @@
 
    The URL to perform the request against may be defined through ``opts.url`` or -- if that is not provided --
    through the ``url`` parameter. If neither is available, an empty string will be used (plain base URL). If the
-   URL starts with ``http://`` or ``https://`` it will be used directly. Otherwise the return value of :js:func:`OctoPrint.getBaseUrl`
+   URL starts with ``http://`` or ``https://`` it will be used directly. Otherwise the return value of :js:func:`OctoPrintClient.getBaseUrl`
    will be prepended.
 
-   As headers everything returned by :js:func:`OctoPrint.getRequestHeaders` will be used. Additional headers to set
+   As headers everything returned by :js:func:`OctoPrintClient.getRequestHeaders` will be used. Additional headers to set
    may be defined by providing them through ``opts.headers``.
 
    If ``opts.dataType`` is set, it will be used for setting the corresponding option on the jQuery ``ajax`` call, otherwise
@@ -138,7 +157,7 @@
 
    Performs an AJAX request against the OctoPrint API, including the provided ``data`` in the body of the request.
 
-   Utilizes :js:func:`OctoPrint.ajax`, see that for more details.
+   Utilizes :js:func:`OctoPrintClient.ajax`, see that for more details.
 
    :param string method: The HTTP method to use for the request (optional)
    :param string url: The URL to perform the request against (optional)
@@ -196,7 +215,6 @@
    :param string url: URL against which to make the request, relative to base url or absolute
    :param string data: Data to post as request body
    :param object opts: Additional options for the request
-   :param object opts: Additional options for the request
    :returns Promise: A `jQuery Promise <http://api.jquery.com/Types/#Promise>`_ for the request's response
 
 .. js:function:: OctoPrintClient.postJson(url, data, opts)
@@ -223,27 +241,27 @@
 
    Performs ``PUT`` request against ``url`` using the provided ``data`` as request body.
 
-   See :js:func:`OctoPrint.post` for details.
+   See :js:func:`OctoPrintClient.post` for details.
 
 .. js:function:: OctoPrintClient.putJson(url, data, opts)
 
    Performs ``PUT`` request against ``url`` using the provided ``data`` as request body after
    serializing it to JSON.
 
-   See :js:func:`OctoPrint.postJson` for details.
+   See :js:func:`OctoPrintClient.postJson` for details.
 
 .. js:function:: OctoPrintClient.patch(url, data, opts)
 
    Performs ``PATCH`` request against ``url`` using the provided ``data`` as request body.
 
-   See :js:func:`OctoPrint.post` for details.
+   See :js:func:`OctoPrintClient.post` for details.
 
 .. js:function:: OctoPrintClient.patchJson(url, data, opts)
 
    Performs ``PATCH`` request against ``url`` using the provided ``data`` as request body after
    serializing it to JSON.
 
-   See :js:func:`OctoPrint.postJson` for details.
+   See :js:func:`OctoPrintClient.postJson` for details.
 
 .. js:function:: OctoPrintClient.delete(url, opts)
 
@@ -329,7 +347,7 @@
           });
 
    :param string url: URL to which to POST the upload, relative to base url or absolute
-   :param object file: The file to object, see description for details
+   :param object file: The file to upload, see description for details
    :param string filename: An optional file name to use for the upload
    :param object additional: An optional object of additional key/value pairs to set on the uploaded form data
 
@@ -478,9 +496,69 @@
       };
 
    :param string identifier: The identifier of the plugin for which ``clientClass`` is the client
-   :param class clientClass: The client class to register. Constructor must follow the signature ``ClientClass(base)``
+   :param clientClass: The client class to register. Constructor must follow the signature ``ClientClass(base)``
        where ``base`` will be assigned to the instance as ``this.base`` and be the :js:class:`OctoPrintClient`
        instance to use for API calls etc via ``this.base``.
+
+.. js:function:: OctoPrintClient.deprecated(deprecated, replacement, fn, deprecationVersion, removalVersion)
+
+   Wrapper for deprecated functions, automatically logging a deprecation warning to the console with log level ``warn``
+   when called, informing that ``deprecated`` has been replaced by ``replacement`` since version ``deprecationVersion``
+   and it will be removed in ``removalVersion``.
+
+   ``deprecationVersion`` and ``removalVersion`` are optional. If either is left out the log message will
+   not contain the related info.
+
+   Example:
+
+   .. code-block:: javascript
+
+      self.someOtherFunction = () => {}
+      self.someDeprecatedFunction = OctoPrintClient.deprecated(
+         "MyViewModel.someDeprecatedFunction", 
+         "MyViewModel.someOtherFunction", 
+         self.someOtherFunction, 
+         "2.0.0", 
+         "3.0.0"
+      );
+
+   :param string deprecated: Name of the deprecated function
+   :param string replacement: Name of the replacement
+   :param function fn: Wrapped function
+   :param string deprecationVersion: Version when the deprecation happened
+   :param string removalVersion: Version when the removal is planned
+
+.. js:function:: OctoPrintClient.deprecatedVariable(object, deprecated, replacement, getter, setter, deprecatedVersion, removalVersion)
+
+   Wrapper for deprecated variables, automatically logging a deprecation warning to the console with log level ``warn``
+   when either setter or getter get used, informing that ``deprecated`` has been replaced by ``replacement`` since version ``deprecationVersion``
+   and it will be removed in ``removalVersion``.
+
+   ``deprecationVersion`` and ``removalVersion`` are optional. If either is left out the log message will
+   not contain the related info.
+
+   Example:
+
+   .. code-block:: javascript
+
+      self.someVariable = "foo"
+      self.someDeprecatedVariable = OctoPrintClient.deprecatedVariable(
+         self, 
+         "MyViewModel.someDeprecatedVariable", 
+         "MyViewModel.someVariable",
+         () => self.someVariable,
+         (val) => { self.someVariable = val },
+         "2.0.0",
+         "3.0.0"
+      )
+
+   :param object object: The object on which to create the deprecated variable
+   :param string deprecated: Name of the deprecated variable
+   :param string replacement: Name of the replacement
+   :param function getter: Getter function
+   :param function setter: Setter function
+   :param string deprecationVersion: Version when the deprecation happened
+   :param string removalVersion: Version when the removal is planned
 
 .. js:class:: OctoPrintClient.InvalidArgumentError
 

@@ -21,7 +21,7 @@ Various tests
    .. _sec-api-util-test-path:
 
    path
-     Tests whether or provided path exists and optionally if it also is either a file
+     Tests whether the provided path exists and optionally if it also is either a file
      or a directory and whether OctoPrint's user has read, write and/or execute permissions
      on it. Supported parameters are:
 
@@ -34,7 +34,7 @@ Various tests
          OctoPrint to create the target ``path`` as a directory if it doesn't yet exist to allow
          for further tests.
        * ``check_writable_dir``: If ``check_type`` is provided and set to ``dir``, this will
-         check that the provided ``path`` is a writable directory. OctoPrint not only check if the
+         check that the provided ``path`` is a writable directory. OctoPrint will not only check if the
          permissions on the directory allow for writing but also attempt to write (and delete) a
          small test file ``.testballoon.txt`` to the directory to test if writing is actually
          possible.
@@ -70,22 +70,28 @@ Various tests
            * ``error``: Status codes from 400 to 599
            * ``any``: Any status code starting from 100
 
-         The test will past the status code check if the status returned by the URL is within any of
+         The test will pass the status code check if the status returned by the URL is within any of
          the specified ranges.
        * ``response``: If set to either ``true``, ``json`` or ``bytes``, the response body and the response headers
          from the URL check will be returned as part of the check result as well. ``json`` will attempt
          to parse the response as json and return the parsed result. ``true`` or ``bytes`` will base64 encode the body
          and return that.
-       * ``content_type_whitelist``: Optional array of supported content types. If set and the URL returns a content
+       * ``content_type_allowlist``: Optional array of supported content types. If set and the URL returns a content
          type not included in this list, the test will fail. E.g. ``["image/*", "text/plain"]``.
-       * ``content_type_blacklist``: Optional array of unsupported content types. If set and the URL returns a content
-         type included in this list, the test will fail. E.g. ``["video/*"]``. Can be used together with ``content_type_whitelist``
-         to further limit broader content type definition, e.g. by putting ``image/*`` into the whitelist, but disallowing
-         PNG by including ``image/png`` on the blacklist.
+       * ``content_type_blocklist``: Optional array of unsupported content types. If set and the URL returns a content
+         type included in this list, the test will fail. E.g. ``["video/*"]``. Can be used together with ``content_type_allowlist``
+         to further limit broader content type definition, e.g. by putting ``image/*`` into the allow, but disallowing
+         PNG by including ``image/png`` on the blocklist. 
 
      The ``url`` command returns :http:statuscode:`200` with a :ref:`URL test result <sec-api-util-datamodel-urltestresult>`
      when the test could be performed. The status code of the response does NOT reflect the
      test result!
+
+     .. note::
+
+        Former versions of OctoPrint used ``content_type_whitelist`` and ``content_type_blacklist``. Those continue to function
+        for reasons of backwards compatibility, but have been replaced by the aforementioned ``content_type_allowlist`` and ``content_type_blocklist``.
+        New implementations should make use of these, existing implementations should migrate if possible.
 
    .. _sec-api-util-test-server:
 

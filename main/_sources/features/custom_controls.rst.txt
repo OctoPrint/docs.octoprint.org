@@ -3,8 +3,6 @@
 Custom Controls
 ===============
 
-.. contents::
-
 OctoPrint allows you to add custom controls to the "Control" tab of its interface. Control types reach from simple
 buttons which trigger sending of one or more lines of GCODE to the printer over more complex controls allowing
 parameterization of these commands with values entered by the user to full blown GCODE script templates backed by
@@ -96,7 +94,7 @@ attribute wrapping more controls.
 
 .. hint::
 
-   Take a look at the bundled :ref:`Custom Control Manager plugin <sec-bundledplugins-customcontrolmanager>`_
+   Take a look at the bundled :ref:`Custom Control Manager plugin <sec-bundledplugins-customcontrolmanager>`
    which allows you configuring your Custom Controls through OctoPrint's
    settings interface without the need to manually edit the configuration
    file.
@@ -144,7 +142,7 @@ Controls
    * - ``command``
      - (Optional) A single GCODE command to send to the printer. Will be rendered as a button which sends the command to
        the printer upon click. The button text will be the value of the ``name`` attribute. Mutually exclusive with
-       ``commands`` and ``script``. The rendered button be disabled if the printer is currently offline or printing or
+       ``commands`` and ``script``. The rendered button will be disabled if the printer is currently offline or printing or
        alternatively if the requirements defined via the ``enabled`` attribute are not met.
    * - ``commands``
      - (Optional) A list of GCODE commands to send to the printer. Will be rendered as a button which sends the commands
