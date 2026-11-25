@@ -1215,7 +1215,13 @@ during printing). See <a class="reference internal" href="#sec-api-push-datamode
 <li><p><code class="docutils literal notranslate"><span class="pre">history</span></code>: Current state, temperature and log history, sent upon initial connect to get the client up to date. Same
 payload data model as <code class="docutils literal notranslate"><span class="pre">current</span></code>, see <a class="reference internal" href="#sec-api-push-datamodel-currentandhistory"><span class="std std-ref">the payload data model</span></a>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">event</span></code>: Events triggered within OctoPrint, such as e.g. <code class="docutils literal notranslate"><span class="pre">PrintFailed</span></code> or <code class="docutils literal notranslate"><span class="pre">MovieRenderDone</span></code>. Payload is the event
-type and payload, see <a class="reference internal" href="#sec-api-push-datamodel-event"><span class="std std-ref">the payload data model</span></a>. Sent when an event is triggered internally.</p></li>
+type and payload, see <a class="reference internal" href="#sec-api-push-datamodel-event"><span class="std std-ref">the payload data model</span></a>. Sent when an event is triggered internally.
+Note that certain events require certain permissions to be sent via the socket, or at least to also receive the full payload:
+* <code class="docutils literal notranslate"><span class="pre">UserLoggedIn</span></code>: requires the <code class="docutils literal notranslate"><span class="pre">ADMIN</span></code> permission
+* <code class="docutils literal notranslate"><span class="pre">UserLoggedOut</span></code>: requires the <code class="docutils literal notranslate"><span class="pre">ADMIN</span></code> permission
+* <code class="docutils literal notranslate"><span class="pre">ClientOpened</span></code>: payload requires the <code class="docutils literal notranslate"><span class="pre">ADMIN</span></code> permission
+* <code class="docutils literal notranslate"><span class="pre">ClientAuthed</span></code>: payload requires the <code class="docutils literal notranslate"><span class="pre">ADMIN</span></code> permission
+* <code class="docutils literal notranslate"><span class="pre">ConnectionsAutorefreshed</span></code>: payload requires the <code class="docutils literal notranslate"><span class="pre">CONNECTION</span></code> permission</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">slicingProgress</span></code>: Progress updates from an active slicing background job, payload contains information about the
 model being sliced, the target file, the slicer being used and the progress as a percentage.
 See <a class="reference internal" href="#sec-api-push-datamodel-slicingprogress"><span class="std std-ref">the payload data model</span></a>.</p></li>
